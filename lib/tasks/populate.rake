@@ -9,8 +9,10 @@ namespace :db do
     
     [Attendee, Member, Raid].each(&:delete_all)
     
+    kamien = Member.create(:name => "Kamien")
+    
     # Members ------------------------------------------------------------------
-    Member.populate 100 do |m|
+    Member.populate 50 do |m|
       m.name                = Faker::Name.first_name
       m.active              = 1
       m.first_raid          = 2.years.ago..Time.now
@@ -43,8 +45,10 @@ namespace :db do
     
     # Attendees ----------------------------------------------------------------
     Raid.find(:all).each do |r|
+      Attendee.create(:raid_id => r.id, :member_id => kamien.id, :attendance => 1.00)
+      
       begin
-        rand(40).times do
+        rand(50).times do
           a = Attendee.new
           a.raid       = r
           a.member     = Member.find(:first, :order => 'RAND()')
@@ -56,5 +60,9 @@ namespace :db do
         # Just ignore it
       end
     end
+    
+    # Create a member with 100% Raid 90-day
+    
+    # Create a member with 100% Raid 30-day
   end
 end
