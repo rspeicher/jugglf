@@ -8,3 +8,8 @@ th.right, td.right {
   text-align: right;
   padding-right: 5px;
 }
+
+th.center, td.center {
+  text-align: center;
+  padding: 0;
+}
