@@ -13,12 +13,12 @@
   </thead>
   
   <tbody>
-  <% for attendee in @member.attendees %>
+  <% for raid in @raids %>
     <tr class="<%= cycle('row1','row2') %>">
-      <td><%= link_to h(attendee.raid.date), raid_path(attendee.raid) %></td>
-      <td class="right"><%= raid_attendance_colored(attendee.attendance) %></td>
-      <td><%=h attendee.raid.note %></td>
-      <td class="center"><%=h attendee.raid.thread %></td>
+      <td><%= link_to h(raid.date), raid_path(raid) %></td>
+      <td class="right"><%= member_attendee?(raid, @member) %></td>
+      <td><%=h raid.note %></td>
+      <td class="center"><%=h raid.thread %></td>
     </tr>
   <% end %>
   </tbody>
