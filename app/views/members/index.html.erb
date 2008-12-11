@@ -20,9 +20,9 @@
       <td><%=h member.lf %></td>
       <td><%=h member.first_raid %></td>
       <td><%=h member.last_raid %></td>
-      <td class="right"><%=h member.attendance_30 %></td>
-      <td class="right"><%=h member.attendance_90 %></td>
-      <td class="right"><%=h member.attendance_lifetime %></td>
+      <td class="right"><%= member_attendance_colored(member.attendance_30) %></td>
+      <td class="right"><%= member_attendance_colored(member.attendance_90) %></td>
+      <td class="right"><%= member_attendance_colored(member.attendance_lifetime) %></td>
     </tr>
   <% end %>
   </tbody>
