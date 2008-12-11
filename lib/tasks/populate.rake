@@ -37,7 +37,7 @@ namespace :db do
     # Raids --------------------------------------------------------------------
     Raid.populate 15..250 do |r|
       r.date   = 2.years.ago..Time.now
-      r.note   = Populator.words(0..8)
+      r.note   = Populator.words(0..8).titleize
       r.thread = 0
     end
     
