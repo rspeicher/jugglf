@@ -1,0 +1,73 @@
+/* EQdkp */
+.positive { color: #05CD00; }
+.negative { color: #FF0000; }
+.neutral  { color: #CCCCCC; }
+
+.small { font-size: 10px; }
+
+.copy { font-size: 10px; color: #CCCCCC; }
+.copy a:link, .copy a:active, .copy a:visited { font-size: 10px; color: #CCCCCC; }
+.copy a:hover { font-size: 10px; color: #ff8c00; }
+
+.input { font-family: verdana, arial; font-size: 10px; color: #CCCCCC; background-color: #595454; 
+         border-top: 1px; border-right: 1px; border-bottom: 1px; border-left: 1px; border-color: #595454; border-style: solid; }
+
+input.helpline1 { background-color: #000000; border-style: none; }
+input.helpline2 { background-color: #1A1A1A; border-style: none; }
+
+input.mainoption { font-family: verdana, arial; font-size: 10px; font-weight: bold; color: #000000; background-color: #8b0000; border-top: 1px;
+                   border-right: 1px; border-bottom: 1px; border-left: 1px; border-color: #000000; border-style: solid; }
+input.liteoption { font-family: verdana, arial; font-size: 10px; font-weight: normal; color: #000000; background-color: #8b0000; border-top: 1px;
+                   border-right: 1px; border-bottom: 1px; border-left: 1px; border-color: #000000; border-style: solid; }
+
+div.graph { position: relative; width: 98%; border: 1px solid #000000; padding: 2px; margin: 2px 0; }
+div.graph .bar { display: block; position: relative; background: #8b0000; text-align: center; color: #000000; height: 1.3em; line-height: 1.3em; }
+div.graph .bar span { position: absolute; left: 1em; }
+
+/* Classes */
+.Death, .Death:link, .Death:visited			{ color: #C41E3B; }
+.Druid, .Druid:link, .Druid:visited			{ color: #FF7C0A; }
+.Hunter, .Hunter:link, .Hunter:visited		{ color: #AAD372; }
+.Mage, .Mage:link, .Mage:visited			{ color: #68CCEF; }
+.Paladin, .Paladin:link, .Paladin:visited	{ color: #F48CBA; }
+.Shaman, .Shaman:link, .Shaman:visited		{ color: #567EFF; }
+.Priest, .Priest:link, .Priest:visited		{ color: #FFFFFF; }
+.Rogue, .Rogue:link, .Rogue:visited			{ color: #FFF468; }
+.Warlock, .Warlock:link, .Warlock:visited	{ color: #9382C9; }
+.Warrior, .Warrior:link, .Warrior:visited	{ color: #C69B6D; }
+
+.inclf { font-weight: bold; }
+.sitlf { font-style: italic; }
+
+th.footer { text-align: right; }
+td.attendance { vertical-align: top; }
+
+/* Wishlist */
+#wl_zones { float: left; }
+#wl_bosses { float: right; margin-top: -14px; clear: none; }
+th > a.q4, a.q5 { float: left; }
+img.copyicon { float: right; }
+
+/* @group Tabs */
+#tabs .ui-tabs-hide {
+    display:  none;
+}
+#tabs ul {
+    text-align: left;
+    padding: 0;
+    margin: 0 10px 0 10px;
+}
+#tabs li {
+    text-align: center;
+    display: inline;
+    padding: 0 20px;
+    margin: 0 3px;
+    font-size: 1.5em;
+    /*border: 1px solid #450000;
+    border-bottom: 0;*/
+    background-color: #000;
+}
+#tabs .ui-tabs-selected {
+    font-size: 1.8em;
+    border-color: #8b0000;
+}

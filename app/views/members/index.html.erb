@@ -1,4 +1,4 @@
-<table>
+<table border="0" cellspacing="0" cellpadding="0">
   <thead>
   <tr>
     <th>Name</th>
@@ -6,17 +6,23 @@
     <th>LF</th>
     <th>First Raid</th>
     <th>Last Raid</th>
+    <th class="right">30-Day</th>
+    <th class="right">90-Day</th>
+    <th class="right">Lifetime</th>
   </tr>
   </thead>
   
   <tbody>
   <% for member in @members %>
-    <tr>
-      <td><%=h member.name %></td>
-      <td><%=h member.wow_class %></td>
+    <tr class="<%= cycle('row1','row2') %>">
+      <td><%= link_to h(member.name), member_path(member) %></td>
+      <td><span class="<%=h member.wow_class %>"><%=h member.wow_class %></span></td>
       <td><%=h member.lf %></td>
       <td><%=h member.first_raid %></td>
       <td><%=h member.last_raid %></td>
+      <td class="right"><%=h member.attendance_30 %></td>
+      <td class="right"><%=h member.attendance_90 %></td>
+      <td class="right"><%=h member.attendance_lifetime %></td>
     </tr>
   <% end %>
   </tbody>

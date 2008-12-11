@@ -1,4 +1,6 @@
 class MembersController < ApplicationController
+  layout 'poison'
+  
   def index
     @members = Member.find(:all, :order => "lf DESC, name ASC")
     
