@@ -6,19 +6,19 @@
   <thead>
   <tr>
     <th>Date</th>
-    <th>Attendance</th>
+    <th class="right">Attendance</th>
     <th>Note</th>
-    <th>Thread</th>
+    <th class="center">Thread</th>
   </tr>
   </thead>
   
   <tbody>
-  <% for raid in @raids %>
+  <% for attendee in @member.attendees %>
     <tr class="<%= cycle('row1','row2') %>">
-      <td><%= link_to h(raid.date), raid_path(raid) %></td>
-      <td></td>
-      <td><%=h raid.note %></td>
-      <td><%=h raid.thread %></td>
+      <td><%= link_to h(attendee.raid.date), raid_path(attendee.raid) %></td>
+      <td class="right"><%= number_with_precision(attendee.attendance, :precision => 2) %></td>
+      <td><%=h attendee.raid.note %></td>
+      <td class="center"><%=h attendee.raid.thread %></td>
     </tr>
   <% end %>
   </tbody>

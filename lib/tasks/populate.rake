@@ -7,7 +7,7 @@ namespace :db do
     wow_classes = ['Death Knight','Druid','Hunter','Mage','Paladin','Priest',
       'Rogue','Shaman','Warlock','Warrior']
     
-    [Member, Raid].each(&:delete_all)
+    [Attendee, Member, Raid].each(&:delete_all)
     
     # Members ------------------------------------------------------------------
     Member.populate 100 do |m|
@@ -39,6 +39,22 @@ namespace :db do
       r.date   = 2.years.ago..Time.now
       r.note   = Populator.words(0..8)
       r.thread = 0
+    end
+    
+    # Attendees ----------------------------------------------------------------
+    Raid.find(:all).each do |r|
+      begin
+        rand(40).times do
+          a = Attendee.new
+          a.raid       = r
+          a.member     = Member.find(:first, :order => 'RAND()')
+          a.attendance = rand
+          a.save!
+        end
+      rescue ActiveRecord::StatementInvalid => e
+        # Might get an exception if we randomly got a member that already attended this raid
+        # Just ignore it
+      end
     end
   end
 end

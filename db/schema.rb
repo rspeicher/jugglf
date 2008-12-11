@@ -9,7 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081211203517) do
+ActiveRecord::Schema.define(:version => 20081211204952) do
+
+  create_table "attendees", :force => true do |t|
+    t.integer "member_id"
+    t.integer "raid_id"
+    t.float   "attendance"
+  end
+
+  add_index "attendees", ["member_id", "raid_id"], :name => "index_attendees_on_member_id_and_raid_id", :unique => true
 
   create_table "members", :force => true do |t|
     t.string   "name"
