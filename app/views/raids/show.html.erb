@@ -1,0 +1,25 @@
+<h2><%=h @raid.date %></h2>
+
+<h3>Attendees</h3>
+
+<table border="0" cellspacing="0" cellpadding="0">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th class="right">Attendance</th>
+  </tr>
+  </thead>
+  
+  <tbody>
+  <% for attendee in @raid.attendees %>
+    <tr class="<%= cycle('row1','row2') %>">
+      <td><%= link_to h(attendee.member.name), member_path(attendee.member) %></td>
+      <td class="right"><%= raid_attendance_colored(attendee.attendance) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  
+  <tfoot>
+    
+  </tfoot>
+</table>

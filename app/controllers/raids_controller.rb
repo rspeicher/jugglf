@@ -8,4 +8,12 @@ class RaidsController < ApplicationController
       wants.html
     end
   end
+  
+  def show
+    @raid = Raid.find(params[:id])
+    
+    respond_to do |wants|
+      wants.html
+    end
+  end
 end
