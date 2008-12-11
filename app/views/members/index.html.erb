@@ -1,0 +1,27 @@
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Class</th>
+    <th>LF</th>
+    <th>First Raid</th>
+    <th>Last Raid</th>
+  </tr>
+  </thead>
+  
+  <tbody>
+  <% for member in @members %>
+    <tr>
+      <td><%=h member.name %></td>
+      <td><%=h member.wow_class %></td>
+      <td><%=h member.lf %></td>
+      <td><%=h member.first_raid %></td>
+      <td><%=h member.last_raid %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  
+  <tfoot>
+    
+  </tfoot>
+</table>
