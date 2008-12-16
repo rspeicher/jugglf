@@ -9,9 +9,9 @@ namespace :db do
     
     [Attendee, Member, Raid].each(&:delete_all)
     
-    kamien = Member.create(:name => "Kamien", :wow_class => "Rogue")
+    kamien  = Member.create(:name => "Kamien",  :wow_class => "Rogue")
     sebudai = Member.create(:name => "Sebudai", :wow_class => "Hunter")
-    tsigo = Member.create(:name => "Tsigo", :wow_class => "Priest")
+    tsigo   = Member.create(:name => "Tsigo",   :wow_class => "Priest")
     
     # Members ------------------------------------------------------------------
     Member.populate 50 do |m|
@@ -28,7 +28,7 @@ namespace :db do
       m.attendance_90       = 0..100
       m.attendance_lifetime = 0..100
     end
-    Member.find(:all).each do |m|
+    Member.all.each do |m|
       m.lf                  = m.lf * 1.00
       m.sitlf               = m.sitlf * 1.00
       m.bislf               = m.bislf * 1.00
@@ -46,7 +46,7 @@ namespace :db do
     end
     
     # Attendees ----------------------------------------------------------------
-    Raid.find(:all).each do |r|
+    Raid.all.each do |r|
       Attendee.create(:raid_id => r.id, :member_id => kamien.id, :attendance => 1.00)
       Attendee.create(:raid_id => r.id, :member_id => tsigo.id, :attendance => 1.00) if r.date >= 30.days.ago.to_datetime
       Attendee.create(:raid_id => r.id, :member_id => sebudai.id, :attendance => 1.00) if r.date >= 90.days.ago.to_datetime

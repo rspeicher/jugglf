@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081211204952) do
+ActiveRecord::Schema.define(:version => 20081216233039) do
 
   create_table "attendees", :force => true do |t|
     t.integer "member_id"
@@ -35,6 +35,8 @@ ActiveRecord::Schema.define(:version => 20081211204952) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "members", ["name"], :name => "index_members_on_name", :unique => true
 
   create_table "raids", :force => true do |t|
     t.date     "date"
