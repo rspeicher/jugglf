@@ -1,8 +1,8 @@
-<table border="0" cellspacing="0" cellpadding="0">
+<table border="0" cellspacing="1" cellpadding="0">
   <thead>
   <tr>
     <th>Name</th>
-    <th>LF</th>
+    <th class="right">LF</th>
     <th>First Raid</th>
     <th>Last Raid</th>
     <th class="right">30-Day</th>
@@ -15,7 +15,7 @@
   <% for member in @members %>
     <tr class="<%= cycle('row1','row2') %>">
       <td><%= link_to h(member.name), member_path(member), :class => member.wow_class %></td>
-      <td><%=h member.lf %></td>
+      <td class="right"><%=h member.lf %></td>
       <td><%=h member.first_raid %></td>
       <td><%=h member.last_raid %></td>
       <td class="right"><%= member_attendance_colored(member.attendance_30) %></td>
