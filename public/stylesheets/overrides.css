@@ -18,3 +18,24 @@ th.center, td.center {
   text-align: center;
   padding: 0;
 }
+
+fieldset {
+	background: #101010;
+}
+
+fieldset select {
+  margin: 5px;
+}
+
+fieldset legend {
+  font-size: 150%;
+  font-weight: bold;
+  background: #101010;
+  padding: 5px;
+  border-top: 1px solid #000000;
+}
+
+fieldset label {
+  font-size: 125%;
+  font-weight: bold;
+}

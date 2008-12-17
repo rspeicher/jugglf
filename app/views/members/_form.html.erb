@@ -1,0 +1,11 @@
+  <% form_for @member do |f| %>
+  <%= f.error_messages %>
+  
+  <p><%= f.label :name %><br/>
+  <%= f.text_field :name %></p>
+  
+  <p><%= f.label :wow_class, "Class" %><br/>
+  <%= f.select :wow_class, ['','Death Knight','Druid','Hunter','Mage','Paladin','Priest','Rogue','Shaman','Warlock','Warrior'] %></p>
+  
+  <%= f.submit %>
+  <% end %>
