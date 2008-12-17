@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081216233039) do
+ActiveRecord::Schema.define(:version => 20081217001941) do
 
   create_table "attendees", :force => true do |t|
     t.integer "member_id"
@@ -18,6 +18,20 @@ ActiveRecord::Schema.define(:version => 20081216233039) do
   end
 
   add_index "attendees", ["member_id", "raid_id"], :name => "index_attendees_on_member_id_and_raid_id", :unique => true
+
+  create_table "items", :force => true do |t|
+    t.string   "name"
+    t.float    "price",        :default => 0.0
+    t.boolean  "situational",  :default => false
+    t.boolean  "best_in_slot", :default => false
+    t.integer  "member_id"
+    t.integer  "raid_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "items", ["member_id"], :name => "index_items_on_member_id"
+  add_index "items", ["raid_id"], :name => "index_items_on_raid_id"
 
   create_table "members", :force => true do |t|
     t.string   "name"

@@ -3,6 +3,7 @@
   <tr>
     <th>Date</th>
     <th class="right">Attendees</th>
+    <th class="right">Drops</th>
     <th>Note</th>
   </tr>
   </thead>
@@ -12,6 +13,7 @@
     <tr class="<%= cycle('row1','row2') %>">
       <td><%= link_to h(raid.date), raid_path(raid) %></td>
       <td class="right"><%=h raid.attendees.count %></td>
+      <td class="right"><%=h raid.items.count %></td>
       <td><%=h raid.note %></td>
     </tr>
   <% end %>

@@ -30,3 +30,29 @@ Lifetime: <%= member_attendance_colored(@member.attendance_lifetime) %><br/>
     
   </tfoot>
 </table>
+
+<h3>Items</h3>
+
+<table border="0" cellspacing="0" cellpadding="0">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Raid</th>
+    <th class="right">Price</th>
+  </tr>
+  </thead>
+  
+  <tbody>
+  <% for item in @member.items %>
+    <tr class="<%= cycle('row1','row2') %>">
+      <td><%= link_to h(item.name), item_path(item) %></td>
+      <td><%= link_to h(item.raid.date), raid_path(item.raid) unless item.raid.nil? %></td>
+      <td class="right"><%= number_with_precision(item.price, :precision => 2) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  
+  <tfoot>
+    
+  </tfoot>
+</table>

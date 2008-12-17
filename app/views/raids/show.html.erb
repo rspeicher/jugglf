@@ -23,3 +23,29 @@
     
   </tfoot>
 </table>
+
+<h3>Drops</h3>
+
+<table border="0" cellspacing="0" cellpadding="0">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Buyer</th>
+    <th class="right">Price</th>
+  </tr>
+  </thead>
+  
+  <tbody>
+  <% for item in @raid.items %>
+    <tr class="<%= cycle('row1','row2') %>">
+      <td><%=h item.name %></td>
+      <td><%= link_to h(item.member.name), member_path(item.member) %></td>
+      <td class="right"><%= number_with_precision(item.price, :precision => 2) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+  
+  <tfoot>
+    
+  </tfoot>
+</table>
