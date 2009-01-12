@@ -17,4 +17,8 @@
 class Item < ActiveRecord::Base
   belongs_to :member
   belongs_to :raid
+  
+  def affects_loot_factor?
+    self.raid.date >= 8.weeks.ago.to_datetime
+  end
 end
