@@ -18,13 +18,31 @@
 #  attendance_lifetime :float           default(0.0)
 #  created_at          :datetime
 #  updated_at          :datetime
-#  uncached_updates    :integer(4)
+#  uncached_updates    :integer(4)      default(0)
 #
 
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# one:
-#   column: value
-#
-# two:
-#   column: value
+tsigo:
+  name: Tsigo
+  wow_class: Priest
+  lf: 0.00
+  sitlf: 0.00
+  bislf: 0.00
+  attendance_30: 1.00
+  attendance_90: 1.00
+  attendance_lifetime: 1.00
+  uncached_updates: 0
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 1.hour.ago.to_s :db %>
+  
+sebudai:
+  name: Sebudai
+  wow_class: Hunter
+  lf: 0.00
+  sitlf: 0.00
+  bislf: 0.00
+  attendance_30: 1.00
+  attendance_90: 1.00
+  attendance_lifetime: 1.00
+  uncached_updates: 0
+  created_at: <%= 10.days.ago.to_s :db %>
+  updated_at: <%= 10.days.ago.to_s :db %>
