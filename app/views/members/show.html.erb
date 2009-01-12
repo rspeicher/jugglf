@@ -19,7 +19,7 @@ Lifetime: <%= member_attendance_colored(@member.attendance_lifetime) %><br/>
   <% for raid in @raids %>
     <tr class="<%= cycle('row1','row2') %>">
       <td><%= link_to h(raid.date), raid_path(raid) %></td>
-      <td class="right"><%= member_attendee?(raid, @member) %></td>
+      <td class="right"><%= member_attendance(raid, @member) %></td>
       <td><%=h raid.note %></td>
       <td class="center"><%=h raid.thread %></td>
     </tr>
