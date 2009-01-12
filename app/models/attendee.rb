@@ -1,3 +1,14 @@
+# == Schema Information
+# Schema version: 20081217001941
+#
+# Table name: attendees
+#
+#  id         :integer(4)      not null, primary key
+#  member_id  :integer(4)
+#  raid_id    :integer(4)
+#  attendance :float
+#
+
 class Attendee < ActiveRecord::Base
   belongs_to :member
   belongs_to :raid
