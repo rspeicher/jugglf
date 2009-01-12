@@ -46,3 +46,15 @@ sebudai:
   uncached_updates: 0
   created_at: <%= 10.days.ago.to_s :db %>
   updated_at: <%= 10.days.ago.to_s :db %>
+  
+update_cache:
+  name: UpdateMyCache
+  lf: 0.00
+  sitlf: 0.00
+  bislf: 0.00
+  attendance_30: 0.00
+  attendance_90: 0.00
+  attendance_lifetime: 0.00
+  uncached_updates: 5
+  created_at: <%= 1.year.ago.to_s :db %>
+  updated_at: <%= 1.year.ago.to_s :db %>
