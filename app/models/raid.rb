@@ -15,4 +15,11 @@ class Raid < ActiveRecord::Base
   has_many :attendees
   has_many :items
   has_many :members, :through => :attendees
+  
+  def self.count_last_thirty_days
+    Raid.count(:conditions => [ "date >= ?", 30.days.ago ])
+  end
+  def self.count_last_ninety_days
+    Raid.count(:conditions => [ "date >= ?", 90.days.ago ])
+  end
 end

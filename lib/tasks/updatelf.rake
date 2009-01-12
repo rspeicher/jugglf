@@ -2,8 +2,8 @@ namespace :jugg do
   desc "Update LF Cache"
   task :updatelf => [:environment] do
     total = { }
-    total[:thirty]   = Raid.count(:conditions => [ "date >= ?", 30.days.ago ]) * 1.00
-    total[:ninety]   = Raid.count(:conditions => [ "date >= ?", 90.days.ago ]) * 1.00
+    total[:thirty]   = Raid.count_last_thirty_days * 1.00
+    total[:ninety]   = Raid.count_last_ninety_days * 1.00
     total[:lifetime] = Raid.count * 1.00
     
     Member.all.each do |m|
@@ -42,9 +42,11 @@ namespace :jugg do
       
       puts "#{lf[:lf]} / #{m.attendance_30}"
       
-      m.lf    = (lf[:lf]    / m.attendance_30) unless m.attendance_30 == 0.0
-      m.sitlf = (lf[:sitlf] / m.attendance_30) unless m.attendance_30 == 0.0
-      m.bislf = (lf[:bislf] / m.attendance_30) unless m.attendance_30 == 0.0
+      unless m.attendance_30 == 0.0
+        m.lf    = (lf[:lf]    / m.attendance_30)
+        m.sitlf = (lf[:sitlf] / m.attendance_30)
+        m.bislf = (lf[:bislf] / m.attendance_30)
+      end
       
       begin
         m.save!
