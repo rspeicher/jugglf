@@ -41,18 +41,20 @@ class MemberTest < ActiveSupport::TestCase
     m = members(:tsigo)
     m.raids << raids(:today)
     m.raids << raids(:yesterday)
+    m.save
+    m.reload
     
-    assert_equal(2, m.attendance.count)
+    assert_equal(2, m.attendance.size)
   end
   
   test "has item purchases" do
     m = members(:tsigo)
-    assert_equal(0, m.items.count)
+    assert_equal(0, m.items.size)
     
     i = Item.create(:name => 'Warglaive of Azzinoth', :price => 5.00)
     m.items << i
     
-    assert_equal(1, m.items.count)
+    assert_equal(1, m.items.size)
     assert_equal(m.id, i.buyer.id)
   end
   
@@ -74,7 +76,7 @@ class MemberTest < ActiveSupport::TestCase
       :raid_id => raids(:two_months_ago).id, :best_in_slot => true)
     m.items << Item.create(:name => 'BiS LF', :price => 3.14, 
       :raid_id => raids(:yesterday).id, :best_in_slot => true)
-    assert_equal(4, m.items.count)
+    assert_equal(4, m.items.size)
     
     m.save!
     

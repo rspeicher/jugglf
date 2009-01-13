@@ -12,8 +12,8 @@
   <% for raid in @raids %>
     <tr class="<%= cycle('row1','row2') %>">
       <td><%= link_to h(raid.date), raid_path(raid) %></td>
-      <td class="right"><%=h raid.attendees.count %></td>
-      <td class="right"><%=h raid.items.count %></td>
+      <td class="right"><%=h raid.attendees.size %></td>
+      <td class="right"><%=h raid.items.size %></td>
       <td><%=h raid.note %></td>
     </tr>
   <% end %>

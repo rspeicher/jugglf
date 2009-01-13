@@ -1,5 +1,9 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  def member_link_colored(member)
+    link_to h(member.name), member_path(member), :class => member.wow_class
+  end
+  
   def member_attendance_colored(value)
     if value.class == Float
       value = (value * 100).floor

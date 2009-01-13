@@ -13,7 +13,7 @@
   <tbody>
   <% for attendee in @raid.attendees %>
     <tr class="<%= cycle('row1','row2') %>">
-      <td><%= link_to h(attendee.member.name), member_path(attendee.member), :class => attendee.member.wow_class %></td>
+      <td><%= member_link_colored(attendee.member) %></td>
       <td class="right"><%= raid_attendance_colored(attendee.attendance) %></td>
     </tr>
   <% end %>
@@ -38,8 +38,8 @@
   <tbody>
   <% for item in @raid.items %>
     <tr class="<%= cycle('row1','row2') %>">
-      <td><%=h item.name %></td>
-      <td><%= link_to h(item.member.name), member_path(item.member) %></td>
+      <td><%= link_to h(item.name), item_path(item) %></td>
+      <td><%= member_link_colored(item.buyer) %></td>
       <td class="right"><%= number_with_precision(item.price, :precision => 2) %></td>
     </tr>
   <% end %>
