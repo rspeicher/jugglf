@@ -9,18 +9,19 @@ th, td {
   margin: 0;
 }
 
-th.right, td.right {
+div.right, th.right, td.right {
   text-align: right;
   padding-right: 5px;
 }
 
-th.center, td.center {
+div.center, th.center, td.center {
   text-align: center;
   padding: 0;
 }
 
 fieldset {
-	background: #101010;
+  background: #101010;
+  padding: 15px;
 }
 
 fieldset select {
