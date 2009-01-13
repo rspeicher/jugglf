@@ -44,9 +44,9 @@ namespace :db do
     end
     
     # Raids --------------------------------------------------------------------
-    Raid.populate 15..250 do |r|
+    Raid.populate(15..75, :per_query => 1) do |r|
       r.date   = 120.days.ago..Time.now
-      r.note   = Populator.words(0..8).titleize
+      r.note   = Populator.words(0..5).titleize
       r.thread = 0
     end
     
@@ -72,7 +72,7 @@ namespace :db do
     
     # Items --------------------------------------------------------------------
     Item.populate 300 do |i|
-      i.name      = Populator.words(1..2).titleize
+      i.name      = Populator.words(1).titleize
       i.price     = rand * 100
       i.member_id = Member.find(:first, :order => 'RAND()').id
       i.raid_id   = Raid.find(:first, :order => 'RAND()').id
