@@ -89,5 +89,7 @@ class Member < ActiveRecord::Base
         self.sitlf = (lf[:sitlf] / self.attendance_30)
         self.bislf = (lf[:bislf] / self.attendance_30)
       end
+      
+      self.uncached_updates = 0
     end
 end
