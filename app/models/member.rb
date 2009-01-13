@@ -94,11 +94,11 @@ class Member < ActiveRecord::Base
       # self.items.each do |i|
         if i.affects_loot_factor?
           if i.situational?
-            lf[:sitlf] += i.price
+            lf[:sitlf] += i.adjusted_price
           elsif i.best_in_slot?
-            lf[:bislf] += i.price
+            lf[:bislf] += i.adjusted_price
           else
-            lf[:lf] += i.price
+            lf[:lf] += i.adjusted_price
           end
         end
       end

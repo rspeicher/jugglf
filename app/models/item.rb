@@ -21,7 +21,38 @@ class Item < ActiveRecord::Base
   belongs_to :raid#, :counter_cache => true
   alias_method :buyer, :member
   
+  def self.from_attendance_output(value)
+    split = value.split(" - ")
+    return unless split.length == 2
+    
+    retval = []
+    
+    buyer_side = split[0].split(",")
+    item_side  = split[1].gsub(/\[(.+)\]/, '\1').strip # Item name, no brackets
+    
+    buyer_side.each do |buyer|
+      item = Item.new
+      
+      # These next regex just mean "contained within parenthesis where the only
+      # other values are a-z and \s"; Prevents "Tsitgo" as a name from 
+      # matching "sit" as a tell type while still allowing "(bis rot)"
+      item.situational  = !buyer.match(/\(([a-z\s]+)?sit([a-z\s]+)?\)/).nil?
+      item.best_in_slot = !buyer.match(/\(([a-z\s]+)?bis([a-z\s]+)?\)/).nil?
+      item.rot          = !buyer.match(/\(([a-z\s]+)?rot([a-z\s]+)?\)/).nil?
+      
+      item.member = Member.find_or_initialize_by_name(buyer.gsub(/[^A-Za-z]/, ''))
+      
+      retval.push(item)
+    end
+    
+    retval
+  end
+  
   def affects_loot_factor?
     self.raid.date >= 8.weeks.ago.to_datetime if self.raid
+  end
+  
+  def adjusted_price
+    ( self.rot? ) ? 0.50 : self.price
   end
 end
