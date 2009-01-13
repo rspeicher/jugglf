@@ -50,8 +50,6 @@ class ItemTest < ActiveSupport::TestCase
     output.each do |line|
       items = Item.from_attendance_output(line)
       
-      puts line unless items and items.length > 0
-      
       items.each do |item|
         item.save!
       end
