@@ -33,6 +33,7 @@ class Raid < ActiveRecord::Base
   end
   
   def attendance_output
+    require 'csv'
     out = ""
     
     CSV::Writer.generate(out) do |csv|
@@ -44,11 +45,11 @@ class Raid < ActiveRecord::Base
     out
   end
   def attendance_output=(value)
-    lines = CSV.parse(value) do |l|
-      m = Member.find_or_initialize_by_name(l[0])
-      m.wow_class = '' if m.new_record?
+    require 'csv'
+    lines = CSV.parse(value) do |line|
+      m = Member.find_or_create_by_name(line[0])
       
-      self.attendees.create(:member => m, :attendance => l[1])
+      self.attendees << Attendee.create(:member => m, :attendance => line[1])
     end
   end
 end
