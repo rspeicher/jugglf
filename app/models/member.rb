@@ -22,17 +22,27 @@
 #
 
 class Member < ActiveRecord::Base
+  # Allows Member.cache_flush - http://railstips.org/2006/11/18/class-and-instance-variables-in-ruby
+  class << self; attr_reader :cache_flush end
+  @cache_flush = 2
+  
+  # Relationships -------------------------------------------------------------
   has_many :attendees
   has_many :items
   has_many :raids, :through => :attendees
-  
   alias_method :attendance, :attendees
   
-  before_save :update_cache
-  after_update :increment_uncached_updates
+  # Validations ---------------------------------------------------------------
+  validates_presence_of :name
+  validates_uniqueness_of :name
+  # validates_inclusion_of :wow_class, :in => WOW_CLASSES # TODO: Define a global?
+  
+  # Callbacks -----------------------------------------------------------------
+  # before_update 
+  before_save   [:increment_uncached_updates, :update_cache]
   
   def should_recache?
-    self.uncached_updates >= 2 or 12.hours.ago >= self.updated_at
+    self.uncached_updates >= Member.cache_flush or (self.updated_at and 12.hours.ago >= self.updated_at)
   end
   
   private

@@ -17,9 +17,24 @@ class MemberTest < ActiveSupport::TestCase
   
   test "should recache based on uncached_updates" do
     m = members(:tsigo)
-    m.uncached_updates = 2
+    m.uncached_updates = Member.cache_flush
     
     assert_equal(true, m.should_recache?)
+  end
+  
+  test "should change uncached_updates" do
+    m = members(:tsigo)
+    assert_equal(0, m.uncached_updates)
+    
+    1.upto(Member.cache_flush - 1) do |x|
+      m.attendance_30 = 1.00 * x.to_f
+      m.save!
+      assert_equal(x, m.uncached_updates)
+    end
+    
+    m.attendance_30 = 40.00
+    m.save! # This save should trigger the update_cache method
+    assert_equal(0, m.uncached_updates)
   end
   
   test "has raid attendance" do
