@@ -71,6 +71,9 @@ class Member < ActiveRecord::Base
       att = { :thirty => 0.00, :ninety => 0.00, :lifetime => 0.00 }
       Attendee.find(:all, :include => :raid, :conditions => ["member_id = ? AND attendance > 0", self.id]).each do |a|
       # self.attendance.each do |a|
+        self.first_raid = (self.first_raid.nil?) ? a.raid.date : [self.first_raid, a.raid.date].min
+        self.last_raid  = (self.last_raid.nil?)  ? a.raid.date : [self.last_raid, a.raid.date].max
+
         if totals[:thirty] > 0.00 and a.raid.is_in_last_thirty_days?
           att[:thirty] += a.attendance
         end
