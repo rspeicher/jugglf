@@ -47,9 +47,26 @@ class Raid < ActiveRecord::Base
   def attendance_output=(value)
     require 'csv'
     lines = CSV.parse(value) do |line|
-      m = Member.find_or_create_by_name(line[0])
+      m = Member.find_or_initialize_by_name(line[0])
+      m.uncached_updates += 1
+      m.save
       
       self.attendees << Attendee.create(:member => m, :attendance => line[1])
+    end
+  end
+  
+  def loot_output
+  end
+  def loot_output=(value)
+    lines = value.split("\n")
+    lines.each do |line|
+      items = Item.from_attendance_output(line)
+      
+      items.each do |item|
+        item.save!
+        
+        self.items << item
+      end
     end
   end
 end

@@ -40,3 +40,15 @@ fieldset label {
   font-size: 125%;
   font-weight: bold;
 }
+
+#raid_form div.attendance {
+  float: left;
+}
+
+#raid_form div.loot {
+  float: right;
+}
+
+#raid_form div.attendance_loot {
+  padding: 1px 0;
+}

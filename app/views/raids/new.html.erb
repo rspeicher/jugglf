@@ -1,11 +1,23 @@
-<fieldset>
+<fieldset id="raid_form">
   <% form_for(@raid) do |f| %>
   <%= f.error_messages %>
   
   <p><%= f.label :date, "Date" %> <%= date_select(:raid, :date) %></p>
   
-  <p><%= f.label :attendance_output, "Attendance" %><br/>
-  <%= f.text_area :attendance_output, :size => "125x30" %></p>
+  <p><%= f.label :note, "Note" %><br/>
+  <%= f.text_field :note %></p>
+  
+  <div class="attendance_loot">
+    <div class="attendance">
+      <p><%= f.label :attendance_output, "Attendance" %><br/>
+      <%= f.text_area :attendance_output, :size => "62x30" %></p>
+    </div>
+  
+    <div class="loot">
+      <p><%= f.label :loot_output, "Loot" %><br/>
+      <%= f.text_area :loot_output, :size => "62x30" %></p>
+    </div>
+  </div>
   
   <%= f.submit %>
   <% end %>
