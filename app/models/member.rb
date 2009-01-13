@@ -24,7 +24,7 @@
 
 class Member < ActiveRecord::Base
   CACHE_FLUSH = 3
-  WOW_CLASSES = ['Death Knight'] + (%w(Druid Hunter Mage Paladin Priest Rogue Shaman Warlock Warrior))
+  WOW_CLASSES = ['', 'Death Knight'] + (%w(Druid Hunter Mage Paladin Priest Rogue Shaman Warlock Warrior))
   
   # Relationships -------------------------------------------------------------
   has_many :attendees
@@ -35,7 +35,7 @@ class Member < ActiveRecord::Base
   # Validations ---------------------------------------------------------------
   validates_presence_of :name
   validates_uniqueness_of :name, :message => "%s has already been taken"
-  validates_inclusion_of :wow_class, :in => WOW_CLASSES, :message => "%s is not a valid WoW class"
+  validates_inclusion_of :wow_class, :in => WOW_CLASSES, :message => "is not a valid WoW class"
   
   # Callbacks -----------------------------------------------------------------
   before_save   [:increment_uncached_updates, :update_cache]
