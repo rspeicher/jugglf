@@ -72,7 +72,7 @@ namespace :db do
     
     # Items --------------------------------------------------------------------
     Item.populate 300 do |i|
-      i.name      = Populator.words(1..4).titleize
+      i.name      = Populator.words(1..2).titleize
       i.price     = rand * 100
       i.member_id = Member.find(:first, :order => 'RAND()').id
       i.raid_id   = Raid.find(:first, :order => 'RAND()').id
