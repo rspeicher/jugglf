@@ -9,9 +9,9 @@ namespace :db do
     
     [Attendee, Item, Member, Raid].each(&:delete_all)
     
-    kamien  = Member.create(:name => "Kamien",  :wow_class => "Rogue")
-    sebudai = Member.create(:name => "Sebudai", :wow_class => "Hunter")
-    tsigo   = Member.create(:name => "Tsigo",   :wow_class => "Priest")
+    kamien  = Member.create(:name => "Kamien",  :wow_class => "Rogue")  # 100% Lifetime
+    sebudai = Member.create(:name => "Sebudai", :wow_class => "Hunter") # 100% 90-day
+    tsigo   = Member.create(:name => "Tsigo",   :wow_class => "Priest") # 100% 30-day
     
     # Members ------------------------------------------------------------------
     begin
