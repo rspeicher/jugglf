@@ -38,7 +38,7 @@ class Member < ActiveRecord::Base
   # validates_inclusion_of :wow_class, :in => WOW_CLASSES, :message => "is not a valid WoW class"
   
   # Callbacks -----------------------------------------------------------------
-  after_save :update_cache
+  # after_save :update_cache # update_cache is called by raid's after_save now
   
   # Methods -------------------------------------------------------------------
   def should_recache?

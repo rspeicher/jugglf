@@ -14,22 +14,30 @@
 #
 
 class Raid < ActiveRecord::Base
+  # Relationships -------------------------------------------------------------
   has_many :attendees
   has_many :items, :order => "items.name ASC"
   has_many :members, :through => :attendees, :order => "name ASC"
   
-  def is_in_last_thirty_days?
-    self.date >= 30.days.ago.to_datetime
-  end
-  def is_in_last_ninety_days?
-    self.date >= 90.days.ago.to_datetime
-  end
+  # Validations ---------------------------------------------------------------
   
+  # Callbacks -----------------------------------------------------------------
+  after_save :update_attendee_cache
+  
+  # Static Methods ------------------------------------------------------------
   def self.count_last_thirty_days
     Raid.count(:conditions => [ "date >= ?", 30.days.ago ])
   end
   def self.count_last_ninety_days
     Raid.count(:conditions => [ "date >= ?", 90.days.ago ])
+  end
+  
+  # Methods -------------------------------------------------------------------
+  def is_in_last_thirty_days?
+    self.date >= 30.days.ago.to_datetime
+  end
+  def is_in_last_ninety_days?
+    self.date >= 90.days.ago.to_datetime
   end
   
   def attendance_output
@@ -69,4 +77,11 @@ class Raid < ActiveRecord::Base
       end
     end
   end
+  
+  private
+    def update_attendee_cache
+      self.attendees.each do |a|
+        a.member.force_recache!
+      end
+    end
 end
