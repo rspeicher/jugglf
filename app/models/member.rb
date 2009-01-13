@@ -38,10 +38,11 @@ class Member < ActiveRecord::Base
   # validates_inclusion_of :wow_class, :in => WOW_CLASSES, :message => "is not a valid WoW class"
   
   # Callbacks -----------------------------------------------------------------
-  before_save   [:increment_uncached_updates, :update_cache]
+  after_save :update_cache
   
   # Methods -------------------------------------------------------------------
   def should_recache?
+    # num. uncached updates>=threshold  | can't use new record | more than 12 hours old
     self.uncached_updates >= CACHE_FLUSH or (self.updated_at and 12.hours.ago >= self.updated_at)
   end
   
@@ -50,15 +51,10 @@ class Member < ActiveRecord::Base
   end
   
   private
-    def increment_uncached_updates
-      self.uncached_updates = 0 unless self.uncached_updates
-      self.uncached_updates += 1
-    end
-    
     def update_cache(force = false)
       return unless force or self.should_recache?
       
-      logger.info "update_cache running on #{self.name}"
+      logger.info "update_cache running on #{self.name} -----------------------"
       
       # Total possible attendance totals
       totals = {
@@ -113,9 +109,11 @@ class Member < ActiveRecord::Base
       
       # Force is true if we're being called outside of the before_save callback
       # so we have to save manually
-      if force
+      # if force
         # Let's go without validations since we're only updating LF and Attendance
         self.save(false)
-      end
+      # end
+      
+      logger.info "update_cache finished on #{self.name} ---------------------"
     end
 end
