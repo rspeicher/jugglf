@@ -42,6 +42,26 @@ class ItemTest < ActiveSupport::TestCase
     assert_equal(0, Member.count)
   end
   
+  test "populates multiple items from multiple attendance output lines" do
+    Item.destroy_all
+    Member.destroy_all
+    
+    output = File.read(File.expand_path(File.join(File.dirname(__FILE__), "raid_loot_output.txt")))
+    output.each do |line|
+      items = Item.from_attendance_output(line)
+      
+      puts line unless items and items.length > 0
+      
+      items.each do |item|
+        item.save!
+      end
+    end
+    
+    assert_equal(64, Item.count)
+    assert_equal(3, Member.find_by_name('Tsigo').items.size)
+    assert_equal(1, Member.find_all_by_name('Tsigo').size)
+  end
+  
   test "populates and correctly identifies (bis rot)" do
     Item.destroy_all
     Member.destroy_all

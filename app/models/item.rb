@@ -33,6 +33,8 @@ class Item < ActiveRecord::Base
     buyer_side.each do |buyer|
       item = Item.new
       
+      buyer = buyer.strip
+      
       # These next regex just mean "contained within parenthesis where the only
       # other values are a-z and \s"; Prevents "Tsitgo" as a name from 
       # matching "sit" as a tell type while still allowing "(bis rot)"
@@ -40,7 +42,16 @@ class Item < ActiveRecord::Base
       item.best_in_slot = !buyer.match(/\(([a-z\s]+)?bis([a-z\s]+)?\)/).nil?
       item.rot          = !buyer.match(/\(([a-z\s]+)?rot([a-z\s]+)?\)/).nil?
       
-      item.member = Member.find_or_initialize_by_name(buyer.gsub(/[^A-Za-z]/, ''))
+      # Item name and buyer
+      unless buyer == 'DE'
+        member = Member.find_or_initialize_by_name(buyer.gsub(/^([A-Za-z]+).*?$/, '\1'))
+        item.member = member
+      end
+      
+      item.name   = item_side
+      
+      # TODO: Lookup item price based on our pricing structure and Wowhead data
+      # item.price = ...
       
       retval.push(item)
     end
