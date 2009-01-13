@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090112080555
+# Schema version: 20090113041939
 #
 # Table name: items
 #
@@ -15,10 +15,11 @@
 #
 
 class Item < ActiveRecord::Base
-  belongs_to :member
+  # NOTE: counter_cache with non-has_many :through assocations and the << operator is FUCKING BUGGY AS SHIT
+  # See https://gist.github.com/862e344f8ec10995de66
+  belongs_to :member#, :counter_cache => true
+  belongs_to :raid#, :counter_cache => true
   alias_method :buyer, :member
-  
-  belongs_to :raid
   
   def affects_loot_factor?
     self.raid.date >= 8.weeks.ago.to_datetime if self.raid

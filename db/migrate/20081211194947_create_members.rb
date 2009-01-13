@@ -5,7 +5,7 @@ class CreateMembers < ActiveRecord::Migration
       t.boolean :active, :default => true
       t.date :first_raid
       t.date :last_raid
-      t.integer :raid_count, :default => 0
+      t.integer :raids_count, :default => 0
       t.string :wow_class
       t.float :lf, :default => 0.00
       t.float :sitlf, :default => 0.00

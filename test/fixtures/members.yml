@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090112080555
+# Schema version: 20090113041939
 #
 # Table name: members
 #
@@ -8,7 +8,7 @@
 #  active              :boolean(1)      default(TRUE)
 #  first_raid          :date
 #  last_raid           :date
-#  raid_count          :integer(4)      default(0)
+#  raids_count         :integer(4)      default(0)
 #  wow_class           :string(255)
 #  lf                  :float           default(0.0)
 #  sitlf               :float           default(0.0)
@@ -19,6 +19,7 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  uncached_updates    :integer(4)      default(0)
+#  items_count         :integer(4)      default(0)
 #
 
 tsigo:
@@ -49,6 +50,7 @@ sebudai:
   
 update_cache:
   name: UpdateMyCache
+  wow_class: Death Knight
   lf: 0.00
   sitlf: 0.00
   bislf: 0.00

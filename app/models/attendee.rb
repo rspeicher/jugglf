@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090112080555
+# Schema version: 20090113041939
 #
 # Table name: attendees
 #
@@ -10,8 +10,8 @@
 #
 
 class Attendee < ActiveRecord::Base
-  belongs_to :member
-  belongs_to :raid
+  belongs_to :member, :counter_cache => :raids_count
+  belongs_to :raid, :counter_cache => true
   
   def to_s
     attendance.to_s

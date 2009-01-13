@@ -1,19 +1,21 @@
 # == Schema Information
-# Schema version: 20090112080555
+# Schema version: 20090113041939
 #
 # Table name: raids
 #
-#  id         :integer(4)      not null, primary key
-#  date       :date
-#  note       :string(255)
-#  thread     :integer(4)
-#  created_at :datetime
-#  updated_at :datetime
+#  id              :integer(4)      not null, primary key
+#  date            :date
+#  note            :string(255)
+#  thread          :integer(4)
+#  created_at      :datetime
+#  updated_at      :datetime
+#  items_count     :integer(4)      default(0)
+#  attendees_count :integer(4)      default(0)
 #
 
 class Raid < ActiveRecord::Base
   has_many :attendees
-  has_many :items
+  has_many :items, :order => "items.name ASC"
   has_many :members, :through => :attendees, :order => "name ASC"
   
   def is_in_last_thirty_days?
