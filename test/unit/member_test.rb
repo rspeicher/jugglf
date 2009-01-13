@@ -58,7 +58,7 @@ class MemberTest < ActiveSupport::TestCase
     assert_equal(m.id, i.buyer.id)
   end
   
-  test "cache gets updated" do
+  test "cache gets updated on existing member" do
     m = members(:update_cache)
     assert_equal(true, m.should_recache?)
     
@@ -81,6 +81,40 @@ class MemberTest < ActiveSupport::TestCase
     m.save!
     
     m = Member.find_by_name('UpdateMyCache')
+    assert_equal(1.00, m.attendance_30)
+    assert_equal(0.666667, m.attendance_90)
+    
+    assert_equal(5.00, m.lf)
+    assert_equal(30.00, m.sitlf)
+    assert_equal(3.14, m.bislf)
+  end
+  
+  test "cache gets updated on new member" do
+    m = Member.new(:name => "NewCache")
+    assert(!m.should_recache?)
+    
+    # Add raid attendance
+    m.attendance << Attendee.create(:raid_id => raids(:today).id, :attendance => 1.00)
+    m.attendance << Attendee.create(:raid_id => raids(:yesterday).id, :attendance => 1.00)
+    m.uncached_updates += 2
+    
+    # Add an item
+    m.items << Item.create(:name => 'Normal LF', :price => 5.00, 
+      :raid_id => raids(:yesterday).id)
+    m.items << Item.create(:name => 'Sit LF', :price => 30.00, 
+      :raid_id => raids(:today).id, :situational => true)
+    m.items << Item.create(:name => 'BiS LF, Not Affected', :price => 10.00, 
+      :raid_id => raids(:two_months_ago).id, :best_in_slot => true)
+    m.items << Item.create(:name => 'BiS LF', :price => 3.14, 
+      :raid_id => raids(:yesterday).id, :best_in_slot => true)
+    assert_equal(4, m.items.size)
+    m.uncached_updates += 4
+    
+    assert(m.should_recache?, "Should recache after we add attendance and items")
+    m.save!
+    # m.force_recache!
+    
+    m = Member.find_by_name('NewCache')
     assert_equal(1.00, m.attendance_30)
     assert_equal(0.666667, m.attendance_90)
     
