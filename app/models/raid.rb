@@ -31,4 +31,24 @@ class Raid < ActiveRecord::Base
   def self.count_last_ninety_days
     Raid.count(:conditions => [ "date >= ?", 90.days.ago ])
   end
+  
+  def attendance_output
+    out = ""
+    
+    CSV::Writer.generate(out) do |csv|
+      self.attendees.each do |a|
+        csv << [ a.member.name, a.attendance ]
+      end
+    end
+    
+    out
+  end
+  def attendance_output=(value)
+    lines = CSV.parse(value) do |l|
+      m = Member.find_or_initialize_by_name(l[0])
+      m.wow_class = '' if m.new_record?
+      
+      self.attendees.create(:member => m, :attendance => l[1])
+    end
+  end
 end

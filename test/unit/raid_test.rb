@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class RaidTest < ActiveSupport::TestCase
+  fixtures :members
+  
   test "raid is in last <x> days methods" do
     r = raids(:yesterday)
     assert_equal(true, r.is_in_last_thirty_days?)
@@ -23,5 +25,24 @@ class RaidTest < ActiveSupport::TestCase
   
   test "count last ninety days" do
     assert_equal(3, Raid.count_last_ninety_days)
+  end
+  
+  test "should populate members from juggyattendance output" do
+    output = File.read(File.expand_path(File.join(File.dirname(__FILE__), "raid_att_output.txt")))
+    
+    r = Raid.create(:date => Time.now, :note => "JuggyAttendance Output")
+    assert_equal(0, r.members.count)
+    
+    r.attendance_output = output
+    r.save
+    
+    assert_equal(32, r.members.count)
+    
+    m = r.members.find_by_name('Kapetal')
+    assert_equal(0.83, m.attendance[0].attendance)
+    
+    tsigo = members(:tsigo)
+    assert_equal('Priest', tsigo.wow_class)
+    assert_equal(1, tsigo.attendance.size)
   end
 end
