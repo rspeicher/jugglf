@@ -69,7 +69,8 @@ class Member < ActiveRecord::Base
       
       # My attendance totals
       att = { :thirty => 0.00, :ninety => 0.00, :lifetime => 0.00 }
-      self.attendance.each do |a|
+      Attendee.find(:all, :include => :raid, :conditions => ["member_id = ?", self.id]).each do |a|
+      # self.attendance.each do |a|
         if totals[:thirty] > 0.00 and a.raid.is_in_last_thirty_days?
           att[:thirty] += a.attendance
         end
@@ -89,7 +90,8 @@ class Member < ActiveRecord::Base
       
       # Loot Factor
       lf = { :lf => 0.00, :sitlf => 0.00, :bislf => 0.00 }
-      self.items.each do |i|
+      Item.find(:all, :include => :raid, :conditions => ["member_id = ?", self.id]).each do |i|
+      # self.items.each do |i|
         if i.affects_loot_factor?
           if i.situational?
             lf[:sitlf] += i.price
