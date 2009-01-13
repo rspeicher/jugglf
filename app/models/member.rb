@@ -28,8 +28,8 @@ class Member < ActiveRecord::Base
   
   # Relationships -------------------------------------------------------------
   has_many :attendees
-  has_many :items
-  has_many :raids, :through => :attendees
+  has_many :items, :order => "id DESC" # FIXME: This should really be 'date DESC' but the date comes from the raid
+  has_many :raids, :through => :attendees, :order => "date DESC"
   alias_method :attendance, :attendees
   
   # Validations ---------------------------------------------------------------

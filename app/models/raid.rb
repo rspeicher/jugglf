@@ -14,7 +14,7 @@
 class Raid < ActiveRecord::Base
   has_many :attendees
   has_many :items
-  has_many :members, :through => :attendees
+  has_many :members, :through => :attendees, :order => "name ASC"
   
   def is_in_last_thirty_days?
     self.date >= 30.days.ago.to_datetime
