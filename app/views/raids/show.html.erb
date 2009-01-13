@@ -11,7 +11,7 @@
   </thead>
   
   <tbody>
-  <% for attendee in @raid.attendees %>
+  <% for attendee in @attendees %>
     <tr class="<%= cycle('row1','row2') %>">
       <td><%= member_link_colored(attendee.member) %></td>
       <td class="right"><%= raid_attendance_colored(attendee.attendance) %></td>
@@ -36,7 +36,7 @@
   </thead>
   
   <tbody>
-  <% for item in @raid.items %>
+  <% for item in @drops %>
     <tr class="<%= cycle('row1','row2') %>">
       <td><%= link_to h(item.name), item_path(item) %></td>
       <td><%= member_link_colored(item.buyer) %></td>

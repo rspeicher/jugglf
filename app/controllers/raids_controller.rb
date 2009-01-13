@@ -10,7 +10,9 @@ class RaidsController < ApplicationController
   end
   
   def show
-    @raid = Raid.find(params[:id], :include => :members)
+    @raid = Raid.find(params[:id])
+    @attendees = @raid.attendees.find(:all, :include => :member, :order => "members.wow_class, members.name")
+    @drops     = @raid.items.find(:all, :include => :member, :order => "items.name")
     
     respond_to do |wants|
       wants.html
