@@ -69,7 +69,7 @@ class Member < ActiveRecord::Base
       
       # My attendance totals
       att = { :thirty => 0.00, :ninety => 0.00, :lifetime => 0.00 }
-      Attendee.find(:all, :include => :raid, :conditions => ["member_id = ?", self.id]).each do |a|
+      Attendee.find(:all, :include => :raid, :conditions => ["member_id = ? AND attendance > 0", self.id]).each do |a|
       # self.attendance.each do |a|
         if totals[:thirty] > 0.00 and a.raid.is_in_last_thirty_days?
           att[:thirty] += a.attendance
@@ -84,9 +84,9 @@ class Member < ActiveRecord::Base
         end
       end
       
-      self.attendance_30       = (att[:thirty]   / totals[:thirty])   if totals[:thirty]
-      self.attendance_90       = (att[:ninety]   / totals[:ninety])   if totals[:ninety]
-      self.attendance_lifetime = (att[:lifetime] / totals[:lifetime]) if totals[:lifetime]
+      self.attendance_30       = (att[:thirty]   / totals[:thirty])   unless totals[:thirty]   == 0.00
+      self.attendance_90       = (att[:ninety]   / totals[:ninety])   unless totals[:ninety]   == 0.00
+      self.attendance_lifetime = (att[:lifetime] / totals[:lifetime]) unless totals[:lifetime] == 0.00
       
       # Loot Factor
       lf = { :lf => 0.00, :sitlf => 0.00, :bislf => 0.00 }
@@ -114,7 +114,8 @@ class Member < ActiveRecord::Base
       # Force is true if we're being called outside of the before_save callback
       # so we have to save manually
       if force
-        self.save!
+        # Let's go without validations since we're only updating LF and Attendance
+        self.save(false)
       end
     end
 end
