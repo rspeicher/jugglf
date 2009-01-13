@@ -70,18 +70,18 @@ class Raid < ActiveRecord::Base
     lines.each do |line|
       items = Item.from_attendance_output(line)
       
-      items.each do |item|
-        item.save!
+      if items and items.length > 0
+        items.each do |item|
+          item.save!
         
-        self.items << item
+          self.items << item
+        end
       end
     end
   end
   
   private
     def update_attendee_cache
-      self.attendees.each do |a|
-        a.member.force_recache!
-      end
+      Member.update_all_cache
     end
 end

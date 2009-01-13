@@ -50,6 +50,10 @@ class Member < ActiveRecord::Base
     update_cache(true)
   end
   
+  def self.update_all_cache
+    Member.find_all_by_active(true).each { |m| m.force_recache! }
+  end
+  
   private
     def update_cache(force = false)
       return unless force or self.should_recache?
