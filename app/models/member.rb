@@ -38,20 +38,27 @@ class Member < ActiveRecord::Base
   # validates_inclusion_of :wow_class, :in => WOW_CLASSES # TODO: Define a global?
   
   # Callbacks -----------------------------------------------------------------
-  # before_update 
   before_save   [:increment_uncached_updates, :update_cache]
   
+  # Methods -------------------------------------------------------------------
   def should_recache?
     self.uncached_updates >= Member.cache_flush or (self.updated_at and 12.hours.ago >= self.updated_at)
   end
   
+  def force_recache!
+    update_cache(true)
+  end
+  
   private
     def increment_uncached_updates
-      self.uncached_updates += 1 or 1
+      self.uncached_updates = 0 unless self.uncached_updates
+      self.uncached_updates += 1
     end
     
-    def update_cache
-      return unless self.should_recache?
+    def update_cache(force = false)
+      return unless force or self.should_recache?
+      
+      logger.info "update_cache running on #{self.name}"
       
       # Total possible attendance totals
       totals = {
@@ -101,5 +108,11 @@ class Member < ActiveRecord::Base
       end
       
       self.uncached_updates = 0
+      
+      # Force is true if we're being called outside of the before_save callback
+      # so we have to save manually
+      if force
+        self.save!
+      end
     end
 end
