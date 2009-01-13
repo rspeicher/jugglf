@@ -4,9 +4,6 @@ namespace :db do
     require 'populator'
     require 'faker'
     
-    wow_classes = ['Death Knight','Druid','Hunter','Mage','Paladin','Priest',
-      'Rogue','Shaman','Warlock','Warrior']
-    
     [Attendee, Item, Member, Raid].each(&:delete_all)
     
     kamien  = Member.create(:name => "Kamien",  :wow_class => "Rogue")  # 100% Lifetime
@@ -20,8 +17,7 @@ namespace :db do
         m.active              = 1
         # m.first_raid          = 2.years.ago..Time.now
         # m.last_raid           = m.first_raid..Time.now
-        m.raid_count          = 0
-        m.wow_class           = wow_classes
+        m.wow_class           = Member::WOW_CLASSES
         m.lf                  = 0..100
         m.sitlf               = 0..100
         m.bislf               = 0..100

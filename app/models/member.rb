@@ -8,7 +8,7 @@
 #  active              :boolean(1)      default(TRUE)
 #  first_raid          :date
 #  last_raid           :date
-#  raid_count          :integer(4)      default(0)
+#  raids_count         :integer(4)      default(0)
 #  wow_class           :string(255)
 #  lf                  :float           default(0.0)
 #  sitlf               :float           default(0.0)
@@ -19,12 +19,12 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  uncached_updates    :integer(4)      default(0)
+#  items_count         :integer(4)      default(0)
 #
 
 class Member < ActiveRecord::Base
-  # Allows Member.cache_flush - http://railstips.org/2006/11/18/class-and-instance-variables-in-ruby
-  class << self; attr_reader :cache_flush end
-  @cache_flush = 2
+  CACHE_FLUSH = 3
+  WOW_CLASSES = ['Death Knight'] + (%w(Druid Hunter Mage Paladin Priest Rogue Shaman Warlock Warrior))
   
   # Relationships -------------------------------------------------------------
   has_many :attendees
@@ -34,15 +34,15 @@ class Member < ActiveRecord::Base
   
   # Validations ---------------------------------------------------------------
   validates_presence_of :name
-  validates_uniqueness_of :name
-  # validates_inclusion_of :wow_class, :in => WOW_CLASSES # TODO: Define a global?
+  validates_uniqueness_of :name, :message => "%s has already been taken"
+  validates_inclusion_of :wow_class, :in => WOW_CLASSES, :message => "%s is not a valid WoW class"
   
   # Callbacks -----------------------------------------------------------------
   before_save   [:increment_uncached_updates, :update_cache]
   
   # Methods -------------------------------------------------------------------
   def should_recache?
-    self.uncached_updates >= Member.cache_flush or (self.updated_at and 12.hours.ago >= self.updated_at)
+    self.uncached_updates >= CACHE_FLUSH or (self.updated_at and 12.hours.ago >= self.updated_at)
   end
   
   def force_recache!
