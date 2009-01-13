@@ -23,8 +23,8 @@
 #
 
 class Member < ActiveRecord::Base
-  CACHE_FLUSH = 3
-  WOW_CLASSES = ['', 'Death Knight'] + (%w(Druid Hunter Mage Paladin Priest Rogue Shaman Warlock Warrior))
+  CACHE_FLUSH = 1
+  WOW_CLASSES = ['Death Knight'] + (%w(Druid Hunter Mage Paladin Priest Rogue Shaman Warlock Warrior))
   
   # Relationships -------------------------------------------------------------
   has_many :attendees
