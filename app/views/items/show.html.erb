@@ -15,7 +15,7 @@
   <% for item in @purchases %>
     <tr class="<%= cycle('row1','row2') %>">
       <td><%= link_to h(item.raid.date), raid_path(item.raid) unless item.raid.nil? %></td>
-      <td><%= link_to h(item.member.name), member_path(item.member), :class => item.member.wow_class %></td>
+      <td><%= member_link_colored(item.member) %></td>
       <td class="right"><%= number_with_precision(item.adjusted_price, :precision => 2) %></td>
     </tr>
   <% end %>

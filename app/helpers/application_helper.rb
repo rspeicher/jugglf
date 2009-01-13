@@ -1,7 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def member_link_colored(member)
-    link_to h(member.name), member_path(member), :class => member.wow_class
+    link_to h(member.name), member_path(member), :class => member.wow_class unless member.nil?
   end
   
   def member_attendance_colored(value)
