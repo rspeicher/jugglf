@@ -10,7 +10,7 @@ class RaidsController < ApplicationController
   end
   
   def show
-    @raid = Raid.find(params[:id])
+    @raid = Raid.find(params[:id], :include => :members)
     
     respond_to do |wants|
       wants.html
