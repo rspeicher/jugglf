@@ -34,13 +34,15 @@ class Member < ActiveRecord::Base
   
   # Validations ---------------------------------------------------------------
   validates_presence_of :name
-  validates_uniqueness_of :name, :message => "%s has already been taken"
+  validates_uniqueness_of :name, :message => "%s already exists"
   # validates_inclusion_of :wow_class, :in => WOW_CLASSES, :message => "is not a valid WoW class"
   
-  # Callbacks -----------------------------------------------------------------
-  # after_save :update_cache # update_cache is called by raid's after_save now
+  # Class Methods -------------------------------------------------------------
+  def self.update_all_cache
+    Member.find_all_by_active(true).each { |m| m.force_recache! }
+  end
   
-  # Methods -------------------------------------------------------------------
+  # Instance Methods ----------------------------------------------------------
   def should_recache?
     # num. uncached updates>=threshold  | can't use new record | more than 12 hours old
     self.uncached_updates >= CACHE_FLUSH or (self.updated_at and 12.hours.ago >= self.updated_at)
@@ -48,10 +50,6 @@ class Member < ActiveRecord::Base
   
   def force_recache!
     update_cache(true)
-  end
-  
-  def self.update_all_cache
-    Member.find_all_by_active(true).each { |m| m.force_recache! }
   end
   
   private

@@ -24,7 +24,7 @@ class Raid < ActiveRecord::Base
   # Callbacks -----------------------------------------------------------------
   after_save :update_attendee_cache
   
-  # Static Methods ------------------------------------------------------------
+  # Class Methods -------------------------------------------------------------
   def self.count_last_thirty_days
     Raid.count(:conditions => [ "date >= ?", 30.days.ago ])
   end
@@ -32,7 +32,7 @@ class Raid < ActiveRecord::Base
     Raid.count(:conditions => [ "date >= ?", 90.days.ago ])
   end
   
-  # Methods -------------------------------------------------------------------
+  # Instance Methods ----------------------------------------------------------
   def is_in_last_thirty_days?
     self.date >= 30.days.ago.to_datetime
   end
