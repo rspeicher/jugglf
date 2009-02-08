@@ -79,6 +79,7 @@ class MemberTest < ActiveSupport::TestCase
     assert_equal(4, m.items.size)
     
     m.save!
+    m.force_recache!
     
     m = Member.find_by_name('UpdateMyCache')
     assert_equal(1.00, m.attendance_30)
@@ -112,7 +113,7 @@ class MemberTest < ActiveSupport::TestCase
     
     assert(m.should_recache?, "Should recache after we add attendance and items")
     m.save!
-    # m.force_recache!
+    m.force_recache!
     
     m = Member.find_by_name('NewCache')
     assert_equal(1.00, m.attendance_30)
