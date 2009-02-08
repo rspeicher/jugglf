@@ -79,5 +79,7 @@ namespace :db do
         i.best_in_slot = rand(1)
       end
     end
+    
+    Member.update_all_cache
   end
 end
