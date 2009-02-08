@@ -123,4 +123,12 @@ class MemberTest < ActiveSupport::TestCase
     assert_equal(30.00, m.sitlf)
     assert_equal(3.14, m.bislf)
   end
+  
+  test "validates WoW class" do
+    m = Member.new(:name => "NoClass", :wow_class => nil)
+    assert(m.valid?, "nil WoW class should be allowed")
+    
+    m = Member.new(:name => "EverQuest", :wow_class => "Necromancer")
+    assert(!m.valid?, "Necromancer should not be a valid WoW class")
+  end
 end

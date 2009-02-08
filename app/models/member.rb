@@ -35,7 +35,7 @@ class Member < ActiveRecord::Base
   # Validations ---------------------------------------------------------------
   validates_presence_of :name
   validates_uniqueness_of :name, :message => "%s already exists"
-  # validates_inclusion_of :wow_class, :in => WOW_CLASSES, :message => "is not a valid WoW class"
+  validates_inclusion_of :wow_class, :in => WOW_CLASSES, :message => "is not a valid WoW class", :allow_nil => true
   
   # Class Methods -------------------------------------------------------------
   def self.update_all_cache
