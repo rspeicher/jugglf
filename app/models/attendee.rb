@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090113041939
+# Schema version: 20090208213027
 #
 # Table name: attendees
 #

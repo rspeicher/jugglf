@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090113041939
+# Schema version: 20090208213027
 #
 # Table name: items
 #
@@ -12,6 +12,7 @@
 #  raid_id      :integer(4)
 #  created_at   :datetime
 #  updated_at   :datetime
+#  rot          :boolean(1)
 #
 
 class Item < ActiveRecord::Base

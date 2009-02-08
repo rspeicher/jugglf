@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090113041939
+# Schema version: 20090208213027
 #
 # Table name: raids
 #
@@ -9,7 +9,6 @@
 #  thread          :integer(4)
 #  created_at      :datetime
 #  updated_at      :datetime
-#  items_count     :integer(4)      default(0)
 #  attendees_count :integer(4)      default(0)
 #
 

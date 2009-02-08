@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090113041939
+# Schema version: 20090208213027
 #
 # Table name: members
 #
@@ -19,7 +19,6 @@
 #  created_at          :datetime
 #  updated_at          :datetime
 #  uncached_updates    :integer(4)      default(0)
-#  items_count         :integer(4)      default(0)
 #
 
 tsigo:
