@@ -58,6 +58,17 @@ class Member < ActiveRecord::Base
       
       logger.info "update_cache running on #{self.name} -----------------------"
       
+      update_attendance_cache()
+      update_loot_factor_cache()
+      
+      self.uncached_updates = 0
+      # Let's go without validations since we're only updating LF and Attendance
+      self.save(false)
+      
+      logger.info "update_cache finished on #{self.name} ---------------------"
+    end
+    
+    def update_attendance_cache
       # Total possible attendance totals
       totals = {
         :thirty   => Raid.count_last_thirty_days * 1.00,
@@ -68,7 +79,6 @@ class Member < ActiveRecord::Base
       # My attendance totals
       att = { :thirty => 0.00, :ninety => 0.00, :lifetime => 0.00 }
       Attendee.find(:all, :include => :raid, :conditions => ["member_id = ? AND attendance > 0", self.id]).each do |a|
-      # self.attendance.each do |a|
         self.first_raid = (self.first_raid.nil?) ? a.raid.date : [self.first_raid, a.raid.date].min
         self.last_raid  = (self.last_raid.nil?)  ? a.raid.date : [self.last_raid, a.raid.date].max
 
@@ -88,11 +98,11 @@ class Member < ActiveRecord::Base
       self.attendance_30       = (att[:thirty]   / totals[:thirty])   unless totals[:thirty]   == 0.00
       self.attendance_90       = (att[:ninety]   / totals[:ninety])   unless totals[:ninety]   == 0.00
       self.attendance_lifetime = (att[:lifetime] / totals[:lifetime]) unless totals[:lifetime] == 0.00
-      
-      # Loot Factor
+    end
+    
+    def update_loot_factor_cache
       lf = { :lf => 0.00, :sitlf => 0.00, :bislf => 0.00 }
       Item.find(:all, :include => :raid, :conditions => ["member_id = ?", self.id]).each do |i|
-      # self.items.each do |i|
         if i.affects_loot_factor?
           if i.situational?
             lf[:sitlf] += i.adjusted_price
@@ -108,17 +118,6 @@ class Member < ActiveRecord::Base
         self.lf    = (lf[:lf]    / self.attendance_30)
         self.sitlf = (lf[:sitlf] / self.attendance_30)
         self.bislf = (lf[:bislf] / self.attendance_30)
-      end
-      
-      self.uncached_updates = 0
-      
-      # Force is true if we're being called outside of the before_save callback
-      # so we have to save manually
-      # if force
-        # Let's go without validations since we're only updating LF and Attendance
-        self.save(false)
-      # end
-      
-      logger.info "update_cache finished on #{self.name} ---------------------"
+      end      
     end
 end
