@@ -1,0 +1,24 @@
+h1. Todo
+
+h2. Short term
+
+* Convert tests to RSpec
+* Item pricing from Wowhead based on item level and slot
+* Interface
+** Tabbed ViewMember interface
+** Glyph icons similar to IPBoard 3 for new/edit/delete
+** Drop-down menu system
+
+h2. Medium term
+
+* Convert production EQdkp database to Rails format
+** Ensure data matches up (through tests?)
+
+h2. Long term
+
+* Wowhead item lookup (@item_cache@ replica)
+* Users & Permissions
+* Wishlists
+* Achievements
+* Administration
+** Logging
