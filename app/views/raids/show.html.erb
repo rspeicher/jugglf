@@ -38,7 +38,7 @@
   <tbody>
   <% for item in @drops %>
     <tr class="<%= cycle('row1','row2') %>">
-      <td><%= link_to h(item.name), item_path(item) %></td>
+      <td><%= link_to_item_with_stats(item) %></td>
       <td><%= member_link_colored(item.buyer) %></td>
       <td class="right"><%= number_with_precision(item.adjusted_price, :precision => 2) %></td>
     </tr>

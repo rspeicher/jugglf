@@ -45,7 +45,7 @@ Lifetime: <%= member_attendance_colored(@member.attendance_lifetime) %><br/>
   <tbody>
   <% for item in @member.items %>
     <tr class="<%= cycle('row1','row2') %><%= ' inclf' if item.affects_loot_factor? %>">
-      <td><%= link_to h(item.name), item_path(item) %></td>
+      <td><%= link_to_item_with_stats(item) %></td>
       <td><%= link_to h(item.raid.date), raid_path(item.raid) unless item.raid.nil? %></td>
       <td class="right"><%= number_with_precision(item.adjusted_price, :precision => 2) %></td>
     </tr>

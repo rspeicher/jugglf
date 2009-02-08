@@ -17,7 +17,7 @@
 
 class ItemStat < ActiveRecord::Base
   # Class Methods -------------------------------------------------------------
-  def self.lookup_by_item_id(id)
+  def self.lookup_by_id(id)
     stat = ItemStat.find_or_initialize_by_item_id(id)
     
     if stat.new_record?
@@ -37,6 +37,9 @@ class ItemStat < ActiveRecord::Base
   end
   
   # Instance Methods ----------------------------------------------------------
+  def wowhead_link
+    "http://www.wowhead.com/?item=#{self.item_id}"
+  end
   def wowhead_icon(size = 'small')
     "http://static.wowhead.com/images/icons/#{size.downcase}/#{self.icon.downcase}.jpg"
   end

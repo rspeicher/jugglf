@@ -16,7 +16,7 @@ h2. Medium term
 
 h2. Long term
 
-* Wowhead item lookup (@item_cache@ replica)
+* -Wowhead item lookup (@item_cache@ replica)-
 * Users & Permissions
 * Wishlists
 * Achievements

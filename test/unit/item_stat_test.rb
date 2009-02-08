@@ -13,7 +13,7 @@ class ItemStatTest < ActiveSupport::TestCase
   end
   
   test "performs lookup by id" do
-    stat = ItemStat.lookup_by_item_id(40395)
+    stat = ItemStat.lookup_by_id(40395)
     
     assert_equal(40395, stat.item_id)
     assert_equal('Torch of Holy Fire', stat.item)
