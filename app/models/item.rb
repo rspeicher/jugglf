@@ -55,7 +55,13 @@ class Item < ActiveRecord::Base
       item.name   = item_side
       
       # TODO: Lookup item price based on our pricing structure and Wowhead data
-      item.price = item.determine_item_price()
+      price = item.determine_item_price()
+      if price.is_a? Float
+        item.price = price
+      else
+        # item.price = 99999.00 # FIXME: How do we tell the user that we couldn't determine the price for this item?
+        item.price = price[0] # NOTE: Just assuming the higher cost for now
+      end
       
       retval.push(item)
     end
