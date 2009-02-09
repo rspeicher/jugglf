@@ -1,3 +1,10 @@
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+      $('#tabs > ul').tabs();
+  });
+</script>
+<% tabs = TabsRenderer.new(self) %>
+<% tabs.create('basic_tab', 'Basic Info') do %>
 <h2><%= member_link_colored(@member) %></h2>
 30-Day: <%= member_attendance_colored(@member.attendance_30) %><br/>
 90-Day: <%= member_attendance_colored(@member.attendance_90) %><br/>
@@ -6,9 +13,9 @@ Lifetime: <%= member_attendance_colored(@member.attendance_lifetime) %><br/>
 LF: <%= number_with_precision(@member.lf, :precision => 2) %><br/>
 BiS LF: <%= number_with_precision(@member.bislf, :precision => 2) %><br/>
 Sit LF: <%= number_with_precision(@member.sitlf, :precision => 2) %><br/>
+<% end %>
 
-<h3>Raids</h3>
-
+<% tabs.create('raids_tab', 'Raids') do %>
 <table border="0" cellspacing="0" cellpadding="0">
   <thead>
   <tr>
@@ -18,7 +25,7 @@ Sit LF: <%= number_with_precision(@member.sitlf, :precision => 2) %><br/>
     <th class="center">Thread</th>
   </tr>
   </thead>
-  
+
   <tbody>
   <% for raid in @raids %>
     <tr class="<%= cycle('row1','row2') %>">
@@ -29,14 +36,14 @@ Sit LF: <%= number_with_precision(@member.sitlf, :precision => 2) %><br/>
     </tr>
   <% end %>
   </tbody>
-  
+
   <tfoot>
-    
+
   </tfoot>
 </table>
+<% end %>
 
-<h3>Items</h3>
-
+<% tabs.create('items_tab', 'Items') do %>
 <table border="0" cellspacing="0" cellpadding="0">
   <thead>
   <tr>
@@ -45,7 +52,7 @@ Sit LF: <%= number_with_precision(@member.sitlf, :precision => 2) %><br/>
     <th class="right">Price</th>
   </tr>
   </thead>
-  
+
   <tbody>
   <% for item in @member.items %>
     <tr class="<%= cycle('row1','row2') %><%= ' inclf' if item.affects_loot_factor? %>">
@@ -55,8 +62,10 @@ Sit LF: <%= number_with_precision(@member.sitlf, :precision => 2) %><br/>
     </tr>
   <% end %>
   </tbody>
-  
+
   <tfoot>
-    
+
   </tfoot>
 </table>
+<% end %>
+<%= tabs.render %>

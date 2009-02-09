@@ -4,6 +4,10 @@
 <head>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8">
   <title><%= @page_title || "JuggRails" %></title>
+
+  <%= javascript_include_tag 'jquery.js' %>
+  <%= javascript_include_tag 'jquery.ui.js' %>
+  <%= javascript_include_tag 'jquery.tabs.js' %>
   
   <%= stylesheet_link_tag 'poison', 'jugg', 'overrides' %>
   <script type="text/javascript" src="http://www.wowhead.com/widgets/power.js"></script>
@@ -28,6 +32,16 @@
 	 <%= link_to 'Items', items_path %> |
 	 <%= link_to 'Raids', raids_path %>
 	</p>
+</div>
+<div id="maintabs" style="display: none">
+  <ul class="tabs">
+    <li><%= link_to 'Standings', members_path, :id => 'maintab1', :class => 'active' %></li>
+    <li><%= link_to 'Items', items_path, :id => 'maintab2' %></li>
+    <li><%= link_to 'Raids', raids_path, :id => 'maintab3' %></li>
+  </ul>
+</div>
+<div id="navbar" style="display: none">
+  Hello....
 </div>
 <%= yield %>
 <br/>
