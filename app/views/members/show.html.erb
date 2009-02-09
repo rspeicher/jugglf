@@ -2,6 +2,10 @@
 30-Day: <%= member_attendance_colored(@member.attendance_30) %><br/>
 90-Day: <%= member_attendance_colored(@member.attendance_90) %><br/>
 Lifetime: <%= member_attendance_colored(@member.attendance_lifetime) %><br/>
+<br/>
+LF: <%= number_with_precision(@member.lf, :precision => 2) %><br/>
+BiS LF: <%= number_with_precision(@member.bislf, :precision => 2) %><br/>
+Sit LF: <%= number_with_precision(@member.sitlf, :precision => 2) %><br/>
 
 <h3>Raids</h3>
 

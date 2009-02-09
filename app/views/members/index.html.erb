@@ -3,6 +3,8 @@
   <tr>
     <th>Name</th>
     <th class="right">LF</th>
+    <th class="right">BiS</th>
+    <th class="right">SLF</th>
     <th>First Raid</th>
     <th>Last Raid</th>
     <th>Raid Count</th>
@@ -18,6 +20,8 @@
     <tr class="<%= cycle('row1','row2') %>">
       <td><%= member_link_colored(member) %></td>
       <td class="right"><%= number_with_precision(member.lf, :precision => 2) %></td>
+      <td class="right"><%= number_with_precision(member.bislf, :precision => 2) %></td>
+      <td class="right"><%= number_with_precision(member.sitlf, :precision => 2) %></td>
       <td><%=h member.first_raid %></td>
       <td><%=h member.last_raid %></td>
       <td><%=h member.raids.size %></td>
