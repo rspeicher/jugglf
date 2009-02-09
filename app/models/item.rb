@@ -54,7 +54,6 @@ class Item < ActiveRecord::Base
       
       item.name   = item_side
       
-      # TODO: Lookup item price based on our pricing structure and Wowhead data
       price = item.determine_item_price()
       if price.is_a? Float
         item.price = price
