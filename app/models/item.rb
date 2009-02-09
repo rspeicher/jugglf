@@ -198,6 +198,10 @@ class ItemPrice
       value
     end
     
+    # NOTE: There's an argument to be made that this belongs in ItemStats and not here
+    # We do store the changes we make, however since these changes only happen
+    # to very specific cases and not all Tier tokens, for example, I think for
+    # now it makes the most sense to leave them in the class that changes them
     def special_case_stats(stat)
       value = nil
       
