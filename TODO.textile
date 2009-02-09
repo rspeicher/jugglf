@@ -13,8 +13,8 @@ h2. Medium term
 
 * Convert production EQdkp database to Rails format
 ** Ensure data matches up (through tests?)
-* Punishment system, for when we want to affect someone's loot factor without adding an item
-** Allow an expiry time
+* Administration
+** New/Edit item pages
 
 h2. Long term
 
@@ -23,4 +23,6 @@ h2. Long term
 * Wishlists
 * Achievements
 * Administration
+** Punishment system, for when we want to affect someone's loot factor without adding an item
+*** Allow an expiry time
 ** Logging
