@@ -3,7 +3,7 @@ h1. Todo
 h2. Short term
 
 * Convert tests to RSpec
-* Item pricing from Wowhead based on item level and slot
+* -Item pricing from Wowhead based on item level and slot-
 * Interface
 ** Tabbed ViewMember interface
 ** Glyph icons similar to IPBoard 3 for new/edit/delete
@@ -13,6 +13,8 @@ h2. Medium term
 
 * Convert production EQdkp database to Rails format
 ** Ensure data matches up (through tests?)
+* Punishment system, for when we want to affect someone's loot factor without adding an item
+** Allow an expiry time
 
 h2. Long term
 
