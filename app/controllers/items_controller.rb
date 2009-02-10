@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   layout 'poison'
   
   def index
-    @items = Item.find(:all, :include => :raid, :order => "raids.date DESC")
+    @items = Item.paginate(:page => params[:page], :per_page => 100, :include => :raid, :order => "raids.date DESC")
     
     respond_to do |wants|
       wants.html
