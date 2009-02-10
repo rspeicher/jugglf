@@ -16,7 +16,6 @@ h2. Short term
 h2. Medium term
 
 * -Convert production EQdkp database to Rails format-
-** Applicants that have, like, two attended raids have a lifetime attendance of 1%?
 ** -Ensure data matches up- (through tests?)
 * Administration
 ** New/Edit item pages

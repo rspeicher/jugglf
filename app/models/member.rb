@@ -72,7 +72,7 @@ class Member < ActiveRecord::Base
       totals = {
         :thirty   => Raid.count_last_thirty_days * 1.00,
         :ninety   => Raid.count_last_ninety_days * 1.00,
-        :lifetime => Raid.count * 1.00
+        :lifetime => Raid.count(:conditions => ["date >= ? AND date <= ?", self.first_raid, self.last_raid]) * 1.00
       }
       
       # My attendance totals
