@@ -2,7 +2,6 @@ h1. Todo
 
 h2. Short term
 
-* Add an index to ItemStats.item
 * Add Item tests to make sure that members aren't CREATED by buying an item, to help ensure we don't have typos in item purchases
 
 * Convert tests to RSpec
