@@ -18,6 +18,10 @@ class Raid < ActiveRecord::Base
   has_many :items, :order => "items.name ASC"
   has_many :members, :through => :attendees, :order => "name ASC"
   
+  # Attributes ----------------------------------------------------------------
+  attr_writer :update_attendee_cache
+  @update_attendee_cache = true
+  
   # Validations ---------------------------------------------------------------
   
   # Callbacks -----------------------------------------------------------------
@@ -81,6 +85,6 @@ class Raid < ActiveRecord::Base
   
   private
     def update_attendee_cache
-      Member.update_all_cache
+      Member.update_all_cache if @update_attendee_cache
     end
 end

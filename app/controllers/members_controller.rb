@@ -2,7 +2,7 @@ class MembersController < ApplicationController
   layout 'poison'
   
   def index
-    @members = Member.find(:all, :order => "name asc")
+    @members = Member.find_all_by_active(true, :order => "name asc")
     
     respond_to do |wants|
       wants.html
