@@ -17,19 +17,19 @@
 
 class ItemStat < ActiveRecord::Base
   # Class Methods -------------------------------------------------------------
-  def self.lookup_by_id(id)
+  def self.lookup_by_id(id, refresh = false)
     stat = ItemStat.find_or_initialize_by_item_id(id)
     
-    if stat.new_record?
+    if stat.new_record? or refresh
       self.wowhead_lookup(id, stat)
     end
     
     stat
   end
-  def self.lookup_by_name(name)
+  def self.lookup_by_name(name, refresh = false)
     stat = ItemStat.find_or_initialize_by_item(name)
     
-    if stat.new_record?
+    if stat.new_record? or refresh
       self.wowhead_lookup(name, stat)
     end
     
