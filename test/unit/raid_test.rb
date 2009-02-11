@@ -29,10 +29,11 @@ class RaidTest < ActiveSupport::TestCase
   
   test "should populate members from juggyattendance output" do
     Raid.delete_all
+    Member.delete_all
     
     output = File.read(File.expand_path(File.join(File.dirname(__FILE__), "raid_att_output.txt")))
     
-    r = Raid.create(:date => Time.now, :note => "JuggyAttendance Output")
+    r = Raid.new(:date => Time.now, :note => "JuggyAttendance Output")
     assert_equal(0, r.members.count)
     
     r.attendance_output = output
@@ -49,7 +50,6 @@ class RaidTest < ActiveSupport::TestCase
     assert_equal(0.83, m.attendance[0].attendance)
     
     tsigo = Member.find_by_name('Tsigo')
-    assert_equal('Priest', tsigo.wow_class)
     assert_equal(1, tsigo.attendance.size)
     assert_equal(1.00, tsigo.attendance_30)
   end
