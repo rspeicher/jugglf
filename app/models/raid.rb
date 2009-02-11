@@ -23,6 +23,7 @@ class Raid < ActiveRecord::Base
   attr_accessor :attendance_output
   
   # Validations ---------------------------------------------------------------
+  validates_presence_of :date
   
   # Callbacks -----------------------------------------------------------------
   after_create :populate_attendees
