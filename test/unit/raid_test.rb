@@ -29,23 +29,66 @@ class RaidTest < ActiveSupport::TestCase
   
   test "should populate members from juggyattendance output" do
     Raid.delete_all
+    Member.delete_all
     
     output = File.read(File.expand_path(File.join(File.dirname(__FILE__), "raid_att_output.txt")))
     
-    r = Raid.create(:date => Time.now, :note => "JuggyAttendance Output")
+    r = Raid.new(:date => Time.now, :note => "JuggyAttendance Output")
     assert_equal(0, r.members.count)
     
     r.attendance_output = output
     r.save
+    r.reload
     
+    # TODO: Which of these is correct? No idea!
+    assert_equal(32, r.attendees.size)
+    assert_equal(32, r.attendees.length)
+    assert_equal(32, r.attendees_count)
     assert_equal(32, r.members.count)
     
     m = r.members.find_by_name('Kapetal')
     assert_equal(0.83, m.attendance[0].attendance)
     
     tsigo = Member.find_by_name('Tsigo')
-    assert_equal('Priest', tsigo.wow_class)
     assert_equal(1, tsigo.attendance.size)
     assert_equal(1.00, tsigo.attendance_30)
+  end
+  
+  # OPTIMIZE: Think this is a little slow because it's performing item value lookups at wowhead
+  # test "should populate items from juggyattendance output" do
+  #   Raid.delete_all
+  #   
+  #   output = File.read(File.expand_path(File.join(File.dirname(__FILE__), "raid_loot_output.txt")))
+  #   
+  #   r = Raid.create(:date => Time.now, :note => "JuggyAttendance Output")
+  #   assert_equal(0, r.items.size)
+  #   
+  #   r.loot_output = output
+  #   r.save
+  #   r.reload
+  #   
+  #   assert_equal(64, r.items.size)
+  #   assert_equal(64, r.items.length)
+  #   # assert_equal(64, r.items_count)
+  #   assert_equal(64, r.items.count)
+  # end
+  
+  test "can prevent attendee cache update" do
+    r = raids(:today)
+    
+    r.attendees.create(:member_id => members(:tsigo).id, :attendance => 0.50)
+    
+    r.update_attendee_cache = false
+    r.save!
+    r.reload
+    
+    # Cache hasn't been updated yet, members' attendance should still be 100%
+    assert_equal(1.00, Member.find_by_name('Tsigo').attendance_30)
+    
+    # Create a new object so the update_attendee_cache value doesn't linger around
+    r1 = Raid.find(r.id)
+    r1.save!
+    
+    assert_not_equal(1.00, Member.find_by_name('Tsigo').attendance_30)
   end
 end

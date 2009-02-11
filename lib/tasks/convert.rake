@@ -30,7 +30,7 @@ namespace :db do
         # Use the legacy raid's ID to lookup its attendance, but don't create its
         # Attendee record using that ID or we've got problems
         LegacyAttendee.find_all_by_raid_id(lr.raid_id).each do |la|
-          r.attendees << Attendee.create(:member_id => la.member_id, :attendance => la.attendance)
+          r.attendees.create(:member_id => la.member_id, :attendance => la.attendance)
         end
       
         r.attendees_count = r.attendees.length

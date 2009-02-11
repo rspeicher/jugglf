@@ -19,12 +19,15 @@ class Raid < ActiveRecord::Base
   has_many :members, :through => :attendees, :order => "name ASC"
   
   # Attributes ----------------------------------------------------------------
-  attr_writer :update_attendee_cache
-  @update_attendee_cache = true
+  attr_accessor :update_attendee_cache
+  attr_accessor :attendance_output
   
   # Validations ---------------------------------------------------------------
+  validates_presence_of :date
   
   # Callbacks -----------------------------------------------------------------
+  after_create :populate_attendees
+  after_update :populate_attendees
   after_save :update_attendee_cache
   
   # Class Methods -------------------------------------------------------------
@@ -43,28 +46,20 @@ class Raid < ActiveRecord::Base
     self.date >= 90.days.ago.to_datetime
   end
   
-  def attendance_output
-    require 'csv'
-    out = ""
-    
-    CSV::Writer.generate(out) do |csv|
-      self.attendees.each do |a|
-        csv << [ a.member.name, a.attendance ]
-      end
-    end
-    
-    out
-  end
-  def attendance_output=(value)
-    require 'csv'
-    lines = CSV.parse(value) do |line|
-      m = Member.find_or_initialize_by_name(line[0])
-      m.uncached_updates += 1
-      m.save
-      
-      self.attendees << Attendee.create(:member => m, :attendance => line[1])
-    end
-  end
+  # def attendance_output
+  #    require 'csv'
+  #    out = ""
+  #    
+  #    CSV::Writer.generate(out) do |csv|
+  #      self.attendees.each do |a|
+  #        csv << [ a.member.name, a.attendance ]
+  #      end
+  #    end
+  #    
+  #    out
+  # end
+  # def attendance_output=(value)
+  # end
   
   def loot_output
   end
@@ -84,7 +79,24 @@ class Raid < ActiveRecord::Base
   end
   
   private
+    def populate_attendees
+      # TODO: Do we self.attendees.destroy_all during an after_update call?
+      return if @attendance_output.nil? or @attendance_output.empty?
+      
+      require 'csv'
+      lines = CSV.parse(@attendance_output) do |line|
+        unless line[0].nil? or line[0].strip.empty?
+          m = Member.find_or_initialize_by_name(line[0])
+          m.uncached_updates += 1
+
+          if m.save
+            self.attendees.create(:member_id => m.id, :attendance => line[1])
+          end
+        end
+      end
+    end
+    
     def update_attendee_cache
-      Member.update_all_cache if @update_attendee_cache
+      Member.update_all_cache unless @update_attendee_cache == false
     end
 end
