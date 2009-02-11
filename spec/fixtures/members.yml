@@ -1,0 +1,61 @@
+# == Schema Information
+# Schema version: 20090208213027
+#
+# Table name: members
+#
+#  id                  :integer(4)      not null, primary key
+#  name                :string(255)
+#  active              :boolean(1)      default(TRUE)
+#  first_raid          :date
+#  last_raid           :date
+#  raids_count         :integer(4)      default(0)
+#  wow_class           :string(255)
+#  lf                  :float           default(0.0)
+#  sitlf               :float           default(0.0)
+#  bislf               :float           default(0.0)
+#  attendance_30       :float           default(0.0)
+#  attendance_90       :float           default(0.0)
+#  attendance_lifetime :float           default(0.0)
+#  created_at          :datetime
+#  updated_at          :datetime
+#  uncached_updates    :integer(4)      default(0)
+#
+
+tsigo:
+  name: Tsigo
+  wow_class: Priest
+  lf: 0.00
+  sitlf: 0.00
+  bislf: 0.00
+  attendance_30: 1.00
+  attendance_90: 1.00
+  attendance_lifetime: 1.00
+  uncached_updates: 0
+  created_at: <%= 5.days.ago.to_s :db %>
+  updated_at: <%= 1.hour.ago.to_s :db %>
+  
+sebudai:
+  name: Sebudai
+  wow_class: Hunter
+  lf: 0.00
+  sitlf: 0.00
+  bislf: 0.00
+  attendance_30: 1.00
+  attendance_90: 1.00
+  attendance_lifetime: 1.00
+  uncached_updates: 0
+  created_at: <%= 10.days.ago.to_s :db %>
+  updated_at: <%= 10.days.ago.to_s :db %>
+  
+update_cache:
+  name: UpdateMyCache
+  wow_class: Death Knight
+  lf: 0.00
+  sitlf: 0.00
+  bislf: 0.00
+  attendance_30: 0.00
+  attendance_90: 0.00
+  attendance_lifetime: 0.00
+  uncached_updates: 5
+  created_at: <%= 1.year.ago.to_s :db %>
+  updated_at: <%= 1.year.ago.to_s :db %>
