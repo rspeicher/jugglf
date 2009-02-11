@@ -37,7 +37,12 @@ class RaidTest < ActiveSupport::TestCase
     
     r.attendance_output = output
     r.save
+    r.reload
     
+    # TODO: Which of these is correct? No idea!
+    assert_equal(32, r.attendees.size)
+    assert_equal(32, r.attendees.length)
+    assert_equal(32, r.attendees_count)
     assert_equal(32, r.members.count)
     
     m = r.members.find_by_name('Kapetal')
@@ -49,10 +54,29 @@ class RaidTest < ActiveSupport::TestCase
     assert_equal(1.00, tsigo.attendance_30)
   end
   
+  # OPTIMIZE: Think this is a little slow because it's performing item value lookups at wowhead
+  # test "should populate items from juggyattendance output" do
+  #   Raid.delete_all
+  #   
+  #   output = File.read(File.expand_path(File.join(File.dirname(__FILE__), "raid_loot_output.txt")))
+  #   
+  #   r = Raid.create(:date => Time.now, :note => "JuggyAttendance Output")
+  #   assert_equal(0, r.items.size)
+  #   
+  #   r.loot_output = output
+  #   r.save
+  #   r.reload
+  #   
+  #   assert_equal(64, r.items.size)
+  #   assert_equal(64, r.items.length)
+  #   # assert_equal(64, r.items_count)
+  #   assert_equal(64, r.items.count)
+  # end
+  
   test "can prevent attendee cache update" do
     r = raids(:today)
     
-    r.attendees << Attendee.create(:member_id => members(:tsigo).id, :attendance => 0.50)
+    r.attendees.create(:member_id => members(:tsigo).id, :attendance => 0.50)
     
     r.update_attendee_cache = false
     r.save!

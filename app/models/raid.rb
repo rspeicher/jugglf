@@ -61,7 +61,7 @@ class Raid < ActiveRecord::Base
       m.uncached_updates += 1
       m.save
       
-      self.attendees << Attendee.create(:member => m, :attendance => line[1])
+      self.attendees.create(:member_id => m.id, :attendance => line[1])
     end
   end
   
