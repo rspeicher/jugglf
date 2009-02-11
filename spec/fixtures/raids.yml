@@ -1,0 +1,27 @@
+# == Schema Information
+# Schema version: 20090208213027
+#
+# Table name: raids
+#
+#  id              :integer(4)      not null, primary key
+#  date            :date
+#  note            :string(255)
+#  thread          :integer(4)
+#  created_at      :datetime
+#  updated_at      :datetime
+#  attendees_count :integer(4)      default(0)
+#
+
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+today:
+  date: <%= 5.hours.ago.to_s :db %>
+  note: Raid from five hours ago
+
+yesterday:
+  date: <%= 1.day.ago.to_s :db %>
+  note: Raid from last night
+  
+two_months_ago:
+  date: <%= 2.months.ago.to_s :db %>
+  note: Raid from two months ago
