@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Raid do
   before(:each) do
     @valid_attributes = {
+      :date => Time.now.to_s(:db)
     }
   end
 
