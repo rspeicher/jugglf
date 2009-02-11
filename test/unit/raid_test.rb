@@ -48,4 +48,23 @@ class RaidTest < ActiveSupport::TestCase
     assert_equal(1, tsigo.attendance.size)
     assert_equal(1.00, tsigo.attendance_30)
   end
+  
+  test "can prevent attendee cache update" do
+    r = raids(:today)
+    
+    r.attendees << Attendee.create(:member_id => members(:tsigo).id, :attendance => 0.50)
+    
+    r.update_attendee_cache = false
+    r.save!
+    r.reload
+    
+    # Cache hasn't been updated yet, members' attendance should still be 100%
+    assert_equal(1.00, Member.find_by_name('Tsigo').attendance_30)
+    
+    # Create a new object so the update_attendee_cache value doesn't linger around
+    r1 = Raid.find(r.id)
+    r1.save!
+    
+    assert_not_equal(1.00, Member.find_by_name('Tsigo').attendance_30)
+  end
 end

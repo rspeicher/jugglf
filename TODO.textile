@@ -2,8 +2,6 @@ h1. Todo
 
 h2. Short term
 
-* FIXME: Adding a raid didn't update member cache
-** Check if the after_save callback can access the update_member_cache attribute if it's only attr_writable
 * FIXME: The 2/10/2009 raid parse displays a blank member with 100% attendance on the Raids#show page
 * FIXME: The 2/10/2009 raid parse didn't cache its attendee count
 
