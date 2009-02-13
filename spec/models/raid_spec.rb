@@ -131,36 +131,10 @@ describe Raid do
       @loot = %Q{Sebudai - [Arachnoid Gold Band]
       Scipion - [Chains of Adoration]
       Elanar (rot), Alephone (sit) - [Shadow of the Ghoul]
-      Scipion (bis) - [Totem of Misery]
       Scipion - [Wraith Strike]
       Horky (bis) - [Dying Curse]
       Parawon (sit) - [Thrusting Bands]
-      Scipion (sit) - [Angry Dread]
-      Parawon - [Belt of Potent Chanting]
-      Scipion (sit) - [Fool's Trial]
-      Tsigo (sit) - [Haunting Call]
-      Sebudai (sit) - [Leggings of Colossal Strides]
-      Parawon (sit) - [Cloak of the Shadowed Sun]
       Sebudai (rot) - [The Hand of Nerub]
-      Elanar (bis) - [Mantle of the Lost Protector]
-      Tsigo (rot) - [Mantle of the Lost Conqueror]
-      Darkkfall - [Shoulderguards of the Undaunted]
-      Darkkfall (bis) - [Split Greathammer]
-      Zelus (bis) - [Gemmed Wand of the Nerubians]
-      Mithal (bis) - [Breastplate of the Lost Conqueror]
-      Tsigo (sit) - [Spire of Sunset]
-      Alephone (bis) - [Legplates of the Lost Conqueror]
-      Sweetmeat (bis) - [Strong-Handed Ring]
-      Darkkfall (bis) - [Bracers of Unrelenting Attack]
-      Thorona (bis) - [Gothik's Cowl]
-      Sebudai - [Aged Winter Cloak]
-      Elanar (sit) - [Armageddon]
-      Alephone (sit) - [Breastplate of the Lost Conqueror]
-      Bemoan (bis) - [Heroic Key to the Focusing Iris]
-      Alephone (bis) - [Soul of the Dead]
-      Katarzyna (bis) - [Betrayer of Humanity]
-      Sebudai (rot) - [Journey's End]
-      Scipion (sit) - [Voice of Reason]
       Modrack (bis), Rosoo (bis) - [Crown of the Lost Vanquisher]
       }
     end
@@ -207,6 +181,19 @@ describe Raid do
       
       Member.find_by_name('Tsigo').attendance[0].attendance.should == 0.83
     end
+
+    # NOTE: Abandoning this crusade for now; we just have to watch the standings and see if an invalid member pops up
+    # it "should not create from drops members that don't exist" do
+    #   Member.delete_all
+    #   
+    #   @r.attendance_output = ""
+    #   @r.loot_output = @loot
+    #   
+    #   @r.save
+    #   @r.reload
+    #   
+    #   Member.count.should == 0
+    # end
     
     # OPTIMIZE: This might be slow because of item.determine_item_price() being called for each item
     it "should populate drops" do
@@ -216,9 +203,9 @@ describe Raid do
       @r.save
       @r.reload
       
-      @r.items.size.should   == 36
-      @r.items.length.should == 36
-      @r.items.count.should  == 36
+      @r.items.size.should   == 10
+      @r.items.length.should == 10
+      @r.items.count.should  == 10
     end
   end
 end

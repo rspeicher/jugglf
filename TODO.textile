@@ -5,8 +5,6 @@ h2. Short term
 * FIXME: The 2/10/2009 raid parse displays a blank member with 100% attendance on the Raids#show page
 ** Could not duplicate
 
-* Add Item tests to make sure that members aren't CREATED by buying an item, to help ensure we don't have typos in item purchases
-
 * -Learn RSpec-
 ** -Convert tests to RSpec-
 * -MemberRanks (prefix/suffix,- show/hide[?])
