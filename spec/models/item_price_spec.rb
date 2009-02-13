@@ -42,4 +42,18 @@ describe ItemPrice do
   it "should calculate Breastplate of the Lost Conqueror (Chest Token) price" do
     @ip.price(item_stats(:chest_token)).should == 2.50
   end
+  
+  it "should raise an exception for an invalid slot name" do
+    stat = item_stats(:trinket)
+    stat.slot = 'Not a Real Slot'
+    
+    lambda { @ip.price(stat) }.should raise_error
+  end
+  
+  it "should raise an exception for an invalid trinket name" do
+    stat = item_stats(:trinket)
+    stat.item = 'Not a Real Trinket'
+    
+    lambda { @ip.price(stat) }.should raise_error
+  end
 end

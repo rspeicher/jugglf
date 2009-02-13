@@ -31,6 +31,8 @@ tsigo:
   attendance_90: 1.00
   attendance_lifetime: 1.00
   uncached_updates: 0
+  first_raid: <%= 5.hours.ago.to_s :db %>
+  last_raid: <%= 5.hours.ago.to_s :db %>
   created_at: <%= 5.days.ago.to_s :db %>
   updated_at: <%= 1.hour.ago.to_s :db %>
   
