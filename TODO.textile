@@ -7,8 +7,8 @@ h2. Short term
 
 * Add Item tests to make sure that members aren't CREATED by buying an item, to help ensure we don't have typos in item purchases
 
-* Learn RSpec
-** Convert tests to RSpec
+* -Learn RSpec-
+** -Convert tests to RSpec-
 * MemberRanks (prefix/suffix, show/hide[?])
 * -Item pricing from Wowhead based on item level and slot-
 * Find out how to allow /members/Tsigo AS WELL AS /members/1234
