@@ -24,8 +24,8 @@ class Item < ActiveRecord::Base
   alias_method :buyer, :member
   
   # Class Methods -------------------------------------------------------------
-  def self.from_attendance_output(value)
-    split = value.split(" - ")
+  def self.from_attendance_output(line)
+    split = line.split(" - ")
     return unless split.length == 2
     
     retval = []
