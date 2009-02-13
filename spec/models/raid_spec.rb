@@ -64,11 +64,11 @@ describe Raid do
   
   describe "from yesterday" do
     it "should be in the last thirty days" do
-      raids(:yesterday).is_in_last_thirty_days?.should == true
+      raids(:yesterday).is_in_last_thirty_days?.should be_true
     end
     
     it "should be in the last ninety days" do
-      raids(:yesterday).is_in_last_ninety_days?.should == true
+      raids(:yesterday).is_in_last_ninety_days?.should be_true
     end
   end
   
@@ -76,11 +76,11 @@ describe Raid do
   
   describe "from two months ago" do
     it "should not be in the last thirty days" do
-      raids(:two_months_ago).is_in_last_thirty_days?.should_not == true
+      raids(:two_months_ago).is_in_last_thirty_days?.should_not be_true
     end
     
     it "should be in the last ninety days" do
-      raids(:two_months_ago).is_in_last_ninety_days?.should == true
+      raids(:two_months_ago).is_in_last_ninety_days?.should be_true
     end
   end
   

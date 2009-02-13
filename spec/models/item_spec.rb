@@ -53,33 +53,33 @@ describe Item do
     
     it "should correctly set best_in_slot" do
       items = Item.from_attendance_output(@strings[:best_in_slot])
-      items[0].best_in_slot?.should == true
+      items[0].best_in_slot?.should be_true
     end
     
     it "should correctly set rot" do
       items = Item.from_attendance_output(@strings[:rot])
-      items[0].rot?.should == true
+      items[0].rot?.should be_true
     end
     
     it "should correctly set situational" do
       items = Item.from_attendance_output(@strings[:sit])
-      items[0].situational?.should == true
+      items[0].situational?.should be_true
     end
     
     it "should correctly set best_in_slot and rot" do
       items = Item.from_attendance_output(@strings[:bisrot])
 
       items[0].adjusted_price.should == 0.50
-      items[0].best_in_slot?.should  == true
-      items[0].situational?.should   == false
+      items[0].best_in_slot?.should be_true
+      items[0].situational?.should_not be_true
     end
     
     it "should not have false positives for purchase types inside buyer names" do
       items = Item.from_attendance_output(@strings[:false_bis])
       
-      items[0].rot?.should          == false
-      items[0].best_in_slot?.should == false
-      items[0].situational?.should  == false
+      items[0].rot?.should_not be_true
+      items[0].best_in_slot?.should_not be_true
+      items[0].situational?.should_not be_true
     end
     
     it "should populate single item from single line" do
