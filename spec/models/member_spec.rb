@@ -68,6 +68,38 @@ describe Member do
       m.uncached_updates = Member::CACHE_FLUSH
       m.should_recache?.should be_true
     end
+    
+    it "should set first_raid" do
+      m = Member.create(:name => 'FirstRaid')
+      m.attendance.create(:raid_id => raids(:today).id, :attendance => 1.00)
+      m.attendance.create(:raid_id => raids(:two_months_ago).id, :attendance => 1.00)
+      m.force_recache!
+      
+      m.first_raid.should == raids(:two_months_ago).date
+    end
+    
+    it "should set last_raid" do
+      m = Member.create(:name => 'LastRaid')
+      m.attendance.create(:raid_id => raids(:two_months_ago).id, :attendance => 1.00)
+      m.attendance.create(:raid_id => raids(:yesterday).id, :attendance => 1.00)
+      m.force_recache!
+      
+      m.last_raid.should == raids(:yesterday).date
+    end
+    
+    it "should not calculate lifetime attendance as greater than 100%" do
+      Raid.destroy_all
+      
+      m = Member.create(:name => 'Lifetime')
+      m.attendance.create(:raid_id => Raid.create(:date => 5.hours.ago).id, :attendance => 1.00)
+      m.force_recache!
+      m.attendance_lifetime.should == 1.00
+      
+      m.attendance.create(:raid_id => Raid.create(:date => 5.weeks.ago).id, :attendance => 1.00)
+      m.force_recache!
+      m.attendance_lifetime.should > 0.00
+      m.attendance_lifetime.should_not > 1.00
+    end
 
     it "should update the uncached_updates attribute" do
       m = members(:tsigo)

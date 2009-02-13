@@ -72,7 +72,7 @@ class Member < ActiveRecord::Base
       totals = {
         :thirty   => Raid.count_last_thirty_days * 1.00,
         :ninety   => Raid.count_last_ninety_days * 1.00,
-        :lifetime => Raid.count(:conditions => ["date >= ? AND date <= ?", self.first_raid, self.last_raid]) * 1.00
+        :lifetime => nil
       }
       
       # My attendance totals
@@ -89,10 +89,11 @@ class Member < ActiveRecord::Base
           att[:ninety] += a.attendance
         end
         
-        if totals[:lifetime] > 0.00
-          att[:lifetime] += a.attendance
-        end
+        att[:lifetime] += a.attendance
       end
+      
+      # We can only count lifetime now that first_raid and last_raid were set above
+      totals[:lifetime] = Raid.count(:conditions => ["date >= ? AND date <= ?", self.first_raid, self.last_raid]) * 1.00
       
       self.attendance_30       = (att[:thirty]   / totals[:thirty])   unless totals[:thirty]   == 0.00
       self.attendance_90       = (att[:ninety]   / totals[:ninety])   unless totals[:ninety]   == 0.00
