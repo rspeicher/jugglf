@@ -1,9 +1,11 @@
 h1. Todo
 
-h2. Short term
+h2. Bugs
 
 * FIXME: The 2/10/2009 raid parse displays a blank member with 100% attendance on the Raids#show page
 ** Could not duplicate
+
+h2. Short term
 
 * -Learn RSpec-
 ** -Convert tests to RSpec-
@@ -14,16 +16,6 @@ h2. Short term
 
 h2. Medium term
 
-* Interface Overhaul
-** Find sites I like and try to replicate them
-** Tabbed interface
-*** Needs at least two levels - We click 'Items' then we want to have a row for filters ('All', 'Normal', 'Best in Slot', 'Situational', 'Rot')
-*** ViewMember: Raids, Items, [Plugins: Wishlist/Achievements]; Should all be Ajax loaders
-*** ViewRaid: Attendees, Drops
-** Glyph icons similar to IPBoard 3 for edit/delete inside each row
-** Drop-down menu navigation system
-** Column sorting (Javascript? We use pagination)
-
 * -Convert production EQdkp database to Rails format-
 ** -Ensure data matches up- (through tests?)
 * Administration
@@ -32,6 +24,17 @@ h2. Medium term
 
 * Item Normalization
 ** If we rename an item, other items that used to have that name don't get renamed
+
+h3. Interface Overhaul
+
+* Find sites I like and try to replicate them
+* Tabbed interface
+** Needs at least two levels - We click 'Items' then we want to have a row for filters ('All', 'Normal', 'Best in Slot', 'Situational', 'Rot')
+** ViewMember: Raids, Items, [Plugins: Wishlist/Achievements]; Should all be Ajax loaders
+** ViewRaid: Attendees, Drops
+* Glyph icons similar to IPBoard 3 for edit/delete inside each row
+* Drop-down menu navigation system
+* Column sorting (Javascript? We use pagination)
 
 h2. Long term
 

@@ -68,8 +68,6 @@ class Member < ActiveRecord::Base
       self.uncached_updates = 0
       # Let's go without validations since we're only updating LF and Attendance
       self.save(false)
-      
-      logger.info "update_cache finished on #{self.name} ---------------------"
     end
     
     def update_attendance_cache
