@@ -1,0 +1,17 @@
+JuggyCompare_Data = {
+  ["updated"] = "<%= Time.now.to_s(:long) %>",
+
+  <%- for member in @members -%>
+  ["<%= member.name %>"] = {
+    ["NAME"] = "<%= member.name %>",
+    ["RANK"] = "TODO: Rank",
+    ["RAIDS_30"] = "<%= member.attendance_30 * 100.0 %>%",
+    ["RAIDS_90"] = "<%= member.attendance_90 * 100.0 %>%",
+    ["RAIDS_LT"] = "<%= member.attendance_lifetime * 100.0 %>%",
+    ["LASTLOOT"] = "TODO: Last Loot",
+    ["LF"] = "<%= member.lf %>",
+    ["SLF"] = "<%= member.sitlf %>",
+    ["BISLF"] = "<%= member.bislf %>",
+  },
+  <%- end -%>
+}
