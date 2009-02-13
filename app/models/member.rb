@@ -27,9 +27,10 @@ class Member < ActiveRecord::Base
   
   # Relationships -------------------------------------------------------------
   has_many :attendees
+  alias_method :attendance, :attendees
   has_many :items, :order => "id DESC" # FIXME: This should really be 'date DESC' but the date comes from the raid
   has_many :raids, :through => :attendees, :order => "date DESC"
-  alias_method :attendance, :attendees
+  belongs_to :rank, :class_name => "MemberRank", :foreign_key => "rank_id"
   
   # Validations ---------------------------------------------------------------
   validates_presence_of :name

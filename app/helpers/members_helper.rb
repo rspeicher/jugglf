@@ -7,4 +7,10 @@ module MembersHelper
       return raid_attendance_colored(0)
     end
   end
+  
+  def member_with_rank_formatting(member)
+    return member.name if member.rank.nil?
+    
+    member.rank.format(member.name)
+  end
 end

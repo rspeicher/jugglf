@@ -201,4 +201,13 @@ describe Member do
       m.should == i.buyer
     end
   end
+  
+  # ---------------------------------------------------------------------------
+  
+  # describe "with rank" do
+  #   before(:each) do
+  #     @member = members(:tsigo)
+  #     @member.rank = MemberRank.create(:name => 'Officer', :prefix => '<b>', :suffix => '</b>')
+  #   end
+  # end
 end

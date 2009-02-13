@@ -9,7 +9,7 @@ h2. Short term
 
 * -Learn RSpec-
 ** -Convert tests to RSpec-
-* MemberRanks (prefix/suffix, show/hide[?])
+* -MemberRanks (prefix/suffix,- show/hide[?])
 * -Item pricing from Wowhead based on item level and slot-
 * -Find out how to allow /members/Tsigo AS WELL AS /members/1234-
 * -Render (at the very least) /members/index as lua-
