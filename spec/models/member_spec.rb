@@ -42,23 +42,31 @@ describe Member do
     m.should be_valid
   end
   
+  it "should be active by default" do
+    Member.create(:name => 'New Member')
+    
+    m = Member.find(:last)
+    m.name.should == 'New Member'
+    m.active?.should be_true
+  end
+  
   # ---------------------------------------------------------------------------
 
   describe "caching" do
     fixtures :items, :raids
     
     it "should not recache with a recent updated_at" do
-      members(:tsigo).should_recache?.should == false
+      members(:tsigo).should_recache?.should_not be_true
     end
 
     it "should recache with an outdated updated_at" do
-      members(:sebudai).should_recache?.should == true
+      members(:sebudai).should_recache?.should be_true
     end
 
     it "should recache when uncached_updates is beyond the threshold" do
       m = members(:tsigo)
       m.uncached_updates = Member::CACHE_FLUSH
-      m.should_recache?.should == true
+      m.should_recache?.should be_true
     end
 
     it "should update the uncached_updates attribute" do
@@ -78,7 +86,7 @@ describe Member do
   
     it "should update cache on existing member" do
       m = members(:update_cache)
-      m.should_recache?.should == true
+      m.should_recache?.should be_true
     
       populate_member_for_caching(m)
     
@@ -93,7 +101,7 @@ describe Member do
   
     it "should update cache on new member" do
       m = Member.new(:name => "NewCache")
-      m.should_recache?.should_not == true
+      m.should_recache?.should_not be_true
     
       m.save
       populate_member_for_caching(m)

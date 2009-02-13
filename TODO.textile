@@ -5,7 +5,6 @@ h2. Short term
 * FIXME: The 2/10/2009 raid parse displays a blank member with 100% attendance on the Raids#show page
 ** Could not duplicate
 * FIXME: Exception when attendees output box has duplicate member names in Raids#new
-* FIXME: member.active? needs to be defaulted to true
 * FIXME: When member.force_recache! is called after a raid is added, it seems to be giving attendance percentages for lifetime higher than 100%
 ** Ah-ha. It's because the firstraid/lastraid settings are updated AFTER we count the total number of raids in their lifetime, then their lifetime changes right after
 
