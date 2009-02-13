@@ -90,7 +90,18 @@ class Raid < ActiveRecord::Base
           m.uncached_updates += 1
 
           if m.save
-            self.attendees.create(:member_id => m.id, :attendance => line[1])
+            begin
+              self.attendees.create(:member_id => m.id, :attendance => line[1])
+            rescue ActiveRecord::StatementInvalid => e
+              # Probably a duplicate entry error caused by having the same member
+              # twice or more in the output; find the member by id and then
+              # see which attendance value is lower and use that
+              a = self.attendees.find_by_member_id(m.id)
+              if not a.nil? and line[1].to_f < a.attendance
+                a.attendance = line[1]
+                a.save
+              end
+            end
           end
         end
       end

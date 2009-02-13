@@ -87,11 +87,8 @@ describe Raid do
   # ---------------------------------------------------------------------------
   
   describe "from JuggyAttendance output" do
-    it "should populate attendees" do
-      Raid.delete_all
-      Member.delete_all
-      
-      output = %Q{Sebudai,1.00,233
+    before(:all) do
+      @attendees = %Q{Sebudai,1.00,233
       Squallalaha,1.00,233
       Darkkfall,1.00,233
       Bemoan,1.00,233
@@ -125,31 +122,13 @@ describe Raid do
       Kapetal,0.83,194
       }
       
-      r = Raid.new(:date => Time.now, :note => "JuggyAttendance Output")
-      r.members.count.should == 0
+      @attendees_with_duplicates = %Q{Sebudai,1.00,233
+      Sebudai,1.00,
+      Tsigo,1.00,233,
+      Tsigo,0.83,233
+      }
       
-      r.attendance_output = output
-      r.update_attendee_cache = false
-      r.save
-      r.reload
-      
-      Member.all.count.should == 32
-      
-      # TODO: Which of these is correct? No idea, let's check 'em all!
-      r.attendees.size.should   == 32
-      r.attendees.length.should == 32
-      r.members.count.should    == 32
-      r.attendees_count.should  == 32
-      
-      m = Member.find_by_name('Kapetal')
-      m.attendance[0].attendance.should == 0.83
-    end
-    
-    # OPTIMIZE: This might be slow because of item.determine_item_price() being called for each item
-    it "should populate drops" do
-      Raid.delete_all
-      
-      output = %Q{Sebudai - [Arachnoid Gold Band]
+      @loot = %Q{Sebudai - [Arachnoid Gold Band]
       Scipion - [Chains of Adoration]
       Elanar (rot), Alephone (sit) - [Shadow of the Ghoul]
       Scipion (bis) - [Totem of Misery]
@@ -184,17 +163,62 @@ describe Raid do
       Scipion (sit) - [Voice of Reason]
       Modrack (bis), Rosoo (bis) - [Crown of the Lost Vanquisher]
       }
+    end
+    
+    before(:each) do
+      Raid.delete_all
       
-      r = Raid.create(:date => Time.now, :note => "JuggyAttendance Output")
-      r.items.size.should == 0
+      @r = Raid.new(:date => Time.now, :note => "JuggyAttendance Output")
+    end
+    
+    it "should populate attendees" do
+      Member.delete_all
       
-      r.loot_output = output
-      r.save
-      r.reload
+      @r.members.count.should == 0
       
-      r.items.size.should   == 36
-      r.items.length.should == 36
-      r.items.count.should  == 36
+      @r.attendance_output = @attendees
+      @r.update_attendee_cache = false
+      @r.save
+      @r.reload
+      
+      Member.all.count.should == 32
+      
+      # TODO: Which of these is correct? No idea, let's check 'em all!
+      @r.attendees.size.should   == 32
+      @r.attendees.length.should == 32
+      @r.members.count.should    == 32
+      @r.attendees_count.should  == 32
+      
+      m = Member.find_by_name('Kapetal')
+      m.attendance[0].attendance.should == 0.83
+    end
+    
+    it "should disregard duplicate attendee rows" do
+      @r.attendance_output = @attendees_with_duplicates
+      @r.update_attendee_cache = false
+      
+      lambda { @r.save }.should_not raise_error
+    end
+    
+    it "should use lower attendance value for duplicate attendee rows" do
+      @r.attendance_output = @attendees_with_duplicates
+      @r.update_attendee_cache = false
+      @r.save
+      
+      Member.find_by_name('Tsigo').attendance[0].attendance.should == 0.83
+    end
+    
+    # OPTIMIZE: This might be slow because of item.determine_item_price() being called for each item
+    it "should populate drops" do
+      @r.items.size.should == 0
+      
+      @r.loot_output = @loot
+      @r.save
+      @r.reload
+      
+      @r.items.size.should   == 36
+      @r.items.length.should == 36
+      @r.items.count.should  == 36
     end
   end
 end
