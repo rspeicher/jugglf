@@ -3,8 +3,7 @@
       $('#tabs > ul').tabs();
   });
 </script>
-<% tabs = TabsRenderer.new(self) %>
-<% tabs.create('basic_tab', 'Basic Info') do %>
+
 <h2><%= member_link_colored(@member) %></h2>
 30-Day: <%= member_attendance_colored(@member.attendance_30) %><br/>
 90-Day: <%= member_attendance_colored(@member.attendance_90) %><br/>
@@ -13,8 +12,9 @@ Lifetime: <%= member_attendance_colored(@member.attendance_lifetime) %><br/>
 LF: <%= number_with_precision(@member.lf, :precision => 2) %><br/>
 BiS LF: <%= number_with_precision(@member.bislf, :precision => 2) %><br/>
 Sit LF: <%= number_with_precision(@member.sitlf, :precision => 2) %><br/>
-<% end %>
+<br/><br/>
 
+<% tabs = TabsRenderer.new(self) %>
 <% tabs.create('raids_tab', 'Raids') do %>
 <table border="0" cellspacing="0" cellpadding="0">
   <thead>
