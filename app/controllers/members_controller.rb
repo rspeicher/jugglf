@@ -10,7 +10,7 @@ class MembersController < ApplicationController
   end
   
   def show
-    @member = Member.find(params[:id])
+    @member = Member.find_by_name(params[:id])
     @raids  = Raid.find(:all, :order => "date DESC")
     
     respond_to do |wants|
@@ -27,7 +27,7 @@ class MembersController < ApplicationController
   end
   
   def edit
-    @member = Member.find(params[:id])
+    @member = Member.find_by_name(params[:id])
     
     respond_to do |wants|
       wants.html
@@ -50,7 +50,7 @@ class MembersController < ApplicationController
   end
   
   def update
-    @member = Member.find(params[:id])
+    @member = Member.find_by_name(params[:id])
 
     respond_to do |format|
       if @member.update_attributes(params[:member])

@@ -51,6 +51,10 @@ class Member < ActiveRecord::Base
     update_cache(true)
   end
   
+  def to_param
+    name
+  end
+  
   private
     def update_cache(force = false)
       return unless force or self.should_recache?
