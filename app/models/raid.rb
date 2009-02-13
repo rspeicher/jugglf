@@ -86,7 +86,7 @@ class Raid < ActiveRecord::Base
       require 'csv'
       lines = CSV.parse(@attendance_output) do |line|
         unless line[0].nil? or line[0].strip.empty?
-          m = Member.find_or_initialize_by_name(line[0])
+          m = Member.find_or_initialize_by_name(line[0].strip)
           m.uncached_updates += 1
 
           if m.save
