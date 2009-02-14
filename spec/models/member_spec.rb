@@ -32,9 +32,13 @@ describe Member do
       :name => 'Name'
     }
   end
-
+  
   it "should create a new instance given valid attributes" do
     Member.create!(@valid_attributes)
+  end
+  
+  it "should return name for to_param" do
+    Member.create!(@valid_attributes).to_param.should == @valid_attributes[:name]
   end
   
   it "should allow nil wow_class" do

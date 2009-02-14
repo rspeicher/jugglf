@@ -18,7 +18,7 @@ describe Punishment do
   before(:each) do
     @valid_attributes = {
       :reason  => 'Reason',
-      :expires => 1.day.from_now,
+      :expires => 5.days.from_now,
       :value   => 1.00
     }
   end
@@ -28,7 +28,7 @@ describe Punishment do
   end
   
   it "should forcibly expire" do
-    p = Punishment.create(:reason => 'Because I said so', :expires => 30.days.from_now)
+    p = Punishment.create!(@valid_attributes)
     
     p.expire!
     p.expires.should_not >= Date.today

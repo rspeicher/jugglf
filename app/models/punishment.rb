@@ -22,7 +22,7 @@ class Punishment < ActiveRecord::Base
   validates_presence_of :expires
   
   def expire!
-    self.expires = 1.day.ago.to_s(:db)
+    self.expires = 25.hours.ago.to_s(:db)
     self.save!
     self.member.force_recache! if self.member
   end
