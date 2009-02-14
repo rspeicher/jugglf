@@ -1,3 +1,20 @@
+# == Schema Information
+# Schema version: 20090213233547
+#
+# Table name: item_stats
+#
+#  id         :integer(4)      not null, primary key
+#  item_id    :integer(4)
+#  item       :string(255)
+#  locale     :string(10)      default("en")
+#  color      :string(15)
+#  icon       :string(255)
+#  level      :integer(8)      default(0)
+#  slot       :string(255)
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ItemStat do
