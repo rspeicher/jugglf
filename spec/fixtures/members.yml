@@ -61,3 +61,14 @@ update_cache:
   uncached_updates: 5
   created_at: <%= 1.year.ago.to_s :db %>
   updated_at: <%= 1.year.ago.to_s :db %>
+
+punished:
+  name: Punishee
+  wow_class: Rogue
+  lf: 0.00
+  sitlf: 0.00
+  bislf: 0.00
+  attendance_30: 1.00
+  attendance_90: 0.50
+  attendance_lifetime: 0.75
+  uncached_updates: 0

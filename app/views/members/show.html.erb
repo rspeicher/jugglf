@@ -41,7 +41,7 @@ Sit LF: <%= number_with_precision(@member.sitlf, :precision => 2) %><br/>
 
   </tfoot>
 </table>
-<% end %>
+<% end unless @member.raids.empty? %>
 
 <% tabs.create('items_tab', 'Items') do %>
 <table border="0" cellspacing="0" cellpadding="0">
@@ -67,5 +67,31 @@ Sit LF: <%= number_with_precision(@member.sitlf, :precision => 2) %><br/>
 
   </tfoot>
 </table>
-<% end %>
+<% end unless @member.items.empty? %>
+
+<% tabs.create('punishments_tab', 'Punishments') do %>
+<table border="0" cellspacing="0" cellpadding="0">
+  <thead>
+  <tr>
+    <th>Reason</th>
+    <th>Expires</th>
+    <th class="right">Value</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% for pun in @member.punishments %>
+    <tr class="<%= cycle('row1','row2') %>">
+      <td><%=h pun.reason %></td>
+      <td><%=h pun.expires.to_s(:db) %></td>
+      <td class="right"><%= number_with_precision(pun.value, :precision => 2) %></td>
+    </tr>
+  <% end %>
+  </tbody>
+
+  <tfoot>
+
+  </tfoot>
+</table>
+<% end unless @member.punishments.empty? %>
 <%= tabs.render %>

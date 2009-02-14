@@ -1,0 +1,14 @@
+late:
+  reason: Late without post
+  expires: <%= 7.days.from_now %>
+  value: 1.00
+  
+fuckup:
+  reason: Ruins raids consistently
+  expires: <%= 56.days.from_now %>
+  value: 5.00
+  
+expired:
+  reason: Who can remember
+  expires: <%= 3.weeks.ago %>
+  value: 100.00

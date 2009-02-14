@@ -29,6 +29,7 @@ class Member < ActiveRecord::Base
   has_many :attendees
   alias_method :attendance, :attendees
   has_many :items, :order => "id DESC" # FIXME: This should really be 'date DESC' but the date comes from the raid
+  has_many :punishments
   has_many :raids, :through => :attendees, :order => "date DESC"
   belongs_to :rank, :class_name => "MemberRank", :foreign_key => "rank_id"
   
@@ -105,6 +106,8 @@ class Member < ActiveRecord::Base
     
     def update_loot_factor_cache
       lf = { :lf => 0.00, :sitlf => 0.00, :bislf => 0.00 }
+      
+      # Items affecting loot factor
       Item.find(:all, :include => :raid, :conditions => ["member_id = ?", self.id]).each do |i|
         if i.affects_loot_factor?
           if i.situational?
@@ -117,10 +120,17 @@ class Member < ActiveRecord::Base
         end
       end
       
-      unless self.attendance_30 == 0.0
-        self.lf    = (lf[:lf]    / self.attendance_30)
-        self.sitlf = (lf[:sitlf] / self.attendance_30)
-        self.bislf = (lf[:bislf] / self.attendance_30)
-      end      
+      # Punishments affecting ALL loot factors
+      self.punishments.find(:all, :conditions => ["expires > ?", Date.today]).each do |p|
+        lf[:sitlf] += p.value
+        lf[:bislf] += p.value
+        lf[:lf]    += p.value
+      end
+      
+      denom = ( self.attendance_30 == 0.0 ) ? 0.01 : self.attendance_30
+      self.lf    = (lf[:lf]    / denom)
+      self.sitlf = (lf[:sitlf] / denom)
+      self.bislf = (lf[:bislf] / denom)
+      # end
     end
 end

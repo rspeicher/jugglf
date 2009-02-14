@@ -204,6 +204,30 @@ describe Member do
   
   # ---------------------------------------------------------------------------
   
+  describe "with punishments" do
+    fixtures :punishments
+    
+    before(:each) do
+      @m = members(:punished)
+    end
+    
+    it "should affect loot factor" do
+      @m.punishments << punishments(:late)
+      @m.force_recache!
+      
+      @m.lf.should >= punishments(:late).value
+    end
+    
+    it "should not include expired punishments" do
+      @m.punishments << punishments(:expired)
+      @m.force_recache!
+      
+      @m.lf.should == 0.0
+    end
+  end
+  
+  # ---------------------------------------------------------------------------
+  
   # describe "with rank" do
   #   before(:each) do
   #     @member = members(:tsigo)

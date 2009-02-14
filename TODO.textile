@@ -45,7 +45,7 @@ h2. Long term
 * Wishlists
 * Achievements
 * Administration
-** Punishment system, for when we want to affect someone's loot factor without adding an item
-*** Allow an expiry time
+** -Punishment system, for when we want to affect someone's loot factor without adding an item-
+*** -Allow an expiry time-
 ** Logging ('Tsigo added a raid on 2009-01-01')
 * Exception handling so people can't tell it's Rails (?)
