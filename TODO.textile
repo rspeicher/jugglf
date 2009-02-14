@@ -19,8 +19,11 @@ h2. Medium term
 * -Convert production EQdkp database to Rails format-
 ** -Ensure data matches up- (through tests?)
 * Administration
-** New/Edit item pages
-** Edit raid page
+** New/Edit Item pages
+** Edit Raid page
+** New/Edit Punishment pages
+** New/Edit Rank pages
+** Quick ItemPrice interface?
 
 * Item Normalization
 ** If we rename an item, other items that used to have that name don't get renamed
