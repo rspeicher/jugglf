@@ -17,31 +17,28 @@
 <div id="fleshset">
 
 <div class="borderwrap">
-	<div id="submenu">
-		<p class="home"><a href="http://www.juggernautguild.com/">Juggernaut (Mal'Ganis US Horde)</a></p>
-		<p><b><a href="/index.php?act=home">Home</a> &middot; <a href="/index.php?showtopic=13475">Joining</a> &middot; <a href="/index.php?showtopic=13476">About Us</a> &middot; <a href="/index.php?act=idx">Forums</a> &middot; <a href="http://armory.worldofwarcraft.com/guild-info.xml?r=Doomhammer&n=Juggernaut&p=1">Roster</a> &middot; <a href="/index.php?act=calendar">Calendar</a> &middot; <a href="/index.php?showforum=23">DKP</a></b></p>
-	</div>
-	<div id="logostrip"><a href='http://www.juggernautguild.com/index.php?act=home'><img src='http://www.juggernautguild.com/style_images/10_Juggernaut-Banner-4.jpg' alt='IPB' style='vertical-align:top' border='0' /></a></div>
+    <div id="submenu">
+        <div class="ipb-top-left-link"><a href="http://www.juggernautguild.com/">Juggernaut (Mal'Ganis US Horde)</a></div>
+        
+        <div class="ipb-top-right-link">&middot;&nbsp;<a href="http://www.juggernautguild.com/index.php?showforum=23">DKP</a></div>
+        <div class="ipb-top-right-link">&middot;&nbsp;<a href="http://www.juggernautguild.com/index.php?act=calendar">Calendar</a></div>
+        <div class="ipb-top-right-link">&middot;&nbsp;<a href="http://armory.worldofwarcraft.com/guild-info.xml?r=Doomhammer&n=Juggernaut&p=1">Roster</a></div>
+        <div class="ipb-top-right-link">&middot;&nbsp;<a href="http://www.juggernautguild.com/index.php?act=idx">Forums</a></div>
+        <div class="ipb-top-right-link">&middot;&nbsp;<a href="http://www.juggernautguild.com/index.php?showtopic=13476">About Us</a></div>
+        <div class="ipb-top-right-link">&middot;&nbsp;<a href="http://www.juggernautguild.com/index.php?showtopic=13475">Joining</a></div>
+        <div class="ipb-top-right-link"><a href="http://www.juggernautguild.com/index.php?act=home">Home</a></div>
+    </div>
+    <div id="logostrip"><a href='http://www.juggernautguild.com/index.php?act=home'><img src='http://www.juggernautguild.com/style_images/10_DaveBan.jpg' alt='IPB' style='vertical-align:top' border='0' /></a></div>
 </div>
 
 <div id="userlinks">
-	<p class="home">{MAIN_MENU2}</p>
+    <p class="home"></p>
 
-	<p>
-	 <%= link_to 'Standings', members_path %> |
-	 <%= link_to 'Items', items_path %> |
-	 <%= link_to 'Raids', raids_path %>
-	</p>
-</div>
-<div id="maintabs" style="display: none">
-  <ul class="tabs">
-    <li><%= link_to 'Standings', members_path, :id => 'maintab1', :class => 'active' %></li>
-    <li><%= link_to 'Items', items_path, :id => 'maintab2' %></li>
-    <li><%= link_to 'Raids', raids_path, :id => 'maintab3' %></li>
-  </ul>
-</div>
-<div id="navbar" style="display: none">
-  Hello....
+    <p>
+     <%= link_to 'Standings', members_path %> |
+     <%= link_to 'Items', items_path %> |
+     <%= link_to 'Raids', raids_path %>
+    </p>
 </div>
 <%= yield %>
 <br/>

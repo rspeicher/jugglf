@@ -1,7 +1,8 @@
 /* 
- * Mouthful of Poison Skin by Andrea Hernandez (prettyflesh.com)
+ * Mouthful of Poison Skin IPB 2.2 by Andrea Blalock (prettyflesh.com/invisionmojo.com)
  * This skin is free to use as long as you do not remove my credit at the bottom of the skin!
- * fleshy@gmail.com to report piracy or for any comments
+ * You may edit the skin, but do not take ANY of the images from the skin and use it on a different or new skin. This includes the images in the editors, topic, forum, profile, etc)
+ * fleshy@gmail.com to report piracy or for any comments or questions
  */
 
 /* 
@@ -52,7 +53,11 @@ td.nopad{ /* allows some tables to have no padding on the td */
 	padding: 0;
 }
 
-
+/* Safari... */
+th
+{
+	text-align: left;
+}
 
 form{
 	display: inline;
@@ -92,7 +97,8 @@ a:hover{
 
 legend {color: #828282;}
  
-fieldset {border: 1px solid #000000;}
+fieldset {border: 1px solid #000000;
+             padding: 5px;}
 
 .ilikeembig {font-family: arial, tahoma, sans-serif; font-size: 13px; color: #DA0000; font-weight: bold;}
 
@@ -223,7 +229,7 @@ label{
 }
 
 img.attach{ 
-	background: #808080 url(http://www.juggernautguild.com/style_images/poison[1]/click2enlarge.gif) no-repeat top right;
+	background: #808080 url(http://www.juggernautguild.com/style_images/mouthfulpo/click2enlarge.gif) no-repeat top right;
 	border: 1px solid #808080;
 	margin: 0 2px 0 0;
 	padding: 11px 2px 2px 2px;
@@ -284,7 +290,7 @@ img.attach{
 	
 .thumbwrap img.galattach,
 .thumbwrapp img.galattach{
-	background: #FFF url(http://www.juggernautguild.com/style_images/poison[1]/img_larger.gif) no-repeat bottom right;
+	background: #FFF url(http://www.juggernautguild.com/style_images/mouthfulpo/img_larger.gif) no-repeat bottom right;
 	border: 1px solid #000000;
 	margin: 5px;
 	padding: 2px 2px 10px 2px;
@@ -391,16 +397,14 @@ ul#help{
 
 .normalname{ 
 	color: #9C0B00;
-	font-size: 1.3em; 
 	font-weight: bold;
-               font-family: arial, verdana, sans-serif;
+                font-family: arial, verdana, sans-serif;
                
 }
 
 .normalname a:link, 
 .normalname a:visited, 
 .normalname a:active{ 
-	font-size: 1.3em;
 }
 
 .post1,
@@ -424,6 +428,10 @@ ul#help{
 
 .row2{ 
 	background: #101010; 
+}
+
+.rowhighlight{
+	background-color: #171717;
 }
 
 .darkrow1{ 
@@ -593,6 +601,7 @@ ul#help{
 
 .input-warn,
 .input-green,
+.input-checkbox,
 input,
 textarea,
 select{
@@ -604,6 +613,16 @@ select{
 	margin: 5px;
 	padding: 2px;
 	vertical-align: middle;
+}
+
+select
+{
+	margin: 0px;
+}
+
+.input-checkbox
+{
+	border: none;
 }
 
 .input-warn,
@@ -638,17 +657,11 @@ select{
 	color: #C3C3C3;
 }
 
-select{
-	border: 0;
-	font-family: verdana, helvetica, sans-serif;
-	font-size: 12px;
-	margin: 0;
-	padding: 0;
-}
-
 input.button{
 	margin: 0;
 	width: auto;
+	cursor: hand;
+	cursor: pointer;
 }
 
 optgroup option{
@@ -701,6 +714,7 @@ optgroup option{
 .helpbox { 
 	border: 0;
 	vertical-align: middle;
+	background: transparent;
 }
 
 .formtable{
@@ -795,8 +809,7 @@ optgroup option{
 	font-weight: bold;
 	margin: 0 auto 0 auto;
 	padding: 3px;
-	width: 98%;
-}
+	}
 
 .codemain,
 .sqlmain,
@@ -807,7 +820,6 @@ optgroup option{
 	font-family: Courier, Courier New, Verdana, Arial;
 	margin: 0 auto 0 auto;
 	padding: 2px;
-	width: 98%;
 }
 
 /* 
@@ -855,14 +867,14 @@ optgroup option{
 .borderwrap h3,
 .maintitle,
 .maintitlecollapse{
-	background: url(http://www.juggernautguild.com/style_images/poison[1]/maintitle.gif);
+	background: url(http://www.juggernautguild.com/style_images/mouthfulpo/maintitle.gif);
 	border: 1px solid #680000;
 	border-bottom: 1px solid #480000;
 	color: #FFF; 
 	font-size: 12px;
 	font-weight: bold; 
 	margin: 0px;
-	padding: 2px;
+	padding: 6px;
 }
 
 .maintitle td {
@@ -902,6 +914,12 @@ optgroup option{
 	text-decoration: none; 
 }
 
+/* ------------------------------------------------------------------------------ */
+/* Skin, colors and images by Andrea  Blalock of Prettyflesh.com
+/* Do  not take any part of this skin for any use! its not permitted
+/* ------------------------------------------------------------------------------ */
+
+
 .maintitle a:hover, 
 .maintitle a:active,
 .maintitlecollapse a:hover, 
@@ -915,7 +933,7 @@ table th,
 .subtitle,
 .subtitlediv,
 .postlinksbar{ 
-	background: transparent url(http://www.juggernautguild.com/style_images/poison[1]/sub_tile.gif);
+	background: transparent url(http://www.juggernautguild.com/style_images/mouthfulpo/sub_tile.gif);
 	border-bottom: 1px solid #3A0000;
 	color: #858585; 
 	font-size: 10px;
@@ -969,6 +987,7 @@ table th,
 }
 
 td.formbuttonrow,
+.pformstrip,
 .borderwrap p.formbuttonrow,
 .borderwrap p.formbuttonrow1{
 	background: #171717 !important; 
@@ -1190,24 +1209,66 @@ td.formbuttonrow{
 
 #logostrip{ 
 	background: #000000;
-	height: 152px;
+	border: 0px solid #000000;
 	margin: 0;
 	padding: 0;
+               text-align: center;
 }
 
 #logographic {
-	background: transparent url(http://www.juggernautguild.com/style_images/poison[1]/logo4.gif) no-repeat left;
+	background: transparent url(http://www.juggernautguild.com/style_images/mouthfulpo/logo4.gif) no-repeat left;
 	height: 150px;
 	margin: 0;
 	padding: 0;
 }
 
 #submenu{ 
-	background: transparent url(http://www.juggernautguild.com/style_images/poison[1]/sub_tile.gif);
+	background: transparent url(http://www.juggernautguild.com/style_images/mouthfulpo/sub_tile.gif);
 	border: 1px solid #000000;
 	border-bottom: 0;
 	color: #949494; 
 	margin: 0; 
+	height: 28px;
+	text-align: right;
+}
+
+.ipb-top-left-link,
+.ipb-top-right-link
+{
+	background: transparent;
+	float: right;
+	font-size: 11px;
+	font-weight: bold; 
+	letter-spacing: 0.5px;
+	margin: 0px;
+	padding: 6px 0 6px 0;
+	width: auto;
+}
+
+.ipb-top-left-link
+{
+	float: left;
+	border-left: 0px;
+}
+
+.ipb-top-left-link a:link, 
+.ipb-top-left-link a:visited,
+.ipb-top-right-link a:link, 
+.ipb-top-right-link a:visited
+{ 
+	background: transparent; 
+	color: #c60000;
+	padding: 0 6px 0 6px;
+	text-decoration: none;
+}
+
+.ipb-top-left-link a:hover, 
+.ipb-top-left-link a:active,
+.ipb-top-right-link a:hover, 
+.ipb-top-right-link a:active
+{
+	background: transparent; 
+	color: #da0000; 
 }
 
 #userlinks,
@@ -1223,7 +1284,6 @@ td.formbuttonrow{
 	border: 1px solid #620200;
 }
 
-#submenu p,
 #userlinks p,
 #userlinksguest p{
 	background: transparent !important;
@@ -1236,16 +1296,12 @@ td.formbuttonrow{
 	text-align: right;
 }
 
-#submenu p { font-size: 1.1em;
-}
-
 #userlinks p,
 #userlinksguest p{
 	font-weight: normal;
 	letter-spacing: 0;
 }
 
-#submenu p.home,
 #userlinks p.home,
 #userlinksguest p.home{
 	float: left;
@@ -1255,19 +1311,11 @@ td.formbuttonrow{
 	text-align: center;
 }
 
-#submenu a:link, 
-#submenu  a:visited{ 
-	background: transparent; 
-	color: #C00500; 
-	padding: 0 6px 0 6px;
-	text-decoration: none;
-}
+/* ------------------------------------------------------------------------------ */
+/* Skin, colors and images by Andrea Blalock of Prettyflesh.com
+/* Do not take any part of this skin for any use! its not permitted
+/* ------------------------------------------------------------------------------ */
 
-#submenu a:hover, 
-#submenu a:active{
-	background: transparent; 
-	color: #F00600; 
-}
 
 #navstrip{ 
 	background: transparent;
@@ -1373,123 +1421,6 @@ td.formbuttonrow{
 	text-align: center;
 }
 
-/* ============================================================== */
-/* RTE STYLES
-/* ============================================================== */
-
-.rteimage {
-	/*background: #D3D3D3;*/
-	/*border: 1px outset transparent*/;
-	cursor: pointer;
-	cursor: hand;
-	padding:1px;
-}
-
-.rteImageRaised {
-	/*background: #D3D3D3;*/
-	border: 1px outset;
-	cursor: pointer;
-	cursor: hand;
-	padding:0px;
-}
-
-.rteImageLowered {
-	/*background: #D3D3D3;*/
-	border: 1px inset;
-	cursor: pointer;
-	cursor: hand;
-	padding:0px;
-}
-
-.rteimage:hover {
-	background: #222222;
-	cursor: pointer;
-	cursor: hand;
-}
-
-.rteVertSep {
-	margin: 0 4px 0 4px;
-}
-
-.rteBack {
-	background: #1F1F1F;
-	border: 1px outset;
-	letter-spacing: 0;
-	padding: 2px;
-}
-
-/* used in ips_rte.js - do not remove */
-.rtebottombutton
-{
-	font-size:10px;
-	border:1px solid #000000;
-	border-top:0px;
-	padding:3px;
-	margin:0px;
-	background-color: #0A0A0A;
-}
-
-/* used in ips_rte.js - do not remove */
-.rtebottombuttonon
-{
-	font-size:10px;
-	border:1px solid #000000;
-	border-top:0px;
-	padding:3px;
-	margin:0px;
-	background-color: #222222;
-}
-
-.rtebuttonbar1 {
-	/*background: #D3D3D3;*/
-	background-image: url(http://www.juggernautguild.com/style_images/poison[1]/folder_rte_images/rte_tile.gif);
-	border: 1px solid black;
-	border-bottom: 0px;
-	letter-spacing: 0;
-	padding: 2px;
-	height:26px;
-}
-
-.rtebuttonbar2 {
-	/*background: #D3D3D3;*/
-	background-image: url(http://www.juggernautguild.com/style_images/poison[1]/folder_rte_images/rte_tile.gif);
-	border: 1px solid black;
-	border-top:1px solid black;
-	letter-spacing: 0;
-	padding: 2px;
-	height:26px;
-}
-
-.rtebuttonbar1 tbody tr td,
-.rtebuttonbar1 tr td,
-.rtebuttonbar2 tbody tr td,
-.rtebuttonbar2 tr td,
-.rteBack tbody tr td,
-.rteBack tr td
-{
-	/*background: #D3D3D3;*/
-	padding: 0;
-}
-
-.rteDiv {
-	display: block;
-	position: relative;
-	padding:0px;
-	margin:0px;
-}
-
-.rteiframe
-{
-	border:1px solid #000000;
-	background-color: #22222;
-}
-
-.rteselectbox
-{
-	font-size:11px;
-}
-
-
 .dny-edit-title
 {
 	border:0px;
@@ -1552,6 +1483,7 @@ td.formbuttonrow{
 {
 	background: #2C2C2C;
 	margin:1px;
+	padding: 1px;
 }
 
 .mya-content
@@ -1560,6 +1492,28 @@ td.formbuttonrow{
 	padding:8px;
 	margin:1px;
 	border: 1px solid #000000;
+}
+
+.mya-content-tbl
+{
+   background: #222222;
+   border: 1px solid #000;
+   text-align:left;
+   font-size:10px;
+   white-space:nowrap;
+   margin:1px;
+}
+
+.mya-fieldwrap
+{
+	background: transparent;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	padding: 4px;
+	border: 1px solid #000;
+	-moz-border-radius: 5px;
+	width: auto;
+	display: block;
 }
 
 /* -------------------------------- */
@@ -1577,12 +1531,11 @@ td.formbuttonrow{
 	height:auto;
 }
 
-
-
 /* -------------------------------- */
 /* Experimental                     */
 /* -------------------------------- */
 
+.popupmenu-new,
 .popupmenu
 {
    background: #343434;
@@ -1600,6 +1553,8 @@ td.formbuttonrow{
 	/*margin-top:4px;*/
 	white-space: nowrap;
 	border-bottom: 1px solid #2A2A2A;
+	color:  #777;
+	font-weight: normal;
 }
 
 .popupmenu-item-last
@@ -1607,8 +1562,11 @@ td.formbuttonrow{
 	padding: 5px;
 	/*margin-top:4px;*/
 	white-space: nowrap;
+	color:  yellow;
+	font-weight: normal;
 }
 
+.popmenubutton-new,
 .popmenubutton
 {
 	width:120px;
@@ -1624,9 +1582,37 @@ td.formbuttonrow{
 	padding: 2px;
 }
 
+.popmenubutton-new
+{
+	float:none;
+	width:auto;
+	text-align:left;
+	height:auto;
+	padding:3px;
+	font-weight:normal;
+	background-color: #171717;
+	border-top: 1px solid #303030;
+	border-left: 1px solid #303030;
+	background-image: url(http://www.juggernautguild.com/style_images/mouthfulpo/menu_action_down-padded.gif);
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+.popmenubutton-new-out
+{
+	padding:4px;
+}
+
+.popupmenu-new
+{
+	background-color: #343434;
+}
+
 
 .popmenubutton a:link, 
 .popmenubutton a:visited,
+.popmenubutton-new a:link, 
+.popmenubutton-new a:visited,
 .popupmenu-item a:link, 
 .popupmenu-item a:visited,
 .popupmenu-item-last a:link, 
@@ -1637,6 +1623,7 @@ td.formbuttonrow{
 }
 
 .popmenubutton a:hover, 
+.popmenubutton-new a:hover,
 .popupmenu-item a:hover, 
 .popupmenu-item-last a:hover
 { 
@@ -1646,7 +1633,7 @@ td.formbuttonrow{
 
 .popupmenu-category
 { 
-	background: transparent url(http://www.juggernautguild.com/style_images/poison[1]/sub_tile.gif);
+	background: transparent url(http://www.juggernautguild.com/style_images/mouthfulpo/sub_tile.gif);
 	border-top: 1px solid #222222;
 	border-bottom: 1px solid #000000;
 	color: #B00C00; 
@@ -1657,16 +1644,368 @@ td.formbuttonrow{
 	padding: 5px; 
 }
 
-.spoiler 
-{ 
-	background: #2C2C2C;
-	border: 1px dotted #000;
-	border-left: 4px solid #780000;
-	border-top: 0;
-	color: #000;
-	background-color: #000;
-	padding: 4px;
-	margin: 0 auto 8px auto;
+/* -------------------------------- */
+/* Loading box
+/* -------------------------------- */
+
+#loading-layer-inner
+{
+	width:220px;
+	height:28px;
+	padding:18px 10px 10px 10px;
+	text-align:center;
+	color: #DDD;
+	border: 1px solid;
+	border-color: #222 #000 #000 #222;
+	background-color: #101010;
 }
 
-th { white-space: nowrap; }
+/* -------------------------------- */
+/* Message in a bo(x|ttle)
+/* -------------------------------- */
+
+#ipd-msg-wrapper
+{
+	display: none;
+	width: 220px;
+}
+
+#ipd-msg-inner
+{
+	width:100%;
+	height:45px;
+	padding: 6px 4px 4px 4px;
+	margin: 0px;
+	text-align:center;
+	color: #999;
+	border: 1px solid;
+	border-color: #222 #000 #000 #222;
+	background-color: #181818;
+	filter:alpha(opacity=75);
+	opacity:.75
+}
+
+#ipd-msg-title
+{
+	width: 100%;
+	height:20px;
+	margin: 0px;
+	padding: 6px 4px 4px 4px;
+	background: transparent url(http://www.juggernautguild.com/style_images/mouthfulpo/maintitle.gif);
+	border: 1px solid #000;
+	border-bottom: 0px;
+	color: #242424;
+}
+
+.linked-image
+{
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+
+.resized-linked-image
+{
+	margin: 4px 0px 0px 0px;
+	padding: 0;
+	background-color: #050505;
+	border: 1px solid #000;
+	color: #888;
+	width: auto;
+}
+
+.resized-linked-image-zoom
+{
+	width: 200px;
+	height: 30px;
+	filter:alpha(opacity=85);
+	opacity:.85;
+	background-color: #050505;
+	padding-top: 6px;
+	padding-left: 5px;
+	top: 0px;
+	left: 0px;
+	position: absolute;
+	display: none;
+}
+
+/* -------------------------------- */
+/* Edit post reason
+/* -------------------------------- */
+
+.post-edit-reason
+{
+	background: #171717;
+	margin-top: 9px;
+	margin-bottom: 0px;
+	padding: 4px;
+	color: #888;
+	font-size: 10px;
+	border: 1px solid #000;
+	-moz-border-radius: 5px;
+	width: auto;
+	display: block;
+}
+
+/* -------------------------------- */
+/* Personal Profile
+/* -------------------------------- */
+
+.pp-name
+{ 
+	background: #040404;
+	border: 1px solid #000;
+	margin: 0px;
+	padding: 10px;
+}
+
+.pp-name h3
+{
+	margin:0px;
+	padding:0px 0px 5px 0px;
+	font-size: 25px;
+}
+
+.pp-header
+{ 
+	background: transparent url(http://www.juggernautguild.com/style_images/mouthfulpo/tile_sub.gif);
+	color: #aeaeae; 
+	font-size: 10px;
+	font-weight: bold; 
+	margin: 0px 0px 1px 0px; 
+	padding: 5px; 
+}
+
+.pp-title
+{
+	background: url(http://www.juggernautguild.com/style_images/mouthfulpo/maintitle.gif);
+	border-bottom: 1px solid #000;
+	color: #dddddd; 
+	font-size: 12px;
+	font-weight: bold; 
+	margin: 0px;
+	padding: 8px;
+}
+
+.pp-datebox
+{
+	text-align: center;
+	background: #020202;
+	border: 1px solid #000;
+	padding: 4px;
+	margin-left: 4px;
+	margin-bottom: 4px;
+	font-size:24px;
+	font-weight:bold;
+	line-height: 100%;
+	letter-spacing: -1px;
+	float:right;
+	width: 80px;
+}
+
+.pp-datebox em
+{
+	font-size: 10px;
+	font-weight: normal;
+	font-style: normal;
+}
+
+.pp-contentbox-back
+{
+	background-image: url(http://www.juggernautguild.com/style_images/mouthfulpo/folder_profile_portal/pp-css-contentblock.gif);
+	background-repeat: repeat-x;
+	background-color: #272727;
+	padding: 6px;
+}
+
+.pp-contentbox-entry,
+.pp-contentbox-entry-noheight,
+.pp-contentbox-entry-noheight-mod,
+.pp-contentbox-entry-noheight-sel
+{
+	background-color: #1b1b1b;
+	border: 1px solid #000;
+	line-height: 140%;
+	padding: 12px;
+	margin-bottom: 6px;
+	height: 200px;
+	overflow: auto;
+	overflow-x: auto;
+}
+
+.pp-contentbox-entry-noheight-sel
+{
+	background-color: #1b1b1b;
+}
+
+.pp-contentbox-entry-noheight-mod
+{
+	background-color: #1b1b1b;
+}
+
+.pp-contentbox-entry-noheight,
+.pp-contentbox-entry-noheight-mod,
+.pp-contentbox-entry-noheight-sel
+{
+	height: auto;
+	margin-bottom: 1px;
+}
+
+.pp-image-thumb-wrap,
+.pp-image-thumb-wrap-floatright,
+.pp-image-mini-wrap,
+.pp-image-mini-wrap-floatright
+{
+	width: 52px;
+	height: 52px;
+	text-align: center;
+	background: #080808;
+	border: 1px solid #000;
+	padding: 4px;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+/* ------------------------------------------------------------------------------ */
+/* Skin, colors and images by Andrea Blalock of Prettyflesh.com
+/* Do not take any part of this skin for any use! its not permitted
+/* ------------------------------------------------------------------------------ */
+
+
+.pp-image-mini-wrap,
+.pp-image-mini-wrap-floatright
+{
+	width: 27px;
+	height: 27px;
+	margin-top: auto;
+	margin-bottom: auto;
+}
+
+.pp-image-thumb-wrap-floatright,
+.pp-image-mini-wrap-floatright
+{
+	float:right;
+}
+
+.pp-tiny-text
+{
+	color: #888;
+	font-size: 10px;
+}
+
+.pp-mini-content-entry,
+.pp-mini-content-entry-noheight,
+.pp-mini-entry-noheight-shaded
+{
+	background-color: #171717;
+	padding: 6px;
+	border-bottom: 1px dotted #000;
+	clear:both;
+	width: auto;
+	height: 60px;
+}
+
+.pp-mini-entry-noheight-shaded
+{
+	background-color: #161616;
+}
+
+.pp-mini-content-entry-noheight,
+.pp-mini-entry-noheight-shaded
+{
+	height: auto;
+}
+
+.pp-tabclear,
+.pp-maintitle
+{
+	background: url(http://www.juggernautguild.com/style_images/mouthfulpo/maintitle.gif);
+	border: 1px solid #191919;
+	border-bottom: 1px solid #000;
+	color: #dddddd; 
+	font-size: 12px;
+	font-weight: bold; 
+	margin: 0px;
+	padding: 8px;
+}
+
+.pp-tabclear
+{
+	border:0px;
+	border-right: 1px solid #000;
+	border-left: 1px solid #000;
+}
+
+.pp-tabon
+{
+	border-top:1px solid #222;
+	border-left:1px solid #000;
+	border-right:1px solid #101010;
+	background-color:#1c1c1c;
+	color: #d8d8d8;
+	padding:8px;
+	float:left;
+	width:auto;
+	background-image: url(http://www.juggernautguild.com/style_images/mouthfulpo/maintitle.gif);
+	background-repeat: repeat-x;
+	background-position: left bottom;
+	margin-top:3px;
+	font-size:10px;
+}
+
+.pp-taboff,
+.pp-tabshaded
+{
+	border-top: 1px solid #000;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	background-color: #1f1f1f;
+	color: #777;
+	padding:8px;
+	float: left;
+	width: auto;
+	background-image: url(http://www.juggernautguild.com/style_images/mouthfulpo/css_pp_tab_off.gif);
+	background-repeat: repeat-x;
+	background-position: left bottom;
+	margin-top:3px;
+	font-size:10px;
+}
+
+.pp-tabshaded
+{
+	background-image: url(http://www.juggernautguild.com/style_images/mouthfulpo/css_pp_tab_shaded.gif);
+	background-repeat: repeat-x;
+	background-position: left bottom;
+	color: #d00000;
+	border-top: 1px solid #050505;
+	border-left: 1px solid #050505;
+	border-right: 1px solid #050505;
+}
+
+.pp-tabon a:link, 
+.pp-tabon a:visited, 
+.pp-tabon a:active
+{
+	text-decoration:none;
+	color: #888;
+}
+
+.pp-taboff a:link, 
+.pp-taboff a:visited, 
+.pp-taboff a:active,
+.pp-tabshaded a:link, 
+.pp-tabshaded a:visited, 
+.pp-tabshaded a:active
+{
+	text-decoration:none;
+	color: #999;
+}
+
+.pp-tabwrap
+{
+	height: 34px;
+	margin:0px;
+	padding:0px;
+}
+
+#recaptcha_response_field { color: white }
