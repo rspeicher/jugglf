@@ -26,6 +26,9 @@ namespace :db do
         r.date   = lr.date
         r.note   = lr.note
         r.thread = lr.thread
+        
+        r.update_attendee_cache = false # Otherwise this would be sloooooooooow
+        r.save!
       
         # Use the legacy raid's ID to lookup its attendance, but don't create its
         # Attendee record using that ID or we've got problems
@@ -33,10 +36,7 @@ namespace :db do
           r.attendees.create(:member_id => la.member_id, :attendance => la.attendance)
         end
       
-        r.attendees_count = r.attendees.length
-      
-        r.update_attendee_cache = false # Otherwise this would be sloooooooooow
-        r.save!
+        # r.attendees_count = r.attendees.length
         r.reload
       
         # Lookup items by the LEGACY raid ID
