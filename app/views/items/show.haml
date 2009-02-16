@@ -16,4 +16,3 @@
           %td.date= link_to item.raid.date, raid_path(item.raid) unless item.raid.nil?
           %td.fill= member_link_colored(item.member)
           %td.number= number_with_precision(item.adjusted_price, :precision => 2)
-#stats= stat_tooltip(@item)
