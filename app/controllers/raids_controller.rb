@@ -1,8 +1,8 @@
 class RaidsController < ApplicationController
-  layout 'poison'
+  layout @@layout
   
   def index
-    @raids = Raid.find(:all, :order => "date DESC")
+    @raids = Raid.paginate(:page => params[:page], :per_page => 40, :order => "date DESC")
     
     respond_to do |wants|
       wants.html
