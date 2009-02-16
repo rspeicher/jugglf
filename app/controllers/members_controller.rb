@@ -3,8 +3,6 @@ class MembersController < ApplicationController
   
   def index
     @members = Member.find_all_by_active(true, :order => "name asc")
-    
-    Mime::Type.register "text/plain", :lua
 
     respond_to do |wants|
       wants.html
