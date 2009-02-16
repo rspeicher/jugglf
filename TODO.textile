@@ -24,6 +24,10 @@ h2. Medium term
 ** New/Edit Punishment pages
 ** New/Edit Rank pages
 ** Quick ItemPrice interface?
+* Search controller
+** /search/:context/:query
+*** /search/members/Tsigo takes me to Tsigo's page
+*** /search/items/Warglaive gives me a list of items that match
 
 * Item Normalization
 ** If we rename an item, other items that used to have that name don't get renamed
