@@ -1,4 +1,4 @@
-th.number, td.number {
+th.number, td.number, th.right, td.right {
   text-align: right; }
 
 th.member, td.member {
@@ -24,6 +24,9 @@ th.image, td.image, th.checkbox, td.checkbox {
   text-align: center;
   min-width: 16px;
   max-width: 48px; }
+
+th.center, td.center {
+  text-align: center; }
 
 th.fill, td.fill {
   width: 100%; }
