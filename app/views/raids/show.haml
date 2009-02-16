@@ -3,8 +3,10 @@
     $("#raid_tabs").tabs();
   });
   
-%h2= @raid.date
-
+%h2
+  = link_to 'Raids', raid_path
+  &raquo;
+  = @raid.date
 #raid_tabs
   %ul
     %li= link_to '<span>Attendees</span>', '#attendees'
