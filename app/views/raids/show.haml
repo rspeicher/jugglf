@@ -1,0 +1,38 @@
+:javascript
+  $(document).ready(function(){
+    $("#raid_tabs").tabs();
+  });
+  
+%h2
+  = link_to 'Raids', raid_path
+  &raquo;
+  = @raid.date
+#raid_tabs
+  %ul
+    %li= link_to '<span>Attendees</span>', '#attendees'
+    %li= link_to '<span>Drops</span>', '#drops'
+
+  #attendees
+    %table.list
+      %thead
+        %tr
+          %th.fill Name
+          %th.attendance Attendance
+      %tbody
+        - @attendees.each do |attendee|
+          %tr{ :class => cycle('even', 'odd') }
+            %td.fill= member_link_colored(attendee.member)
+            %td.attendance= raid_attendance_colored(attendee.attendance)
+  #drops
+    %table.list
+      %thead
+        %tr
+          %th.fill Name
+          %th.member Buyer
+          %th.number Price
+      %tbody
+        - @drops.each do |item|
+          %tr{ :class => cycle('even', 'odd') }
+            %td.fill= link_to_item_with_stats(item)
+            %td.member= member_link_colored(item.buyer)
+            %td.number= number_with_precision(item.adjusted_price, :precision => 2)

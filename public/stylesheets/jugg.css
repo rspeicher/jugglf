@@ -1,33 +1,8 @@
-/* EQdkp */
-.positive { color: #05CD00; }
-.negative { color: #FF0000; }
-.neutral  { color: #CCCCCC; }
-
-.small { font-size: 10px; }
-
-.copy { font-size: 10px; color: #CCCCCC; }
-.copy a:link, .copy a:active, .copy a:visited { font-size: 10px; color: #CCCCCC; }
-.copy a:hover { font-size: 10px; color: #ff8c00; }
-
-.input { font-family: verdana, arial; font-size: 10px; color: #CCCCCC; background-color: #595454; 
-         border-top: 1px; border-right: 1px; border-bottom: 1px; border-left: 1px; border-color: #595454; border-style: solid; }
-
-input.helpline1 { background-color: #000000; border-style: none; }
-input.helpline2 { background-color: #1A1A1A; border-style: none; }
-
-input.mainoption { font-family: verdana, arial; font-size: 10px; font-weight: bold; color: #000000; background-color: #8b0000; border-top: 1px;
-                   border-right: 1px; border-bottom: 1px; border-left: 1px; border-color: #000000; border-style: solid; }
-input.liteoption { font-family: verdana, arial; font-size: 10px; font-weight: normal; color: #000000; background-color: #8b0000; border-top: 1px;
-                   border-right: 1px; border-bottom: 1px; border-left: 1px; border-color: #000000; border-style: solid; }
-
-div.graph { position: relative; width: 98%; border: 1px solid #000000; padding: 2px; margin: 2px 0; }
-div.graph .bar { display: block; position: relative; background: #8b0000; text-align: center; color: #000000; height: 1.3em; line-height: 1.3em; }
-div.graph .bar span { position: absolute; left: 1em; }
-
-/* Classes */
+/* @group WoW Classes */
 .Death, .Death:link, .Death:visited			{ color: #C41E3B; }
 .Druid, .Druid:link, .Druid:visited			{ color: #FF7C0A; }
 .Hunter, .Hunter:link, .Hunter:visited		{ color: #AAD372; }
+.Knight, .Knight:link, .Knight:visited		{ }
 .Mage, .Mage:link, .Mage:visited			{ color: #68CCEF; }
 .Paladin, .Paladin:link, .Paladin:visited	{ color: #F48CBA; }
 .Shaman, .Shaman:link, .Shaman:visited		{ color: #567EFF; }
@@ -35,39 +10,101 @@ div.graph .bar span { position: absolute; left: 1em; }
 .Rogue, .Rogue:link, .Rogue:visited			{ color: #FFF468; }
 .Warlock, .Warlock:link, .Warlock:visited	{ color: #9382C9; }
 .Warrior, .Warrior:link, .Warrior:visited	{ color: #C69B6D; }
-
-.inclf { font-weight: bold; }
-.sitlf { font-style: italic; }
-
-th.footer { text-align: right; }
-td.attendance { vertical-align: top; }
-
-/* Wishlist */
-#wl_zones { float: left; }
-#wl_bosses { float: right; margin-top: -14px; clear: none; }
-th > a.q4, a.q5 { float: left; }
-img.copyicon { float: right; }
+/* @end */
 
 /* @group Tabs */
-#tabs .ui-tabs-hide {
-    display:  none;
+#member_tabs {
+  height: 1.9em;
+  margin-left: 0;
+  padding: 0;
+  background: url(http://www.juggernautguild.com/apply/img/tab_bottom.gif) repeat-x bottom;
+  clear: both;
 }
-#tabs ul {
-    text-align: left;
-    padding: 0;
-    margin: 0 10px 0 10px;
+#member_tabs li {
+  margin: 0;
+  padding: 0;
+  display: inline;
+  list-style-type: none;
 }
-#tabs li {
-    text-align: center;
-    display: inline;
-    padding: 0 20px;
-    margin: 0 3px;
-    font-size: 1.5em;
-    /*border: 1px solid #450000;
-    border-bottom: 0;*/
-    background-color: #000;
+#member_tabs li a:link, #member_tabs li a:visited {
+  float: left;
+  background: #1d1d1d;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 10px 2px 10px;
+  margin-right: 4px;
+  border: 1px solid #000;
+  text-decoration: none;
+  color: #666;
 }
-#tabs .ui-tabs-selected {
-    font-size: 1.8em;
-    border-color: #8b0000;
+#member_tabs li a img { 
+  top: 5px; 
+  position: relative; 
+}
+#member_tabs li a:link.active, #member_tabs li a:visited.active {
+  background: #000;
+  border: 1px solid #000;
+  color: #fff;
+}
+#member_tabs li a:hover {
+  background: #000;
+  color: #fff;
+  border: 1px solid #3a0000;
+  border-bottom: 1px solid #000;
+}
+/* @end */
+
+#content table {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+th, td {
+  padding: 0 5px;
+  margin: 0;
+}
+
+div.right, th.right, td.right {
+  text-align: right;
+  padding-right: 5px;
+}
+
+div.center, th.center, td.center {
+  text-align: center;
+  padding: 0;
+}
+
+fieldset {
+  background: #101010;
+  padding: 15px;
+}
+
+fieldset select {
+  margin: 5px;
+}
+
+fieldset legend {
+  font-size: 150%;
+  font-weight: bold;
+  background: #101010;
+  padding: 5px;
+  border-top: 1px solid #000000;
+}
+
+fieldset label {
+  font-size: 125%;
+  font-weight: bold;
+}
+
+#raid_form div.attendance {
+  float: left;
+}
+
+#raid_form div.loot {
+  float: right;
+}
+
+#raid_form div.attendance_loot {
+  padding: 1px 0;
 }

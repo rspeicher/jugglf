@@ -1,0 +1,36 @@
+:javascript
+  $(document).ready(function(){
+    $("#member_tabs").tabs();
+  });
+  
+%h2
+  = link_to 'Members', member_path
+  &raquo;
+  = member_link_colored(@member)
+/ %div
+/   30-Day:
+/   = member_attendance_colored(@member.attendance_30)
+/   %br 90-Day:
+/   = member_attendance_colored(@member.attendance_90)
+/   %br Lifetime:
+/   = member_attendance_colored(@member.attendance_lifetime)
+/   %br LF:
+/   = number_with_precision(@member.lf, :precision => 2)
+/   %br BiS LF:
+/   = number_with_precision(@member.bislf, :precision => 2)
+/   %br Sit LF:
+/   = number_with_precision(@member.sitlf, :precision => 2)
+/ %br
+/ %br
+#member_tabs
+  %ul
+    %li= link_to '<span>Raids</span>', '#raids'
+    %li= link_to '<span>Items</span>', '#items'
+    %li= link_to '<span>Punishments</span>', '#punishments'
+    %li= link_to '<span>Wishlist</span>', '#wishlist'
+    %li= link_to '<span>Achievements</span>', '#achievements'
+  #raids= render :partial => 'raids'
+  #items= render :partial => 'items'
+  #punishments= render :partial => 'punishments'
+  #wishlist= render :partial => 'wishlist'
+  #achievements

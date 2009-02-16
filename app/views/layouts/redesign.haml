@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+    %title= @page_title || "JuggRails"
+    %script{ 'type' => 'text/javascript', :src => "http://www.wowhead.com/widgets/power.js" }
+    = javascript_include_tag 'jquery.js', :cache => true
+    = javascript_include_tag 'jquery.ui.js', :cache => true
+    = javascript_include_tag 'jquery.tabs.js', :cache => true
+    
+    = stylesheet_link_tag 'application', 'basic', 'tables', 'tabs'
+    %link{ :rel => 'stylesheet', :href => '/stylesheets/r_tables.css', :type => 'text/css', :media => 'screen' }
+  %body#redesign
+    #wrapper
+      #top-menu
+        %ul
+          %li= link_to "Juggernaut (US-Mal'Ganis Horde)", '#'
+        %ul#right
+          %li= link_to "DKP", '#'
+          %li= link_to "Roster", '#'
+          %li= link_to "Calendar", '#'
+          %li= link_to "Joining", '#'
+          %li= link_to "About Us", '#'
+          %li= link_to "Home", '#'
+      #header
+        #main-menu
+          %ul
+            %li= link_to 'Members', members_path, :class => ( controller.controller_name == 'members' ) ? 'selected' : ''
+            %li= link_to 'Items', items_path, :class => ( controller.controller_name == 'items' ) ? 'selected' : ''
+            %li= link_to 'Raids', raids_path, :class => ( controller.controller_name == 'raids' ) ? 'selected' : ''
+      #main
+        = yield

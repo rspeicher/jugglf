@@ -1,5 +1,5 @@
 class MembersController < ApplicationController
-  layout 'poison'
+  layout @@layout
   
   def index
     @members = Member.find_all_by_active(true, :order => "name asc")

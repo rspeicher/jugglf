@@ -1,0 +1,12 @@
+%table.list
+  %thead
+    %tr
+      %th Reason
+      %th.date Expires
+      %th.number Value
+  %tbody
+    - @member.punishments.each do |pun|
+      %tr{ :class => cycle('even', 'odd') }
+        %td= h(pun.reason)
+        %td.date= h(pun.expires.to_s(:db))
+        %td.number= number_with_precision(pun.value)

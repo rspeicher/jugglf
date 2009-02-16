@@ -1,7 +1,8 @@
 /* 
- * Mouthful of Poison Skin by Andrea Hernandez (prettyflesh.com)
+ * Mouthful of Poison Skin IPB 2.2 by Andrea Blalock (prettyflesh.com/invisionmojo.com)
  * This skin is free to use as long as you do not remove my credit at the bottom of the skin!
- * fleshy@gmail.com to report piracy or for any comments
+ * You may edit the skin, but do not take ANY of the images from the skin and use it on a different or new skin. This includes the images in the editors, topic, forum, profile, etc)
+ * fleshy@gmail.com to report piracy or for any comments or questions
  */
 
 /* 
@@ -10,19 +11,28 @@
  * ========================================
  */
 
-html{
-	overflow-x: auto; /* fixes MSIE scrollbar bug DO NOT REMOVE, has no effect in Mozilla, or Opera */
+html {
+  overflow-x: auto
+
+;
+/* fixes MSIE scrollbar bug DO NOT REMOVE, has no effect in Mozilla, or Opera */
 }
 
-body{ 
-	background: #242424;
-	color: #8F8F8F;
-	font-family: Verdana, Tahoma, Arial, Trebuchet MS, Sans-Serif, Georgia, Courier, Times New Roman, Serif;
-	font-size: 11px;
-	line-height: 135%;
-	margin: 0px;
-	padding: 0px; /* required for Opera to have 0 margin */
-	text-align: center; /* centers board in MSIE */
+body {
+  background: #242424;
+  color: #8F8F8F;
+  font-family: Verdana, Tahoma, Arial, Trebuchet MS, Sans-Serif, Georgia, Courier, Times New Roman, Serif;
+  font-size: 11px;
+  line-height: 135%;
+  margin: 0px;
+  padding
+
+: 0px;
+  /* required for Opera to have 0 margin */
+	text-align:
+
+center;
+/* centers board in MSIE */
 }
 
 /* 
@@ -30,38 +40,59 @@ body{
  * Set up IPB table
  * ========================================
  */
- 
-.ipbtable { width:100% }
+
+.ipbtable {
+  width: 100%
+}
 
 table.ipbtable,
 tr.ipbtable,
-td.ipbtable
-{ /* required for text in tables, because tables do not inherit from body */
+td.ipbtable {
+
+
+/* required for text in tables, because tables do not inherit from body */
 	background: transparent;
-	color: #AEAEAE;
-	font-size: 11px;
-	line-height: 135%;
+  color: #AEAEAE;
+  font-size: 11px;
+  line-height: 135%;
 }
 
 .ipbtable td,
-.divpad{ /* gives all tables faux cellpadding of 5px */
+.divpad {
+
+/* gives all tables faux cellpadding of 5px */
 	padding: 5px;
 }
 
-td.nopad{ /* allows some tables to have no padding on the td */
+td.nopad {
+
+/* allows some tables to have no padding on the td */
 	padding: 0;
 }
 
+/* Safari... */
 
-
-form{
-	display: inline;
-	margin: 0; /* removes mystery form tag gapping */
-	padding: 0; /* removes mystery form tag gapping */
+th {
+  text-align: left;
 }
 
-img{
-	border: 0; /* makes sure linked images do not have a border */
+form {
+  display: inline;
+  margin: 
+
+0;
+  /* removes mystery form tag gapping */
+	padding
+
+: 0;
+/* removes mystery form tag gapping */
+}
+
+img {
+  border: 0
+
+;
+  /* makes sure linked images do not have a border */
 	vertical-align: middle;
 }
 
@@ -73,15 +104,15 @@ img{
 
 a:link,
 a:visited,
-a:active{
-	background: transparent;
-	color: #A61400;
-	text-decoration: none;
+a:active {
+  background: transparent;
+  color: #A61400;
+  text-decoration: none;
 }
 
-a:hover{
-	background: transparent;
-	color: #CA0000;
+a:hover {
+  background: transparent;
+  color: #CA0000;
 }
 
 /* 
@@ -90,499 +121,101 @@ a:hover{
  * ========================================
  */
 
-legend {color: #828282;}
- 
-fieldset {border: 1px solid #000000;}
-
-.ilikeembig {font-family: arial, tahoma, sans-serif; font-size: 13px; color: #DA0000; font-weight: bold;}
-
-.count {font-family: arial, verdana, sans-serif;
-           font-style: italic;
-           font-weight: bold;
-           font-size: 15px;
-           color: #6B6B6B}
-
 #fleshset {
-	margin: 0 auto 0 auto;
-	text-align: left;
-	width: 1024px;
+  margin: 0 auto 0 auto;
+  text-align: left;
+  width: 1024px;
 }
-
 
 /* 
  * ========================================
  * styles for pagination links 
  * ========================================
  */
- 
 
-.pagelink,
-.pagelinklast,
-.pagecurrent,
-.minipagelink,
-.minipagelinklast{
-	background: #171717;
-	border: 1px solid #000;
-	padding: 1px 3px 1px 3px;
+label {
+  cursor: pointer;
 }
 
-.pagelinklast,
-.minipagelinklast{
-	background: #222222;
+.activeuserstrip {
+  background: #2C2C2C;
+  padding: 6px;
 }
 
-
-.pagecurrent{
-	background: #494949;
+.row1 {
+  background: #101010;
 }
 
-.minipagelink,
-.minipagelinklast{
-	border: 1px solid #000000;
-	font-size: 10px;
-	margin: 0 1px 0 0;
+.row2 {
+  background: #101010;
 }
 
-.pagelink a:active,
-.pagelink a:visited,
-.pagelink a:link,
-.pagelinklast a:active,
-.pagelinklast a:visited,
-.pagelinklast a:link,
-.pagecurrent a:active,
-.pagecurrent a:visited,
-.pagecurrent a:link,
-.minipagelink a:active,
-.minipagelink a:visited,
-.minipagelink a:link,
-.minipagelinklast a:active,
-.minipagelinklast a:visited,
-.minipagelinklast a:link{
-	text-decoration: none;
+.rowhighlight {
+  background-color: #171717;
 }
 
-/* fake button effect for some links */
-.fauxbutton{
-	background: #960B00;
-	border: 1px solid #000000;
-	font-size: 11px;
-	font-weight: bold;
-	padding: 4px;
+.darkrow1 {
+  background: #171717;
+  color: #BBBBBB;
 }
 
-.fauxbutton a:link,
-.fauxbutton a:visited,
-.fauxbutton a:active{
-	color: #FFFFFF !important;
-	text-decoration: none;
-}
-
-.forumdesc,
-.forumdesc a:link,
-.forumdesc a:visited,
-.forumdesc a:active{ 
-	background: transparent;
-	font-size: 10px; 
-	color: #7A7A7A;
-	line-height: 135%;
-	margin: 2px 0 0 0;
-	padding: 0;
-}
-
-.searchlite {
-	background-color: white;
-	font-weight:bold;
-	color: red;
-}
-
-.activeusers{
-	background: #680000;
-	border: 1px solid #000000;
-	color: #707070;
-	margin: 0px;
-	padding: 1px;
-}
-
-.activeuserposting a:link,
-.activeuserposting a:visited,
-.activeuserposting a:active,
-.activeuserposting
-{
-	font-style:italic;
-	text-decoration: none;
-	border-bottom:1px dotted #B60400;
-}
-
-fieldset.search{ 
-	line-height: 150%;
-	padding: 6px; 
-}
-
-label{ 
-	cursor: pointer; 
-}
-
-img.attach{ 
-	background: #808080 url(http://www.juggernautguild.com/style_images/poison[1]/click2enlarge.gif) no-repeat top right;
-	border: 1px solid #808080;
-	margin: 0 2px 0 0;
-	padding: 11px 2px 2px 2px;
-}
-
-.thumbwrap,
-.thumbwrapp,
-.fullimagewrap{
-	border: 1px solid #B60400;
-	margin: 2px;
-}
-
-.thumbwrapp{
-	border: 2px solid #000000;
-}
-
-.fullimagewrap{
-	background: #6E0300;
-	text-align: center;
-	margin: 5px 0 5px 0;
-	padding: 5px;
-}
-
-.thumbwrap h4,
-.thumbwrapp h4{	
-	background: #222222;
-	border: 0 !important;
-	border-bottom: 1px solid #000000 !important;
-	color: #D0D0D0; 
-	font-size: 12px;
-	font-weight: bold; 
-	margin: 0;
-	padding: 5px;
-}
-
-.thumbwrap p,
-.thumbwrapp p{
-	background: transparent !important;
-	border: 0 !important;
-	border-top: 1px solid #222222 !important;
-	margin: 0 !important;
-	padding: 5px !important;
-	text-align: left;
-}
-
-.thumbwrap p.alt,
-.thumbwrapp p.alt{
-	background: #171717 !important;
-	margin: 0 !important;
-	padding: 5px !important;
-	text-align: left;
-}
-
-.thumbwrapp p.pin{
-	background: #393939 !important;
-	text-align: center !important;
-}
-	
-.thumbwrap img.galattach,
-.thumbwrapp img.galattach{
-	background: #FFF url(http://www.juggernautguild.com/style_images/poison[1]/img_larger.gif) no-repeat bottom right;
-	border: 1px solid #000000;
-	margin: 5px;
-	padding: 2px 2px 10px 2px;
-}
-
-li.helprow{ 
-	margin: 0 0 10px 0;
-	padding: 0; 
-}
-
-ul#help{ 
-	padding: 0 0 0 15px; 
-}
-
-.warngood,
-.warnbad{ 
-	color: #0B9500;
-	font-weight: bold;
-}
-
-.warnbad{ 
-	color: #DD0000;
-}
-
-#padandcenter{ 
-	margin: 0 auto 0 auto;
-	padding: 14px 0 14px 0;
-	text-align: center;
-}
-
-#profilename{ 
-	font-size: 28px; 
-	font-weight: bold;
-               color: #AE0000;
-               font-variant: small-caps;
-               font-style: italic;
-               font-family: georgia, serif;
-}
-
-#photowrap{ 
-	padding: 6px; 
-}
-
-#phototitle{ 
-	border-bottom: 1px solid #000; 
-	font-size: 24px; 
-}
-
-#photoimg{ 
-	margin: 15px 0 0 0;
-	text-align: center; 
-} 
-
-#ucpmenu,
-#ucpcontent{ 
-	background: #1A1A1A;
-	border: 1px solid #000000;
-	line-height: 150%;
-}
-
-#ucpmenu p{ 
-	margin: 0; 
-	padding: 2px 5px 6px 9px;
-}
-
-#ucpmenu a:link, 
-#ucpmenu a:active, 
-#ucpmenu a:visited{ 
-	text-decoration: none; 
-}
-
-#ucpcontent{ 
-	width: auto;
-}
-
-#ucpcontent p{ 
-	margin: 0;
-	padding: 10px;
-}
-
-.activeuserstrip{ 
-	background: #2C2C2C;
-	padding: 6px;
-}
-
-/* Topic View elements */
-.signature{  
-	background: transparent;
-	color: #858585; 
-	font-size: 10px;
-	line-height: 150%;
-}
-
-.postdetails{ 
-	font-size: 10px;
-	line-height:140%;
-}
-
-.postcolor{ 
-	font-size: 11px; 
-	line-height: 160%;
-               color: #B9B9B9;
-}
-
-.normalname{ 
-	color: #9C0B00;
-	font-size: 1.3em; 
-	font-weight: bold;
-               font-family: arial, verdana, sans-serif;
-               
-}
-
-.normalname a:link, 
-.normalname a:visited, 
-.normalname a:active{ 
-	font-size: 1.3em;
-}
-
-.post1,
-.bg1{ 
-	background: #1A1A1A;
-}
-
-.post2,
-.bg3{ 
-	background: #1A1A1A;
-}
-
-.row2shaded,
-.post1shaded { background-color: #101010}
-.row4shaded,
-.post2shaded { background-color: #101010}
-
-.row1{ 
-	background: #101010; 
-}
-
-.row2{ 
-	background: #101010; 
-}
-
-.darkrow1{ 
-	background: #171717;
-	color: #BBBBBB; 
-}
-
-.darkrow3{ 
-	background: #151515; 
-	color: #FFFFFF; 
+.darkrow3 {
+  background: #151515;
+  color: #FFFFFF;
 }
 
 /* tableborders gives the white column / row lines effect */
+
 .plainborder,
 .tablefill,
-.tablepad{ 
-	background: #1D1D1D;
-	border: 1px solid #000000;
+.tablepad {
+  background: #1D1D1D;
+  border: 1px solid #000000;
 }
 
 .tablefill,
-.tablepad{ 
-	padding: 6px;  
+.tablepad {
+  padding: 6px;
 }
 
-.tablepad{ 
-	border: 0 !important;
+.tablepad {
+  border: 0 !important;
 }
 
-.wrapmini{ 
-	float: left;
-	line-height: 1.5em;
-	width: 25%;
+.wrapmini {
+  float: left;
+  line-height: 1.5em;
+  width: 25%;
 }
 
-.pagelinks{
-	float: left;
-	line-height: 1.2em;
-	width: 35%;
+.pagelinks {
+  float: left;
+  line-height: 1.2em;
+  width: 35%;
 }
 
-.desc{ 
-	font-size: 11px; 
-	color: #7A7A7A;
+.desc {
+  font-size: 11px;
+  color: #7A7A7A;
 }
 
-.lastaction
-{
-	font-size: 10px; 
-	color: #D0D0D0;
+.lastaction {
+  font-size: 10px;
+  color: #D0D0D0;
 }
 
-.edit{ 
-	font-size: 10px;
-               color: #B01500;
+.edit {
+  font-size: 10px;
+  color: #B01500;
 }
 
-.thin{ 
-	border: 1px solid #000000;
-	border-left: 0;
-	border-right: 0;
-	line-height: 150%;
-	margin: 2px 0 2px 0;
-	padding: 6px 0 6px 0;
-}
-
-/* 
- * ========================================
- * calendar styles 
- * ========================================
- */
-	
-.calmonths{ 
-	background: #480000;
-	border: 1px solid #000000;
-	font-size: 18px; 
-	font-weight: bold; 
-	margin: 5px 0 5px 0;
-	padding: 8px;
-	text-align: center;
-}
-
-.weekday{
-	font-size: 14px;
-	font-weight: bold;
-}
-
-.calmonths a{
-	text-decoration: none;
-}
-
-.calday,
-.calweekday{ 
-	background: #151515;
-	color: #666;
-	font-size: 11px;
-	font-weight: bold;
-	margin: 0;
-	padding: 4px;
-	text-align: right;
-}
-
-.calweekday{
-	border-right: 1px solid #222222;
-	color: #D0D0D0;
-	font-size: 14px;
-	padding: 6px;
-	text-align: center;
-}
-
-.celltodayshaded,
-.celldateshaded,
-.cellblank,
-.celldate,
-.celltoday,
-.mcellblank,
-.mcelldate,
-.mcelltoday{
-	background: #0D0D0D; 
-	height: 100px;
-	margin: 0;
-	padding: 0;
-	vertical-align: top;
-}
-
-.celltodayshaded,
-.celldateshaded
-{
-	background: #1A1A1A;
-}
-
-.mcellblank,
-.mcelldate,
-.mcelltoday{
-	height: auto;
-}
-
-.cellblank,
-.mcellblank{
-	background: #242424;
-}
-
-.celltoday,
-.celltodayshaded,
-.mcelltoday{
-	border: 2px solid #780000;
-}
-
-.calranged
-{
-	border: 2px outset #313131;
-	background: #313131;
-	padding:4px;
-}
-
-.calitem
-{
-	border-bottom: 1px dotted #272727;
-	padding:4px;
+.thin {
+  border: 1px solid #000000;
+  border-left: 0;
+  border-right: 0;
+  line-height: 150%;
+  margin: 2px 0 2px 0;
+  padding: 6px 0 6px 0;
 }
 
 /* 
@@ -593,242 +226,167 @@ ul#help{
 
 .input-warn,
 .input-green,
+.input-checkbox,
 input,
 textarea,
-select{
-	background: #222222;
-	border: 1px solid #000000;
-	color: #BBBBBB;
-	font-family: verdana, helvetica, sans-serif;
-	font-size: 11px;
-	margin: 5px;
-	padding: 2px;
-	vertical-align: middle;
+select {
+  background: #222222;
+  border: 1px solid #000000;
+  color: #BBBBBB;
+  font-family: verdana, helvetica, sans-serif;
+  font-size: 11px;
+  margin: 5px;
+  padding: 2px;
+  vertical-align: middle;
+}
+
+select {
+  margin: 0px;
+}
+
+.input-checkbox {
+  border: none;
 }
 
 .input-warn,
-.input-warn-content
-{
-	border: 1px solid #C00;
+.input-warn-content {
+  border: 1px solid #C00;
 }
 
 .input-ok,
-.input-ok-content
-{
-	border: 1px solid #0C0;
+.input-ok-content {
+  border: 1px solid #0C0;
 }
 
-.input-warn-content
-{
-	padding: 4px;
-	margin: 4px;
-	background-color: #480000;
+.input-warn-content {
+  padding: 4px;
+  margin: 4px;
+  background-color: #480000;
 }
 
-.input-ok-content
-{
-	padding: 4px;
-	margin: 4px;
-	background-color: #144800;
+.input-ok-content {
+  padding: 4px;
+  margin: 4px;
+  background-color: #144800;
 }
 
-
-.input-text
-{
-	color: #C3C3C3;
+.input-text {
+  color: #C3C3C3;
 }
 
-select{
-	border: 0;
-	font-family: verdana, helvetica, sans-serif;
-	font-size: 12px;
-	margin: 0;
-	padding: 0;
+input.button {
+  margin: 0;
+  width: auto;
+  cursor: pointer;
 }
 
-input.button{
-	margin: 0;
-	width: auto;
+optgroup option {
+  font-family: verdana, helvetica, sans-serif;
+  font-size: 10px;
 }
 
-optgroup option{
-	font-family: verdana, helvetica, sans-serif;
-	font-size: 10px;
-}
-
-.codebuttons{ 
-	font-family: Verdana, Helvetica, Sans-Serif; 
-	font-size: 10px; 
-	vertical-align: middle;
-	margin: 2px;
+.codebuttons {
+  font-family: Verdana, Helvetica, Sans-Serif;
+  font-size: 10px;
+  vertical-align: middle;
+  margin: 2px;
 }
 
 .textarea,
 .searchinput,
 .button,
-.gobutton{
-	background: #1D1D1D;
-	border: 1px solid #000000;
-	color: #828282;
-	font-family: Verdana, Helvetica, Sans-Serif;
-	font-size: 11px;
-	padding: 2px;
-	vertical-align: middle;
-}
-	
-.button{
-	background: #720000;
-               border-top: 1px solid #A20000;
-               border-left: 1px solid #A20000;
-               border-bottom: 1px solid #4E0000;
-               border-right: 1px solid #4E0000;
-               color: #A7A7A7;
-               font-weight: bold;
-               font-size: 10px;
-               padding: 1px;
+.gobutton {
+  background: #1D1D1D;
+  border: 1px solid #000000;
+  color: #828282;
+  font-family: Verdana, Helvetica, Sans-Serif;
+  font-size: 11px;
+  padding: 2px;
+  vertical-align: middle;
 }
 
-.gobutton{
-	background: transparent;
-	border: 0;
-	color: #A7A7A7;
-	margin: 0;
-	vertical-align: middle;
+.button {
+  background: #720000;
+  border-top: 1px solid #A20000;
+  border-left: 1px solid #A20000;
+  border-bottom: 1px solid #4E0000;
+  border-right: 1px solid #4E0000;
+  color: #A7A7A7;
+  font-weight: bold;
+  font-size: 10px;
+  padding: 1px;
+}
+
+.gobutton {
+  background: transparent;
+  border: 0;
+  color: #A7A7A7;
+  margin: 0;
+  vertical-align: middle;
 }
 
 .radiobutton,
 .checkbox,
-.helpbox { 
-	border: 0;
-	vertical-align: middle;
+.helpbox {
+  border: 0;
+  vertical-align: middle;
+  background: transparent;
 }
 
-.formtable{
-	background: transparent;
+.formtable {
+  background: transparent;
 }
 
 .formtable td,
 .pformleft,
 .pformleftw,
-.pformright{
-	background: #121212;
-	border: 1px solid #000000;
-	border-bottom: 0;
-	border-left: 0;
-	font-weight: bold;
-	margin: 1px 0 0 0;
-	padding: 6px;
-	width: 25%;
-} 
+.pformright {
+  background: #121212;
+  border: 1px solid #000000;
+  border-bottom: 0;
+  border-left: 0;
+  font-weight: bold;
+  margin: 1px 0 0 0;
+  padding: 6px;
+  width: 25%;
+}
 
 .formtable td.wider,
 .pformleftw,
-.pformright{
-	width: 40%;
+.pformright {
+  width: 40%;
 }
 
 .formtable td.formright,
-.pformright{
-	border-right: 0px;
-	font-weight: normal;
-	width: auto;
-} 
+.pformright {
+  border-right: 0px;
+  font-weight: normal;
+  width: auto;
+}
 
 .formtable td.formtitle,
-.formsubtitle{
-	background: #080808;
-	border: 1px solid #580000; 
-	border-bottom: 0;
-	border-left: 0;
-	border-right: 0;
-	font-weight: normal;
+.formsubtitle {
+  background: #080808;
+  border: 1px solid #580000;
+  border-bottom: 0;
+  border-left: 0;
+  border-right: 0;
+  font-weight: normal;
 }
 
-.formsubtitle{ 
-	border: 0;
-	color: #B6B6B6;
-	font-weight: bold;
-	padding: 5px;
+.formsubtitle {
+  border: 0;
+  color: #B6B6B6;
+  font-weight: bold;
+  padding: 5px;
 }
 
-.formtable td.formstrip{
-	background: #101010;
-	border: 1px solid #000000;
-	border-left: 0;
-	border-right: 0;
-	font-weight: normal;
-}
-
-/* 
- * ========================================
- * new style quote and code wrappers MATT's DESIGN 
- * ========================================
- */
-
-.quotetop{
-	background: #580000;
-	border: 1px dotted #000;
-	border-bottom: 0;
-	border-left: 4px solid #780000;
-	color: #979797;
-	font-weight: bold;
-	font-size: 10px;
-	margin: 8px auto 0 auto;
-	padding: 3px;
-}
-
-.quotemain{
-	background: #2C2C2C;
-	border: 1px dotted #000;
-	border-left: 4px solid #780000;
-	border-top: 0;
-	color: #DDDDDD;
-	padding: 4px;
-	margin: 0 auto 8px auto;
-}
-
-.codetop,
-.sqltop,
-.htmltop{
-	background: #580000;
-	color: #979797;
-	font-weight: bold;
-	margin: 0 auto 0 auto;
-	padding: 3px;
-	width: 98%;
-}
-
-.codemain,
-.sqlmain,
-.htmlmain{
-	background: #2C2C2C;
-	border: 1px dotted #000;
-	color: #DDDDDD;
-	font-family: Courier, Courier New, Verdana, Arial;
-	margin: 0 auto 0 auto;
-	padding: 2px;
-	width: 98%;
-}
-
-/* 
- * ========================================
- * old school quote and code styles - backwards compatibility 
- * ========================================
- */
-
-#QUOTE,
-#CODE{  
-	background: #2C2C2C; 
-	border: 1px solid #000; 
-	color: #DDDDDD; 
-	font-family: Verdana, Arial; 
-	font-size: 11px; 
-	padding: 2px; 
-	white-space: normal;
-}
-
-#CODE{ 
-	font-family: Courier, Courier New, Verdana, Arial;
+.formtable td.formstrip {
+  background: #101010;
+  border: 1px solid #000000;
+  border-left: 0;
+  border-right: 0;
+  font-weight: normal;
 }
 
 /* 
@@ -836,99 +394,106 @@ optgroup option{
  * All New Styles 
  * ========================================
  */
-.cleared{
-	clear: both;
+
+.cleared {
+  clear: both;
 }
 
 .borderwrap,
-.borderwrapm{ /* this will affect the outlining border of all the tables and boxes through-out the skin. */
-	background: #000000; 
-	border: 0px solid #1A1A1A;
-	padding: 0px; 
-	margin: 0px; 
+.borderwrapm {
+
+/* this will affect the outlining border of all the tables and boxes through-out the skin. */
+	background: #000000;
+  border: 0px solid #1A1A1A;
+  padding: 0px;
+  margin: 0px;
 }
 
-.borderwrapm{
-	margin: 5px;
+.borderwrapm {
+  margin: 5px;
 }
 
 .borderwrap h3,
 .maintitle,
-.maintitlecollapse{
-	background: url(http://www.juggernautguild.com/style_images/poison[1]/maintitle.gif);
-	border: 1px solid #680000;
-	border-bottom: 1px solid #480000;
-	color: #FFF; 
-	font-size: 12px;
-	font-weight: bold; 
-	margin: 0px;
-	padding: 2px;
+.maintitlecollapse {
+  background: url(http://www.juggernautguild.com/style_images/mouthfulpo/maintitle.gif);
+  border: 1px solid #680000;
+  border-bottom: 1px solid #480000;
+  color: #FFF;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0px;
+  padding: 6px;
 }
 
 .maintitle td {
-	color: #FFF; 
-	font-size: 12px;
-	font-weight: bold;
+  color: #FFF;
+  font-size: 12px;
+  font-weight: bold;
 }
 
-
-.maintitlecollapse{
-	border: 1px solid #480000;
+.maintitlecollapse {
+  border: 1px solid #480000;
 }
 
 .maintitle p,
 .maintitlecollapse p,
-.formsubtitle p{
-	background: transparent !important;
-	border: 0 !important;
-	margin: 0 !important;
-	padding: 0 !important;
+.formsubtitle p {
+  background: transparent !important;
+  border: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .maintitle p.expand,
 .maintitle p.goto,
 .maintitlecollapse p.expand,
-.formsubtitle p.members{
-	float: right;
-	width: auto !important;
+.formsubtitle p.members {
+  float: right;
+  width: auto !important;
 }
 
 .maintitle a:link, 
 .maintitle a:visited,
 .maintitlecollapse a:link, 
-.maintitlecollapse a:visited{ 
-	background: transparent;
-	color: #FFF;
-	text-decoration: none; 
+.maintitlecollapse a:visited {
+  background: transparent;
+  color: #FFF;
+  text-decoration: none;
 }
+
+/* ------------------------------------------------------------------------------ */
+/* Skin, colors and images by Andrea  Blalock of Prettyflesh.com
+/* Do  not take any part of this skin for any use! its not permitted
+/* ------------------------------------------------------------------------------ */
 
 .maintitle a:hover, 
 .maintitle a:active,
 .maintitlecollapse a:hover, 
-.maintitlecollapse a:active{ 
-	background: transparent;
-	color: #F1F1F1;
+.maintitlecollapse a:active {
+  background: transparent;
+  color: #F1F1F1;
 }
 
 table th,
 .borderwrap table th,
 .subtitle,
 .subtitlediv,
-.postlinksbar{ 
-	background: transparent url(http://www.juggernautguild.com/style_images/poison[1]/sub_tile.gif);
-	border-bottom: 1px solid #3A0000;
-	color: #858585; 
-	font-size: 10px;
-	font-weight: bold; 
-	letter-spacing: 1px;
-	margin: 0; 
-	padding: 3px; 
+.postlinksbar {
+  background: transparent url(http://www.juggernautguild.com/style_images/mouthfulpo/sub_tile.gif);
+  border-bottom: 1px solid #3A0000;
+  color: #858585;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin: 0;
+  padding: 3px;
 }
 
-.subtitlediv{
-	border: 1px solid #000000;
-	border-bottom: 1px solid #3A0000;
-	text-align: right;
+.subtitlediv {
+  border: 1px solid #000000;
+  border-bottom: 1px solid #3A0000;
+  text-align: right;
 }
 
 .borderwrap table th a:link,
@@ -942,731 +507,399 @@ table th,
 .subtitlediv a:active,
 .borderwrap table th a:hover,
 .subtitle a:hover,
-.subtitlediv a:hover{ 
-	background: transparent;
-	color: #5B5B5B;
-	text-decoration: none; 
+.subtitlediv a:hover {
+  background: transparent;
+  color: #5B5B5B;
+  text-decoration: none;
 }
 
-.borderwrap h4{
-	background: #313131;
-	border: 1px solid #121212;
-	border-bottom: 1px solid #000000;
-	border-top: 1px solid #000000;
-	color: #D00500; 
-	font-size: 12px;
-	font-weight: bold; 
-	margin: 0;
-	padding: 5px;
+.borderwrap h4 {
+  background: #313131;
+  border: 1px solid #121212;
+  border-bottom: 1px solid #000000;
+  border-top: 1px solid #000000;
+  color: #D00500;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+  padding: 5px;
 }
 
-.borderwrap p{
-	background: transparent;
-	border: 0;
-	margin: 5px;
-	padding: 5px;
-	text-align: left;
+.borderwrap p {
+  background: transparent;
+  border: 0;
+  margin: 5px;
+  padding: 5px;
+  text-align: left;
 }
 
 td.formbuttonrow,
+.pformstrip,
 .borderwrap p.formbuttonrow,
-.borderwrap p.formbuttonrow1{
-	background: #171717 !important; 
-	border: 1px solid #000000;
-	border-top: 1px solid #222222;
-	margin: 0px !important;
-	padding: 5px !important;
-	text-align: center;
+.borderwrap p.formbuttonrow1 {
+  background: #171717 !important;
+  border: 1px solid #000000;
+  border-top: 1px solid #222222;
+  margin: 0px !important;
+  padding: 5px !important;
+  text-align: center;
 }
 
-td.formbuttonrow{
-	border-bottom: 0;
-	border-left: 0;
-	border-right: 0;
+td.formbuttonrow {
+  border-bottom: 0;
+  border-left: 0;
+  border-right: 0;
 }
 
-.borderwrap p.formbuttonrow1{
-	background: #121212 !important;
-	border: 0;
-	border-top: 1px solid #222222;
+.borderwrap p.formbuttonrow1 {
+  background: #121212 !important;
+  border: 0;
+  border-top: 1px solid #222222;
 }
 
 .bar,
 .barb,
-.barc{
-	background: #121212;
-	border: 1px solid #000000;
+.barc {
+  background: #121212;
+  border: 1px solid #000000;
 }
 
-.barc{
-	border-bottom: 0;
+.barc {
+  border-bottom: 0;
 }
 
 .bar p,
 .barb p,
-.barc p{
-	background: transparent;
-	border: 0;
-	color: #BBBBBB;
-	font-size: 11px;
-	margin: 0;
-	padding: 5px;
-	text-align: left;
+.barc p {
+  background: transparent;
+  border: 0;
+  color: #BBBBBB;
+  font-size: 11px;
+  margin: 0;
+  padding: 5px;
+  text-align: left;
 }
 
-.barb p{
-	text-align: right;
+.barb p {
+  text-align: right;
 }
 
 .bar p.over,
 .bar p.overs,
 .barc p.over,
-.barc p.overs{
-	float: right;
+.barc p.overs {
+  float: right;
 }
 
 .barb p.over,
-.barb p.overs{
-	float: left;
+.barb p.overs {
+  float: left;
 }
 
 .bar p.overs,
 .barb p.overs,
-.barc p.overs{
-	position: relative;
-	top: 5px;
+.barc p.overs {
+  position: relative;
+  top: 5px;
 }
 
-.catend{
-	background: #480200;
-	color: #FFFFFF;
-	font-size: 1px;
-	height: 3px;
+.catend {
+  background: #480200;
+  color: #FFFFFF;
+  font-size: 1px;
+  height: 3px;
 }
 
-.newslink{
-	background: transparent;
-	border: 0;
-	margin: 0;
-	width: 100%;
+.newslink {
+  background: transparent;
+  border: 0;
+  margin: 0;
+  width: 100%;
 }
 
-.newslink td{
-	color: #949494;
-	font-size: 10px;
-	padding: 0;
+.newslink td {
+  color: #949494;
+  font-size: 10px;
+  padding: 0;
 }
 
-.newslink span{
-	background: transparent;
-	color: #C8C8C8;
-	font-style: italic;
-	font-weight: normal;
+.newslink span {
+  background: transparent;
+  color: #C8C8C8;
+  font-style: italic;
+  font-weight: normal;
 }
 
-.newslink input{
-	background: #1D1D1D;
-	border: 1px solid #000000;
-	color: #C3C3C3;
-	font-size: 10px;
-	padding: 3px;
-	vertical-align: middle;
-	width: auto;
+.newslink input {
+  background: #1D1D1D;
+  border: 1px solid #000000;
+  color: #C3C3C3;
+  font-size: 10px;
+  padding: 3px;
+  vertical-align: middle;
+  width: auto;
 }
 
-.newslink input.button{
-	background: transparent;
-	border: 0;
-	color: #C3C3C3;
-	vertical-align: middle;
+.newslink input.button {
+  background: transparent;
+  border: 0;
+  color: #C3C3C3;
+  vertical-align: middle;
 }
 
-.fieldwrap{
-	background: #222222;
-	border: 1px solid #000000;
-	border-top: 0;
-	margin: 5px;
-	padding: 0;
-	text-align: left;
+.fieldwrap {
+  background: #222222;
+  border: 1px solid #000000;
+  border-top: 0;
+  margin: 5px;
+  padding: 0;
+  text-align: left;
 }
 
-.fieldwrap h4{
-	background: #680200;
-	border: 1px solid #3A0100;
-	border-left: 0;
-	border-right: 0;
-	color: #DDDDDD; 
-	font-size: 12px;
-	font-weight: bold; 
-	margin: 0;
-	padding: 5px;
+.fieldwrap h4 {
+  background: #680200;
+  border: 1px solid #3A0100;
+  border-left: 0;
+  border-right: 0;
+  color: #DDDDDD;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+  padding: 5px;
 }
 
 .errorwrap {
-	background: #151515;
-	border: 1px solid #000000;
-	border-top: 0;
-	margin: 5px;
-	padding: 0;
+  background: #151515;
+  border: 1px solid #000000;
+  border-top: 0;
+  margin: 5px;
+  padding: 0;
 }
 
-
 .errorwrap h4 {
-	background: #720300;
-	border: 1px solid #000000;
-	border-left: 0;
-	border-right: 0;
-	color: #DDDDDD; 
-	font-size: 12px;
-	font-weight: bold; 
-	margin: 0;
-	padding: 5px;
+  background: #720300;
+  border: 1px solid #000000;
+  border-left: 0;
+  border-right: 0;
+  color: #DDDDDD;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+  padding: 5px;
 }
 
 .errorwrap p {
-	background: transparent;
-	border: 0;
-	color: #A1A1A1;
-	margin: 0;
-	padding: 8px;
+  background: transparent;
+  border: 0;
+  color: #A1A1A1;
+  margin: 0;
+  padding: 8px;
 }
 
-
-.ruleswrap{
-	background: #171717;
-	border: 1px solid #000000;
-	color: #686868; 
-	margin: 5px 0 5px 0;
-	padding: 5px;
+.ruleswrap {
+  background: #171717;
+  border: 1px solid #000000;
+  color: #686868;
+  margin: 5px 0 5px 0;
+  padding: 5px;
 }
 
-#redirectwrap{
-	background: #1D1D1D;
-	border: 1px solid #000000;
-	margin: 200px auto 0 auto;
-	text-align: left;
-	width: 500px;
+#redirectwrap {
+  background: #1D1D1D;
+  border: 1px solid #000000;
+  margin: 200px auto 0 auto;
+  text-align: left;
+  width: 500px;
 }
 
-#redirectwrap h4{
-	background: #680200;
-	border-bottom: 1px solid #3A0100;
-	color: #B9B9B9;
-	font-size: 14px;
-	margin: 0;
-	padding: 5px;
+#redirectwrap h4 {
+  background: #680200;
+  border-bottom: 1px solid #3A0100;
+  color: #B9B9B9;
+  font-size: 14px;
+  margin: 0;
+  padding: 5px;
 }
 
-#redirectwrap p{
-	margin: 0;
-	padding: 5px;
+#redirectwrap p {
+  margin: 0;
+  padding: 5px;
 }
 
-#redirectwrap p.redirectfoot{
-	background: #680200;
-	border-top: 1px solid #920300;
-	text-align: center;
+#redirectwrap p.redirectfoot {
+  background: #680200;
+  border-top: 1px solid #920300;
+  text-align: center;
 }
 
-
-#gfooter{
-	background: #480200;
-               border: 1px solid #000000;
-	margin: 5px 0 5px 0;
-	padding: 0;
-	width: 100%;
+#gfooter {
+  background: #480200;
+  border: 1px solid #000000;
+  margin: 5px 0 5px 0;
+  padding: 0;
+  width: 100%;
 }
 
-#gfooter td{
-	color: #DDDDDD;
-	font-size: 10px;
-	padding: 4px;
+#gfooter td {
+  color: #DDDDDD;
+  font-size: 10px;
+  padding: 4px;
 }
 
 #gfooter a:link,
-#gfooter a:visited{
-	color: #CCCCCC;
+#gfooter a:visited {
+  color: #CCCCCC;
 }
 
-#logostrip{ 
-	background: #000000;
-	height: 152px;
-	margin: 0;
-	padding: 0;
+#logostrip {
+  background: #000000;
+  border: 0px solid #000000;
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 
 #logographic {
-	background: transparent url(http://www.juggernautguild.com/style_images/poison[1]/logo4.gif) no-repeat left;
-	height: 150px;
-	margin: 0;
-	padding: 0;
+  background: transparent url(http://www.juggernautguild.com/style_images/mouthfulpo/logo4.gif) no-repeat left;
+  height: 150px;
+  margin: 0;
+  padding: 0;
 }
 
-#submenu{ 
-	background: transparent url(http://www.juggernautguild.com/style_images/poison[1]/sub_tile.gif);
-	border: 1px solid #000000;
-	border-bottom: 0;
-	color: #949494; 
-	margin: 0; 
+#submenu {
+  background: transparent url(http://www.juggernautguild.com/style_images/mouthfulpo/sub_tile.gif);
+  border: 1px solid #000000;
+  border-bottom: 0;
+  color: #949494;
+  margin: 0;
+  height: 28px;
+  text-align: right;
+}
+
+.ipb-top-left-link,
+.ipb-top-right-link {
+  background: transparent;
+  float: right;
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  margin: 0px;
+  padding: 6px 0 6px 0;
+  width: auto;
+}
+
+.ipb-top-left-link {
+  float: left;
+  border-left: 0px;
+}
+
+.ipb-top-left-link a:link, 
+.ipb-top-left-link a:visited,
+.ipb-top-right-link a:link, 
+.ipb-top-right-link a:visited {
+  background: transparent;
+  color: #c60000;
+  padding: 0 6px 0 6px;
+  text-decoration: none;
+}
+
+.ipb-top-left-link a:hover, 
+.ipb-top-left-link a:active,
+.ipb-top-right-link a:hover, 
+.ipb-top-right-link a:active {
+  background: transparent;
+  color: #da0000;
 }
 
 #userlinks,
-#userlinksguest{ 
-	background: #1D1D1D;
-	border: 1px solid #000000;
-	margin: 5px 0 5px 0;
-	padding: 0 5px 0 5px;
+#userlinksguest {
+  background: #1D1D1D;
+  border: 1px solid #000000;
+  margin: 5px 0 5px 0;
+  padding: 0 5px 0 5px;
 }
 
-#userlinksguest{ 
-	background: #1D1D1D;
-	border: 1px solid #620200;
-}
-
-#submenu p,
-#userlinks p,
-#userlinksguest p{
-	background: transparent !important;
-	border: 0 !important;
-	font-size: 10px;
-	font-weight: bold; 
-	letter-spacing: 1px;
-	margin: 0 !important;
-	padding: 5px 0 5px 0; 
-	text-align: right;
-}
-
-#submenu p { font-size: 1.1em;
+#userlinksguest {
+  background: #1D1D1D;
+  border: 1px solid #620200;
 }
 
 #userlinks p,
-#userlinksguest p{
-	font-weight: normal;
-	letter-spacing: 0;
+#userlinksguest p {
+  background: transparent !important;
+  border: 0 !important;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin: 0 !important;
+  padding: 5px 0 5px 0;
+  text-align: right;
 }
 
-#submenu p.home,
+#userlinks p,
+#userlinksguest p {
+  font-weight: normal;
+  letter-spacing: 0;
+}
+
 #userlinks p.home,
-#userlinksguest p.home{
-	float: left;
+#userlinksguest p.home {
+  float: left;
 }
 
-#userlinksguest p.pcen{
-	text-align: center;
+#userlinksguest p.pcen {
+  text-align: center;
 }
 
-#submenu a:link, 
-#submenu  a:visited{ 
-	background: transparent; 
-	color: #C00500; 
-	padding: 0 6px 0 6px;
-	text-decoration: none;
-}
+/* ------------------------------------------------------------------------------ */
+/* Skin, colors and images by Andrea Blalock of Prettyflesh.com
+/* Do not take any part of this skin for any use! its not permitted
+/* ------------------------------------------------------------------------------ */
 
-#submenu a:hover, 
-#submenu a:active{
-	background: transparent; 
-	color: #F00600; 
-}
-
-#navstrip{ 
-	background: transparent;
-	color: #9A9A9A;
-	font-size: 12px;
-	font-weight: bold;
-	margin: 0 0 5px 0;
-	padding: 14px 0px 8px 0px; 
+#navstrip {
+  background: transparent;
+  color: #9A9A9A;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0 0 5px 0;
+  padding: 14px 0px 8px 0px;
 }
 
 #navstrip a:link, 
-#navstrip  a:visited{ 
-	background: transparent; 
-	color: #DA0500; 
-	text-decoration: none;
+#navstrip  a:visited {
+  background: transparent;
+  color: #DA0500;
+  text-decoration: none;
 }
 
 #navstrip a:hover, 
-#navstrip a:active{
-	background: transparent; 
-	color: #AC0400; 
+#navstrip a:active {
+  background: transparent;
+  color: #AC0400;
 }
 
-.toplinks{
-	background: transparent;
-	color: #000;
-	margin: 0;
-	padding: 0 0 5px 0;
-	text-align: right;
+.toplinks {
+  background: transparent;
+  color: #000;
+  margin: 0;
+  padding: 0 0 5px 0;
+  text-align: right;
 }
 
-.toplinks span{
-	background: #1F1F1F;
-	border: 1px solid #000000;
-	border-bottom: 0;
-	color: #B4B4B4;
-	font-size: 10px;
-	font-weight: bold;
-	margin: 0 10px 0 0;
-	padding: 5px;
+.toplinks span {
+  background: #1F1F1F;
+  border: 1px solid #000000;
+  border-bottom: 0;
+  color: #B4B4B4;
+  font-size: 10px;
+  font-weight: bold;
+  margin: 0 10px 0 0;
+  padding: 5px;
 }
 
-.copyright{ 
-	background: transparent;
-	font-size: 11px; 
-	margin: 0 0 5px 0;
-	padding: 2px;
+.copyright {
+  background: transparent;
+  font-size: 11px;
+  margin: 0 0 5px 0;
+  padding: 2px;
 }
-
-/* 
- * ========================================
- * print page styles 
- * ========================================
- */
-
-#print{
-	margin: 20px auto 20px auto;
-	padding: 0;
-	text-align: left;
-	width: 85%;
-}
-
-#print h1,
-#print h2,
-#print h3,
-#print h4,
-#print p{
-	color: #000000;
-	font-size: 18px;
-	font-weight: bold;
-	margin: 0;
-	padding: 8px;
-}
-
-#print h2,
-#print h3,
-#print p{
-	border-bottom: 1px solid #999;
-	font-size: 11px;
-	font-weight: normal;
-}
-
-#print h3{
-	background: #F5F5F5;
-	font-size: 12px;
-	font-weight: bold;
-	margin: 0 0 10px 0;
-}
-
-#print h4{
-	background: #F9F9F9;
-	font-size: 11px;
-}
-
-#print p{
-	margin: 0 0 5px 0;
-	padding: 10px;
-}
-
-#print p.printcopy{
-	border: 0;
-	color: #DDDDDD;
-	text-align: center;
-}
-
-/* ============================================================== */
-/* RTE STYLES
-/* ============================================================== */
-
-.rteimage {
-	/*background: #D3D3D3;*/
-	/*border: 1px outset transparent*/;
-	cursor: pointer;
-	cursor: hand;
-	padding:1px;
-}
-
-.rteImageRaised {
-	/*background: #D3D3D3;*/
-	border: 1px outset;
-	cursor: pointer;
-	cursor: hand;
-	padding:0px;
-}
-
-.rteImageLowered {
-	/*background: #D3D3D3;*/
-	border: 1px inset;
-	cursor: pointer;
-	cursor: hand;
-	padding:0px;
-}
-
-.rteimage:hover {
-	background: #222222;
-	cursor: pointer;
-	cursor: hand;
-}
-
-.rteVertSep {
-	margin: 0 4px 0 4px;
-}
-
-.rteBack {
-	background: #1F1F1F;
-	border: 1px outset;
-	letter-spacing: 0;
-	padding: 2px;
-}
-
-/* used in ips_rte.js - do not remove */
-.rtebottombutton
-{
-	font-size:10px;
-	border:1px solid #000000;
-	border-top:0px;
-	padding:3px;
-	margin:0px;
-	background-color: #0A0A0A;
-}
-
-/* used in ips_rte.js - do not remove */
-.rtebottombuttonon
-{
-	font-size:10px;
-	border:1px solid #000000;
-	border-top:0px;
-	padding:3px;
-	margin:0px;
-	background-color: #222222;
-}
-
-.rtebuttonbar1 {
-	/*background: #D3D3D3;*/
-	background-image: url(http://www.juggernautguild.com/style_images/poison[1]/folder_rte_images/rte_tile.gif);
-	border: 1px solid black;
-	border-bottom: 0px;
-	letter-spacing: 0;
-	padding: 2px;
-	height:26px;
-}
-
-.rtebuttonbar2 {
-	/*background: #D3D3D3;*/
-	background-image: url(http://www.juggernautguild.com/style_images/poison[1]/folder_rte_images/rte_tile.gif);
-	border: 1px solid black;
-	border-top:1px solid black;
-	letter-spacing: 0;
-	padding: 2px;
-	height:26px;
-}
-
-.rtebuttonbar1 tbody tr td,
-.rtebuttonbar1 tr td,
-.rtebuttonbar2 tbody tr td,
-.rtebuttonbar2 tr td,
-.rteBack tbody tr td,
-.rteBack tr td
-{
-	/*background: #D3D3D3;*/
-	padding: 0;
-}
-
-.rteDiv {
-	display: block;
-	position: relative;
-	padding:0px;
-	margin:0px;
-}
-
-.rteiframe
-{
-	border:1px solid #000000;
-	background-color: #22222;
-}
-
-.rteselectbox
-{
-	font-size:11px;
-}
-
-
-.dny-edit-title
-{
-	border:0px;
-	padding:3px;
-	margin:0px;
-	background: #515151; 
-	color: #FFFFFF; 
-}
-
-
-/* ======================================== */
-/* TABS
-/* ======================================== */
-
-.tabon
-{
-	border-top:1px solid #000000;
-	border-left:1px solid #000000;
-	border-right:1px solid #000000;
-	background-color: #1F1F1F;
-	padding:8px;
-	padding-bottom:9px;
-	font-size:11px;
-	float:left;
-	width:auto;
-	margin-top: 3px;
-}
-
-.taboff
-{
-	border-top: 1px solid #000000;
-	border-left: 1px solid #000000;
-	border-right: 1px solid #000000;
-	background-color: #0D0D0D;
-	color: #FFFFFF;
-	padding: 8px;
-	font-size:11px;
-	float: left;
-	width: auto;
-	margin-top: 3px;
-}
-
-.tabon a:link, 
-.tabon a:visited, 
-.tabon a:active
-{
-	text-decoration:none;
-	color: #DDDDDD;
-}
-
-.taboff a:link, 
-.taboff a:visited, 
-.taboff a:active
-{
-	text-decoration:none;
-	color: #B60000;
-}
-
-.mya-back
-{
-	background: #2C2C2C;
-	margin:1px;
-}
-
-.mya-content
-{
-	background: #242424;
-	padding:8px;
-	margin:1px;
-	border: 1px solid #000000;
-}
-
-/* -------------------------------- */
-/* Create PM box defaults           */
-/* -------------------------------- */
-
-.iframeshim
-{
-	position:absolute;
-	display:none;
-	background: #0D0D0D;
-	filter:alpha(opacity=0);
-	border:0px;
-	width:auto;
-	height:auto;
-}
-
-
-
-/* -------------------------------- */
-/* Experimental                     */
-/* -------------------------------- */
-
-.popupmenu
-{
-   background: #343434;
-   border: 1px solid #000000;
-   text-align:left;
-   font-size: 10px;
-   white-space: nowrap;
-   /*padding:3px 5px 3px 3px;*/
-   /*width:300px;*/
-}
-
-.popupmenu-item
-{
-	padding: 5px;
-	/*margin-top:4px;*/
-	white-space: nowrap;
-	border-bottom: 1px solid #2A2A2A;
-}
-
-.popupmenu-item-last
-{
-	padding: 5px;
-	/*margin-top:4px;*/
-	white-space: nowrap;
-}
-
-.popmenubutton
-{
-	width:120px;
-	white-space:nowrap;
-	background-color: #171717;
-	border:1px solid #000000;
-	color: #BC0D00;
-	font-weight:bold;
-	float:right;
-	text-align:center;
-	margin: 0px;
-	font-size: 11px;
-	padding: 2px;
-}
-
-
-.popmenubutton a:link, 
-.popmenubutton a:visited,
-.popupmenu-item a:link, 
-.popupmenu-item a:visited,
-.popupmenu-item-last a:link, 
-.popupmenu-item-last a:visited
-{ 
-	color: #AEAEAE; 
-	text-decoration: none;
-}
-
-.popmenubutton a:hover, 
-.popupmenu-item a:hover, 
-.popupmenu-item-last a:hover
-{ 
-	color: #727272; 
-	text-decoration: none;
-}
-
-.popupmenu-category
-{ 
-	background: transparent url(http://www.juggernautguild.com/style_images/poison[1]/sub_tile.gif);
-	border-top: 1px solid #222222;
-	border-bottom: 1px solid #000000;
-	color: #B00C00; 
-	font-size: 10px;
-	font-weight: bold; 
-	letter-spacing: 1px;
-	margin: 0; 
-	padding: 5px; 
-}
-
-.spoiler 
-{ 
-	background: #2C2C2C;
-	border: 1px dotted #000;
-	border-left: 4px solid #780000;
-	border-top: 0;
-	color: #000;
-	background-color: #000;
-	padding: 4px;
-	margin: 0 auto 8px auto;
-}
-
-th { white-space: nowrap; }

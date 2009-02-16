@@ -1,0 +1,18 @@
+= will_paginate @items
+%br
+%table.list
+  %thead
+    %tr
+      %th.date Date
+      %th.number Attendees
+      %th.number Drops
+      %th.fill Note
+  %tbody
+    - @raids.each do |raid|
+      %tr{ :class => cycle('even', 'odd') }
+        %td.date= link_to h(raid.date), raid_path(raid)
+        %td.number= raid.attendees.size
+        %td.number= raid.items.size
+        %td.fill= h(raid.note)
+%br
+= will_paginate @items
