@@ -1,0 +1,73 @@
+:javascript
+  $(document).ready(function(){
+    $("#member_tabs").tabs();
+  });
+  
+%h2
+  = link_to 'Members', member_path
+  &raquo;
+  = member_link_colored(@member)
+/ %div
+/   30-Day:
+/   = member_attendance_colored(@member.attendance_30)
+/   %br 90-Day:
+/   = member_attendance_colored(@member.attendance_90)
+/   %br Lifetime:
+/   = member_attendance_colored(@member.attendance_lifetime)
+/   %br LF:
+/   = number_with_precision(@member.lf, :precision => 2)
+/   %br BiS LF:
+/   = number_with_precision(@member.bislf, :precision => 2)
+/   %br Sit LF:
+/   = number_with_precision(@member.sitlf, :precision => 2)
+/ %br
+/ %br
+
+#member_tabs
+  %ul
+    %li= link_to '<span>Raids</span>', '#raids'
+    %li= link_to '<span>Items</span>', '#items'
+    %li= link_to '<span>Punishments</span>', '#punishments'
+    %li= link_to '<span>Wishlist</span>', '#wishlist'
+    %li= link_to '<span>Achievements</span>', '#achievements'
+  #raids
+    %table.list
+      %thead
+        %tr
+          %th.date Date
+          %th.attendance Attendance
+          %th.fill Note
+          %th.image Thread
+      %tbody
+        - @raids.each do |raid|
+          %tr{ :class => cycle('even', 'odd') }
+            %td.date= link_to h(raid.date), raid_path(raid)
+            %td.attendance= member_attendance(raid, @member)
+            %td.fill= h(raid.note)
+            %td.image= raid.thread
+  #items
+    %table.list
+      %thead
+        %tr
+          %th Name
+          %th.date Raid
+          %th.number Price
+      %tbody
+        - @member.items.each do |item|
+          %tr{ :class => cycle('even', 'odd') }
+            %td= link_to_item_with_stats(item)
+            %td.date= link_to h(item.raid.date), raid_path(item.raid) unless item.raid.nil?
+            %td.number= number_with_precision(item.adjusted_price, :precision => 2)
+  #punishments
+    %table.list
+      %thead
+        %tr
+          %th Reason
+          %th.date Expires
+          %th.number Value
+      %tbody
+        - @member.punishments.each do |pun|
+          %tr{ :class => cycle('even', 'odd') }
+            %td= h(pun.reason)
+            %td.date= h(pun.expires.to_s(:db))
+            %td.number= number_with_precision(pun.value)
