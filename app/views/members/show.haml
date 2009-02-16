@@ -22,7 +22,6 @@
 /   = number_with_precision(@member.sitlf, :precision => 2)
 / %br
 / %br
-
 #member_tabs
   %ul
     %li= link_to '<span>Raids</span>', '#raids'
@@ -71,3 +70,12 @@
             %td= h(pun.reason)
             %td.date= h(pun.expires.to_s(:db))
             %td.number= number_with_precision(pun.value)
+  #wishlist
+    %table.list
+      %thead
+        %tr
+          %th.fill Item
+          %th.fill Note
+          %th Type
+      %tbody
+  #achievements
