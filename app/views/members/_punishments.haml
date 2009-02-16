@@ -9,4 +9,4 @@
       %tr{ :class => cycle('even', 'odd') }
         %td= h(pun.reason)
         %td.date= h(pun.expires.to_s(:db))
-        %td.number= number_with_precision(pun.value)
+        %td.number= number_with_precision(pun.value, :precision => 2)

@@ -1,0 +1,19 @@
+%h2
+  = link_to 'Items', items_path
+  &raquo;
+  = link_to_wowhead(@item)
+  
+#purchases
+  %table.list
+    %thead
+      %tr
+        %th.date Raid
+        %th.fill Buyer
+        %th.number Price
+    %tbody
+      - @purchases.each do |item|
+        %tr{ :class => cycle('even', 'odd') }
+          %td.date= link_to item.raid.date, raid_path(item.raid) unless item.raid.nil?
+          %td.fill= member_link_colored(item.member)
+          %td.number= number_with_precision(item.adjusted_price, :precision => 2)
+#stats= stat_tooltip(@item)
