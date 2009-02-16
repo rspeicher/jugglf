@@ -1,6 +1,6 @@
 <script type="text/javascript" charset="utf-8">
   $(function(){
-      $('#tabs > ul').tabs();
+      $('#member_tabs > ul').tabs();
   });
 </script>
 
@@ -14,7 +14,7 @@ BiS LF: <%= number_with_precision(@member.bislf, :precision => 2) %><br/>
 Sit LF: <%= number_with_precision(@member.sitlf, :precision => 2) %><br/>
 <br/><br/>
 
-<% tabs = TabsRenderer.new(self) %>
+<% tabs = TabsRenderer.new(self, :id => 'member_tabs') %>
 <% tabs.create('raids_tab', 'Raids') do %>
 <table border="0" cellspacing="0" cellpadding="0">
   <thead>
