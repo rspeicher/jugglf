@@ -1,4 +1,21 @@
+body
+  :font 12px "Lucida Grande", Lucida, Verdana, sans-serif
+  :margin 0
+  :padding 0
+  :min-width 600px
+  &, a
+    :color #484848
+
+h1
+  :font-size 2em
+  :padding 0
+  :margin 0
+
 h2
+  :border-bottom 1px solid #BBBBBB
+  :color #444444
+  :margin 0 0 10px 0
+  :padding 2px 10px 1px 0
   a
     :text-decoration none
 
@@ -39,3 +56,15 @@ h2
   :color = #008300
 .negative
   :color = #A1000E
+
+// Progress Bars - http://blog.leetsoft.com/2006/8/22/super-simple-css-bars
+// Also see http://wiki.github.com/paolodona/rails-widgets/progressbar
+div.progress-container
+  :border 1px solid #ccc
+  :width 90%
+  :margin 2px 5px 2px 0
+  :padding 1px
+  :float left
+  :background white
+  div
+    :height 12px

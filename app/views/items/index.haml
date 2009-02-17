@@ -5,6 +5,7 @@
     %tr
       %th Name
       %th Buyer
+      %th Notes
       %th.date Raid
       %th.number Price
   %tbody
@@ -12,6 +13,7 @@
       %tr{ :class => cycle('even', 'odd') }
         %td= link_to_item_with_stats(item)
         %td= member_link_colored(item.member)
+        %td= item_tell_types(item)
         %td.date= link_to h(item.raid.date), raid_path(item.raid) unless item.raid.nil?
         %td.number= number_with_precision(item.price, :precision => 2)
 %br

@@ -4,13 +4,13 @@
   });
   
 %h2
-  = link_to 'Raids', raid_path
+  = link_to 'Raids', raids_path
   &raquo;
   = @raid.date
 #raid_tabs
   %ul
-    %li= link_to '<span>Attendees</span>', '#attendees'
-    %li= link_to '<span>Drops</span>', '#drops'
+    %li= link_to_tab("Attendees (#{@raid.attendees.size})")
+    %li= link_to_tab("Drops (#{@raid.items.size})")
 
   #attendees
     %table.list
@@ -27,12 +27,14 @@
     %table.list
       %thead
         %tr
-          %th.fill Name
+          %th Name
           %th.member Buyer
+          %th Notes
           %th.number Price
       %tbody
         - @drops.each do |item|
           %tr{ :class => cycle('even', 'odd') }
-            %td.fill= link_to_item_with_stats(item)
+            %td= link_to_item_with_stats(item)
             %td.member= member_link_colored(item.buyer)
+            %td= item_tell_types(item)
             %td.number= number_with_precision(item.adjusted_price, :precision => 2)
