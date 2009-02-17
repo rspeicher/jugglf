@@ -31,13 +31,14 @@ h2. Medium term
 h3. Interface Overhaul
 
 * Find sites I like and try to replicate them
-* Tabbed interface
+* -Tabbed interface-
 ** Needs at least two levels - We click 'Items' then we want to have a row for filters ('All', 'Normal', 'Best in Slot', 'Situational', 'Rot')
-** ViewMember: Raids, Items, [Plugins: Wishlist/Achievements]; Should all be Ajax loaders
-** ViewRaid: Attendees, Drops
+** ViewMember: Raids, Items, [Plugins: Wishlist/Achievements]; -Should all be Ajax loaders-
+** -ViewRaid: Attendees, Drops-
 * Glyph icons similar to IPBoard 3 for edit/delete inside each row
 * Drop-down menu navigation system
 * Column sorting (Javascript? We use pagination)
+** http://wiki.rubyonrails.com/rails/pages/SortHelper2
 
 h2. Long term
 
@@ -52,3 +53,4 @@ h2. Long term
 *** -Allow an expiry time-
 ** Logging ('Tsigo added a raid on 2009-01-01')
 * Exception handling so people can't tell it's Rails (?)
+** http://hoptoadapp.com/welcome

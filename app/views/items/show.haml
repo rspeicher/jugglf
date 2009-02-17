@@ -8,11 +8,13 @@
     %thead
       %tr
         %th.date Raid
-        %th.fill Buyer
+        %th.member Buyer
+        %th.fill Notes
         %th.number Price
     %tbody
       - @purchases.each do |item|
         %tr{ :class => cycle('even', 'odd') }
           %td.date= link_to item.raid.date, raid_path(item.raid) unless item.raid.nil?
-          %td.fill= member_link_colored(item.member)
+          %td.member= member_link_colored(item.member)
+          %td.fill= item_tell_types(item)
           %td.number= number_with_precision(item.adjusted_price, :precision => 2)

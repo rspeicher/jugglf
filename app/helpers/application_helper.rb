@@ -1,7 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def link_to_tab(text, path = nil)
-    path = ( path.nil? ) ? "##{text.downcase}" : path
+    path = ( path.nil? ) ? "##{text.gsub(/^(\w+).*/, '\1').downcase}" : path
     
     link_to "<span>#{text}</span>", path
   end
