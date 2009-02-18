@@ -5,29 +5,34 @@
 
 .ui-tabs
   .ui-tabs-nav
-    :margin -1px
     :padding 10px 15px
     :list-style-type none
     li
+      :position relative
+      :bottom -1px
       :display inline
-      :margin-bottom -1px
       a
+        :background-color #FFFFFF
+        :border 0
         :text-decoration none
         :font-weight bold
         :padding 8px 14px
         &:hover
-          :border 1px solid
-            :color = !attach_border
-          :background-color = (!attach_bg - #303030)
-  .ui-tabs-selected
-    a
-      :background-color = !attach_bg
-      :border
-        :width 1px
-        :style solid
-        :color = !attach_border
-      :border-bottom
-        :color = !attach_bg
+          :background-color = !attach_bg
+          :border-bottom
+            :width 1px
+            :color = !attach_bg
+    .ui-tabs-selected
+      a
+        :background-color = !attach_bg
+        :border
+          :width 1px
+          :style solid
+          :color = !attach_border
+        :border-bottom
+          :width 1px
+          :style solid
+          :color = !attach_bg
   // Hidden tab content
   .ui-tabs-hide
     :display none !important
