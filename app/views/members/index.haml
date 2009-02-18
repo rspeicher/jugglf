@@ -2,27 +2,21 @@
   %thead
     %tr
       %th Name
+      %th Rank
       %th.attendance 30-Day
       %th.attendance 90-Day
       %th.attendance Lifetime
       %th.lootfactor LF
       %th.lootfactor BiS
       %th.lootfactor SLF
-      %th.date First Raid
-      %th.date Last Raid
-      %th.number Raid Count
-      %th.number Item Count
   %tbody
     - @members.each do |member|
       %tr{ :class => cycle('even', 'odd') }
         %td= member_link_colored(member)
+        %td= member.rank.name unless member.rank.nil?
         %td.attendance= member_attendance_colored(member.attendance_30)
         %td.attendance= member_attendance_colored(member.attendance_90)
         %td.attendance= member_attendance_colored(member.attendance_lifetime)
         %td.lootfactor= number_with_precision(member.lf, :precision => 2)
         %td.lootfactor= number_with_precision(member.bislf, :precision => 2)
         %td.lootfactor= number_with_precision(member.sitlf, :precision => 2)
-        %td.date= member.first_raid
-        %td.date= member.last_raid
-        %td.number= member.raids.size
-        %td.number= member.items.size
