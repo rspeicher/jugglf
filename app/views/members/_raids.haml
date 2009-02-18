@@ -7,7 +7,7 @@
       %th.image Thread
   %tbody
     - @raids.each do |raid|
-      %tr{ :class => cycle('even', 'odd') }
+      %tr{ :class => cycle('even', 'odd') + raid_date_classes(raid) }
         %td.date= link_to h(raid.date), raid_path(raid)
         %td.attendance= member_raid_attendance(raid, @member)
         %td.note= h(raid.note)
