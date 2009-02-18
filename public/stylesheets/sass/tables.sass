@@ -1,3 +1,5 @@
+@import constants.sass
+
 // Redmine Tables
 table
   th
@@ -10,19 +12,22 @@ table
     :background-color #FFFFFF
 
 table.list
-  :border 1px solid #E4E4E4
+  :border 1px solid
+    :color = !table_border_color
   :border-collapse collapse
   :width 100%
   :margin-bottom 4px
   th
-    :background-color #EEEEEE
+    :background-color = !table_header_background
     :padding 4px
     :white-space nowrap
-    :border-bottom 1px solid #E4E4E4
+    :border-bottom 1px solid
+      :color = !table_border_color
   td
     :padding 5px
     :vertical-align top
-    :border-right 1px solid #E4E4E4
+    :border-right 1px solid
+      :color = !table_border_color
   tbody
     tr
       &:hover

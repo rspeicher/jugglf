@@ -1,0 +1,10 @@
+%h2
+  = link_to 'Members', members_path
+  &raquo;
+  = member_link_colored(@member)
+  &raquo;
+  Edit
+%fieldset
+  %legend.hidden Edit Member
+  
+  = render :partial => 'form'

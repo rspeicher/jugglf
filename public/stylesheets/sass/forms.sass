@@ -1,0 +1,32 @@
+@import constants.sass
+
+fieldset
+  :font-size 18px
+  :padding 0 15px 15px 15px
+  :border 1px solid
+    :color = !table_border_color
+  :background-color = !table_header_background
+  
+  legend.hidden
+    :display none
+    
+  label
+    :font-size 18px
+    
+  input, select, textarea
+    :font-size 18px
+    :padding 5px
+  input
+    :border 1px solid #000
+  input[type=submit]
+    :margin-top 10px
+    
+  p
+    :padding 10px 0
+  
+div.errorExplanation
+  :font-size 0.8em
+  h2
+    :font-size 1em
+    :color red
+    :margin-bottom 0
