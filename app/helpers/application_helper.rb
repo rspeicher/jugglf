@@ -54,8 +54,8 @@ module ApplicationHelper
     container_width ||= (options[:container_width] || defaults[:container_width])
     color ||= (options[:color] || defaults[:color])
     
-    "<div class=\"progress-container\" style=\"width: #{container_width.to_i}%\">
-       <div style=\"width: #{width.to_i}%; background-color: #{color}\"></div>
-     </div>"
+    "<div class='progress-container' style='width: #{container_width.to_i}%'>" +
+      "<div style='width: #{width.to_i}%; background-color: #{color}'></div>" +
+    "</div>"
   end
 end
