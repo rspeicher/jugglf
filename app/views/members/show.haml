@@ -7,41 +7,35 @@
   = link_to 'Members', members_path
   &raquo;
   = member_link_colored(@member)
+#member_stats
+  %h3
+    = member_attendance_colored(@member.attendance_30)
+    %span.small 30-day attendance
+  %h3
+    = member_attendance_colored(@member.attendance_90)
+    %span.small 90-day
+  %h3
+    = member_attendance_colored(@member.attendance_lifetime)
+    %span.small Lifetime
+  %br
+  %h3
+    = number_with_precision(@member.lf, :precision => 2)
+    %span.small Loot Factor
+  %h3
+    = number_with_precision(@member.bislf, :precision => 2)
+    %span.small Best in Slot
+  %h3
+    = number_with_precision(@member.sitlf, :precision => 2)
+    %span.small Situational
 #member_tabs
   %ul
-    %li= link_to_tab('Basic')
+    / %li= link_to_tab('Basic')
     %li= link_to_tab("Raids (#{@raids.size})")
     %li= link_to_tab("Items (#{@member.items.size})")
     %li= link_to_tab("Punishments (#{@member.punishments.size})")
     %li= link_to_tab("Wishlist")
     %li= link_to_tab('Achievements')
-  #basic
-    %table.list
-      %thead{ :style => "max-height: 0.5em" }
-        %tr
-          %th{ :colspan => '6', :style => "line-height: 0.1em" } &nbsp;
-      %tbody
-        %tr
-          %th.right{ :style => "width: 15%" } 30-Day
-          %td.attendance= member_attendance_colored(@member.attendance_30)
-          %td= progress_bar(@member.attendance_30 * 100, :container_width => 75)
-        %tr
-          %th.right 90-Day
-          %td.attendance= member_attendance_colored(@member.attendance_90)
-          %td= progress_bar(@member.attendance_90 * 100, :container_width => 75)
-        %tr
-          %th.right Lifetime
-          %td.right{ :style => "width: 20%" }= member_attendance_colored(@member.attendance_lifetime)
-          %td= progress_bar(@member.attendance_lifetime * 100, :container_width => 75)
-        %tr
-          %th.right Normal LF
-          %td.number= number_with_precision(@member.lf, :precision => 2)
-        %tr
-          %th.right Best in Slot LF
-          %td.number= number_with_precision(@member.bislf, :precision => 2)
-        %tr
-          %th.right Situational LF
-          %td.number= number_with_precision(@member.sitlf, :precision => 2)
+  / #basic= render :partial => 'basic'
   #raids= render :partial => 'raids'
   #items= render :partial => 'items'
   #punishments= render :partial => 'punishments'
