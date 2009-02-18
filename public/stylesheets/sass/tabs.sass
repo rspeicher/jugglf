@@ -1,34 +1,33 @@
-/ Background color of the item the tabs are attaching to
+// Background color of the item the tabs are attaching to
 !attach_bg = #EEEEEE
-/ Border color of the item the tabs are attaching to
+// Border color of the item the tabs are attaching to
 !attach_border = #E4E4E4
 
 .ui-tabs
-  :padding 0
   .ui-tabs-nav
-    :padding 0.2em 0.2em 0 1.2em
-    :position relative
+    :margin -1px
+    :padding 10px 15px
+    :list-style-type none
     li
-      :float left
-      :border-bottom 0 !important
-      :margin 0 0.8em -1.0em 0
-      :padding 0
-      :list-style-type none
+      :display inline
+      :margin-bottom -1px
+      a
+        :text-decoration none
+        :font-weight bold
+        :padding 8px 14px
+        &:hover
+          :border 1px solid
+            :color = !attach_border
+          :background-color = (!attach_bg - #303030)
+  .ui-tabs-selected
+    a
+      :background-color = !attach_bg
       :border
         :width 1px
         :style solid
         :color = !attach_border
-      :background-color = !attach_bg - 80
-      :-moz-border-radius
-        :topright 5px
-        :topleft 5px
-      a
-        :display block
-        :text-decoration none
-        :padding 0.5em 1em
-    .ui-tabs-selected
-      :padding-bottom 0.1em
-      :border-bottom 0
-      :background-color = !attach_bg
+      :border-bottom
+        :color = !attach_bg
+  // Hidden tab content
   .ui-tabs-hide
     :display none !important
