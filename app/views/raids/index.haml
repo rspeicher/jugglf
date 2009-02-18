@@ -6,13 +6,13 @@
       %th.date Date
       %th.number Attendees
       %th.number Drops
-      %th.fill Note
+      %th.note Note
   %tbody
     - @raids.each do |raid|
       %tr{ :class => cycle('even', 'odd') }
         %td.date= link_to h(raid.date), raid_path(raid)
         %td.number= raid.attendees.size
         %td.number= raid.items.size
-        %td.fill= h(raid.note)
+        %td.note= h(raid.note)
 %br
 = will_paginate @items

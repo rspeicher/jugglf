@@ -3,12 +3,12 @@
     %tr
       %th.date Date
       %th.attendance Attendance
-      %th.fill Note
+      %th.note Note
       %th.image Thread
   %tbody
     - @raids.each do |raid|
       %tr{ :class => cycle('even', 'odd') }
         %td.date= link_to h(raid.date), raid_path(raid)
-        %td.attendance= member_attendance(raid, @member)
-        %td.fill= h(raid.note)
+        %td.attendance= member_raid_attendance(raid, @member)
+        %td.note= h(raid.note)
         %td.image= raid.thread
