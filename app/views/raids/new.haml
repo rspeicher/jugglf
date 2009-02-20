@@ -13,8 +13,8 @@
     - unless f.error_messages.empty?
       .error= f.error_messages
     
-    = f.label :date
-    = date_select(:raid, :date, :default => Date.today)
+    = f.label :date_string
+    = f.text_field :date_string, :class => 'small'
     
     = f.label :note
     = f.text_field :note

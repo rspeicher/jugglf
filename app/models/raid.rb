@@ -47,6 +47,13 @@ class Raid < ActiveRecord::Base
     self.date >= 90.days.ago.to_datetime
   end
   
+  def date_string
+    ( self.date.nil? ) ? Date.today.to_s : self.date.to_s(:db)
+  end
+  def date_string=(value)
+    self.date = Time.parse(value)
+  end
+  
   private
     def populate_attendees
       # TODO: Do we self.attendees.destroy_all during an after_update call?
@@ -94,6 +101,6 @@ class Raid < ActiveRecord::Base
     
     def update_attendee_cache
       return if @update_attendee_cache == false
-      self.attendees.each { |m| m.force_recache! }
+      self.members.each { |m| m.force_recache! }
     end
 end

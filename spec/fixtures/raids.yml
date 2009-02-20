@@ -19,9 +19,9 @@ today:
   note: Raid from five hours ago
 
 yesterday:
-  date: <%= 1.day.ago.to_s :db %>
+  date: <%= 1.day.until(Date.today).to_s(:db) %>
   note: Raid from last night
   
 two_months_ago:
-  date: <%= 2.months.ago.to_s :db %>
+  date: <%= 2.months.until(Date.today).to_s(:db) %>
   note: Raid from two months ago
