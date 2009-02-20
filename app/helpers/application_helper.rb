@@ -3,10 +3,20 @@ module ApplicationHelper
   def breadcrumb(*args)
     args.join(' &raquo; ')
   end
+  
   def link_to_tab(text, path = nil)
     path = ( path.nil? ) ? "##{text.gsub(/^(\w+).*/, '\1').downcase}" : path
     
     link_to "<span>#{text}</span>", path
+  end
+  
+  def link_to_delete(options = {})
+    return if options[:path].nil?
+    
+    options[:text]    ||= 'Delete'
+    options[:confirm] ||= 'Are you sure?'
+    
+    link_to(image_tag('delete.png') + options[:text], options[:path], :confirm => options[:confirm], :method => :delete, :class => 'negative')
   end
   
   def progress_bar(width, *args)
