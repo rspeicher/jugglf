@@ -5,8 +5,8 @@
   :margin 0
 
 body
-  :font-size = 12px
-  :font-family "Lucida Grande", Lucida, Verdana, sans-serif
+  :font-size 68%
+  :font-family = !default_font_family
   :margin 0
   :padding 0
   :min-width 600px
@@ -28,6 +28,9 @@ h2
     
 abbr
   :cursor help
+  
+input[type=hidden]
+  :display none
     
 // WoW Class Colors
 .Death, .Knight
@@ -63,9 +66,23 @@ abbr
 
 // Positive/Negative
 .positive
-  :color = #008300
+  :color = #249901
 .negative
-  :color = #A1000E
+  :color #990000
+  
+// Success/Failure flash notice divs
+div.success, div.error
+  :font-size 1.1em
+  :margin 5px 0
+  :padding 10px 15px
+div.success
+  :background-color #DFF2D9
+  :border 1px solid #84CD6E
+  :color #249901
+div.error
+  :background-color #FAD3C5
+  :border 1px solid #F03A31
+  :color #F03A31
 
 // Progress Bars - http://blog.leetsoft.com/2006/8/22/super-simple-css-bars
 // Also see http://wiki.github.com/paolodona/rails-widgets/progressbar

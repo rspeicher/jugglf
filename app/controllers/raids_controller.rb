@@ -32,7 +32,7 @@ class RaidsController < ApplicationController
   
     respond_to do |wants|
       if @raid.save
-        flash[:notice] = 'Raid was successfully created.'
+        flash[:success] = 'Raid was successfully created.'
         wants.html { redirect_to(@raid) }
         wants.xml  { render :xml => @raid, :status => :created, :location => @raid }
       else
