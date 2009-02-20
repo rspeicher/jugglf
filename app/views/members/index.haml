@@ -12,7 +12,7 @@
   %tbody
     - @members.each do |member|
       %tr{ :class => cycle('even', 'odd') }
-        %td= member_link_colored(member)
+        %td= link_to_member(member)
         %td= member.rank.name unless member.rank.nil?
         %td.attendance= member_attendance_colored(member.attendance_30)
         %td.attendance= member_attendance_colored(member.attendance_90)

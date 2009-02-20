@@ -5,7 +5,7 @@ module MembersHelper
     member.rank.format(member.name)
   end
   
-  def member_link_colored(member)
+  def link_to_member(member)
     link_to h(member.name), member_path(member), :class => member.wow_class unless member.nil?
   end
   

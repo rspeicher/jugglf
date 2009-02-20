@@ -21,7 +21,7 @@
       %tbody
         - @attendees.each do |attendee|
           %tr{ :class => cycle('even', 'odd') }
-            %td.fill= member_link_colored(attendee.member)
+            %td.fill= link_to_member(attendee.member)
             %td.attendance= raid_attendance_colored(attendee.attendance)
   #drops
     %table.list
@@ -35,6 +35,6 @@
         - @drops.each do |item|
           %tr{ :class => cycle('even', 'odd') }
             %td= link_to_item_with_stats(item)
-            %td.member= member_link_colored(item.buyer)
+            %td.member= link_to_member(item.buyer)
             %td= item_tell_types(item)
             %td.number= number_with_precision(item.adjusted_price, :precision => 2)

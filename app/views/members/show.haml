@@ -3,7 +3,7 @@
     $("#member_tabs").tabs();
   });
   
-%h2= breadcrumb link_to('Members', members_path), member_link_colored(@member)
+%h2= breadcrumb link_to('Members', members_path), link_to_member(@member)
 #member_stats
   %h3
     = member_attendance_colored(@member.attendance_30)
