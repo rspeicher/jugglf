@@ -14,3 +14,5 @@
         %td.image
           = link_to image_tag('edit.png'), edit_member_punishment_path(@member, pun) # TODO: Authorization!
           = link_to_delete(:path => member_punishment_path(@member, pun), :text => '') # TODO: Authorization!
+.buttons
+  = link_to image_tag('add.png') + 'Add Punishment', new_member_punishment_path(@member) # TODO: Authorize!
