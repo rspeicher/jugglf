@@ -14,7 +14,7 @@
       .error= f.error_messages
     
     = f.label :date
-    = f.text_field :date
+    = date_select(:raid, :date, :default => Date.today)
     
     = f.label :note
     = f.text_field :note
