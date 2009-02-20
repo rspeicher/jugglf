@@ -10,7 +10,7 @@ class PunishmentsController < ApplicationController
         if @parent.nil?
           render
         else
-          redirect_to(member_path(@member) + '#punishments')
+          redirect_to(member_path(@member))
         end
       end
     end
@@ -44,7 +44,7 @@ class PunishmentsController < ApplicationController
     respond_to do |wants|
       if @punishment.save
         flash[:success] = "Punishment was successfully created."
-        wants.html { redirect_to(member_path(@member) + '#punishments') }
+        wants.html { redirect_to(member_path(@member)) }
       else
         wants.html { render :action => "new" }
       end
