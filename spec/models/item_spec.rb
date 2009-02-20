@@ -113,36 +113,10 @@ describe Item do
       output = %Q{Sebudai - [Arachnoid Gold Band]
       Scipion - [Chains of Adoration]
       Elanar (rot), Alephone (sit) - [Shadow of the Ghoul]
-      Scipion (bis) - [Totem of Misery]
       Scipion - [Wraith Strike]
       Horky (bis) - [Dying Curse]
       Parawon (sit) - [Thrusting Bands]
-      Scipion (sit) - [Angry Dread]
-      Parawon - [Belt of Potent Chanting]
-      Scipion (sit) - [Fool's Trial]
-      Tsigo (sit) - [Haunting Call]
-      Sebudai (sit) - [Leggings of Colossal Strides]
-      Parawon (sit) - [Cloak of the Shadowed Sun]
       Sebudai (rot) - [The Hand of Nerub]
-      Elanar (bis) - [Mantle of the Lost Protector]
-      Tsigo (rot) - [Mantle of the Lost Conqueror]
-      Darkkfall - [Shoulderguards of the Undaunted]
-      Darkkfall (bis) - [Split Greathammer]
-      Zelus (bis) - [Gemmed Wand of the Nerubians]
-      Mithal (bis) - [Breastplate of the Lost Conqueror]
-      Tsigo (sit) - [Spire of Sunset]
-      Alephone (bis) - [Legplates of the Lost Conqueror]
-      Sweetmeat (bis) - [Strong-Handed Ring]
-      Darkkfall (bis) - [Bracers of Unrelenting Attack]
-      Thorona (bis) - [Gothik's Cowl]
-      Sebudai - [Aged Winter Cloak]
-      Elanar (sit) - [Armageddon]
-      Alephone (sit) - [Breastplate of the Lost Conqueror]
-      Bemoan (bis) - [Heroic Key to the Focusing Iris]
-      Alephone (bis) - [Soul of the Dead]
-      Katarzyna (bis) - [Betrayer of Humanity]
-      Sebudai (rot) - [Journey's End]
-      Scipion (sit) - [Voice of Reason]
       Modrack (bis), Rosoo (bis) - [Crown of the Lost Vanquisher]
       }
       
@@ -155,9 +129,9 @@ describe Item do
           end
         end
       end
-
-      Item.count.should == 36
-      Member.find_by_name('Tsigo').items.size.should == 3
+      
+      Item.count.should == 10
+      Member.find_by_name('Sebudai').items.size.should == 2
     end
   end
   
