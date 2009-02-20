@@ -2,4 +2,12 @@
 %fieldset
   %legend.hidden New Member
   
-  = render :partial => 'form'
+  - form_for @member do |f|
+    - unless f.error_messages.empty?
+      .error= f.error_messages
+  
+    = render :partial => 'form', :object => f
+    
+    .buttons
+      = styled_button(:type => 'submit', :image => 'tick.png', :text => 'Save')
+      = styled_button(:type => 'reset')
