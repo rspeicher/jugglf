@@ -1,9 +1,9 @@
 module FormsHelper
   def styled_button(options = {})
-    options[:type]  ||= 'submit'
-    options[:style] ||= ''
-    options[:image] ||= ''
+    options[:type]  ||= 'button'
     options[:text]  ||= options[:type].titleize
+    options[:style] ||= ( options[:type] == 'submit' ) ? 'positive' : ''
+    options[:image] ||= ''
     
     s = ''
     s << "<button type='#{options[:type]}' class='#{options[:style]}'>"

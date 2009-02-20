@@ -1,25 +1,30 @@
+/ :javascript
+/   $(function() {
+/     $('#raid_date').datepicker({ 
+/       dateFormat: "yy-mm-dd",
+/     });
+/   });
 %h2
   = link_to 'Raids', raids_path
   &raquo;
   New
 %fieldset
   - form_for @raid do |f|
-    = f.error_messages
+    - unless f.error_messages.empty?
+      .error= f.error_messages
     
-    %p
-      = f.label :date, "Date"
-      = date_select(:raid, :date)
-    %p
-      = f.label :note, "Note"
-      %br
-      = f.text_field :note
-    %p
-      = f.label :attendance_output, "Attendance"
-      %br
-      = f.text_area :attendance_output, :size => "62x30"
-    %p
-      = f.label :loot_output, "Loot"
-      %br
-      = f.text_area :loot_output, :size => "62x30"
+    = f.label :date
+    = f.text_field :date
     
-    = f.submit
+    = f.label :note
+    = f.text_field :note
+    
+    = f.label :attendance_output, 'Attendance'
+    = f.text_area :attendance_output, :size => '60x15'
+    
+    = f.label :loot_output, 'Loot'
+    = f.text_area :loot_output, :size => '60x15'
+    
+    .buttons
+      = styled_button(:type => 'submit', :text => 'Save', :image => 'tick.png')
+      = styled_button(:type => 'reset')
