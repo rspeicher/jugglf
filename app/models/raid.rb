@@ -93,6 +93,7 @@ class Raid < ActiveRecord::Base
     end
     
     def update_attendee_cache
-      Member.update_all_cache unless @update_attendee_cache == false
+      return if @update_attendee_cache == false
+      self.attendees.each { |m| m.force_recache! }
     end
 end
