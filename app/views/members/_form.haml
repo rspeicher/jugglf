@@ -6,7 +6,7 @@
   = f.text_field :name, :class => 'small'
   
   = f.label :wow_class, 'Class'
-  = f.select :wow_class, [''] + Member::WOW_CLASSES
+  = f.select :wow_class, Member::WOW_CLASSES
   
   .radio-check
     = f.check_box :active
