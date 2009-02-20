@@ -13,6 +13,7 @@ class MembersController < ApplicationController
   def show
     @member = Member.find(params[:id])
     @raids  = Raid.find(:all, :order => "date DESC")
+    @punishments = @member.punishments.find_all_active
     
     respond_to do |wants|
       wants.html

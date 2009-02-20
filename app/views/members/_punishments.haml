@@ -4,9 +4,13 @@
       %th.note Reason
       %th.date Expires
       %th.number Value
+      %th.image Actions
   %tbody
-    - @member.punishments.each do |pun|
+    - @punishments.each do |pun|
       %tr{ :class => cycle('even', 'odd') }
         %td.note= h(pun.reason)
         %td.date= h(pun.expires.to_s(:db))
         %td.number= number_with_precision(pun.value, :precision => 2)
+        %td.image
+          = link_to image_tag('edit.png'), edit_member_punishment_path(@member, pun) # TODO: Authorization!
+          = link_to_delete(:path => member_punishment_path(@member, pun), :text => '') # TODO: Authorization!
