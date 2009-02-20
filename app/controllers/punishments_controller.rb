@@ -2,6 +2,7 @@ class PunishmentsController < ApplicationController
   layout @@layout
   
   before_filter :find_parent
+  before_filter :find_punishment, :only => [:edit, :update, :destroy]
   
   def index
     respond_to do |wants|
@@ -29,12 +30,20 @@ class PunishmentsController < ApplicationController
     end
   end
   
+  def edit
+    respond_to do |wants|
+      wants.html
+    end
+  end
+  
+  # Create / Update / Destroy -------------------------------------------------
+  
   def create
     @punishment = @member.punishments.create(params[:punishment])
     
     respond_to do |wants|
       if @punishment.save
-        flash[:success] = "Punishment was successfully added to #{@member.name}"
+        flash[:success] = "Punishment was successfully created."
         wants.html { redirect_to(member_path(@member) + '#punishments') }
       else
         wants.html { render :action => "new" }
@@ -42,11 +51,22 @@ class PunishmentsController < ApplicationController
     end
   end
   
-  def edit
-    @punishment = Punishment.find(params[:id])
+  def update
+    respond_to do |wants|
+      if @punishment.update_attributes(params[:punishment])
+        flash[:success] = "Punishment was successfully updated."
+        wants.html { redirect_to(member_path(@member)) }
+      else
+        wants.html { render :action => "edit" }
+      end
+    end
+  end
+  
+  def destroy
+    @punishment.destroy
     
     respond_to do |wants|
-      wants.html
+      wants.html { redirect_to(member_path(@member)) }
     end
   end
   
@@ -55,5 +75,9 @@ class PunishmentsController < ApplicationController
       if params[:member_id]
         @parent = @member = Member.find(params[:member_id])
       end
+    end
+    
+    def find_punishment
+      @punishment = @member.punishments.find(params[:id])
     end
 end

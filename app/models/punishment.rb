@@ -16,6 +16,8 @@ class Punishment < ActiveRecord::Base
   # Relationships -------------------------------------------------------------
   belongs_to :member
   
+  # Attributes ----------------------------------------------------------------
+  
   # Validations ---------------------------------------------------------------
   validates_presence_of :reason
   validates_presence_of :value
@@ -23,7 +25,15 @@ class Punishment < ActiveRecord::Base
   validates_numericality_of :value
   
   # Callbacks -----------------------------------------------------------------
-  after_save :update_member_cache
+  after_save    :update_member_cache
+  after_destroy :update_member_cache
+  
+  # Class Methods -------------------------------------------------------------
+  def self.find_all_active
+    self.find(:all, :conditions => ['expires > ?', Date.today])
+  end
+  
+  # Instance Methods ----------------------------------------------------------
   
   def expires_string
     # Default to 56 days from now so that it acts as a normal loot item
@@ -41,6 +51,6 @@ class Punishment < ActiveRecord::Base
   
   private
     def update_member_cache
-      self.member.force_recache!
+      self.member.force_recache! unless self.member.nil?
     end
 end
