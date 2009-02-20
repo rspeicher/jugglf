@@ -2,8 +2,12 @@
 %fieldset
   %legend.hidden Edit Punishment
   
-  = render :partial => 'form'
+  - form_for @punishment, :url => member_punishment_path(@member, @punishment) do |f|
+    - unless f.error_messages.empty?
+      .error= f.error_messages
+      
+    = render :partial => 'form', :object => f
     
-  .buttons
-    = styled_button(:type => 'submit', :text => 'Save', :image => 'tick.png')
-    = styled_button(:text => 'Delete', :style => 'negative', :image => 'delete.png')
+    .buttons
+      = styled_button(:type => 'submit', :text => 'Save', :image => 'tick.png')
+      = link_to_delete(:path => member_punishment_path(@member, @punishment))
