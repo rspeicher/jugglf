@@ -34,18 +34,18 @@ class Raid < ActiveRecord::Base
   
   # Class Methods -------------------------------------------------------------
   def self.count_last_thirty_days
-    Raid.count(:conditions => [ "date >= ?", 30.days.ago ])
+    Raid.count(:conditions => [ "date >= ?", 30.days.until(Date.today) ])
   end
   def self.count_last_ninety_days
-    Raid.count(:conditions => [ "date >= ?", 90.days.ago ])
+    Raid.count(:conditions => [ "date >= ?", 90.days.until(Date.today) ])
   end
   
   # Instance Methods ----------------------------------------------------------
   def is_in_last_thirty_days?
-    self.date >= 30.days.ago.to_datetime
+    self.date >= 30.days.until(Date.today)
   end
   def is_in_last_ninety_days?
-    self.date >= 90.days.ago.to_datetime
+    self.date >= 90.days.until(Date.today)
   end
   
   def date_string

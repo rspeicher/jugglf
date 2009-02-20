@@ -71,7 +71,7 @@ class Item < ActiveRecord::Base
   
   # Instance Methods ----------------------------------------------------------
   def affects_loot_factor?
-    self.raid.date >= 8.weeks.ago.to_datetime if self.raid
+    self.raid.date >= 8.weeks.until(Date.today) if self.raid
   end
   
   def adjusted_price
