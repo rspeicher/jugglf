@@ -32,13 +32,24 @@ class RaidsController < ApplicationController
   
     respond_to do |wants|
       if @raid.save
-        flash[:notice] = 'Raid was successfully created.'
+        flash[:success] = 'Raid was successfully created.'
         wants.html { redirect_to(@raid) }
         wants.xml  { render :xml => @raid, :status => :created, :location => @raid }
       else
         wants.html { render :action => "new" }
         wants.xml  { render :xml => @raid.errors, :status => :unprocessable_entity }
       end
+    end
+  end
+  
+  def destroy
+    @raid = Raid.find(params[:id])
+    @raid.destroy
+    
+    flash[:success] = "Raid was successfully deleted."
+    
+    respond_to do |wants|
+      wants.html { redirect_to(raids_path) }
     end
   end
 end

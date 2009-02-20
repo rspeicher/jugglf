@@ -58,6 +58,7 @@ class Item < ActiveRecord::Base
       if price.is_a? Float
         item.price = price
       else
+        # Item price returned an array, meaning it's a One-Handed weapon and could have two different prices
         # item.price = 99999.00 # FIXME: How do we tell the user that we couldn't determine the price for this item?
         item.price = price[0] # NOTE: Just assuming the higher cost for now
       end
@@ -70,7 +71,7 @@ class Item < ActiveRecord::Base
   
   # Instance Methods ----------------------------------------------------------
   def affects_loot_factor?
-    self.raid.date >= 8.weeks.ago.to_datetime if self.raid
+    self.raid.date >= 8.weeks.until(Date.today) if self.raid
   end
   
   def adjusted_price

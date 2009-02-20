@@ -1,0 +1,9 @@
+= form.label :name
+= form.text_field :name, :class => 'small'
+
+= form.label :wow_class, 'Class'
+= form.select :wow_class, Member::WOW_CLASSES
+
+.radio-check
+  = form.check_box :active
+  = form.label :active, 'Active?'

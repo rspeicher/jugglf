@@ -11,8 +11,9 @@ class MembersController < ApplicationController
   end
   
   def show
-    @member = Member.find_by_name(params[:id])
+    @member = Member.find(params[:id])
     @raids  = Raid.find(:all, :order => "date DESC")
+    @punishments = @member.punishments.find_all_active
     
     respond_to do |wants|
       wants.html
@@ -28,7 +29,7 @@ class MembersController < ApplicationController
   end
   
   def edit
-    @member = Member.find_by_name(params[:id])
+    @member = Member.find(params[:id])
     
     respond_to do |wants|
       wants.html
@@ -40,7 +41,7 @@ class MembersController < ApplicationController
   
     respond_to do |format|
       if @member.save
-        flash[:notice] = 'Member was successfully created.'
+        flash[:success] = 'Member was successfully created.'
         format.html { redirect_to(@member) }
         format.xml  { render :xml => @member, :status => :created, :location => @member }
       else
@@ -51,11 +52,11 @@ class MembersController < ApplicationController
   end
   
   def update
-    @member = Member.find_by_name(params[:id])
+    @member = Member.find(params[:id])
 
     respond_to do |format|
       if @member.update_attributes(params[:member])
-        flash[:notice] = 'Member was successfully updated.'
+        flash[:success] = 'Member was successfully updated.'
         format.html { redirect_to(@member) }
         format.xml  { head :ok }
       else

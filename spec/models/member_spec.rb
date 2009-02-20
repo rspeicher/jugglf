@@ -37,9 +37,10 @@ describe Member do
     Member.create!(@valid_attributes)
   end
   
-  it "should return name for to_param" do
-    Member.create!(@valid_attributes).to_param.should == @valid_attributes[:name]
-  end
+  # TODO: Uncomment when we go back to this method
+  # it "should return name for to_param" do
+  #   Member.create!(@valid_attributes).to_param.should == @valid_attributes[:name]
+  # end
   
   it "should allow nil wow_class" do
     m = Member.new(:name => "NoClass", :wow_class => nil)

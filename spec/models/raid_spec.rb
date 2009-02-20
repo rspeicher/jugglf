@@ -49,6 +49,22 @@ describe Raid do
     Raid.count_last_ninety_days.should == 3
   end
   
+  it "should return today's date as a string if no date is given" do
+    r = Raid.new
+    r.date_string.should == Date.today.to_s(:db)
+  end
+  
+  it "should return a string of its date value" do
+    r = raids(:yesterday)
+    r.date_string.should == 1.day.until(Date.today).to_s(:db)
+  end
+  
+  it "should take a string as its date value" do
+    r = Raid.create(:date_string => '2003-01-01')
+    r.should be_valid
+    r.date.to_s(:db).should match(/^2003-01-01.+/)
+  end
+  
   # ---------------------------------------------------------------------------
   
   describe "with attendees" do
