@@ -1,9 +1,4 @@
-%h2
-  = link_to 'Members', members_path
-  &raquo;
-  = link_to_member(@member)
-  &raquo;
-  Edit
+%h2= breadcrumb link_to('Members', members_path), link_to_member(@member), 'Edit'
 %fieldset
   %legend.hidden Edit Member
   
