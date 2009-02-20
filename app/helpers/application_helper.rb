@@ -1,5 +1,8 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  def breadcrumb(*args)
+    args.join(' &raquo; ')
+  end
   def link_to_tab(text, path = nil)
     path = ( path.nil? ) ? "##{text.gsub(/^(\w+).*/, '\1').downcase}" : path
     
