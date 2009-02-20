@@ -14,7 +14,6 @@ h2. Medium term
 * Administration
 ** New/Edit Item pages
 ** Edit Raid page
-** New/Edit Punishment pages
 ** New/Edit Rank pages
 *** Hide overrides Member.active ?
 ** Quick ItemPrice interface?
