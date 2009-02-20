@@ -30,6 +30,7 @@ class Raid < ActiveRecord::Base
   after_create [ :populate_attendees, :populate_drops ]
   after_update [ :populate_attendees, :populate_drops ]
   after_save :update_cache
+  after_destroy :update_cache
   
   # Class Methods -------------------------------------------------------------
   def self.count_last_thirty_days

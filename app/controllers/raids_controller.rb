@@ -41,4 +41,15 @@ class RaidsController < ApplicationController
       end
     end
   end
+  
+  def destroy
+    @raid = Raid.find(params[:id])
+    @raid.destroy
+    
+    flash[:success] = "Raid was successfully deleted."
+    
+    respond_to do |wants|
+      wants.html { redirect_to(raids_path) }
+    end
+  end
 end
