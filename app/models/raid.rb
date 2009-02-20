@@ -29,7 +29,7 @@ class Raid < ActiveRecord::Base
   # Callbacks -----------------------------------------------------------------
   after_create [ :populate_attendees, :populate_drops ]
   after_update [ :populate_attendees, :populate_drops ]
-  after_save :update_attendee_cache
+  after_save :update_cache
   
   # Class Methods -------------------------------------------------------------
   def self.count_last_thirty_days
@@ -99,8 +99,9 @@ class Raid < ActiveRecord::Base
       end
     end
     
-    def update_attendee_cache
-      return if @update_attendee_cache == false
-      self.members.each { |m| m.force_recache! }
+    def update_cache
+      # We have to update all members' cache, because if a member didn't attend
+      # this raid, it should still affect that person's attendance percentages
+      Member.update_all_cache unless @update_attendee_cache == false
     end
 end
