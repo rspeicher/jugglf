@@ -15,6 +15,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Punishment do
+  fixtures :members
+  
   before(:each) do
     @valid_attributes = {
       :reason  => 'Reason',
@@ -32,5 +34,18 @@ describe Punishment do
     
     p.expire!
     p.expires.should_not >= Date.today
+  end
+  
+  it "should require a numeric value" do
+    p = Punishment.create(:value => 'NotANumber')
+    p.errors_on(:value).should_not be_empty
+  end
+  
+  it "should update member cache after creation" do
+    old = members(:tsigo).bislf
+    
+    members(:tsigo).punishments.create(:reason => 'Test', :value => 5.00, :expires => Date.tomorrow)
+    
+    Member.find(members(:tsigo)).bislf.should_not == old
   end
 end

@@ -1,0 +1,12 @@
+- form_for @punishment, :url => member_punishments_path(@member) do |f|
+  - unless f.error_messages.empty?
+    .error= f.error_messages
+  
+  = f.label :expires_string, 'Expires on'
+  = f.text_field :expires_string, :class => 'small'
+  
+  = f.label :reason
+  = f.text_field :reason, :class => 'large'
+  
+  = f.label :value
+  = f.text_field :value, :class => 'small'

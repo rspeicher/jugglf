@@ -1,0 +1,9 @@
+%h2=breadcrumb link_to('Members', members_path), link_to_member(@member), 'Punishments', 'Edit'
+%fieldset
+  %legend.hidden Edit Punishment
+  
+  = render :partial => 'form'
+    
+  .buttons
+    = styled_button(:type => 'submit', :text => 'Save', :image => 'tick.png')
+    = styled_button(:text => 'Delete', :style => 'negative', :image => 'delete.png')
