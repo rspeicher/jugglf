@@ -24,6 +24,10 @@ describe MembersHelper do
       
       member_with_rank_formatting(m).should == "<b>Name</b>"
     end
+    
+    it "should ignore a nil value" do
+      lambda { member_with_rank_formatting(nil) }.should_not raise_error
+    end
   end
   
   describe "link_to_member" do
@@ -34,6 +38,10 @@ describe MembersHelper do
     it "should apply wow class as CSS class" do
       m = mock_model(Member, :name => 'Name', :wow_class => 'WoWClass')
       link_to_member(m).should match(/class="WoWClass"/)
+    end
+    
+    it "should ignore a nil value" do
+      lambda { link_to_member(nil) }.should_not raise_error
     end
   end
   
@@ -52,6 +60,10 @@ describe MembersHelper do
       )
       
       member_raid_attendance(raid, mock_model(Member)).should match(/50%/)
+    end
+    
+    it "should ignore nil values" do
+      lambda { member_raid_attendance(nil, nil) }.should_not raise_error
     end
   end
   
@@ -75,6 +87,10 @@ describe MembersHelper do
     it "should handle a float value" do
       member_attendance_colored(0.1234).should match(/12%/)
     end
+    
+    it "should ignore a nil value" do
+      lambda { member_attendance_colored(nil) }.should_not raise_error
+    end
   end
   
   describe "raid_attendance_colored" do
@@ -92,6 +108,10 @@ describe MembersHelper do
     
     it "should handle a float value" do
       raid_attendance_colored(0.1234).should match(/12%/)
+    end
+    
+    it "should ignore a nil value" do
+      lambda { raid_attendance_colored(nil) }.should_not raise_error
     end
   end
 end
