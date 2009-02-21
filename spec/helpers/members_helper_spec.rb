@@ -32,26 +32,66 @@ describe MembersHelper do
     end
     
     it "should apply wow class as CSS class" do
-      m = mock_model(Member, :name => 'Name', :wow_class => 'Druid')
-      link_to_member(m).should match(/class="Druid"/)
+      m = mock_model(Member, :name => 'Name', :wow_class => 'WoWClass')
+      link_to_member(m).should match(/class="WoWClass"/)
     end
   end
   
   describe "member_raid_attendance" do
-    it "should return zero for non-attended raid"
-    it "should return member attendance for attended raid"
+    it "should return zero for non-attended raid" do
+      raid = mock_model(Raid, :members => [])
+      
+      member_raid_attendance(raid, mock_model(Member)).should match(/0%/)
+    end
+    
+    it "should return member attendance for attended raid" do
+      raid = mock_model(Raid, :members => [], :attendees => [])
+      raid.members.should_receive(:include?).and_return(true)
+      raid.attendees.should_receive(:find_by_member_id).and_return(
+        mock_model(Member, :attendance => 0.50)
+      )
+      
+      member_raid_attendance(raid, mock_model(Member)).should match(/50%/)
+    end
   end
   
   describe "member_attendance_colored" do
-    it "should classify as negative for 0-34"
-    it "should classify as neutral for 35-66"
-    it "should classify as positive for 67-100"
-    it "should otherwise classify as neutral"
+    it "should classify as negative for 0-34" do
+      member_attendance_colored(18).should match(/negative/)
+    end
+    
+    it "should classify as neutral for 35-66" do
+      member_attendance_colored(48).should match(/neutral/)
+    end
+    
+    it "should classify as positive for 67-100" do
+      member_attendance_colored(88).should match(/positive/)
+    end
+    
+    it "should otherwise classify as neutral" do
+      member_attendance_colored(-1).should match(/neutral/)
+    end
+    
+    it "should handle a float value" do
+      member_attendance_colored(0.1234).should match(/12%/)
+    end
   end
   
   describe "raid_attendance_colored" do
-    it "should classify as positive for 100"
-    it "should classify as neutral for 1-99"
-    it "should classify as negative for 0"
+    it "should classify as positive for 100"do
+      raid_attendance_colored(100).should match(/positive/)
+    end
+    
+    it "should classify as neutral for 1-99" do
+      raid_attendance_colored(50).should match(/neutral/)
+    end
+    
+    it "should classify as negative for 0" do
+      raid_attendance_colored(0).should match(/negative/)
+    end
+    
+    it "should handle a float value" do
+      raid_attendance_colored(0.1234).should match(/12%/)
+    end
   end
 end
