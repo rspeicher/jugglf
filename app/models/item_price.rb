@@ -54,6 +54,7 @@ class ItemPrice
   end
   
   def price(stat, is_hunter = nil)
+    return if stat.nil?
     if not stat.level or stat.level < MIN_LEVEL or not stat.slot
       special_case_stats(stat)
     end

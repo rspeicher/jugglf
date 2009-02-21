@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe ItemPrice do
   fixtures :item_stats
   
-  before(:each) do
+  before(:all) do
     @ip = ItemPrice.new
   end
   
@@ -55,5 +55,9 @@ describe ItemPrice do
     stat.item = 'Not a Real Trinket'
     
     lambda { @ip.price(stat) }.should raise_error
+  end
+  
+  it "should handle a nil ItemStat object" do
+    lambda { @ip.price(nil, nil) }.should_not raise_error
   end
 end
