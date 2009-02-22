@@ -1,31 +1,28 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe Automator do
+describe Juggy do
   before(:each) do
-    @raid = Raid.make
-    @raid.attendance_output = "Sebudai,1.00,233"
-    @raid.loot_output = "Sebudai - [Arachnoid Gold Band]"
-    
-    @auto = Automator.new
+    @attendance_output = "Sebudai,1.00,233"
+    @loot_output = "Sebudai - [Arachnoid Gold Band]"
   end
   
-  describe "#items_from_attendance" do
+  describe "#parse_items" do
     it "should return an array of items" do
-      items = @auto.items_from_attendance(@raid.loot_output)
+      items = Juggy.parse_items(@loot_output)
       
       items.size.should eql(1)
       items[0].class.should eql(Item)
     end
     
     it "should not save items automatically" do
-      lambda { @auto.items_from_attendance(@raid.loot_output) }.
+      lambda { Juggy.parse_items(@loot_output) }.
         should_not change(Item, :count)
     end
     
     # We enabled this for a while, then wimped out because there was no
     # distinguishing from a DE'd item and an item that had a misspelled buyer
     # it "should not save members automatically" do
-    #   lambda { @auto.items_from_attendance(@raid.loot_output) }.
+    #   lambda { Juggy.parse_items(@loot_output) }.
     #     should_not change(Member, :count)
     # end
     
@@ -33,17 +30,17 @@ describe Automator do
       before(:each) do
         item = 'Arachnoid Gold Band'
         @items = {
-          :single       => @auto.items_from_attendance("Sebudai - #{item}"),
-          :false_bis    => @auto.items_from_attendance("Sebisudai - #{item}"),
-          :best_in_slot => @auto.items_from_attendance("Modrack (bis) - #{item}"),
-          :rot          => @auto.items_from_attendance("Modrack (rot) - #{item}"),
-          :sit          => @auto.items_from_attendance("Modrack (sit) - #{item}"),
-          :bisrot       => @auto.items_from_attendance("Modrack (bis rot) - #{item}"),
-          :multiple     => @auto.items_from_attendance("Modrack (bis), Rosoo (bis) - #{item}"),
-          :de           => @auto.items_from_attendance("DE - #{item}"),
+          :single       => Juggy.parse_items("Sebudai - #{item}"),
+          :false_bis    => Juggy.parse_items("Sebisudai - #{item}"),
+          :best_in_slot => Juggy.parse_items("Modrack (bis) - #{item}"),
+          :rot          => Juggy.parse_items("Modrack (rot) - #{item}"),
+          :sit          => Juggy.parse_items("Modrack (sit) - #{item}"),
+          :bisrot       => Juggy.parse_items("Modrack (bis rot) - #{item}"),
+          :multiple     => Juggy.parse_items("Modrack (bis), Rosoo (bis) - #{item}"),
+          :de           => Juggy.parse_items("DE - #{item}"),
         }
         
-        # items_from_attendance returns an array; each example only wants one item
+        # parse_items returns an array; each example only wants one item
         @items.each { |k, v| @items[k] = v[0] }
       end
     
