@@ -114,54 +114,44 @@ describe Raid, "dependencies" do
 end
 
 describe Raid, "#attendance_output" do
-  # before(:all) do
-  #   @output = <<-END
-  #   Sebudai,1.00,233
-  #   Katarzyna,0.50
-  #   Kapetal,0.83,194
-  #   Kapetal,1.00
-  #   END
-  # end
-  # 
-  # before(:each) do
-  #   Raid.destroy_all
-  #   @raid = Raid.make
-  #   @raid.attendance_output = @output
-  # end
+  before(:all) do
+    @output = <<-END
+    Sebudai,1.00,233
+    Katarzyna,0.50
+    Kapetal,1.00
+    Kapetal,0.83,194
+    END
+  end
   
-  it "should handle nil" # do
-   #    @raid.attendance_output = nil
-   #    lambda { @raid.save }.should_not change(@raid, :attendees)
-   #  end
+  before(:each) do
+    [Attendee, Member, Raid].each(&:destroy_all)
+    @raid = Raid.make
+    @raid.attendance_output = @output
+    @raid.update_attendee_cache = false
+  end
   
-  it "should handle invalid formatting" # do
-   #    @raid.attendance_output = 'Garbage,,,,,,,,,,,,,'
-   #    lambda { @raid.save }.should_not change(@raid, :attendees)
-   #  end
+  it "should create non-existant members" do
+    lambda { @raid.save }.should change(Member, :count).by(3)
+  end
   
-  it "should create non-existant members" # do
-   #    Member.destroy_all
-   #    
-   #    lambda { @raid.save }.should change(Member, :count).by(3)
-   #  end
+  it "should update existing members" do
+    member = Member.make(:name => 'Kapetal', :raids_count => 50)
+    @raid.save
+    
+    lambda { member.reload }.should change(member, :raids_count).by(1)
+  end
   
-  it "should update existing members" # do
-  #     member = Member.make(:name => 'Kapetal', :raids_count => 50)
-  #     @raid.save
-  #     
-  #     member.reload
-  #     member.raids_count.should == 51
-  #   end
+  it "should not raise an exception for duplicates" do
+    lambda { @raid.save }.should_not raise_error
+  end
   
-  it "should not raise an exception for duplicates" # do
-  #     lambda { @raid.save }.should_not raise_error
-  #   end
-  
-  it "should use the lower attendance percentage when a duplicate is present" # do
-  #     @raid.save
-  #     
-  #     Member.find_by_name('Kapetal').attendance[0].attendance.should == 0.83
-  #   end
+  it "should use the lower attendance percentage when a duplicate is present" do
+    @raid.save
+    
+    kapetal = Member.find_by_name('Kapetal')
+    kapetal.raids.size.should == 1
+    kapetal.attendance[0].attendance.should == 0.83
+  end
 end
 
 describe Raid, "#loot_output" do

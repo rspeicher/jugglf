@@ -57,6 +57,25 @@ class Raid < ActiveRecord::Base
   
   private
     def populate_attendees
+      attendees = Juggy.parse_attendees(@attendance_output)
+      return if attendees.nil? or attendees.size == 0
+      
+      attendees.each do |att|
+        member = Member.find_or_initialize_by_name(att[:name])
+        
+        begin
+          self.attendees.create(:member => member, :attendance => att[:attendance])
+        rescue ActiveRecord::StatementInvalid => e
+          # Probably a duplicate entry error caused by having the same member
+          # twice or more in the output; find the member by name and then
+          # see which attendance value is lower and use that
+          existing = self.attendees.find_by_member_id(member.id)
+          if not existing.nil? and att[:attendance] < existing.attendance
+            existing.attendance = att[:attendance]
+            existing.save
+          end
+        end
+      end
     end
     
     def populate_drops

@@ -89,7 +89,22 @@ describe Juggy do
     end
   end
   
-  describe "output from JuggyAttendance" do
-    it "should return an array of attendees"
+  describe "#parse_attendees" do
+    before(:each) do
+      @att = Juggy.parse_attendees(@attendance_output)
+    end
+    
+    it "should return an array of hashes" do
+      @att.size.should eql(1)
+      @att[0].class.should eql(Hash)
+    end
+    
+    it "should return duplicate members when provided" do
+      output = ''
+      3.times { output += @attendance_output + "\n" }
+      @att = Juggy.parse_attendees(output)
+      
+      @att.size.should == 3
+    end
   end
 end
