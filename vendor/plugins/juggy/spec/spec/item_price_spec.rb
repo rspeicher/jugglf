@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ItemPrice do
   before(:all) do
-    @ip = Juggy::ItemPrice.new
+    @ip = Juggy::ItemPrice.instance
   end
   
   it "should calculate Head prices" do
@@ -43,7 +43,7 @@ describe ItemPrice do
   
   it "should calculate Trinket prices" do
     @ip.price(:slot => 'Trinket', :name => 'Soul of the Dead', :level => 213).should == 4.00
-    @ip.price(:slot => 'Trinket', :name => 'InvalidTrinke', :level => 213).should be_nil
+    @ip.price(:slot => 'Trinket', :name => 'InvalidTrinket', :level => 213).should be_nil
   end
   
   it "should calculate for special case items" do

@@ -3,7 +3,10 @@ class ItemPrice
 end
 
 module Juggy
+  require 'singleton'
+  
   class ItemPrice
+    include Singleton
     MIN_LEVEL = 199
     
     def initialize
@@ -103,6 +106,7 @@ module Juggy
         
         value
       end
+      
       def trinket_value(options)
         value = nil
         
