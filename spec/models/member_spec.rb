@@ -67,7 +67,35 @@ describe Member, "attendance caching" do
   end
 end
   
-  # ---------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
+
+describe Member, "loot factor caching" do
+  before(:each) do
+    Raid.destroy_all
+    raid   = Raid.make
+    
+    @member = Member.make
+    @member.attendance.make(:raid => raid, :attendance => 1.00)
+
+    @member.items.make(:raid => raid, :price => 1.23)
+    @member.items.make(:raid => raid, :price => 4.56, :best_in_slot => true)
+    @member.items.make(:raid => raid, :price => 7.89, :situational => true)
+    
+    @member.force_recache!
+  end
+  
+  it "should update normal loot factor" do
+    @member.lf.should == 1.23
+  end
+  
+  it "should update best in slot loot factor" do
+    @member.bislf.should == 4.56
+  end
+  
+  it "should update situational loot factor" do
+    @member.sitlf.should == 7.89
+  end
+end
   
 describe Member, "incomplete" do
   describe "loot factor caching" do

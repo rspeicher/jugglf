@@ -16,7 +16,6 @@ end
 
 Item.blueprint do
   name
-  price
   member
   raid
 end
