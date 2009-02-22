@@ -5,8 +5,15 @@ Sham.define do
   price(:unique => false) { 1.0 }
 end
 
+MemberRank.blueprint do
+  name
+  prefix { '<b>' }
+  suffix { '</b>' }
+end
+
 Member.blueprint do
   name
+  rank_id { MemberRank.make }
 end
 Member.blueprint(:hunter) do
   wow_class { 'Hunter' }
