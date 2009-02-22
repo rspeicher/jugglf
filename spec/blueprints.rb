@@ -26,6 +26,7 @@ Item.blueprint do
   name
   member
   raid
+  price
 end
 
 Punishment.blueprint do
