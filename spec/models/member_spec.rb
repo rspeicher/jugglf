@@ -82,7 +82,7 @@ describe Member, "attendance caching" do
   end
   
   it "should update all member cache" do
-    @member.attendance.make
+    @member.attendance.make(:attendance => 0.10)
     @member.reload
     lambda do
       Member.update_all_cache
