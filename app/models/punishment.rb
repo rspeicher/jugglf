@@ -46,7 +46,6 @@ class Punishment < ActiveRecord::Base
   def expire!
     self.expires = 24.hours.until(Date.today)
     self.save!
-    self.member.force_recache! if self.member
   end
   
   private

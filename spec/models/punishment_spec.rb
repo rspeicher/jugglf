@@ -15,37 +15,69 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Punishment do
-  # fixtures :members
-  
-  before(:all) do
-    @valid_attributes = {
-      :reason  => 'Reason',
-      :expires => 5.days.from_now,
-      :value   => 1.00
-    }
+  before(:each) do
+    @punishment = Punishment.make
+    @expired    = Punishment.make(:expired)
   end
+  
+  it "should be valid" do
+    @punishment.should be_valid
+  end
+  
+  it "should forcibly expire" do
+    @punishment.expire!
+    @punishment.expires.should_not >= Date.today
+  end
+  
+  it "should find all active punishments" do
+    Punishment.find_all_active.size.should == 1
+  end
+end
 
-  it "should create a new instance given valid attributes" # do
-   #    Punishment.create!(@valid_attributes)
-   #  end
+# -----------------------------------------------------------------------------
+
+describe Punishment, "#expires_string" do
+  before(:each) do
+    @punishment = Punishment.make
+  end
   
-  it "should forcibly expire" # do
-   #    p = Punishment.create!(@valid_attributes)
-   #    
-   #    p.expire!
-   #    p.expires.should_not >= Date.today
-   #  end
+  it "should set expires date from a string" do
+    @punishment.expires_string = 1.year.until(Date.today).to_s
+    @punishment.expires.to_date.should == 1.year.until(Date.today)
+  end
   
-  it "should require a numeric value" # do
-   #    p = Punishment.create(:value => 'NotANumber')
-   #    p.errors_on(:value).should_not be_empty
-   #  end
+  it "should return expires as a string" do
+    @punishment.expires_string.should == Date.tomorrow
+  end
   
-  it "should update member cache after creation" # do
-   #    old = members(:tsigo).bislf
-   #    
-   #    members(:tsigo).punishments.create(:reason => 'Test', :value => 5.00, :expires => Date.tomorrow)
-   #    
-   #    Member.find(members(:tsigo)).bislf.should_not == old
-   #  end
+  it "should return a date 56 days from now if expires is not yet set" do
+    @punishment.expires = nil
+    @punishment.expires_string.should == 56.days.from_now.to_date
+  end
+end
+
+# -----------------------------------------------------------------------------
+
+describe Punishment, "callbacks" do
+  before(:each) do
+    @member = Member.make
+    @member.punishments.make
+    @member.reload
+  end
+  
+  it "should update member cache after save" do
+    @member.lf.should_not == 0.00
+  end
+  
+  it "should update member cache after expire!" do
+    @member.punishments.find(:last).expire!
+    @member.reload
+    @member.lf.should == 0.00
+  end
+  
+  it "should update member cache after destroy" do
+    Punishment.destroy_all
+    @member.reload
+    @member.lf.should == 0.00
+  end
 end
