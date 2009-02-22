@@ -32,27 +32,21 @@ describe Punishment do
   it "should find all active punishments" do
     Punishment.find_all_active.size.should == 1
   end
-end
+  
+  describe "#expires_string" do
+    it "should set expires date from a string" do
+      @punishment.expires_string = 1.year.until(Date.today).to_s
+      @punishment.expires.to_date.should == 1.year.until(Date.today)
+    end
 
-# -----------------------------------------------------------------------------
+    it "should return expires as a string" do
+      @punishment.expires_string.should == Date.tomorrow
+    end
 
-describe Punishment, "#expires_string" do
-  before(:each) do
-    @punishment = Punishment.make
-  end
-  
-  it "should set expires date from a string" do
-    @punishment.expires_string = 1.year.until(Date.today).to_s
-    @punishment.expires.to_date.should == 1.year.until(Date.today)
-  end
-  
-  it "should return expires as a string" do
-    @punishment.expires_string.should == Date.tomorrow
-  end
-  
-  it "should return a date 56 days from now if expires is not yet set" do
-    @punishment.expires = nil
-    @punishment.expires_string.should == 56.days.from_now.to_date
+    it "should return a date 56 days from now if expires is not yet set" do
+      @punishment.expires = nil
+      @punishment.expires_string.should == 56.days.from_now.to_date
+    end
   end
 end
 
