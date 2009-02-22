@@ -23,7 +23,6 @@
 #
 
 class Member < ActiveRecord::Base
-  CACHE_FLUSH = 1
   WOW_CLASSES = ['Death Knight'] + (%w(Druid Hunter Mage Paladin Priest Rogue Shaman Warlock Warrior))
   
   # Relationships -------------------------------------------------------------
@@ -45,11 +44,6 @@ class Member < ActiveRecord::Base
   end
   
   # Instance Methods ----------------------------------------------------------
-  def should_recache?
-    # num. uncached updates>=threshold  | can't use new record | more than 12 hours old
-    self.uncached_updates >= CACHE_FLUSH or (self.updated_at and 12.hours.ago >= self.updated_at)
-  end
-  
   def force_recache!
     update_cache(true)
   end
@@ -59,15 +53,12 @@ class Member < ActiveRecord::Base
   # end
   
   private
-    def update_cache(force = false)
-      return unless force or self.should_recache?
-      
+    def update_cache()
       logger.info "update_cache running on #{self.name} -----------------------"
       
       update_attendance_cache()
       update_loot_factor_cache()
       
-      self.uncached_updates = 0
       # Let's go without validations since we're only updating LF and Attendance
       self.save(false)
     end

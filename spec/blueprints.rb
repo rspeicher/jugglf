@@ -25,6 +25,5 @@ end
 #  rank_id             :integer(4)
 Member.blueprint do
   name
-  wow_class { 'Druid' }
 end
 

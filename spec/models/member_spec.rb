@@ -25,66 +25,18 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Member do
-  before(:each) do
-    # @member = Member.make
+  
+  it "should be valid" do
+    Member.make.should be_valid
   end
   
-  it "should allow nil wow_class" do
-    member = Member.make(:wow_class => nil)
-    member.should be_valid
+  it "should be active by default" do
+    Member.make.active?.should be_true
   end
-  
-  it "should validate wow_class" # do
-   #    m = Member.new(:name => "EverQuest", :wow_class => "Necromancer")
-   #    m.should_not be_valid
-   #    m.errors.on(:wow_class).should_not be_empty
-   #  end
-
-  it "should require a name" # do
-   #    m = Member.new
-   #    m.should_not be_valid
-   #    m.errors.on(:name).should_not be_empty
-   #  end
-  
-  it "should invalidate duplicate names" # do
-   #    Member.create(:name => 'Unique')
-   #    
-   #    m = Member.create(:name => 'Unique')
-   #    m.should_not be_valid
-   #    m.errors.on(:name).should_not be_empty
-   #    
-   #    m.name = 'Unique2'
-   #    m.save
-   #    m.should be_valid
-   #  end
-  
-  it "should be active by default" # do
-   #    Member.create(:name => 'New Member')
-   #    
-   #    m = Member.find(:last)
-   #    m.name.should == 'New Member'
-   #    m.active?.should be_true
-   #  end
   
   # ---------------------------------------------------------------------------
 
   describe "caching" do
-    # fixtures :items, :raids
-    
-    it "should not recache with a recent updated_at" # do
-     #      members(:tsigo).should_recache?.should_not be_true
-     #    end
-
-    it "should recache with an outdated updated_at" # do
-     #      members(:sebudai).should_recache?.should be_true
-     #    end
-
-    it "should recache when uncached_updates is beyond the threshold" # do
-     #      m = members(:tsigo)
-     #      m.uncached_updates = Member::CACHE_FLUSH
-     #      m.should_recache?.should be_true
-     #    end
-    
     it "should set first_raid" # do
      #      m = Member.create(:name => 'FirstRaid')
      #      m.attendance.create(:raid_id => raids(:today).id, :attendance => 1.00)
@@ -115,21 +67,6 @@ describe Member do
      #      m.force_recache!
      #      m.attendance_lifetime.should > 0.00
      #      m.attendance_lifetime.should_not > 1.00
-     #    end
-
-    it "should update the uncached_updates attribute" # do
-     #      m = members(:tsigo)
-     #      m.uncached_updates = 0
-     # 
-     #      1.upto(Member::CACHE_FLUSH - 1) do |x|
-     #        m.attendance_30 = 1.00 * x.to_f
-     #        m.save!
-     #        m.uncached_updates.should == x
-     #      end
-     # 
-     #      m.attendance_30 = 40.00
-     #      m.save! # This save should trigger the update_cache method
-     #      m.uncached_updates.should == 0
      #    end
   
     it "should update cache on existing member" # do
