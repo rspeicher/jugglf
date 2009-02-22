@@ -1,3 +1,5 @@
+require 'item_price'
+
 module Juggy
   class << self
     def parse_items(output)
