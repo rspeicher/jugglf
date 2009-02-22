@@ -71,20 +71,23 @@ module Juggy
         end
       
         # Item Pricing
-        item.price = 0.00 # TODO
-      
-        #   price = item.determine_item_price()
-        #   if price.is_a? Float
-        #     item.price = price
-        #   else
-        #     # Item price returned an array, meaning it's a One-Handed weapon and could have two different prices
-        #     # item.price = 99999.00 # FIXME: How do we tell the user that we couldn't determine the price for this item?
-        #     item.price = price[0] # NOTE: Just assuming the higher cost for now
-        #   end
-        # 
-        #   retval.push(item)
-        # end
-      
+        price = nil
+        stats = ItemStat.lookup(item.name)
+        unless stats.new_record?
+          price = ItemPrice.instance.price(:name => stats.item, 
+            :level => stats.level, :slot => stats.slot, 
+            :hunter => (item.member.wow_class == 'Hunter')
+          )
+        end
+        
+        if price.is_a? Array
+          # Item price returned an array, meaning it's a One-Handed weapon and could have two different prices
+          # item.price = 99999.00 # FIXME: How do we tell the user that we couldn't determine the price for this item?
+          item.price = nil
+        else
+          item.price = price
+        end
+
         item
       end
   end

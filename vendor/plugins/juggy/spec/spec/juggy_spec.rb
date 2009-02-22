@@ -26,6 +26,20 @@ describe Juggy do
     #     should_not change(Member, :count)
     # end
     
+    describe "automatic pricing" do
+      before(:each) do
+        # Juggy.parse_items tries to figure out the price via ItemStat's
+        # data; fake that so we don't hit Wowhead for non-existant items
+        ItemStat.stub!(:lookup).and_return(ItemStat.make)
+      end
+      
+      it "should figure out price based on item stats" do
+        items = Juggy.parse_items('Buyer - Item')
+        
+        items[0].price.should == 3.00
+      end
+    end
+    
     describe "item details" do
       before(:each) do
         item = 'Arachnoid Gold Band'
