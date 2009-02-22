@@ -5,7 +5,7 @@ end
 module Juggy
   class ItemPrice
     MIN_LEVEL = 199
-
+    
     def initialize
       @values = {
         'Head' => nil, 'Chest' => nil, 'Legs' => {
@@ -58,58 +58,71 @@ module Juggy
       @values['Relic'] = @values['Idol'] = @values['Totem'] = @values['Thrown'] = @values['Sigil'] = @values['Ranged']
     end
 
-    def price(stat, is_hunter = nil)
-      return if stat.nil?
-      if not stat.level or stat.level < 5 or not stat.slot
-        special_case_stats(stat)
+    def price(options = {})
+      options[:name]   ||= nil
+      options[:item]   ||= options[:name] # Item name
+      options[:slot]   ||= nil            # Item slot
+      options[:level]  ||= 0              # Item level (ilvl)
+      options[:hunter] ||= false          # Buyer is a hunter; special cases for weapons
+      
+      options[:level] = options[:level].to_i
+      
+      if not options[:level] or options[:level] < MIN_LEVEL or not options[:slot]
+        options = special_case_options(options)
       end
-
-      if stat.slot == 'Trinket'
-        value = trinket_value(stat)
-      elsif stat.slot == 'One-Hand'
-        value = onehand_value(stat, is_hunter)
+      
+      return if options[:level] < MIN_LEVEL or options[:slot] == nil
+      
+      value = nil
+      
+      if options[:slot] == 'Trinket'
+        value = trinket_value(options)
+      elsif options[:slot] == 'One-Hand'
+        value = onehand_value(options)
       else
-        value = nil
-
-        unless @values[stat.slot]
-          raise "Invalid item slot: #{stat.slot} for item #{stat.item}"
-        else
-          @values[stat.slot].sort.each do |level,values|
-            if level.to_i <= stat.level
-              if values.is_a? Float
-                value = values
-              else
-                value = is_hunter ? values[1] : values[0]
-              end
-            end # k <= level
-          end # each_pair
-        end # Hash
-      end # else
+        value = default_value(options)
+      end
 
       value
     end
 
     private
-      def trinket_value(stat)
+      def default_value(options)
         value = nil
-
-        if @values['Trinket'][stat.item]
-          value = @values['Trinket'][stat.item]
+        
+        slotval = @values[options[:slot]]
+        slotval.sort.each do |level,values|
+          if level.to_i <= options[:level]
+            if values.is_a? Float
+              value = values
+            else
+              value = options[:hunter] ? values[1] : values[0]
+            end
+          end
+        end
+        
+        value
+      end
+      def trinket_value(options)
+        value = nil
+        
+        if @values['Trinket'][options[:item]]
+          value = @values['Trinket'][options[:item]]
         else
-          raise "Invalid Trinket: #{stat.item}"
+          # raise "Invalid Trinket: #{options[:item]}"
         end
 
         value
       end
 
-      def onehand_value(stat, is_hunter)
+      def onehand_value(options)
         value = nil
 
-        slotval = @values[stat.slot]
+        slotval = @values[options[:slot]]
         slotval.sort.each do |level,values|
-          if level.to_i <= stat.level
+          if level.to_i <= options[:level]
             # One-Hand weapons have the same price for Hunters regardless of MH/OH
-            if is_hunter
+            if options[:hunter]
               value = values[1]
             else
               value = [ @values['Main Hand'][level][0], values[0] ]
@@ -120,56 +133,50 @@ module Juggy
         value
       end
 
-      # NOTE: There's an argument to be made that this belongs in ItemStats and not here
-      # We do store the changes we make, however since these changes only happen
-      # to very specific cases and not all Tier tokens, for example, I think for
-      # now it makes the most sense to leave them in the class that changes them
-      def special_case_stats(stat)
-        value = nil
-
-        if stat.item == 'Heroic Key to the Focusing Iris'
-          stat.slot  = 'Neck'
-          stat.level = 226
-        elsif stat.level == 80
+      def special_case_options(options)
+        if options[:item] == 'Heroic Key to the Focusing Iris'
+          options[:slot]  = 'Neck'
+          options[:level] = 226
+        elsif options[:level] == 80
           # Probably a Tier 7/7.5 token
-          matches = stat.item.match(/^(.+) of the Lost (Conqueror|Protector|Vanquisher)$/)
+          matches = options[:item].match(/^(.+) of the Lost (Conqueror|Protector|Vanquisher)$/)
           if matches.length > 0
             case matches[1]
             when 'Breastplate'
-              stat.slot  = 'Chest'
-              stat.level = 213
+              options[:slot]  = 'Chest'
+              options[:level] = 213
             when 'Chestguard'
-              stat.slot  = 'Chest'
-              stat.level = 200
+              options[:slot]  = 'Chest'
+              options[:level] = 200
             when 'Crown'
-              stat.slot  = 'Head'
-              stat.level = 213
+              options[:slot]  = 'Head'
+              options[:level] = 213
             when 'Helm'
-              stat.slot  = 'Head'
-              stat.level = 200
+              options[:slot]  = 'Head'
+              options[:level] = 200
             when 'Gauntlets'
-              stat.slot  = 'Hands'
-              stat.level = 213
+              options[:slot]  = 'Hands'
+              options[:level] = 213
             when 'Gloves'
-              stat.slot  = 'Hands'
-              stat.level = 200
+              options[:slot]  = 'Hands'
+              options[:level] = 200
             when 'Legplates'
-              stat.slot  = 'Legs'
-              stat.level = 213
+              options[:slot]  = 'Legs'
+              options[:level] = 213
             when 'Leggings'
-              stat.slot  = 'Legs'
-              stat.level = 200
+              options[:slot]  = 'Legs'
+              options[:level] = 200
             when 'Mantle'
-              stat.slot  = 'Shoulders'
-              stat.level = 213
+              options[:slot]  = 'Shoulders'
+              options[:level] = 213
             when 'Spaulders'
-              stat.slot  = 'Shoulders'
-              stat.level = 200
+              options[:slot]  = 'Shoulders'
+              options[:level] = 200
             end
           end
         end
 
-        stat.save!
+        options
       end
   end
 end
