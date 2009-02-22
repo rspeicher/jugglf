@@ -67,7 +67,9 @@ class ItemStat < ActiveRecord::Base
       doc.elements.each('wowhead/item/icon') { |e| stat.icon = e.text }
       doc.elements.each('wowhead/item/inventorySlot') { |e| stat.slot = e.text }
       
-      stat.save!
+      if stat.valid?
+        stat.save!
+      end
       
       stat
     end
