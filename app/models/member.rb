@@ -26,10 +26,10 @@ class Member < ActiveRecord::Base
   WOW_CLASSES = ['Death Knight'] + (%w(Druid Hunter Mage Paladin Priest Rogue Shaman Warlock Warrior))
   
   # Relationships -------------------------------------------------------------
-  has_many :attendees
+  has_many :attendees, :dependent => :destroy
   alias_method :attendance, :attendees
-  has_many :items, :order => "id DESC" # FIXME: This should really be 'date DESC' but the date comes from the raid
-  has_many :punishments
+  has_many :items, :order => "id DESC", :dependent => :nullify # FIXME: This should really be 'date DESC' but the date comes from the raid
+  has_many :punishments, :dependent => :destroy
   has_many :raids, :through => :attendees, :order => "date DESC"
   belongs_to :rank, :class_name => "MemberRank", :foreign_key => "rank_id"
   

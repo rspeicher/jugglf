@@ -36,6 +36,20 @@ describe Member do
   it "should be active by default" do
     @member.active?.should be_true
   end
+  
+  it "should have raid attendance" do
+    5.times { @member.attendance.make }
+    
+    @member.reload
+    @member.raids_count.should == 5
+    @member.raids.size.should == 5
+  end
+  
+  it "should have item purchases" do
+    8.times { @member.items.make }
+    
+    @member.items.size.should == 8
+  end
 end
 
 describe Member, "attendance caching" do
@@ -62,8 +76,9 @@ describe Member, "attendance caching" do
   end
   
   it "should update attendance percentages" do
-    @member.attendance_30.should_not == 0.00
-    @member.attendance_90.should_not == 0.00
+    @member.attendance_30.should_not       == 0.00
+    @member.attendance_90.should_not       == 0.00
+    @member.attendance_lifetime.should_not == 0.00
   end
 end
   
@@ -72,7 +87,7 @@ end
 describe Member, "loot factor caching" do
   before(:each) do
     Raid.destroy_all
-    raid   = Raid.make
+    raid = Raid.make
     
     @member = Member.make
     @member.attendance.make(:raid => raid, :attendance => 1.00)
@@ -96,151 +111,60 @@ describe Member, "loot factor caching" do
     @member.sitlf.should == 7.89
   end
 end
-  
-describe Member, "incomplete" do
-  describe "loot factor caching" do
-    before(:all) do
-      # Raid.destroy_all # [Member, Raid, Item, Attendee].each(&:delete_all)
-      # att = Attendee.make(:attendance => 1.00)
-      # @member = att.member
-      # 
-      # @items = {
-      #   :normal => Item.make(:member => @member, :price => 1.23),
-      #   :bis    => Item.make(:member => @member, :price => 4.56, :best_in_slot => true),
-      #   :sit    => Item.make(:member => @member, :price => 7.89, :situational => true),
-      # }
-      #   
-      # @member.force_recache!
-    end
-    
-    it "should update normal loot factor" do
-      # @member.lf.should == 1.23
-    end
-    
-    # it "should update best in slot loot factor" do
-    #   @member.bislf.should == 4.56
-    # end
-    # 
-    # it "should update situational loot factor" do
-    #   @member.sitlf.should == 7.89
-    # end
-  end
-    
-    it "should update cache on existing member" # do
-     #      m = members(:update_cache)
-     #      m.should_recache?.should be_true
-     #    
-     #      populate_member_for_caching(m)
-     #    
-     #      m = Member.find_by_name('UpdateMyCache')
-     #      m.attendance_30.should == 1.00
-     #      m.attendance_90.should == 0.666667
-     #    
-     #      m.lf.should    == 5.00
-     #      m.sitlf.should == 30.00
-     #      m.bislf.should == 3.14
-     #    end
-  
-    it "should update cache on new member" # do
-     #      m = Member.new(:name => "NewCache")
-     #      m.should_recache?.should_not be_true
-     #    
-     #      m.save
-     #      populate_member_for_caching(m)
-     #    
-     #      m = Member.find_by_name('NewCache')
-     #      m.attendance_30.should == 1.00
-     #      m.attendance_90.should == 0.666667
-     #    
-     #      m.lf.should    == 5.00
-     #      m.sitlf.should == 30.00
-     #      m.bislf.should == 3.14
-     #    end
-    
-    # def populate_member_for_caching(m)
-    #   # Add raid attendance
-    #   m.attendance.create(:raid_id => raids(:today).id, :attendance => 1.00)
-    #   m.attendance.create(:raid_id => raids(:yesterday).id, :attendance => 1.00)
-    #   m.uncached_updates += 2
-    # 
-    #   # Add an item
-    #   m.items.create(:name => 'Normal LF', :price => 5.00, 
-    #     :raid_id => raids(:yesterday).id)
-    #   m.items.create(:name => 'Sit LF', :price => 30.00, 
-    #     :raid_id => raids(:today).id, :situational => true)
-    #   m.items.create(:name => 'BiS LF, Not Affected', :price => 10.00, 
-    #     :raid_id => raids(:two_months_ago).id, :best_in_slot => true)
-    #   m.items.create(:name => 'BiS LF', :price => 3.14, 
-    #     :raid_id => raids(:yesterday).id, :best_in_slot => true)
-    #   m.items.size.should == 4
-    # 
-    #   m.save!
-    #   m.force_recache!
-    # end
-  
-  # ---------------------------------------------------------------------------
 
-  describe "attending a raid" do
-    # fixtures :raids
-  
-    it "has raid attendance" # do
-     #      m = members(:tsigo)
-     #      m.attendance.size.should == 0
-     #      m.raids << raids(:today)
-     #      m.raids << raids(:yesterday)
-     #      m.save
-     #    
-     #      m.attendance.size.should == 2
-     #    end
-  end
-  
-  # ---------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
-  describe "purchasing an item" do
-    # fixtures :items
-  
-    it "has an item purchase" # do
-     #      m = members(:tsigo)
-     #      m.items.size.should == 0
-     #    
-     #      i = Item.create(:name => 'Warglaive of Azzinoth', :price => 5.00)
-     #      m.items << i
-     #    
-     #      m.items.size.should == 1
-     #      m.should == i.buyer
-     #    end
+describe Member, "punishments" do
+  before(:each) do
+    @member = Member.make
   end
   
-  # ---------------------------------------------------------------------------
-  
-  describe "with punishments" do
-    # fixtures :punishments
+  it "should affect loot factor" do
+    @member.punishments.make
+    @member.force_recache!
     
-    # before(:each) do
-    #   @m = members(:punished)
-    # end
-    
-    it "should affect loot factor" # do
-     #      @m.punishments << punishments(:late)
-     #      @m.force_recache!
-     #      
-     #      @m.lf.should >= punishments(:late).value
-     #    end
-    
-    it "should not include expired punishments" # do
-     #      @m.punishments << punishments(:expired)
-     #      @m.force_recache!
-     #      
-     #      @m.lf.should == 0.0
-     #    end
+    @member.lf.should > 0.0
   end
   
-  # ---------------------------------------------------------------------------
+  it "should not include expired punishments" do
+    @member.punishments.make(:expired)
+    @member.force_recache!
+    
+    @member.lf.should == 0.0
+  end
+end
+
+# -----------------------------------------------------------------------------
+
+describe Member, "dependencies" do
+  before(:each) do
+    [Attendee, Item, Punishment].each(&:destroy_all)
+    @member = Member.make
+    
+    @member.attendance.make
+    @member.items.make
+    @member.punishments.make
+    
+    @member.destroy
+  end
   
+  it "should destroy associated attendance" do
+    Attendee.count.should == 0
+  end
+  
+  it "should nullify item purchases" do
+    item = Item.find(:last)
+    item.member_id.should be_nil
+  end
+  
+  it "should destroy punishments" do
+    Punishment.count.should == 0
+  end
+end
+
   # describe "with rank" do
   #   before(:each) do
   #     @member = members(:tsigo)
   #     @member.rank = MemberRank.create(:name => 'Officer', :prefix => '<b>', :suffix => '</b>')
   #   end
   # end
-end
