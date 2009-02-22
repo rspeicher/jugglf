@@ -25,27 +25,14 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Member do
-  # fixtures :members
-  
-  before(:all) do
-    @valid_attributes = {
-      :name => 'Name'
-    }
+  before(:each) do
+    # @member = Member.make
   end
   
-  it "should create a new instance given valid attributes" do
-    Member.create!(@valid_attributes)
+  it "should allow nil wow_class" do
+    member = Member.make(:wow_class => nil)
+    member.should be_valid
   end
-  
-  # TODO: Uncomment when we go back to this method
-  # it "should return name for to_param" do
-  #   Member.create!(@valid_attributes).to_param.should == @valid_attributes[:name]
-  # end
-  
-  it "should allow nil wow_class" # do
-   #    m = Member.new(:name => "NoClass", :wow_class => nil)
-   #    m.should be_valid
-   #  end
   
   it "should validate wow_class" # do
    #    m = Member.new(:name => "EverQuest", :wow_class => "Necromancer")
