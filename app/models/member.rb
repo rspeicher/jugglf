@@ -45,7 +45,12 @@ class Member < ActiveRecord::Base
   
   # Instance Methods ----------------------------------------------------------
   def force_recache!
-    update_cache(true)
+    logger.info "update_cache running on #{self.name} -----------------------"
+    
+    update_attendance_cache()
+    update_loot_factor_cache()
+
+    self.save
   end
   
   # def to_param
@@ -53,16 +58,6 @@ class Member < ActiveRecord::Base
   # end
   
   private
-    def update_cache()
-      logger.info "update_cache running on #{self.name} -----------------------"
-      
-      update_attendance_cache()
-      update_loot_factor_cache()
-      
-      # Let's go without validations since we're only updating LF and Attendance
-      self.save(false)
-    end
-    
     def update_attendance_cache
       # Total possible attendance totals
       totals = {
