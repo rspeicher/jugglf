@@ -60,6 +60,10 @@ class Raid < ActiveRecord::Base
     end
     
     def populate_drops
+      items = Juggy.parse_items(@loot_output)
+      unless items.nil? or items.size == 0
+        self.items = items
+      end
     end
     
     def update_cache

@@ -165,15 +165,13 @@ describe Raid, "#attendance_output" do
 end
 
 describe Raid, "#loot_output" do
-  # before(:each) do
-  #   [Item, Raid].each(&:destroy_all)
-  #   @raid = Raid.make
-  #   @raid.loot_output = "Sebudai - [Arachnoid Gold Band]"
-  # end
+  before(:each) do
+    [Item, Raid].each(&:destroy_all)
+    @raid = Raid.make
+    @raid.loot_output = "Sebudai - [Arachnoid Gold Band]"
+  end
   
-  it "should populate drops" # do
-   #    # FIXME: This can't pass on its own, because Raid is coupled to Item is coupled to ItemPrice is coupled to ItemStat. UGH!
-   #    ItemStat.make(:item => 'Arachnoid Gold Band', :slot => 'Finger', :level => 223)
-   #    lambda { @raid.save }.should change(@raid.items, :size).by(1)
-   #  end
+  it "should populate #items from output" do
+    lambda { @raid.save }.should change(@raid.items, :size)
+  end
 end
