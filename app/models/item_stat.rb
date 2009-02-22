@@ -25,6 +25,14 @@ class ItemStat < ActiveRecord::Base
   # Callbacks -----------------------------------------------------------------
   
   # Class Methods -------------------------------------------------------------
+  def self.lookup(query, refresh = false)
+    if query.is_a? String
+      self.lookup_by_name(query, refresh)
+    else
+      self.lookup_by_id(query.to_i, refresh)
+    end
+  end
+  
   def self.lookup_by_id(id, refresh = false)
     stat = ItemStat.find_or_initialize_by_item_id(id)
     
