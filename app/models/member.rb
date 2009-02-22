@@ -98,11 +98,11 @@ class Member < ActiveRecord::Base
       Item.find(:all, :include => :raid, :conditions => ["member_id = ?", self.id]).each do |i|
         if i.affects_loot_factor?
           if i.situational?
-            lf[:sitlf] += i.adjusted_price
+            lf[:sitlf] += i.adjusted_price unless i.adjusted_price.nil?
           elsif i.best_in_slot?
-            lf[:bislf] += i.adjusted_price
+            lf[:bislf] += i.adjusted_price unless i.adjusted_price.nil?
           else
-            lf[:lf] += i.adjusted_price
+            lf[:lf] += i.adjusted_price unless i.adjusted_price.nil?
           end
         end
       end
