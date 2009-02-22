@@ -25,50 +25,79 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Member do
+  before(:each) do
+    @member = Member.make
+  end
   
   it "should be valid" do
-    Member.make.should be_valid
+    @member.should be_valid
   end
   
   it "should be active by default" do
-    Member.make.active?.should be_true
+    @member.active?.should be_true
+  end
+end
+
+describe Member, "attendance caching" do
+  before(:each) do
+    @member = Member.make
+    
+    @raids = {
+      :yesterday      => Raid.make(:date => 1.day.ago),
+      :two_months_ago => Raid.make(:date => 2.months.ago)
+    }
+    
+    Attendee.make(:member => @member, :raid => @raids[:yesterday])
+    Attendee.make(:member => @member, :raid => @raids[:two_months_ago])
+    
+    @member.force_recache!
   end
   
-  # ---------------------------------------------------------------------------
-
-  describe "caching" do
-    it "should set first_raid" # do
-     #      m = Member.create(:name => 'FirstRaid')
-     #      m.attendance.create(:raid_id => raids(:today).id, :attendance => 1.00)
-     #      m.attendance.create(:raid_id => raids(:two_months_ago).id, :attendance => 1.00)
-     #      m.force_recache!
-     #      
-     #      m.first_raid.should == raids(:two_months_ago).date
-     #    end
-    
-    it "should set last_raid" # do
-     #      m = Member.create(:name => 'LastRaid')
-     #      m.attendance.create(:raid_id => raids(:two_months_ago).id, :attendance => 1.00)
-     #      m.attendance.create(:raid_id => raids(:yesterday).id, :attendance => 1.00)
-     #      m.force_recache!
-     #      
-     #      m.last_raid.should == raids(:yesterday).date
-     #    end
-    
-    it "should not calculate lifetime attendance as greater than 100%" # do
-     #      Raid.destroy_all
-     #      
-     #      m = Member.create(:name => 'Lifetime')
-     #      m.attendance.create(:raid_id => Raid.create(:date => 5.hours.ago).id, :attendance => 1.00)
-     #      m.force_recache!
-     #      m.attendance_lifetime.should == 1.00
-     #      
-     #      m.attendance.create(:raid_id => Raid.create(:date => 5.weeks.ago).id, :attendance => 1.00)
-     #      m.force_recache!
-     #      m.attendance_lifetime.should > 0.00
-     #      m.attendance_lifetime.should_not > 1.00
-     #    end
+  it "should set first_raid" do
+    @member.first_raid.should == @raids[:two_months_ago].date
+  end
   
+  it "should set last_raid" do
+    @member.last_raid.should == @raids[:yesterday].date
+  end
+  
+  it "should update attendance percentages" do
+    @member.attendance_30.should_not == 0.00
+    @member.attendance_90.should_not == 0.00
+  end
+end
+  
+  # ---------------------------------------------------------------------------
+  
+describe Member, "incomplete" do
+  describe "loot factor caching" do
+    before(:all) do
+      # Raid.destroy_all # [Member, Raid, Item, Attendee].each(&:delete_all)
+      # att = Attendee.make(:attendance => 1.00)
+      # @member = att.member
+      # 
+      # @items = {
+      #   :normal => Item.make(:member => @member, :price => 1.23),
+      #   :bis    => Item.make(:member => @member, :price => 4.56, :best_in_slot => true),
+      #   :sit    => Item.make(:member => @member, :price => 7.89, :situational => true),
+      # }
+      #   
+      # @member.force_recache!
+    end
+    
+    it "should update normal loot factor" do
+      # @member.lf.should == 1.23
+    end
+    
+    # it "should update best in slot loot factor" do
+    #   @member.bislf.should == 4.56
+    # end
+    # 
+    # it "should update situational loot factor" do
+    #   @member.sitlf.should == 7.89
+    # end
+  end
+    
     it "should update cache on existing member" # do
      #      m = members(:update_cache)
      #      m.should_recache?.should be_true
@@ -120,7 +149,6 @@ describe Member do
     #   m.save!
     #   m.force_recache!
     # end
-  end
   
   # ---------------------------------------------------------------------------
 
