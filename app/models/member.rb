@@ -118,6 +118,5 @@ class Member < ActiveRecord::Base
       self.lf    = (lf[:lf]    / denom)
       self.sitlf = (lf[:sitlf] / denom)
       self.bislf = (lf[:bislf] / denom)
-      # end
     end
 end

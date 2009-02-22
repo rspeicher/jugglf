@@ -80,6 +80,15 @@ describe Member, "attendance caching" do
     @member.attendance_90.should_not       == 0.00
     @member.attendance_lifetime.should_not == 0.00
   end
+  
+  it "should update all member cache" do
+    @member.attendance.make
+    @member.reload
+    lambda do
+      Member.update_all_cache
+      @member.reload
+    end.should change(@member, :attendance_lifetime)
+  end
 end
   
 # -----------------------------------------------------------------------------
