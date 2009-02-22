@@ -23,11 +23,6 @@ class Item < ActiveRecord::Base
   belongs_to :raid#, :counter_cache => true
   alias_method :buyer, :member
   
-  # Class Methods -------------------------------------------------------------
-  def self.from_attendance_output(line)
-
-  end
-  
   # Instance Methods ----------------------------------------------------------
   def affects_loot_factor?
     self.raid.date >= 8.weeks.until(Date.today) if self.raid
@@ -36,13 +31,4 @@ class Item < ActiveRecord::Base
   def adjusted_price
     ( self.rot? ) ? 0.50 : self.price
   end
-  
-  def determine_item_price
-    ItemPrice.new.price(ItemStat.lookup_by_name(self.name), buyer_is_hunter?)
-  end
-  
-  private
-    def buyer_is_hunter?
-      self.buyer and self.buyer.wow_class == 'Hunter'
-    end
 end
