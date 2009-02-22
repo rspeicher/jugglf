@@ -14,14 +14,21 @@
 
 class Raid < ActiveRecord::Base
   # Relationships -------------------------------------------------------------
-  has_many :attendees
-  has_many :items, :order => "items.name ASC"
+  has_many :attendees, :dependent => :destroy
+  has_many :items, :order => "items.name ASC", :dependent => :destroy
   has_many :members, :through => :attendees, :order => "name ASC"
   
   # Attributes ----------------------------------------------------------------
   attr_accessor :update_attendee_cache
   attr_accessor :attendance_output
   attr_accessor :loot_output
+  
+  def date_string
+    ( self.date.nil? ) ? Date.today.to_s : self.date.to_s(:db)
+  end
+  def date_string=(value)
+    self.date = Time.parse(value)
+  end
   
   # Validations ---------------------------------------------------------------
   validates_presence_of :date
@@ -48,13 +55,6 @@ class Raid < ActiveRecord::Base
     self.date >= 90.days.until(Date.today)
   end
   
-  def date_string
-    ( self.date.nil? ) ? Date.today.to_s : self.date.to_s(:db)
-  end
-  def date_string=(value)
-    self.date = Time.parse(value)
-  end
-  
   private
     def populate_attendees
       # TODO: Do we self.attendees.destroy_all during an after_update call?
@@ -62,10 +62,10 @@ class Raid < ActiveRecord::Base
       
       require 'csv'
       lines = CSV.parse(@attendance_output) do |line|
-        next if line[0].nil? or line[0].strip.empty?
+        next if line[0].nil? or line[0].strip.empty? 
+        next if line[1].nil? or line[1].strip.empty?
         
         m = Member.find_or_initialize_by_name(line[0].strip)
-        m.uncached_updates += 1
         m.save
 
         begin

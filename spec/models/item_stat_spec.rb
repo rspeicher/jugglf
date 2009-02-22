@@ -18,15 +18,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe ItemStat do
-  before(:all) do
-    @valid_attributes = {
-    }
-  end
-
-  it "should create a new instance given valid attributes" do
-    ItemStat.create!(@valid_attributes)
-  end
-  
   it "should return a Wowhead item link" # do
    #    stat = ItemStat.lookup_by_name('Torch of Holy Fire')
    #    

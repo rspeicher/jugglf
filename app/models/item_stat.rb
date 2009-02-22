@@ -16,6 +16,14 @@
 #
 
 class ItemStat < ActiveRecord::Base
+  # Relationships -------------------------------------------------------------
+  # Attributes ----------------------------------------------------------------
+  # Validations ---------------------------------------------------------------
+  validates_presence_of :item_id
+  validates_presence_of :item
+  
+  # Callbacks -----------------------------------------------------------------
+  
   # Class Methods -------------------------------------------------------------
   def self.lookup_by_id(id, refresh = false)
     stat = ItemStat.find_or_initialize_by_item_id(id)

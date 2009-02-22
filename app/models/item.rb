@@ -48,7 +48,6 @@ class Item < ActiveRecord::Base
       # Item name and buyer
       unless buyer == 'DE'
         member = Member.find_or_initialize_by_name(buyer.gsub(/^([A-Za-z]+).*?$/, '\1'))
-        member.uncached_updates += 1
         item.member = member
       end
       
