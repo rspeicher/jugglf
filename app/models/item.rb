@@ -25,47 +25,7 @@ class Item < ActiveRecord::Base
   
   # Class Methods -------------------------------------------------------------
   def self.from_attendance_output(line)
-    split = line.split(" - ")
-    return unless split.length == 2
-    
-    retval = []
-    
-    buyer_side = split[0].split(",")
-    item_side  = split[1].gsub(/\[(.+)\]/, '\1').strip # Item name, no brackets
-    
-    buyer_side.each do |buyer|
-      item = Item.new
-      
-      buyer = buyer.strip
-      
-      # These next regex just mean "contained within parenthesis where the only
-      # other values are a-z and \s"; Prevents "Tsitgo" as a name from 
-      # matching "sit" as a tell type while still allowing "(bis rot)"
-      item.situational  = !buyer.match(/\(([a-z\s]+)?sit([a-z\s]+)?\)/).nil?
-      item.best_in_slot = !buyer.match(/\(([a-z\s]+)?bis([a-z\s]+)?\)/).nil?
-      item.rot          = !buyer.match(/\(([a-z\s]+)?rot([a-z\s]+)?\)/).nil?
-      
-      # Item name and buyer
-      unless buyer == 'DE'
-        member = Member.find_or_initialize_by_name(buyer.gsub(/^([A-Za-z]+).*?$/, '\1'))
-        item.member = member
-      end
-      
-      item.name   = item_side
-      
-      price = item.determine_item_price()
-      if price.is_a? Float
-        item.price = price
-      else
-        # Item price returned an array, meaning it's a One-Handed weapon and could have two different prices
-        # item.price = 99999.00 # FIXME: How do we tell the user that we couldn't determine the price for this item?
-        item.price = price[0] # NOTE: Just assuming the higher cost for now
-      end
-      
-      retval.push(item)
-    end
-    
-    retval
+
   end
   
   # Instance Methods ----------------------------------------------------------

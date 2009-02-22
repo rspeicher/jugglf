@@ -57,47 +57,9 @@ class Raid < ActiveRecord::Base
   
   private
     def populate_attendees
-      # TODO: Do we self.attendees.destroy_all during an after_update call?
-      return if @attendance_output.nil? or @attendance_output.empty?
-      
-      require 'csv'
-      lines = CSV.parse(@attendance_output) do |line|
-        next if line[0].nil? or line[0].strip.empty? 
-        next if line[1].nil? or line[1].strip.empty?
-        
-        m = Member.find_or_initialize_by_name(line[0].strip)
-        m.save
-
-        begin
-          self.attendees.create(:member_id => m.id, :attendance => line[1])
-        rescue ActiveRecord::StatementInvalid => e
-          # Probably a duplicate entry error caused by having the same member
-          # twice or more in the output; find the member by id and then
-          # see which attendance value is lower and use that
-          a = self.attendees.find_by_member_id(m.id)
-          if not a.nil? and line[1].to_f < a.attendance
-            a.attendance = line[1]
-            a.save
-          end # lower attendance
-        end # rescue
-      end #CSV.parse
     end
     
     def populate_drops
-      return if @loot_output.nil? or @loot_output.empty?
-      
-      lines = @loot_output.split("\n")
-      lines.each do |line|
-        items = Item.from_attendance_output(line)
-
-        if items and items.length > 0
-          items.each do |item|
-            item.save!
-
-            self.items << item
-          end
-        end
-      end
     end
     
     def update_cache
