@@ -186,6 +186,9 @@ describe Raid, "#loot_output" do
     [Item, Raid].each(&:destroy_all)
     @raid = Raid.make
     @raid.loot_output = "Sebudai - [Arachnoid Gold Band]"
+    
+    ItemStat.stub!(:wowhead_fetch).
+      and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
   end
   
   it "should populate #items from output" do

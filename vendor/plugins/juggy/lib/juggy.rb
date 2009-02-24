@@ -56,8 +56,10 @@ module Juggy
         retval[:rot]          = !buyer.match(/\(([a-z\s]+)?rot([a-z\s]+)?\)/).nil?
       
         # Only set the buyer if it's not disenchanted
+        is_hunter = false
         unless buyer == 'DE'
           retval[:member] = Member.find_or_initialize_by_name(buyer.gsub(/^(\w+).*?$/, '\1'))
+          is_hunter = (retval[:member].wow_class == 'Hunter')
         end
       
         # Item Pricing
@@ -66,7 +68,7 @@ module Juggy
         unless stats.new_record?
           price = ItemPrice.instance.price(:name => stats.item, 
             :level => stats.level, :slot => stats.slot, 
-            :hunter => (retval[:member].wow_class == 'Hunter')
+            :hunter => is_hunter
           )
         end
         

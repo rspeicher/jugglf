@@ -61,12 +61,19 @@ class ItemStat < ActiveRecord::Base
   end
   
   private
-    def self.wowhead_lookup(item, stat)
+    def self.wowhead_fetch(url)
       require 'net/http'
-      require 'rexml/document'
-      require 'cgi'
       
-      xml_data = Net::HTTP.get_response(URI.parse("http://www.wowhead.com/?item=#{CGI.escape(item.to_s)}&xml")).body
+      return Net::HTTP.get_response(
+        URI.parse(url)
+      ).body
+    end
+    
+    def self.wowhead_lookup(item, stat)
+      require 'cgi'
+      require 'rexml/document'
+      
+      xml_data = self.wowhead_fetch("http://www.wowhead.com/?item=#{CGI.escape(item.to_s)}&xml")
       doc = REXML::Document.new(xml_data)
       doc.elements.each('wowhead/item') { |e| stat.item_id = e.attribute('id').to_s }
       doc.elements.each('wowhead/item/name') { |e| stat.item = e.text }

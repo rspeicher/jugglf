@@ -46,6 +46,17 @@ Punishment.blueprint(:expired) do
 end
 
 ItemStat.blueprint do
-  item_id { rand(38000) }
+  item_id { 12345 }
   item { Faker::Lorem.words(2) }
+  color { 'q4' }
+  icon { 'INV_Icon_01' }
+  level { 223 }
+  slot { 'Trinket' }
+end
+ItemStat.blueprint(:real) do
+  item_id { 40395 }
+  item { 'Torch of Holy Fire' }
+  icon { 'INV_Mace_82' }
+  level { 226 }
+  slot { 'Main Hand' }
 end

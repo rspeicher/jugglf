@@ -2,16 +2,24 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Juggy do
   before(:each) do
+    ItemStat.destroy_all
+    
     @attendance_output = "Sebudai,1.00,233"
     @loot_output = "Sebudai - [Arachnoid Gold Band]"
   end
   
   describe "#parse_items" do
-    it "should return an array of items" do
+    before(:each) do
+      # Juggy.parse_items tries to figure out the price via ItemStat's
+      # data; fake that so we don't hit Wowhead for non-existant items
+      ItemStat.stub!(:lookup).and_return(ItemStat.make)
+    end
+    
+    it "should return an array of hashes" do
       items = Juggy.parse_items(@loot_output)
       
       items.size.should eql(1)
-      items[0].class.should eql(Item)
+      items[0].class.should eql(Hash)
     end
     
     it "should not save items automatically" do
@@ -27,16 +35,10 @@ describe Juggy do
     # end
     
     describe "automatic pricing" do
-      before(:each) do
-        # Juggy.parse_items tries to figure out the price via ItemStat's
-        # data; fake that so we don't hit Wowhead for non-existant items
-        ItemStat.stub!(:lookup).and_return(ItemStat.make)
-      end
-      
       it "should figure out price based on item stats" do
         items = Juggy.parse_items('Buyer - Item')
         
-        items[0].price.should == 3.00
+        items[0][:price].should == 3.00
       end
     end
     
@@ -59,32 +61,32 @@ describe Juggy do
       end
     
       it "should return one Item" do
-        @items[:single].class.should == Item
+        @items[:single].class.should == Hash
       end
     
       it "should correctly set best_in_slot" do
-        @items[:best_in_slot].best_in_slot?.should be_true
+        @items[:best_in_slot][:best_in_slot].should be_true
       end
     
       it "should correctly set situational" do
-        @items[:sit].situational?.should be_true
+        @items[:sit][:situational].should be_true
       end
     
       it "should correctly set rot" do
-        @items[:rot].rot?.should be_true
+        @items[:rot][:rot].should be_true
       end
     
       it "should correctly set best_in_slot and rot at the same time" do
-        @items[:bisrot].best_in_slot?.should be_true
-        @items[:bisrot].rot?.should be_true
+        @items[:bisrot][:best_in_slot].should be_true
+        @items[:bisrot][:rot].should be_true
       end
     
       it "should not have false positives for purchase types inside buyer names" do
-        @items[:false_bis].best_in_slot?.should be_false
+        @items[:false_bis][:best_in_slot].should be_false
       end
     
       it "should set member as nil if buyer is 'DE'" do
-        @items[:de].member.should be_nil
+        @items[:de][:member].should be_nil
       end
     end
   end
