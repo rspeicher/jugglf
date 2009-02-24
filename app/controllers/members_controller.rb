@@ -31,7 +31,6 @@ class MembersController < ApplicationController
   
   def edit
     @member = Member.find(params[:id])
-    raise if @member.nil?
     
     respond_to do |wants|
       wants.html
