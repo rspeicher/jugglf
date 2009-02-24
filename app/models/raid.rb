@@ -34,8 +34,8 @@ class Raid < ActiveRecord::Base
   validates_presence_of :date
   
   # Callbacks -----------------------------------------------------------------
-  after_create [ :populate_attendees, :populate_drops ]
-  after_update [ :populate_attendees, :populate_drops ]
+  after_create [ :parse_attendees, :parse_drops ]
+  after_update [ :parse_attendees, :parse_drops ]
   after_save :update_cache
   after_destroy :update_cache
   
@@ -56,7 +56,9 @@ class Raid < ActiveRecord::Base
   end
   
   private
-    def populate_attendees
+    def parse_attendees
+      return if @attendance_output.nil? or @attendance_output.empty?
+      
       attendees = Juggy.parse_attendees(@attendance_output)
       return if attendees.nil? or attendees.size == 0
       
@@ -78,7 +80,9 @@ class Raid < ActiveRecord::Base
       end
     end
     
-    def populate_drops
+    def parse_drops
+      return if @loot_output.nil? or @loot_output.empty?
+      
       items = Juggy.parse_items(@loot_output)
       return if items.nil? or items.size == 0
       
