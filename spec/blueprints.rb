@@ -60,3 +60,17 @@ ItemStat.blueprint(:real) do
   level { 226 }
   slot { 'Main Hand' }
 end
+
+# -----------------------------------------------------------------------------
+
+InvisionUser.blueprint do
+  name
+  mgroup { 4 }
+  email { Faker::Internet.email }
+  converge
+end
+InvisionUserConverge.blueprint do
+  # converge_id { InvisionUser.make.id }
+  converge_pass_hash { InvisionUser.generate_hash('admin', 'admin') }
+  converge_pass_salt { 'admin' }
+end

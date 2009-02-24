@@ -34,7 +34,7 @@ h2. Long term
 
 * Users & Permissions
 ** 'My Standing' link dependant on login status and whether or not a member of that name exists?
-** PLEASE try to make it hook into IPB's auth system, or at least write an auth system for IPB that writes user changes to the DKP side
+** PLEASE try to make it hook into IPB's auth system
 * Wishlists
 * Achievements
 * Administration
