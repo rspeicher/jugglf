@@ -7,7 +7,7 @@ class LegacyMember < ActiveRecord::Base
   end
   
   def active
-    self.member_status.to_i and self.member_rank_id != 5 and self.member_rank_id != 6
+    self.member_status and self.member_rank_id != 5 and self.member_rank_id != 6
   end
   
   def first_raid
@@ -19,7 +19,8 @@ class LegacyMember < ActiveRecord::Base
   end
   
   def raids_count
-    self.member_raidcount # Might just want to recalculate this manually
+    #self.member_raidcount # Might just want to recalculate this manually
+    0
   end
   
   def wow_class
