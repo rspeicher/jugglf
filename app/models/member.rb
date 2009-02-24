@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090213233547
+# Schema version: 20090224005026
 #
 # Table name: members
 #
@@ -18,8 +18,8 @@
 #  attendance_lifetime :float           default(0.0)
 #  created_at          :datetime
 #  updated_at          :datetime
-#  uncached_updates    :integer(4)      default(0)
 #  rank_id             :integer(4)
+#  items_count         :integer(4)      default(0)
 #
 
 class Member < ActiveRecord::Base
