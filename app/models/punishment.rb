@@ -17,6 +17,7 @@ class Punishment < ActiveRecord::Base
   belongs_to :member
   
   # Attributes ----------------------------------------------------------------
+  attr_accessible :reason, :expires, :value
   
   # Validations ---------------------------------------------------------------
   validates_presence_of :reason

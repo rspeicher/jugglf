@@ -24,6 +24,8 @@ class Raid < ActiveRecord::Base
   attr_accessor :attendance_output
   attr_accessor :loot_output
   
+  attr_accessible :date, :note, :thread
+  
   def date_string
     ( self.date.nil? ) ? Date.today.to_s : self.date.to_s(:db)
   end

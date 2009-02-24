@@ -33,6 +33,9 @@ class Member < ActiveRecord::Base
   has_many :raids, :through => :attendees, :order => "date DESC"
   belongs_to :rank, :class_name => "MemberRank", :foreign_key => "rank_id"
   
+  # Attributes ----------------------------------------------------------------
+  attr_accessible :name, :active, :wow_class
+  
   # Validations ---------------------------------------------------------------
   validates_presence_of :name
   validates_uniqueness_of :name, :message => "{{value}} already exists"
