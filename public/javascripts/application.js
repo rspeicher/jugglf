@@ -1,2 +1,10 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
+function sortMemberTable() {
+  $("table#members").tablesorter({ 
+    sortList: [[0,0]],
+    widgets: ['zebra'],
+    headers: { 
+      5: { sorter:'currency' },  // Loot Factor
+      6: { sorter: 'currency' }, // BiS
+      7: { sorter:'currency'} }, // Sit
+  });
+}

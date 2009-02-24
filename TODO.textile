@@ -7,7 +7,22 @@ h2. Bugs
 
 h2. Short term
 
+h3. Item Normalization
+
+If we rename an item, other items that used to have that name don't get renamed
+
+* Rename 'Item' to 'Loot' - these are the actual loots people get, the items that drop on raids
+** t.references :item
+** drop 'name'
+* Create 'Item', these are unique items that allow for normalizing the name
+** belongs_to Drop
+
 h2. Medium term
+
+* Wishlists
+* Users & Permissions
+** 'My Standing' link dependant on login status and whether or not a member of that name exists?
+** PLEASE try to make it hook into IPB's auth system
 
 * Administration
 ** New/Edit Item pages
@@ -15,9 +30,6 @@ h2. Medium term
 ** New/Edit Rank pages
 *** Hide overrides Member.active ?
 ** Quick ItemPrice interface?
-
-* Item Normalization
-** If we rename an item, other items that used to have that name don't get renamed
 
 h3. Interface Overhaul
 
@@ -27,15 +39,11 @@ h3. Interface Overhaul
 * Navigation
 ** [Option] Drop-down menu navigation system
 ** [Option] Left-hand menu navigation
-* Column sorting (Javascript? We use pagination)
+* Column sorting where Javascript can't be used
 ** http://wiki.rubyonrails.com/rails/pages/SortHelper2
 
 h2. Long term
 
-* Users & Permissions
-** 'My Standing' link dependant on login status and whether or not a member of that name exists?
-** PLEASE try to make it hook into IPB's auth system
-* Wishlists
 * Achievements
 * Administration
 ** Logging ('Tsigo added a raid on 2009-01-01')

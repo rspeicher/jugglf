@@ -32,6 +32,22 @@ table.list
     tr
       &:hover
         :background-color #FFFFDD
+        
+table.tablesorter
+  thead
+    tr
+      .header
+        :background
+          :image url(/images/sort_bg.gif) 
+          :repeat no-repeat
+          :position center right
+        :cursor pointer
+      .headerSortUp
+        :background-image url(/images/sort_asc.gif)
+      .headerSortDown
+        :background-image url(/images/sort_desc.gif)
+      th.note, th.attendance, th.lootfactor
+        :padding-right 20px
 
 // Table Cell Types
 th.number, td.number, th.right, td.right
