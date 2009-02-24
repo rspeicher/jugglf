@@ -40,14 +40,12 @@ class MembersController < ApplicationController
   def create
     @member = Member.new(params[:member])
   
-    respond_to do |format|
+    respond_to do |wants|
       if @member.save
         flash[:success] = 'Member was successfully created.'
-        format.html { redirect_to(@member) }
-        format.xml  { render :xml => @member, :status => :created, :location => @member }
+        wants.html { redirect_to(@member) }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @member.errors, :status => :unprocessable_entity }
+        wants.html { render :action => "new" }
       end
     end
   end
@@ -55,14 +53,12 @@ class MembersController < ApplicationController
   def update
     @member = Member.find(params[:id])
 
-    respond_to do |format|
+    respond_to do |wants|
       if @member.update_attributes(params[:member])
         flash[:success] = 'Member was successfully updated.'
-        format.html { redirect_to(@member) }
-        format.xml  { head :ok }
+        wants.html { redirect_to(@member) }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @member.errors, :status => :unprocessable_entity }
+        wants.html { render :action => "edit" }
       end
     end
   end

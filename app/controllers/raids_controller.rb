@@ -34,10 +34,8 @@ class RaidsController < ApplicationController
       if @raid.save
         flash[:success] = 'Raid was successfully created.'
         wants.html { redirect_to(@raid) }
-        wants.xml  { render :xml => @raid, :status => :created, :location => @raid }
       else
         wants.html { render :action => "new" }
-        wants.xml  { render :xml => @raid.errors, :status => :unprocessable_entity }
       end
     end
   end
