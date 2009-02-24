@@ -25,6 +25,22 @@ describe Raid do
     @raid.should be_valid
   end
   
+  it "should have attendees" do
+    5.times { @raid.attendees.make }
+    
+    @raid.reload
+    @raid.attendees_count.should == 5
+    @raid.attendees.size.should == 5
+  end
+  
+  it "should have items" do
+    8.times { @raid.items.make }
+    
+    @raid.reload
+    @raid.items_count.should == 8
+    @raid.items.size.should == 8
+  end
+  
   describe "#date_string" do
     it "should return today's date as a string if no date is given" do
       @raid.date = nil
@@ -43,16 +59,27 @@ describe Raid do
   end
   
   describe "#update_attendee_cache" do
-    it "should allow disabling of attendee cache updates" do
-      member = Member.make(:attendance_30 => 1.00)
-      
-      @raid.update_attendee_cache = false
-      @raid.attendees.make(:member => member, :attendance => 0.50)
+    before(:each) do
+      @member = Member.make(:attendance_30 => 1.00)
+      @raid.attendees.make(:member => @member, :attendance => 0.50)
+    end
+    
+    it "should update attendee cache unless disabled" do
+      @raid.update_attendee_cache = true
       
       lambda do
         @raid.save
-        member.reload
-      end.should_not change(member, :attendance_30)
+        @member.reload
+      end.should change(@member, :attendance_30)
+    end
+    
+    it "should allow disabling of attendee cache updates" do
+      @raid.update_attendee_cache = false
+      
+      lambda do
+        @raid.save
+        @member.reload
+      end.should_not change(@member, :attendance_30)
     end
   end
 end
