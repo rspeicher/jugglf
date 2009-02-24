@@ -19,8 +19,8 @@ class Item < ActiveRecord::Base
   # Relationships -------------------------------------------------------------
   # NOTE: counter_cache with non-has_many :through assocations and the << operator is FUCKING BUGGY AS SHIT
   # See https://gist.github.com/862e344f8ec10995de66
-  belongs_to :member#, :counter_cache => true
-  belongs_to :raid#, :counter_cache => true
+  belongs_to :member, :counter_cache => true
+  belongs_to :raid, :counter_cache => true
   alias_method :buyer, :member
   
   # Instance Methods ----------------------------------------------------------

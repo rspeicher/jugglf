@@ -48,6 +48,8 @@ describe Member do
   it "should have item purchases" do
     8.times { @member.items.make }
     
+    @member.reload
+    @member.items_count.should == 8
     @member.items.size.should == 8
   end
 end

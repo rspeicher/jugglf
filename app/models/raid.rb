@@ -80,8 +80,10 @@ class Raid < ActiveRecord::Base
     
     def populate_drops
       items = Juggy.parse_items(@loot_output)
-      unless items.nil? or items.size == 0
-        self.items = items
+      return if items.nil? or items.size == 0
+      
+      items.each do |params|
+        self.items.create(params)
       end
     end
     
