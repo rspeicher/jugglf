@@ -7,20 +7,6 @@ h2. Bugs
 
 h2. Short term
 
-* Certain tests are still hitting the Wowhead servers. Stub that out.
-** SocketError in 'Raid from JuggyAttendance output should populate drops'
-** SocketError in 'ItemStat lookup from Wowhead should perform lookup by item id'
-** SocketError in 'ItemStat lookup from Wowhead should perform lookup by item name'
-** SocketError in 'Item from JuggyAttendance output should not automatically insert items'
-** SocketError in 'Item from JuggyAttendance output should correctly set best_in_slot'
-** SocketError in 'Item from JuggyAttendance output should correctly set rot'
-** SocketError in 'Item from JuggyAttendance output should correctly set situational'
-** SocketError in 'Item from JuggyAttendance output should correctly set best_in_slot and rot'
-** SocketError in 'Item from JuggyAttendance output should not have false positives for purchase types inside buyer names'
-** SocketError in 'Item from JuggyAttendance output should populate single item from single line'
-** SocketError in 'Item from JuggyAttendance output should populate multiple items from single line'
-** SocketError in 'Item from JuggyAttendance output should populate multiple items from multiple lines'
-
 h2. Medium term
 
 * Administration
