@@ -19,6 +19,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Item do
   before(:each) do
+    Member.destroy_all
     @item = Item.make
   end
   
@@ -33,27 +34,11 @@ describe Item do
     @item.adjusted_price.should == 0.50
   end
   
-  it "should allow multiple items of the same name" # do
-   #    Item.destroy_all
-   #    
-   #    10.times do
-   #      Item.create(:name => "Ubiquitous Item", :price => 3.14)
-   #    end
-   #    
-   #    Item.all.count.should == 10
-   #  end
-  
-  describe "automatic pricing" do
-    # fixtures :members
+  it "should know whether or not it affects loot factor" do
+    recent_item = Item.make
+    recent_item.affects_loot_factor?.should be_true
     
-    it "should calculate Torch of Holy Fire (Main Hand) price for Hunters" # do
-     #      i = Item.create(:name => 'Torch of Holy Fire', :member => members(:sebudai))
-     #      i.determine_item_price.should == 1.25
-     #    end
-    
-    it "should calculate Torch of Holy Fire (Main Hand) price for non-Hunters" # do
-     #      i = Item.create(:name => 'Torch of Holy Fire', :member => members(:tsigo))
-     #      i.determine_item_price.should == 4.00
-     #    end
+    old_item = Item.make(:raid => Raid.make(:date => 1.year.ago))
+    old_item.affects_loot_factor?.should be_false
   end
 end
