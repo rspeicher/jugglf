@@ -45,8 +45,6 @@ class Member < ActiveRecord::Base
   
   # Instance Methods ----------------------------------------------------------
   def force_recache!
-    logger.info "update_cache running on #{self.name} -----------------------"
-    
     update_attendance_cache()
     update_loot_factor_cache()
 
