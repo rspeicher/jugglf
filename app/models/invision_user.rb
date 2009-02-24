@@ -94,7 +94,7 @@ class InvisionUser < ActiveRecord::Base
     def self.filter(input)
       # Invision's input filtering replaces a bunch of characters, some of which 
       # may be used in a strong password. We have to apply the same changes so 
-      # that  the md5'd string ends up the same
+      # that the md5'd string ends up the same
       input.gsub!('&[^amp;]?', '&amp;')
       input.gsub!('<!--', '&#60;&#33;--')
       input.gsub!('-->', '--&#62;')

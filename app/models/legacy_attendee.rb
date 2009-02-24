@@ -13,12 +13,9 @@ class LegacyAttendee < ActiveRecord::Base
   set_primary_key "raid_member"
   
   def member_id
-    Member.find_by_name(self.member_name).id
+    member = Member.find_by_name(self.member_name)
+    member.id unless member.nil?
   end
-  
-  # def raid_id
-  #   self.raid_id
-  # end
   
   def attendance
     self.raid_attendance.to_f

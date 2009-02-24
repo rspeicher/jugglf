@@ -35,18 +35,8 @@ class LegacyMember < ActiveRecord::Base
   def active
     self.member_status and self.member_rank_id != 5 and self.member_rank_id != 6
   end
-  
-  def first_raid
-    Time.at(self.member_firstraid).to_s :db
-  end
-  
-  def last_raid
-    Time.at(self.member_lastraid).to_s :db
-  end
-  
-  def raids_count
-    #self.member_raidcount # Might just want to recalculate this manually
-    0
+  def active?
+    self.active
   end
   
   def wow_class

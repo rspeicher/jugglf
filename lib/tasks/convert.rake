@@ -7,8 +7,6 @@ namespace :db do
       LegacyMember.all.each do |lm|
         m = Member.find_or_initialize_by_name(lm.name)
         m.active              = lm.active
-        m.first_raid          = lm.first_raid
-        m.last_raid           = lm.last_raid
         m.raids_count         = lm.raids_count
         m.wow_class           = lm.wow_class
         m.lf                  = lm.lf

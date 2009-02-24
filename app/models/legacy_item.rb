@@ -26,7 +26,7 @@ class LegacyItem < ActiveRecord::Base
   
   def price
     if self.rot?
-      9999.00
+      0.50 # 9999.00
     else
       self.item_value
     end
@@ -52,18 +52,12 @@ class LegacyItem < ActiveRecord::Base
     else
       m = Member.find_by_name(self.item_buyer)
       if m.nil?
-        puts "Item purchased by invalid member #{self.item_buyer}"
-        logger.warn "Item purchased by invalid member #{self.item_buyer}"
-        return nil
+        raise "Item purchased by invalid member #{self.item_buyer}"
       else
         return m.id
       end
     end
   end
-  
-  # def raid_id
-  #   self.raid_id # NOTE: This will not match the new converted raid's ID
-  # end
 
   def rot?
     self.item_value == 0.50
