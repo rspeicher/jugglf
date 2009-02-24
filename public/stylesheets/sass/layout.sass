@@ -1,9 +1,13 @@
+@import constants.sass
+
 #wrapper
-  :background white none repeat scroll 0 0
+  :background-color = !wrapper_background
+  / :background white none repeat scroll 0 0
     
 // Top Menu -------------------------------------------------------------------
 #top-menu
-  :background #602020 none repeat scroll 0 0
+  :background-color = !top_menu_background
+  / :background #602020 none repeat scroll 0 0
   :font-size 1.2em
   :height 1.8em
   :color white
@@ -28,13 +32,13 @@
     
 // Header ---------------------------------------------------------------------
 #header
-  :background-color #8A4040
+  :background-color = !header_background
   :height 2.8em
   :margin 0
   :padding 4px 8px 0 6px
   :position relative
   &, a
-    :color #F8F8F8
+    :color = !header_color
     
 // Main Menu ------------------------------------------------------------------
 #main-menu

@@ -11,7 +11,7 @@ body
   :padding 0
   :min-width 600px
   &, a
-    :color #484848
+    :color = !defalut_font_color
     
 img
   :border none
@@ -86,6 +86,30 @@ div.error
   :background-color #FAD3C5
   :border 1px solid #F03A31
   :color #F03A31
+  
+// Pagination
+.pagination
+  a, span
+    :padding 5px 10px
+    :text-decoration none
+  a
+    :background-color = !table_header_background
+    :border
+      :width 1px
+      :style solid
+      :color = !table_border_color
+    &:hover
+      :background-color = !table_header_background - 80
+      :color #F8F8F8
+    &.prev_page
+    &.next_page
+  span
+    &.current
+      :border
+        :width 1px
+        :style solid
+        :color = !table_header_background - 80
+    &.gap
 
 // Progress Bars - http://blog.leetsoft.com/2006/8/22/super-simple-css-bars
 // Also see http://wiki.github.com/paolodona/rails-widgets/progressbar
