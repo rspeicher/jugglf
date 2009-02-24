@@ -12,3 +12,5 @@
         %td.attendance= member_raid_attendance(raid, @member)
         %td.note= h(raid.note)
         %td.image= raid.thread
+%br
+= will_paginate(@raids)

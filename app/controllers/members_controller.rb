@@ -12,7 +12,8 @@ class MembersController < ApplicationController
   
   def show
     @member = Member.find(params[:id])
-    @raids  = Raid.find(:all, :order => "date DESC")
+    @raids_count = Raid.count
+    @raids = Raid.paginate(:page => params[:page], :per_page => 50, :order => "date DESC")
     @punishments = @member.punishments.find_all_active
     
     respond_to do |wants|
