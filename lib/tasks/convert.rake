@@ -41,18 +41,15 @@ namespace :db do
       
         # Lookup items by the LEGACY raid ID
         LegacyItem.find_all_by_raid_id(lr.raid_id).each do |li|
-          i = Item.new
-          i.name         = li.name
-          i.price        = li.price
-          i.situational  = li.situational?
-          i.best_in_slot = li.best_in_slot?
-          i.member_id    = li.member_id
-          # i.raid_id      = r.raid_id # NOT li.raid_id, we want ot use our new raid's ID
-          i.rot          = li.rot?
+          i = { }
+          i[:name]         = li.name
+          i[:price]        = li.price
+          i[:situational]  = li.situational?
+          i[:best_in_slot] = li.best_in_slot?
+          i[:member_id]    = li.member_id
+          i[:rot]          = li.rot?
         
-          i.save!
-        
-          r.items << i
+          r.items.create(i)
         end
       
         # Save one more time to make sure the items get saved
