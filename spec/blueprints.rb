@@ -13,7 +13,6 @@ end
 
 Member.blueprint do
   name
-  rank_id { MemberRank.make }
 end
 Member.blueprint(:hunter) do
   wow_class { 'Hunter' }

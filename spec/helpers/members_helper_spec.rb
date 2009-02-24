@@ -6,12 +6,12 @@ describe MembersHelper do
   
   describe "member_rank_with_formatting" do
     it "should return member.name if member.rank is nil" do
-      m = Member.make(:rank_id => nil)
+      m = Member.make
       member_with_rank_formatting(m).should == m.name
     end
     
     it "should return a formatted name if member.rank is not nil" do
-      m = Member.make
+      m = Member.make(:rank => MemberRank.make)
       member_with_rank_formatting(m).should == "<b>#{m.name}</b>"
     end
     
