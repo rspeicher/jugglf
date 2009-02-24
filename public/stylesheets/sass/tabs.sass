@@ -4,36 +4,45 @@
 !attach_border = #E4E4E4
 
 .ui-tabs
-  :padding-top 10px
+  / :padding-top 10px
   .ui-tabs-nav
-    :padding 10px 15px
-    :list-style-type none
+    :height 33px
+    :margin 0 0 0 16px
     li
-      :position relative
-      :bottom -1px
-      :display inline
-      a
-        :background-color #FFFFFF
-        :border 0
-        :text-decoration none
-        :font-weight bold
-        :padding 8px 14px
-        &:hover
-          :background-color = !attach_bg
-          :border-bottom
-            :width 1px
-            :color = !attach_bg
-    .ui-tabs-selected
-      a
+      :-moz-border-radius-topleft 3px
+      :-moz-border-radius-topright 3px
+      :background-color #FFFFFF
+      :display block
+      :float left
+      :font-size 1.1em
+      :height 16px
+      :margin-left 6px
+      :padding 8px 10px 7px
+      :text-align center
+      &:hover
         :background-color = !attach_bg
-        :border
-          :width 1px
-          :style solid
-          :color = !attach_border
         :border-bottom
           :width 1px
           :style solid
           :color = !attach_bg
+        :height 16px
+      a
+        :text-decoration none
+        :font-weight bold
+    li.ui-tabs-selected
+      :background-color = !attach_bg
+      :border
+        :width 1px
+        :style solid
+        :color = !attach_border
+      :border-bottom
+        :width 1px
+        :style solid
+        :color = !attach_bg
+      :height 16px
+      &:hover
+        :height 16px
+      a
   // Hidden tab content
   .ui-tabs-hide
     :display none !important
