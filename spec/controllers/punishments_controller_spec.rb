@@ -29,6 +29,7 @@ describe PunishmentsController, "#new" do
   
   describe "as admin" do
     before(:each) do
+      login({}, :is_admin? => true)
       find_parent()
       @punishment = mock_model(Punishment)
       Punishment.should_receive(:new).and_return(@punishment)
@@ -46,7 +47,11 @@ describe PunishmentsController, "#new" do
   end
   
   describe "as user" do
-    it "should not render"
+    it "should not render" do
+      login({}, {:is_admin? => false})
+      get_response
+      response.should redirect_to(members_path)
+    end
   end
 end
 
@@ -66,6 +71,7 @@ describe PunishmentsController, "#edit" do
   
   describe "as admin" do
     before(:each) do
+      login({}, :is_admin? => true)
       find_parent
       find_punishment
       get_response
@@ -82,7 +88,11 @@ describe PunishmentsController, "#edit" do
   end
   
   describe "as user" do
-    it "should not render"
+    it "should not render" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to(members_path)
+    end
   end
 end
 
@@ -102,6 +112,7 @@ describe PunishmentsController, "#create" do
   
   describe "as admin" do
     before(:each) do
+      login({}, :is_admin? => true)
       find_parent
       @params = Punishment.plan(:member => @parent).stringify_keys!
       @punishment = mock_model(Punishment)
@@ -137,7 +148,11 @@ describe PunishmentsController, "#create" do
   end
   
   describe "as user" do
-    it "should not render"
+    it "should not render" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to(members_path)
+    end
   end
 end
 
@@ -157,6 +172,7 @@ describe PunishmentsController, "#update" do
   
   describe "as admin" do
     before(:each) do
+      login({}, :is_admin? => true)
       find_parent
       find_punishment
       @params = Punishment.plan(:member => @parent).stringify_keys!
@@ -188,7 +204,11 @@ describe PunishmentsController, "#update" do
   end
   
   describe "as user" do
-    it "should not render"
+    it "should not render" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to(members_path)
+    end
   end
 end
 
@@ -208,6 +228,7 @@ describe PunishmentsController, "#destroy" do
   
   describe "as admin" do
     before(:each) do
+      login({}, :is_admin? => true)
       find_parent
       find_punishment
       @punishment.should_receive(:destroy)
@@ -224,6 +245,10 @@ describe PunishmentsController, "#destroy" do
   end
   
   describe "as user" do
-    it "should not render"
+    it "should not render" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to(members_path)
+    end
   end
 end

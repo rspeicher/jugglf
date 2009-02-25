@@ -21,6 +21,10 @@ describe MembersController, "#index" do
   end
   
   describe "as admin" do
+    before(:each) do
+      login({}, :is_admin? => true)
+    end
+    
     it "should render" do
       get_response
       response.should render_template(:index)
@@ -50,6 +54,8 @@ describe MembersController, "#show" do
   
   describe "as admin" do
     before(:each) do
+      login({}, :is_admin? => true)
+      
       @mock = mock_model(Member, 
         :punishments => mock_model(Punishment, :find_all_active => 'punishments'))
       Member.should_receive(:find).with('1').and_return(@mock)
@@ -83,12 +89,20 @@ describe MembersController, "#show" do
   end
   
   describe "as user" do
+    before(:each) do
+      login({}, :is_admin? => false)
+    end
+    
     it "should not render if the member doesn't belong to the current user"
     
     it "should render when the current member belongs to the current user"
   end
   
   describe "as anonymous" do
+    before(:each) do
+      logout
+    end
+    
     it "should not render"
   end
 end
@@ -109,6 +123,7 @@ describe MembersController, "#new" do
   
   describe "as admin" do
     it "should render" do
+      login({}, :is_admin? => true)
       get_response
       response.should render_template(:new)
       response.should be_success
@@ -132,6 +147,7 @@ describe MembersController, "#edit" do
   
   describe "as admin" do
     before(:each) do
+      login({}, :is_admin? => true)
       find_member
       get_response
     end    
@@ -162,18 +178,19 @@ describe MembersController, "#create" do
   end
   
   describe "as admin" do
-    before(:each) do
-      @member = mock_model(Member, :to_param => '1', :save => true)
-      @params = Member.plan.stringify_keys!
-      Member.should_receive(:new).with(@params).and_return(@member)
-      get_response
-    end
-  
-    it "should create a new member from params" do
-      # All handled by before
-    end
-  
     describe "when successful" do
+      before(:each) do
+        login({}, :is_admin? => true)
+        @member = mock_model(Member, :to_param => '1', :save => true)
+        @params = Member.plan.stringify_keys!
+        Member.should_receive(:new).with(@params).and_return(@member)
+        get_response
+      end
+      
+      it "should create a new member from params" do
+        # All handled by before
+      end
+      
       it "should add a flash success message" do
         flash[:success].should == 'Member was successfully created.'
       end
@@ -185,6 +202,7 @@ describe MembersController, "#create" do
   
     describe "when unsuccessful" do
       before(:each) do
+        login({}, :is_admin? => true)
         @member = mock_model(Member, :save => false)
         Member.stub!(:new).and_return(@member)
       end
@@ -213,6 +231,7 @@ describe MembersController, "#update" do
   
   describe "as admin" do
     before(:each) do
+      login({}, :is_admin? => true)
       find_member
       @params = Member.plan.stringify_keys!
     end

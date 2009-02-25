@@ -29,6 +29,18 @@ class ApplicationController < ActionController::Base
       @current_user = current_user_session && current_user_session.user
     end
     
+    def require_admin
+      if current_user
+        unless @current_user.is_admin?
+          flash[:error] = "You do not have permission to access that page."
+          # TODO: Redirect to our 'Jugg.php' equivalent or to this user's member page
+          redirect_to(members_path)
+        end
+      else
+        return require_user
+      end
+    end
+    
     def require_user
       unless current_user
         store_location
