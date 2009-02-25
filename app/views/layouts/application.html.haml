@@ -26,6 +26,14 @@
             %li= link_to 'Members', members_path, :class => ( controller.controller_name == 'members' ) ? 'selected' : ''
             %li= link_to 'Items', items_path, :class => ( controller.controller_name == 'items' ) ? 'selected' : ''
             %li= link_to 'Raids', raids_path, :class => ( controller.controller_name == 'raids' ) ? 'selected' : ''
+            = # TEMP TODO REMOVEME FIXME
+            %li= ''
+            - if current_user
+              %li= link_to 'My Account', account_path
+              %li= link_to 'Logout', user_session_path, :method => :delete, :confirm => 'Are you sure you want to log out?'
+            - else
+              %li= link_to 'Register', new_account_path
+              %li= link_to 'Log In', new_user_session_path
       #main
         - if flash[:success]
           .success= flash[:success]

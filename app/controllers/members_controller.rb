@@ -1,6 +1,7 @@
 class MembersController < ApplicationController
   layout @@layout
   
+  before_filter :require_user
   before_filter :find_member, :only => [:show, :edit, :update, :destroy]
   
   def index

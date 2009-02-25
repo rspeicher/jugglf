@@ -1,0 +1,29 @@
+%h2= breadcrumb('Account', 'Show', @user.login)
+
+%h3 Login
+%h4= h(@user.login)
+%br
+
+%h3 Login count
+%h4= h(@user.login_count)
+%br
+
+%h3 Last request at
+%h4= h(@user.last_request_at)
+%br
+
+%h3 Last login at
+%h4= h(@user.last_login_at)
+%br
+
+%h3 Current login at
+%h4= h(@user.current_login_at)
+%br
+
+%h3 Last login IP
+%h4= h(@user.last_login_ip)
+%br
+
+%h3 Current login IP
+%h4= h(@user.current_login_ip)
+%br

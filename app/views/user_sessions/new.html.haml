@@ -1,0 +1,20 @@
+%h2= breadcrumb('Login')
+%fieldset
+  %legend.hidden Login
+
+  - form_for @user_session, :url => user_session_path do |f|
+    - unless f.error_messages.empty?
+      .error= f.error_messages
+
+    = f.label :login
+    = f.text_field :login, :class => 'large'
+
+    = f.label :password
+    = f.password_field :password, :class => 'large'
+
+    .radio-check
+      = f.check_box :remember_me
+      = f.label :remember_me, 'Remember Me'
+  
+    .buttons
+      = styled_button(:type => 'submit', :text => 'Login')
