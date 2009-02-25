@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090213233547
+# Schema version: 20090224005026
 #
 # Table name: item_stats
 #
@@ -16,7 +16,23 @@
 #
 
 class ItemStat < ActiveRecord::Base
+  # Relationships -------------------------------------------------------------
+  # Attributes ----------------------------------------------------------------
+  # Validations ---------------------------------------------------------------
+  validates_presence_of :item_id
+  validates_presence_of :item
+  
+  # Callbacks -----------------------------------------------------------------
+  
   # Class Methods -------------------------------------------------------------
+  def self.lookup(query, refresh = false)
+    if query.is_a? String
+      self.lookup_by_name(query, refresh)
+    else
+      self.lookup_by_id(query.to_i, refresh)
+    end
+  end
+  
   def self.lookup_by_id(id, refresh = false)
     stat = ItemStat.find_or_initialize_by_item_id(id)
     
@@ -45,12 +61,19 @@ class ItemStat < ActiveRecord::Base
   end
   
   private
-    def self.wowhead_lookup(item, stat)
+    def self.wowhead_fetch(url)
       require 'net/http'
-      require 'rexml/document'
-      require 'cgi'
       
-      xml_data = Net::HTTP.get_response(URI.parse("http://www.wowhead.com/?item=#{CGI.escape(item.to_s)}&xml")).body
+      return Net::HTTP.get_response(
+        URI.parse(url)
+      ).body
+    end
+    
+    def self.wowhead_lookup(item, stat)
+      require 'cgi'
+      require 'rexml/document'
+      
+      xml_data = self.wowhead_fetch("http://www.wowhead.com/?item=#{CGI.escape(item.to_s)}&xml")
       doc = REXML::Document.new(xml_data)
       doc.elements.each('wowhead/item') { |e| stat.item_id = e.attribute('id').to_s }
       doc.elements.each('wowhead/item/name') { |e| stat.item = e.text }
@@ -59,7 +82,9 @@ class ItemStat < ActiveRecord::Base
       doc.elements.each('wowhead/item/icon') { |e| stat.icon = e.text }
       doc.elements.each('wowhead/item/inventorySlot') { |e| stat.slot = e.text }
       
-      stat.save!
+      if stat.valid?
+        stat.save!
+      end
       
       stat
     end

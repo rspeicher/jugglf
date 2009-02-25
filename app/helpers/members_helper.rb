@@ -1,5 +1,6 @@
 module MembersHelper
   def member_with_rank_formatting(member)
+    return if member.nil?
     return member.name if member.rank.nil?
     
     member.rank.format(member.name)
@@ -11,6 +12,8 @@ module MembersHelper
   
   # FIXME: This is ugly and potentially resource intensive
   def member_raid_attendance(raid, member)
+    return if raid.nil? or member.nil?
+    
     if raid.members.include? member
       return raid_attendance_colored(raid.attendees.find_by_member_id(@member).attendance)
     else
@@ -19,6 +22,8 @@ module MembersHelper
   end
   
   def member_attendance_colored(value)
+    return if value.nil?
+    
     if value.class == Float
       value = (value * 100).floor
     end
@@ -37,9 +42,13 @@ module MembersHelper
   end
   
   def raid_attendance_colored(value)
+    return if value.nil?
+    
     if value.class == Float
       value = (value * 100).floor
     end
+    
+    value = value.to_i
     
     if value == 100
       class_str = 'positive'

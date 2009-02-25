@@ -1,0 +1,34 @@
+!!! XML
+!!!
+%html{html_attrs('en-US')}
+  %head
+    %title= @page_title || "JuggRails"
+    %script{ 'type' => 'text/javascript', :src => "http://www.wowhead.com/widgets/power.js" }
+    = javascript_include_tag 'jquery', 'jquery.ui', 'jquery.tablesorter.min', 'application'
+    
+    = stylesheet_link_tag 'application', 'basic', 'forms', 'layout', 'tables', 'tabs'
+  %body
+    #wrapper.clearfix
+      #top-menu.clearfix
+        %ul
+          %li= link_to "Juggernaut (US-Mal'Ganis Horde)", '#'
+        %ul#right
+          %li= link_to 'Home', '#'
+          %li= link_to 'About Us', '#'
+          %li= link_to 'Joining', '#'
+          %li= link_to 'Forums', '#'
+          %li= link_to 'Calendar', '#'
+          %li= link_to 'Roster', '#'
+          %li= link_to 'DKP', '#'
+      #header.clearfix
+        #main-menu.clearfix
+          %ul
+            %li= link_to 'Members', members_path, :class => ( controller.controller_name == 'members' ) ? 'selected' : ''
+            %li= link_to 'Items', items_path, :class => ( controller.controller_name == 'items' ) ? 'selected' : ''
+            %li= link_to 'Raids', raids_path, :class => ( controller.controller_name == 'raids' ) ? 'selected' : ''
+      #main
+        - if flash[:success]
+          .success= flash[:success]
+        - if flash[:error]
+          .error= flash[:error]
+        = yield

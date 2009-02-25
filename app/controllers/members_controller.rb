@@ -1,6 +1,8 @@
 class MembersController < ApplicationController
   layout @@layout
   
+  before_filter :find_member, :only => [:show, :edit, :update, :destroy]
+  
   def index
     @members = Member.find_all_by_active(true, :order => "name asc")
 
@@ -11,8 +13,8 @@ class MembersController < ApplicationController
   end
   
   def show
-    @member = Member.find(params[:id])
-    @raids  = Raid.find(:all, :order => "date DESC")
+    @raids_count = Raid.count
+    @raids = Raid.paginate(:page => params[:page], :per_page => 50, :order => "date DESC")
     @punishments = @member.punishments.find_all_active
     
     respond_to do |wants|
@@ -29,8 +31,6 @@ class MembersController < ApplicationController
   end
   
   def edit
-    @member = Member.find(params[:id])
-    
     respond_to do |wants|
       wants.html
     end
@@ -39,30 +39,29 @@ class MembersController < ApplicationController
   def create
     @member = Member.new(params[:member])
   
-    respond_to do |format|
+    respond_to do |wants|
       if @member.save
         flash[:success] = 'Member was successfully created.'
-        format.html { redirect_to(@member) }
-        format.xml  { render :xml => @member, :status => :created, :location => @member }
+        wants.html { redirect_to(@member) }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @member.errors, :status => :unprocessable_entity }
+        wants.html { render :action => "new" }
       end
     end
   end
   
   def update
-    @member = Member.find(params[:id])
-
-    respond_to do |format|
+    respond_to do |wants|
       if @member.update_attributes(params[:member])
         flash[:success] = 'Member was successfully updated.'
-        format.html { redirect_to(@member) }
-        format.xml  { head :ok }
+        wants.html { redirect_to(@member) }
       else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @member.errors, :status => :unprocessable_entity }
+        wants.html { render :action => "edit" }
       end
     end
   end
+  
+  private
+    def find_member
+      @member = Member.find(params[:id])
+    end
 end

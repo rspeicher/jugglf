@@ -1,3 +1,29 @@
+# == Schema Information
+# Schema version: 20090224005026
+#
+# Table name: mgdkp_members
+#
+#  member_id         :integer(4)      not null, primary key
+#  member_name       :string(30)      default(""), not null
+#  member_earned     :float           default(0.0), not null
+#  member_spent      :float           default(0.0), not null
+#  member_adjustment :float           default(0.0), not null
+#  member_status     :boolean(1)      default(TRUE), not null
+#  member_firstraid  :integer(4)      default(0), not null
+#  member_lastraid   :integer(4)      default(0), not null
+#  member_raidcount  :integer(4)      default(0), not null
+#  member_level      :integer(1)      default(70), not null
+#  member_race_id    :integer(2)      default(0), not null
+#  member_class_id   :integer(2)      default(0), not null
+#  member_rank_id    :integer(2)      default(0), not null
+#  member_lf         :float           default(0.0), not null
+#  member_slf        :float           default(0.0), not null
+#  member_bis        :float           default(0.0), not null
+#  member_30         :float           default(0.0), not null
+#  member_90         :float           default(0.0), not null
+#  member_lt         :float           default(0.0), not null
+#
+
 class LegacyMember < ActiveRecord::Base
   set_table_name "mgdkp_members"
   set_primary_key "member_id"
@@ -7,19 +33,10 @@ class LegacyMember < ActiveRecord::Base
   end
   
   def active
-    self.member_status.to_i and self.member_rank_id != 5 and self.member_rank_id != 6
+    self.member_status and self.member_rank_id != 5 and self.member_rank_id != 6
   end
-  
-  def first_raid
-    Time.at(self.member_firstraid).to_s :db
-  end
-  
-  def last_raid
-    Time.at(self.member_lastraid).to_s :db
-  end
-  
-  def raids_count
-    self.member_raidcount # Might just want to recalculate this manually
+  def active?
+    self.active
   end
   
   def wow_class

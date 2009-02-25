@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090213233547
+# Schema version: 20090224005026
 #
 # Table name: punishments
 #
@@ -17,6 +17,7 @@ class Punishment < ActiveRecord::Base
   belongs_to :member
   
   # Attributes ----------------------------------------------------------------
+  attr_accessible :reason, :expires, :value
   
   # Validations ---------------------------------------------------------------
   validates_presence_of :reason
@@ -46,7 +47,6 @@ class Punishment < ActiveRecord::Base
   def expire!
     self.expires = 24.hours.until(Date.today)
     self.save!
-    self.member.force_recache! if self.member
   end
   
   private

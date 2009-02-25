@@ -4,12 +4,26 @@ h2. Bugs
 
 * FIXME: The 2/10/2009 raid parse displays a blank member with 100% attendance on the Raids#show page
 ** Could not duplicate
+* FIXME: A styled button without an image isn't the same height as one with an image
 
 h2. Short term
 
+h3. Item Normalization
 
+If we rename an item, other items that used to have that name don't get renamed
+
+* Rename 'Item' to 'Loot' - these are the actual loots people get, the items that drop on raids
+** t.references :item
+** drop 'name'
+* Create 'Item', these are unique items that allow for normalizing the name
+** belongs_to Drop
 
 h2. Medium term
+
+* Wishlists
+* Users & Permissions
+** 'My Standing' link dependant on login status and whether or not a member of that name exists?
+** PLEASE try to make it hook into IPB's auth system
 
 * Administration
 ** New/Edit Item pages
@@ -22,9 +36,6 @@ h2. Medium term
 *** /search/members/Tsigo takes me to Tsigo's page
 *** /search/items/Warglaive gives me a list of items that match
 
-* Item Normalization
-** If we rename an item, other items that used to have that name don't get renamed
-
 h3. Interface Overhaul
 
 * Item type filters
@@ -33,15 +44,11 @@ h3. Interface Overhaul
 * Navigation
 ** [Option] Drop-down menu navigation system
 ** [Option] Left-hand menu navigation
-* Column sorting (Javascript? We use pagination)
+* Column sorting where Javascript can't be used
 ** http://wiki.rubyonrails.com/rails/pages/SortHelper2
 
 h2. Long term
 
-* Users & Permissions
-** 'My Standing' link dependant on login status and whether or not a member of that name exists?
-** PLEASE try to make it hook into IPB's auth system, or at least write an auth system for IPB that writes user changes to the DKP side
-* Wishlists
 * Achievements
 * Administration
 ** Logging ('Tsigo added a raid on 2009-01-01')

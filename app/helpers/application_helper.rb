@@ -16,22 +16,16 @@ module ApplicationHelper
     options[:text]    ||= 'Delete'
     options[:confirm] ||= 'Are you sure?'
     
-    link_to(image_tag('delete.png') + options[:text], options[:path], :confirm => options[:confirm], :method => :delete, :class => 'negative')
+    link_to(image_tag('delete.png') + options[:text], options[:path], 
+      :confirm => options[:confirm], :method => :delete, :class => 'negative')
   end
   
-  def progress_bar(width, *args)
-    options = args.extract_options!
-    options.symbolize_keys!
+  def progress_bar(width, options = {})
+    options[:container_width] ||= '95'
+    options[:color]           ||= '#ACE97C'
     
-    defaults = { 
-      :container_width => "95",
-      :color => "#ACE97C"
-    }
-    container_width ||= (options[:container_width] || defaults[:container_width])
-    color ||= (options[:color] || defaults[:color])
-    
-    "<div class='progress-container' style='width: #{container_width.to_i}%'>" +
-      "<div style='width: #{width.to_i}%; background-color: #{color}'></div>" +
+    "<div class='progress-container' style='width: #{options[:container_width].to_i}%'>" +
+      "<div style='width: #{width.to_i}%; background-color: #{options[:color]}'></div>" +
     "</div>"
   end
 end

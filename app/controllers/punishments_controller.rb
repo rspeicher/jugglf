@@ -4,26 +4,12 @@ class PunishmentsController < ApplicationController
   before_filter :find_parent
   before_filter :find_punishment, :only => [:edit, :update, :destroy]
   
-  def index
-    respond_to do |wants|
-      wants.html do
-        if @parent.nil?
-          render
-        else
-          redirect_to(member_path(@member))
-        end
-      end
-    end
-  end
-  
   def new
     @punishment = Punishment.new
     
     respond_to do |wants|
       wants.html do
-        if @parent.nil?
-          #TODO
-        else
+        unless @parent.nil?
           render
         end
       end

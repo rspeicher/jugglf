@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090213233547
+# Schema version: 20090224005026
 #
 # Table name: members
 #
@@ -18,21 +18,23 @@
 #  attendance_lifetime :float           default(0.0)
 #  created_at          :datetime
 #  updated_at          :datetime
-#  uncached_updates    :integer(4)      default(0)
 #  rank_id             :integer(4)
+#  items_count         :integer(4)      default(0)
 #
 
 class Member < ActiveRecord::Base
-  CACHE_FLUSH = 1
   WOW_CLASSES = ['Death Knight'] + (%w(Druid Hunter Mage Paladin Priest Rogue Shaman Warlock Warrior))
   
   # Relationships -------------------------------------------------------------
-  has_many :attendees
+  has_many :attendees, :dependent => :destroy
   alias_method :attendance, :attendees
-  has_many :items, :order => "id DESC" # FIXME: This should really be 'date DESC' but the date comes from the raid
-  has_many :punishments
+  has_many :items, :order => "id DESC", :dependent => :nullify # FIXME: This should really be 'date DESC' but the date comes from the raid
+  has_many :punishments, :dependent => :destroy
   has_many :raids, :through => :attendees, :order => "date DESC"
   belongs_to :rank, :class_name => "MemberRank", :foreign_key => "rank_id"
+  
+  # Attributes ----------------------------------------------------------------
+  attr_accessible :name, :active, :wow_class
   
   # Validations ---------------------------------------------------------------
   validates_presence_of :name
@@ -45,13 +47,11 @@ class Member < ActiveRecord::Base
   end
   
   # Instance Methods ----------------------------------------------------------
-  def should_recache?
-    # num. uncached updates>=threshold  | can't use new record | more than 12 hours old
-    self.uncached_updates >= CACHE_FLUSH or (self.updated_at and 12.hours.ago >= self.updated_at)
-  end
-  
   def force_recache!
-    update_cache(true)
+    update_attendance_cache()
+    update_loot_factor_cache()
+
+    self.save
   end
   
   # def to_param
@@ -59,19 +59,6 @@ class Member < ActiveRecord::Base
   # end
   
   private
-    def update_cache(force = false)
-      return unless force or self.should_recache?
-      
-      logger.info "update_cache running on #{self.name} -----------------------"
-      
-      update_attendance_cache()
-      update_loot_factor_cache()
-      
-      self.uncached_updates = 0
-      # Let's go without validations since we're only updating LF and Attendance
-      self.save(false)
-    end
-    
     def update_attendance_cache
       # Total possible attendance totals
       totals = {
@@ -112,11 +99,11 @@ class Member < ActiveRecord::Base
       Item.find(:all, :include => :raid, :conditions => ["member_id = ?", self.id]).each do |i|
         if i.affects_loot_factor?
           if i.situational?
-            lf[:sitlf] += i.adjusted_price
+            lf[:sitlf] += i.adjusted_price unless i.adjusted_price.nil?
           elsif i.best_in_slot?
-            lf[:bislf] += i.adjusted_price
+            lf[:bislf] += i.adjusted_price unless i.adjusted_price.nil?
           else
-            lf[:lf] += i.adjusted_price
+            lf[:lf] += i.adjusted_price unless i.adjusted_price.nil?
           end
         end
       end
@@ -132,6 +119,5 @@ class Member < ActiveRecord::Base
       self.lf    = (lf[:lf]    / denom)
       self.sitlf = (lf[:sitlf] / denom)
       self.bislf = (lf[:bislf] / denom)
-      # end
     end
 end
