@@ -1,8 +1,17 @@
 class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user,    :only => [:show, :edit, :update]
+  before_filter :require_admin,   :only => :index
   
   before_filter :find_user, :only => [:show, :edit, :update]
+  
+  def index
+    @users = User.find(:all, :order => 'login')
+    
+    respond_to do |wants|
+      wants.html
+    end
+  end
   
   def new
     @user = User.new
