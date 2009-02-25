@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 # before_filter :find_item, :only => [:show, :edit, :update, :destroy]
 def find_item
-  @item = mock_model(Item, :to_param => '1')
+  @item ||= mock_model(Item, :to_param => '1')
   Item.should_receive(:find).with('1').and_return(@item)
 end
 

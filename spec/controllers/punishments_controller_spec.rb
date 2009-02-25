@@ -2,14 +2,14 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 # before_filter :find_parent
 def find_parent
-  @parent = @member = mock_model(Member, :to_param => '1', 
+  @parent ||= @member ||= mock_model(Member, :to_param => '1', 
     :punishments => mock_model(Punishment))
   Member.should_receive(:find).with('1').and_return(@member)
 end
 
 # before_filter :find_punishment, :only => [:edit, :update, :destroy]
 def find_punishment
-  @punishment = @member.punishments
+  @punishment ||= @member.punishments
   @member.punishments.should_receive(:find).with('1').and_return(@punishment)
 end
 

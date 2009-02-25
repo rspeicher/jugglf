@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 # before_filter :find_member, :only => [:show, :edit, :update, :destroy]
 def find_member
-  @member = mock_model(Member, :to_param => '1')
+  @member ||= mock_model(Member, :to_param => '1')
   Member.should_receive(:find).with('1').and_return(@member)
 end
 
