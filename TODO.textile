@@ -4,6 +4,7 @@ h2. Bugs
 
 * FIXME: The 2/10/2009 raid parse displays a blank member with 100% attendance on the Raids#show page
 ** Could not duplicate
+* FIXME: A styled button without an image isn't the same height as one with an image
 
 h2. Short term
 
