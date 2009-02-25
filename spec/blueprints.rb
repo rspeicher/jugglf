@@ -63,6 +63,18 @@ end
 
 # -----------------------------------------------------------------------------
 
+User.blueprint do
+  self.login { Faker::Internet.user_name }
+  password { 'password' }
+  password_confirmation { 'password' }
+  is_admin { false }
+end
+User.blueprint(:admin) do
+  is_admin { true }
+end
+
+# -----------------------------------------------------------------------------
+
 InvisionUser.blueprint do
   name
   mgroup { 4 }

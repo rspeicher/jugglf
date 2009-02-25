@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090224005026
+# Schema version: 20090225185730
 #
 # Table name: ibf_members_converge
 #
