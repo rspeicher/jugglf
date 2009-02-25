@@ -23,6 +23,7 @@ describe MembersController, "#index" do
   describe "as admin" do
     it "should render" do
       get_response
+      response.should render_template(:index)
       response.should be_success
     end
     
@@ -76,6 +77,7 @@ describe MembersController, "#show" do
     end
     
     it "should render" do
+      response.should render_template(:show)
       response.should be_success
     end
   end
@@ -108,6 +110,7 @@ describe MembersController, "#new" do
   describe "as admin" do
     it "should render" do
       get_response
+      response.should render_template(:new)
       response.should be_success
     end
   end
@@ -138,6 +141,7 @@ describe MembersController, "#edit" do
     end
     
     it "should render" do
+      response.should render_template(:edit)
       response.should be_success
     end
   end

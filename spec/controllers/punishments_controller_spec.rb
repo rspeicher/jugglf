@@ -41,6 +41,7 @@ describe PunishmentsController, "#new" do
   
     it "should render" do
       response.should render_template(:new)
+      response.should be_success
     end
   end
   
@@ -75,6 +76,7 @@ describe PunishmentsController, "#edit" do
     end
     
     it "should render" do
+      response.should render_template(:edit)
       response.should be_success
     end
   end
