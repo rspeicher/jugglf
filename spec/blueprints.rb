@@ -63,26 +63,17 @@ end
 
 # -----------------------------------------------------------------------------
 
-User.blueprint do
-  self.login { Faker::Internet.user_name }
-  password { 'password' }
-  password_confirmation { 'password' }
-  is_admin { false }
-end
-User.blueprint(:admin) do
-  is_admin { true }
-end
-
-# -----------------------------------------------------------------------------
-
 InvisionUser.blueprint do
   name
-  mgroup { 4 }
+  mgroup { 1 }
   email { Faker::Internet.email }
   converge
+  members_l_username { self.name }
 end
+
 InvisionUserConverge.blueprint do
   # converge_id { InvisionUser.make.id }
-  converge_pass_hash { InvisionUser.generate_hash('admin', 'admin') }
-  converge_pass_salt { 'admin' }
+  converge_pass_hash { Digest::MD5.hexdigest(Digest::MD5.hexdigest('password') + 
+    Digest::MD5.hexdigest('salt')) }
+  converge_pass_salt { 'salt' }
 end

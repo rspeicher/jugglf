@@ -50,7 +50,7 @@ describe PunishmentsController, "#new" do
     it "should not render" do
       login({}, {:is_admin? => false})
       get_response
-      response.should redirect_to(members_path)
+      response.should redirect_to('/todo')
     end
   end
 end
@@ -91,7 +91,7 @@ describe PunishmentsController, "#edit" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to(members_path)
+      response.should redirect_to('/todo')
     end
   end
 end
@@ -151,7 +151,7 @@ describe PunishmentsController, "#create" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to(members_path)
+      response.should redirect_to('/todo')
     end
   end
 end
@@ -207,7 +207,7 @@ describe PunishmentsController, "#update" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to(members_path)
+      response.should redirect_to('/todo')
     end
   end
 end
@@ -248,7 +248,7 @@ describe PunishmentsController, "#destroy" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to(members_path)
+      response.should redirect_to('/todo')
     end
   end
 end
