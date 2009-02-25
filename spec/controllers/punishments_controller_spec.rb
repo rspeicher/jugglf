@@ -44,9 +44,9 @@ describe PunishmentsController, "#new" do
     end
   end
   
-  # describe "as user" do
-  #   it "should not render"
-  # end
+  describe "as user" do
+    it "should not render"
+  end
 end
 
 # -----------------------------------------------------------------------------
@@ -79,9 +79,9 @@ describe PunishmentsController, "#edit" do
     end
   end
   
-  # describe "as user" do
-  #   it "should not render"
-  # end
+  describe "as user" do
+    it "should not render"
+  end
 end
 
 # -----------------------------------------------------------------------------
@@ -134,9 +134,9 @@ describe PunishmentsController, "#create" do
     end
   end
   
-  # describe "as user" do
-  #   it "should not render"
-  # end
+  describe "as user" do
+    it "should not render"
+  end
 end
 
 # -----------------------------------------------------------------------------
@@ -185,9 +185,9 @@ describe PunishmentsController, "#update" do
     end
   end
   
-  # describe "as user" do
-  #   it "should not render"
-  # end
+  describe "as user" do
+    it "should not render"
+  end
 end
 
 # -----------------------------------------------------------------------------
@@ -221,7 +221,7 @@ describe PunishmentsController, "#destroy" do
     end
   end
   
-  # describe "as user" do
-  #   it "should not render"
-  # end
+  describe "as user" do
+    it "should not render"
+  end
 end

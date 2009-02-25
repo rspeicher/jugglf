@@ -1,11 +1,18 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+# before_filter :find_member, :only => [:show, :edit, :update, :destroy]
+def find_member
+  @member = mock_model(Member, :to_param => '1')
+  Member.should_receive(:find).with('1').and_return(@member)
+end
+
 # -----------------------------------------------------------------------------
 # Index
 # -----------------------------------------------------------------------------
 
-describe MembersController, "GET /members/index" do
-  def do_get(args = {})
+# GET /members/index
+describe MembersController, "#index" do
+  def get_response(args = {})
     get :index, args
   end
   
@@ -15,26 +22,18 @@ describe MembersController, "GET /members/index" do
   
   describe "as admin" do
     it "should render" do
-      do_get
+      get_response
+      response.should be_success
+    end
+    
+    it "should render lua" do
+      get_response(:format => 'lua')
       response.should be_success
     end
   end
   
-  # describe "as user" do
-  #   it "should not render"
-  # end
-  
-  describe ".lua" do
-    describe "as admin" do
-      it "should render" do
-        do_get(:format => 'lua')
-        response.should be_success      
-      end
-    end
-    
-    # describe "as user" do
-    #   it "should not render"
-    # end
+  describe "as user" do
+    it "should not render"
   end
 end
 
@@ -42,8 +41,9 @@ end
 # Show
 # -----------------------------------------------------------------------------
 
-describe MembersController, "GET /members/:id" do
-  def do_get
+# GET /members/:id
+describe MembersController, "#show" do
+  def get_response
     get :show, :id => '1'
   end
   
@@ -56,7 +56,7 @@ describe MembersController, "GET /members/:id" do
       Raid.should_receive(:count).and_return(0)
       Raid.should_receive(:paginate).and_return('raids')
 
-      do_get
+      get_response
     end
 
     it "should assign @member" do
@@ -80,23 +80,24 @@ describe MembersController, "GET /members/:id" do
     end
   end
   
-  # describe "as user" do
-  #   it "should not render if the member doesn't belong to the current user"
-  #   
-  #   it "should render when the current member belongs to the current user"
-  # end
+  describe "as user" do
+    it "should not render if the member doesn't belong to the current user"
+    
+    it "should render when the current member belongs to the current user"
+  end
   
-  # describe "as anonymous" do
-  #   it "should not render"
-  # end
+  describe "as anonymous" do
+    it "should not render"
+  end
 end
 
 # -----------------------------------------------------------------------------
 # New
 # -----------------------------------------------------------------------------
 
-describe MembersController, "GET /members/new" do
-  def do_get
+# GET /members/new
+describe MembersController, "#new" do
+  def get_response
     get :new
   end
   
@@ -106,35 +107,34 @@ describe MembersController, "GET /members/new" do
   
   describe "as admin" do
     it "should render" do
-      do_get
+      get_response
       response.should be_success
     end
   end
   
-  # describe "as user" do
-  #   it "should not render"
-  # end
+  describe "as user" do
+    it "should not render"
+  end
 end
 
 # -----------------------------------------------------------------------------
 # Edit
 # -----------------------------------------------------------------------------
 
-describe MembersController, "GET /members/edit/:id" do
-  def do_get
+# GET /members/edit/:id
+describe MembersController, "#edit" do
+  def get_response
     get :edit, :id => '1'
   end
   
   describe "as admin" do
     before(:each) do
-      @member = mock_model(Member)
-      Member.should_receive(:find).with('1').and_return(@member)
-
-      do_get
+      find_member
+      get_response
     end    
 
     it "should assign @member" do
-      assigns[:member].should == @member
+      assigns[:member].should === @member
     end
     
     it "should render" do
@@ -142,26 +142,27 @@ describe MembersController, "GET /members/edit/:id" do
     end
   end
   
-  # describe "as user" do
-  #   it "should not render"
-  # end
+  describe "as user" do
+    it "should not render"
+  end
 end
 
 # -----------------------------------------------------------------------------
 # Create
 # -----------------------------------------------------------------------------
 
-describe MembersController, "POST /members" do
-  def do_post
-    post :create, :member => @plan
+# POST /members
+describe MembersController, "#create" do
+  def get_response
+    post :create, :member => @params
   end
   
   describe "as admin" do
     before(:each) do
-      @mock = mock_model(Member, :to_param => '1', :save => true)
-      @plan = Member.plan.stringify_keys!
-      Member.should_receive(:new).with(@plan).and_return(@mock)
-      do_post
+      @member = mock_model(Member, :to_param => '1', :save => true)
+      @params = Member.plan.stringify_keys!
+      Member.should_receive(:new).with(@params).and_return(@member)
+      get_response
     end
   
     it "should create a new member from params" do
@@ -180,47 +181,46 @@ describe MembersController, "POST /members" do
   
     describe "when unsuccessful" do
       before(:each) do
-        @mock = mock_model(Member, :save => false)
-        Member.stub!(:new).and_return(@mock)
+        @member = mock_model(Member, :save => false)
+        Member.stub!(:new).and_return(@member)
       end
     
       it "should render template :new" do
-        do_post
+        get_response
         response.should render_template(:new)
       end
     end
   end
   
-  # describe "as user" do
-  #   it "should not render"
-  # end
+  describe "as user" do
+    it "should not render"
+  end
 end
 
 # -----------------------------------------------------------------------------
 # Update
 # -----------------------------------------------------------------------------
 
-describe MembersController, "POST /members/:id" do
-  def do_post
-    post :update, :id => '1', :member => @plan
+# PUT /members/:id
+describe MembersController, "#update" do
+  def get_response
+    put :update, :id => '1', :member => @params
   end
   
   describe "as admin" do
     before(:each) do
-      @mock = mock_model(Member, :to_param => '1', :update_attributes => true)
-      @plan = Member.plan.stringify_keys!
-      Member.stub!(:find).and_return(@mock)
-    end
-    
-    it "should assign @member from params" do
-      do_post
-      assigns[:member].should == @mock
+      find_member
+      @params = Member.plan.stringify_keys!
     end
     
     describe "when successful" do
       before(:each) do
-        @mock.should_receive(:update_attributes).with(@plan).and_return(true)
-        do_post
+        @member.should_receive(:update_attributes).with(@params).and_return(true)
+        get_response
+      end
+      
+      it "should assign @member from params" do
+        assigns[:member].should == @member
       end
       
       it "should update attributes from params" do
@@ -237,19 +237,17 @@ describe MembersController, "POST /members/:id" do
     end
     
     describe "when unsuccessful" do
-      before(:each) do
-        @mock.should_receive(:update_attributes).and_return(false)
-      end
       it "should render the edit form" do
-        do_post
+        @member.should_receive(:update_attributes).and_return(false)
+        get_response
         response.should render_template(:edit)
       end
     end
   end
   
-  # describe "as user" do
-  #   it "should not do anything"
-  # end
+  describe "as user" do
+    it "should not do anything"
+  end
 end
 
 # -----------------------------------------------------------------------------
