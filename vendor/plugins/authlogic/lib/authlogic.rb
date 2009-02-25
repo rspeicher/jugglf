@@ -11,6 +11,7 @@ require File.dirname(__FILE__) + "/authlogic/crypto_providers/sha1"
 require File.dirname(__FILE__) + "/authlogic/crypto_providers/sha512"
 require File.dirname(__FILE__) + "/authlogic/crypto_providers/bcrypt"
 require File.dirname(__FILE__) + "/authlogic/crypto_providers/aes256"
+require File.dirname(__FILE__) + "/authlogic/crypto_providers/invision"
 
 if defined?(ActiveRecord)
   require File.dirname(__FILE__) + "/authlogic/orm_adapters/active_record_adapter/acts_as_authentic/base"

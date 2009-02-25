@@ -67,49 +67,57 @@
 
 class InvisionUser < ActiveRecord::Base
   set_table_name "ibf_members"
+
+  # Authlogic -----------------------------------------------------------------
+  attr_accessible :login, :password, :password_confirmation
+  acts_as_authentic(
+    :crypto_provider  => Authlogic::CryptoProviders::InvisionPowerBoard, 
+    :login_field      => :members_l_username,
+    :login_field_type => :login,
+    :validate_login_field => false # FIXME: Doesn't work? Still get "Member l username does not exist" for invalid names
+  )
+  
+  def crypted_password
+    self.converge.converge_pass_hash
+  end
+  def password_salt
+    self.converge.converge_pass_salt
+  end
+  
+  def persistence_token
+    self.user.persistence_token
+  end
+  def persistence_token=(value)
+    self.user.persistence_token = value
+    self.user.save
+  end
+  
+  def self.find_by_persistence_token(token)
+    user = User.find_by_persistence_token(token)
+    return user.invision_user unless user.nil?
+  end
+  
+  def is_admin?
+    self.mgroup == 4
+  end
+  
+  # ---------------------------------------------------------------------------
+  # Override some AR methods; we don't want to mess with Invision's integrity
+  def destroy; end
+  def delete; end
+  def self.destroy_all; end
+  def self.delete_all; end
   
   # Relationships -------------------------------------------------------------
   has_one :converge, :class_name => "InvisionUserConverge", :foreign_key => "converge_id"
+  has_one :user
   
-  # Attributes ----------------------------------------------------------------
-  # Validations ---------------------------------------------------------------
   # Callbacks -----------------------------------------------------------------
-  
-  # Class Methods -------------------------------------------------------------
-  def self.generate_hash(raw_password, salt)
-    raw_password = self.filter(raw_password)
-    
-    require 'digest/md5'
-    return Digest::MD5.hexdigest(Digest::MD5.hexdigest(salt) + 
-      Digest::MD5.hexdigest(raw_password))
-  end
-  
-  # Instance Methods ----------------------------------------------------------
-  def auth?(raw_password)
-    self.converge.converge_pass_hash == InvisionUser.generate_hash(raw_password, 
-      self.converge.converge_pass_salt)
-  end
+  before_create :create_or_update_user
+  before_save :create_or_update_user
   
   private
-    def self.filter(input)
-      # Invision's input filtering replaces a bunch of characters, some of which 
-      # may be used in a strong password. We have to apply the same changes so 
-      # that the md5'd string ends up the same
-      input.gsub!('&[^amp;]?', '&amp;')
-      input.gsub!('<!--', '&#60;&#33;--')
-      input.gsub!('-->', '--&#62;')
-      input.gsub!(/<script/i, '&#60;script')
-      input.gsub!('>', '&gt;')
-      input.gsub!('<', '&lt;')
-      input.gsub!('"', '&quot;')
-      input.gsub!("\\\$", '&#036;')
-      input.gsub!('!', '&#33;')
-      input.gsub!("'", '&#39;')
-      
-      # NOTE: Invision does these, but we're not real worried about them
-      # input.gsub!("\n", '<br />')
-      # input.gsub!("\r", '')
-      
-      input
+    def create_or_update_user
+      self.user = User.new if self.user.nil?
     end
 end

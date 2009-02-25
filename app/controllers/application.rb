@@ -26,15 +26,15 @@ class ApplicationController < ActionController::Base
     
     def current_user
       return @current_user if defined?(@current_user)
-      @current_user = current_user_session && current_user_session.user
+      @current_user = current_user_session && current_user_session.invision_user
     end
     
     def require_admin
       if current_user
         unless @current_user.is_admin?
           flash[:error] = "You do not have permission to access that page."
-          # TODO: Redirect to our 'Jugg.php' equivalent or to this user's member page
-          redirect_to(members_path)
+          # TODO: Redirect to this user's member page
+          # redirect_to(member_path(...))
         end
       else
         return require_user
@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
     def require_user
       unless current_user
         store_location
-        flash[:error] = "You must be logged in to access this page."
+        flash[:error] = "You must be logged in to access that page."
         redirect_to(new_user_session_url)
         return false
       end
@@ -53,8 +53,8 @@ class ApplicationController < ActionController::Base
     def require_no_user
       if current_user
         store_location
-        flash[:error] = "You cannot access this page while logged in."
-        redirect_to(account_url)
+        # TODO: Redirect to summary page
+        # redirect_to(member_path(...))
         return false
       end
     end

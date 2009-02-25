@@ -1,7 +1,7 @@
 class PunishmentsController < ApplicationController
   layout @@layout
   
-  before_filter :require_admin, :only => [:new, :edit, :create, :update, :destroy]
+  before_filter :require_admin
   
   before_filter :find_parent
   before_filter :find_punishment, :only => [:edit, :update, :destroy]
