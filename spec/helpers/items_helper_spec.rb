@@ -11,13 +11,13 @@ describe ItemsHelper do
     it "should show comma-separated list of tell types" do
       item = Item.make(:best_in_slot => true, :rot => true)
       
-      item_tell_types(item).should == 'Best in Slot, Rot'
+      item_tell_types(item).should match (/Best in Slot<\/span>, .+Rot<\/span>$/)
     end
     
     it "should show Disenchanted for items without a buyer" do
       item = Item.make(:member => nil)
       
-      item_tell_types(item).should == 'Disenchanted'
+      item_tell_types(item).should == "<span class='item_de'>Disenchanted</span>"
     end
   end
   

@@ -1,3 +1,9 @@
+:javascript
+  $(document).ready(function() {
+    $('#items span.filter').click(function() {
+      toggleItemTypes(this);
+    });
+  });
 %table.list
   %thead
     %tr
@@ -7,7 +13,7 @@
       %th.number Price
   %tbody
     - @member.items.each do |item|
-      %tr{ :class => cycle('even', 'odd') }
+      %tr{ :class => cycle('even', 'odd') + ' ' + item_row_classes(item) }
         %td= link_to_item_with_stats(item)
         %td= item_tell_types(item)
         %td.date= link_to h(item.raid.date), raid_path(item.raid) unless item.raid.nil?

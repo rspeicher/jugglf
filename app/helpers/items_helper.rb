@@ -1,11 +1,11 @@
 module ItemsHelper
   def item_tell_types(item)
     s = []
-    s << 'Best in Slot' if item.best_in_slot?
-    s << 'Sit' if item.situational?
-    s << 'Rot' if item.rot?
-    s << 'Disenchanted' if item.buyer.nil?
-    s.join(', ')
+    s << "<span class='filter bis'>Best in Slot</span>" if item.best_in_slot?
+    s << "<span class='filter sit'>Sit</span>" if item.situational?
+    s << "<span class='filter rot'>Rot</span>" if item.rot?
+    s << "<span class='filter de'>Disenchanted</span>" if item.buyer.nil?
+    s.join(' ')
   end
   
   def item_row_classes(item)
