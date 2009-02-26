@@ -7,6 +7,9 @@
     = javascript_include_tag 'jquery', 'jquery.ui', 'jquery.tablesorter.min', 'application'
     
     = stylesheet_link_tag 'application', 'basic', 'forms', 'layout', 'tables', 'tabs'
+    
+    :javascript
+      $(document).ready(hideSuccessFlash);
   %body
     #wrapper.clearfix
       #top-menu.clearfix
@@ -28,8 +31,8 @@
             %li= link_to 'Raids', raids_path, :class => ( controller.controller_name == 'raids' ) ? 'selected' : ''
             %li= link_to_login_or_logout
       #main
-        - if flash[:success]
-          .success= flash[:success]
         - if flash[:error]
-          .error= flash[:error]
+          #flash.error= flash[:error]
+        - if flash[:success]
+          #flash.success= flash[:success]
         = yield
