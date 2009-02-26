@@ -38,4 +38,17 @@ describe ApplicationHelper do
       progress_bar(15, :color => '#000').should match(/background-color: \#000/)
     end
   end
+  
+  describe "link_to_login_or_logout" do
+    it "should link to login when logged out" do
+      login
+      link_to_login_or_logout.should match(/Logout/)
+    end
+    
+    it "should link to logout when logged in" do
+      logout
+      def current_user; end
+      link_to_login_or_logout.should match(/Login/)
+    end
+  end
 end

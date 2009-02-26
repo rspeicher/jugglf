@@ -28,4 +28,13 @@ module ApplicationHelper
       "<div style='width: #{width.to_i}%; background-color: #{options[:color]}'></div>" +
     "</div>"
   end
+  
+  def link_to_login_or_logout
+    if current_user
+      link_to('Logout', user_session_path, :method => :delete, 
+        :confirm => 'Are you sure you want to log out?')
+    else
+      link_to('Login', new_user_session_path)
+    end
+  end
 end
