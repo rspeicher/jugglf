@@ -1,7 +1,9 @@
 class MembersController < ApplicationController
   layout @@layout
   
-  before_filter :require_user
+  before_filter :require_user, :only => [:show]     # TODO: Users can only show their own member's page
+  before_filter :require_admin, :except => [:show]
+  
   before_filter :find_member, :only => [:show, :edit, :update, :destroy]
   
   def index

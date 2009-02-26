@@ -1,6 +1,8 @@
 class RaidsController < ApplicationController
   layout @@layout
   
+  before_filter :require_admin
+  
   before_filter :find_raid, :only => [:show, :edit, :update, :destroy]
   
   def index

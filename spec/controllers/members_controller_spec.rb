@@ -16,13 +16,10 @@ describe MembersController, "#index" do
     get :index, args
   end
   
-  before(:each) do
-    Member.should_receive(:find_all_by_active).and_return(nil)
-  end
-  
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
+      Member.should_receive(:find_all_by_active).and_return(nil)
     end
     
     it "should render" do
@@ -38,7 +35,19 @@ describe MembersController, "#index" do
   end
   
   describe "as user" do
-    it "should not render"
+    it "should not render" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to('/todo')
+    end
+  end
+  
+  describe "as anonymous" do
+    it "should redirect to login" do
+      logout
+      get_response
+      response.should redirect_to(new_user_session_url)
+    end
   end
 end
 
@@ -99,11 +108,11 @@ describe MembersController, "#show" do
   end
   
   describe "as anonymous" do
-    before(:each) do
+    it "should redirect to login" do
       logout
+      get_response
+      response.should redirect_to(new_user_session_url)
     end
-    
-    it "should not render"
   end
 end
 
@@ -117,11 +126,11 @@ describe MembersController, "#new" do
     get :new
   end
   
-  before(:each) do
-    Member.should_receive(:new).and_return(nil)
-  end
-  
   describe "as admin" do
+    before(:each) do
+      Member.should_receive(:new).and_return(nil)
+    end
+    
     it "should render" do
       login({}, :is_admin? => true)
       get_response
@@ -131,7 +140,19 @@ describe MembersController, "#new" do
   end
   
   describe "as user" do
-    it "should not render"
+    it "should not render" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to('/todo')
+    end
+  end
+  
+  describe "as anonymous" do
+    it "should redirect to login" do
+      logout
+      get_response
+      response.should redirect_to(new_user_session_url)
+    end
   end
 end
 
@@ -163,7 +184,19 @@ describe MembersController, "#edit" do
   end
   
   describe "as user" do
-    it "should not render"
+    it "should not render" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to('/todo')
+    end
+  end
+  
+  describe "as anonymous" do
+    it "should redirect to login" do
+      logout
+      get_response
+      response.should redirect_to(new_user_session_url)
+    end
   end
 end
 
@@ -215,7 +248,19 @@ describe MembersController, "#create" do
   end
   
   describe "as user" do
-    it "should not render"
+    it "should not render" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to('/todo')
+    end
+  end
+  
+  describe "as anonymous" do
+    it "should redirect to login" do
+      logout
+      get_response
+      response.should redirect_to(new_user_session_url)
+    end
   end
 end
 
@@ -269,7 +314,19 @@ describe MembersController, "#update" do
   end
   
   describe "as user" do
-    it "should not do anything"
+    it "should not render" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to('/todo')
+    end
+  end
+  
+  describe "as anonymous" do
+    it "should redirect to login" do
+      logout
+      get_response
+      response.should redirect_to(new_user_session_url)
+    end
   end
 end
 
