@@ -1,6 +1,8 @@
 class RaidsController < ApplicationController
   layout @@layout
   
+  before_filter :find_raid, :only => [:show, :edit, :update, :destroy]
+  
   def index
     @raids = Raid.paginate(:page => params[:page], :per_page => 40, :order => "date DESC")
     
@@ -10,7 +12,6 @@ class RaidsController < ApplicationController
   end
   
   def show
-    @raid      = Raid.find(params[:id])
     @attendees = @raid.attendees.find(:all, :include => :member, :order => "members.wow_class, members.name")
     @drops     = @raid.items.find(:all, :include => :member, :order => "items.name")
     
@@ -41,7 +42,6 @@ class RaidsController < ApplicationController
   end
   
   def destroy
-    @raid = Raid.find(params[:id])
     @raid.destroy
     
     flash[:success] = "Raid was successfully deleted."
@@ -50,4 +50,9 @@ class RaidsController < ApplicationController
       wants.html { redirect_to(raids_path) }
     end
   end
+  
+  private
+    def find_raid
+      @raid = Raid.find(params[:id])
+    end
 end
