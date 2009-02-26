@@ -1,4 +1,6 @@
 class ItemsController < ApplicationController
+  before_filter :require_admin
+  
   before_filter :find_item, :only => [:show, :edit, :update, :destroy]
   
   layout @@layout

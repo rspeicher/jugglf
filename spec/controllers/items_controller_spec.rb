@@ -18,6 +18,7 @@ describe ItemsController, "#index" do
   
   describe "as admin" do
     before(:each) do
+      login({}, :is_admin? => true)
       @item = mock_model(Item)
       Item.should_receive(:paginate).and_return(@item)
       get_response
@@ -34,7 +35,11 @@ describe ItemsController, "#index" do
   end
   
   describe "as user" do
-    it "should not render"
+    it "should not render" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to('/todo')
+    end
   end
 end
 
@@ -50,6 +55,7 @@ describe ItemsController, "#show" do
   
   describe "as_admin" do
     before(:each) do
+      login({}, :is_admin? => true)
       find_item # Mocks Item.find once
       
       # Item receives a second call to :find to find all purchases by this item name
@@ -69,6 +75,11 @@ describe ItemsController, "#show" do
   end
   
   describe "as user" do
-    it "should not render"
+    it "should not render" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to('/todo')
+      
+    end
   end
 end
