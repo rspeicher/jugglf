@@ -24,6 +24,8 @@ h2. Medium term
 * Users & Permissions
 ** 'My Standing' link dependant on login status and whether or not a member of that name exists?
 ** PLEASE try to make it hook into IPB's auth system
+* Comments on stuff ('I was late fort this raid and didn't send you a tell, please add me anyway?!')
+** Admin note section ('Modrack needs his [Betrayer of Humanity] changed to BiS once 3.1 hits')
 
 * Administration
 ** New/Edit Item pages
@@ -44,7 +46,7 @@ h3. Interface Overhaul
 * Navigation
 ** [Option] Drop-down menu navigation system
 ** [Option] Left-hand menu navigation
-* Column sorting where Javascript can't be used
+* Column sorting in spots where Javascript can't be used
 ** http://wiki.rubyonrails.com/rails/pages/SortHelper2
 
 h2. Long term
