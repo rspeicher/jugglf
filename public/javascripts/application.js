@@ -18,6 +18,13 @@ function hideSuccessFlash() {
     }, 4000);
 }
 
+/*
+    Takes a tbody#itemfilter > tr > td > span object and toggles filtering by
+    that particular type of loot (BiS, Sit, Rot, Disenchant). Also handles
+    re-applying even/odd row classes so that the alternating background colors
+    are maintained even if an 'odd' row gets filtered out while the two 
+    surrounding 'even' rows are shown.
+*/
 function toggleItemTypes(object) {
     if ($(object).hasClass('bis'))
     {
@@ -56,12 +63,13 @@ function toggleItemTypes(object) {
     {
         background = null;
         $('#itemfilter tr').each(function() {
-            // If this row has this tell type, apply 'shown' class
             if ($(this).hasClass('item_' + type))
             {
+                // If this row has this tell type, apply 'shown' class
                 $(this).addClass('shown');
                 
-                // Zebra table backgrounds
+                // Zebra table backgrounds; we only need to do this if a row
+                // has already been hidden (background set to non-null below)
                 if (background != null)
                 {
                     $(this).removeClass('even');
@@ -74,6 +82,7 @@ function toggleItemTypes(object) {
             {
                 // Otherwise hide this row
                 $(this).hide();
+                
                 if (background == null)
                 {
                     background = ($(this).hasClass('even')) ? 'even' : 'odd';

@@ -1,10 +1,3 @@
-:javascript
-  $(document).ready(function() {
-    $('#itemfilter span.filter').click(function() {
-      toggleItemTypes(this);
-    });
-  });
-  
 = will_paginate @items
 %br
 %table.list
@@ -15,7 +8,7 @@
       %th Notes
       %th.date Raid
       %th.number Price
-  %tbody#itemfilter
+  %tbody
     - @items.each do |item|
       %tr{ :class => cycle('even', 'odd') + ' ' + item_row_classes(item) }
         %td= link_to_item_with_stats(item)

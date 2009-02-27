@@ -1,6 +1,6 @@
 :javascript
   $(document).ready(function() {
-    $('#items span.filter').click(function() {
+    $('#itemfilter span.filter').click(function() {
       toggleItemTypes(this);
     });
   });
@@ -11,7 +11,7 @@
       %th Notes
       %th.date Raid
       %th.number Price
-  %tbody
+  %tbody#itemfilter
     - @member.items.each do |item|
       %tr{ :class => cycle('even', 'odd') + ' ' + item_row_classes(item) }
         %td= link_to_item_with_stats(item)
