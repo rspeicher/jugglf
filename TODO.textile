@@ -1,9 +1,31 @@
 h1. Todo
 
+1-5, where five is a feature that has to be in before we can use the app in production
+
+5 Users/Permissions, attaching Members to Users
+5 Wishlists
+5 "My Standing" for logged-in users
+2 Comments, Admin notes
+3 New/Edit Item (Drop) interfaces
+3 Edit Raid interface
+3 New/Edit rank interfaces
+2 Searching
+4 Item Type filtering
+3 Achievements
+1 Logging of actions
+4 Summary page; class counts, attendance averages, loot factor averages
+4 Last Loot
+1 XML resources
+3 Real-time raid and item logging (online JuggyAttendance replacement)
+3 Relative dates ("Falls of loot factor in x days"), "[Punishment] expires in 3 days")
+3 Redesign interface to better fit with the forums (Redesign the forums, I say!)
+2 "Who's Online" list
+1 Statistics - number of members, raids, items
+4 Styled 404/exception pages
+3 Performance; caching
+
 h2. Bugs
 
-* FIXME: The 2/10/2009 raid parse displays a blank member with 100% attendance on the Raids#show page
-** Could not duplicate
 * FIXME: A styled button without an image isn't the same height as one with an image
 
 h2. Short term
