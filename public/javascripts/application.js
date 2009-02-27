@@ -38,26 +38,46 @@ function toggleItemTypes(object) {
     
     parentRow = $(object).parent().parent();
 
-    // If our parent row is .shown, then we need to toggle this off and show all rows     
+    // If our parent row is .shown, then we need to toggle this filter off and show all rows
     if ($(parentRow).hasClass('shown'))
     {
+        background = 'even';
         $('#itemfilter tr').each(function() {
+            $(this).removeClass('even');
+            $(this).removeClass('odd');
+            $(this).addClass(background);
+            background = $(this).hasClass('even') ? 'odd' : 'even';
+            
             $(this).show();
             $(this).removeClass('shown');
         });
     }
     else
     {
+        background = null;
         $('#itemfilter tr').each(function() {
             // If this row has this tell type, apply 'shown' class
             if ($(this).hasClass('item_' + type))
             {
                 $(this).addClass('shown');
+                
+                // Zebra table backgrounds
+                if (background != null)
+                {
+                    $(this).removeClass('even');
+                    $(this).removeClass('odd');
+                    $(this).addClass(background);
+                    background = (background == 'even' ) ? 'odd' : 'even';
+                }
             }
             else
             {
                 // Otherwise hide this row
                 $(this).hide();
+                if (background == null)
+                {
+                    background = ($(this).hasClass('even')) ? 'even' : 'odd';
+                }
             }
         });
     }
