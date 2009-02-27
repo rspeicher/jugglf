@@ -68,28 +68,21 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InvisionUser do
+  # FIXME: Leaving InvisionUser's acts_as_authentic call enabled makes all of these tests fail with "no method defined" errors.
   # before(:each) do
   #   @user = InvisionUser.make
+  #   @user.converge = InvisionUserConverge.make
   # end
   # 
-  # it "should be valid" do
-  #   @user.should be_valid
+  # it "should provide a method to get converge_pass_hash" do
+  #   @user.crypted_password.should == @user.converge.converge_pass_hash
   # end
   # 
-  # it "should authorize" do
-  #   @user.auth?('admin').should be_true
+  # it "should provide a method to getconverge_pass_salt" do
+  #   @user.password_salt.should == @user.converge.converge_pass_salt
   # end
   # 
-  # it "should authorize with weird characters in the password" do
-  #   password = "a<!--d-->min<script><><>\"\n\r!'&?!&$#(*%$()"
-  #   
-  #   @user.converge.converge_pass_hash = InvisionUser.generate_hash(password, 
-  #     @user.converge.converge_pass_salt)
-  #   
-  #   @user.auth?(password).should be_true
-  # end
-  # 
-  # it "should not authorize with an incorrect password" do
-  #   @user.auth?('bad password').should be_false
+  # it "should know if a user is an admin" do
+  #   @user.is_admin?.should be_false
   # end
 end

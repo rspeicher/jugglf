@@ -67,13 +67,13 @@ InvisionUser.blueprint do
   name
   mgroup { 1 }
   email { Faker::Internet.email }
-  converge
-  members_l_username { self.name }
+end
+InvisionUser.blueprint(:admin) do
+  mgroup { 4 }
 end
 
 InvisionUserConverge.blueprint do
   # converge_id { InvisionUser.make.id }
-  converge_pass_hash { Digest::MD5.hexdigest(Digest::MD5.hexdigest('password') + 
-    Digest::MD5.hexdigest('salt')) }
+  converge_pass_hash { 'hash' }
   converge_pass_salt { 'salt' }
 end
