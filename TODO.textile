@@ -2,27 +2,27 @@ h1. Todo
 
 1-5, where five is a feature that has to be in before we can use the app in production
 
+1 Logging of actions
+1 Statistics - number of members, raids, items
+1 XML resources
+2 "Who's Online" list
+2 Comments, Admin notes
+2 Searching
+3 Achievements
+3 Edit Raid interface
+3 New/Edit Item (Drop) interfaces
+3 New/Edit rank interfaces
+3 Performance; caching
+3 Real-time raid and item logging (online JuggyAttendance replacement)
+3 Redesign interface to better fit with the forums (Redesign the forums, I say!)
+3 Relative dates ("Falls of loot factor in x days"), "[Punishment] expires in 3 days")
+4 Item Type filtering
+4 Last Loot
+4 Styled 404/exception pages
+4 Summary page; class counts, attendance averages, loot factor averages
+5 "My Standing" for logged-in users
 5 Users/Permissions, attaching Members to Users
 5 Wishlists
-5 "My Standing" for logged-in users
-2 Comments, Admin notes
-3 New/Edit Item (Drop) interfaces
-3 Edit Raid interface
-3 New/Edit rank interfaces
-2 Searching
-4 Item Type filtering
-3 Achievements
-1 Logging of actions
-4 Summary page; class counts, attendance averages, loot factor averages
-4 Last Loot
-1 XML resources
-3 Real-time raid and item logging (online JuggyAttendance replacement)
-3 Relative dates ("Falls of loot factor in x days"), "[Punishment] expires in 3 days")
-3 Redesign interface to better fit with the forums (Redesign the forums, I say!)
-2 "Who's Online" list
-1 Statistics - number of members, raids, items
-4 Styled 404/exception pages
-3 Performance; caching
 
 h2. Bugs
 
