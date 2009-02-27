@@ -111,17 +111,21 @@ div.error
         :color = !table_header_background - 80
     &.gap
     
-span
-  &.bis, &.sit, &.rot, &.de
-    :padding-right 14px
-    :background url(/images/bullet_plus.png) no-repeat center right
-    :text-decoration underline
-    :cursor pointer
-  &.shown
-    :padding-right 14px
-    :text-decoration underline
-    :background url(/images/bullet_delete.png) no-repeat center right
-    :cursor pointer
+#itemfilter
+  tr
+    span
+      :padding-right 16px
+      :background url(/images/bullet_left.png) no-repeat center right
+      :text-decoration underline
+      :cursor pointer
+    &.shown
+      span
+        :background url(/images/bullet_delete.png) no-repeat center right
+  / &.shown
+  /   :padding-right 14px
+  /   :text-decoration underline
+  /   :background url(/images/bullet_delete.png) no-repeat center right
+  /   :cursor pointer
 
 // Progress Bars - http://blog.leetsoft.com/2006/8/22/super-simple-css-bars
 // Also see http://wiki.github.com/paolodona/rails-widgets/progressbar
