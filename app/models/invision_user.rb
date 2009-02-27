@@ -72,9 +72,8 @@ class InvisionUser < ActiveRecord::Base
   attr_accessible :login, :password, :password_confirmation
   acts_as_authentic(
     :crypto_provider  => Authlogic::CryptoProviders::InvisionPowerBoard, 
-    :login_field      => :members_l_username,
-    :login_field_type => :login,
-    :validate_login_field => false # FIXME: Doesn't work? Still get "Member l username does not exist" for invalid names
+    :login_field      => :name,
+    :login_field_type => :login
   )
   
   def crypted_password
@@ -82,19 +81,6 @@ class InvisionUser < ActiveRecord::Base
   end
   def password_salt
     self.converge.converge_pass_salt
-  end
-  
-  def persistence_token
-    self.user.persistence_token
-  end
-  def persistence_token=(value)
-    self.user.persistence_token = value
-    self.user.save
-  end
-  
-  def self.find_by_persistence_token(token)
-    user = User.find_by_persistence_token(token)
-    return user.invision_user unless user.nil?
   end
   
   def is_admin?
@@ -110,14 +96,4 @@ class InvisionUser < ActiveRecord::Base
   
   # Relationships -------------------------------------------------------------
   has_one :converge, :class_name => "InvisionUserConverge", :foreign_key => "converge_id"
-  has_one :user
-  
-  # Callbacks -----------------------------------------------------------------
-  before_create :create_or_update_user
-  before_save :create_or_update_user
-  
-  private
-    def create_or_update_user
-      self.user = User.new if self.user.nil?
-    end
 end

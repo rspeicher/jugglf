@@ -6,8 +6,8 @@
     - unless f.error_messages.empty?
       .error= f.error_messages
 
-    = f.label :login
-    = f.text_field :members_l_username, :class => 'large'
+    = f.label :name, 'Login'
+    = f.text_field :name, :class => 'large'
 
     = f.label :password
     = f.password_field :password, :class => 'large'
