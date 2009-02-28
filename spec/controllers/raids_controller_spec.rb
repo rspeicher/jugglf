@@ -66,8 +66,8 @@ describe RaidsController, "#show" do
       login({}, :is_admin? => true)
       @raid = mock_model(Raid, :attendees => mock_model(Attendee), 
         :loots => mock_model(Loot))
-      @raid.attendees.should_receive(:find).and_return('attendees')
-      @raid.loots.should_receive(:find).and_return('loots')
+      Attendee.should_receive(:find).and_return('attendees')
+      Loot.should_receive(:find).and_return('loots')
       
       find_raid
       get_response
@@ -77,8 +77,8 @@ describe RaidsController, "#show" do
       assigns[:attendees].should == 'attendees'
     end
     
-    it "should assign @drops" do
-      assigns[:drops].should == 'loots'
+    it "should assign @loots" do
+      assigns[:loots].should == 'loots'
     end
     
     it "should render" do

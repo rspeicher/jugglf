@@ -38,13 +38,8 @@ describe MembersHelper do
     end
     
     it "should return member attendance for attended raid" do
-      raid = Raid.make
-      raid.members.should_receive(:include?).and_return(true)
-      raid.attendees.should_receive(:find_by_member_id).and_return(
-        Attendee.make(:attendance => 0.50)
-      )
-      
-      member_raid_attendance(raid, mock_model(Member)).should match(/50%/)
+      raid = Raid.make(:attendees => [Attendee.make(:attendance => 0.50)])
+      member_raid_attendance(raid, raid.attendees[0].member).should match(/50%/)
     end
     
     it "should ignore nil values" do
