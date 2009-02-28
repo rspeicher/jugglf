@@ -1,6 +1,6 @@
 class Wishlist < ActiveRecord::Base
   # Relationships -------------------------------------------------------------
-  has_one :item
+  belongs_to :item
   belongs_to :member
   
   # Attributes ----------------------------------------------------------------
@@ -13,4 +13,11 @@ class Wishlist < ActiveRecord::Base
   # Class Methods -------------------------------------------------------------
   
   # Instance Methods ----------------------------------------------------------
+  def item_name
+    self.item.name unless self.item_id.nil?
+  end
+  def item_name=(value)
+    item = Item.find_by_name(value)
+    self.item = item unless item.nil?
+  end
 end

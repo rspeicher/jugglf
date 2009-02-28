@@ -3,5 +3,16 @@
     %tr
       %th Item
       %th.note Note
-      %th Type
+      %th Priority
   %tbody
+    - @member.wishlists.each do |wishlist|
+      %tr{ :class => cycle('even', 'odd') }
+        %td= link_to_item_with_stats(wishlist.item)
+        %td= h(wishlist.note)
+        %td= h(wishlist.priority.titlecase)
+#wishlist_add{ :style => "display: none" }
+  = render :partial => 'wishlist/form'
+.buttons
+  = link_to_function(image_tag('add.png') + 'Add Items', nil) do |page|
+    = page[:wishlist_add].visual_effect :blind_down
+    = page[:wishlist_item_name].focus
