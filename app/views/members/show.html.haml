@@ -26,13 +26,11 @@
     %span.small Situational
 #member_tabs
   %ul
-    / %li= link_to_tab('Basic')
     %li= link_to_tab("Raids (#{@raids_count})")
     %li= link_to_tab("Loots (#{@member.loots.size})")
     %li= link_to_tab("Punishments (#{@punishments.size})")
     %li= link_to_tab("Wishlist")
     %li= link_to_tab('Achievements')
-  / #basic= render :partial => 'basic'
   #raids= render :partial => 'raids'
   #loots= render :partial => 'loots'
   #punishments= render :partial => 'punishments'
