@@ -14,9 +14,8 @@ class RaidsController < ApplicationController
   end
   
   def show
-    @attendees = @raid.attendees.find(:all, :include => :member, 
-      :order => "#{Member.table_name}.wow_class, #{Member.table_name}.name")
-    @drops     = @raid.loots.find(:all, :include => [{:item => :item_stat}, :member])
+    @attendees = @raid.attendees.find(:all, :include => :member)
+    @loots     = @raid.loots.find(:all, :include => [{:item => :item_stat}, :member])
     
     respond_to do |wants|
       wants.html
