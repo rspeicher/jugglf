@@ -20,4 +20,9 @@ class Wishlist < ActiveRecord::Base
     item = Item.find_by_name(value)
     self.item = item unless item.nil?
   end
+  
+  private
+    def validate
+      errors.add(:item_name, 'Item is required') if self.item_id.nil? or self.item.name.empty?
+    end
 end
