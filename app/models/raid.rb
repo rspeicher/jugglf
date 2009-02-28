@@ -20,7 +20,7 @@ class Raid < ActiveRecord::Base
   has_many :members, :through => :attendees, :order => "#{Member.table_name}.name ASC"
   
   # Attributes ----------------------------------------------------------------
-  attr_accessor :update_attendee_cache
+  attr_accessor :update_cache
   attr_accessor :attendance_output
   attr_accessor :loot_output
   
@@ -97,7 +97,7 @@ class Raid < ActiveRecord::Base
     def update_cache
       # We have to update all members' cache, because if a member didn't attend
       # this raid, it should still affect that person's attendance percentages
-      Member.update_all_cache unless @update_attendee_cache == false
+      Member.update_all_cache unless @update_cache == false
       
       # Set the purchased_on value of this raid's loots to its current date
       self.loots.each do |l|

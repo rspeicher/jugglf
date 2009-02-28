@@ -66,7 +66,7 @@ describe Raid do
     end
     
     it "should update attendee cache unless disabled" do
-      @raid.update_attendee_cache = true
+      @raid.update_cache = true
       
       lambda do
         @raid.save
@@ -75,7 +75,7 @@ describe Raid do
     end
     
     it "should allow disabling of attendee cache updates" do
-      @raid.update_attendee_cache = false
+      @raid.update_cache = false
       
       lambda do
         @raid.save
@@ -87,7 +87,7 @@ describe Raid do
       Item.destroy_all
       
       5.times { @raid.loots.make(:purchased_on => 15.days.ago) }
-      @raid.update_attendee_cache = false
+      @raid.update_cache = false
       @raid.save
       
       @raid.loots.find(:first).purchased_on.should == @raid.date
@@ -165,7 +165,7 @@ describe Raid, "#attendance_output" do
     [Attendee, Member, Raid].each(&:destroy_all)
     @raid = Raid.make
     @raid.attendance_output = @output
-    @raid.update_attendee_cache = false
+    @raid.update_cache = false
   end
   
   it "should not raise an exception for duplicates" do

@@ -24,7 +24,7 @@ namespace :db do
         r.note   = lr.note
         r.thread = lr.thread
         
-        r.update_attendee_cache = false # Otherwise this would be sloooooooooow
+        r.update_cache = false # Otherwise this would be sloooooooooow
         r.save!
       
         # Use the legacy raid's ID to lookup its attendance, but don't create its
@@ -51,7 +51,7 @@ namespace :db do
         end
       
         # Save one more time to make sure the items get saved
-        r.update_attendee_cache = false # Otherwise this would be sloooooooooow
+        r.update_cache = false # Otherwise this would be sloooooooooow
         r.save!
       end
     
