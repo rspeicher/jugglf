@@ -18,9 +18,9 @@ class MembersController < ApplicationController
   def show
     @raids_count = Raid.count
     @raids = Raid.paginate(:page => params[:page], :per_page => 35, 
-      :include => [:attendees, :members], :order => "date DESC")
+      :include => [:attendees], :order => "date DESC")
       
-    @loots = @member.loots.find(:all, :include => [{:item => :item_stat}, :raid, :member])
+    @loots = @member.loots.find(:all, :include => [{:item => :item_stat}])
       
     @punishments = @member.punishments.find_all_active
     

@@ -16,5 +16,5 @@
       %tr{ :class => cycle('even', 'odd') + ' ' + loot_row_classes(loot) }
         %td= link_to_item_with_stats(loot.item)
         %td= loot_tell_types(loot)
-        %td.date= link_to h(loot.purchased_on), raid_path(loot.raid) unless loot.raid.nil?
+        %td.date= link_to h(loot.purchased_on), raid_path(loot.raid_id) unless loot.raid_id.nil?
         %td.number= number_with_precision(loot.adjusted_price, :precision => 2)
