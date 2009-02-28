@@ -46,7 +46,7 @@ module Juggy
         return if buyer.nil? or buyer.empty? or item_name.nil? or item_name.empty?
         
         retval = { }
-        retval[:name] = item_name
+        retval[:item] = Item.find_or_initialize_by_name(item_name)
       
         # These next regex just mean "contained within parenthesis where the only
         # other values are a-z and \s"; Prevents "Tsitgo" as a name from 
@@ -64,7 +64,7 @@ module Juggy
       
         # Item Pricing
         price = nil
-        stats = ItemStat.lookup(retval[:name])
+        stats = ItemStat.lookup(item_name)
         unless stats.new_record?
           price = ItemPrice.instance.price(:name => stats.item, 
             :level => stats.level, :slot => stats.slot, 
