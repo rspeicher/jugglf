@@ -1,16 +1,13 @@
 :javascript
   $(document).ready(function(){
     $("#raid_tabs").tabs();
-    
+    $("table#loot").tablesorter({ sortList: [[0,0]], widgets: ['zebra'] });
     $('#itemfilter span.filter').click(function() {
       toggleItemTypes(this);
     });
   });
   
-%h2
-  = link_to 'Raids', raids_path
-  &raquo;
-  = @raid.date
+%h2= breadcrumb(link_to('Raids', raids_path), @raid.date)
 #raid_tabs
   %ul
     %li= link_to_tab("Attendees (#{@raid.attendees.size})")
@@ -28,7 +25,7 @@
             %td.fill= link_to_member(attendee.member)
             %td.attendance= raid_attendance_colored(attendee.attendance)
   #drops
-    %table.list
+    %table#loot.list.tablesorter
       %thead
         %tr
           %th Name
