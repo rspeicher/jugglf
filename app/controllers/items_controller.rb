@@ -8,4 +8,9 @@ class ItemsController < ApplicationController
   #     wants.html
   #   end
   # end
+  
+  private
+    # def find_loot
+    #   @item = Item.find(params[:id])
+    # end
 end

@@ -1,8 +1,6 @@
 class LootsController < ApplicationController
   before_filter :require_admin
   
-  before_filter :find_loot, :only => [:show, :edit, :update, :destroy]
-  
   layout @@layout
   
   def index
@@ -12,9 +10,4 @@ class LootsController < ApplicationController
       wants.html
     end
   end
-
-  private
-    def find_loot
-      @loot = Item.find(params[:id])
-    end
 end
