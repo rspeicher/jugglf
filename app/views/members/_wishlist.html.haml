@@ -9,15 +9,11 @@
       %th Item
       %th.note Note
       %th Priority
-  %tbody
+  %tbody#wishlist_rows
     - @member.wishlists.each do |wishlist|
-      %tr{ :class => cycle('even', 'odd') }
-        %td= link_to_item_with_stats(wishlist.item)
-        %td= h(wishlist.note)
-        %td= h(wishlist.priority.titlecase)
+      = render :partial => 'wishlist_row', :object => wishlist
 %br
 #wishlist_add{ :style => "display:none" }
   = render :partial => 'wishlists/form'
-  %br
 #form_show.buttons
   = link_to_function(image_tag('add.png') + 'Add Items', 'toggleWishlistForm()')

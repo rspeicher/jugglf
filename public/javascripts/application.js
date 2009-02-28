@@ -10,6 +10,16 @@ function sortMemberTable() {
     });
 }
 
+function zebraTable(id) {
+    $('table#' + id + ' > tbody > tr').each(function() {
+        background = 'even';
+        $(this).removeClass('even');
+        $(this).removeClass('odd');
+        $(this).addClass(background);
+        background = $(this).hasClass('even') ? 'odd' : 'even';
+    });
+}
+
 // Hide the flash success message after giving the user 4s to read it
 // Don't hide the error messages; we probably want to give them more time to be
 // processed by the user

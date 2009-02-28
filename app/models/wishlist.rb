@@ -4,6 +4,7 @@ class Wishlist < ActiveRecord::Base
   belongs_to :member
   
   # Attributes ----------------------------------------------------------------
+  attr_accessible :item_name, :priority, :note, :member_id
   
   # Validations ---------------------------------------------------------------
   validates_format_of :priority, :with => /^(normal|best in slot|situational|rot)/, :allow_nil => true
@@ -23,6 +24,6 @@ class Wishlist < ActiveRecord::Base
   
   private
     def validate
-      errors.add(:item_name, 'Item is required') if self.item_id.nil? or self.item.name.empty?
+      errors.add(:item_name, 'is invalid') if self.item_id.nil? or self.item.name.empty?
     end
 end

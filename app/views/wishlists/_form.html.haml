@@ -1,8 +1,7 @@
 %fieldset.center
   %legend.hidden Add Wishlist
-  - form_for @wishlist do |f|
-    - unless f.error_messages.empty?
-      .error= f.error_messages
+  - remote_form_for @wishlist do |f|
+    #errors.error{ :style => "display: none" }= f.error_messages
     
     = f.label :item_name, 'Item Name'
     = f.text_field :item_name, :class => 'large'
