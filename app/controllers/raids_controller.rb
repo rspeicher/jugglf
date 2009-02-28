@@ -14,8 +14,12 @@ class RaidsController < ApplicationController
   end
   
   def show
-    @attendees = @raid.attendees.find(:all, :include => :member)
-    @loots     = @raid.loots.find(:all, :include => [{:item => :item_stat}, :member])
+    logger.debug 'Finding attendees'
+    @attendees = Attendee.find(:all, :conditions => ['raid_id = ?', @raid.id],
+      :include => :member)
+    logger.debug 'Finding loots'
+    @loots     = Loot.find(:all, :conditions => ['raid_id = ?', @raid.id], 
+      :include => [{:item => :item_stat}, :member])
     
     respond_to do |wants|
       wants.html
