@@ -32,7 +32,7 @@ class Member < ActiveRecord::Base
   has_many :punishments, :dependent => :destroy
   has_many :raids, :through => :attendees, :order => "date DESC"
   belongs_to :rank, :class_name => "MemberRank", :foreign_key => "rank_id"
-  has_many :wishlists, :dependent => :destroy
+  has_many :wishlists, :include => :item, :order => 'priority', :dependent => :destroy
   
   # Attributes ----------------------------------------------------------------
   attr_accessible :name, :active, :wow_class
