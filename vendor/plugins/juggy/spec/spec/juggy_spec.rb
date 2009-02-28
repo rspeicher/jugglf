@@ -8,85 +8,85 @@ describe Juggy do
     @loot_output = "Sebudai - [Arachnoid Gold Band]"
   end
   
-  describe "#parse_items" do
+  describe "#parse_loots" do
     before(:each) do
-      # Juggy.parse_items tries to figure out the price via ItemStat's
+      # Juggy.parse_loots tries to figure out the price via ItemStat's
       # data; fake that so we don't hit Wowhead for non-existant items
       ItemStat.stub!(:lookup).and_return(ItemStat.make)
     end
     
     it "should return an array of hashes" do
-      items = Juggy.parse_items(@loot_output)
+      loots = Juggy.parse_loots(@loot_output)
       
-      items.size.should eql(1)
-      items[0].class.should eql(Hash)
+      loots.size.should eql(1)
+      loots[0].class.should eql(Hash)
     end
     
-    it "should not save items automatically" do
-      lambda { Juggy.parse_items(@loot_output) }.
-        should_not change(Item, :count)
+    it "should not save loots automatically" do
+      lambda { Juggy.parse_loots(@loot_output) }.
+        should_not change(Loot, :count)
     end
     
     # We enabled this for a while, then wimped out because there was no
     # distinguishing from a DE'd item and an item that had a misspelled buyer
     # it "should not save members automatically" do
-    #   lambda { Juggy.parse_items(@loot_output) }.
+    #   lambda { Juggy.parse_loots(@loot_output) }.
     #     should_not change(Member, :count)
     # end
     
     describe "automatic pricing" do
       it "should figure out price based on item stats" do
-        items = Juggy.parse_items('Buyer - Item')
+        loots = Juggy.parse_loots('Buyer - Item')
         
-        items[0][:price].should == 3.00
+        loots[0][:price].should == 3.00
       end
     end
     
-    describe "item details" do
+    describe "loot details" do
       before(:each) do
         item = 'Arachnoid Gold Band'
-        @items = {
-          :single       => Juggy.parse_items("Sebudai - #{item}"),
-          :false_bis    => Juggy.parse_items("Sebisudai - #{item}"),
-          :best_in_slot => Juggy.parse_items("Modrack (bis) - #{item}"),
-          :rot          => Juggy.parse_items("Modrack (rot) - #{item}"),
-          :sit          => Juggy.parse_items("Modrack (sit) - #{item}"),
-          :bisrot       => Juggy.parse_items("Modrack (bis rot) - #{item}"),
-          :multiple     => Juggy.parse_items("Modrack (bis), Rosoo (bis) - #{item}"),
-          :de           => Juggy.parse_items("DE - #{item}"),
+        @loots = {
+          :single       => Juggy.parse_loots("Sebudai - #{item}"),
+          :false_bis    => Juggy.parse_loots("Sebisudai - #{item}"),
+          :best_in_slot => Juggy.parse_loots("Modrack (bis) - #{item}"),
+          :rot          => Juggy.parse_loots("Modrack (rot) - #{item}"),
+          :sit          => Juggy.parse_loots("Modrack (sit) - #{item}"),
+          :bisrot       => Juggy.parse_loots("Modrack (bis rot) - #{item}"),
+          :multiple     => Juggy.parse_loots("Modrack (bis), Rosoo (bis) - #{item}"),
+          :de           => Juggy.parse_loots("DE - #{item}"),
         }
         
         # parse_items returns an array; each example only wants one item
-        @items.each { |k, v| @items[k] = v[0] }
+        @loots.each { |k, v| @loots[k] = v[0] }
       end
     
-      it "should return one Item" do
-        @items[:single].class.should == Hash
+      it "should return one Hash" do
+        @loots[:single].class.should == Hash
       end
     
       it "should correctly set best_in_slot" do
-        @items[:best_in_slot][:best_in_slot].should be_true
+        @loots[:best_in_slot][:best_in_slot].should be_true
       end
     
       it "should correctly set situational" do
-        @items[:sit][:situational].should be_true
+        @loots[:sit][:situational].should be_true
       end
     
       it "should correctly set rot" do
-        @items[:rot][:rot].should be_true
+        @loots[:rot][:rot].should be_true
       end
     
       it "should correctly set best_in_slot and rot at the same time" do
-        @items[:bisrot][:best_in_slot].should be_true
-        @items[:bisrot][:rot].should be_true
+        @loots[:bisrot][:best_in_slot].should be_true
+        @loots[:bisrot][:rot].should be_true
       end
     
       it "should not have false positives for purchase types inside buyer names" do
-        @items[:false_bis][:best_in_slot].should be_false
+        @loots[:false_bis][:best_in_slot].should be_false
       end
     
       it "should set member as nil if buyer is 'DE'" do
-        @items[:de][:member].should be_nil
+        @loots[:de][:member].should be_nil
       end
     end
   end

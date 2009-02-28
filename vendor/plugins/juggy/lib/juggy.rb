@@ -18,7 +18,7 @@ module Juggy
       retval
     end
     
-    def parse_items(output)
+    def parse_loots(output)
       return if output.nil? or output.empty?
     
       retval = []
@@ -32,9 +32,9 @@ module Juggy
         item_name = split[1].gsub(/\[(.+)\]/, '\1').strip # Item name, no brackets
       
         buyers.each do |buyer|
-          item = generate_item(buyer, item_name)
+          loot = generate_loot(buyer, item_name)
         
-          retval << item
+          retval << loot
         end
       end
     
@@ -42,7 +42,7 @@ module Juggy
     end
     
     private
-      def generate_item(buyer, item_name)
+      def generate_loot(buyer, item_name)
         return if buyer.nil? or buyer.empty? or item_name.nil? or item_name.empty?
         
         retval = { }
