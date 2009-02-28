@@ -35,6 +35,8 @@ h2. Bugs
 
 h2. Short term
 
+* On the login form, focus the first field after loading.
+
 h3. Item Normalization
 
 If we rename an item, other items that used to have that name don't get renamed
