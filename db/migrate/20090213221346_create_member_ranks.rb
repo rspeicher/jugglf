@@ -7,9 +7,11 @@ class CreateMemberRanks < ActiveRecord::Migration
     end
     
     add_column :members, :rank_id, :integer
+    add_index :members, :rank_id
   end
 
   def self.down
+    remove_index :members, :rank_id
     remove_column :members, :rank_id
     drop_table :member_ranks
   end

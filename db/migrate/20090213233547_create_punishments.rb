@@ -7,6 +7,8 @@ class CreatePunishments < ActiveRecord::Migration
       t.float :value, :default => 0.00, :precision => 10, :scale => 2
       t.timestamps
     end
+    
+    add_index :punishments, :member_id
   end
 
   def self.down

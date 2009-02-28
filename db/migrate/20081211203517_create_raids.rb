@@ -8,6 +8,8 @@ class CreateRaids < ActiveRecord::Migration
       t.integer :loots_count, :default => 0
       t.timestamps
     end
+    
+    add_index :raids, :date
   end
 
   def self.down
