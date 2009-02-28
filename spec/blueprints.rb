@@ -37,6 +37,7 @@ Loot.blueprint do
   member
   raid
   price
+  purchased_on { Date.today }
 end
 
 Punishment.blueprint do
