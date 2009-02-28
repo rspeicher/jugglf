@@ -59,7 +59,7 @@ describe Raid do
     end
   end
   
-  describe "#update_attendee_cache" do
+  describe "#update_cache" do
     before(:each) do
       @member = Member.make(:attendance_30 => 1.00)
       @raid.attendees.make(:member => @member, :attendance => 0.50)
@@ -81,6 +81,16 @@ describe Raid do
         @raid.save
         @member.reload
       end.should_not change(@member, :attendance_30)
+    end
+    
+    it "should update purchased_on attribute for child loots" do
+      Item.destroy_all
+      
+      5.times { @raid.loots.make(:purchased_on => 15.days.ago) }
+      @raid.update_attendee_cache = false
+      @raid.save
+      
+      @raid.loots.find(:first).purchased_on.should == @raid.date
     end
   end
 end
