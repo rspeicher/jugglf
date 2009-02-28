@@ -1,20 +1,24 @@
-%h2
-  = link_to 'Items', items_path
-  &raquo;
-  = link_to_wowhead(@item)
-  
+:javascript
+  $(document).ready(function(){
+    $("table#loot").tablesorter({ sortList: [[0,1]], widgets: ['zebra'] });
+    $('#itemfilter span.filter').click(function() {
+      toggleItemTypes(this);
+    });
+  });
+
+%h2= breadcrumb(link_to('Items', items_path), link_to_wowhead(@item))
 #purchases
-  %table.list
+  %table#loot.list.tablesorter
     %thead
       %tr
         %th.date Raid
         %th.member Buyer
         %th.note Notes
         %th.number Price
-    %tbody
-      - @purchases.each do |item|
-        %tr{ :class => cycle('even', 'odd') }
-          %td.date= link_to item.raid.date, raid_path(item.raid) unless item.raid.nil?
-          %td.member= link_to_member(item.member)
-          %td.note= item_tell_types(item)
-          %td.number= number_with_precision(item.adjusted_price, :precision => 2)
+    %tbody#itemfilter
+      - @loots.each do |loot|
+        %tr{ :class => cycle('even', 'odd') + ' ' + loot_row_classes(loot) }
+          %td.date= link_to loot.purchased_on, raid_path(loot.raid_id) unless loot.raid_id.nil?
+          %td.member= link_to_member(loot.member)
+          %td.note= loot_tell_types(loot)
+          %td.number= number_with_precision(loot.adjusted_price, :precision => 2)
