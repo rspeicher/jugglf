@@ -13,6 +13,7 @@ end
 
 Member.blueprint do
   name
+  wow_class { nil }
 end
 Member.blueprint(:hunter) do
   wow_class { 'Hunter' }
@@ -30,6 +31,9 @@ end
 
 Item.blueprint do
   name
+end
+Loot.blueprint do
+  item
   member
   raid
   price

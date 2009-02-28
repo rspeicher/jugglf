@@ -1,2 +1,0 @@
-class LootController < ApplicationController
-end
