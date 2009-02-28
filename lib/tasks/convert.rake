@@ -7,7 +7,6 @@ namespace :db do
       LegacyMember.all.each do |lm|
         m = Member.find_or_initialize_by_name(lm.name)
         m.active              = lm.active
-        m.raids_count         = lm.raids_count
         m.wow_class           = lm.wow_class
         m.lf                  = lm.lf
         m.sitlf               = lm.sitlf
@@ -39,15 +38,15 @@ namespace :db do
       
         # Lookup items by the LEGACY raid ID
         LegacyItem.find_all_by_raid_id(lr.raid_id).each do |li|
-          i = { }
-          i[:name]         = li.name
-          i[:price]        = li.price
-          i[:situational]  = li.situational?
-          i[:best_in_slot] = li.best_in_slot?
-          i[:member_id]    = li.member_id
-          i[:rot]          = li.rot?
+          loot = { }
+          loot[:item]         = Item.find_or_create_by_name(li.name)
+          loot[:price]        = li.price
+          loot[:situational]  = li.situational?
+          loot[:best_in_slot] = li.best_in_slot?
+          loot[:member_id]    = li.member_id
+          loot[:rot]          = li.rot?
         
-          r.items.create(i)
+          r.loots.create(loot)
         end
       
         # Save one more time to make sure the items get saved
