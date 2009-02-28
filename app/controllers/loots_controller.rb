@@ -4,7 +4,9 @@ class LootsController < ApplicationController
   layout @@layout
   
   def index
-    @loots = Loot.paginate(:page => params[:page], :per_page => 40, :include => :item, :order => "purchased_on DESC")
+    @loots = Loot.paginate(:page => params[:page], :per_page => 40, 
+      :include => [:item, :item_stat, :raid, :member], 
+      :order => "purchased_on DESC")
     
     respond_to do |wants|
       wants.html

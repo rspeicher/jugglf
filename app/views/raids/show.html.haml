@@ -1,6 +1,10 @@
 :javascript
   $(document).ready(function(){
     $("#raid_tabs").tabs();
+    
+    $('#itemfilter span.filter').click(function() {
+      toggleItemTypes(this);
+    });
   });
   
 %h2
@@ -31,9 +35,9 @@
           %th.member Buyer
           %th Notes
           %th.number Price
-      %tbody
+      %tbody#itemfilter
         - @drops.each do |loot|
-          %tr{ :class => cycle('even', 'odd') }
+          %tr{ :class => cycle('even', 'odd') + ' ' + loot_row_classes(loot) }
             %td= link_to_item_with_stats(loot.item)
             %td.member= link_to_member(loot.buyer)
             %td= loot_tell_types(loot)

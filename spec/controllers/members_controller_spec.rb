@@ -66,7 +66,8 @@ describe MembersController, "#show" do
       login({}, :is_admin? => true)
       
       @mock = mock_model(Member, 
-        :punishments => mock_model(Punishment, :find_all_active => 'punishments'))
+        :punishments => mock_model(Punishment, :find_all_active => 'punishments'),
+        :loots => mock_model(Loot, :find => 'loots'))
       Member.should_receive(:find).with('1').and_return(@mock)
 
       Raid.should_receive(:count).and_return(0)
@@ -85,6 +86,10 @@ describe MembersController, "#show" do
 
     it "should assign @raids" do
       assigns[:raids].should == 'raids'
+    end
+    
+    it "should assign @loots" do
+      assigns[:loots].should == 'loots'
     end
 
     it "should assign @punishments" do
