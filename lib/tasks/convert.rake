@@ -45,6 +45,7 @@ namespace :db do
           loot[:best_in_slot] = li.best_in_slot?
           loot[:member_id]    = li.member_id
           loot[:rot]          = li.rot?
+          loot[:purchased_on] = r.date
         
           r.loots.create(loot)
         end
