@@ -1,4 +1,4 @@
-- form_for Wishlist.new, :url => member_wishlist_path(@member) do |f|
+- form_for @wishlist do |f|
   - unless f.error_messages.empty?
     .error= f.error_messages
     

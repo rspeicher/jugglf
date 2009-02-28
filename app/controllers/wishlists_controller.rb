@@ -1,4 +1,4 @@
-class WishlistController < ApplicationController
+class WishlistsController < ApplicationController
   before_filter :require_user
   
   before_filter :find_parent

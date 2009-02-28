@@ -1,6 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :items, :loots, :raids
-  map.resources :members, :has_many => [ :punishments, :wishlist ]
+  map.resources :items, :loots, :raids, :wishlists
+  map.resources :members, :has_many => [ :punishments ]
   
   map.resource :user_session
 
