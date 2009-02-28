@@ -3,6 +3,7 @@ class CreateLoots < ActiveRecord::Migration
     create_table :loots do |t|
       t.references :item
       t.float :price
+      t.date :purchased_on
       t.boolean :best_in_slot, :default => 0
       t.boolean :situational, :default => 0
       t.boolean :rot, :default => 0
@@ -20,6 +21,6 @@ class CreateLoots < ActiveRecord::Migration
     remove_index :loots, :item_id
     remove_index :loots, :raid_id
     remove_index :loots, :member_id
-    drop_table :drops
+    drop_table :loots
   end
 end
