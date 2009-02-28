@@ -20,8 +20,7 @@ class MembersController < ApplicationController
     @raids = Raid.paginate(:page => params[:page], :per_page => 35, 
       :include => [:attendees, :members], :order => "date DESC")
       
-    @loots = @member.loots.find(:all, :include => [:item, :raid, :member], 
-      :order => "purchased_on DESC")
+    @loots = @member.loots.find(:all, :include => [{:item => :item_stat}, :raid, :member])
       
     @punishments = @member.punishments.find_all_active
     

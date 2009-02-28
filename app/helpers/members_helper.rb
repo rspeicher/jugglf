@@ -10,15 +10,14 @@ module MembersHelper
     link_to h(member.name), member_path(member), :class => member.wow_class unless member.nil?
   end
   
-  # FIXME: This is ugly and potentially resource intensive
   def member_raid_attendance(raid, member)
     return if raid.nil? or member.nil?
     
-    if raid.members.include? member
-      return raid_attendance_colored(raid.attendees.find_by_member_id(@member).attendance)
-    else
-      return raid_attendance_colored(0)
+    raid.attendees.each do |a|
+      return raid_attendance_colored(a.attendance) if a.member_id == member.id
     end
+
+    return raid_attendance_colored(0)
   end
   
   def member_attendance_colored(value)
