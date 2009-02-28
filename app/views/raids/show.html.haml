@@ -10,7 +10,7 @@
 #raid_tabs
   %ul
     %li= link_to_tab("Attendees (#{@raid.attendees.size})")
-    %li= link_to_tab("Drops (#{@raid.items.size})")
+    %li= link_to_tab("Drops (#{@raid.loots.size})")
 
   #attendees
     %table.list
@@ -32,9 +32,9 @@
           %th Notes
           %th.number Price
       %tbody
-        - @drops.each do |item|
+        - @drops.each do |loot|
           %tr{ :class => cycle('even', 'odd') }
-            %td= link_to_item_with_stats(item)
-            %td.member= link_to_member(item.buyer)
-            %td= item_tell_types(item)
-            %td.number= number_with_precision(item.adjusted_price, :precision => 2)
+            %td= link_to_item_with_stats(loot.item)
+            %td.member= link_to_member(loot.buyer)
+            %td= loot_tell_types(loot)
+            %td.number= number_with_precision(loot.adjusted_price, :precision => 2)

@@ -1,0 +1,20 @@
+= will_paginate @loot
+%br
+%table.list
+  %thead
+    %tr
+      %th Name
+      %th Buyer
+      %th Notes
+      %th.date Raid
+      %th.number Price
+  %tbody
+    - @loots.each do |loot|
+      %tr{ :class => cycle('even', 'odd') + ' ' + loot_row_classes(loot) }
+        %td= link_to_item_with_stats(loot.item)
+        %td= link_to_member(loot.member)
+        %td= loot_tell_types(loot)
+        %td.date= link_to h(loot.purchased_on), raid_path(loot.raid) unless loot.raid.nil?
+        %td.number= number_with_precision(loot.adjusted_price, :precision => 2)
+%br
+= will_paginate @loots

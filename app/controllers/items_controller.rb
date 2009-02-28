@@ -1,28 +1,11 @@
 class ItemsController < ApplicationController
-  before_filter :require_admin
-  
-  before_filter :find_item, :only => [:show, :edit, :update, :destroy]
-  
-  layout @@layout
-  
-  def index
-    @items = Item.paginate(:page => params[:page], :per_page => 40, :include => :raid, :order => "#{Raid.table_name}.date DESC")
-    
-    respond_to do |wants|
-      wants.html
-    end
-  end
-  
-  def show
-    @purchases = Item.find(:all, :include => :raid, :order => "#{Raid.table_name}.date DESC", :conditions => ["name = ?", @item.name])
-    
-    respond_to do |wants|
-      wants.html
-    end
-  end
-  
-  private
-    def find_item
-      @item = Item.find(params[:id])
-    end
+  # Show is really showing all of the purchases of a particular Item, so that should
+  # go in that controller.
+  # def show
+  #   @purchases = Item.find_all_by_item_id(:include => :raid, :order => "purchased_on DESC", :conditions => ["name = ?", @loot.name])
+  #   
+  #   respond_to do |wants|
+  #     wants.html
+  #   end
+  # end
 end

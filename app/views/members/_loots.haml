@@ -1,0 +1,20 @@
+:javascript
+  $(document).ready(function() {
+    $('#itemfilter span.filter').click(function() {
+      toggleItemTypes(this);
+    });
+  });
+%table.list
+  %thead
+    %tr
+      %th Name
+      %th Notes
+      %th.date Raid
+      %th.number Price
+  %tbody#itemfilter
+    - @member.loots.each do |loot|
+      %tr{ :class => cycle('even', 'odd') + ' ' + loot_row_classes(loot) }
+        %td= link_to_item_with_stats(loot.item)
+        %td= loot_tell_types(loot)
+        %td.date= link_to h(loot.purchased_on), raid_path(loot.raid) unless loot.raid.nil?
+        %td.number= number_with_precision(loot.adjusted_price, :precision => 2)

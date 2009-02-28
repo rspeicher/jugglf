@@ -63,7 +63,7 @@ function toggleItemTypes(object) {
     {
         background = null;
         $('#itemfilter tr').each(function() {
-            if ($(this).hasClass('item_' + type))
+            if ($(this).hasClass('loot_' + type))
             {
                 // If this row has this tell type, apply 'shown' class
                 $(this).addClass('shown');

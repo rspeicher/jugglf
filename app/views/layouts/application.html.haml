@@ -27,8 +27,8 @@
         #main-menu.clearfix
           %ul
             %li= link_to 'Members', members_path, :class => ( controller.controller_name == 'members' ) ? 'selected' : ''
-            %li= link_to 'Items', items_path, :class => ( controller.controller_name == 'items' ) ? 'selected' : ''
             %li= link_to 'Raids', raids_path, :class => ( controller.controller_name == 'raids' ) ? 'selected' : ''
+            %li= link_to 'Loots', loots_path, :class => ( controller.controller_name == 'loots' ) ? 'selected' : ''
             %li= link_to_login_or_logout
       #main
         - if flash[:error]

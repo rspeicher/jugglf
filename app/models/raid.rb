@@ -102,8 +102,7 @@ class Raid < ActiveRecord::Base
       # Set the purchased_on value of this raid's loots to its current date
       self.loots.each do |l|
         unless l.purchased_on == self.date
-          l.purchased_on = self.date
-          l.save
+          l.update_attributes(:purchased_on => self.date)
         end
       end
     end
