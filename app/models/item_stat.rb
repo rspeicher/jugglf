@@ -17,7 +17,10 @@
 
 class ItemStat < ActiveRecord::Base
   # Relationships -------------------------------------------------------------
+  has_many :items, :dependent => :nullify
+  
   # Attributes ----------------------------------------------------------------
+  
   # Validations ---------------------------------------------------------------
   validates_presence_of :item_id
   validates_presence_of :item

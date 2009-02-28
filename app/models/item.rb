@@ -18,6 +18,5 @@
 class Item < ActiveRecord::Base
   # Relationships -------------------------------------------------------------
   has_many :loots, :dependent => :destroy
-  # has_many :members, :through => :loots
-  # has_many :raids, :through => :loots
+  belongs_to :item_stat
 end

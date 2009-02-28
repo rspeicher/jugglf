@@ -9,18 +9,17 @@ class CreateLoots < ActiveRecord::Migration
       t.boolean :rot, :default => 0
       t.references :member
       t.references :raid
+
       t.timestamps
     end
     
     add_index :loots, :item_id
     add_index :loots, :member_id
     add_index :loots, :raid_id
+    add_index :loots, :purchased_on
   end
 
   def self.down
-    remove_index :loots, :item_id
-    remove_index :loots, :raid_id
-    remove_index :loots, :member_id
     drop_table :loots
   end
 end
