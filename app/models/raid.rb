@@ -16,8 +16,8 @@
 class Raid < ActiveRecord::Base
   # Relationships -------------------------------------------------------------
   has_many :attendees, :dependent => :destroy
-  has_many :items, :order => "items.name ASC", :dependent => :destroy
-  has_many :members, :through => :attendees, :order => "name ASC"
+  has_many :loots, :order => "purchased_on ASC", :dependent => :destroy
+  has_many :members, :through => :attendees, :order => "#{Member.table_name}.name ASC"
   
   # Attributes ----------------------------------------------------------------
   attr_accessor :update_attendee_cache
@@ -86,11 +86,11 @@ class Raid < ActiveRecord::Base
     def parse_drops
       return if @loot_output.nil? or @loot_output.empty?
       
-      items = Juggy.parse_items(@loot_output)
-      return if items.nil? or items.size == 0
+      loots = Juggy.parse_loots(@loot_output)
+      return if loots.nil? or loots.size == 0
       
-      items.each do |params|
-        self.items.create(params)
+      loots.each do |params|
+        self.loots.create(params.merge!(:purchased_on => self.date))
       end
     end
     
@@ -98,5 +98,13 @@ class Raid < ActiveRecord::Base
       # We have to update all members' cache, because if a member didn't attend
       # this raid, it should still affect that person's attendance percentages
       Member.update_all_cache unless @update_attendee_cache == false
+      
+      # Set the purchased_on value of this raid's loots to its current date
+      self.loots.each do |l|
+        unless l.purchased_on == self.date
+          l.purchased_on = self.date
+          l.save
+        end
+      end
     end
 end

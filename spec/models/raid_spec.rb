@@ -34,12 +34,12 @@ describe Raid do
     @raid.attendees.size.should == 5
   end
   
-  it "should have items" do
-    8.times { @raid.items.make }
+  it "should have loots" do
+    8.times { @raid.loots.make }
     
     @raid.reload
-    @raid.items_count.should == 8
-    @raid.items.size.should == 8
+    @raid.loots_count.should == 8
+    @raid.loots.size.should == 8
   end
   
   describe "#date_string" do
@@ -121,11 +121,11 @@ end
 
 describe Raid, "dependencies" do
   before(:each) do
-    [Attendee, Item].each(&:destroy_all)
+    [Attendee, Loot].each(&:destroy_all)
     @raid = Raid.make
 
     3.times { Attendee.make(:member => Member.make, :raid => @raid) }
-    2.times { @raid.items.make }
+    2.times { @raid.loots.make }
   end
 
   it "should destroy associated attendees when destroyed" do
@@ -134,10 +134,10 @@ describe Raid, "dependencies" do
     Attendee.count.should == 0
   end
   
-  it "should destroy associated items when destroyed" do
-    Item.count.should == 2
+  it "should destroy associated loots when destroyed" do
+    Loot.count.should == 2
     @raid.destroy
-    Item.count.should == 0
+    Loot.count.should == 0
   end
 end
 
@@ -158,6 +158,10 @@ describe Raid, "#attendance_output" do
     @raid.update_attendee_cache = false
   end
   
+  it "should not raise an exception for duplicates" do
+    lambda { @raid.save }.should_not raise_error
+  end
+  
   it "should create non-existant members" do
     lambda { @raid.save }.should change(Member, :count).by(3)
   end
@@ -167,10 +171,6 @@ describe Raid, "#attendance_output" do
     @raid.save
     
     lambda { member.reload }.should change(member, :raids_count).by(1)
-  end
-  
-  it "should not raise an exception for duplicates" do
-    lambda { @raid.save }.should_not raise_error
   end
   
   it "should use the lower attendance percentage when a duplicate is present" do
@@ -184,7 +184,7 @@ end
 
 describe Raid, "#loot_output" do
   before(:each) do
-    [Item, Raid].each(&:destroy_all)
+    [Loot, Raid].each(&:destroy_all)
     @raid = Raid.make
     @raid.loot_output = "Sebudai - [Arachnoid Gold Band]"
     
@@ -192,7 +192,7 @@ describe Raid, "#loot_output" do
       and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
   end
   
-  it "should populate #items from output" do
-    lambda { @raid.save }.should change(@raid.items, :size)
+  it "should populate #loots from output" do
+    lambda { @raid.save }.should change(@raid.loots, :size)
   end
 end
