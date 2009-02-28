@@ -1,10 +1,6 @@
 :javascript
   $(document).ready(function(){
     $("#raid_tabs").tabs();
-    $("table#loot").tablesorter({ sortList: [[0,0]], widgets: ['zebra'] });
-    $('#itemfilter span.filter').click(function() {
-      toggleItemTypes(this);
-    });
   });
   
 %h2= breadcrumb(link_to('Raids', raids_path), @raid.date)
@@ -13,29 +9,5 @@
     %li= link_to_tab("Attendees (#{@raid.attendees.size})")
     %li= link_to_tab("Drops (#{@raid.loots.size})")
 
-  #attendees
-    %table.list
-      %thead
-        %tr
-          %th.fill Name
-          %th.attendance Attendance
-      %tbody
-        - @attendees.each do |attendee|
-          %tr{ :class => cycle('even', 'odd') }
-            %td.fill= link_to_member(attendee.member)
-            %td.attendance= raid_attendance_colored(attendee.attendance)
-  #drops
-    %table#loot.list.tablesorter
-      %thead
-        %tr
-          %th Name
-          %th.member Buyer
-          %th Notes
-          %th.number Price
-      %tbody#itemfilter
-        - @loots.each do |loot|
-          %tr{ :class => cycle('even', 'odd') + ' ' + loot_row_classes(loot) }
-            %td= link_to_item_with_stats(loot.item)
-            %td.member= link_to_member(loot.buyer)
-            %td= loot_tell_types(loot)
-            %td.number= number_with_precision(loot.adjusted_price, :precision => 2)
+  #attendees= render :partial => 'attendees'
+  #drops= render :partial => 'drops'
