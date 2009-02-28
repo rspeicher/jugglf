@@ -35,18 +35,6 @@ h2. Bugs
 
 h2. Short term
 
-* On the login form, focus the first field after loading.
-
-h3. Item Normalization
-
-If we rename an item, other items that used to have that name don't get renamed
-
-* Rename 'Item' to 'Loot' - these are the actual loots people get, the items that drop on raids
-** t.references :item
-** drop 'name'
-* Create 'Item', these are unique items that allow for normalizing the name
-** belongs_to Drop
-
 h2. Medium term
 
 * Wishlists
