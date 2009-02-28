@@ -7,10 +7,11 @@ class CreateAttendees < ActiveRecord::Migration
     end
     
     add_index :attendees, [:member_id, :raid_id], :unique => true
+    add_index :attendees, :member_id
+    add_index :attendees, :raid_id
   end
 
   def self.down
-    remove_index :attendees, :column => [:member_id, :raid_id]
     drop_table :attendees
   end
 end
