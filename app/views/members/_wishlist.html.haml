@@ -1,3 +1,8 @@
+:javascript
+  function toggleWishlistForm() {
+    $('div#wishlist_add').slideDown();
+    $('#form_show.buttons').hide();
+  }
 %table.list
   %thead
     %tr
@@ -10,9 +15,9 @@
         %td= link_to_item_with_stats(wishlist.item)
         %td= h(wishlist.note)
         %td= h(wishlist.priority.titlecase)
-#wishlist_add{ :style => "display: none" }
-  = render :partial => 'wishlist/form'
-.buttons
-  = link_to_function(image_tag('add.png') + 'Add Items', nil) do |page|
-    = page[:wishlist_add].visual_effect :blind_down
-    = page[:wishlist_item_name].focus
+%br
+#wishlist_add{ :style => "display:none" }
+  = render :partial => 'wishlists/form'
+  %br
+#form_show.buttons
+  = link_to_function(image_tag('add.png') + 'Add Items', 'toggleWishlistForm()')

@@ -24,6 +24,8 @@ class MembersController < ApplicationController
       
     @punishments = @member.punishments.find_all_active
     
+    @wishlist = Wishlist.new # In-place form
+    
     respond_to do |wants|
       wants.html
     end

@@ -1,4 +1,2 @@
-%h2=breadcrumb 'Wishlist', 'Add'
-%fieldset.center
-  %legend.hidden Add Wishlist
-  = render :partial => 'form'
+%h2=breadcrumb 'Wishlist', link_to('Add', new_wishlist_path)
+= render :partial => 'form'
