@@ -1,0 +1,23 @@
+- form_for Wishlist.new, :url => member_wishlist_path(@member) do |f|
+  - unless f.error_messages.empty?
+    .error= f.error_messages
+    
+  = f.label :item_name, 'Item Name'
+  = f.text_field :item_name, :class => 'large'
+
+  .radio-check
+    = f.radio_button :priority, 'normal'
+    = f.label :priority_normal, 'Normal'
+  
+    = f.radio_button :priority, 'rot'
+    = f.label :priority_rot, 'Rot'
+  
+    = f.radio_button :priority, 'best in slot'
+    = f.label :priority_best_in_slot, 'Best in Slot'
+  
+    = f.radio_button :priority, 'situational'
+    = f.label :priority_situational, 'Situational'
+    
+  .buttons
+    = styled_button(:type => 'submit', :text => 'Save', :image => 'tick.png')
+    = styled_button(:type => 'reset')
