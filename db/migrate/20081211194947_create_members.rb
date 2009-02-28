@@ -5,7 +5,6 @@ class CreateMembers < ActiveRecord::Migration
       t.boolean :active, :default => true
       t.date :first_raid
       t.date :last_raid
-      t.integer :raids_count, :default => 0
       t.string :wow_class, :default => ''
       t.float :lf, :default => 0.00
       t.float :sitlf, :default => 0.00
@@ -13,9 +12,12 @@ class CreateMembers < ActiveRecord::Migration
       t.float :attendance_30, :default => 0.00
       t.float :attendance_90, :default => 0.00
       t.float :attendance_lifetime, :default => 0.00
-
+      t.integer :raids_count, :default => 0
+      t.integer :loots_count, :default => 0
       t.timestamps
     end
+    
+    add_index :members, :active
   end
 
   def self.down

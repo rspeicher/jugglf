@@ -1,8 +1,8 @@
 class CreateAttendees < ActiveRecord::Migration
   def self.up
     create_table :attendees do |t|
-      t.integer :member_id
-      t.integer :raid_id
+      t.references :member
+      t.references :raid
       t.float :attendance
     end
     
