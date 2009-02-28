@@ -1,7 +1,7 @@
 module MembersHelper
   def member_with_rank_formatting(member)
     return if member.nil?
-    return member.name if member.rank.nil?
+    return member.name if member.rank_id.nil?
     
     member.rank.format(member.name)
   end
