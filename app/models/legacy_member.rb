@@ -64,6 +64,10 @@ class LegacyMember < ActiveRecord::Base
     end
   end
   
+  def rank_id
+    self.member_rank_id
+  end
+  
   def lf
     self.member_lf
   end
