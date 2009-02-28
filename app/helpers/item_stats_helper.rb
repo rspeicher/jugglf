@@ -1,5 +1,6 @@
 module ItemStatsHelper
   def link_to_wowhead(item)
+    return if item.nil?
     if item.item_stat.nil?
       stat = ItemStat.lookup(item.name)
       item.update_attributes(:item_stat_id => stat.id) unless stat.nil?
@@ -11,6 +12,7 @@ module ItemStatsHelper
   end
   
   def link_to_item_with_stats(item)
+    return if item.nil?
     if item.item_stat.nil?
       stat = ItemStat.lookup(item.name)
       item.update_attributes(:item_stat_id => stat.id) unless stat.nil?
