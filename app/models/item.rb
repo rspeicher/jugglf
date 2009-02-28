@@ -17,16 +17,7 @@
 
 class Item < ActiveRecord::Base
   # Relationships -------------------------------------------------------------
-  belongs_to :member, :counter_cache => true
-  belongs_to :raid, :counter_cache => true
-  alias_method :buyer, :member
-  
-  # Instance Methods ----------------------------------------------------------
-  def affects_loot_factor?
-    self.raid.date >= 8.weeks.until(Date.today) if self.raid
-  end
-  
-  def adjusted_price
-    ( self.rot? ) ? 0.50 : self.price
-  end
+  has_many :loots
+  # has_many :members, :through => :loots
+  # has_many :raids, :through => :loots
 end

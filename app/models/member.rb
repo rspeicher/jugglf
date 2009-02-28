@@ -28,7 +28,7 @@ class Member < ActiveRecord::Base
   # Relationships -------------------------------------------------------------
   has_many :attendees, :dependent => :destroy
   alias_method :attendance, :attendees
-  has_many :items, :order => "id DESC", :dependent => :nullify # FIXME: This should really be 'date DESC' but the date comes from the raid
+  has_many :loots, :order => "purchased_on DESC", :dependent => :nullify
   has_many :punishments, :dependent => :destroy
   has_many :raids, :through => :attendees, :order => "date DESC"
   belongs_to :rank, :class_name => "MemberRank", :foreign_key => "rank_id"
@@ -96,23 +96,26 @@ class Member < ActiveRecord::Base
       lf = { :lf => 0.00, :sitlf => 0.00, :bislf => 0.00 }
       
       # Items affecting loot factor
-      Item.find(:all, :include => :raid, :conditions => ["member_id = ?", self.id]).each do |i|
-        if i.affects_loot_factor?
+      self.loots.each do |i|
+        if i.affects_loot_factor? and not i.adjusted_price.nil?
           if i.situational?
-            lf[:sitlf] += i.adjusted_price unless i.adjusted_price.nil?
+            lf[:sitlf] += i.adjusted_price
           elsif i.best_in_slot?
-            lf[:bislf] += i.adjusted_price unless i.adjusted_price.nil?
+            lf[:bislf] += i.adjusted_price
           else
-            lf[:lf] += i.adjusted_price unless i.adjusted_price.nil?
+            lf[:lf] += i.adjusted_price
           end
         end
       end
       
       # Punishments affecting ALL loot factors
-      self.punishments.find(:all, :conditions => ["expires > ?", Date.today]).each do |p|
-        lf[:sitlf] += p.value
-        lf[:bislf] += p.value
-        lf[:lf]    += p.value
+      today = Date.today
+      self.punishments.each do |p|
+        if p.expires > today
+          lf[:sitlf] += p.value
+          lf[:bislf] += p.value
+          lf[:lf]    += p.value
+        end
       end
       
       denom = ( self.attendance_30 == 0.0 ) ? 0.01 : self.attendance_30

@@ -45,12 +45,12 @@ describe Member do
     @member.raids.size.should == 5
   end
   
-  it "should have item purchases" do
-    8.times { @member.items.make }
+  it "should have loot purchases" do
+    8.times { @member.loots.make }
     
     @member.reload
-    @member.items_count.should == 8
-    @member.items.size.should == 8
+    @member.loots_count.should == 8
+    @member.loots.size.should == 8
   end
 end
 
@@ -103,9 +103,9 @@ describe Member, "loot factor caching" do
     @member = Member.make
     @member.attendance.make(:raid => raid, :attendance => 1.00)
 
-    @member.items.make(:raid => raid, :price => 1.23)
-    @member.items.make(:raid => raid, :price => 4.56, :best_in_slot => true)
-    @member.items.make(:raid => raid, :price => 7.89, :situational => true)
+    @member.loots.make(:raid => raid, :price => 1.23)
+    @member.loots.make(:raid => raid, :price => 4.56, :best_in_slot => true)
+    @member.loots.make(:raid => raid, :price => 7.89, :situational => true)
     
     @member.force_recache!
   end
@@ -149,11 +149,11 @@ end
 
 describe Member, "dependencies" do
   before(:each) do
-    [Attendee, Item, Punishment].each(&:destroy_all)
+    [Attendee, Loot, Punishment].each(&:destroy_all)
     @member = Member.make
     
     @member.attendance.make
-    @member.items.make
+    @member.loots.make
     @member.punishments.make
     
     @member.destroy
@@ -163,9 +163,9 @@ describe Member, "dependencies" do
     Attendee.count.should == 0
   end
   
-  it "should nullify item purchases" do
-    item = Item.find(:last)
-    item.member_id.should be_nil
+  it "should nullify loot purchases" do
+    loot = Loot.find(:last)
+    loot.member_id.should be_nil
   end
   
   it "should destroy punishments" do
