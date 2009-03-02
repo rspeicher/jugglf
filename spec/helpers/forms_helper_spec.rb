@@ -16,7 +16,7 @@ describe FormsHelper do
     
     it "should include an image when one is supplied" do
       styled_button(:type => 'button', :image => 'tick.png').
-        should match(/src=".+tick.png/)
+        should match(/src='.+tick.png/)
     end
   end
 end
