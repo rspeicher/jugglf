@@ -50,6 +50,18 @@ table.tablesorter
         :background-image url(/images/sort_desc.gif)
       th.note, th.attendance, th.lootfactor, th.number, th.right
         :padding-right 20px
+        
+tbody#itemfilter
+  tr
+    span
+      :padding-right 16px
+      &:hover
+        :background url(/images/bullet_left.png) no-repeat center right
+        :text-decoration underline
+        :cursor pointer
+  tr.shown
+    span
+      :background url(/images/bullet_delete.png) no-repeat center right
 
 // Table Cell Types
 th.number, td.number, th.right, td.right
