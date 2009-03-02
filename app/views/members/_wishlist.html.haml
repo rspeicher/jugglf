@@ -1,19 +1,7 @@
-:javascript
-  function toggleWishlistForm() {
-    $('div#wishlist_add').slideDown();
-    $('#form_show.buttons').hide();
-  }
 %table.list
   %thead
     %tr
       %th Item
       %th.note Note
-      %th Priority
-  %tbody#wishlist_rows
-    - @member.wishlists.each do |wishlist|
-      = render :partial => 'wishlist_row', :object => wishlist
-%br
-#wishlist_add{ :style => "display:none" }
-  = render :partial => 'wishlists/form'
-#form_show.buttons
-  = link_to_function(image_tag('add.png') + 'Add Items', 'toggleWishlistForm()')
+      %th Type
+  %tbody
