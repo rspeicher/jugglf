@@ -37,6 +37,5 @@
         %td= h(wishlist.priority.titlecase)
         %td= h(wishlist.note)
         %td.image= link_to_remote_delete(wishlist)
-
-.buttons
-  = link_to(image_tag('add.png') + 'Add Entry', new_wishlist_path)
+%br
+= render :partial => 'form_inline'
