@@ -10,14 +10,24 @@ function sortMemberTable() {
     });
 }
 
-function zebraTable(id) {
-    $('table#' + id + ' > tbody > tr').each(function() {
+/**
+ * Re-applies alternating row colors to a specific tbody after a specified delay.
+ *
+ * tbody_id     String      ID of the tbody to apply zebra rows to
+ * delay        Integer     Delay, in miliseconds, after which to apply the effect (default: 0)
+ */
+function zebraRows(tbody_id, delay) {
+    delay = ( delay == null ) ? 0 : delay
+    
+    setTimeout(function() {
         background = 'even';
-        $(this).removeClass('even');
-        $(this).removeClass('odd');
-        $(this).addClass(background);
-        background = $(this).hasClass('even') ? 'odd' : 'even';
-    });
+        $('tbody#' + tbody_id + ' > tr:visible').each(function() {
+            $(this).removeClass('even');
+            $(this).removeClass('odd');
+            $(this).addClass(background);
+            background = (background == 'even') ? 'odd' : 'even';
+        });
+    }, delay);
 }
 
 // Hide the flash success message after giving the user 4s to read it
