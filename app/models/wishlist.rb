@@ -1,5 +1,5 @@
 class Wishlist < ActiveRecord::Base
-  PRIORITIES = ['normal','best in slot','situational','rot']
+  PRIORITIES = ['best in slot','normal','situational','rot']
   
   # Relationships -------------------------------------------------------------
   belongs_to :item
@@ -9,7 +9,7 @@ class Wishlist < ActiveRecord::Base
   attr_accessible :item_name, :priority, :note, :member_id
   
   # Validations ---------------------------------------------------------------
-  validates_inclusion_of :priority, :in => PRIORITIES, :message => "{{value}} is not a valid entry type", :allow_nil => true
+  validates_inclusion_of :priority, :in => PRIORITIES, :message => "{{value}} is not a valid entry type"
   
   # Callbacks -----------------------------------------------------------------
   
