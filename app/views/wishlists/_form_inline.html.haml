@@ -6,5 +6,6 @@
       = render :partial => 'form', :object => f
       .buttons
         = styled_button(:type => 'submit', :text => 'Save', :image => 'tick.png')
+        = link_to_function(image_tag('cancel.png') + 'Cancel', "$('#wishlist-form').hide(); $('#wishlist-toggle').show()")
 #wishlist-toggle.buttons
   = link_to_function(image_tag('add.png') + 'Add Entry', "$('#wishlist-form').show(); $('#wishlist_item_name').focus(); $('#wishlist-toggle').hide()")
