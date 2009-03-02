@@ -8,6 +8,7 @@ On a scale of 1-5, where 1 is a feature that *has* to be complete before we can 
  1 Users/Permissions, attaching Members to Users
  1 Wishlists
  
+ 2 Need to say "Hey, this site needs Javascript. You should turn that on."
  2 Last Loot
  2 Styled 404/exception pages
  2 Summary page; class counts, attendance averages, loot factor averages
