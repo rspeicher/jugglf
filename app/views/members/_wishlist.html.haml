@@ -5,3 +5,7 @@
       %th.note Note
       %th Type
   %tbody
+    %tr{ :class => cycle('even', 'odd') }
+      %td= link_to_item_with_stats(wishlist_row.item)
+      %td= h(wishlist_row.note)
+      %td= h(wishlist_row.priority.titlecase)
