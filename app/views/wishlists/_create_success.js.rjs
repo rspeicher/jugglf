@@ -1,8 +1,12 @@
+# Hide the errors div
+page << "$('#errors').addClass('hidden');"
+
 # Add a new table row
 page.insert_html(:bottom, 'wishlist', :partial => "wishlist_row", :object => create_success)
+page << "$('#wishlist-#{create_success.id}').effect('highlight', {}, 1500);"
 
 # Re-apply the table sorting
-page << "zebraRows('wishlist');"
+page << "sortWishlistTable();"
 
 # Reset the inline form and focus the name field
 page << "$('#wishlist_item_name').val('');"

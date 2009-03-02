@@ -24,7 +24,7 @@ class WishlistsController < ApplicationController
     @wishlist = Wishlist.new(params[:wishlist])
     
     respond_to do |wants|
-      if true# @wishlist.save
+      if @wishlist.save
         wants.html do
           flash[:success] = "Wishlist entry was successfully created."
           redirect_to(wishlists_path)
@@ -32,8 +32,7 @@ class WishlistsController < ApplicationController
         wants.js { render :partial => 'create_success', :object => @wishlist }
       else
         wants.html { render :action => 'new' }
-        wants.js do
-        end
+        wants.js { render :partial => "create_failure", :object => @wishlist }
       end
     end
   end
