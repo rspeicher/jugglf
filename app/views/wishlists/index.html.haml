@@ -1,23 +1,6 @@
 :javascript
-  $.tablesorter.addParser({ 
-      id: 'wishlist', 
-      is: function(s) { 
-          return false; 
-      },
-      format: function(s) { 
-          return s.toLowerCase().replace(/best in slot/,1).replace(/normal/,2).replace(/rot/,3).replace(/situational/,4); 
-      }, 
-      type: 'numeric' 
-  });
   $(document).ready(function() {
-    $("table#wishlists").tablesorter({ 
-        sortList: [[0,0], [3,0]],
-        widgets: ['zebra'],
-        headers: { 
-            1: { sorter: false },
-            4: { sorter: 'wishlist' }
-        }
-    });
+    sortWishlistTable();
   });
 
 %h2= breadcrumb('Wishlists')

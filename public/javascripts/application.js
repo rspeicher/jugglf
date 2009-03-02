@@ -1,11 +1,34 @@
+/* Custom sorter to sort wishlist priorities as Best in Slot > Normal > Rot > Situational */
+$.tablesorter.addParser({
+    id: 'wishlist',
+    is: function(s) {
+        return false;
+    },
+    format: function(s) { 
+        return s.toLowerCase().replace(/best in slot/,1).replace(/normal/,2).replace(/rot/,3).replace(/situational/,4);
+    },
+    type: 'numeric'
+});
+
 function sortMemberTable() {
-    $("table#members").tablesorter({ 
+    $("table#members").tablesorter({
         sortList: [[0,0]],
         widgets: ['zebra'],
-        headers: { 
+        headers: {
             5: { sorter: 'currency' }, // Loot Factor
             6: { sorter: 'currency' }, // BiS
             7: { sorter: 'currency' }  // Sit
+        }
+    });
+}
+
+function sortWishlistTable() {
+    $("table#wishlists").tablesorter({
+        sortList: [[2,0], [1,0]],
+        widgets: ['zebra'],
+        headers: {
+            2: { sorter: 'wishlist' }, // Priority
+            4: { sorter: false }      // Don't sort the 'Delete' icon'
         }
     });
 }
