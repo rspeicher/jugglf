@@ -92,6 +92,45 @@ function toggleItemTypes(object) {
     zebraRows($(parentRow).attr('id'));
 }
 
+function wishlistEditableNote() {
+    $('.edit-note').editable(function(value) 
+      {
+        id = $(this).parent().attr('id').replace(/wishlist-/,'');
+        $.ajax({
+          data: $.param({ id: id, 'wishlist[note]': value, authenticity_token: encodeURIComponent(auth_token)}),
+          dataType: 'script',
+          type:'put',
+          url:'/wishlists/' + id
+        }); return value;
+      }, 
+      { 
+        indicator: "<i>Saving...</i>",
+        tooltip:   "Click to edit...",
+        style:     "inherit",
+        width:     200
+      });
+}
+function wishlistEditablePriority() {
+    $(".edit-priority").editable(function(value, settings) 
+    {
+      id = $(this).parent().attr('id').replace(/wishlist-/,'');
+      $.ajax({
+        data: $.param({ id: id, 'wishlist[priority]': value, authenticity_token: encodeURIComponent(auth_token)}),
+        dataType: 'script',
+        type:'put',
+        url:'/wishlists/' + id
+      }); return value;
+    }, 
+    {
+      indicator: "<i>Saving...</i>",
+      tooltip: "Click to edit...",
+      style: "display: inline",
+      // data: "{'best in slot':'Best In Slot', 'normal':'Normal', 'rot':'Rot', 'situational':'Situational'}",
+      // type: "select",
+      // submit: "<div class='buttons'><button type='submit' class='positive'><img alt='' src='/images/tick.png' /></button></div>"
+    });
+}
+
 /* Custom sorter to sort wishlist priorities as Best in Slot > Normal > Rot > Situational */
 $.tablesorter.addParser({
     id: 'wishlist',

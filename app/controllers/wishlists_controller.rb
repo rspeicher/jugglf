@@ -50,7 +50,7 @@ class WishlistsController < ApplicationController
           flash[:success] = "Wishlist entry was successfully updated."
           redirect_to(wishlists_path)
         end
-        wants.js { head interpret_status(:ok) }
+        wants.js { render :partial => 'update_success', :object => @wishlist }
       else
         wants.html { render :action => "edit" }
         wants.js { head interpret_status(:bad_request) } # TODO: Better way to say something went wrong?
