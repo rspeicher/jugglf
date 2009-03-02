@@ -20,6 +20,15 @@ class Wishlist < ActiveRecord::Base
     self.item.name unless self.item_id.nil?
   end
   def item_name=(value)
+    # Legacy support for setting the wishlist's note via the item name by
+    # putting it in brackets
+    if self.note.empty?
+      value.scan(/(.+) \[(.+)\]/) do |item_name, note|
+        value     = item_name
+        self.note = note
+      end
+    end
+    
     item = Item.find_or_create_by_name(value)
     self.item = item unless item.nil?
   end
