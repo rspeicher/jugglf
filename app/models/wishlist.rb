@@ -22,7 +22,9 @@ class Wishlist < ActiveRecord::Base
   def item_name=(value)
     # Legacy support for setting the wishlist's note via the item name by
     # putting it in brackets
-    if self.note.empty?
+    # FIXME: Because the :note parameter comes after :item_name, its value overwrites the one we assign here
+    # Don't know how to fix that just yet.
+    if self.note.nil? or self.note.empty?
       value.scan(/(.+) \[(.+)\]/) do |item_name, note|
         value     = item_name
         self.note = note

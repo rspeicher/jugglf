@@ -44,6 +44,11 @@ describe Wishlist do
       @wishlist.note.should == 'Note via item name'
     end
     
+    # it "should not let note in params overwrite note in name" do
+    #   wishlist = Wishlist.make(:item_name => 'Name [Note]', :note => 'Also Note')
+    #   wishlist.note.should_not == 'Also Note'
+    # end
+    
     it "should not set the item note via item_name if a note already exists" do
       @wishlist.item_name = "ItemName [Note via item name]"
       @wishlist.note.should == "I really want this item!"
