@@ -20,6 +20,23 @@ module ApplicationHelper
       :confirm => options[:confirm], :method => :delete, :class => 'negative')
   end
   
+  def link_to_remote_delete(object, options = {})
+    return if object.nil?
+    
+    klass = object.class.to_s.downcase
+    
+    options[:url]     ||= polymorphic_path(object)
+    options[:text]    ||= ''
+    options[:confirm] ||= 'Are you sure?'
+    options[:success] ||= "$('##{klass}-#{object.id}').fadeOut(250); zebraRows('#{klass}', 300)"
+    
+    link_to_remote(image_tag('delete.png') + options[:text], 
+      :url     => options[:url],
+      :confirm => options[:confirm],
+      :method  => :delete,
+      :success => options[:success])
+  end
+  
   def progress_bar(width, options = {})
     options[:container_width] ||= '95'
     options[:color]           ||= '#ACE97C'
