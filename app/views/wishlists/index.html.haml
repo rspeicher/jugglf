@@ -1,0 +1,44 @@
+:javascript
+  $.tablesorter.addParser({ 
+      id: 'wishlist', 
+      is: function(s) { 
+          return false; 
+      },
+      format: function(s) { 
+          return s.toLowerCase().replace(/best in slot/,1).replace(/normal/,2).replace(/rot/,3).replace(/situational/,4); 
+      }, 
+      type: 'numeric' 
+  });
+  $(document).ready(function() {
+    $("table#wishlists").tablesorter({ 
+        sortList: [[0,0], [3,0]],
+        widgets: ['zebra'],
+        headers: { 
+            1: { sorter: false },
+            4: { sorter: 'wishlist' }
+        }
+    });
+  });
+
+%h2= breadcrumb('Wishlists')
+%table#wishlists.list.tablesorter
+  %thead
+    %tr
+      %th.image &nbsp;
+      %th Member
+      %th Item
+      %th Priority
+      %th Note
+  %tbody
+    - @wishlists.each do |wishlist|
+      %tr{ :class => cycle('even', 'odd'), :id => "wishlist-#{wishlist.id}" }
+        %td.image
+        %td= link_to_member(wishlist.member) unless wishlist.member_id.nil?
+        %td
+          = link_to(image_tag('delete.png'), wishlist_path(wishlist), :confirm => 'Are you sure?', :method => :delete)
+          = h(wishlist.item.name) unless wishlist.item_id.nil?
+        %td= h(wishlist.priority.titlecase)
+        %td= h(wishlist.note)
+        
+.buttons
+  = link_to(image_tag('add.png') + 'Add Entry', new_wishlist_path, :class => 'positive')
