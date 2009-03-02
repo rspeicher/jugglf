@@ -191,13 +191,13 @@ end
 # Update
 # -----------------------------------------------------------------------------
 
-# POST /wishlists/:id
+# PUT /wishlists/:id
 describe WishlistsController, "#update" do
   def get_response(type = :normal)
     if type == :normal
-      post :update, :id => '1', :wishlist => @params
+      put :update, :id => '1', :wishlist => @params
     elsif type == :xhr
-      xhr :post, :update, :id => '1', :wishlist => @params
+      xhr :put, :update, :id => '1', :wishlist => @params
     end
   end
   

@@ -1,8 +1,24 @@
 :javascript
   $(document).ready(function() {
     sortWishlistTable();
-  });
 
+    $('.edit-note').editable(function(value) 
+      {
+        id = $(this).parent().attr('id').replace(/wishlist-/,'');
+        $.ajax({
+          data: $.param({ id: id, 'wishlist[note]': value, authenticity_token: encodeURIComponent('#{form_authenticity_token}')}),
+          dataType: 'script', 
+          type:'put', 
+          url:'/wishlists/' + id
+        }); return value;
+      }, 
+      { 
+        indicator: "<i>Saving...</i>",
+        tooltip:   "Click to edit...",
+        style:     "inherit",
+        width:     200
+      });
+  });
 %h2= breadcrumb('Wishlists')
 %table#wishlists.list.tablesorter
   %thead
