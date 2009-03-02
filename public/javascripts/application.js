@@ -32,10 +32,10 @@ function sortMemberTable() {
 
 function sortWishlistTable() {
     $("table#wishlists").tablesorter({
-        sortList: [[2,0], [1,0]],
+        sortList: [[1,0], [0,0]],
         widgets: ['zebra'],
         headers: {
-            2: { sorter: 'wishlist' }, // Priority
+            1: { sorter: 'wishlist' }, // Priority
             4: { sorter: false }      // Don't sort the 'Delete' icon'
         }
     });
@@ -92,42 +92,13 @@ function toggleItemTypes(object) {
     zebraRows($(parentRow).attr('id'));
 }
 
-function wishlistEditableNote() {
-    $('.edit-note').editable(function(value) 
-      {
-        id = $(this).parent().attr('id').replace(/wishlist-/,'');
-        $.ajax({
-          data: $.param({ id: id, 'wishlist[note]': value, authenticity_token: encodeURIComponent(auth_token)}),
-          dataType: 'script',
-          type:'put',
-          url:'/wishlists/' + id
-        }); return value;
-      }, 
-      { 
-        indicator: "<i>Saving...</i>",
-        tooltip:   "Click to edit...",
-        style:     "inherit",
-        width:     200
-      });
-}
-function wishlistEditablePriority() {
-    $(".edit-priority").editable(function(value, settings) 
-    {
-      id = $(this).parent().attr('id').replace(/wishlist-/,'');
-      $.ajax({
-        data: $.param({ id: id, 'wishlist[priority]': value, authenticity_token: encodeURIComponent(auth_token)}),
-        dataType: 'script',
-        type:'put',
-        url:'/wishlists/' + id
-      }); return value;
-    }, 
-    {
-      indicator: "<i>Saving...</i>",
-      tooltip: "Click to edit...",
-      style: "display: inline",
-      // data: "{'best in slot':'Best In Slot', 'normal':'Normal', 'rot':'Rot', 'situational':'Situational'}",
-      // type: "select",
-      // submit: "<div class='buttons'><button type='submit' class='positive'><img alt='' src='/images/tick.png' /></button></div>"
+function wishlistEditForm(path) {
+    $.get(path, function(value) {
+        $('#wishlist-edit').html(value);
+        $('#wishlist-edit').show();
+        $('#wishlist_item_name').focus();
+        $('#wishlist-toggle').hide();
+        $('#wishlist-new').hide();
     });
 }
 
