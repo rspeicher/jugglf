@@ -5,7 +5,7 @@ class WishlistsController < ApplicationController
   
   def index
     @wishlist = Wishlist.new # Used in remote_form_for tag
-    @wishlists = Wishlist.find(:all)
+    @wishlists = Wishlist.find(:all, :conditions => ['member_id = ?', 150])
     
     respond_to do |wants|
       wants.html
@@ -74,6 +74,6 @@ class WishlistsController < ApplicationController
   
   private
     def find_wishlist
-      @wishlist = Wishlist.find(params[:id])
+      @wishlist = Wishlist.find(params[:id], :conditions => ['member_id = ?', 150]) # TODO: Current user's member id
     end
 end

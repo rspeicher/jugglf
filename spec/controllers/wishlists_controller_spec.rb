@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 def find_wishlist
   @wishlist ||= mock_model(Wishlist, :to_param => '1')
-  Wishlist.should_receive(:find).with('1').and_return(@wishlist)
+  Wishlist.should_receive(:find).with('1', anything()).and_return(@wishlist)
 end
 
 # -----------------------------------------------------------------------------
@@ -150,7 +150,7 @@ describe WishlistsController, "#create" do
       describe "wanting JS" do
         it "should be successful" do
           get_response(:xhr)
-          response.should render_template(:create_success)
+          response.should render_template(:create)
         end
       end
     end
@@ -172,7 +172,7 @@ describe WishlistsController, "#create" do
       describe "wanting JS" do
         it "should render template :create_failure" do
           get_response(:xhr)
-          response.should render_template(:create_failure)
+          response.should render_template(:create)
         end
       end
     end
