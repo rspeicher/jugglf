@@ -1,4 +1,6 @@
 class Wishlist < ActiveRecord::Base
+  PRIORITIES = ['normal','best in slot','situational','rot']
+  
   # Relationships -------------------------------------------------------------
   belongs_to :item
   belongs_to :member
@@ -7,7 +9,7 @@ class Wishlist < ActiveRecord::Base
   attr_accessible :item_name, :priority, :note, :member_id
   
   # Validations ---------------------------------------------------------------
-  validates_format_of :priority, :with => /^(normal|best in slot|situational|rot)/, :allow_nil => true
+  validates_inclusion_of :priority, :in => PRIORITIES, :message => "{{value}} is not a valid entry type", :allow_nil => true
   
   # Callbacks -----------------------------------------------------------------
   
@@ -18,7 +20,7 @@ class Wishlist < ActiveRecord::Base
     self.item.name unless self.item_id.nil?
   end
   def item_name=(value)
-    item = Item.find_by_name(value)
+    item = Item.find_or_create_by_name(value)
     self.item = item unless item.nil?
   end
   
