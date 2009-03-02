@@ -35,10 +35,10 @@ class WishlistsController < ApplicationController
           flash[:success] = "Wishlist entry was successfully created."
           redirect_to(wishlists_path)
         end
-        wants.js { render :partial => 'create_success', :object => @wishlist }
+        wants.js { render :partial => 'create', :object => @wishlist, :locals => { :success => true } }
       else
         wants.html { render :action => 'new' }
-        wants.js { render :partial => "create_failure", :object => @wishlist }
+        wants.js { render :partial => 'create', :object => @wishlist, :locals => { :success => false } }
       end
     end
   end
@@ -50,10 +50,10 @@ class WishlistsController < ApplicationController
           flash[:success] = "Wishlist entry was successfully updated."
           redirect_to(wishlists_path)
         end
-        wants.js { render :partial => 'update_success', :object => @wishlist }
+        wants.js { render :partial => 'update', :object => @wishlist, :locals => { :success => true } }
       else
         wants.html { render :action => "edit" }
-        wants.js { head interpret_status(:bad_request) } # TODO: Better way to say something went wrong?
+        wants.js { render :partial => 'update', :object => @wishlist, :locals => { :success => false } }
       end
     end
   end

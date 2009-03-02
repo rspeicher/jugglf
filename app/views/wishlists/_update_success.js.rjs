@@ -1,6 +1,0 @@
-page.replace "wishlist-#{update_success.id}", :partial => "wishlist_row", :object => update_success
-# page << "$('#wishlist-#{update_success.id}').effect('highlight', {}, 1500);"
-
-# We have to re-apply the editable fields so that the user can click them again
-page << "wishlistEditablePriority();"
-page << "wishlistEditableNote();"
