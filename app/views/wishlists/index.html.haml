@@ -24,21 +24,19 @@
 %table#wishlists.list.tablesorter
   %thead
     %tr
-      %th.image &nbsp;
       %th Member
-      %th Item
       %th Priority
+      %th Item
       %th Note
-  %tbody
+      %th.image &nbsp;
+  %tbody#wishlist
     - @wishlists.each do |wishlist|
       %tr{ :class => cycle('even', 'odd'), :id => "wishlist-#{wishlist.id}" }
-        %td.image
         %td= link_to_member(wishlist.member) unless wishlist.member_id.nil?
-        %td
-          = link_to(image_tag('delete.png'), wishlist_path(wishlist), :confirm => 'Are you sure?', :method => :delete)
-          = h(wishlist.item.name) unless wishlist.item_id.nil?
+        %td= h(wishlist.item.name) unless wishlist.item_id.nil?
         %td= h(wishlist.priority.titlecase)
         %td= h(wishlist.note)
-        
+        %td.image= link_to_remote_delete(wishlist)
+
 .buttons
-  = link_to(image_tag('add.png') + 'Add Entry', new_wishlist_path, :class => 'positive')
+  = link_to(image_tag('add.png') + 'Add Entry', new_wishlist_path)

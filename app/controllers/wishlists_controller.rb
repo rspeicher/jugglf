@@ -35,10 +35,14 @@ class WishlistsController < ApplicationController
   def destroy
     @wishlist.destroy
     
-    flash[:success] = "Wishlist entry was successfully deleted."
-    
     respond_to do |wants|
-      wants.html { redirect_to(wishlists_path) }
+      wants.html do
+        flash[:success] = "Wishlist entry was successfully deleted."
+        redirect_to(wishlists_path)
+      end
+      wants.js do
+        head interpret_status(:ok) # TODO: Is this the right way to do this?
+      end
     end
   end
   

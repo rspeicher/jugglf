@@ -136,21 +136,36 @@ describe WishlistsController, "#destroy" do
   def get_response
     delete :destroy, :id => '1'
   end
+  def xhr_response
+    xhr :delete, :destroy, :id => '1'
+  end
   
   describe "as user" do
     before(:each) do
       login
       find_wishlist
       @wishlist.should_receive(:destroy).and_return(nil)
-      get_response
     end
     
-    it "should add a flash success message" do
-      flash[:success].should == 'Wishlist entry was successfully deleted.'
+    describe "for HTML" do
+      before(:each) do
+        get_response
+      end
+    
+      it "should add a flash success message" do
+        flash[:success].should == 'Wishlist entry was successfully deleted.'
+      end
+    
+      it "should redirect to #index" do
+        response.should redirect_to(wishlists_path)
+      end
     end
     
-    it "should redirect to #index" do
-      response.should redirect_to(wishlists_path)
+    describe "for Javascript" do
+      it "should be successful" do
+        xhr_response
+        response.should be_success
+      end
     end
   end
   
