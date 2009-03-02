@@ -29,6 +29,43 @@ describe ApplicationHelper do
     end
   end
   
+  describe "link_to_remote_delete" do
+    before(:each) do
+      @object = mock_model(Member, :to_param => '1', :id => '1')
+      stub!(:polymorphic_path).and_return('/custommember/1')
+    end
+    
+    it "should return nil if no object is given" do
+      link_to_remote_delete(nil).should be_nil
+    end
+    
+    it "should take a custom url" do
+      link_to_remote_delete(@object, :url => member_path(@object)).should match(/\/members\/1/)
+    end
+    
+    it "should take a custom text message" do
+      link_to_remote_delete(@object, :text => 'CustomText').should match(/CustomText/)
+    end
+    
+    it "should take a custom confirmation message" do
+      link_to_remote_delete(@object, :confirm => 'Really?!').should match(/Really\?!/)
+    end
+    
+    it "should take a custom success string" do
+      link_to_remote_delete(@object, :success => 'javascript:custom').should match(/javascript:custom/)
+    end
+    
+    describe "without options" do
+      it "should contain an image" do
+        link_to_remote_delete(@object).should match(/<img .+ src=/)
+      end
+      
+      it "should use our object's path" do
+        link_to_remote_delete(@object).should match(/\/custommember\/1/)
+      end
+    end
+  end
+  
   describe "progress_bar" do
     it "should take a custom container width" do
       progress_bar(100, :container_width => '15%').should match(/width: 15%/)

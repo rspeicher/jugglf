@@ -149,12 +149,13 @@ end
 
 describe Member, "dependencies" do
   before(:each) do
-    [Attendee, Loot, Punishment].each(&:destroy_all)
+    [Attendee, Loot, Punishment, Wishlist].each(&:destroy_all)
     @member = Member.make
     
     @member.attendance.make
     @member.loots.make
     @member.punishments.make
+    @member.wishlists.make
     
     @member.destroy
   end
@@ -170,6 +171,10 @@ describe Member, "dependencies" do
   
   it "should destroy punishments" do
     Punishment.count.should == 0
+  end
+  
+  it "should destroy wishlists" do
+    Wishlist.count.should == 0
   end
 end
 

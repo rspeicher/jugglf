@@ -1,0 +1,7 @@
+%fieldset
+  #errors.error.hidden
+  - remote_form_for :wishlist, @wishlist, :url => wishlist_path(@wishlist), :html => { :method => :put } do |f|
+    = render :partial => 'form', :object => f
+    .buttons
+      = styled_button(:type => 'submit', :text => 'Save', :image => 'tick.png')
+      = link_to_function(image_tag('cancel.png') + 'Cancel', "$('#wishlist-edit').hide(); $('#wishlist-toggle').show()")

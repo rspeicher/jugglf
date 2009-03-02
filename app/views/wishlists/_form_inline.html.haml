@@ -1,0 +1,11 @@
+#wishlist-new{ :style => "display: none" }
+  %fieldset
+    %legend.hidden Add Wishlist Entry
+    #errors.error.hidden
+    - remote_form_for :wishlist, @wishlist, :url => wishlists_path, :html => { :method => :post } do |f|
+      = render :partial => 'form', :object => f
+      .buttons
+        = styled_button(:type => 'submit', :text => 'Save', :image => 'tick.png')
+        = link_to_function(image_tag('cancel.png') + 'Cancel', "$('#wishlist-new').hide(); $('#wishlist-toggle').show()")
+#wishlist-toggle.buttons
+  = link_to_function(image_tag('add.png') + 'Add Entry', "$('#wishlist-new').show(); $('#wishlist_item_name').focus(); $('#wishlist-toggle').hide()")

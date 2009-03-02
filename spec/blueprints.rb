@@ -50,6 +50,13 @@ Punishment.blueprint(:expired) do
   expires { Date.yesterday }
 end
 
+Wishlist.blueprint do
+  member
+  item
+  priority { 'normal' }
+  note { 'I really want this item!' }
+end
+
 ItemStat.blueprint do
   item_id { 12345 }
   item { Faker::Lorem.words(2) }

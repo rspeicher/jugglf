@@ -1,0 +1,12 @@
+%h2=breadcrumb 'Wishlist', link_to('Add', new_wishlist_path)
+%fieldset.center
+  %legend.hidden Add New Wishlist Entry
+  - form_for @wishlist do |f|
+    - unless f.error_messages.empty?
+      .error= f.error_messages
+      
+    = render :partial => 'form', :object => f
+    
+    .buttons
+      = styled_button(:type => 'submit', :text => 'Save', :image => 'tick.png')
+      = styled_button(:type => 'reset', :image => 'form_delete.png')

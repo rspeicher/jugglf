@@ -1,0 +1,8 @@
+%tr{ :class => cycle('even', 'odd'), :id => "wishlist-#{wishlist_row.id}" }
+  %td= link_to_wowhead(wishlist_row.item) unless wishlist_row.item_id.nil?
+  %td= h(wishlist_row.priority.titlecase)
+  %td= h(wishlist_row.note)
+  %td= h(wishlist_row.item.item_stat.slot) unless wishlist_row.item_id.nil? or wishlist_row.item.item_stat_id.nil?
+  %td.image{ :width => "48px" }
+    = link_to_function(image_tag('edit.png'), "wishlistEditForm('#{edit_wishlist_path(wishlist_row)}')")
+    = link_to_remote_delete(wishlist_row)

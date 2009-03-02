@@ -6,9 +6,6 @@ fieldset
   :border 1px solid
     :color = #BBBBBB
   / :background-color = !table_header_background
-  
-  legend.hidden
-    :display none
     
   label
     :display block
@@ -52,9 +49,12 @@ fieldset
     
   // Special cases for divs used for radio/check boxes
   div.radio-check
+    div
+      :display inline
+      
     label
       :display inline
-      :margin 0
+      :margin 0 20px 0 0
       
     input
       :border 0
@@ -78,3 +78,10 @@ fieldset
       :border-bottom-color red
     ul
       :margin 0 20px
+      
+.editable
+  .buttons, .buttons a, .buttons button
+    :display inline
+    :float none
+    :padding 0 0 3px 3px
+    :margin 0

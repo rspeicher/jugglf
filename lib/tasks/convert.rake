@@ -66,5 +66,27 @@ namespace :db do
     
       Member.update_all_cache
     end
+    
+    namespace :convert do
+      desc "Convert legacy wishlists"
+      task :wishlists => [:environment] do
+        [Wishlist].each(&:destroy_all)
+        
+        LegacyWishlist.all.each do |lw|
+          member = Member.find_by_name(lw.wl_member)
+          item   = Item.find_by_name(lw.wl_item)
+          
+          unless member.nil? or item.nil?
+            wishlist = Wishlist.new
+            wishlist.item_id   = item.id
+            wishlist.member_id = member.id
+            wishlist.priority  = lw.wl_type.downcase
+            wishlist.note      = lw.wl_note
+            
+            wishlist.save!
+          end
+        end
+      end
+    end
   end
 end

@@ -7,7 +7,7 @@ module FormsHelper
     
     s = ''
     s << "<button type='#{options[:type]}' class='#{options[:style]}'>"
-    s << image_tag(options[:image], :alt => options[:text]) unless options[:image].empty?
+    s << image_tag(options[:image], :alt => options[:text]).gsub('"', "'") unless options[:image].empty?
     s << options[:text]
     s << "</button>"
     

@@ -1,0 +1,18 @@
+= form.label :item_name, 'Item Name'
+= form.text_field :item_name, :class => 'large'
+
+= form.label :note, 'Note'
+= form.text_field :note, :class => 'large'
+
+.radio-check
+  = form.radio_button :priority, 'best in slot'
+  = form.label :priority_best_in_slot, 'Best in Slot'
+  
+  = form.radio_button :priority, 'normal'
+  = form.label :priority_normal, 'Normal'
+
+  = form.radio_button :priority, 'rot'
+  = form.label :priority_rot, 'Rot'
+
+  = form.radio_button :priority, 'situational'
+  = form.label :priority_situational, 'Situational'
