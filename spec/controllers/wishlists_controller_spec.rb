@@ -77,8 +77,12 @@ end
 
 # POST /members
 describe WishlistsController, "#create" do
-  def get_response
-    post :create, :wishlist => @params
+  def get_response(type = :normal)
+    if type == :normal
+      post :create, :wishlist => @params
+    elsif type == :xhr
+      xhr :post, :create, :wishlist => @params
+    end
   end
   
   describe "as user" do
@@ -88,19 +92,31 @@ describe WishlistsController, "#create" do
         @wishlist = mock_model(Wishlist, :to_param => '1', :save => true)
         @params = Wishlist.plan.stringify_keys!
         Wishlist.should_receive(:new).with(@params).and_return(@wishlist)
-        get_response
       end
       
-      it "should create a new wishlist from params" do
-        assigns[:wishlist].should == @wishlist
-      end
+      describe "wanting HTML" do
+        before(:each) do
+          get_response
+        end
+        
+        it "should create a new wishlist from params" do
+          assigns[:wishlist].should == @wishlist
+        end
       
-      it "should add a flash success message" do
-        flash[:success].should == 'Wishlist entry was successfully created.'
-      end
+        it "should add a flash success message" do
+          flash[:success].should == 'Wishlist entry was successfully created.'
+        end
 
-      it "should redirect to the new wishlist" do
-        response.should redirect_to(wishlists_url)
+        it "should redirect to the new wishlist" do
+          response.should redirect_to(wishlists_url)
+        end
+      end
+      
+      describe "wanting JS" do
+        it "should be successful" do
+          get_response(:xhr)
+          response.should render_template(:create_success)
+        end
       end
     end
 
@@ -110,10 +126,19 @@ describe WishlistsController, "#create" do
         @wishlist = mock_model(Wishlist, :save => false)
         Wishlist.stub!(:new).and_return(@wishlist)
       end
-
-      it "should render template :new" do
-        get_response
-        response.should render_template(:new)
+      
+      describe "wanting HTML" do
+        it "should render template :new" do
+          get_response
+          response.should render_template(:new)
+        end
+      end
+      
+      describe "wanting JS" do
+        it "should render template :create_failure" do
+          get_response(:xhr)
+          response.should render_template(:create_failure)
+        end
       end
     end
   end
@@ -127,33 +152,18 @@ describe WishlistsController, "#create" do
   end
 end
 
-describe WishlistsController, "#create XHR" do
-  def xhr_request
-    xhr :post, :create, :wishlist => @params
-  end
-  
-  # We don't test As User/As Anonymous, we expect the non-XHR spec to do that
-  
-  describe "when successful" do
-    it "should be successful"
-  end
-  
-  describe "when unsuccessful" do
-    it "should do something"
-  end
-end
-
 # -----------------------------------------------------------------------------
 # Destroy
 # -----------------------------------------------------------------------------
 
 # DELETE /wishlists/:id
 describe WishlistsController, "#destroy" do
-  def get_response
-    delete :destroy, :id => '1'
-  end
-  def xhr_response
-    xhr :delete, :destroy, :id => '1'
+  def get_response(type = :normal)
+    if type == :normal
+      delete :destroy, :id => '1'
+    elsif type == :xhr
+      xhr :delete, :destroy, :id => '1'
+    end
   end
   
   describe "as user" do
@@ -179,7 +189,7 @@ describe WishlistsController, "#destroy" do
     
     describe "for Javascript" do
       it "should be successful" do
-        xhr_response
+        get_response(:xhr)
         response.should be_success
       end
     end
