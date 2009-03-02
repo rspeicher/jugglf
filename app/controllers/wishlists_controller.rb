@@ -1,7 +1,7 @@
 class WishlistsController < ApplicationController
   before_filter :require_user
   
-  before_filter :find_wishlist, :only => :destroy
+  before_filter :find_wishlist, :only => [:edit, :update, :destroy]
   
   def index
     @wishlist = Wishlist.new # Used in remote_form_for tag
@@ -20,6 +20,12 @@ class WishlistsController < ApplicationController
     end
   end
   
+  def edit
+    respond_to do |wants|
+      wants.html
+    end
+  end
+  
   def create
     @wishlist = Wishlist.new(params[:wishlist])
     
@@ -33,6 +39,19 @@ class WishlistsController < ApplicationController
       else
         wants.html { render :action => 'new' }
         wants.js { render :partial => "create_failure", :object => @wishlist }
+      end
+    end
+  end
+  
+  def update
+    respond_to do |wants|
+      if @wishlist.update_attributes(params[:wishlist])
+        wants.html do
+          flash[:success] = "Wishlist entry was successfully updated."
+          redirect_to(wishlists_path)
+        end
+      else
+        wants.html { render :action => "edit" }
       end
     end
   end

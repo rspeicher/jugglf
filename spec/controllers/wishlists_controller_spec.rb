@@ -72,6 +72,41 @@ describe WishlistsController, "#new" do
 end
 
 # -----------------------------------------------------------------------------
+# Edit
+# -----------------------------------------------------------------------------
+
+# GET /wishlists/:id
+describe WishlistsController, "#edit" do
+  def get_response
+    get :edit, :id => '1'
+  end
+  
+  describe "as user" do
+    before(:each) do
+      login
+      find_wishlist
+      get_response
+    end
+    
+    it "should assign @wishlist" do
+      assigns[:wishlist].should == @wishlist
+    end
+    
+    it "should render" do
+      response.should render_template(:edit)
+    end
+  end
+  
+  describe "as anonymous" do
+    it "should redirect to login" do
+      logout
+      get_response
+      response.should redirect_to(new_user_session_url)
+    end
+  end
+end
+
+# -----------------------------------------------------------------------------
 # Create
 # -----------------------------------------------------------------------------
 
@@ -139,6 +174,77 @@ describe WishlistsController, "#create" do
           get_response(:xhr)
           response.should render_template(:create_failure)
         end
+      end
+    end
+  end
+  
+  describe "as anonymous" do
+    it "should redirect to login" do
+      logout
+      get_response
+      response.should redirect_to(new_user_session_url)
+    end
+  end
+end
+
+# -----------------------------------------------------------------------------
+# Update
+# -----------------------------------------------------------------------------
+
+# POST /wishlists/:id
+describe WishlistsController, "#update" do
+  def get_response(type = :normal)
+    if type == :normal
+      post :update, :id => '1', :wishlist => @params
+    elsif type == :xhr
+      xhr :post, :update, :id => '1', :wishlist => @params
+    end
+  end
+  
+  describe "as user" do
+    before(:each) do
+      find_wishlist
+      @params = Wishlist.plan.stringify_keys!
+    end
+    
+    describe "when successful" do
+      before(:each) do
+        login
+        @wishlist.should_receive(:update_attributes).with(@params).and_return(true)
+      end
+      
+      describe "wanting HTML" do
+        before(:each) do
+          get_response
+        end
+        
+        it "should add a flash success message" do
+          flash[:success].should == 'Wishlist entry was successfully updated.'
+        end
+        
+        it "should redirect to wishlists_path" do
+          response.should redirect_to(wishlists_path)
+        end
+      end
+      
+      describe "wanting JS" do
+      end
+    end
+    
+    describe "when unsuccessful" do
+      before(:each) do
+        login
+        @wishlist.should_receive(:update_attributes).with(@params).and_return(false)
+      end
+      
+      describe "wanting HTML" do
+        it "should render :edit" do
+          get_response
+          response.should render_template(:edit)
+        end
+      end
+      
+      describe "wanting JS" do
       end
     end
   end
