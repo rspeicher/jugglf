@@ -1,0 +1,6 @@
+%tr{ :class => cycle('even', 'odd'), :id => "wishlist-#{wishlist_row.id}" }
+  %td= link_to_member(wishlist_row.member) unless wishlist_row.member_id.nil?
+  %td= h(wishlist_row.item.name) unless wishlist_row.item_id.nil?
+  %td= h(wishlist_row.priority.titlecase)
+  %td= h(wishlist_row.note)
+  %td.image= link_to_remote_delete(wishlist_row)

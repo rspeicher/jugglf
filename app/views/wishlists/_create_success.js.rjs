@@ -1,0 +1,11 @@
+# Add a new table row
+page.insert_html(:bottom, 'wishlist', :partial => "wishlist_row", :object => create_success)
+
+# Re-apply the table sorting
+page << "zebraRows('wishlist');"
+
+# Reset the inline form and focus the name field
+page << "$('#wishlist_item_name').val('');"
+page << "$('#wishlist_note').val('');"
+page << "$('#wishlist_priority_normal').attr('checked', 'checked');"
+page << "$('#wishlist_item_name').focus();"

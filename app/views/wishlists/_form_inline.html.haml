@@ -1,7 +1,7 @@
 #wishlist-form{ :style => "display: none" }
   %fieldset
     %legend.hidden Add Wishlist Entry
-    - form_for Wishlist.new do |f|
+    - remote_form_for :wishlist, @wishlist, :url => wishlists_path, :html => { :method => :post } do |f|
       = render :partial => 'form', :object => f
       .buttons
         = styled_button(:type => 'submit', :text => 'Save', :image => 'tick.png')

@@ -127,6 +127,22 @@ describe WishlistsController, "#create" do
   end
 end
 
+describe WishlistsController, "#create XHR" do
+  def xhr_request
+    xhr :post, :create, :wishlist => @params
+  end
+  
+  # We don't test As User/As Anonymous, we expect the non-XHR spec to do that
+  
+  describe "when successful" do
+    it "should be successful"
+  end
+  
+  describe "when unsuccessful" do
+    it "should do something"
+  end
+end
+
 # -----------------------------------------------------------------------------
 # Destroy
 # -----------------------------------------------------------------------------

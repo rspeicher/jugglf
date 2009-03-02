@@ -4,6 +4,7 @@ class WishlistsController < ApplicationController
   before_filter :find_wishlist, :only => :destroy
   
   def index
+    @wishlist = Wishlist.new # Used in remote_form_for tag
     @wishlists = Wishlist.find(:all)
     
     respond_to do |wants|
@@ -23,11 +24,16 @@ class WishlistsController < ApplicationController
     @wishlist = Wishlist.new(params[:wishlist])
     
     respond_to do |wants|
-      if @wishlist.save
-        flash[:success] = "Wishlist entry was successfully created."
-        wants.html { redirect_to(wishlists_path) }
+      if true# @wishlist.save
+        wants.html do
+          flash[:success] = "Wishlist entry was successfully created."
+          redirect_to(wishlists_path)
+        end
+        wants.js { render :partial => 'create_success', :object => @wishlist }
       else
         wants.html { render :action => 'new' }
+        wants.js do
+        end
       end
     end
   end
