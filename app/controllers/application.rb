@@ -13,6 +13,11 @@ class ApplicationController < ActionController::Base
   
   @@layout = 'application'
   
+  def render(*args)
+    args.first[:layout] = false if request.xhr? and args.first[:layout].nil?
+  	super
+  end
+  
   private
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
