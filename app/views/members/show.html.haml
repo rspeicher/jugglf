@@ -29,7 +29,7 @@
     %li= link_to_tab("Raids (#{@raids_count})")
     %li= link_to_tab("Loots (#{@loots.size})")
     %li= link_to_tab("Punishments (#{@punishments.size})")
-    %li= link_to_tab("Wishlist")
+    %li= link_to_tab("Wishlist (#{@member.wishlists.size})")
     %li= link_to_tab('Achievements')
   #raids= render :partial => 'raids'
   #loots= render :partial => 'loots'
