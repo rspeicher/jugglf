@@ -68,8 +68,8 @@
 class InvisionUser < ActiveRecord::Base
   set_table_name "ibf_members"
   
-  ADMIN_GROUP = 4
-  MEMBER_GROUP = -1
+  ADMIN_GROUP     = 4
+  MEMBER_GROUP    = -1
   APPLICANT_GROUP = -1
 
   # Authlogic -----------------------------------------------------------------

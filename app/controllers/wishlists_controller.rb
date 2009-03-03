@@ -1,11 +1,14 @@
 class WishlistsController < ApplicationController
+  layout @@layout
+  
   before_filter :require_user
   
   before_filter :find_wishlist, :only => [:edit, :update, :destroy]
   
   def index
     @wishlist = Wishlist.new # Used in remote_form_for tag
-    @wishlists = Wishlist.find(:all, :include => [{ :item => :item_stat }], :conditions => ['member_id = ?', @current_member.id])
+    @wishlists = Wishlist.find(:all, :include => [{ :item => :item_stat }], 
+      :conditions => ['member_id = ?', @current_member.id])
     
     respond_to do |wants|
       wants.html
