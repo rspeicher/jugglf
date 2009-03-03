@@ -1,11 +1,9 @@
 class MembersController < ApplicationController
   layout @@layout
   
-  before_filter :find_member,            :only => [:show, :edit, :update, :destroy]
-  
-  before_filter :require_user,           :only   => [:show]
-  before_filter :require_admin_or_owner, :only   => [:show]
-  before_filter :require_admin,          :except => [:show]
+  before_filter :find_member,   :only   => [:show, :edit, :update, :destroy]
+  before_filter :require_user,  :only   => [:show]
+  before_filter :require_admin, :except => [:show]
   
   def index
     @members = Member.find_all_by_active(true, :order => "name asc", :include => :rank)
@@ -73,12 +71,5 @@ class MembersController < ApplicationController
   private
     def find_member
       @member = Member.find(params[:id])
-    end
-    
-    def require_admin_or_owner
-      # If the user isn't an admin, they can only be viewing their own profile
-      if not @current_user.is_admin? and @current_member.id != @member.id
-        redirect_to(member_path(@current_member))
-      end
     end
 end
