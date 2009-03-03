@@ -115,6 +115,7 @@ describe MembersController, "#show" do
   describe "as anonymous" do
     it "should redirect to login" do
       logout
+      find_member
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -171,10 +172,13 @@ describe MembersController, "#edit" do
     get :edit, :id => '1'
   end
   
+  before(:each) do
+    find_member
+  end
+  
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
-      find_member
       get_response
     end    
 
@@ -279,10 +283,13 @@ describe MembersController, "#update" do
     put :update, :id => '1', :member => @params
   end
   
+  before(:each) do
+    find_member
+  end
+  
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
-      find_member
       @params = Member.plan.stringify_keys!
     end
     

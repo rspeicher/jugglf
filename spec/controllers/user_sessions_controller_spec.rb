@@ -24,7 +24,7 @@ describe UserSessionsController, "#new" do
       login
       UserSessionsController.should_not_receive(:new)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_path)
     end
   end
   
@@ -54,7 +54,7 @@ describe UserSessionsController, "#create" do
       login
       UserSessionsController.should_not_receive(:new)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_path)
     end
   end
   
