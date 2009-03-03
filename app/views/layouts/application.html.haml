@@ -8,8 +8,9 @@
     
     = stylesheet_link_tag 'application', 'basic', 'forms', 'layout', 'tables', 'tabs'
     
-    :javascript
-      $(document).ready(hideSuccessFlash);
+    - if flash[:success]
+      :javascript
+        $(document).ready(hideSuccessFlash);
   %body
     #wrapper.clearfix
       #top-menu.clearfix
