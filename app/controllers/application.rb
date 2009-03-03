@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   
   @@layout = 'application'
   
+  # Never render layouts for an XHR request
   def render(*args)
     args.first[:layout] = false if request.xhr? and args.first[:layout].nil?
   	super
@@ -27,30 +28,14 @@ class ApplicationController < ActionController::Base
     def current_user
       return @current_user if defined?(@current_user)
       @current_user = current_user_session && current_user_session.invision_user
-      @current_member = current_user_member
-    end
-    
-    def current_user_member
-      current_member = nil
-      
-      if current_user
-        char = @current_user.character_name.titlecase
-        member = Member.find_by_name(char)
-        current_member = member unless member.nil?
-      end
-      
-      return current_member
     end
     
     def require_admin
       if current_user
         unless @current_user.is_admin?
           flash[:error] = "You do not have permission to access that page."
-          if @current_member.nil?
-            redirect_to('/todo') # TODO: Redirect to summary page
-          else
-            redirect_to(member_path(@current_member))
-          end
+          # TODO: Redirect to this user's member page
+          redirect_to(root_path)
         end
       else
         return require_user
@@ -69,8 +54,7 @@ class ApplicationController < ActionController::Base
     def require_no_user
       if current_user
         store_location
-        # TODO: Redirect to summary page
-        redirect_to('/todo')
+        redirect_to(root_path)
         return false
       end
     end
