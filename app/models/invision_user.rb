@@ -67,6 +67,10 @@
 
 class InvisionUser < ActiveRecord::Base
   set_table_name "ibf_members"
+  
+  ADMIN_GROUP = 4
+  MEMBER_GROUP = -1
+  APPLICANT_GROUP = -1
 
   # Authlogic -----------------------------------------------------------------
   attr_accessible :login, :password, :password_confirmation
@@ -83,8 +87,12 @@ class InvisionUser < ActiveRecord::Base
     self.converge.converge_pass_salt
   end
   
+  def character_name
+    self.members_display_name
+  end
+  
   def is_admin?
-    self.mgroup == 4
+    self.mgroup == ADMIN_GROUP
   end
   
   # ---------------------------------------------------------------------------
