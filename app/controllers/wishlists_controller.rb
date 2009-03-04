@@ -5,6 +5,16 @@ class WishlistsController < ApplicationController
   
   before_filter :find_wishlist, :only => [:edit, :update, :destroy]
   
+  def globalview
+    @root = LootTable.find_all_by_object_type('Zone', :include => :children)
+    
+    if params[:boss]
+      @items = LootTable.find(:all, :include => { :object => [{:wishlists => :member}, :item_stat] }, :conditions => ['parent_id = ?', params[:boss]])
+    else
+      @items = []
+    end
+  end
+  
   def index
     @wishlist = Wishlist.new # Used in remote_form_for tag
     @wishlists = Wishlist.find(:all, :include => [{ :item => :item_stat }], 
