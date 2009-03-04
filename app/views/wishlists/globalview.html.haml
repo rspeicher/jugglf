@@ -1,18 +1,8 @@
 %h2 Global Wishlist View
-
-#sidebar.clearfix
-  %ul
-    - @root.each do |zone|
-      %li
-        = link_to_function(h(zone.object.name), "$('ul#zone-#{zone.object.id}').toggle('slow')")
-        %ul{ :id => "zone-#{zone.object.id}" }
-          - zone.children.each do |boss|
-            %li{ :id => "zone-#{boss.object.id}" }
-              = link_to h(boss.object.name), "?boss=#{boss.id}"
 #content.clearfix
   - @items.each do |item|
     - unless item.object.wishlists.size == 0
-      .wishlist-group
+      .item-group
         %h4= link_to_wowhead(item.object)
         %table.list
           %tbody
@@ -22,3 +12,21 @@
                 %td{ :style => 'width: 60%' }= h(wishlist.note)
                 %td{ :style => 'width: 100px'}= h(wishlist.priority.titlecase)
                 %td.lootfactor= number_with_precision(wishlist.member.lf_type(wishlist.priority), :precision => 2)
+#sidebar.clearfix
+  %ul
+    - @root.each do |zone|
+      %li
+        = link_to_function(h(zone.object.name), "$('ul#zone-#{zone.id}').toggle('slow')")
+        %ul{ :id => "zone-#{zone.id}" }
+          - zone.children.each do |boss|
+            %li{ :id => "zone-#{boss.id}" }
+              = link_to h(boss.object.name), "?boss=#{boss.id}"
+              
+:javascript
+  $(document).ready(function() {
+    $('#sidebar ul ul').each(function() {
+      if ($(this).attr('id') != 'zone-#{@zone.id}') {
+        $(this).hide();
+      }
+    });
+  });
