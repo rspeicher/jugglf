@@ -1,8 +1,16 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+# before_filter :find_parent
+def find_parent
+  @parent ||= @member ||= mock_model(Member, :to_param => '1', 
+    :wishlists => mock_model(Wishlist))
+  Member.should_receive(:find).with('1').and_return(@parent)
+end
+
+# before_filter :find_wishlist, :only => [:edit, :update, :destroy]
 def find_wishlist
-  @wishlist ||= mock_model(Wishlist, :to_param => '1')
-  Wishlist.should_receive(:find).with('1', anything()).and_return(@wishlist)
+  @wishlist ||= @member.wishlists
+  @member.wishlists.should_receive(:find).with('1').and_return(@wishlist)
 end
 
 # -----------------------------------------------------------------------------
@@ -15,15 +23,31 @@ describe WishlistsController, "#index" do
     get :index
   end
   
-  describe "as user" do
+  describe "as admin" do
     before(:each) do
-      login
+      login({}, :is_admin? => true)
     end
     
-    it "should render" do
+    it "should assign @root"
+    
+    it "should assign @zone"
+    
+    it "should render"
+    
+    describe ":boss parameter" do
+      it "should assign @items"
+      
+      it "should re-assign @zone"
+      
+      it "should still assign @items if not present"
+    end
+  end
+  
+  describe "as user" do
+    it "should redirect to /todo" do
+      login({}, :is_admin? => false)
       get_response
-      response.should render_template(:index)
-      response.should be_success
+      response.should redirect_to('/todo')
     end
   end
   
@@ -43,13 +67,14 @@ end
 # GET /wishlists/new
 describe WishlistsController, "#new" do
   def get_response
-    get :new
+    get :new, :member_id => '1'
   end
   
   describe "as user" do
     before(:each) do
-      Wishlist.should_receive(:new).and_return('wishlist')
       login
+      find_parent
+      @member.wishlists.should_receive(:new).and_return('wishlist')
       get_response
     end
     
@@ -78,12 +103,13 @@ end
 # GET /wishlists/:id
 describe WishlistsController, "#edit" do
   def get_response
-    get :edit, :id => '1'
+    get :edit, :member_id => '1', :id => '1'
   end
   
   describe "as user" do
     before(:each) do
       login
+      find_parent
       find_wishlist
       get_response
     end
@@ -114,19 +140,20 @@ end
 describe WishlistsController, "#create" do
   def get_response(type = :normal)
     if type == :normal
-      post :create, :wishlist => @params
+      post :create, :member_id => '1', :wishlist => @params
     elsif type == :xhr
-      xhr :post, :create, :wishlist => @params
+      xhr :post, :create, :member_id => '1', :wishlist => @params
     end
   end
   
   describe "as user" do
     describe "when successful" do
       before(:each) do
+        find_parent
         login
         @wishlist = mock_model(Wishlist, :to_param => '1', :save => true)
-        @params = Wishlist.plan.stringify_keys!
-        Wishlist.should_receive(:new).with(@params).and_return(@wishlist)
+        @params = Wishlist.plan(:member => @parent).stringify_keys!
+        @parent.wishlists.should_receive(:new).with(@params).and_return(@wishlist)
       end
       
       describe "wanting HTML" do
@@ -158,8 +185,9 @@ describe WishlistsController, "#create" do
     describe "when unsuccessful" do
       before(:each) do
         login
+        find_parent
         @wishlist = mock_model(Wishlist, :save => false)
-        Wishlist.stub!(:new).and_return(@wishlist)
+        @parent.wishlists.stub!(:new).and_return(@wishlist)
       end
       
       describe "wanting HTML" do
@@ -195,16 +223,17 @@ end
 describe WishlistsController, "#update" do
   def get_response(type = :normal)
     if type == :normal
-      put :update, :id => '1', :wishlist => @params
+      put :update, :member_id => '1', :id => '1', :wishlist => @params
     elsif type == :xhr
-      xhr :put, :update, :id => '1', :wishlist => @params
+      xhr :put, :update, :member_id => '1', :id => '1', :wishlist => @params
     end
   end
   
   describe "as user" do
     before(:each) do
+      find_parent
       find_wishlist
-      @params = Wishlist.plan.stringify_keys!
+      @params = Wishlist.plan(:member => @parent).stringify_keys!
     end
     
     describe "when successful" do
@@ -266,15 +295,16 @@ end
 describe WishlistsController, "#destroy" do
   def get_response(type = :normal)
     if type == :normal
-      delete :destroy, :id => '1'
+      delete :destroy, :member_id => '1', :id => '1'
     elsif type == :xhr
-      xhr :delete, :destroy, :id => '1'
+      xhr :delete, :destroy, :member_id => '1', :id => '1'
     end
   end
   
   describe "as user" do
     before(:each) do
       login
+      find_parent
       find_wishlist
       @wishlist.should_receive(:destroy).and_return(nil)
     end

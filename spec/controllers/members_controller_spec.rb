@@ -68,7 +68,7 @@ describe MembersController, "#show" do
       @mock = mock_model(Member, 
         :punishments => mock_model(Punishment, :find_all_active => 'punishments'),
         :loots => mock_model(Loot, :find => 'loots'))
-      Member.should_receive(:find).with('1').and_return(@mock)
+      Member.should_receive(:find).with('1', anything()).and_return(@mock)
 
       Raid.should_receive(:count).and_return(0)
       Raid.should_receive(:paginate).and_return('raids')
@@ -115,7 +115,6 @@ describe MembersController, "#show" do
   describe "as anonymous" do
     it "should redirect to login" do
       logout
-      find_member
       get_response
       response.should redirect_to(new_user_session_url)
     end

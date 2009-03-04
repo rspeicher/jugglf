@@ -20,7 +20,7 @@ class WishlistsController < ApplicationController
   end
   
   def new
-    @wishlist = Wishlist.new
+    @wishlist = @parent.wishlists.new
     
     respond_to do |wants|
       wants.html
