@@ -6,19 +6,29 @@ describe LootTable do
   end
   
   describe "polymorphic associations" do
+    before(:each) do
+      @zone = Zone.make
+      @boss = Boss.make
+      @item = Item.make
+    end
     it "should take a zone record" do
-      @table.zone = Zone.make
+      @table.zone = @zone
       @table.should be_valid
+      @table.zone_type.should == 'Zone'
     end
     
     it "should take a boss record" do
-      @table.boss = Boss.make
+      @table.boss = @boss
       @table.should be_valid
+      @table.boss_type.should == 'Boss'
     end
     
     it "should take an item record" do
-      @table.item = Item.make
+      @table.item = @item
       @table.should be_valid
+      @table.item_type.should == 'Item'
+      @table.item.should == @item
+      @table.boss.should be_nil
     end
   end
   
@@ -30,9 +40,6 @@ describe LootTable do
     
     it "should have children" do
       @table.children.should_not be_nil
-    end
-    
-    it "should be able to create a tree" do
     end
   end
 end
