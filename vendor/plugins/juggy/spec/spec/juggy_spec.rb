@@ -43,7 +43,7 @@ describe Juggy do
     end
     
     describe "loot details" do
-      before(:each) do
+      before(:all) do
         item = 'Arachnoid Gold Band'
         @loots = {
           :single       => Juggy.parse_loots("Sebudai - #{item}"),
@@ -52,12 +52,12 @@ describe Juggy do
           :rot          => Juggy.parse_loots("Modrack (rot) - #{item}"),
           :sit          => Juggy.parse_loots("Modrack (sit) - #{item}"),
           :bisrot       => Juggy.parse_loots("Modrack (bis rot) - #{item}"),
-          :multiple     => Juggy.parse_loots("Modrack (bis), Rosoo (bis) - #{item}"),
+          :multiple     => Juggy.parse_loots("Modrack (bis), Rosoo (sit), DE - #{item}"),
           :de           => Juggy.parse_loots("DE - #{item}"),
         }
         
         # parse_items returns an array; each example only wants one item
-        @loots.each { |k, v| @loots[k] = v[0] }
+        @loots.each { |k, v| @loots[k] = v[0] unless k == :multiple }
       end
     
       it "should return one Hash" do
@@ -87,6 +87,23 @@ describe Juggy do
     
       it "should set member as nil if buyer is 'DE'" do
         @loots[:de][:member].should be_nil
+      end
+      
+      describe "for multiple buyers" do
+        it "should get the correct number of buyers" do
+          @loots[:multiple].size.should == 3
+        end
+        
+        it "should get the correct buyer names" do
+          @loots[:multiple][0][:member].name.should == 'Modrack'
+          @loots[:multiple][1][:member].name.should == 'Rosoo'
+          @loots[:multiple][2][:member].should be_nil
+        end
+        
+        it "should get the correct item types" do
+          @loots[:multiple][0][:best_in_slot].should be_true
+          @loots[:multiple][1][:situational].should be_true
+        end
       end
     end
   end

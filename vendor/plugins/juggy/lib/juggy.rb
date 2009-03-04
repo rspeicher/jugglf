@@ -43,6 +43,9 @@ module Juggy
     
     private
       def generate_loot(buyer, item_name)
+        buyer.strip! unless buyer.nil?
+        item_name.strip! unless item_name.nil?
+        
         return if buyer.nil? or buyer.empty? or item_name.nil? or item_name.empty?
         
         retval = { }
