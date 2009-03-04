@@ -39,6 +39,7 @@ function sortWishlistTable() {
             4: { sorter: false }      // Don't sort the 'Delete' icon'
         }
     });
+    zebraRows('wishlist');
 }
 
 // Hide the flash success message after giving the user 4s to read it
