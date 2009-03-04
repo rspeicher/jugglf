@@ -6,8 +6,9 @@
         %h4= link_to_wowhead(item.object)
         %table.list
           %tbody
+            - reset_cycle
             - item.object.wishlists.each do |wishlist|
-              %tr{ :class => cycle('even', 'odd') }
+              %tr{ :class => cycle('odd', 'even') }
                 %td.member{ :style => 'max-width: 150px' }= link_to_member(wishlist.member)
                 %td{ :style => 'width: 60%' }= h(wishlist.note)
                 %td{ :style => 'width: 100px'}= h(wishlist.priority.titlecase)
