@@ -50,13 +50,6 @@ Punishment.blueprint(:expired) do
   expires { Date.yesterday }
 end
 
-Wishlist.blueprint do
-  member
-  item
-  priority { 'normal' }
-  note { 'I really want this item!' }
-end
-
 ItemStat.blueprint do
   item_id { 12345 }
   item { Faker::Lorem.words(2) }
@@ -71,6 +64,26 @@ ItemStat.blueprint(:real) do
   icon { 'INV_Mace_82' }
   level { 226 }
   slot { 'Main Hand' }
+end
+
+# -----------------------------------------------------------------------------
+
+Wishlist.blueprint do
+  member
+  item
+  priority { 'normal' }
+  note { 'I really want this item!' }
+end
+
+Zone.blueprint do
+  name
+end
+
+Boss.blueprint do
+  name
+end
+
+LootTable.blueprint do
 end
 
 # -----------------------------------------------------------------------------
