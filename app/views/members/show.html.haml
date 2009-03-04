@@ -26,13 +26,13 @@
     %span.small Situational
 #member_tabs
   %ul
-    %li= link_to_tab("Raids (#{@raids_count})")
-    %li= link_to_tab("Loots (#{@loots.size})")
-    %li= link_to_tab("Punishments (#{@punishments.size})")
-    %li= link_to_tab("Wishlist (#{@member.wishlists.size})")
-    %li= link_to_tab('Achievements')
-  #raids= render :partial => 'raids'
-  #loots= render :partial => 'loots'
-  #punishments= render :partial => 'punishments'
-  #wishlist= render :partial => 'wishlist'
-  #achievements
+    %li= link_to_tab("Raids (#{@raids_count})", '#t-raids')
+    %li= link_to_tab("Loots (#{@loots.size})", '#t-loots')
+    %li= link_to_tab("Punishments (#{@punishments.size})", '#t-punishments')
+    %li= link_to_tab("Wishlist (#{@member.wishlists.size})", '#t-wishlist')
+    %li= link_to_tab('Achievements', '#t-achievements')
+  #t-raids= render :partial => 'raids'
+  #t-loots= render :partial => 'loots'
+  #t-punishments= render :partial => 'punishments'
+  #t-wishlist= render :partial => 'wishlist'
+  #t-achievements
