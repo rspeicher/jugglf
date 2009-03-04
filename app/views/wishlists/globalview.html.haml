@@ -11,7 +11,7 @@
               = link_to h(boss.object.name), "?boss=#{boss.id}"
 #content.clearfix
   - @items.each do |item|
-    - unless item.object.wishlists.count == 0
+    - unless item.object.wishlists.size == 0
       .wishlist-group
         %h4= link_to_wowhead(item.object)
         %table.list

@@ -2,8 +2,8 @@ class Wishlist < ActiveRecord::Base
   PRIORITIES = ['best in slot','normal','situational','rot']
   
   # Relationships -------------------------------------------------------------
-  belongs_to :item
-  belongs_to :member
+  belongs_to :item, :counter_cache => true
+  belongs_to :member, :counter_cache => true
   
   # Attributes ----------------------------------------------------------------
   attr_accessible :item_id, :item_name, :priority, :note, :member_id
