@@ -6,16 +6,8 @@ class Wishlist < ActiveRecord::Base
   belongs_to :member
   
   # Attributes ----------------------------------------------------------------
-  attr_accessible :item_name, :priority, :note, :member_id
+  attr_accessible :item_id, :item_name, :priority, :note, :member_id
   
-  # Validations ---------------------------------------------------------------
-  validates_inclusion_of :priority, :in => PRIORITIES, :message => "{{value}} is not a valid entry type"
-  
-  # Callbacks -----------------------------------------------------------------
-  
-  # Class Methods -------------------------------------------------------------
-  
-  # Instance Methods ----------------------------------------------------------
   def item_name
     self.item.name unless self.item_id.nil?
   end
@@ -34,6 +26,15 @@ class Wishlist < ActiveRecord::Base
     item = Item.find_or_create_by_name(value)
     self.item = item unless item.nil?
   end
+  
+  # Validations ---------------------------------------------------------------
+  validates_inclusion_of :priority, :in => PRIORITIES, :message => "{{value}} is not a valid entry type"
+  
+  # Callbacks -----------------------------------------------------------------
+  
+  # Class Methods -------------------------------------------------------------
+  
+  # Instance Methods ----------------------------------------------------------
   
   private
     def validate
