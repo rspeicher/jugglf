@@ -19,7 +19,7 @@ class Item < ActiveRecord::Base
   # Relationships -------------------------------------------------------------
   has_many :loots, :dependent => :destroy
   has_many :wishlists, :dependent => :destroy
-  has_many :loot_tables, :as => :loot_table
+  has_many :loot_tables, :as => :loot_table, :dependent => :destroy
   
   belongs_to :item_stat
 end
