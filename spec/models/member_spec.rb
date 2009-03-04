@@ -52,6 +52,34 @@ describe Member do
     @member.loots_count.should == 8
     @member.loots.size.should == 8
   end
+  
+  describe "#lf_type" do
+    before(:each) do
+      @member.lf    = 1.23
+      @member.bislf = 4.56
+      @member.sitlf = 7.89
+    end
+    it "should return normal LF for rot" do
+      @member.lf_type(:rot).should == @member.lf
+    end
+    
+    it "should return normal LF" do
+      @member.lf_type(:normal).should == @member.lf
+    end
+    
+    it "should return best in slot LF" do
+      @member.lf_type(:bis).should == @member.bislf
+    end
+    
+    it "should return situational LF" do
+      @member.lf_type(:sit).should == @member.sitlf
+      @member.lf_type(:situational).should == @member.sitlf
+    end
+    
+    it "should take a string" do
+      @member.lf_type('best in slot').should == @member.bislf
+    end
+  end
 end
 
 describe Member, "attendance caching" do

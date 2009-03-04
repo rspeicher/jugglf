@@ -60,6 +60,27 @@ class Member < ActiveRecord::Base
   #   name
   # end
   
+  # Takes a string or symbol representing a type of loot factor and returns the
+  # corresponding value
+  def lf_type(type)
+    type = type.downcase.gsub(' ', '_').intern if type.class == String
+    
+    case type
+    when :normal
+      retval = self.lf
+    when :rot
+      retval = self.lf
+    when :best_in_slot
+      retval = self.bislf
+    when :bis
+      retval = self.bislf
+    when :situational
+      retval = self.sitlf
+    when :sit
+      retval = self.sitlf
+    end
+  end
+  
   private
     def update_attendance_cache
       # Total possible attendance totals
