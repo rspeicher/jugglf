@@ -3,7 +3,7 @@ if success
   page << "$('#errors').addClass('hidden');"
 
   # Add a new table row
-  page.insert_html :bottom, 'wishlist', :partial => "wishlist_row", :object => create
+  page.insert_html :bottom, 'wishlist', :partial => "wishlists/wishlist_row", :object => create
   page << "$('#wishlist-#{create.id}').effect('highlight', {}, 1500);"
 
   # Re-apply the table sorting

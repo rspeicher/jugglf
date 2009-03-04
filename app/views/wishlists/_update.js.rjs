@@ -3,7 +3,7 @@ if success
   page << "$('#errors').addClass('hidden');"
   
   # Replace the table row with the updated values
-  page.replace "wishlist-#{update.id}", :partial => "wishlist_row", :object => update
+  page.replace "wishlist-#{update.id}", :partial => "wishlists/wishlist_row", :object => update
   page << "$('#wishlist-#{update.id}').effect('highlight', {}, 1500);"
   
   page << "zebraRows('wishlist');"

@@ -1,7 +1,7 @@
 class MembersController < ApplicationController
   layout @@layout
   
-  before_filter :find_member,   :only   => [:show, :edit, :update, :destroy]
+  before_filter :find_member,   :only   => [:edit, :update, :destroy]
   before_filter :require_user,  :only   => [:show]
   before_filter :require_admin, :except => [:show]
   
@@ -15,6 +15,8 @@ class MembersController < ApplicationController
   end
   
   def show
+    @member = Member.find(params[:id], :include => [{:wishlists => :item}])
+    
     @raids_count = Raid.count
     @raids = Raid.paginate(:page => params[:page], :per_page => 35, 
       :include => [:attendees], :order => "date DESC")

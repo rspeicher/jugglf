@@ -1,11 +1,13 @@
 class WishlistsController < ApplicationController
   layout @@layout
   
+  before_filter :require_admin, :only => [:index]
   before_filter :require_user
   
+  before_filter :find_parent
   before_filter :find_wishlist, :only => [:edit, :update, :destroy]
   
-  def globalview
+  def index
     @root = LootTable.find_all_by_object_type('Zone', :include => :children)
     @zone = @root[0] # Set @zone so we know which bosses to not hide by default in the drop-down menu
     
@@ -14,16 +16,6 @@ class WishlistsController < ApplicationController
       @zone  = @items[0].parent.parent
     else
       @items = []
-    end
-  end
-  
-  def index
-    @wishlist = Wishlist.new # Used in remote_form_for tag
-    @wishlists = Wishlist.find(:all, :include => [{ :item => :item_stat }], 
-      :conditions => ['member_id = ?', 150])#@current_member.id]) # TODO: Current member
-    
-    respond_to do |wants|
-      wants.html
     end
   end
   
@@ -48,7 +40,7 @@ class WishlistsController < ApplicationController
   end
   
   def create
-    @wishlist = Wishlist.new(params[:wishlist])
+    @wishlist = @parent.wishlists.new(params[:wishlist])
     
     respond_to do |wants|
       if @wishlist.save
@@ -88,13 +80,19 @@ class WishlistsController < ApplicationController
         redirect_to(wishlists_path)
       end
       wants.js do
-        head interpret_status(:ok) # TODO: Is this the right way to do this?
+        head interpret_status(:ok) # FIXME: Is this the right way to do this?
       end
     end
   end
   
   private
+    def find_parent
+      if params[:member_id]
+        @parent = @member = Member.find(params[:member_id])
+      end
+    end
+    
     def find_wishlist
-      @wishlist = Wishlist.find(params[:id], :conditions => ['member_id = ?', 150])#@current_member.id]) # TODO: Current member
+      @wishlist = @parent.wishlists.find(params[:id])
     end
 end
