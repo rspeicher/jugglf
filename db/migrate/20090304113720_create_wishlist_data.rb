@@ -15,14 +15,10 @@ class CreateWishlistData < ActiveRecord::Migration
     add_index :bosses, :position
     
     create_table :loot_tables do |t|
-      t.references :zone, :polymorphic => true
-      t.references :boss, :polymorphic => true
-      t.references :item, :polymorphic => true
+      t.references :object, :polymorphic => true
       t.integer :parent_id
     end
-    add_index :loot_tables, :zone_id
-    add_index :loot_tables, :boss_id
-    add_index :loot_tables, :item_id
+    add_index :loot_tables, :object_id
     add_index :loot_tables, :parent_id
   end
 

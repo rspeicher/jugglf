@@ -1,7 +1,9 @@
 class LootTable < ActiveRecord::Base
-  belongs_to :boss, :polymorphic => true
-  belongs_to :zone, :polymorphic => true
-  belongs_to :item, :polymorphic => true
-  
   acts_as_tree
+  
+  # Relationships -------------------------------------------------------------
+  belongs_to :object, :polymorphic => true
+  alias_method :zone, :object
+  alias_method :boss, :object
+  alias_method :item, :object
 end

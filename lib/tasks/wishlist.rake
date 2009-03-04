@@ -1,12 +1,12 @@
 namespace :jugg do
   def boss(zone, name)
     return if zone.nil? or name.nil? or name.empty?
-    zone.children.create(:boss => Boss.create(:name => name))
+    zone.children.create(:object => Boss.create(:name => name))
   end
   
   def item(boss, name)
     return if boss.nil? or name.nil? or name.empty?
-    boss.children.create(:item => Item.find_or_create_by_name(name))
+    boss.children.create(:object => Item.find_or_create_by_name(name))
   end
   
   desc "Populate wishlist data"
@@ -15,7 +15,7 @@ namespace :jugg do
     
     # Naxxramas ---------------------------------------------------------------
     ['Naxxramas (H)'].each do |zone_name|
-      zone = LootTable.create(:zone => Zone.create(:name => zone_name))
+      zone = LootTable.create(:object => Zone.create(:name => zone_name))
       
       [ 'Trash', 'Anub\'Rekhan', 'Grand Widow Faerlina', 'Maexxna', 
         'Noth the Plaguebringer', 'Heigan the Unclean', 'Loatheb', 'Patchwerk',
