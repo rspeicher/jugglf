@@ -40,6 +40,7 @@ class Member < ActiveRecord::Base
   # Validations ---------------------------------------------------------------
   validates_presence_of :name
   validates_uniqueness_of :name, :message => "{{value}} already exists"
+  validates_format_of :name, :with => /^\w+$/, :message => "{{value}} is not a valid member name"
   validates_inclusion_of :wow_class, :in => WOW_CLASSES, :message => "{{value}} is not a valid WoW class", :allow_nil => true
   
   # Class Methods -------------------------------------------------------------
