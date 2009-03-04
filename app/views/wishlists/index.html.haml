@@ -16,11 +16,11 @@
 #sidebar.clearfix
   %ul
     - @root.each do |zone|
-      %li
+      %li.zone
         = link_to_function(h(zone.object.name), "$('ul#zone-#{zone.id}').toggle('slow')")
         %ul{ :id => "zone-#{zone.id}" }
           - zone.children.each do |boss|
-            %li{ :id => "zone-#{boss.id}" }
+            %li.boss{ :id => "zone-#{boss.id}" }
               = link_to h(boss.object.name), "?boss=#{boss.id}"
               
 :javascript
