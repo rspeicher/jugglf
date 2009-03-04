@@ -93,6 +93,6 @@ class WishlistsController < ApplicationController
     end
     
     def find_wishlist
-      @wishlist = @parent.wishlists.find(params[:id])
+      @wishlist = @member.wishlists.find(params[:id])
     end
 end

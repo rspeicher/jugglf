@@ -1,9 +1,13 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 # before_filter :find_parent
+# FIXME: When this mock didn't include :punishments, and when the Punishment
+# version didn't include :wishlists, a ton of these examples would fail when one
+# was run right after the other. I gave up trying to figure out why and just
+# included them both.
 def find_parent
   @parent ||= @member ||= mock_model(Member, :to_param => '1', 
-    :punishments => mock_model(Punishment))
+    :punishments => mock_model(Punishment), :wishlists => mock_model(Wishlist))
   Member.should_receive(:find).with('1').and_return(@member)
 end
 
