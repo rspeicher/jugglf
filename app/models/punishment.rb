@@ -17,7 +17,15 @@ class Punishment < ActiveRecord::Base
   belongs_to :member
   
   # Attributes ----------------------------------------------------------------
-  attr_accessible :reason, :expires, :value
+  attr_accessible :reason, :expires, :expires_string, :value
+  
+  def expires_string
+    # Default to 56 days from now so that it acts as a normal loot item
+    ( self.expires.nil? ) ? 56.days.from_now.to_date : self.expires.to_date
+  end
+  def expires_string=(value)
+    self.expires = Time.parse(value)
+  end
   
   # Validations ---------------------------------------------------------------
   validates_presence_of :reason
@@ -35,14 +43,6 @@ class Punishment < ActiveRecord::Base
   end
   
   # Instance Methods ----------------------------------------------------------
-  
-  def expires_string
-    # Default to 56 days from now so that it acts as a normal loot item
-    ( self.expires.nil? ) ? 56.days.from_now.to_date : self.expires.to_date
-  end
-  def expires_string=(value)
-    self.expires = Time.parse(value)
-  end
   
   def expire!
     self.expires = 24.hours.until(Date.today)
