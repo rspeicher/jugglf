@@ -49,7 +49,7 @@ describe WishlistsController, "#index" do
   
   describe "as user" do
     it "should redirect to /todo" do
-      login
+      login({}, :is_admin? => false)
       get_response
       response.should redirect_to('/todo')
     end
