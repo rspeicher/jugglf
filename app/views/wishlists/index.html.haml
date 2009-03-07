@@ -20,7 +20,7 @@
         = link_to_function(h(zone.object.name), "$('ul#zone-#{zone.id}').toggle('slow')")
         %ul{ :id => "zone-#{zone.id}" }
           - zone.children.each do |boss|
-            %li.boss{ :id => "zone-#{boss.id}" }
+            %li.boss{ :id => "boss-#{boss.id}" }
               = link_to h(boss.object.name), "?boss=#{boss.id}"
               
 :javascript
@@ -28,6 +28,13 @@
     $('#sidebar ul ul').each(function() {
       if ($(this).attr('id') != 'zone-#{@zone.id}') {
         $(this).hide();
+      }
+      else {
+        $(this).children().each(function() {
+          if ($(this).attr('id') == 'boss-#{@boss.id}') {
+            $(this).html('<b>' + $(this).text() + '</b>');
+          }
+        });
       }
     });
   });
