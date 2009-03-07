@@ -1,5 +1,9 @@
 :javascript
   $(document).ready(function(){
+    $("table#loot").tablesorter({ sortList: [[0,0]], widgets: ['zebra'] });
+    $('#itemfilter span.filter').click(function() {
+      toggleItemTypes(this);
+    });
     $("#raid_tabs").tabs();
   });
   
