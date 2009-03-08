@@ -4,21 +4,39 @@
     $('#itemfilter span.filter').click(function() {
       toggleItemTypes(this);
     });
+    $("#item_tabs").tabs();
   });
 
 %h2= breadcrumb(link_to('Items', items_path), link_to_wowhead(@item))
-#purchases
-  %table#loot.list.tablesorter
-    %thead
-      %tr
-        %th.date Raid
-        %th.member Buyer
-        %th.note Notes
-        %th.number Price
-    %tbody#itemfilter
-      - @loots.each do |loot|
-        %tr{ :class => cycle('even', 'odd') + ' ' + loot_row_classes(loot) }
-          %td.date= link_to loot.purchased_on, raid_path(loot.raid_id) unless loot.raid_id.nil?
-          %td.member= link_to_member(loot.member)
-          %td.note= loot_tell_types(loot)
-          %td.number= number_with_precision(loot.adjusted_price, :precision => 2)
+#item_tabs
+  %ul
+    %li= link_to_tab("Loots (#{@loots.size})", '#t-loots')
+    %li= link_to_tab("Wishlists (#{@wishlists.size})", '#t-wishlists')
+  #t-loots
+    %table#loot.list.tablesorter
+      %thead
+        %tr
+          %th.date Raid
+          %th.member Buyer
+          %th.note Notes
+          %th.number Price
+      %tbody#itemfilter
+        - @loots.each do |loot|
+          %tr{ :class => cycle('even', 'odd') + ' ' + loot_row_classes(loot) }
+            %td.date= link_to loot.purchased_on, raid_path(loot.raid_id) unless loot.raid_id.nil?
+            %td.member= link_to_member(loot.member)
+            %td.note= loot_tell_types(loot)
+            %td.number= number_with_precision(loot.adjusted_price, :precision => 2)
+  #t-wishlists
+    %table.list
+      %thead
+        %tr
+          %th Member
+          %th Note
+          %th Priority
+      %tbody
+        - @wishlists.each do |wishlist|
+          %tr{ :class => cycle('even', 'odd') }
+            %td.member{ :style => 'max-width: 150px' }= link_to_member(wishlist.member)
+            %td{ :style => 'width: 60%' }= h(wishlist.note)
+            %td{ :style => 'width: 100px'}= h(wishlist.priority.titlecase)

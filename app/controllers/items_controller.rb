@@ -3,6 +3,7 @@ class ItemsController < ApplicationController
   
   def show
     @loots = @item.loots.find(:all, :include => :member)
+    @wishlists = @item.wishlists.find(:all, :include => :member)
     
     respond_to do |wants|
       wants.html

@@ -18,6 +18,10 @@ class WishlistsController < ApplicationController
     else
       @items = []
     end
+    
+    respond_to do |wants|
+      wants.html
+    end
   end
   
   def new
