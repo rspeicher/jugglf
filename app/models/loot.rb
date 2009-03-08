@@ -3,7 +3,7 @@ class Loot < ActiveRecord::Base
   belongs_to :member, :counter_cache => true
   alias_method :buyer, :member
   belongs_to :raid, :counter_cache => true
-  belongs_to :item
+  belongs_to :item, :counter_cache => true
   
   # Attributes ----------------------------------------------------------------
   
