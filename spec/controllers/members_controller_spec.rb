@@ -57,8 +57,8 @@ end
 
 # GET /members/:id
 describe MembersController, "#show" do
-  def get_response
-    get :show, :id => '1'
+  def get_response(params = {})
+    get :show, params.merge!(:id => '1')
   end
   
   describe "as admin" do
@@ -67,38 +67,17 @@ describe MembersController, "#show" do
       
       @mock = mock_model(Member, 
         :punishments => mock_model(Punishment, :find_all_active => 'punishments'),
-        :loots => mock_model(Loot, :find => 'loots'))
-      Member.should_receive(:find).with('1', anything()).and_return(@mock)
-
-      Raid.should_receive(:count).and_return(0)
-      Raid.should_receive(:paginate).and_return('raids')
-
-      get_response
-    end
-
-    it "should assign @member" do
-      assigns[:member].should == @mock
-    end
-
-    it "should assign @raids_count" do
-      assigns[:raids_count].should == 0
-    end
-
-    it "should assign @raids" do
-      assigns[:raids].should == 'raids'
+        :loots => mock_model(Loot, :find => 'loots'),
+        :wishlists => mock_model(Wishlist, :find => 'wishlists'))
+      Member.should_receive(:find).with('1').and_return(@mock)
     end
     
-    it "should assign @loots" do
-      assigns[:loots].should == 'loots'
-    end
-
-    it "should assign @punishments" do
-      assigns[:punishments].should == 'punishments'
-    end
-    
-    it "should render" do
-      response.should render_template(:show)
-      response.should be_success
+    %w(raids loots punishments wishlist).each do |tab|
+      it "should render #{tab} tab" do
+        get_response(:tab => tab)
+        assigns[tab.pluralize.intern].should_not be_nil
+        response.should render_template(tab.intern)
+      end
     end
   end
   
@@ -171,13 +150,10 @@ describe MembersController, "#edit" do
     get :edit, :id => '1'
   end
   
-  before(:each) do
-    find_member
-  end
-  
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
+      find_member
       get_response
     end    
 
@@ -282,13 +258,10 @@ describe MembersController, "#update" do
     put :update, :id => '1', :member => @params
   end
   
-  before(:each) do
-    find_member
-  end
-  
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
+      find_member
       @params = Member.plan.stringify_keys!
     end
     

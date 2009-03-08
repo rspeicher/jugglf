@@ -1,9 +1,9 @@
 class MembersController < ApplicationController
   layout @@layout
   
-  before_filter :find_member,   :only   => [:show, :edit, :update, :destroy]
   before_filter :require_user,  :only   => [:show]
   before_filter :require_admin, :except => [:show]
+  before_filter :find_member,   :only   => [:show, :edit, :update, :destroy]
   
   def index
     @members = Member.find_all_by_active(true, :order => "name asc", :include => :rank)
@@ -25,7 +25,7 @@ class MembersController < ApplicationController
           @loots = @member.loots.find(:all, :include => [{:item => :item_stat}])
         when 'punishments'
           @punishments = @member.punishments.find_all_active
-        when 'wishlists'
+        when 'wishlist'
           @wishlists = @member.wishlists
           @wishlist = Wishlist.new
         when 'achievements'

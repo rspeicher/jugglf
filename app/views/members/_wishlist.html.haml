@@ -11,7 +11,7 @@
       %th Slot
       %th.image &nbsp;
   %tbody#wishlist
-    - @member.wishlists.each do |wishlist|
+    - @wishlists.each do |wishlist|
       = render :partial => "wishlists/wishlist_row", :object => wishlist
 %br
 #wishlist-edit{ :style => "display: none" }'
