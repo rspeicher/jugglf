@@ -1,6 +1,9 @@
 :javascript
   $(document).ready(function(){
-    $("#member_tabs").tabs();
+    $('#member_tabs').tabs({
+      ajaxOptions: { cache: false },
+      cache: true
+    });
   });
   
 %h2= breadcrumb link_to('Members', members_path), link_to_member(@member)
@@ -26,13 +29,13 @@
     %span.small Situational
 #member_tabs
   %ul
-    %li= link_to_tab("Raids (#{@raids_count})", '#t-raids')
-    %li= link_to_tab("Loots (#{@loots.size})", '#t-loots')
-    %li= link_to_tab("Punishments (#{@punishments.size})", '#t-punishments')
-    %li= link_to_tab("Wishlist (#{@member.wishlists.size})", '#t-wishlist')
-    %li= link_to_tab('Achievements', '#t-achievements')
-  #t-raids= render :partial => 'raids'
-  #t-loots= render :partial => 'loots'
-  #t-punishments= render :partial => 'punishments'
-  #t-wishlist= render :partial => 'wishlist'
+    %li= link_to_tab("Raids",       member_path(@member) + '/t.raids')
+    %li= link_to("Loots",           member_path(@member) + '/t.loots')
+    %li= link_to_tab("Punishments", member_path(@member) + '/t.punishments')
+    %li= link_to_tab("Wishlist",    member_path(@member) + '/t.wishlist')
+    %li= link_to_tab('Achievements', '#tachievements')
+  #t-raids
+  #loots
+  #t-punishments
+  #t-wishlist
   #t-achievements

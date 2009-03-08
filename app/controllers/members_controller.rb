@@ -1,7 +1,7 @@
 class MembersController < ApplicationController
   layout @@layout
   
-  before_filter :find_member,   :only   => [:edit, :update, :destroy]
+  before_filter :find_member,   :only   => [:show, :edit, :update, :destroy]
   before_filter :require_user,  :only   => [:show]
   before_filter :require_admin, :except => [:show]
   
@@ -15,20 +15,28 @@ class MembersController < ApplicationController
   end
   
   def show
-    @member = Member.find(params[:id], :include => [{:wishlists => :item}])
-    
-    @raids_count = Raid.count
-    @raids = Raid.paginate(:page => params[:page], :per_page => 35, 
-      :include => [:attendees], :order => "date DESC")
-      
-    @loots = @member.loots.find(:all, :include => [{:item => :item_stat}])
-      
-    @punishments = @member.punishments.find_all_active
-    
-    @wishlist = Wishlist.new # In-place form
-    
     respond_to do |wants|
-      wants.html
+      wants.html do
+        case params[:tab]
+        when 'raids'
+          @raids = Raid.paginate(:page => params[:page], :per_page => 35, 
+            :include => [:attendees], :order => "date DESC")
+        when 'loots'
+          @loots = @member.loots.find(:all, :include => [{:item => :item_stat}])
+        when 'punishments'
+          @punishments = @member.punishments.find_all_active
+        when 'wishlists'
+          @wishlists = @member.wishlists
+          @wishlist = Wishlist.new
+        when 'achievements'
+        end
+        
+        if params[:tab]
+          render :partial => "members/#{params[:tab]}"
+        else
+          render :action => :show
+        end
+      end
     end
   end
   
