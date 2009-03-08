@@ -50,7 +50,7 @@ describe ItemStat, "lookup from Wowhead" do
     ItemStat.destroy_all
     @stat = ItemStat.make(:real)
     
-    ItemStat.stub!(:wowhead_fetch).
+    ItemStat.stub!(:open).
       and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
   end
   

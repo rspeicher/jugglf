@@ -198,7 +198,7 @@ describe Raid, "#loot_output" do
     @raid = Raid.make
     @raid.loot_output = "Sebudai - [Arachnoid Gold Band]"
     
-    ItemStat.stub!(:wowhead_fetch).
+    ItemStat.stub!(:open).
       and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
   end
   
