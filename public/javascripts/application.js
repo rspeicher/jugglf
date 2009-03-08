@@ -5,15 +5,15 @@
  * delay        Integer     Delay, in miliseconds, after which to apply the effect (default: 0)
  */
 function zebraRows(tbody_id, delay) {
-    delay = ( delay == null ) ? 0 : delay
-    
+    delay = (delay == null) ? 0: delay
+
     setTimeout(function() {
         background = 'even';
         $('tbody#' + tbody_id + ' > tr:visible').each(function() {
             $(this).removeClass('even');
             $(this).removeClass('odd');
             $(this).addClass(background);
-            background = (background == 'even') ? 'odd' : 'even';
+            background = (background == 'even') ? 'odd': 'even';
         });
     }, delay);
 }
@@ -36,7 +36,7 @@ function sortWishlistTable() {
         widgets: ['zebra'],
         headers: {
             1: { sorter: 'wishlist' }, // Priority
-            4: { sorter: false }      // Don't sort the 'Delete' icon'
+            4: { sorter: false }       // Don't sort the 'Delete' icon'
         }
     });
     zebraRows('wishlist');
@@ -51,19 +51,23 @@ function hideSuccessFlash() {
     }, 4000);
 }
 
-/*
-    Takes a tbody#itemfilter > tr > td > span object and toggles filtering by
-    that particular type of loot (BiS, Sit, Rot, Disenchant). Also handles
-    re-applying even/odd row classes so that the alternating background colors
-    are maintained even if an 'odd' row gets filtered out while the two 
-    surrounding 'even' rows are shown.
+/**
+ * Allows for filtering by item tell (loot) types
+ *
+ * Takes a tbody#itemfilter > tr > td > span object and toggles filtering by
+ * that particular type of loot (BiS, Sit, Rot, Disenchant). Also handles
+ * re-applying even/odd row classes so that the alternating background colors
+ * are maintained even if an 'odd' row gets filtered out while the two 
+ * surrounding 'even' rows are shown.
+ *
+ * object   jQuery      Object for the clicked span
 */
 function toggleItemTypes(object) {
     if      ($(object).hasClass('bis')) { type = 'bis' }
     else if ($(object).hasClass('sit')) { type = 'sit' }
     else if ($(object).hasClass('rot')) { type = 'rot' }
     else if ($(object).hasClass('de'))  { type = 'de'  }
-    
+
     parentRow = $(object).parent().parent();
 
     // If our parent row is .shown, then we need to toggle this filter off and show all rows
@@ -89,10 +93,80 @@ function toggleItemTypes(object) {
             }
         });
     }
-    
+
     zebraRows($(parentRow).attr('id'));
 }
 
+/**
+ * Filter and style the global wishlist view menu.
+ *
+ * Hides the boss list for zones we're not currently viewing. Removes the link
+ * and bolds the text of the currently viewed boss.
+ *
+ * zone     integer     ID of the current Zone row
+ * boss     integer     ID of the current Boss row
+ */
+function wishlistMenu(zone, boss) {
+    $('#sidebar ul ul').each(function() {
+        if ($(this).attr('id') != 'zone-' + zone) {
+            $(this).hide();
+        }
+        else {
+            $(this).children().each(function() {
+                if ($(this).attr('id') == 'boss-' + boss) {
+                    $(this).html('<b>' + $(this).text() + '</b>');
+                }
+            });
+        }
+    });
+}
+
+/**
+ * Hides item groups for which there are no displayed Wishlist rows. These can
+ * be caused by an item having no wishlist entries at all, or an item having no
+ * wishlist entries by an active member. Either way, we don't want them displayed.
+ */
+function wishlistHideUnwanted() {
+    $('div.item-group').each(function() {
+        if ($(this).children('table.list').children('tbody').children('tr').length == 0) {
+            $(this).hide();
+        }
+    });
+}
+
+/**
+ * Sorts each child table of the individual wishlist item entries.
+ */
+function wishlistSortTables() {
+    $('table.tablesorter').each(function() {
+        // tablesorter had some errors with trying to sort a table that only had one row
+        if ($(this).children('tbody').children('tr').length > 1) {
+            $(this).tablesorter({
+                sortList: [[2,0], [3,0]],
+                widgets: ['zebra'],
+                headers: {
+                    2: {
+                        sorter: 'wishlist'
+                    },
+                    3: {
+                        sorter: 'currency'
+                    }
+                }
+            });
+        }
+        $(this).children('thead').hide();
+    });
+}
+
+/**
+ * Fetches a remote Wishlist edit form to be displayed inline.
+ *
+ * Gets a form for the specified path, then shows the form div, focuses the
+ * first input field, and hides the div that toggles a 'New Wishlist Entry'
+ * form to avoid confusion by having two sets of buttons.
+ *
+ * path     string      Path to fetch (e.g., /members/1/wishlists/2/edit)
+ */
 function wishlistEditForm(path) {
     $.get(path, function(value) {
         $('#wishlist-edit').html(value);
@@ -109,8 +183,8 @@ $.tablesorter.addParser({
     is: function(s) {
         return false;
     },
-    format: function(s) { 
-        return s.toLowerCase().replace(/best in slot/,1).replace(/normal/,2).replace(/rot/,3).replace(/situational/,4);
+    format: function(s) {
+        return s.toLowerCase().replace(/best in slot/, 1).replace(/normal/, 2).replace(/rot/, 3).replace(/situational/, 4);
     },
     type: 'numeric'
 });
