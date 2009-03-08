@@ -1,0 +1,16 @@
+= will_paginate(@items)
+%br
+%table.list
+  %thead
+    %tr
+      %th Name
+      %th Loots
+      %th Wishlists
+  %tbody
+    - @items.each do |item|
+      %tr{ :class => cycle('even', 'odd') }
+        %td= link_to_item_with_stats(item)
+        %td= h(item.loots.size)
+        %td= h(item.wishlists.size)
+%br
+= will_paginate @raids
