@@ -69,15 +69,17 @@ class InvisionUser < ActiveRecord::Base
   set_table_name "ibf_members"
   
   ADMIN_GROUP     = 4
-  MEMBER_GROUP    = -1
-  APPLICANT_GROUP = -1
+  MEMBER_GROUP    = 8
+  APPLICANT_GROUP = 9
 
   # Authlogic -----------------------------------------------------------------
   attr_accessible :login, :password, :password_confirmation
   acts_as_authentic(
     :crypto_provider  => Authlogic::CryptoProviders::InvisionPowerBoard, 
     :login_field      => :name,
-    :login_field_type => :login
+    :login_field_type => :login,
+    :validate_fields  => false, 
+    :validate_password_fields => false 
   )
   
   def crypted_password
@@ -104,4 +106,10 @@ class InvisionUser < ActiveRecord::Base
   
   # Relationships -------------------------------------------------------------
   has_one :converge, :class_name => "InvisionUserConverge", :foreign_key => "converge_id"
+  belongs_to :member
+  
+  def self.find_all_members(member_id)
+    InvisionUser.find(:all, :order => 'name',
+      :conditions => "mgroup IN(#{ADMIN_GROUP},#{MEMBER_GROUP},#{APPLICANT_GROUP})")
+  end
 end

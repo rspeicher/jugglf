@@ -49,6 +49,8 @@ class MembersController < ApplicationController
   end
   
   def edit
+    # @users = InvisionUser.find_all_members(@member.id)
+    
     respond_to do |wants|
       wants.html
     end

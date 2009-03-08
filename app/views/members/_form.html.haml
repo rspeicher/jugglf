@@ -4,6 +4,9 @@
 = form.label :wow_class, 'Class'
 = form.select :wow_class, Member::WOW_CLASSES
 
+=# form.label :user, 'User'
+=# form.select :user, @users.collect { |u| [u.name, u.id] }, :include_blank => true
+
 .radio-check
   = form.check_box :active
   = form.label :active, 'Active?'

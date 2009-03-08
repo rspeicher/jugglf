@@ -33,6 +33,7 @@ class Member < ActiveRecord::Base
   has_many :raids, :through => :attendees, :order => "date DESC"
   belongs_to :rank, :class_name => "MemberRank", :foreign_key => "rank_id"
   has_many :wishlists, :include => :item, :order => 'priority', :dependent => :destroy
+  has_one :user, :class_name => "InvisionUser", :foreign_key => "member_id"
   
   # Attributes ----------------------------------------------------------------
   attr_accessible :name, :active, :wow_class
