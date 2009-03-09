@@ -13,6 +13,30 @@ namespace :jugg do
   task :wishlist => [:environment] do
     [Boss, LootTable, Zone].each(&:destroy_all)
     
+    ['World Drop'].each do |zone_name|
+      zone = LootTable.create(:object => Zone.create(:name => zone_name))
+      
+      boss_name = 'Bind on Equip'
+      boss = boss(zone, boss_name)
+      
+      item(boss, 'Arcanic Tramplers')
+      item(boss, 'Benefactor\'s Gauntlets')
+      item(boss, 'Bindings of Yearning')
+      item(boss, 'Boots of Impetuous Ideals')
+      item(boss, 'Boots of Septic Wounds')
+      item(boss, 'Gloves of Fast Reactions')
+      item(boss, 'Gloves of Token Respect')
+      item(boss, 'Inexorable Sabatons')
+      item(boss, 'Iron-Spring Jumpers')
+      item(boss, 'Mantle of the Eternal Sentinel')
+      item(boss, 'Poignant Sabatons')
+      item(boss, 'Slime Stream Bands')
+      item(boss, 'Spaulders of Egotism')
+      item(boss, 'Surge Needle Ring')
+      item(boss, 'Torn Web Wrapping')
+      item(boss, 'Zeliek\'s Gauntlets')
+    end
+    
     ['The Obsidian Sanctum (H)', 'The Eye of Eternity (H)'].each do |zone_name|
       zone = LootTable.create(:object => Zone.create(:name => zone_name))
       
@@ -37,7 +61,6 @@ namespace :jugg do
         item(boss, "Hyaline Helm of the Sniper")
         item(boss, "Illustration of the Dragon Soul")
         item(boss, "Leggings of the Honored")
-        item(boss, "Mantle of the Eternal Sentinel")
         item(boss, "Obsidian Greathelm")
         item(boss, "Pennant Cloak")
         item(boss, "Staff of Restraint")
@@ -45,7 +68,6 @@ namespace :jugg do
         item(boss, "Unsullied Cuffs")
         item(boss, "Upstanding Spaulders")
       when 'Malygos'
-        item(boss, "Arcanic Tramplers")
         item(boss, "Black Ice")
         item(boss, "Blanketing Robes of Snow")
         item(boss, "Blue Aspect Helm")
@@ -99,7 +121,6 @@ namespace :jugg do
             item(boss, "Cryptfiend's Bite")
             item(boss, "Dawnwalkers")
             item(boss, "Gemmed Wand of the Nerubians")
-            item(boss, "Inexorable Sabatons")
             item(boss, "Leggings of Atrophy")
             item(boss, "Mantle of the Locusts")
             item(boss, "Pauldrons of Unnatural Death")
@@ -123,7 +144,6 @@ namespace :jugg do
             item(boss, "Faerlina's Madness")
             item(boss, "Fire-Scorched Greathelm")
             item(boss, "Fool's Trial")
-            item(boss, "Gloves of Token Respect")
             item(boss, "Heritage")
             item(boss, "Idol of Worship")
             item(boss, "Lost Jewel")
@@ -158,7 +178,6 @@ namespace :jugg do
             item(boss, "Shroud of Luminosity")
             item(boss, "Sinner's Bindings")
             item(boss, "The Jawbone")
-            item(boss, "Torn Web Wrapping")
             item(boss, "Undiminished Battleplate")
             item(boss, "Wraith Strike")
           when 'Noth the Plaguebringer'
@@ -174,7 +193,6 @@ namespace :jugg do
             item(boss, "Legguards of the Undisturbed")
             item(boss, "Libram of Radiance")
             item(boss, "Lost Jewel")
-            item(boss, "Poignant Sabatons")
             item(boss, "Robes of Mutation")
             item(boss, "Ruthlessness")
             item(boss, "Sand-Worn Band")
@@ -199,7 +217,6 @@ namespace :jugg do
             item(boss, "Grim Toll")
             item(boss, "Heigan's Putrid Vestments")
             item(boss, "Helm of Pilgrimage")
-            item(boss, "Iron-Spring Jumpers")
             item(boss, "Leggings of Colossal Strides")
             item(boss, "Legguards of the Apostle")
             item(boss, "Serene Echoes")
@@ -209,7 +226,6 @@ namespace :jugg do
             item(boss, "Stalk-Skin Belt")
             item(boss, "The Undeath Carrier")
           when 'Loatheb'
-            item(boss, "Boots of Impetuous Ideals")
             item(boss, "Cowl of Innocent Delight")
             item(boss, "Fading Glow")
             item(boss, "Footwraps of Vile Deceit")
@@ -226,7 +242,6 @@ namespace :jugg do
             item(boss, "Arrowsong")
             item(boss, "Belt of the Tortured")
             item(boss, "Boots of Persuasion")
-            item(boss, "Boots of Septic Wounds")
             item(boss, "Crude Discolored Battlegrips")
             item(boss, "Fleshless Girdle")
             item(boss, "Fool's Trial")
@@ -262,7 +277,6 @@ namespace :jugg do
             item(boss, "Plague Igniter")
             item(boss, "Shawl of the Old Maid")
             item(boss, "Shroud of Luminosity")
-            item(boss, "Slime Stream Bands")
             item(boss, "Spaulders of Incoherence")
             item(boss, "Surplus Limb")
             item(boss, "Sympathetic Amice")
@@ -270,7 +284,6 @@ namespace :jugg do
             item(boss, "Twilight Mist")
           when 'Gluth'
           when 'Thaddius'
-            item(boss, "Benefactor's Gauntlets")
             item(boss, "Cincture of Polarity")
             item(boss, "Cover of Silence")
             item(boss, "Faceguard of the Succumbed")
@@ -302,13 +315,11 @@ namespace :jugg do
             item(boss, "Ruthlessness")
             item(boss, "Sand-Worn Band")
             item(boss, "Shoulderpads of Secret Arts")
-            item(boss, "Spaulders of Egotism")
             item(boss, "Strong-Handed Ring")
             item(boss, "Totem of Dueling")
           when 'Gothik the Harvester'
             item(boss, "Abetment Bracers")
             item(boss, "Aged Winter Cloak")
-            item(boss, "Bindings of Yearning")
             item(boss, "Bracers of Unrelenting Attack")
             item(boss, "Burdened Shoulderplates")
             item(boss, "Defender's Code")
@@ -340,7 +351,6 @@ namespace :jugg do
             item(boss, "Helm of the Grave")
             item(boss, "Leggings of Voracious Shadows")
             item(boss, "Urn of Lost Memories")
-            item(boss, "Zeliek's Gauntlets")
           when 'Sapphiron'
             item(boss, "Bandit's Insignia")
             item(boss, "Bone-Inlaid Legguards")
@@ -350,7 +360,6 @@ namespace :jugg do
             item(boss, "Cosmic Lights")
             item(boss, "Extract of Necromantic Power")
             item(boss, "Gatekeeper")
-            item(boss, "Gloves of Fast Reactions")
             item(boss, "Gloves of Grandeur")
             item(boss, "Heroic Key to the Focusing Iris")
             item(boss, "Icy Blast Amulet")
