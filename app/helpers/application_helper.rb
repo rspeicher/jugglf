@@ -10,7 +10,9 @@ module ApplicationHelper
     link_to "<span>#{text}</span>", path
   end
   
-  def link_to_controller(mod)
+  def link_to_controller(mod, options = {})
+    return if options[:admin_only] and not current_user.is_admin?
+    
     controller_name = mod.to_s.downcase.pluralize
     path = eval("#{controller_name}_path")
     css = ( controller.controller_name == controller_name ) ? 'selected' : ''
@@ -58,7 +60,7 @@ module ApplicationHelper
   
   def link_to_login_or_logout
     if current_user
-      link_to('Logout', user_session_path, :method => :delete, 
+      link_to("Logout", user_session_path, :method => :delete, 
         :confirm => 'Are you sure you want to log out?')
     else
       link_to('Login', new_user_session_path)

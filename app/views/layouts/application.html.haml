@@ -28,11 +28,13 @@
       #header.clearfix
         #main-menu.clearfix
           %ul
-            %li= link_to_controller(Member)
-            %li= link_to_controller(Raid)
+            - unless @current_user.nil? or @current_user.member.nil?
+              %li= link_to 'My Standing', member_path(@current_user.member)
+            %li= link_to_controller(Member, :admin_only => true)
+            %li= link_to_controller(Raid, :admin_only => true)
             %li= link_to_controller(Item)
-            %li= link_to_controller(Loot)
-            %li= link_to_controller(Wishlist)
+            %li= link_to_controller(Loot, :admin_only => true)
+            %li= link_to_controller(Wishlist, :admin_only => true)
             %li= link_to_login_or_logout
       #main
         - if flash[:error]

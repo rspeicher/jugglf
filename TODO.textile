@@ -4,7 +4,6 @@ h2. Priorities
 
 On a scale of 1-5, where 1 is a feature that *has* to be complete before we can use the app in production
  
- 1 "My Standing" for logged-in users
  1 Users/Permissions, attaching Members to Users
  
  2 Need to say "Hey, this site needs Javascript. You should turn that on."
