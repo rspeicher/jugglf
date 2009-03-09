@@ -28,12 +28,19 @@ class Member < ActiveRecord::Base
   # Relationships -------------------------------------------------------------
   has_many :attendees, :dependent => :destroy
   alias_method :attendance, :attendees
+  
   has_many :loots, :order => "purchased_on DESC", :dependent => :nullify
+  
   has_many :punishments, :dependent => :destroy
+  
   has_many :raids, :through => :attendees, :order => "date DESC"
+  
   belongs_to :rank, :class_name => "MemberRank", :foreign_key => "rank_id"
+  
   has_many :wishlists, :include => :item, :order => 'priority', :dependent => :destroy
-  has_one :user, :class_name => "InvisionUser", :foreign_key => "member_id"
+  
+  has_one :membership, :dependent => :destroy
+  has_one :user, :through => :membership
   
   # Attributes ----------------------------------------------------------------
   attr_accessible :name, :active, :wow_class

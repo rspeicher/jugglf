@@ -106,7 +106,8 @@ class InvisionUser < ActiveRecord::Base
   
   # Relationships -------------------------------------------------------------
   has_one :converge, :class_name => "InvisionUserConverge", :foreign_key => "converge_id"
-  belongs_to :member
+  has_one :membership
+  has_one :member, :through => :membership
   
   def self.find_all_members(member_id)
     InvisionUser.find(:all, :order => 'name',
