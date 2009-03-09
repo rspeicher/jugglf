@@ -394,5 +394,89 @@ namespace :jugg do
           end
         end
     end
+  
+    # ['Ulduar (H)'].each do |zone_name|
+    #   zone = LootTable.create(:object => Zone.create(:name => zone_name))
+    #   
+    #   ['Flame Leviathan', 'General Vezax', 'Iron Council', 'Kologarn'].each do |boss_name|
+    #     boss = boss(zone, boss_name)
+    #     
+    #     case boss_name
+    #     when 'Flame Leviathan'
+    #       item(boss, "Constructor's Handwraps")
+    #       item(boss, "Dragonslayer's Brace")
+    #       item(boss, "Embrace of the Leviathan")
+    #       item(boss, "Freya's Choker of Warding")
+    #       item(boss, "Gloves of the Fiery Behemoth")
+    #       item(boss, "Glowing Ring of Reclamation")
+    #       item(boss, "Iron Riveted War Helm")
+    #       item(boss, "Mechanist's Bindings")
+    #       item(boss, "Mimiron's Inferno Couplings")
+    #       item(boss, "Overcharged Fuel Rod")
+    #       item(boss, "Pattern: Belt of Arctic Life")
+    #       item(boss, "Pattern: Belt of Dragons")
+    #       item(boss, "Pattern: Boots of Wintry Endu...")
+    #       item(boss, "Pattern: Cord of the White Dawn")
+    #       item(boss, "Pattern: Lightning Grounded Boots")
+    #       item(boss, "Pattern: Sash of Ancient Power")
+    #       item(boss, "Plans: Battleord's Plate Boots")
+    #       item(boss, "Plans: Girdle of the Righteous")
+    #       item(boss, "Rising Sun")
+    #       item(boss, "Steamcaller's Totem")
+    #       item(boss, "Steamworker's Goggles")
+    #       item(boss, "Strength of the Automaton")
+    #       item(boss, "The Leviathan's Coil")
+    #       item(boss, "Titanguard")
+    #       item(boss, "Veranus' Bane")
+    #     when 'General Vezax'
+    #       item(boss, "Belt of Clinging Hope")
+    #       item(boss, "Boots of the Forgotten Depths")
+    #       item(boss, "Boots of the Underdweller")
+    #       item(boss, "Flare of the Heavens")
+    #       item(boss, "Grips of the Unbroken")
+    #       item(boss, "Helm of the Faceless")
+    #       item(boss, "Idol of the Corruptor")
+    #       item(boss, "Libram of Sacred Shield")
+    #       item(boss, "Lotrafen, Spear of the Damned")
+    #       item(boss, "Mantle of the Unknowing")
+    #       item(boss, "Metallic Loop of the Sufferer")
+    #       item(boss, "Ring of the Vacant Eye")
+    #       item(boss, "Savior's Slippers")
+    #       item(boss, "The General's Heart")
+    #       item(boss, "Voldrethar, Dark Blade of Oblivion")
+    #     when 'Iron Council'
+    #       item(boss, "Archivum Data Disc")
+    #       item(boss, "Belt of Colossal Rage")
+    #       item(boss, "Drape of the Lithe")
+    #       item(boss, "Insurmontable Fervor")
+    #       item(boss, "Iron-studded Mantle")
+    #       item(boss, "Overload Legwraps")
+    #       item(boss, "Radiant Seal")
+    #       item(boss, "Rapture")
+    #       item(boss, "Rune Edge")
+    #       item(boss, "Runed Ironhide Boots")
+    #       item(boss, "Runeshaper's Gloves")
+    #       item(boss, "Steelbreaker's Embrace")
+    #       item(boss, "Unblinking Eye")
+    #       item(boss, "Vestments of the Sprouting Seed")
+    #     when 'Kologarn'
+    #       item(boss, "Bracers of Unleashed Magic")
+    #       item(boss, "Decimator's Armguards")
+    #       item(boss, "Giant's Bane")
+    #       item(boss, "Gloves of the Pythonic Guardian")
+    #       item(boss, "Handwraps of Plentiful Recovery")
+    #       item(boss, "Idol of the Crying Wind")
+    #       item(boss, "Ironmender")
+    #       item(boss, "Leggings of the Stoneweaver")
+    #       item(boss, "Malice")
+    #       item(boss, "Necklace of Unerring Mettle")
+    #       item(boss, "Pattern: Death-Warmed Belt")
+    #       item(boss, "Robes of the Umbral Brut")
+    #       item(boss, "Saronite Plated Legguards")
+    #       item(boss, "Shoulderpads of the Monolith")
+    #       item(boss, "Wrathstone")
+    #     end
+    #   end
+    # end
   end
 end
