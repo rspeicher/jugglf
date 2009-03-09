@@ -1,10 +1,10 @@
 :javascript
   $(document).ready(function(){
+    $("#item_tabs").tabs();
     $("table#loot").tablesorter({ sortList: [[0,1]], widgets: ['zebra'] });
     $('#itemfilter span.filter').click(function() {
       toggleItemTypes(this);
     });
-    $("#item_tabs").tabs();
   });
 
 %h2= breadcrumb(link_to('Items', items_path), link_to_wowhead(@item))
