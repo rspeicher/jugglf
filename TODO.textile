@@ -39,9 +39,6 @@ h2. Short term
 
 h2. Medium term
 
-* Users & Permissions
-** 'My Standing' link dependant on login status and whether or not a member of that name exists?
-** PLEASE try to make it hook into IPB's auth system
 * Comments on stuff ('I was late for this raid and didn't send you a tell, please add me anyway?!')
 ** Admin note section ('Modrack needs his [Betrayer of Humanity] changed to BiS once 3.1 hits')
 
@@ -58,8 +55,6 @@ h2. Medium term
 
 h3. Interface Overhaul
 
-* Item type filters
-** [Option] Make the 'Notes' value clickable to only show that type, and then put a 'clear' icon next to it?
 * Glyph icons similar to IPBoard 3 for edit/delete inside each row
 * Navigation
 ** [Option] Drop-down menu navigation system

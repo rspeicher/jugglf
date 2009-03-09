@@ -89,10 +89,6 @@ class InvisionUser < ActiveRecord::Base
     self.converge.converge_pass_salt
   end
   
-  def character_name
-    self.members_display_name
-  end
-  
   def is_admin?
     self.mgroup == ADMIN_GROUP
   end
