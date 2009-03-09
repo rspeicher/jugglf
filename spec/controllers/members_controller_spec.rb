@@ -61,14 +61,16 @@ describe MembersController, "#show" do
     get :show, params.merge!(:id => '1')
   end
   
+  before(:each) do
+    @mock = mock_model(Member, :id => '1',
+      :punishments => mock_model(Punishment, :find_all_active => 'punishments'),
+      :loots => mock_model(Loot, :find => 'loots'),
+      :wishlists => mock_model(Wishlist, :find => 'wishlists'))
+  end
+  
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
-      
-      @mock = mock_model(Member, 
-        :punishments => mock_model(Punishment, :find_all_active => 'punishments'),
-        :loots => mock_model(Loot, :find => 'loots'),
-        :wishlists => mock_model(Wishlist, :find => 'wishlists'))
       Member.should_receive(:find).with('1').and_return(@mock)
     end
     
@@ -82,13 +84,25 @@ describe MembersController, "#show" do
   end
   
   describe "as user" do
-    before(:each) do
-      login({}, :is_admin? => false)
+    it "should not render if the member doesn't belong to the current user" do
+      login({}, { :member => mock_model(Member, :id => '999'), :is_admin? => false })
+      get_response
+      response.should redirect_to('/todo')
     end
     
-    it "should not render if the member doesn't belong to the current user"
+    it "should not render if the current user has no associated member" do
+      login({}, :member => nil, :is_admin? => false)
+      get_response
+      response.should redirect_to('/todo')
+    end
     
-    it "should render when the current member belongs to the current user"
+    it "should render when the current member belongs to the current user" do
+      login({}, { :member => mock_model(Member, :id => '1'), :is_admin? => false })
+      Member.should_receive(:find).with('1').and_return(@mock)
+      get_response
+      response.should be_success
+      response.should render_template(:show)
+    end
   end
   
   describe "as anonymous" do

@@ -1,9 +1,17 @@
 class MembersController < ApplicationController
   layout @@layout
   
-  before_filter :require_user,  :only   => [:show]
-  before_filter :require_admin, :except => [:show]
-  before_filter :find_member,   :only   => [:show, :edit, :update, :destroy]
+  # Viewing a member requires a user of some type
+  before_filter :require_user,                :only   => [:show]
+  
+  # Doing anything else with members requires admin
+  before_filter :require_admin,               :except => [:show]
+  
+  # Viewing a member may or may not require admin, depending if the user is viewing their own member entry
+  before_filter :require_admin_conditionally, :only   => [:show]
+  
+  # Find the given member
+  before_filter :find_member,                 :only   => [:show, :edit, :update, :destroy]
   
   def index
     @members = Member.find_all_by_active(true, :order => "name asc", :include => :rank)
@@ -81,6 +89,19 @@ class MembersController < ApplicationController
   end
   
   private
+    def require_admin_conditionally
+      # Render regardless for admins
+      if current_user.is_admin?
+        return true
+      # Not an admin, no associated member; bounce to index
+      elsif current_user.member.nil? and not current_user.is_admin?
+        require_admin
+      # Not an admin, current member is not associated member; bounce to index
+      elsif current_user.member.id != params[:id] and not current_user.is_admin?
+        require_admin
+      end
+    end
+    
     def find_member
       @member = Member.find(params[:id])
     end
