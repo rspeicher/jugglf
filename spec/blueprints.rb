@@ -14,7 +14,6 @@ end
 Member.blueprint do
   name
   wow_class { nil }
-  user { nil }
 end
 Member.blueprint(:hunter) do
   wow_class { 'Hunter' }

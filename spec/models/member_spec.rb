@@ -177,9 +177,7 @@ end
 
 describe Member, "user association" do
   it "should have a user" do
-    @member = Member.make
-    @member.user = current_user
-    @member.reload
+    @member = Member.make(:user => current_user)
     @member.user_id.should == current_user.id
   end
 end

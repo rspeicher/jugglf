@@ -153,9 +153,14 @@ describe MembersController, "#edit" do
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
+      InvisionUser.should_receive(:find_all_juggernaut).and_return('users')
       find_member
       get_response
-    end    
+    end
+    
+    it "should assign @users" do
+      assigns[:users].should == 'users'
+    end
 
     it "should assign @member" do
       assigns[:member].should === @member
