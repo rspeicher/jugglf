@@ -175,6 +175,17 @@ end
 
 # -----------------------------------------------------------------------------
 
+describe Member, "user association" do
+  it "should have a user" do
+    @member = Member.make
+    @member.user = current_user
+    @member.reload
+    @member.user_id.should == current_user.id
+  end
+end
+
+# -----------------------------------------------------------------------------
+
 describe Member, "dependencies" do
   before(:each) do
     [Attendee, Loot, Punishment, Wishlist].each(&:destroy_all)

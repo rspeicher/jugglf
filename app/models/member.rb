@@ -39,11 +39,10 @@ class Member < ActiveRecord::Base
   
   has_many :wishlists, :include => :item, :order => 'priority', :dependent => :destroy
   
-  has_one :membership, :dependent => :destroy
-  has_one :user, :through => :membership
+  belongs_to :user, :class_name => "InvisionUser", :foreign_key => "user_id"
   
   # Attributes ----------------------------------------------------------------
-  attr_accessible :name, :active, :wow_class
+  attr_accessible :name, :active, :wow_class, :user_id
   
   # Validations ---------------------------------------------------------------
   validates_presence_of :name
