@@ -10,6 +10,16 @@ module ApplicationHelper
     link_to "<span>#{text}</span>", path
   end
   
+  def link_to_controller(mod)
+    controller_name = mod.to_s.downcase.pluralize
+    path = eval("#{controller_name}_path")
+    css = ( controller.controller_name == controller_name ) ? 'selected' : ''
+    
+    link_to controller_name.titlecase, path, :class => css
+  rescue NameError
+    return ''
+  end
+  
   def link_to_delete(options = {})
     return if options[:path].nil?
     

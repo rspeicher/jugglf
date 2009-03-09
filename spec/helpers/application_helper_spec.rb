@@ -15,6 +15,18 @@ describe ApplicationHelper do
     end
   end
   
+  describe "link_to_controller" do
+    it "should return a link given a valid model" do
+      stub!(:controller).and_return(self)
+      stub!(:controller_name).and_return('members')
+      link_to_controller(Member).should == "<a href=\"#{members_path}\" class=\"selected\">Members</a>"
+    end
+    
+    it "should not raise an exception given an invalid model" do
+      lambda { link_to_controller(Spec) }.should_not raise_error
+    end
+  end
+  
   describe "link_to_delete" do
     it "should return nil if no path is given" do
       link_to_delete().should be_nil
