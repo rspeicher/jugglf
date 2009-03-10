@@ -34,6 +34,16 @@ On a scale of 1-5, where 1 is a feature that *has* to be complete before we can 
 h2. Bugs
 
 * FIXME: A styled button without an image isn't the same height as one with an image
+* Wishlists > Naxx > Gluth has a nil.parent error
+* Items:
+ActionView::TemplateError (String can't be coerced into Fixnum) on line #13 of app/views/items/index.html.haml:
+10:     - @items.each do |item|
+11:       %tr{ :class => cycle('even', 'odd') }
+12:         %td= link_to_item_with_stats(item)
+13:         %td= h(item.loots.size)
+14:         %td= h(item.wishlists.size)
+15: %br
+16: = will_paginate @raids
 
 h2. Short term
 
