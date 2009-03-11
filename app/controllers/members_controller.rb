@@ -57,7 +57,7 @@ class MembersController < ApplicationController
   end
   
   def edit
-    @users = InvisionUser.find_all_juggernaut(@member.id)
+    @users = InvisionUser.juggernaut
     
     respond_to do |wants|
       wants.html

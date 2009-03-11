@@ -104,8 +104,5 @@ class InvisionUser < ActiveRecord::Base
   has_one :converge, :class_name => "InvisionUserConverge", :foreign_key => "converge_id"
   has_one :member, :foreign_key => "user_id"
   
-  def self.find_all_juggernaut(member_id)
-    InvisionUser.find(:all, :order => 'name',
-      :conditions => "mgroup IN(#{ADMIN_GROUP},#{MEMBER_GROUP},#{APPLICANT_GROUP})")
-  end
+  named_scope :juggernaut, :order => 'name', :conditions => ['mgroup IN (?,?,?)', ADMIN_GROUP, MEMBER_GROUP, APPLICANT_GROUP]
 end
