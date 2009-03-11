@@ -1,10 +1,17 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
+# -----------------------------------------------------------------------------
+# Index
+# -----------------------------------------------------------------------------
+
+# GET /index
 describe IndexController do
-
-  #Delete this example and add some real ones
-  it "should use IndexController" do
-    controller.should be_an_instance_of(IndexController)
+  def get_response
+    get :index
   end
-
+  
+  it "should render" do
+    get_response
+    response.should render_template(:index)
+  end
 end
