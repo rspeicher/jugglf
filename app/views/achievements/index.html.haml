@@ -1,6 +1,6 @@
 :javascript
   $(document).ready(function() {
-    $('#achievements *').tooltip();
+    $('#achievements img').tooltip({ showURL: false });
   });
 %table.list
   %thead
@@ -13,6 +13,6 @@
       %tr{ :class => cycle('even', 'odd') }
         %td= link_to_member(member)
         - @achievements.each do |ach|
-          %td.image{ :width => '16px', :title => "#{member.name} - #{ach.title}", :class => (member.achievements.include? ach) ? '' : 'negative' }
+          %td.image{ :width => '16px', :class => (member.achievements.include? ach) ? '' : 'negative' }
             - unless member.achievements.include? ach
-              = image_tag('error.png', :alt => 'Incomplete')
+              = image_tag('error.png', :alt => 'Incomplete', :title => "#{member.name} - #{ach.title}")
