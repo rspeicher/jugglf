@@ -5,6 +5,11 @@ describe LootTable do
     @table = LootTable.make
   end
   
+  it "should return its object's name for to_s" do
+    @table.object = Boss.make(:name => 'Boss')
+    @table.to_s.should == 'Boss'
+  end
+  
   describe "polymorphic associations" do
     before(:each) do
       @zone = Zone.make
