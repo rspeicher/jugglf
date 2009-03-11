@@ -9,7 +9,6 @@ On a scale of 1-5, where 1 is a feature that *has* to be complete before we can 
  2 Search (for autocompleting Item name fields, going directly to member pages without knowing their ID)
  2 Styled 404/exception pages
  
- 3 Achievements
  3 Edit Raid interface
  3 New/Edit Item interfaces (mostly to delete bogus items)
  3 New/Edit Loot interfaces
@@ -68,8 +67,5 @@ h3. Interface Overhaul
 
 h2. Long term
 
-* Achievements
 * Administration
 ** Logging ('Tsigo added a raid on 2009-01-01')
-* Exception handling so people can't tell it's Rails (?)
-** http://hoptoadapp.com/welcome
