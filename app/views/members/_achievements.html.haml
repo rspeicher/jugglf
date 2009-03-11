@@ -7,6 +7,6 @@
   %tbody
     - @achievements.each do |ach|
       %tr{ :class => cycle('even', 'odd') }
-        %td.image{ :width => '16px' }= achievement_icon(ach)
+        %td.icon= achievement_icon(ach)
         %td= h(ach.title)
         %td= member_completed_achievement(ach, @member)

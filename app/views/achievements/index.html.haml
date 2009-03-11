@@ -7,12 +7,11 @@
     %tr
       %th &nbsp;
       - @achievements.each do |ach|
-        %th.image{ :width => '16px' }= achievement_icon(ach)
+        %th.icon= achievement_icon(ach)
   %tbody#achievements
     - @members.each do |member|
       %tr{ :class => cycle('even', 'odd') }
         %td= link_to_member(member)
         - @achievements.each do |ach|
-          %td.image{ :width => '16px', :class => (member.achievements.include? ach) ? '' : 'negative' }
-            - unless member.achievements.include? ach
-              = image_tag('error.png', :alt => 'Incomplete', :title => "#{member.name} - #{ach.title}")
+          %td.icon= image_tag('error.png', :alt => 'Incomplete', :title => "#{member.name} - #{ach.title}") unless member.achievements.include? ach
+              
