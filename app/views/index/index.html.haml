@@ -1,1 +1,48 @@
-%h2 TODO:
+%h2= breadcrumb 'Averages'
+
+%table.list
+  %thead
+    %tr
+      %th &nbsp;
+      %th.right Guild Average
+      - Member::WOW_CLASSES.each do |wow_class|
+        %th.right= image_tag("classes/#{wow_class.downcase.gsub(/\s+/, '_')}.gif", :alt => wow_class)
+  %tbody
+    / Class Counts
+    %tr{ :class => cycle('even', 'odd') }
+      %td Active
+      %td &nbsp;
+      - @counts.each do |wow_class, count|
+        %td.number= count
+    / Attendance Averages
+    %tr{ :class => cycle('even', 'odd') }
+      %td 30-Day
+      %td.attendance= member_attendance_colored(@attendance_guild.avg_30.to_f)
+      - @attendance.each do |group|
+        %td.attendance= member_attendance_colored(group.avg_30.to_f)
+    %tr{ :class => cycle('even', 'odd') }
+      %td 90-Day
+      %td.attendance= member_attendance_colored(@attendance_guild.avg_90.to_f)
+      - @attendance.each do |group|
+        %td.attendance= member_attendance_colored(group.avg_90.to_f)
+    %tr{ :class => cycle('even', 'odd') }
+      %td Lifetime
+      %td.attendance= member_attendance_colored(@attendance_guild.avg_lifetime.to_f)
+      - @attendance.each do |group|
+        %td.attendance= member_attendance_colored(group.avg_lifetime.to_f)
+    / Loot Factor Averages
+    %tr{ :class => cycle('even', 'odd') }
+      %td Loot Factor
+      %td.attendance= number_with_precision(@lootfactor_guild.avg_lf.to_f, :precision => 2)
+      - @lootfactor.each do |group|
+        %td.attendance= number_with_precision(group.avg_lf.to_f, :precision => 2)
+    %tr{ :class => cycle('even', 'odd') }
+      %td Best In Slot
+      %td.attendance= number_with_precision(@lootfactor_guild.avg_bislf.to_f, :precision => 2)
+      - @lootfactor.each do |group|
+        %td.attendance= number_with_precision(group.avg_bislf.to_f, :precision => 2)
+    %tr{ :class => cycle('even', 'odd') }
+      %td Situational
+      %td.attendance= number_with_precision(@lootfactor_guild.avg_sitlf.to_f, :precision => 2)
+      - @lootfactor.each do |group|
+        %td.attendance= number_with_precision(group.avg_sitlf.to_f, :precision => 2)

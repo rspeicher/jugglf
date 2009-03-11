@@ -4,18 +4,15 @@ h2. Priorities
 
 On a scale of 1-5, where 1 is a feature that *has* to be complete before we can use the app in production
  
- 1 Users/Permissions, attaching Members to Users
- 
- 2 Page titles
  2 Last Loot
- 2 Styled 404/exception pages
- 2 Summary page; class counts, attendance averages, loot factor averages
+ 2 Page titles
  2 Search (for autocompleting Item name fields, going directly to member pages without knowing their ID)
+ 2 Styled 404/exception pages
  
  3 Achievements
  3 Edit Raid interface
- 3 New/Edit Loot interfaces
  3 New/Edit Item interfaces (mostly to delete bogus items)
+ 3 New/Edit Loot interfaces
  3 New/Edit rank interfaces
  3 Performance; caching
  3 Real-time raid and item logging (online JuggyAttendance replacement)
