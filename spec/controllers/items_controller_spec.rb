@@ -7,42 +7,58 @@ def find_item
 end
 
 # -----------------------------------------------------------------------------
+# Index
+# -----------------------------------------------------------------------------
+
+# GET /items
+describe ItemsController, "#index" do
+  def get_response
+    get :index
+  end
+  
+  it "should render" do
+    Item.should_receive(:paginate).and_return('Item')
+    get_response
+    response.should render_template(:index)
+  end
+end
+
+# -----------------------------------------------------------------------------
 # Show
 # -----------------------------------------------------------------------------
 
 # # GET /items/show/:id
-# describe ItemsController, "#show" do
-#   def get_response
-#     get :show, :id => '1'
-#   end
-#   
-#   describe "as_admin" do
-#     before(:each) do
-#       login({}, :is_admin? => true)
-#       find_item # Mocks Item.find once
-#       
-#       # Item receives a second call to :find to find all purchases by this item name
-#       @item.should_receive(:name).and_return('ItemName')
-#       Item.should_receive(:find).and_return('purchases')
-#       get_response
-#     end
-#     
-#     it "should assign @purchases" do
-#       assigns[:purchases].should == 'purchases'
-#     end
-#     
-#     it "should render" do
-#       response.should render_template(:show)
-#       response.should be_success
-#     end
-#   end
-#   
-#   describe "as user" do
-#     it "should not render" do
-#       login({}, :is_admin? => false)
-#       get_response
-#       response.should redirect_to('/todo')
-#       
-#     end
-#   end
-# end
+describe ItemsController, "#show" do
+  def get_response
+    get :show, :id => '1'
+  end
+  
+  before(:each) do
+    login({}, :is_admin? => true)
+    
+    # Set up @item before find_item so we get the stubs we want
+    @loot        = mock_model(Loot)
+    @wishlist    = mock_model(Wishlist)
+    @item        = mock_model(Item, :to_param => '1', :loots => @loot, 
+      :wishlists => @wishlist)
+    find_item
+    
+    @loot.should_receive(:find).and_return([@loot])
+    @wishlist.should_receive(:find).and_return([@wishlist])
+    
+    get_response
+  end
+  
+  it "should assign @loots" do
+    assigns[:loots].should == [@loot]
+  end
+  
+  it "should assign @wishlists" do
+    assigns[:wishlists].should == [@wishlist]
+  end
+  
+  it "should render" do
+    response.should render_template(:show)
+    response.should be_success
+  end
+end

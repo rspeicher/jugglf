@@ -3,6 +3,10 @@ class ItemsController < ApplicationController
   
   def index
     @items = Item.paginate(:page => params[:page], :per_page => 35, :order => 'name')
+    
+    respond_to do |wants|
+      wants.html
+    end
   end
   
   def show
