@@ -77,6 +77,10 @@ describe LegacyMember do
     end
   end
   
+  it "should return member_rank_id" do
+    @legacy.rank_id.should == @params[:member_rank_id]
+  end
+  
   it "should return member_lf" do
     @legacy.lf.should == @params[:member_lf]
   end
