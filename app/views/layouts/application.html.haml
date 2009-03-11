@@ -8,10 +8,12 @@
     = javascript_include_tag 'http://www.wowhead.com/widgets/power.js'
     
     = stylesheet_link_tag 'application', 'basic', 'forms', 'layout', 'tables', 'tabs'
-    
-    - if flash[:success]
-      :javascript
-        $(document).ready(hideSuccessFlash);
+
+    :javascript
+      $(document).ready(function() {
+        $('#main').removeClass('hidden');
+        hideSuccessFlash();
+      });
   %body
     #wrapper.clearfix
       #top-menu.clearfix
@@ -37,7 +39,9 @@
             %li= link_to_controller(Loot, :admin_only => true)
             %li= link_to_controller(Wishlist, :admin_only => true)
             %li= link_to_login_or_logout
-      #main
+      %noscript
+        .error This site makes extensive use of JavaScript. Please enable it to continue.
+      #main.hidden
         - if flash[:error]
           #flash.error= flash[:error]
         - if flash[:success]
