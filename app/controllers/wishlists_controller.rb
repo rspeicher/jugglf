@@ -13,8 +13,11 @@ class WishlistsController < ApplicationController
     
     if params[:boss]
       @items = LootTable.find(:all, :include => [:parent, {:object => [{:wishlists => :member}, :item_stat] }], :conditions => ['parent_id = ?', params[:boss]])
-      @boss  = @items[0].parent
-      @zone  = @boss.parent
+      
+      if @items.size > 0
+        @boss  = @items[0].parent
+        @zone  = @boss.parent
+      end
     else
       @items = []
     end

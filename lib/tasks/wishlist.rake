@@ -100,9 +100,8 @@ namespace :jugg do
       
       [ 'Trash', 'Anub\'Rekhan', 'Grand Widow Faerlina', 'Maexxna', 
         'Noth the Plaguebringer', 'Heigan the Unclean', 'Loatheb', 'Patchwerk',
-        'Grobbulus', 'Gluth', 'Thaddius', 'Instructor Razuvious', 
-        'Gothik the Harvester', 'Four Horsemen', 'Sapphiron', 
-        'Kel\'Thuzad' ].each do |boss_name|
+        'Grobbulus', 'Thaddius', 'Instructor Razuvious', 'Gothik the Harvester', 
+        'Four Horsemen', 'Sapphiron', 'Kel\'Thuzad' ].each do |boss_name|
           boss = boss(zone, boss_name)
           
           case boss_name

@@ -23,27 +23,54 @@ end
 
 # GET /wishlists
 describe WishlistsController, "#index" do
-  def get_response
-    get :index
+  def get_response(params = {})
+    get :index, params
   end
   
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
+      @zone = mock_model(Zone, :name => 'Zone')
+      LootTable.should_receive(:find_all_by_object_type).with('Zone', anything()).
+        and_return([@zone])
     end
     
-    it "should assign @root"
+    it "should assign @root" do
+      get_response
+      assigns[:root].should == [@zone]
+    end
     
-    it "should assign @zone"
+    it "should assign @zone" do
+      get_response
+      assigns[:zone].should == @zone
+      assigns[:boss].should == @zone
+    end
     
-    it "should render"
+    it "should assign empty @items" do
+      get_response
+      assigns[:items].should == []
+    end
     
-    describe ":boss parameter" do
-      it "should assign @items"
+    it "should render" do
+      get_response
+      response.should render_template(:index)
+    end
+    
+    describe "with boss parameter" do
+      before(:each) do
+        @boss = mock_model(Boss, :parent => 'ParentZone')
+        @item = mock_model(LootTable, :parent => @boss)
+        LootTable.should_receive(:find).and_return([@item])
+        get_response(:boss => '1')
+      end
       
-      it "should re-assign @zone"
+      it "should assign @items" do
+        assigns[:items].should == [@item]
+      end
       
-      it "should still assign @items if not present"
+      it "should re-assign @zone" do
+        assigns[:zone].should == 'ParentZone'
+      end
     end
   end
   
