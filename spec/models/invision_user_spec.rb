@@ -68,21 +68,20 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe InvisionUser do
-  # FIXME: Leaving InvisionUser's acts_as_authentic call enabled makes all of these tests fail with "no method defined" errors.
-  # before(:each) do
-  #   @user = InvisionUser.make
-  #   @user.converge = InvisionUserConverge.make
-  # end
-  # 
-  # it "should provide a method to get converge_pass_hash" do
-  #   @user.crypted_password.should == @user.converge.converge_pass_hash
-  # end
-  # 
-  # it "should provide a method to getconverge_pass_salt" do
-  #   @user.password_salt.should == @user.converge.converge_pass_salt
-  # end
-  # 
-  # it "should know if a user is an admin" do
-  #   @user.is_admin?.should be_false
-  # end
+  before(:each) do
+    @user = InvisionUser.make_unsaved # NOTE: AHHHHHHH. Thank you, Machinist.
+    @user.converge = InvisionUserConverge.make
+  end
+  
+  it "should provide a method to get converge_pass_hash" do
+    @user.crypted_password.should == @user.converge.converge_pass_hash
+  end
+  
+  it "should provide a method to getconverge_pass_salt" do
+    @user.password_salt.should == @user.converge.converge_pass_salt
+  end
+  
+  it "should know if a user is an admin" do
+    @user.is_admin?.should be_false
+  end
 end
