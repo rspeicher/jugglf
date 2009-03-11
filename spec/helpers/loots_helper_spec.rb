@@ -28,4 +28,19 @@ describe LootsHelper do
       loot_row_classes(loot).should == 'loot_bis loot_rot'
     end
   end
+  
+  describe "loot_factor_cutoff" do
+    before(:each) do
+      @future = 1.month.since(Date.today)
+      @past = 5.months.until(Date.today)
+    end
+    
+    it "should display relative date for future" do
+      loot_factor_cutoff(@future).should == '2 months from today'
+    end
+    
+    it "should display relative date for past" do
+      loot_factor_cutoff(@past).should == '3 months ago'
+    end
+  end
 end

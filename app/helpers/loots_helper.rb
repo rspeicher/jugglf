@@ -16,4 +16,17 @@ module LootsHelper
     s << ' loot_de'  if loot.member_id.nil?
     s.strip
   end
+  
+  def loot_factor_cutoff(date)
+    from = 52.days.since(date)
+    to   = Date.today
+    
+    distance = distance_of_time_in_words(from, to)
+    
+    if from < to
+      distance += ' ago'
+    else
+      distance += ' from today'
+    end
+  end
 end

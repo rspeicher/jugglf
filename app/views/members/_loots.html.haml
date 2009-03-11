@@ -9,6 +9,7 @@
     %tr
       %th Name
       %th Notes
+      %th Falls Off
       %th.date Raid
       %th.number Price
   %tbody#itemfilter
@@ -16,5 +17,6 @@
       %tr{ :class => cycle('even', 'odd') + ' ' + loot_row_classes(loot) }
         %td= link_to_item_with_stats(loot.item)
         %td= loot_tell_types(loot)
+        %td= loot_factor_cutoff(loot.purchased_on)
         %td.date= link_to h(loot.purchased_on), raid_path(loot.raid_id) unless loot.raid_id.nil?
         %td.number= number_with_precision(loot.adjusted_price, :precision => 2)
