@@ -7,7 +7,7 @@ every 1.day, :at => '4:00 am' do
   runner 'Member.update_all_cache'
 end
 
-ever 1.day, :at => '5:00 am' do
+every 1.day, :at => '5:00 am' do
   rake 'jugg:achievements'
 end
 
