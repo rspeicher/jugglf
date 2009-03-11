@@ -9,7 +9,9 @@
     - @punishments.each do |pun|
       %tr{ :class => cycle('even', 'odd') }
         %td.note= h(pun.reason)
-        %td.date= h(pun.expires.to_s(:db))
+        %td.date
+          = h(pun.expires.to_s(:db))
+          = " (#{loot_factor_cutoff(pun.expires)})"
         %td.number= number_with_precision(pun.value, :precision => 2)
         %td.image
           = link_to image_tag('edit.png'), edit_member_punishment_path(@member, pun) # TODO: Authorization!
