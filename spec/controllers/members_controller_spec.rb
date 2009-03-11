@@ -63,7 +63,7 @@ describe MembersController, "#show" do
   
   before(:each) do
     @mock = mock_model(Member, :id => '1',
-      :punishments => mock_model(Punishment, :find_all_active => 'punishments'),
+      :punishments => mock_model(Punishment, :active => 'punishments'),
       :loots => mock_model(Loot, :find => 'loots'),
       :wishlists => mock_model(Wishlist, :find => 'wishlists'))
   end
@@ -167,7 +167,7 @@ describe MembersController, "#edit" do
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
-      InvisionUser.should_receive(:find_all_juggernaut).and_return('users')
+      InvisionUser.should_receive(:juggernaut).and_return('users')
       find_member
       get_response
     end

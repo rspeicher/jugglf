@@ -30,7 +30,7 @@ describe Punishment do
   end
   
   it "should find all active punishments" do
-    Punishment.find_all_active.size.should == 1
+    Punishment.active.size.should == 1
   end
   
   describe "#expires_string" do

@@ -38,9 +38,7 @@ class Punishment < ActiveRecord::Base
   after_destroy :update_member_cache
   
   # Class Methods -------------------------------------------------------------
-  def self.find_all_active
-    self.find(:all, :conditions => ['expires > ?', Date.today])
-  end
+  named_scope :active, :conditions => ['expires > ?', Date.today]
   
   # Instance Methods ----------------------------------------------------------
   

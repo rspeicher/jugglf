@@ -32,7 +32,7 @@ class MembersController < ApplicationController
         when 'loots'
           @loots = @member.loots.find(:all, :include => [{:item => :item_stat}])
         when 'punishments'
-          @punishments = @member.punishments.find_all_active
+          @punishments = @member.punishments.active
         when 'wishlist'
           @wishlists = @member.wishlists
           @wishlist = Wishlist.new
