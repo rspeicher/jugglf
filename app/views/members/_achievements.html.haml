@@ -7,6 +7,6 @@
   %tbody
     - @achievements.each do |ach|
       %tr{ :class => cycle('even', 'odd') }
-        %td.image{ :width => '16px' }= link_to image_tag("http://static.wowhead.com/images/icons/small/#{ach.icon}.jpg"), "http://www.wowhead.com/?achievement=#{ach.armory_id}"
+        %td.image{ :width => '16px' }= achievement_icon(ach)
         %td= h(ach.title)
         %td= member_completed_achievement(ach, @member)

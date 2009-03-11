@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'members/:id/t.:tab', :controller => 'members', :action => 'show'
   map.resources :members, :has_many => [ :punishments, :wishlists ]
   
+  map.resources :achievements, :only => [:index]
   map.resources :wishlists, :only => [:index]
   
   map.resource :user_session

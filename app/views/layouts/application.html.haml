@@ -4,7 +4,7 @@
   %head
     %title= @page_title || "JuggRails"
     = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'
-    = javascript_include_tag 'jquery.ui', 'jquery.tablesorter.min', 'application'
+    = javascript_include_tag 'jquery.ui', 'jquery.tablesorter.min', 'jquery.tooltip', 'application'
     = javascript_include_tag 'http://www.wowhead.com/widgets/power.js'
     
     = stylesheet_link_tag 'application', 'basic', 'forms', 'layout', 'tables', 'tabs'
@@ -33,6 +33,7 @@
             %li= link_to 'Index', root_path, :class => ( current_page?(root_path) ) ? 'selected' : ''
             - unless current_user.nil? or current_user.member.nil?
               %li= link_to 'My Standing', member_path(current_user.member), :class => ( current_page?(member_path(current_user.member)) ) ? 'selected' : ''
+            %li= link_to_controller(Achievement)
             %li= link_to_controller(Member, :admin_only => true)
             %li= link_to_controller(Raid, :admin_only => true)
             %li= link_to_controller(Item)

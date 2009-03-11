@@ -1,0 +1,18 @@
+:javascript
+  $(document).ready(function() {
+    $('#achievements *').tooltip();
+  });
+%table.list
+  %thead
+    %tr
+      %th &nbsp;
+      - @achievements.each do |ach|
+        %th.image{ :width => '16px' }= achievement_icon(ach)
+  %tbody#achievements
+    - @members.each do |member|
+      %tr{ :class => cycle('even', 'odd') }
+        %td= link_to_member(member)
+        - @achievements.each do |ach|
+          %td.image{ :width => '16px', :title => "#{member.name} - #{ach.title}", :class => (member.achievements.include? ach) ? '' : 'negative' }
+            - unless member.achievements.include? ach
+              = image_tag('error.png', :alt => 'Incomplete')
