@@ -26,8 +26,12 @@ class Member < ActiveRecord::Base
   WOW_CLASSES = ['Death Knight'] + (%w(Druid Hunter Mage Paladin Priest Rogue Shaman Warlock Warrior))
   
   # Relationships -------------------------------------------------------------
+  has_many :achievements, :through => :completed_achievements
+
   has_many :attendees, :dependent => :destroy
   alias_method :attendance, :attendees
+  
+  has_many :completed_achievements, :dependent => :destroy
   
   has_many :loots, :order => "purchased_on DESC", :dependent => :nullify
   
@@ -36,10 +40,10 @@ class Member < ActiveRecord::Base
   has_many :raids, :through => :attendees, :order => "date DESC"
   
   belongs_to :rank, :class_name => "MemberRank", :foreign_key => "rank_id"
-  
+
+  belongs_to :user, :class_name => "InvisionUser", :foreign_key => "user_id"  
+
   has_many :wishlists, :include => :item, :order => 'priority', :dependent => :destroy
-  
-  belongs_to :user, :class_name => "InvisionUser", :foreign_key => "user_id"
   
   # Attributes ----------------------------------------------------------------
   attr_accessible :name, :active, :wow_class, :user_id
