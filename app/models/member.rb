@@ -55,6 +55,8 @@ class Member < ActiveRecord::Base
     Member.find_all_by_active(true).each { |m| m.force_recache! }
   end
   
+  named_scope :active, :conditions => ['active = ?', true]
+  
   # Instance Methods ----------------------------------------------------------
   def force_recache!
     update_attendance_cache()
