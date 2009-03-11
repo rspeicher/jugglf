@@ -28,6 +28,7 @@
       #header.clearfix
         #main-menu.clearfix
           %ul
+            %li= link_to 'Index', root_path, :class => ( current_page?(root_path) ) ? 'selected' : ''
             - unless current_user.nil? or current_user.member.nil?
               %li= link_to 'My Standing', member_path(current_user.member), :class => ( current_page?(member_path(current_user.member)) ) ? 'selected' : ''
             %li= link_to_controller(Member, :admin_only => true)
