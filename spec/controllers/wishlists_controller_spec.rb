@@ -133,8 +133,12 @@ end
 
 # GET /wishlists/:id
 describe WishlistsController, "#edit" do
-  def get_response
-    get :edit, :member_id => '1', :id => '1'
+  def get_response(type = :normal)
+    if type == :normal
+      get :edit, :member_id => '1', :id => '1'
+    elsif type == :xhr
+      xhr :get, :edit, :member_id => '1', :id => '1'
+    end
   end
   
   describe "as user" do
@@ -142,15 +146,27 @@ describe WishlistsController, "#edit" do
       login
       find_parent
       find_wishlist
-      get_response
     end
     
-    it "should assign @wishlist" do
-      assigns[:wishlist].should == @wishlist
+    describe "wanting HTML" do
+      before(:each) do
+        get_response
+      end
+    
+      it "should assign @wishlist" do
+        assigns[:wishlist].should == @wishlist
+      end
+    
+      it "should render" do
+        response.should render_template(:edit)
+      end
     end
     
-    it "should render" do
-      response.should render_template(:edit)
+    describe "wanting JS" do
+      it "should render" do
+        get_response(:xhr)
+        response.should render_template(:edit_inline)
+      end
     end
   end
   
