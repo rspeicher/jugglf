@@ -37,6 +37,8 @@ class MembersController < ApplicationController
           @wishlists = @member.wishlists
           @wishlist = Wishlist.new
         when 'achievements'
+          @achievements = Achievement.find(:all, :order => 'title')
+          @completed = @member.completed_achievements
         end
         
         if params[:tab]

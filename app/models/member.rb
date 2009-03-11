@@ -31,7 +31,7 @@ class Member < ActiveRecord::Base
   has_many :attendees, :dependent => :destroy
   alias_method :attendance, :attendees
   
-  has_many :completed_achievements, :dependent => :destroy
+  has_many :completed_achievements, :include => :achievement, :dependent => :destroy
   
   has_many :loots, :order => "purchased_on DESC", :dependent => :nullify
   

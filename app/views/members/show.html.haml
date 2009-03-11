@@ -6,7 +6,7 @@
     });
   });
   
-%h2= breadcrumb link_to('Members', members_path), link_to_member(@member)
+%h2= breadcrumb link_to('Members', members_path), link_to_armory(@member)
 #member_stats
   %h3
     = member_attendance_colored(@member.attendance_30)
@@ -29,11 +29,11 @@
     %span.small Situational
 #member_tabs
   %ul
-    %li= link_to_tab("Raids",       member_path(@member) + '/t.raids')
-    %li= link_to("Loots",           member_path(@member) + '/t.loots')
-    %li= link_to_tab("Punishments", member_path(@member) + '/t.punishments')
-    %li= link_to_tab("Wishlist",    member_path(@member) + '/t.wishlist')
-    %li= link_to_tab('Achievements', '#tachievements')
+    %li= link_to_tab("Raids",        member_path(@member) + '/t.raids')
+    %li= link_to("Loots",            member_path(@member) + '/t.loots')
+    %li= link_to_tab("Punishments",  member_path(@member) + '/t.punishments')
+    %li= link_to_tab("Wishlist",     member_path(@member) + '/t.wishlist')
+    %li= link_to_tab('Achievements', member_path(@member) + '/t.achievements')
   #t-raids
   #t-loots
   #t-punishments
