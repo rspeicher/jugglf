@@ -20,12 +20,12 @@ function zebraRows(tbody_id, delay) {
 
 function sortMemberTable() {
     $("table#members").tablesorter({
-        sortList: [[0,0]],
+        sortList: [[1,0]],
         widgets: ['zebra'],
         headers: {
-            5: { sorter: 'currency' }, // Loot Factor
-            6: { sorter: 'currency' }, // BiS
-            7: { sorter: 'currency' }  // Sit
+            6: { sorter: 'currency' }, // Loot Factor
+            7: { sorter: 'currency' }, // BiS
+            8: { sorter: 'currency' }  // Sit
         }
     });
 }

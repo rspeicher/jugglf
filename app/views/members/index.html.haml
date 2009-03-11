@@ -4,7 +4,8 @@
 %table#members.list.tablesorter
   %thead
     %tr
-      %th Name
+      %th &nbsp;
+      %th{ :style => 'min-width: 150px' } Name
       %th Rank
       %th.attendance 30-Day
       %th.attendance 90-Day
@@ -15,6 +16,7 @@
   %tbody
     - @members.each do |member|
       %tr{ :class => cycle('even', 'odd') }
+        %td.image{ :width => '16px'}= image_tag("classes/#{member.wow_class.downcase.gsub(/\s+/, '_')}.gif", :alt => member.wow_class)
         %td{ :class => ( member.user_id.nil? ) ? 'user-missing' : '' }= link_to_member(member)
         %td= member.rank.name unless member.rank.nil?
         %td.attendance= member_attendance_colored(member.attendance_30)
