@@ -43,9 +43,9 @@ describe Punishment do
       @punishment.expires_string.should == Date.tomorrow
     end
 
-    it "should return a date 56 days from now if expires is not yet set" do
+    it "should return a date 52 days from now if expires is not yet set" do
       @punishment.expires = nil
-      @punishment.expires_string.should == 56.days.from_now.to_date
+      @punishment.expires_string.should == 52.days.from_now.to_date
     end
   end
 end

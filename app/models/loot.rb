@@ -15,7 +15,7 @@ class Loot < ActiveRecord::Base
   
   # Instance Methods ----------------------------------------------------------
   def affects_loot_factor?
-    self.purchased_on >= 8.weeks.until(Date.today)
+    self.purchased_on >= 52.days.until(Date.today)
   end
   
   def adjusted_price
