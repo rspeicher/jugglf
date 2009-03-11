@@ -28,6 +28,12 @@ describe ItemStatsHelper do
     it "should include the item name" do
       link_to_wowhead(@item).should match(/MyItem/)
     end
+    
+    it "should use existing item_stat if available" do
+      @item.stub!(:item_stat).and_return(@stat)
+      ItemStat.should_not_receive(:lookup)
+      link_to_wowhead(@item).should match(/MyItem/)
+    end
   end
   
   describe "link_to_item_with_stats" do
@@ -50,6 +56,12 @@ describe ItemStatsHelper do
     end
     
     it "should include the item name" do
+      link_to_item_with_stats(@item).should match(/MyItem/)
+    end
+    
+    it "should use existing item_stat if available" do
+      @item.stub!(:item_stat).and_return(@stat)
+      ItemStat.should_not_receive(:lookup)
       link_to_item_with_stats(@item).should match(/MyItem/)
     end
   end
