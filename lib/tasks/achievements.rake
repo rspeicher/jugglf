@@ -30,5 +30,8 @@ namespace :jugg do
         end
       end
     end
+    
+    # Surely there's a better way to do this, but whatever.
+    FileUtils.rm_rf(Dir['tmp/cache/views/*/achievements*'])
   end
 end
