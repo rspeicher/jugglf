@@ -5,7 +5,7 @@ include ApplicationHelper
 describe ApplicationHelper do
   describe "breadcrumb" do
     it "should join with a specific string" do
-      breadcrumb('A', 'B', 'C').should match(/&raquo;/)
+      breadcrumb('A', 'B', 'C').should == 'A &raquo; B &raquo; C'
     end
   end
   
