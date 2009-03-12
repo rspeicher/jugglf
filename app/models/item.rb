@@ -22,4 +22,7 @@ class Item < ActiveRecord::Base
   has_many :loot_tables, :as => :object, :dependent => :destroy
   
   belongs_to :item_stat
+  
+  # Attributes ----------------------------------------------------------------
+  searchify :name
 end
