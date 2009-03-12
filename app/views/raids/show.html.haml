@@ -7,7 +7,7 @@
     $("#raid_tabs").tabs();
   });
   
-%h2= breadcrumb(link_to('Raids', raids_path), @raid.date)
+%h2= breadcrumb link_to('Raids', raids_path), h(@raid.date)
 #raid_tabs
   %ul
     %li= link_to_tab("Attendees (#{@raid.attendees.size})")

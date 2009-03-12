@@ -7,7 +7,7 @@ module ApplicationHelper
   def link_to_tab(text, path = nil)
     path = ( path.nil? ) ? "##{text.gsub(/^(\w+).*/, '\1').downcase}" : path
     
-    link_to "<span>#{text}</span>", path
+    link_to "<span>#{h(text)}</span>", path
   end
   
   def link_to_controller(mod, options = {})
@@ -17,7 +17,7 @@ module ApplicationHelper
     path = eval("#{controller_name}_path")
     css = ( controller.controller_name == controller_name ) ? 'selected' : ''
     
-    link_to controller_name.titlecase, path, :class => css
+    link_to h(controller_name.titlecase), path, :class => css
   rescue NameError
     return ''
   end
@@ -28,7 +28,7 @@ module ApplicationHelper
     options[:text]    ||= 'Delete'
     options[:confirm] ||= 'Are you sure?'
     
-    link_to(image_tag('delete.png') + options[:text], options[:path], 
+    link_to(image_tag('delete.png') + h(options[:text]), options[:path], 
       :confirm => options[:confirm], :method => :delete, :class => 'negative')
   end
   
@@ -42,7 +42,7 @@ module ApplicationHelper
     options[:confirm] ||= 'Are you sure?'
     options[:success] ||= "$('##{klass}-#{object.id}').fadeOut(250); zebraRows('#{klass}', 300)"
     
-    link_to_remote(image_tag('delete.png') + options[:text], 
+    link_to_remote(image_tag('delete.png') + h(options[:text]), 
       :url     => options[:url],
       :confirm => options[:confirm],
       :method  => :delete,

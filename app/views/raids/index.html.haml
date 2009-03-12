@@ -12,8 +12,8 @@
     - @raids.each do |raid|
       %tr{ :class => cycle('even', 'odd') }
         %td.date= link_to h(raid.date), raid_path(raid)
-        %td.number= raid.attendees.size
-        %td.number= raid.loots.size
+        %td.number= h(raid.attendees.size)
+        %td.number= h(raid.loots.size)
         %td.note= h(raid.note)
         %td.image
           / = link_to 'Edit', edit_raid_path(raid)

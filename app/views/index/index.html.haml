@@ -13,7 +13,7 @@
       %td.right Active
       %td &nbsp;
       - @counts.each do |wow_class, count|
-        %td.number= count
+        %td.number= h(count)
     / Attendance Averages
     %tr{ :class => cycle('even', 'odd') }
       %td.right 30-Day
