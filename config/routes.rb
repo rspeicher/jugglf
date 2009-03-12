@@ -8,6 +8,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :wishlists, :only => [:index]
   
   map.resource :user_session
+  
+  map.connect 'search/:context/:query', :controller => 'search', :action => 'index'
 
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
