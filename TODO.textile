@@ -6,7 +6,7 @@ On a scale of 1-5, where 1 is a feature that *has* to be complete before we can 
  
  2 Last Loot
  2 Page titles
- 2 Search (for autocompleting Item name fields, going directly to member pages without knowing their ID)
+ 2 Autocomplete Wishlist item name field
  2 Styled 404/exception pages
  
  3 Edit Raid interface
@@ -19,7 +19,6 @@ On a scale of 1-5, where 1 is a feature that *has* to be complete before we can 
  
  4 "Who's Online" list
  4 Comments, Admin notes
- 4 Searching
  
  5 Logging of actions
  5 Statistics - number of members, raids, items
@@ -51,10 +50,6 @@ h2. Medium term
 ** New/Edit Rank pages
 *** Hide overrides Member.active ?
 ** Quick ItemPrice interface?
-* Search controller
-** /search/:context/:query
-*** /search/members/Tsigo takes me to Tsigo's page
-*** /search/items/Warglaive gives me a list of items that match
 
 h3. Interface Overhaul
 
