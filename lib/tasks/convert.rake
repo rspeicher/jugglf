@@ -45,7 +45,7 @@ namespace :db do
           r = Raid.new
           r.date   = lr.date
           r.note   = lr.note
-          r.thread = lr.thread
+          # r.thread = lr.thread
 
           r.update_cache = false # Otherwise this would be sloooooooooow
           r.save(false)
