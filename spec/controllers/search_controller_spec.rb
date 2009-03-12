@@ -18,13 +18,25 @@ describe SearchController, "#index" do
   end
   
   describe "formats" do
-    it "should redirect to the path of the first result for HTML" do
-      @member = mock_model(Member, :to_param => '1')
-      Member.should_receive(:active).and_return(@member)
-      @member.should_receive(:search).and_return([@member, '1', '2'])
+    describe "HTML" do
+      before(:each) do
+        @member = mock_model(Member, :to_param => '1')
+        Member.should_receive(:active).and_return(@member)        
+      end
       
-      get_response(:normal)
-      response.should redirect_to(member_path(@member))
+      it "should redirect to the object path for a single result" do
+        @member.should_receive(:search).and_return([@member])
+
+        get_response(:normal)
+        response.should redirect_to(member_path(@member))
+      end
+      
+      it "should render the context's index template for multiple results" do
+        @member.should_receive(:search).and_return([@member, @member, @member])
+        
+        get_response
+        response.should render_template('members/index')
+      end
     end
     
     it "should return XML" do

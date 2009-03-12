@@ -2,6 +2,7 @@ class SearchController < ApplicationController
   def index
     @include_fields = [:id, :name, :wow_class, :created_at, :updated_at]
     
+    params[:query] = params[:q] unless params[:q].nil? # jquery.autocomplete uses 'q' and it can't be configured
     @query = params[:query]
     @field = :name
     split_query
@@ -11,13 +12,19 @@ class SearchController < ApplicationController
     
     case params[:context]
     when 'members'
-      @results = Member.active.search(@field => "%#{@query}%", :order => 'name')
+      @results = @members = Member.active.search(@field => "%#{@query}%", :order => 'name')
     when 'items'
-      @results = Item.search(:name => "%#{@query}%", :order => 'name')
+      @results = @items = Item.search(:name => "%#{@query}%", :order => 'name')
     end
     
     respond_to do |wants|
-      wants.html { redirect_to(polymorphic_path(@results[0])) }
+      wants.html do
+        if @results.size == 1
+          redirect_to(polymorphic_path(@results[0]))
+        else
+          render :template => "#{params[:context]}/index"
+        end
+      end
       wants.js { render :json => @results.to_json(:only => @include_fields) }
       wants.xml { render :xml => @results.to_xml(:only => @include_fields) }
     end
