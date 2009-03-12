@@ -14,7 +14,7 @@ class MembersController < ApplicationController
   before_filter :find_member,                 :only   => [:show, :edit, :update, :destroy]
   
   def index
-    @members = Member.find_all_by_active(true, :order => "name asc", :include => :rank)
+    @members = Member.active(:include => :rank)
 
     respond_to do |wants|
       wants.html
