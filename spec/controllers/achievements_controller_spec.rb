@@ -1,10 +1,22 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe AchievementsController do
+# -----------------------------------------------------------------------------
+# Index
+# -----------------------------------------------------------------------------
 
-  #Delete this example and add some real ones
-  it "should use AchievementsController" do
-    controller.should be_an_instance_of(AchievementsController)
+# GET /achievements
+describe AchievementsController, "#index" do
+  def get_response
+    get :index
   end
-
+  
+  before(:each) do
+    Achievement.should_receive(:find).and_return(['achievements'])
+    Member.should_receive(:active).and_return(mock_model(Member, :find => ['members']))
+  end
+  
+  it "should render" do
+    get_response
+    response.should render_template(:index)
+  end
 end
