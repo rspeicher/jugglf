@@ -5,7 +5,7 @@ class MembersController < ApplicationController
   before_filter :require_user,                :only   => [:show]
   
   # Doing anything else with members requires admin
-  before_filter :require_admin,               :except => [:show]
+  before_filter :require_admin,               :except => [:index, :show]
   
   # Viewing a member may or may not require admin, depending if the user is viewing their own member entry
   before_filter :require_admin_conditionally, :only   => [:show]

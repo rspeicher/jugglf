@@ -10,9 +10,10 @@
       %th.attendance 30-Day
       %th.attendance 90-Day
       %th.attendance Lifetime
-      %th.lootfactor Loot Factor
-      %th.lootfactor Best in Slot
-      %th.lootfactor Situational
+      - if admin?
+        %th.lootfactor Loot Factor
+        %th.lootfactor Best in Slot
+        %th.lootfactor Situational
   %tbody
     - @members.each do |member|
       %tr{ :class => cycle('even', 'odd') }
@@ -22,6 +23,7 @@
         %td.attendance= member_attendance_colored(member.attendance_30)
         %td.attendance= member_attendance_colored(member.attendance_90)
         %td.attendance= member_attendance_colored(member.attendance_lifetime)
-        %td.lootfactor= number_with_precision(member.lf, :precision => 2)
-        %td.lootfactor= number_with_precision(member.bislf, :precision => 2)
-        %td.lootfactor= number_with_precision(member.sitlf, :precision => 2)
+        - if admin?
+          %td.lootfactor= number_with_precision(member.lf, :precision => 2)
+          %td.lootfactor= number_with_precision(member.bislf, :precision => 2)
+          %td.lootfactor= number_with_precision(member.sitlf, :precision => 2)

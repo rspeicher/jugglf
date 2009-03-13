@@ -35,18 +35,18 @@ describe MembersController, "#index" do
   end
   
   describe "as user" do
-    it "should not render" do
+    it "should render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should render_template(:index)
     end
   end
   
   describe "as anonymous" do
-    it "should redirect to login" do
+    it "should render" do
       logout
       get_response
-      response.should redirect_to(new_user_session_url)
+      response.should render_template(:index)
     end
   end
 end
