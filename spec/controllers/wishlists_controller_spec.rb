@@ -1,13 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-# before_filter :find_parent
-# FIXME: When this mock didn't include :punishments, and when the Punishment
-# version didn't include :wishlists, a ton of these examples would fail when one
-# was run right after the other. I gave up trying to figure out why and just
-# included them both.
-def find_parent
-  @parent ||= @member ||= mock_model(Member, :to_param => '1', 
-    :punishments => mock_model(Punishment), :wishlists => mock_model(Wishlist))
+# before_filter :find_wishlist_parent
+def find_wishlist_parent
+  @parent ||= @member ||= mock_model(Member, :to_param => '1',
+    :wishlists => mock_model(Wishlist))
   Member.should_receive(:find).with('1').and_return(@parent)
 end
 
@@ -104,7 +100,7 @@ describe WishlistsController, "#new" do
   describe "as user" do
     before(:each) do
       login
-      find_parent
+      find_wishlist_parent
       @member.wishlists.should_receive(:new).and_return('wishlist')
       get_response
     end
@@ -144,7 +140,7 @@ describe WishlistsController, "#edit" do
   describe "as user" do
     before(:each) do
       login
-      find_parent
+      find_wishlist_parent
       find_wishlist
     end
     
@@ -196,7 +192,7 @@ describe WishlistsController, "#create" do
   describe "as user" do
     describe "when successful" do
       before(:each) do
-        find_parent
+        find_wishlist_parent
         login
         @wishlist = mock_model(Wishlist, :to_param => '1', :save => true)
         @params = Wishlist.plan(:member => @parent).stringify_keys!
@@ -232,7 +228,7 @@ describe WishlistsController, "#create" do
     describe "when unsuccessful" do
       before(:each) do
         login
-        find_parent
+        find_wishlist_parent
         @wishlist = mock_model(Wishlist, :save => false)
         @parent.wishlists.stub!(:new).and_return(@wishlist)
       end
@@ -278,7 +274,7 @@ describe WishlistsController, "#update" do
   
   describe "as user" do
     before(:each) do
-      find_parent
+      find_wishlist_parent
       find_wishlist
       @params = Wishlist.plan(:member => @parent).stringify_keys!
     end
@@ -351,7 +347,7 @@ describe WishlistsController, "#destroy" do
   describe "as user" do
     before(:each) do
       login
-      find_parent
+      find_wishlist_parent
       find_wishlist
       @wishlist.should_receive(:destroy).and_return(nil)
     end

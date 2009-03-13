@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 # before_filter :find_item, :only => [:show, :edit, :update, :destroy]
 def find_item
-  @item ||= mock_model(Item, :to_param => '1')
+  @item ||= mock_model(Item, :to_param => '1', :name => 'Name')
   Item.should_receive(:find).with('1').and_return(@item)
 end
 
@@ -40,7 +40,7 @@ describe ItemsController, "#show" do
     @loot        = mock_model(Loot)
     @wishlist    = mock_model(Wishlist)
     @item        = mock_model(Item, :to_param => '1', :loots => @loot, 
-      :wishlists => @wishlist)
+      :wishlists => @wishlist, :name => 'Name')
     find_item
     
     @loot.should_receive(:find).and_return([@loot])

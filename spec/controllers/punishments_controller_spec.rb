@@ -1,13 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-# before_filter :find_parent
-# FIXME: When this mock didn't include :punishments, and when the Punishment
-# version didn't include :wishlists, a ton of these examples would fail when one
-# was run right after the other. I gave up trying to figure out why and just
-# included them both.
-def find_parent
-  @parent ||= @member ||= mock_model(Member, :to_param => '1', 
-    :punishments => mock_model(Punishment), :wishlists => mock_model(Wishlist))
+# before_filter :find_punishment_parent
+def find_punishment_parent
+  @parent ||= @member ||= mock_model(Member, :to_param => '1', :name => 'Name',
+    :punishments => mock_model(Punishment))
   Member.should_receive(:find).with('1').and_return(@member)
 end
 
@@ -34,7 +30,7 @@ describe PunishmentsController, "#new" do
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
-      find_parent()
+      find_punishment_parent()
       @punishment = mock_model(Punishment)
       Punishment.should_receive(:new).and_return(@punishment)
       get_response
@@ -76,7 +72,7 @@ describe PunishmentsController, "#edit" do
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
-      find_parent
+      find_punishment_parent
       find_punishment
       get_response
     end
@@ -117,7 +113,7 @@ describe PunishmentsController, "#create" do
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
-      find_parent
+      find_punishment_parent
       @params = Punishment.plan(:member => @parent).stringify_keys!
       @punishment = mock_model(Punishment)
       @member.punishments.should_receive(:create).with(@params).and_return(@punishment)
@@ -177,7 +173,7 @@ describe PunishmentsController, "#update" do
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
-      find_parent
+      find_punishment_parent
       find_punishment
       @params = Punishment.plan(:member => @parent).stringify_keys!
     end
@@ -233,7 +229,7 @@ describe PunishmentsController, "#destroy" do
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
-      find_parent
+      find_punishment_parent
       find_punishment
       @punishment.should_receive(:destroy)
       get_response

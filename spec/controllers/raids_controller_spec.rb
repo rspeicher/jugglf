@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 # before_filter :find_raid, :only => [:show, :edit, :update, :destroy]
 def find_raid
-  @raid ||= mock_model(Raid, :to_param => '1')
+  @raid ||= mock_model(Raid, :to_param => '1', :date => Date.today)
   Raid.should_receive(:find).with('1').and_return(@raid)
 end
 
@@ -65,7 +65,7 @@ describe RaidsController, "#show" do
     before(:each) do
       login({}, :is_admin? => true)
       @raid = mock_model(Raid, :attendees => mock_model(Attendee), 
-        :loots => mock_model(Loot))
+        :loots => mock_model(Loot), :date => Date.today)
       Attendee.should_receive(:find).and_return('attendees')
       Loot.should_receive(:find).and_return('loots')
       
