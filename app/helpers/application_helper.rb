@@ -34,7 +34,7 @@ module ApplicationHelper
     return if options[:path].nil?
     
     options[:text]    ||= 'Delete'
-    options[:confirm] ||= 'Are you sure?'
+    options[:confirm] ||= 'Are you sure you want to delete this record?'
     
     link_to(image_tag('delete.png') + h(options[:text]), options[:path], 
       :confirm => options[:confirm], :method => :delete, :class => 'negative')
