@@ -116,8 +116,8 @@ describe UserSessionsController, "#destroy" do
       flash[:success].should == 'Logout successful.'
     end
     
-    it "should redirect to new_user_session_url" do
-      response.should redirect_to(new_user_session_url)
+    it "should redirect to root_url" do
+      response.should redirect_to(root_url)
     end
   end
   
