@@ -1,5 +1,13 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  def admin?
+    unless current_user.nil?
+      return current_user.is_admin?
+    else
+      return false
+    end
+  end
+  
   def breadcrumb(*args)
     args.join(' &raquo; ')
   end

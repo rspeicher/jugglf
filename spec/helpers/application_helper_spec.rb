@@ -3,6 +3,23 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 include ApplicationHelper
 
 describe ApplicationHelper do
+  describe "admin?" do
+    it "should return false if no user is logged in" do
+      @current_user = current_user(:nil? => true)
+      admin?.should be_false
+    end
+    
+    it "should return false if the current user is not an admin" do
+      @current_user = current_user(:is_admin? => false)
+      admin?.should be_false
+    end
+    
+    it "should return true if the current user is an admin" do
+      @current_user = current_user(:is_admin? => true)
+      admin?.should be_true
+    end
+  end
+  
   describe "breadcrumb" do
     it "should join with a specific string" do
       breadcrumb('A', 'B', 'C').should == 'A &raquo; B &raquo; C'
