@@ -63,9 +63,10 @@ describe MembersController, "#show" do
   
   before(:each) do
     @mock = mock_model(Member, :id => '1',
-      :punishments => mock_model(Punishment, :active => 'punishments'),
-      :loots => mock_model(Loot, :find => 'loots'),
-      :wishlists => mock_model(Wishlist, :find => 'wishlists'))
+      :punishments            => mock_model(Punishment, :active => 'punishments'),
+      :loots                  => mock_model(Loot, :find => 'loots'),
+      :wishlists              => mock_model(Wishlist, :find => 'wishlists'),
+      :completed_achievements => mock_model(CompletedAchievement, :find => 'achievements'))
   end
   
   describe "as admin" do
@@ -74,7 +75,7 @@ describe MembersController, "#show" do
       Member.should_receive(:find).with('1').and_return(@mock)
     end
     
-    %w(raids loots punishments wishlist).each do |tab|
+    %w(raids loots punishments wishlist achievements).each do |tab|
       it "should render #{tab} tab" do
         get_response(:tab => tab)
         assigns[tab.pluralize.intern].should_not be_nil
