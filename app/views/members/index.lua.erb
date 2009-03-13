@@ -9,9 +9,9 @@ JuggyCompare_Data = {
     ["RAIDS_90"] = "<%= member.attendance_90 * 100.0 %>%",
     ["RAIDS_LT"] = "<%= member.attendance_lifetime * 100.0 %>%",
     ["LASTLOOT"] = "TODO: Last Loot",
-    ["LF"]       = "<%= number_with_precision(member.lf, :precision => 2) %>",
-    ["SLF"]      = "<%= number_with_precision(member.sitlf, :precision => 2) %>",
-    ["BISLF"]    = "<%= number_with_precision(member.bislf, :precision => 2) %>",
+    ["LF"]       = "<%= loot_factor(member.lf) %>",
+    ["SLF"]      = "<%= loot_factor(member.sitlf) %>",
+    ["BISLF"]    = "<%= loot_factor(member.bislf) %>",
   },
   <%- end -%>
 }

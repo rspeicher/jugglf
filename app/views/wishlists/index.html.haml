@@ -18,7 +18,7 @@
                 %td.member{ :style => 'max-width: 150px' }= link_to_member(wishlist.member)
                 %td{ :style => 'width: 60%' }= h(wishlist.note)
                 %td{ :style => 'width: 100px'}= h(wishlist.priority.titlecase)
-                %td.lootfactor= number_with_precision(wishlist.member.lf_type(wishlist.priority), :precision => 2)
+                %td.lootfactor= loot_factor(wishlist.member.lf_type(wishlist.priority))
 #sidebar.clearfix
   %ul
     - @root.each do |zone|

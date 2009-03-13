@@ -33,16 +33,16 @@
     / Loot Factor Averages
     %tr{ :class => cycle('even', 'odd') }
       %td.right Loot Factor
-      %td.attendance= number_with_precision(@lootfactor_guild.avg_lf.to_f, :precision => 2)
+      %td.attendance= loot_factor(@lootfactor_guild.avg_lf.to_f)
       - @lootfactor.each do |group|
-        %td.attendance= number_with_precision(group.avg_lf.to_f, :precision => 2)
+        %td.attendance= loot_factor(group.avg_lf.to_f)
     %tr{ :class => cycle('even', 'odd') }
       %td.right Best In Slot
-      %td.attendance= number_with_precision(@lootfactor_guild.avg_bislf.to_f, :precision => 2)
+      %td.attendance= loot_factor(@lootfactor_guild.avg_bislf.to_f)
       - @lootfactor.each do |group|
-        %td.attendance= number_with_precision(group.avg_bislf.to_f, :precision => 2)
+        %td.attendance= loot_factor(group.avg_bislf.to_f)
     %tr{ :class => cycle('even', 'odd') }
       %td.right Situational
-      %td.attendance= number_with_precision(@lootfactor_guild.avg_sitlf.to_f, :precision => 2)
+      %td.attendance= loot_factor(@lootfactor_guild.avg_sitlf.to_f)
       - @lootfactor.each do |group|
-        %td.attendance= number_with_precision(group.avg_sitlf.to_f, :precision => 2)
+        %td.attendance= loot_factor(group.avg_sitlf.to_f)

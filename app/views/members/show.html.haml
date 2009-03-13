@@ -19,13 +19,13 @@
     %span.small Lifetime
   %br
   %h3
-    = number_with_precision(@member.lf, :precision => 2)
+    = loot_factor(@member.lf)
     %span.small Loot Factor
   %h3
-    = number_with_precision(@member.bislf, :precision => 2)
+    = loot_factor(@member.bislf)
     %span.small Best in Slot
   %h3
-    = number_with_precision(@member.sitlf, :precision => 2)
+    = loot_factor(@member.sitlf)
     %span.small Situational
 #member_tabs
   %ul

@@ -94,4 +94,10 @@ describe MembersHelper do
       lambda { raid_attendance_colored(nil) }.should_not raise_error
     end
   end
+  
+  describe "loot_factor" do
+    it "should format a value" do
+      loot_factor(1).should == '1.00'
+    end
+  end
 end

@@ -12,7 +12,7 @@
         %td.date
           = h(pun.expires.to_s(:db))
           = " (#{loot_factor_cutoff(pun.expires)})"
-        %td.number= number_with_precision(pun.value, :precision => 2)
+        %td.number= loot_factor(pun.value)
         %td.image
           = link_to image_tag('edit.png'), edit_member_punishment_path(@member, pun) # TODO: Authorization!
           = link_to_delete(:path => member_punishment_path(@member, pun), :text => '') # TODO: Authorization!

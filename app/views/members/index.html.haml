@@ -24,6 +24,6 @@
         %td.attendance= member_attendance_colored(member.attendance_90)
         %td.attendance= member_attendance_colored(member.attendance_lifetime)
         - if admin?
-          %td.lootfactor= number_with_precision(member.lf, :precision => 2)
-          %td.lootfactor= number_with_precision(member.bislf, :precision => 2)
-          %td.lootfactor= number_with_precision(member.sitlf, :precision => 2)
+          %td.lootfactor= loot_factor(member.lf)
+          %td.lootfactor= loot_factor(member.bislf)
+          %td.lootfactor= loot_factor(member.sitlf)

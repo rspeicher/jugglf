@@ -74,4 +74,8 @@ module MembersHelper
 
     "<span class=\"#{class_str}\">#{value}%</span>"
   end
+  
+  def loot_factor(value)
+    number_with_precision(value, :precision => 2)
+  end
 end
