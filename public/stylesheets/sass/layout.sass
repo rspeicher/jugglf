@@ -53,22 +53,22 @@
     :padding 0
     :white-space nowrap
     a
-      :color #FFFFFF
+      :color = !top_menu_color
       :display block
       :font-weight bold
       :margin 0 5px 0 0
       :padding 4px 10px
       :text-decoration none
       &:hover
-        :background #FFFFFF none repeat scroll 0 0
+        :background = !wrapper_background
         :color #000000
       &.selected, &.selected:hover
-        :background #FFFFFF none repeat scroll 0 0
+        :background = !wrapper_background
         :color #555555
         
 // Main (Content) -------------------------------------------------------------
 #main
-  :background-color #FFFFFF
+  :background-color = !wrapper_background
   :padding 15px
   :max-width 90%
   #sidebar
@@ -90,7 +90,10 @@
   
 #member_stats
   :text-align center
-  :border-bottom 1px solid #BBBBBB
+  :border-bottom
+    :width 1px
+    :style solid
+    :color = !h2_border_color
   :padding-bottom 10px
   :margin-bottom 10px
   h3

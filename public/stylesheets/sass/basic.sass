@@ -26,8 +26,11 @@ h1
 
 h2
   :font-size 1.8em
-  :border-bottom 1px solid #BBBBBB
-  :color #444444
+  :border-bottom 
+    :width 1px
+    :style solid
+    :color = !h2_border_color
+  :color = !h2_color
   :margin 0 0 10px 0
   :padding 2px 10px 1px 0
   a
