@@ -1,8 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 
 describe "/members/index.html.haml" do
-  include MembersHelper
-  
   before(:each) do
     @member = Member.make
     
@@ -11,7 +9,7 @@ describe "/members/index.html.haml" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      @controller.template.stub!(:admin?).and_return(true)
       render '/members/index.html.haml'
     end
     
@@ -23,7 +21,7 @@ describe "/members/index.html.haml" do
   
   describe "as user" do
     before(:each) do
-      login({}, :is_admin? => false)
+      @controller.template.stub!(:admin?).and_return(false)
       render '/members/index.html.haml'
     end
     
