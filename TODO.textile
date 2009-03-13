@@ -6,7 +6,6 @@ On a scale of 1-5, where 1 is a feature that *has* to be complete before we can 
  
  2 Last Loot
  2 Page titles
- 2 Autocomplete Wishlist item name field
  2 Styled 404/exception pages
  
  3 Edit Raid interface
