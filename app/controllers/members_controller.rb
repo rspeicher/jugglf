@@ -92,7 +92,7 @@ class MembersController < ApplicationController
     respond_to do |wants|
       if @member.update_attributes(params[:member])
         flash[:success] = 'Member was successfully updated.'
-        wants.html { redirect_to(@member) }
+        wants.html { redirect_to(members_path) }
       else
         wants.html { render :action => "edit" }
       end

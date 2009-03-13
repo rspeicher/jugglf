@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 # before_filter :find_member, :only => [:show, :edit, :update, :destroy]
 def find_member
-  @member ||= mock_model(Member, :to_param => '1')
+  @member ||= mock_model(Member, :to_param => '1', :name => 'Name')
   Member.should_receive(:find).with('1').and_return(@member)
 end
 
@@ -62,7 +62,7 @@ describe MembersController, "#show" do
   end
   
   before(:each) do
-    @mock = mock_model(Member, :id => '1',
+    @mock = mock_model(Member, :id => '1', :name => 'Name',
       :punishments            => mock_model(Punishment, :active => 'punishments'),
       :loots                  => mock_model(Loot, :find => 'loots'),
       :wishlists              => mock_model(Wishlist, :find => 'wishlists'),
@@ -98,7 +98,7 @@ describe MembersController, "#show" do
     end
     
     it "should render when the current member belongs to the current user" do
-      login({}, { :member => mock_model(Member, :id => '1'), :is_admin? => false })
+      login({}, { :member => mock_model(Member, :id => '1', :name => 'Name'), :is_admin? => false })
       Member.should_receive(:find).with('1').and_return(@mock)
       get_response
       response.should be_success
@@ -303,8 +303,8 @@ describe MembersController, "#update" do
         flash[:success].should == 'Member was successfully updated.'
       end
       
-      it "should redirect back to the member" do
-        response.should redirect_to(member_url('1'))
+      it "should redirect back to the member index" do
+        response.should redirect_to(members_url)
       end
     end
     
