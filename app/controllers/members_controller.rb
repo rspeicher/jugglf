@@ -14,6 +14,8 @@ class MembersController < ApplicationController
   before_filter :find_member,                 :only   => [:show, :edit, :update, :destroy]
   
   def index
+    page_title('Members')
+    
     @members = Member.active(:include => :rank)
 
     respond_to do |wants|
@@ -23,6 +25,8 @@ class MembersController < ApplicationController
   end
   
   def show
+    page_title(@member.name)
+    
     respond_to do |wants|
       wants.html do
         case params[:tab]
@@ -51,6 +55,8 @@ class MembersController < ApplicationController
   end
   
   def new
+    page_title('New Member')
+    
     @member = Member.new
     
     respond_to do |wants|
@@ -59,6 +65,8 @@ class MembersController < ApplicationController
   end
   
   def edit
+    page_title(@member.name, 'Edit')
+    
     @users = InvisionUser.juggernaut
     @ranks = MemberRank.find(:all, :order => 'name')
     

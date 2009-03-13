@@ -4,6 +4,8 @@ class LootsController < ApplicationController
   layout @@layout
   
   def index
+    page_title('Loot History')
+    
     @loots = Loot.paginate(:page => params[:page], :per_page => 40, 
       :include => [{:item => :item_stat}, :raid, :member], 
       :order => "purchased_on DESC")

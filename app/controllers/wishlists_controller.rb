@@ -8,6 +8,8 @@ class WishlistsController < ApplicationController
   before_filter :find_wishlist, :only => [:edit, :update, :destroy]
   
   def index
+    page_title('Global Wishlist View')
+    
     @root = LootTable.find_all_by_object_type('Zone', :include => :children)
     @zone = @boss = @root[0] # Set @zone so we know which bosses to not hide by default in the drop-down menu
     

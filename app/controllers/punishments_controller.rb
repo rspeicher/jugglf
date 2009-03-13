@@ -7,6 +7,7 @@ class PunishmentsController < ApplicationController
   before_filter :find_punishment, :only => [:edit, :update, :destroy]
   
   def new
+    page_title(@parent.name, 'Add Punishment')
     @punishment = Punishment.new
     
     respond_to do |wants|

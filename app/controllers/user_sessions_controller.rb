@@ -3,6 +3,8 @@ class UserSessionsController < ApplicationController
   before_filter :require_user,    :only => :destroy
     
   def new
+    page_title('Login')
+    
     @user_session = UserSession.new
   end
   

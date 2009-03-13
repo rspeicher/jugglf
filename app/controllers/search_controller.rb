@@ -19,6 +19,7 @@ class SearchController < ApplicationController
     
     respond_to do |wants|
       wants.html do
+        page_title(params[:context].titlecase, 'Search Results')
         if @results.size == 1
           redirect_to(polymorphic_path(@results[0]))
         else

@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   include HoptoadNotifier::Catcher
   
   filter_parameter_logging :password, :password_confirmation
-  helper_method :current_user_session, :current_user
+  helper_method :current_user_session, :current_user, :page_title
   
   helper :all # include all helpers, all the time
 
@@ -68,5 +68,10 @@ class ApplicationController < ActionController::Base
     def redirect_back_or_default(default)
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
+    end
+    
+    def page_title(*args)
+      args.push('Juggernaut Loot Factor')
+      @page_title = args.join(' :: ')
     end
 end

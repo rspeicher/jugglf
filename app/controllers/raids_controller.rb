@@ -6,6 +6,8 @@ class RaidsController < ApplicationController
   before_filter :find_raid, :only => [:show, :edit, :update, :destroy]
   
   def index
+    page_title('Raid History')
+    
     @raids = Raid.paginate(:page => params[:page], :per_page => 40, :order => "date DESC")
     
     respond_to do |wants|
@@ -14,6 +16,8 @@ class RaidsController < ApplicationController
   end
   
   def show
+    page_title("Raid on #{@raid.date}")
+    
     logger.debug 'Finding attendees'
     @attendees = Attendee.find(:all, :conditions => ['raid_id = ?', @raid.id],
       :include => :member)
@@ -27,6 +31,8 @@ class RaidsController < ApplicationController
   end
   
   def new
+    page_title('New Raid')
+    
     @raid = Raid.new
 
     respond_to do |wants|
