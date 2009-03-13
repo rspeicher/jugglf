@@ -7,7 +7,8 @@
       %th.number Attendees
       %th.number Loots
       %th.note Note
-      %th.image Actions
+      - if admin?
+        %th.image Actions
   %tbody
     - @raids.each do |raid|
       %tr{ :class => cycle('even', 'odd') }
@@ -15,9 +16,9 @@
         %td.number= h(raid.attendees.size)
         %td.number= h(raid.loots.size)
         %td.note= h(raid.note)
-        %td.image
-          / = link_to 'Edit', edit_raid_path(raid)
-          / |
-          = link_to image_tag('delete.png'), raid_path(raid), :confirm => 'Are you sure?', :method => :delete # TODO: Authorize!
+        - if admin?
+          %td.image
+            = link_to image_tag('edit.png'), edit_raid_path(raid)
+            = link_to image_tag('delete.png'), raid_path(raid), :confirm => 'Are you sure?', :method => :delete
 %br
 = will_paginate @raids
