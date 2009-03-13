@@ -18,7 +18,7 @@ function zebraRows(tbody_id, delay) {
     }, delay);
 }
 
-function sortMemberTable() {
+function membersTableSort() {
     $("table#members").tablesorter({
         sortList: [[1,0]],
         widgets: ['zebra'],
@@ -26,6 +26,37 @@ function sortMemberTable() {
             6: { sorter: 'currency' }, // Loot Factor
             7: { sorter: 'currency' }, // BiS
             8: { sorter: 'currency' }  // Sit
+        }
+    });
+}
+
+function membersContextMenu() {
+    $('tbody tr td.member').contextMenu({ menu: 'contextMenu' }, function(action, el, pos) {
+        if (action == 'edit')
+        {
+            location.href = el.children('a').attr('href') + '/edit'
+        }
+        else if (action == 'delete')
+        {
+            if (confirm('Are you sure you want to delete this record?'))
+            {
+                var f = document.createElement('form');
+                f.style.display = 'none';
+                el.parent().append(f);
+                f.method = 'POST';
+                f.action = el.children('a').attr('href');
+                var m = document.createElement('input');
+                m.setAttribute('type', 'hidden');
+                m.setAttribute('name', '_method');
+                m.setAttribute('value', 'delete');
+                f.appendChild(m);
+                var s = document.createElement('input');
+                s.setAttribute('type', 'hidden');
+                s.setAttribute('name', 'authenticity_token');
+                s.setAttribute('value', 'TODO: Authenticity token');
+                f.appendChild(s);f.submit(); 
+            };
+            return false;
         }
     });
 }
