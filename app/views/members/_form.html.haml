@@ -4,6 +4,9 @@
 = form.label :wow_class, 'Class'
 = form.select :wow_class, Member::WOW_CLASSES
 
+= form.label :rank_id, 'Rank'
+= form.select :rank_id, @ranks.collect { |r| [r.name, r.id] }, :include_blank => true
+
 = form.label :user_id, 'User'
 = form.select :user_id, @users.collect { |u| [u.name, u.id] }, :include_blank => true
 

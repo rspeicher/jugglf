@@ -48,7 +48,7 @@ class Member < ActiveRecord::Base
   has_many :wishlists, :include => :item, :order => 'priority', :dependent => :destroy
   
   # Attributes ----------------------------------------------------------------
-  attr_accessible :name, :active, :wow_class, :user_id
+  attr_accessible :name, :active, :wow_class, :user_id, :rank_id
   searchify :name, :wow_class
   
   # Validations ---------------------------------------------------------------

@@ -60,6 +60,7 @@ class MembersController < ApplicationController
   
   def edit
     @users = InvisionUser.juggernaut
+    @ranks = MemberRank.find(:all, :order => 'name')
     
     respond_to do |wants|
       wants.html
