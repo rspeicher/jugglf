@@ -4,7 +4,8 @@
       %th.note Reason
       %th.date Expires
       %th.number Value
-      %th.image Actions
+      - if admin?
+        %th.image Actions
   %tbody
     - @punishments.each do |pun|
       %tr{ :class => cycle('even', 'odd') }
@@ -13,8 +14,10 @@
           = h(pun.expires.to_s(:db))
           = " (#{loot_factor_cutoff(pun.expires)})"
         %td.number= loot_factor(pun.value)
-        %td.image
-          = link_to image_tag('edit.png'), edit_member_punishment_path(@member, pun) # TODO: Authorization!
-          = link_to_delete(:path => member_punishment_path(@member, pun), :text => '') # TODO: Authorization!
-.buttons
-  = link_to image_tag('add.png') + 'Add Punishment', new_member_punishment_path(@member) # TODO: Authorize!
+        - if admin?
+          %td.image
+            = link_to image_tag('edit.png'), edit_member_punishment_path(@member, pun)
+            = link_to_delete(:path => member_punishment_path(@member, pun), :text => '')
+- if admin?
+  .buttons
+    = link_to image_tag('add.png') + 'Add Punishment', new_member_punishment_path(@member)
