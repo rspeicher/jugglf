@@ -25,7 +25,7 @@
     - @members.each do |member|
       %tr{ :class => cycle('even', 'odd') }
         %td.icon= image_tag("classes/#{member.wow_class.downcase.gsub(/\s+/, '_')}.gif", :alt => member.wow_class) unless member.wow_class.nil?
-        %td.member{ :id => "member-#{member.id}", :class => ( member.user_id.nil? ) ? 'user-missing' : '' }= link_to_member(member)
+        %td.member{ :class => ( member.user_id.nil? ) ? 'user-missing' : '' }= link_to_member(member)
         %td= h(member.rank.name) unless member.rank.nil?
         %td.attendance= member_attendance_colored(member.attendance_30)
         %td.attendance= member_attendance_colored(member.attendance_90)
