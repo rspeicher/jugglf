@@ -35,7 +35,7 @@
             - unless current_user.nil? or current_user.member.nil?
               %li= link_to 'My Standing', member_path(current_user.member), :class => ( current_page?(member_path(current_user.member)) ) ? 'selected' : ''
             %li= link_to_controller(Achievement)
-            %li= link_to_controller(Member, :admin_only => true)
+            %li= link_to_controller(Member)
             %li= link_to_controller(Raid, :admin_only => true)
             %li= link_to_controller(Item)
             %li= link_to_controller(Loot, :admin_only => true)
