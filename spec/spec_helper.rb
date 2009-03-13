@@ -17,6 +17,8 @@ Spec::Runner.configure do |config|
   
   config.before(:each) { Sham.reset }
   
+  config.mock_with :rspec
+  
   # == Fixtures
   #
   # You can declare fixtures for each example_group like this:
@@ -35,15 +37,6 @@ Spec::Runner.configure do |config|
   # You can also declare which fixtures to use (for example fixtures for test/fixtures):
   #
   # config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
-  #
-  # == Mock Framework
-  #
-  # RSpec uses it's own mocking framework by default. If you prefer to
-  # use mocha, flexmock or RR, uncomment the appropriate line:
-  #
-  # config.mock_with :mocha
-  # config.mock_with :flexmock
-  # config.mock_with :rr
   #
   # == Notes
   # 

@@ -8,4 +8,5 @@ require 'ruby-debug'
 require 'juggy'
 
 Spec::Runner.configure do |config|
+  config.mock_with :rspec
 end
