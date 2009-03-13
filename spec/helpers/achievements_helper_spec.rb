@@ -1,11 +1,19 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe AchievementsHelper do
-  
-  #Delete this example and add some real ones or delete this file
-  it "should be included in the object returned by #helper" do
-    included_modules = (class << helper; self; end).send :included_modules
-    included_modules.should include(AchievementsHelper)
-  end
+include AchievementsHelper
 
+describe AchievementsHelper do
+  describe "achievement_icon" do
+    before(:each) do
+      @ach = Achievement.make
+    end
+    
+    it "should link to a Wowhead achievement" do
+      achievement_icon(@ach).should match(/wowhead\.com\/\?achievement=12345/)
+    end
+    
+    it "should contain an icon" do
+      achievement_icon(@ach).should match(/static\.wowhead\.com\/images\/icons\/small\/icon\.jpg/)
+    end
+  end
 end

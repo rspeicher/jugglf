@@ -5,6 +5,12 @@ Sham.define do
   price(:unique => false) { 1.0 }
 end
 
+Achievement.blueprint do
+  title { Faker::Lorem.words(5) }
+  icon { 'icon' }
+  armory_id { 12345 }
+end
+
 MemberRank.blueprint do
   name
   prefix { '<b>' }
