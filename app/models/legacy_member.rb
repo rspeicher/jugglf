@@ -1,13 +1,13 @@
 # == Schema Information
-# Schema version: 20090225185730
+# Schema version: 20090312150316
 #
 # Table name: mgdkp_members
 #
-#  member_id         :integer(4)      not null, primary key
+#  member_id         :integer(2)      not null, primary key
 #  member_name       :string(30)      default(""), not null
-#  member_earned     :float           default(0.0), not null
-#  member_spent      :float           default(0.0), not null
-#  member_adjustment :float           default(0.0), not null
+#  member_earned     :float(11)       default(0.0), not null
+#  member_spent      :float(11)       default(0.0), not null
+#  member_adjustment :float(11)       default(0.0), not null
 #  member_status     :boolean(1)      default(TRUE), not null
 #  member_firstraid  :integer(4)      default(0), not null
 #  member_lastraid   :integer(4)      default(0), not null
@@ -16,12 +16,12 @@
 #  member_race_id    :integer(2)      default(0), not null
 #  member_class_id   :integer(2)      default(0), not null
 #  member_rank_id    :integer(2)      default(0), not null
-#  member_lf         :float           default(0.0), not null
-#  member_slf        :float           default(0.0), not null
-#  member_bis        :float           default(0.0), not null
-#  member_30         :float           default(0.0), not null
-#  member_90         :float           default(0.0), not null
-#  member_lt         :float           default(0.0), not null
+#  member_lf         :float(11)       default(0.0), not null
+#  member_slf        :float(11)       default(0.0), not null
+#  member_bis        :float(11)       default(0.0), not null
+#  member_30         :float(3)        default(0.0), not null
+#  member_90         :float(3)        default(0.0), not null
+#  member_lt         :float(3)        default(0.0), not null
 #
 
 class LegacyMember < ActiveRecord::Base

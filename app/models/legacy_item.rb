@@ -1,13 +1,13 @@
 # == Schema Information
-# Schema version: 20090225185730
+# Schema version: 20090312150316
 #
 # Table name: mgdkp_items
 #
-#  item_id          :integer(4)      not null, primary key
+#  item_id          :integer(3)      not null, primary key
 #  item_name        :string(255)
 #  item_buyer       :string(50)
 #  raid_id          :integer(4)      default(0), not null
-#  item_value       :float           default(0.0), not null
+#  item_value       :float(11)       default(0.0), not null
 #  item_date        :integer(4)      default(0), not null
 #  item_added_by    :string(30)      default(""), not null
 #  item_updated_by  :string(30)

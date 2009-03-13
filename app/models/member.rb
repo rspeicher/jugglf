@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090225185730
+# Schema version: 20090312150316
 #
 # Table name: members
 #
@@ -8,7 +8,6 @@
 #  active              :boolean(1)      default(TRUE)
 #  first_raid          :date
 #  last_raid           :date
-#  raids_count         :integer(4)      default(0)
 #  wow_class           :string(255)
 #  lf                  :float           default(0.0)
 #  sitlf               :float           default(0.0)
@@ -16,10 +15,13 @@
 #  attendance_30       :float           default(0.0)
 #  attendance_90       :float           default(0.0)
 #  attendance_lifetime :float           default(0.0)
+#  raids_count         :integer(4)      default(0)
+#  loots_count         :integer(4)      default(0)
 #  created_at          :datetime
 #  updated_at          :datetime
 #  rank_id             :integer(4)
-#  items_count         :integer(4)      default(0)
+#  wishlists_count     :integer(4)      default(0)
+#  user_id             :integer(4)
 #
 
 class Member < ActiveRecord::Base

@@ -1,16 +1,15 @@
 # == Schema Information
-# Schema version: 20090225185730
+# Schema version: 20090312150316
 #
 # Table name: raids
 #
 #  id              :integer(4)      not null, primary key
 #  date            :date
 #  note            :string(255)
-#  thread          :integer(4)
+#  attendees_count :integer(4)      default(0)
+#  loots_count     :integer(4)      default(0)
 #  created_at      :datetime
 #  updated_at      :datetime
-#  attendees_count :integer(4)      default(0)
-#  items_count     :integer(4)      default(0)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

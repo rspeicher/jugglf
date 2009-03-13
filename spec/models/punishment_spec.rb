@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090225185730
+# Schema version: 20090312150316
 #
 # Table name: punishments
 #

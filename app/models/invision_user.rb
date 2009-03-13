@@ -1,9 +1,9 @@
 # == Schema Information
-# Schema version: 20090225185730
+# Schema version: 20090312150316
 #
 # Table name: ibf_members
 #
-#  id                      :integer(4)      not null, primary key
+#  id                      :integer(3)      default(0), not null, primary key
 #  name                    :string(255)     default(""), not null
 #  mgroup                  :integer(2)      default(0), not null
 #  email                   :string(150)     default(""), not null
@@ -55,7 +55,7 @@
 #  members_auto_dst        :boolean(1)      default(TRUE), not null
 #  members_display_name    :string(255)     default(""), not null
 #  members_created_remote  :boolean(1)      not null
-#  members_cache           :text(2147483647
+#  members_cache           :text(16777215)
 #  members_disable_pm      :integer(4)      default(0), not null
 #  members_profile_views   :integer(4)      default(0), not null
 #  members_l_display_name  :string(255)     default("0"), not null
@@ -63,6 +63,12 @@
 #  failed_logins           :text
 #  failed_login_count      :integer(2)      default(0), not null
 #  has_gallery             :integer(4)      default(0)
+#  persistence_token       :string(255)     default(""), not null
+#  last_request_at         :datetime
+#  current_login_at        :datetime
+#  last_login_at           :datetime
+#  current_login_ip        :string(255)
+#  last_login_ip           :string(255)
 #
 
 class InvisionUser < ActiveRecord::Base

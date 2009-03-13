@@ -1,11 +1,11 @@
 # == Schema Information
-# Schema version: 20090225185730
+# Schema version: 20090312150316
 #
 # Table name: mgdkp_raid_attendees
 #
 #  raid_id         :integer(3)      default(0), not null
 #  member_name     :string(30)      default(""), not null
-#  raid_attendance :float           default(1.0), not null
+#  raid_attendance :float(3)        default(1.0), not null
 #
 
 class LegacyAttendee < ActiveRecord::Base

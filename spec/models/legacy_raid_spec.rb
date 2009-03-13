@@ -1,13 +1,13 @@
 # == Schema Information
-# Schema version: 20090225185730
+# Schema version: 20090312150316
 #
 # Table name: mgdkp_raids
 #
-#  raid_id         :integer(4)      not null, primary key
+#  raid_id         :integer(3)      not null, primary key
 #  raid_name       :string(255)
 #  raid_date       :integer(4)      default(0), not null
 #  raid_note       :string(255)
-#  raid_value      :float           default(0.0), not null
+#  raid_value      :float(11)       default(0.0), not null
 #  raid_added_by   :string(30)      default(""), not null
 #  raid_updated_by :string(30)
 #  raid_thread     :integer(4)      default(0), not null
