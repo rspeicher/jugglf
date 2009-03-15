@@ -42,5 +42,9 @@ describe LootsHelper do
     it "should display relative date for past" do
       loot_factor_cutoff(@past).should == '3 months ago'
     end
+    
+    it "should display 'Today' for current date" do
+      loot_factor_cutoff(52.days.until(Date.today)).should == 'Today'
+    end
   end
 end
