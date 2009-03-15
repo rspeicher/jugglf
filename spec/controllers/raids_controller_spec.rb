@@ -150,6 +150,48 @@ describe RaidsController, "#new" do
 end
 
 # -----------------------------------------------------------------------------
+# Edit
+# -----------------------------------------------------------------------------
+
+describe RaidsController, "#edit" do
+  def get_response
+    get :edit, :id => '1'
+  end
+  
+  describe "as admin" do
+    before(:each) do
+      login({}, :is_admin? => true)
+      find_raid
+      get_response
+    end
+    
+    it "should assign @raid" do
+      assigns[:raid].should === @raid
+    end
+    
+    it "should render" do
+      response.should render_template(:edit)
+    end
+  end
+  
+  describe "as user" do
+    it "should not render" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to('/todo')
+    end
+  end
+  
+  describe "as anonymous" do
+    it "should redirect to login" do
+      logout
+      get_response
+      response.should redirect_to(new_user_session_url)
+    end
+  end
+end
+
+# -----------------------------------------------------------------------------
 # Create
 # -----------------------------------------------------------------------------
 
@@ -192,6 +234,72 @@ describe RaidsController, "#create" do
   
   describe "as user" do
     it "should do nothing" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to('/todo')
+    end
+  end
+  
+  describe "as anonymous" do
+    it "should redirect to login" do
+      logout
+      get_response
+      response.should redirect_to(new_user_session_url)
+    end
+  end
+end
+
+# -----------------------------------------------------------------------------
+# Update
+# -----------------------------------------------------------------------------
+
+# PUT /raids/:id
+describe RaidsController, "#update" do
+  def get_response
+    put :update, :id => '1', :raid => @params
+  end
+  
+  describe "as admin" do
+    before(:each) do
+      login({}, :is_admin? => true)
+      find_raid
+      @params = Raid.plan.stringify_keys!
+    end
+    
+    describe "when successful" do
+      before(:each) do
+        @raid.should_receive(:update_attributes).with(@params).and_return(true)
+        get_response
+      end
+      
+      it "should assign @raid from params" do
+        assigns[:raid].should === @raid
+      end
+      
+      it "should update attributes from params" do
+        # All handled by before
+      end
+      
+      it "should add a flash success message" do
+        flash[:success].should == 'Raid was successfully updated.'
+      end
+      
+      it "should redirect back to the raid" do
+        response.should redirect_to(raid_url('1'))
+      end
+    end
+    
+    describe "when unsuccessful" do
+      it "should render the edit form" do
+        @raid.should_receive(:update_attributes).and_return(false)
+        get_response
+        response.should render_template(:edit)
+      end
+    end
+  end
+  
+  describe "as user" do
+    it "should not render" do
       login({}, :is_admin? => false)
       get_response
       response.should redirect_to('/todo')

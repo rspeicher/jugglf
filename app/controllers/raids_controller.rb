@@ -40,6 +40,12 @@ class RaidsController < ApplicationController
     end
   end
   
+  def edit
+    respond_to do |wants|
+      wants.html
+    end
+  end
+  
   def create
     @raid = Raid.new(params[:raid])
   
@@ -49,6 +55,17 @@ class RaidsController < ApplicationController
         wants.html { redirect_to(@raid) }
       else
         wants.html { render :action => "new" }
+      end
+    end
+  end
+  
+  def update
+    respond_to do |wants|
+      if @raid.update_attributes(params[:raid])
+        flash[:success] = 'Raid was successfully updated.'
+        wants.html { redirect_to(raid_path(@raid)) }
+      else
+        wants.html { render :action => 'edit' }
       end
     end
   end
