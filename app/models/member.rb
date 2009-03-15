@@ -49,7 +49,7 @@ class Member < ActiveRecord::Base
   
   # Attributes ----------------------------------------------------------------
   attr_accessible :name, :active, :wow_class, :user_id, :rank_id
-  searchify :name, :wow_class
+  # searchify :name, :wow_class
   
   # Validations ---------------------------------------------------------------
   validates_presence_of :name
