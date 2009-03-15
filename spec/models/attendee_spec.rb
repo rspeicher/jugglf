@@ -11,8 +11,9 @@
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-describe InvisionUserConverge do
+describe Attendee do
   before(:each) do
+    Member.destroy_all
     @attendee = Attendee.make
   end
   
