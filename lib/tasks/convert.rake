@@ -1,3 +1,14 @@
+def member_rank(legacy)
+  rank = MemberRank.find_or_initialize_by_name(legacy.rank_name)
+  if rank.new_record?
+    rank.prefix = legacy.rank_prefix
+    rank.suffix = legacy.rank_suffix
+    rank.save!
+  end
+
+  rank.id
+end
+
 namespace :db do
   namespace :legacy do
     desc "Convert the legacy Juggernaut EQdkp tables to the new format"
@@ -23,17 +34,6 @@ namespace :db do
           m.rank_id             = member_rank(LegacyMemberRank.find_by_rank_id(lm.rank_id))
 
           m.save!
-        end
-        
-        def member_rank(legacy)
-          rank = MemberRank.find_or_initialize_by_name(legacy.rank_name)
-          if rank.new_record?
-            rank.prefix = legacy.rank_prefix
-            rank.suffix = legacy.rank_suffix
-            rank.save!
-          end
-
-          rank.id
         end
       end
       
