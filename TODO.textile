@@ -24,9 +24,6 @@ On a scale of 1-5, where 1 is a feature that *has* to be complete before we can 
 
 h2. Bugs
 
-* FIXME: Items falling off loot factor today say 'less than 1 minute from today'
-* FIXME: loot_factor_cutoff needs to make the first character capitalized ('About one month from today')
-* FIXME: Achievements page isn't setting page_title properly.
 * FIXME: A styled button without an image isn't the same height as one with an image
 * Items:
 ActionView::TemplateError (String can't be coerced into Fixnum) on line #13 of app/views/items/index.html.haml:

@@ -25,8 +25,12 @@ module LootsHelper
     
     if from < to
       distance += ' ago'
-    else
+    elsif from > to
       distance += ' from today'
+    else
+      distance = 'Today'
     end
+    
+    distance.capitalize
   end
 end
