@@ -161,7 +161,7 @@ describe LootsController, "#create" do
       end
       
       it "should redirect to the new loot" do
-        response.should redirect_to(loot_url(@loot))
+        response.should redirect_to(loots_url)
       end
     end
     
@@ -227,7 +227,7 @@ describe LootsController, "#update" do
       end
       
       it "should redirect back to the loot" do
-        response.should redirect_to(loot_url('1'))
+        response.should redirect_to(loots_url)
       end
     end
     

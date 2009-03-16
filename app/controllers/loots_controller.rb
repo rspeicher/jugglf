@@ -20,6 +20,8 @@ class LootsController < ApplicationController
     page_title('New Loot')
     
     @loot = Loot.new
+    @raids = Raid.find(:all, :order => 'date DESC', 
+      :conditions => ['date >= ?', 52.days.until(Date.today)])
     
     respond_to do |wants|
       wants.html
@@ -28,6 +30,9 @@ class LootsController < ApplicationController
   
   def edit
     page_title(@loot.item.name, 'Edit Loot')
+    
+    @raids = Raid.find(:all, :order => 'date DESC', 
+      :conditions => ['date >= ?', 52.days.until(Date.today)])
     
     respond_to do |wants|
       wants.html
@@ -40,7 +45,7 @@ class LootsController < ApplicationController
     respond_to do |wants|
       if @loot.save
         flash[:success] = 'Loot was successfully created.'
-        wants.html { redirect_to(@loot) }
+        wants.html { redirect_to(loots_path) }
       else
         wants.html { render :action => "new" }
       end
@@ -51,7 +56,7 @@ class LootsController < ApplicationController
     respond_to do |wants|
       if @loot.update_attributes(params[:loot])
         flash[:success] = 'Loot was successfully updated.'
-        wants.html { redirect_to(loot_path(@loot)) }
+        wants.html { redirect_to(loots_path) }
       else
         wants.html { render :action => 'edit' }
       end
