@@ -1,3 +1,14 @@
+:javascript
+  $(document).ready(function() {
+    $('#loot_item_name').autocomplete('/search/items.ac', {
+      minChars: 2,
+      autoFill: true
+    });
+    $('#loot_member_name').autocomplete('/search/members.ac', {
+      minChars: 1,
+      autoFill: true
+    });
+  });
 %h2= breadcrumb link_to('Loot', loots_path), 'Edit'
 %fieldset
   - form_for @loot do |f|
