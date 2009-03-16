@@ -2,6 +2,7 @@ class IndexController < ApplicationController
   layout @@layout
   
   def index
+    @count_guild = Member.active.count
     @counts = Member.active.count(:group => 'wow_class', :conditions => 'wow_class IS NOT NULL')
     
     @attendance_guild = Member.active.find(:first, :conditions => 'wow_class IS NOT NULL',
