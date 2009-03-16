@@ -96,7 +96,7 @@ describe Member, "attendance caching" do
     Attendee.make(:member => @member, :raid => @raids[:yesterday])
     Attendee.make(:member => @member, :raid => @raids[:two_months_ago])
     
-    @member.force_recache!
+    @member.force_recache
   end
   
   it "should set first_raid" do
@@ -137,7 +137,7 @@ describe Member, "loot factor caching" do
     @member.loots.make(:raid => raid, :price => 4.56, :best_in_slot => true)
     @member.loots.make(:raid => raid, :price => 7.89, :situational => true)
     
-    @member.force_recache!
+    @member.force_recache
   end
   
   it "should update normal loot factor" do
@@ -162,14 +162,14 @@ describe Member, "punishments" do
   
   it "should affect loot factor" do
     @member.punishments.make
-    @member.force_recache!
+    @member.force_recache
     
     @member.lf.should > 0.0
   end
   
   it "should not include expired punishments" do
     @member.punishments.make(:expired)
-    @member.force_recache!
+    @member.force_recache
     
     @member.lf.should == 0.0
   end
