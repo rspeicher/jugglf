@@ -44,6 +44,7 @@ class Loot < ActiveRecord::Base
   end
   
   # Validations ---------------------------------------------------------------
+  validates_numericality_of :price, :allow_nil => true
   
   # Callbacks -----------------------------------------------------------------
   before_save [:set_purchased_on]
