@@ -103,7 +103,6 @@ describe LootsController, "#edit" do
       login({}, :is_admin? => true)
       @item = mock_model(Item, :name => 'Name')
       find_loot
-      @loot.should_receive(:item).and_return(@item)
       get_response
     end
     
