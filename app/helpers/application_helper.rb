@@ -66,15 +66,6 @@ module ApplicationHelper
     "</div>"
   end
   
-  def admin_button_group(object)
-    html  = ''
-    html += "<div class='actions'>"
-    html += link_to image_tag('edit.png'), edit_polymorphic_path(object)
-    html += ' '
-    html += link_to_delete(:path => polymorphic_path(object), :text => '')
-    html += '</div>'
-  end
-  
   def link_to_login_or_logout
     if current_user
       link_to("Logout", user_session_path, :method => :delete, 
