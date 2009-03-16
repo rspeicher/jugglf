@@ -24,6 +24,21 @@ class Loot < ActiveRecord::Base
   belongs_to :item, :counter_cache => true
   
   # Attributes ----------------------------------------------------------------
+  attr_accessible :item_name, :price, :purchased_on, :best_in_slot, :situational, :rot, :member_name, :raid_id
+  
+  def item_name
+    self.item.name unless self.item_id.nil?
+  end
+  def item_name=(value)
+    self.item = Item.find_by_name(value)
+  end
+  
+  def member_name
+    self.member.name unless self.member_id.nil?
+  end
+  def member_name=(value)
+    self.member = Member.find_by_name(value)
+  end
   
   # Validations ---------------------------------------------------------------
   

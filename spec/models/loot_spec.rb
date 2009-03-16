@@ -20,7 +20,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Loot do
   before(:each) do
-    @loot = Loot.make
+    @loot = Loot.make(:item => Item.make(:name => 'Item'), 
+      :member => Member.make(:name => 'Member'))
   end
   
   it "should be valid" do
@@ -39,5 +40,39 @@ describe Loot do
     
     @loot.purchased_on = 1.year.ago
     @loot.affects_loot_factor?.should be_false
+  end
+  
+  describe "#item_name" do
+    it "should return item's name if not nil" do
+      @loot.item_name.should == 'Item'
+    end
+    
+    it "should return nil if item_id is nil" do
+      @loot.item_id = nil
+      @loot.item_name.should be_nil
+    end
+    
+    it "should assign item from string" do
+      item = Item.make(:name => 'New Item')
+      @loot.item_name = 'New Item'
+      @loot.item.should == item
+    end
+  end
+  
+  describe "#member_name" do
+    it "should return member's name if not nil" do
+      @loot.member_name.should == 'Member'
+    end
+    
+    it "should return nil if member_id is nil" do
+      @loot.member_id = nil
+      @loot.member_name.should be_nil
+    end
+    
+    it "should assign member from string" do
+      member = Member.make(:name => 'NewMember')
+      @loot.member_name = 'NewMember'
+      @loot.member.should == member
+    end
   end
 end
