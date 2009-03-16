@@ -10,4 +10,5 @@
     
     .buttons
       = styled_button(:type => 'submit', :image => 'tick.png', :text => 'Save')
-      = styled_button(:type => 'reset')
+      = styled_button(:type => 'reset', :image => 'form_delete.png')
+      = link_to_delete(:path => member_path(@member))

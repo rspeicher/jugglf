@@ -99,6 +99,16 @@ class MembersController < ApplicationController
     end
   end
   
+  def destroy
+    @member.destroy
+    
+    flash[:success] = "Member was successfully deleted."
+    
+    respond_to do |wants|
+      wants.html { redirect_to(members_path) }
+    end
+  end
+  
   private
     def require_admin_conditionally
       # Render regardless for admins

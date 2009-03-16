@@ -338,5 +338,42 @@ end
 # Destroy
 # -----------------------------------------------------------------------------
 
-describe MembersController, "DELETE /members/:id" do
+# DELETE /members/:id
+describe MembersController, "#destroy" do
+  def get_response
+    delete :destroy, :id => '1'
+  end
+  
+  describe "as admin" do
+    before(:each) do
+      login({}, :is_admin? => true)
+      find_member
+      @member.should_receive(:destroy).and_return(nil)
+      get_response
+    end
+    
+    it "should add a flash success message" do
+      flash[:success].should == 'Member was successfully deleted.'
+    end
+    
+    it "should redirect to #index" do
+      response.should redirect_to(members_url)
+    end
+  end
+  
+  describe "as user" do
+    it "should do nothing" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to('/todo')
+    end
+  end
+  
+  describe "as anonymous" do
+    it "should redirect to login" do
+      logout
+      get_response
+      response.should redirect_to(new_user_session_url)
+    end
+  end
 end
