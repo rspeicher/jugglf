@@ -21,6 +21,7 @@ On a scale of 1-5, where 1 is a feature that *has* to be complete before we can 
 
 h2. Bugs
 
+* FIXME: Members#show Raid pagination is broken.
 * FIXME: A styled button without an image isn't the same height as one with an image
 * Items:
 ActionView::TemplateError (String can't be coerced into Fixnum) on line #13 of app/views/items/index.html.haml:
