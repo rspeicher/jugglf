@@ -150,7 +150,7 @@ describe Raid, "dependencies" do
   end
 end
 
-describe Raid, "#attendance_output" do
+describe Raid, "#parse_attendees" do
   before(:all) do
     @output = <<-END
     Sebudai,1.00,233
@@ -208,7 +208,7 @@ describe Raid, "#attendance_output" do
   end
 end
 
-describe Raid, "#loot_output" do
+describe Raid, "#parse_drops" do
   before(:each) do
     [Loot, Raid].each(&:destroy_all)
     @raid = Raid.make
