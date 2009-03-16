@@ -13,7 +13,7 @@
       %td.right Active
       %td.right= h(@count_guild)
       - @counts.each do |wow_class, count|
-        %td.number= link_to h(count), "/search/members/class:#{wow_class}"
+        %td.number= link_to h(count), url_for(:controller => 'search', :context => 'members', :query => "class:#{wow_class}")
     / Attendance Averages
     %tr{ :class => cycle('even', 'odd') }
       %td.right 30-Day
