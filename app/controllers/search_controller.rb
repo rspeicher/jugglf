@@ -19,7 +19,7 @@ class SearchController < ApplicationController
     
     case params[:context]
     when 'members'
-      @results = @members = Member.search(@field => "%#{@query}%", :order => 'name', 
+      @results = @members = Member.active.search(@field => "%#{@query}%", :order => 'name', 
         :per_page => 999)
     when 'items'
       @results = @items = Item.search(:name => "%#{@query}%", :order => 'name',
