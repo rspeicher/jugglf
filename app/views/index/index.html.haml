@@ -4,16 +4,16 @@
   %thead
     %tr
       %th &nbsp;
-      %th.right Guild Average
+      %th.right Guild
       - Member::WOW_CLASSES.each do |wow_class|
         %th.right= image_tag("classes/#{wow_class.downcase.gsub(/\s+/, '_')}.gif", :alt => wow_class)
   %tbody
     / Class Counts
     %tr{ :class => cycle('even', 'odd') }
       %td.right Active
-      %td &nbsp;
+      %td.right= h(@count_guild)
       - @counts.each do |wow_class, count|
-        %td.number= link_to h(count), "/search/members/class:#{wow_class}"
+        %td.number= link_to h(count), url_for(:controller => 'search', :context => 'members', :query => "class:#{wow_class}")
     / Attendance Averages
     %tr{ :class => cycle('even', 'odd') }
       %td.right 30-Day

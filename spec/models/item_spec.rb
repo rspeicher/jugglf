@@ -20,4 +20,47 @@ describe Item do
   it "should be valid" do
     @item.should be_valid
   end
+  
+  describe "#safely_rename" do
+    before(:each) do
+      @wrong = Item.make(:name => 'Wrong')
+      @right = Item.make(:name => 'Right')
+    end
+    
+    it "should delete the old item" do
+      Item.safely_rename(:from => @wrong, :to => @right.id)
+      Item.find_by_name('Wrong').should be_nil
+    end
+  
+    it "should update its loot children" do
+      1.times { @wrong.loots.make }
+      5.times { @right.loots.make }
+      
+      Item.safely_rename(:from => @wrong, :to => @right.id)
+      
+      @right.reload
+      @right.loots.count.should == 6
+      @right.loots_count.should == 6
+    end
+    
+    it "should update its wishlist children" do
+      4.times { @wrong.wishlists.make }
+      2.times { @right.wishlists.make }
+      
+      Item.safely_rename(:from => @wrong, :to => @right.id)
+      
+      @right.reload
+      @right.wishlists.count.should == 6
+      @right.wishlists_count.should == 6
+    end
+    
+    it "should update its loot table children" do
+      1.times { @wrong.loot_tables.make }
+      
+      Item.safely_rename(:from => @wrong, :to => @right.id)
+      
+      @right.reload
+      @right.loot_tables.count.should == 1
+    end
+  end
 end

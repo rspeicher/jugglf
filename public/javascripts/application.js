@@ -18,6 +18,17 @@ function zebraRows(tbody_id, delay) {
     }, delay);
 }
 
+// Hide the flash success message after giving the user 4s to read it
+// Don't hide the error messages; we probably want to give them more time to be
+// processed by the user
+function hideSuccessFlash() {
+    setTimeout(function() {
+        $('div#flash.success').fadeOut('slow')
+    }, 4000);
+}
+
+/* Members ------------------------------------------------------------------ */
+
 function membersTableSort() {
     $("table#members").tablesorter({
         sortList: [[1,0]],
@@ -61,6 +72,19 @@ function membersContextMenu() {
     });
 }
 
+/* Raids -------------------------------------------------------------------- */
+
+function raidsContextMenu() {
+    $('tbody tr td.date').contextMenu({ menu: 'contextMenu' }, function(action, el, pos) {
+        if (action == 'edit')
+        {
+            location.href = el.children('a').attr('href') + '/edit'
+        }
+    });
+}
+
+/* Wishlists ---------------------------------------------------------------- */
+
 function sortWishlistTable() {
     $("table#wishlists").tablesorter({
         sortList: [[1,0], [0,0]],
@@ -73,14 +97,97 @@ function sortWishlistTable() {
     zebraRows('wishlist');
 }
 
-// Hide the flash success message after giving the user 4s to read it
-// Don't hide the error messages; we probably want to give them more time to be
-// processed by the user
-function hideSuccessFlash() {
-    setTimeout(function() {
-        $('div#flash.success').fadeOut('slow')
-    }, 4000);
+/**
+ * Sorts each child table of the individual wishlist item entries.
+ */
+function wishlistSortTables() {
+    $('table.tablesorter').each(function() {
+        // tablesorter had some errors with trying to sort a table that only had one row
+        if ($(this).children('tbody').children('tr').length > 1) {
+            $(this).tablesorter({
+                sortList: [[2,0], [3,0]],
+                widgets: ['zebra'],
+                headers: {
+                    2: {
+                        sorter: 'wishlist'
+                    },
+                    3: {
+                        sorter: 'currency'
+                    }
+                }
+            });
+        }
+        $(this).children('thead').hide();
+    });
 }
+
+/**
+ * Filter and style the global wishlist view menu.
+ *
+ * Hides the boss list for zones we're not currently viewing. Removes the link
+ * and bolds the text of the currently viewed boss.
+ *
+ * zone     integer     ID of the current Zone row
+ * boss     integer     ID of the current Boss row
+ */
+function wishlistMenu(zone, boss) {
+    $('#sidebar ul ul').each(function() {
+        if ($(this).attr('id') != 'zone-' + zone) {
+            $(this).hide();
+        }
+        else {
+            $(this).children().each(function() {
+                if ($(this).attr('id') == 'boss-' + boss) {
+                    $(this).html('<b>' + $(this).text() + '</b>');
+                }
+            });
+        }
+    });
+}
+
+/**
+ * Hides item groups for which there are no displayed Wishlist rows. These can
+ * be caused by an item having no wishlist entries at all, or an item having no
+ * wishlist entries by an active member. Either way, we don't want them displayed.
+ */
+function wishlistHideUnwanted() {
+    $('div.item-group').each(function() {
+        if ($(this).children('table.list').children('tbody').children('tr').length == 0) {
+            $(this).hide();
+        }
+    });
+}
+
+/**
+ * Fetches a remote Wishlist edit form to be displayed inline.
+ *
+ * Gets a form for the specified path, then shows the form div, focuses the
+ * first input field, and hides the div that toggles a 'New Wishlist Entry'
+ * form to avoid confusion by having two sets of buttons.
+ *
+ * path     string      Path to fetch (e.g., /members/1/wishlists/2/edit)
+ */
+function wishlistEditForm(path) {
+    $.get(path, function(value) {
+        $('#wishlist-edit').html(value);
+        $('#wishlist-edit').show();
+        $('#wishlist_item_name').focus();
+        $('#wishlist-toggle').hide();
+        $('#wishlist-new').hide();
+    });
+}
+
+/* Custom sorter to sort wishlist priorities as Best in Slot > Normal > Rot > Situational */
+$.tablesorter.addParser({
+    id: 'wishlist',
+    is: function(s) {
+        return false;
+    },
+    format: function(s) {
+        return s.toLowerCase().replace(/best in slot/, 1).replace(/normal/, 2).replace(/rot/, 3).replace(/situational/, 4);
+    },
+    type: 'numeric'
+});
 
 /**
  * Allows for filtering by item tell (loot) types
@@ -127,95 +234,3 @@ function toggleItemTypes(object) {
 
     zebraRows($(parentRow).attr('id'));
 }
-
-/**
- * Filter and style the global wishlist view menu.
- *
- * Hides the boss list for zones we're not currently viewing. Removes the link
- * and bolds the text of the currently viewed boss.
- *
- * zone     integer     ID of the current Zone row
- * boss     integer     ID of the current Boss row
- */
-function wishlistMenu(zone, boss) {
-    $('#sidebar ul ul').each(function() {
-        if ($(this).attr('id') != 'zone-' + zone) {
-            $(this).hide();
-        }
-        else {
-            $(this).children().each(function() {
-                if ($(this).attr('id') == 'boss-' + boss) {
-                    $(this).html('<b>' + $(this).text() + '</b>');
-                }
-            });
-        }
-    });
-}
-
-/**
- * Hides item groups for which there are no displayed Wishlist rows. These can
- * be caused by an item having no wishlist entries at all, or an item having no
- * wishlist entries by an active member. Either way, we don't want them displayed.
- */
-function wishlistHideUnwanted() {
-    $('div.item-group').each(function() {
-        if ($(this).children('table.list').children('tbody').children('tr').length == 0) {
-            $(this).hide();
-        }
-    });
-}
-
-/**
- * Sorts each child table of the individual wishlist item entries.
- */
-function wishlistSortTables() {
-    $('table.tablesorter').each(function() {
-        // tablesorter had some errors with trying to sort a table that only had one row
-        if ($(this).children('tbody').children('tr').length > 1) {
-            $(this).tablesorter({
-                sortList: [[2,0], [3,0]],
-                widgets: ['zebra'],
-                headers: {
-                    2: {
-                        sorter: 'wishlist'
-                    },
-                    3: {
-                        sorter: 'currency'
-                    }
-                }
-            });
-        }
-        $(this).children('thead').hide();
-    });
-}
-
-/**
- * Fetches a remote Wishlist edit form to be displayed inline.
- *
- * Gets a form for the specified path, then shows the form div, focuses the
- * first input field, and hides the div that toggles a 'New Wishlist Entry'
- * form to avoid confusion by having two sets of buttons.
- *
- * path     string      Path to fetch (e.g., /members/1/wishlists/2/edit)
- */
-function wishlistEditForm(path) {
-    $.get(path, function(value) {
-        $('#wishlist-edit').html(value);
-        $('#wishlist-edit').show();
-        $('#wishlist_item_name').focus();
-        $('#wishlist-toggle').hide();
-        $('#wishlist-new').hide();
-    });
-}
-
-/* Custom sorter to sort wishlist priorities as Best in Slot > Normal > Rot > Situational */
-$.tablesorter.addParser({
-    id: 'wishlist',
-    is: function(s) {
-        return false;
-    },
-    format: function(s) {
-        return s.toLowerCase().replace(/best in slot/, 1).replace(/normal/, 2).replace(/rot/, 3).replace(/situational/, 4);
-    },
-    type: 'numeric'
-});

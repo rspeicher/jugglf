@@ -20,10 +20,15 @@ class Raid < ActiveRecord::Base
   
   # Attributes ----------------------------------------------------------------
   attr_accessor :update_cache
-  attr_accessor :attendance_output
-  attr_accessor :loot_output
+  attr_writer :attendance_output, :loot_output
   
   attr_accessible :date, :date_string, :note, :thread, :attendance_output, :loot_output
+  
+  def attendance_output
+    str = ''
+    self.attendees.each { |att| str << "#{att.member.name},#{att.attendance}\n" }
+    str.strip!
+  end
   
   def date_string
     ( self.date.nil? ) ? Date.today.to_s : self.date.to_s(:db)
@@ -36,6 +41,7 @@ class Raid < ActiveRecord::Base
   validates_presence_of :date
   
   # Callbacks -----------------------------------------------------------------
+  before_update [ :clear_attendees ]
   after_create [ :parse_attendees, :parse_drops ]
   after_update [ :parse_attendees, :parse_drops ]
   after_save :update_cache
@@ -58,6 +64,23 @@ class Raid < ActiveRecord::Base
   end
   
   private
+    def clear_attendees
+      return if @attendance_output.nil? or @attendance_output.empty?
+      
+      # OPTIMIZE: Generates a ton of queries:
+      #   [ Old Attendees * 3 ] - Remove Attendee record; Update Member and Raid attendee_count caches
+      #   [ New Attendees * 3 ] - Find member by name, insert attendee, update Member attendee_count cache
+      #   [ New Attendees * 10 ] - Update Member cache
+      self.attendees.delete_all
+      
+      # What we need to do is store our old attendees, parse our new attendees,
+      # find out which of the old aren't in the new, and delete those
+      # Then let the rescue block in parse_attendees handle updating attendance
+      # Although that wouldn't really work since it always goes for the lower value,
+      # so we couldn't give a member 'more' attendance for this raid. Might just have
+      # to delete anything that changes at all.
+    end
+    
     def parse_attendees
       return if @attendance_output.nil? or @attendance_output.empty?
       
@@ -100,7 +123,7 @@ class Raid < ActiveRecord::Base
       
       # Set the purchased_on value of this raid's loots to its current date
       self.loots.each do |l|
-        unless l.purchased_on == self.date
+        unless l.purchased_on == self.date.to_date
           l.update_attributes(:purchased_on => self.date)
         end
       end

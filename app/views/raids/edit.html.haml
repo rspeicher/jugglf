@@ -1,14 +1,11 @@
-%h2= breadcrumb link_to('Raids', raids_path), 'New'
+%h2= breadcrumb link_to('Raids', raids_path), link_to(h(@raid.date), raid_path(@raid)), 'Edit'
 %fieldset
   - form_for @raid do |f|
     - unless f.error_messages.empty?
       .error= f.error_messages
       
     = render :partial => "form", :object => f
-
-    = f.label :loot_output, 'Loot'
-    = f.text_area :loot_output, :size => '60x15'
     
     .buttons
       = styled_button(:type => 'submit', :text => 'Save', :image => 'tick.png')
-      = styled_button(:type => 'reset', :image => 'form_delete.png')
+      = link_to_delete(:path => raid_path(@raid), :confirm => 'Are you sure you want to delete this raid?')

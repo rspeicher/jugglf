@@ -1,13 +1,10 @@
-%h2= breadcrumb link_to('Raids', raids_path), 'New'
+%h2= breadcrumb link_to('Items', items_path), 'New'
 %fieldset
-  - form_for @raid do |f|
+  - form_for @item do |f|
     - unless f.error_messages.empty?
       .error= f.error_messages
       
     = render :partial => "form", :object => f
-
-    = f.label :loot_output, 'Loot'
-    = f.text_area :loot_output, :size => '60x15'
     
     .buttons
       = styled_button(:type => 'submit', :text => 'Save', :image => 'tick.png')

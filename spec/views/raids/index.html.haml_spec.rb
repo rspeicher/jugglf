@@ -14,9 +14,8 @@ describe "/raids/index.html.haml" do
       render '/raids/index.html.haml'
     end
 
-    it "should show admin actions" do
-      response.should have_tag('th.image', 1)
-      response.should have_tag('td.image', 1)
+    it "should have a context menu" do
+      response.should have_tag('ul#contextMenu', 1)
     end
   end
 
@@ -26,9 +25,8 @@ describe "/raids/index.html.haml" do
       render '/raids/index.html.haml'
     end
 
-    it "should not show admin actions" do
-      response.should_not have_tag('th.image')
-      response.should_not have_tag('td.image')
+    it "should not have a context menu" do
+      response.should_not have_tag('ul#contextMenu')
     end
   end
 end

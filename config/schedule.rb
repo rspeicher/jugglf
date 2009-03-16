@@ -3,11 +3,11 @@
 # It's helpful, but not entirely necessary to understand cron before proceeding.
 # http://en.wikipedia.org/wiki/Cron
 
-every 1.day, :at => '4:00 am' do
+every 1.day, :at => '3:30 am' do
   runner 'Member.update_all_cache'
 end
 
-every 1.day, :at => '5:00 am' do
+every 1.day, :at => '4:00 am' do
   rake 'jugg:achievements'
 end
 

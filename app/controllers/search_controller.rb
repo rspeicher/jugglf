@@ -1,20 +1,29 @@
 class SearchController < ApplicationController
   def index
-    @include_fields = [:id, :name, :wow_class, :loots_count, :wishlists_count, :raid_count, :created_at, :updated_at]
+    @include_fields = [:id, :name, :wow_class, :active, :loots_count, 
+      :wishlists_count, :raid_count, :created_at, :updated_at]
     
     params[:query] = params[:q] unless params[:q].nil? # jquery.autocomplete uses 'q' and it can't be configured
+    
     @query = params[:query]
     @field = :name
-    split_query
+    
+    # Support setting the field via 'field:value' queries
+    @query.scan(/^(.+):(.+)$/) do |k,v|
+      @query = v
+      @field = k.downcase.intern
+    end
     
     @field = :wow_class if @field == :class
     @field = :name unless @include_fields.include? @field
     
     case params[:context]
     when 'members'
-      @results = @members = Member.active.search(@field => "%#{@query}%", :order => 'name')
+      @results = @members = Member.search(@field => "%#{@query}%", :order => 'name', 
+        :per_page => 999)
     when 'items'
-      @results = @items = Item.search(:name => "%#{@query}%", :order => 'name')
+      @results = @items = Item.search(:name => "%#{@query}%", :order => 'name',
+        :page => params[:page])
     end
     
     respond_to do |wants|
@@ -31,12 +40,4 @@ class SearchController < ApplicationController
       wants.ac { render :text => @results.collect { |x| x.name }.join("\n") }
     end
   end
-  
-  private
-    def split_query
-      @query.scan(/^(.+):(.+)$/) do |k,v|
-        @query = v
-        @field = k.downcase.intern
-      end
-    end
 end

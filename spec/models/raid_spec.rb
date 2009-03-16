@@ -189,6 +189,23 @@ describe Raid, "#attendance_output" do
     kapetal.raids.size.should == 1
     kapetal.attendance[0].attendance.should == 0.83
   end
+  
+  it "should return a string-based representation of attendees" do
+    @raid.save
+    @raid.reload
+    
+    @raid.attendance_output.should == "Sebudai,1.0\nKatarzyna,0.5\nKapetal,0.83"
+  end
+  
+  it "should handle removed attendees on update" do
+    @raid.save
+    
+    # Remove the Kapetals from the output
+    @output = @output.split("\n").slice(0,2).join("\n")
+    
+    # Though we removed 2 lines, 1 of them was a duplicate, so this will only change by -1
+    lambda { @raid.update_attributes(:attendance_output => @output) }.should change(Attendee, :count).by(-1)
+  end
 end
 
 describe Raid, "#loot_output" do

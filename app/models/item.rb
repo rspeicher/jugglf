@@ -19,5 +19,36 @@ class Item < ActiveRecord::Base
   belongs_to :item_stat
   
   # Attributes ----------------------------------------------------------------
-  # searchify :name
+  searchify :name
+  
+  # Validations ---------------------------------------------------------------
+  validates_presence_of :name
+  validates_uniqueness_of :name
+  
+  # Callbacks -----------------------------------------------------------------
+  
+  # Class Methods -------------------------------------------------------------
+  
+  # Moves one item's children from one Item to another to safely handle duplicate
+  # item names.
+  def self.safely_rename(args = {})
+    return if args.length < 2
+    return if args[:from].nil? or args[:to].nil?
+    
+    from = Item.find(args[:from])
+    to   = Item.find(args[:to])
+    
+    to.loots       += from.loots
+    to.wishlists   += from.wishlists
+    to.loot_tables += from.loot_tables
+    
+    Item.update_counters(to.id, :loots_count => from.loots_count, 
+      :wishlists_count => from.wishlists_count)
+    
+    from.delete
+    
+    return to
+  end
+  
+  # Instance Methods ----------------------------------------------------------
 end
