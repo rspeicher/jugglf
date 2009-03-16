@@ -1,0 +1,21 @@
+= form.label :item_name
+= form.text_field :item_name, :class => 'medium'
+
+= form.label :member_name, 'Buyer name'
+= form.text_field :member_name, :class => 'small'
+
+= form.label :raid_id, 'Raid'
+= form.select :raid_id, @raids.collect { |r| [r.date, r.id] }, :include_blank => true
+
+= form.label :price
+= form.text_field :price, :class => 'small'
+
+.radio-check
+  = form.check_box :best_in_slot
+  = form.label :best_in_slot, 'Best In Slot'
+  
+  = form.check_box :situational
+  = form.label :situational
+  
+  = form.check_box :rot
+  = form.label :rot
