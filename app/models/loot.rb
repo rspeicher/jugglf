@@ -43,6 +43,7 @@ class Loot < ActiveRecord::Base
   # Validations ---------------------------------------------------------------
   
   # Callbacks -----------------------------------------------------------------
+  before_save :set_purchased_on
   
   # Class Methods -------------------------------------------------------------
   
@@ -54,4 +55,11 @@ class Loot < ActiveRecord::Base
   def adjusted_price
     ( self.rot? ) ? 0.50 : self.price
   end
+  
+  private
+    def set_purchased_on
+      if self.purchased_on.nil? and not self.raid_id.nil?
+        self.purchased_on = self.raid.date
+      end
+    end
 end
