@@ -14,7 +14,6 @@ On a scale of 1-5, where 1 is a feature that *has* to be complete before we can 
  3 Real-time raid and item logging (online JuggyAttendance replacement)
  3 Redesign interface to better fit with the forums (Redesign the forums, I say!)
  
- 4 "Who's Online" list
  4 Comments, Admin notes
  
  5 Logging of actions
