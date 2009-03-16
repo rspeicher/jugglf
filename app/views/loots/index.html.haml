@@ -8,6 +8,8 @@
       %th Notes
       %th.date Raid
       %th.number Price
+      - if admin?
+        %th.icon Actions
   %tbody
     - @loots.each do |loot|
       %tr{ :class => cycle('even', 'odd') + ' ' + loot_row_classes(loot) }
@@ -16,5 +18,8 @@
         %td= loot_tell_types(loot)
         %td.date= link_to h(loot.purchased_on), raid_path(loot.raid) unless loot.raid.nil?
         %td.number= loot_factor(loot.adjusted_price)
+        - if admin?
+          %td.icon
+            = link_to(image_tag('edit.png'), edit_loot_path(loot))
 %br
 = will_paginate @loots
