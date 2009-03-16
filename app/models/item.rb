@@ -19,6 +19,8 @@ class Item < ActiveRecord::Base
   belongs_to :item_stat
   
   # Attributes ----------------------------------------------------------------
+  attr_accessible :name, :item_stat, :item_stat_id
+  
   searchify :name
   
   # Validations ---------------------------------------------------------------
