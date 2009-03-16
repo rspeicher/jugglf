@@ -1,4 +1,4 @@
-%h2= breadcrumb link_to('Raids', raids_path), @raid.date, 'Edit'
+%h2= breadcrumb link_to('Raids', raids_path), link_to(h(@raid.date), raid_path(@raid)), 'Edit'
 %fieldset
   - form_for @raid do |f|
     - unless f.error_messages.empty?
