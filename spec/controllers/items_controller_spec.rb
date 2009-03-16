@@ -113,7 +113,6 @@ end
 # -----------------------------------------------------------------------------
 
 # GET /items/:id/edit
-
 describe ItemsController, "#edit" do
   def get_response
     get :edit, :id => '1'
