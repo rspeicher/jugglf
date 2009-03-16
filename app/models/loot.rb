@@ -24,7 +24,10 @@ class Loot < ActiveRecord::Base
   belongs_to :item, :counter_cache => true
   
   # Attributes ----------------------------------------------------------------
-  attr_accessible :item_name, :price, :purchased_on, :best_in_slot, :situational, :rot, :member_name, :raid_id
+  attr_accessor :update_cache
+  
+  attr_accessible(:item, :item_name, :price, :purchased_on, :best_in_slot, 
+    :situational, :rot, :member, :member_id, :member_name, :raid_id, :update_cache)
   
   def item_name
     self.item.name unless self.item_id.nil?
@@ -43,7 +46,8 @@ class Loot < ActiveRecord::Base
   # Validations ---------------------------------------------------------------
   
   # Callbacks -----------------------------------------------------------------
-  before_save :set_purchased_on
+  before_save [:set_purchased_on]
+  after_save [:update_buyer_cache]
   
   # Class Methods -------------------------------------------------------------
   
@@ -61,5 +65,9 @@ class Loot < ActiveRecord::Base
       if self.purchased_on.nil? and not self.raid_id.nil?
         self.purchased_on = self.raid.date
       end
+    end
+    
+    def update_buyer_cache
+      self.member.force_recache unless @update_cache == false or self.member_id.nil?
     end
 end

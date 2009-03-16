@@ -20,8 +20,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Loot do
   before(:each) do
+    @member = Member.make(:name => 'Member')
     @loot = Loot.make(:item => Item.make(:name => 'Item'), 
-      :member => Member.make(:name => 'Member'))
+      :member => @member)
   end
   
   it "should be valid" do
@@ -40,6 +41,31 @@ describe Loot do
     
     @loot.purchased_on = 1.year.ago
     @loot.affects_loot_factor?.should be_false
+  end
+  
+  describe "#update_cache" do
+    before(:each) do
+      @loot.price = 15.0
+      @member.update_attributes(:lf => 1.00)
+    end
+    
+    it "should update buyer cache unless disabled" do
+      @loot.update_cache = true
+      
+      lambda do
+        @loot.save
+        @member.reload
+      end.should change(@member, :lf).to(1500.00)
+    end
+    
+    it "should allow disabling of buyer cache updates" do
+      @loot.update_cache = false
+      
+      lambda do
+        @loot.save
+        @member.reload
+      end.should_not change(@member, :lf)
+    end
   end
   
   describe "#item_name" do

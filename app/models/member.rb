@@ -59,16 +59,16 @@ class Member < ActiveRecord::Base
   
   # Class Methods -------------------------------------------------------------
   def self.update_all_cache
-    Member.find_all_by_active(true).each { |m| m.force_recache! }
+    Member.active.each { |m| m.force_recache }
   end
   
   named_scope :active, :order => 'name', :conditions => ['active = ?', true]
   
   # Instance Methods ----------------------------------------------------------
-  def force_recache!
+  def force_recache
     update_attendance_cache()
     update_loot_factor_cache()
-
+    
     self.save
   end
   

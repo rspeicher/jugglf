@@ -20,7 +20,8 @@ class Raid < ActiveRecord::Base
   
   # Attributes ----------------------------------------------------------------
   attr_accessor :update_cache
-  attr_writer :attendance_output, :loot_output
+  attr_writer :attendance_output
+  attr_accessor :loot_output
   
   attr_accessible :date, :date_string, :note, :thread, :attendance_output, :loot_output
   
@@ -112,7 +113,8 @@ class Raid < ActiveRecord::Base
       return if loots.nil? or loots.size == 0
       
       loots.each do |params|
-        self.loots.create(params.merge!(:purchased_on => self.date))
+        self.loots.create(params.merge!(:purchased_on => self.date, 
+          :update_cache => false))
       end
     end
     
