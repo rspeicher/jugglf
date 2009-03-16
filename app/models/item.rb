@@ -20,4 +20,31 @@ class Item < ActiveRecord::Base
   
   # Attributes ----------------------------------------------------------------
   searchify :name
+  
+  # Validations ---------------------------------------------------------------
+  
+  # Callbacks -----------------------------------------------------------------
+  
+  # Class Methods -------------------------------------------------------------
+  
+  # Moves one item's children from one Item to another to safely handle duplicate
+  # item names.
+  # def self.safely_rename(args = {})
+  #   return if args.length < 2
+  #   return if args[:from].nil? or args[:to].nil?
+  #   
+  #   
+  #   from = Item.find(args[:from])
+  #   to   = Item.find(args[:to])
+  #   
+  #   from.loots.each do |loot|
+  #     loot.update_attributes(:item_id => to.id)
+  #   end
+  #   
+  #   from.delete
+  #   
+  #   return to
+  # end
+  
+  # Instance Methods ----------------------------------------------------------
 end
