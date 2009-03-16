@@ -2,9 +2,11 @@
   %thead
     %tr
       %th Name
-      %th.attendance Attendance
+      %th.attendance{ :style => 'width: 15%' } Attendance
   %tbody
     - @attendees.each do |attendee|
       %tr{ :class => cycle('even', 'odd') }
         %td= link_to_member(attendee.member)
-        %td.attendance= raid_attendance_colored(attendee.attendance)
+        %td.attendance
+          = progress_bar(attendee.attendance * 100, :container_width => 75)
+          = raid_attendance_colored(attendee.attendance)
