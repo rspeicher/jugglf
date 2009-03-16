@@ -1,6 +1,7 @@
 class LootsController < ApplicationController
   before_filter :require_admin
   before_filter :find_loot, :only => [:show, :edit, :update, :destroy]
+  before_filter :raids_select, :only => [:new, :edit]
   
   layout @@layout
   
@@ -20,8 +21,6 @@ class LootsController < ApplicationController
     page_title('New Loot')
     
     @loot = Loot.new
-    @raids = Raid.find(:all, :order => 'date DESC', 
-      :conditions => ['date >= ?', 52.days.until(Date.today)])
     
     respond_to do |wants|
       wants.html
@@ -29,10 +28,7 @@ class LootsController < ApplicationController
   end
   
   def edit
-    page_title(@loot.item.name, 'Edit Loot')
-    
-    @raids = Raid.find(:all, :order => 'date DESC', 
-      :conditions => ['date >= ?', 52.days.until(Date.today)])
+    page_title('Edit Loot')
     
     respond_to do |wants|
       wants.html
@@ -47,7 +43,10 @@ class LootsController < ApplicationController
         flash[:success] = 'Loot was successfully created.'
         wants.html { redirect_to(loots_path) }
       else
-        wants.html { render :action => "new" }
+        wants.html do
+          raids_select
+          render :action => "new"
+        end
       end
     end
   end
@@ -58,7 +57,10 @@ class LootsController < ApplicationController
         flash[:success] = 'Loot was successfully updated.'
         wants.html { redirect_to(loots_path) }
       else
-        wants.html { render :action => 'edit' }
+        wants.html do
+          raids_select
+          render :action => 'edit'
+        end
       end
     end
   end
@@ -76,5 +78,10 @@ class LootsController < ApplicationController
   private
     def find_loot
       @loot = Loot.find(params[:id])
+    end
+    
+    def raids_select
+      @raids = Raid.find(:all, :order => 'date DESC', 
+        :conditions => ['date >= ?', 52.days.until(Date.today)])      
     end
 end
