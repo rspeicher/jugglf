@@ -64,6 +64,51 @@ describe ItemsController, "#show" do
 end
 
 # -----------------------------------------------------------------------------
+# New
+# -----------------------------------------------------------------------------
+
+# GET /items/new
+describe ItemsController, "#new" do
+  def get_response
+    get :new
+  end
+  
+  describe "as admin" do
+    before(:each) do
+      login({}, :is_admin? => true)
+      @item = mock_model(Item)
+      Item.should_receive(:new).and_return(@item)
+      get_response
+    end
+    
+    it "should assign @item" do
+      assigns[:item].should === @item
+    end
+    
+    it "should render" do
+      response.should render_template(:new)
+      response.should be_success
+    end
+  end
+  
+  describe "as user" do
+    it "should not render" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to('/todo')
+    end
+  end
+  
+  describe "as anonymous" do
+    it "should redirect to login" do
+      logout
+      get_response
+      response.should redirect_to(new_user_session_url)
+    end
+  end
+end
+
+# -----------------------------------------------------------------------------
 # Edit
 # -----------------------------------------------------------------------------
 
@@ -92,6 +137,64 @@ describe ItemsController, "#edit" do
   
   describe "as user" do
     it "should not render" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to('/todo')
+    end
+  end
+  
+  describe "as anonymous" do
+    it "should redirect to login" do
+      logout
+      get_response
+      response.should redirect_to(new_user_session_url)
+    end
+  end
+end
+
+# -----------------------------------------------------------------------------
+# Create
+# -----------------------------------------------------------------------------
+
+# POST /items/create
+describe ItemsController, "#create" do
+  def get_response
+    post :create, :item => @params
+  end
+  
+  describe "as admin" do
+    before(:each) do
+      login({}, :is_admin? => true)
+      @item = mock_model(Item, :to_param => '1')
+      Item.should_receive(:new).and_return(@item)
+    end
+    
+    describe "when successful" do
+      before(:each) do
+        @item.should_receive(:save).and_return(true)
+        get_response
+      end
+      
+      it "should add a flash success message" do
+        flash[:success].should == 'Item was successfully created.'
+      end
+      
+      it "should redirect to the new item" do
+        response.should redirect_to(item_url(@item))
+      end
+    end
+    
+    describe "when unsuccessful" do
+      it "should render template :new" do
+        @item.should_receive(:save).and_return(false)
+        get_response
+        response.should render_template(:new)
+      end
+    end
+  end
+  
+  describe "as user" do
+    it "should do nothing" do
       login({}, :is_admin? => false)
       get_response
       response.should redirect_to('/todo')
@@ -158,6 +261,50 @@ describe ItemsController, "#update" do
   
   describe "as user" do
     it "should not render" do
+      login({}, :is_admin? => false)
+      get_response
+      response.should redirect_to('/todo')
+    end
+  end
+  
+  describe "as anonymous" do
+    it "should redirect to login" do
+      logout
+      get_response
+      response.should redirect_to(new_user_session_url)
+    end
+  end
+end
+
+# -----------------------------------------------------------------------------
+# Destroy
+# -----------------------------------------------------------------------------
+
+# DELETE /items/:id
+describe ItemsController, "#destroy" do
+  def get_response
+    delete :destroy, :id => '1'
+  end
+  
+  describe "as admin" do
+    before(:each) do
+      login({}, :is_admin? => true)
+      find_item
+      @item.should_receive(:destroy).and_return(nil)
+      get_response
+    end
+    
+    it "should add a flash success message" do
+      flash[:success].should == 'Item was successfully deleted.'
+    end
+    
+    it "should redirect to #index" do
+      response.should redirect_to(items_url)
+    end
+  end
+  
+  describe "as user" do
+    it "should do nothing" do
       login({}, :is_admin? => false)
       get_response
       response.should redirect_to('/todo')

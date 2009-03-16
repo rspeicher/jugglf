@@ -23,11 +23,34 @@ class ItemsController < ApplicationController
     end
   end
   
+  def new
+    page_title('New Item')
+    
+    @item = Item.new
+    
+    respond_to do |wants|
+      wants.html
+    end
+  end
+  
   def edit
     page_title(@item.name, 'Edit')
     
     respond_to do |wants|
       wants.html
+    end
+  end
+  
+  def create
+    @item = Item.new(params[:item])
+  
+    respond_to do |wants|
+      if @item.save
+        flash[:success] = 'Item was successfully created.'
+        wants.html { redirect_to(@item) }
+      else
+        wants.html { render :action => "new" }
+      end
     end
   end
   
@@ -39,6 +62,16 @@ class ItemsController < ApplicationController
       else
         wants.html { render :action => 'edit' }
       end
+    end
+  end
+  
+  def destroy
+    @item.destroy
+    
+    flash[:success] = "Item was successfully deleted."
+    
+    respond_to do |wants|
+      wants.html { redirect_to(items_path) }
     end
   end
   
