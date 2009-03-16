@@ -19,5 +19,5 @@ class Item < ActiveRecord::Base
   belongs_to :item_stat
   
   # Attributes ----------------------------------------------------------------
-  # searchify :name
+  searchify :name
 end
