@@ -1,5 +1,16 @@
 h1. Todo
 
+code/rails/juggrails[master]% ./script/performance/benchmarker 25 'Member.update_all_cache' 'Member.update_all_cache2' 'Member.update_all_cache3'
+            user     system      total        real
+#1     37.730000   0.770000  38.500000 ( 44.238121)     Old method: 30, 90 and lifetime attendances, sets first/last raid
+#2     20.430000   0.490000  20.920000 ( 24.202336)     30-day only, uses raid.is_in_last_30_days?
+#3      3.950000   0.230000   4.180000 (  5.870562)     30-day only, uses a MySQL condition for >= 30 days ago, no 'attendance > 0'
+
+Down to one method, passes all specs:
+code/rails/juggrails[member_caching]% ./script/performance/benchmarker 25 'Member.update_cache(:all)' 'Member.update_cache'                                    user     system      total        real
+#1     44.760000   1.020000  45.780000 ( 53.367145)
+#2     14.900000   0.480000  15.380000 ( 18.380112)
+
 h2. Priorities
 
 On a scale of 1-5, where 1 is a feature that *has* to be complete before we can use the app in production
