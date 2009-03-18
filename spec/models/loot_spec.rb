@@ -68,6 +68,15 @@ describe Loot do
     end
   end
   
+  describe "#set_purchased_on" do
+    it "should set purchased_on" do
+      @loot.purchased_on = nil
+      @loot.raid.make
+      
+      lambda { @loot.save }.should change(@loot, :purchased_on).to(Date.today)
+    end
+  end
+  
   describe "#item_name" do
     it "should return item's name if not nil" do
       @loot.item_name.should == 'Item'
