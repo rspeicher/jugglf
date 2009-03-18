@@ -3,15 +3,15 @@ if success
   page << "$('#errors').addClass('hidden');"
   
   # Replace the table row with the updated values
-  page.replace "wishlist-#{update.id}", :partial => "wishlists/wishlist_row", :object => update
-  page << "$('#wishlist-#{update.id}').effect('highlight', {}, 1500);"
+  page.replace "wishlist_#{update.id}", :partial => "wishlists/wishlist_row", :object => update
+  page << "$('#wishlist_#{update.id}').effect('highlight', {}, 1500);"
   
   page << "zebraRows('wishlist');"
   
   # Hide the edit form, show the add form toggle, focus our new row
   page << "$('#wishlist-edit').hide();"
   page << "$('#wishlist-toggle').show();"
-  page << "$('#wishlist-#{update.id}').focus();"
+  page << "$('#wishlist_#{update.id}').focus();"
 else
   # Show the errors div
   page << "$('#errors').removeClass('hidden');"

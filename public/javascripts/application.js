@@ -132,12 +132,12 @@ function wishlistSortTables() {
  */
 function wishlistMenu(zone, boss) {
     $('#sidebar ul ul').each(function() {
-        if ($(this).attr('id') != 'zone-' + zone) {
+        if ($(this).attr('id') != 'loot_table_' + zone) {
             $(this).hide();
         }
         else {
             $(this).children().each(function() {
-                if ($(this).attr('id') == 'boss-' + boss) {
+                if ($(this).attr('id') == 'loot_table_' + boss) {
                     $(this).html('<b>' + $(this).text() + '</b>');
                 }
             });

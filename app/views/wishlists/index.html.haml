@@ -23,10 +23,10 @@
   %ul
     - @root.each do |zone|
       %li.zone
-        = link_to_function(h(zone.object.name), "$('ul#zone-#{zone.id}').toggle('slow')")
-        %ul{ :id => "zone-#{zone.id}" }
+        = link_to_function(h(zone.object.name), "$('ul#loot_table_#{zone.id}').toggle('slow')")
+        %ul[zone]
           - zone.children.each do |boss|
-            %li.boss{ :id => "boss-#{boss.id}" }
+            %li.boss[boss]
               = link_to h(boss.object.name), "?boss=#{boss.id}"
               
 :javascript
