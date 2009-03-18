@@ -153,11 +153,30 @@ function wishlistMenu(zone, boss) {
  * wishlist entries by an active member. Either way, we don't want them displayed.
  */
 function wishlistHideUnwanted() {
-    $('div.item-group').each(function() {
+    $('div.loot_table').each(function() {
         if ($(this).children('table.list').children('tbody').children('tr').length == 0) {
             $(this).hide();
         }
     });
+}
+
+function wishlistCopy(id) {
+    // Whisper, item name
+    str = '/w Tsigo compare [' + $('#loot_table_' + id + ' h4 span').text() + '],';
+    
+    // Build an array of "<Name> <type>" strings
+    names = new Array();
+    $('#loot_table_' + id + ' table tbody tr').each(function() {
+        names.push(
+            // Name
+            $(this).children('td:eq(0)').text() +
+            ' ' +
+            // Type
+            $(this).children('td:eq(2)').text().substr(0,3).toLowerCase());
+    });
+    str += names.join(',');
+    
+	prompt("Copy and paste:", str);
 }
 
 /**

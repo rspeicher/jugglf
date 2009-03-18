@@ -1,8 +1,10 @@
 %h2= breadcrumb 'Global Wishlist View', @zone, @boss
-#content.clearfix
+#content
   - @items.each do |item|
-    .item-group
-      %h4= link_to_item_with_stats(item.object)
+    %div[item]
+      %h4
+        = link_to_function(image_tag('clipboard.png'), "wishlistCopy(#{item.id})")
+        %span= link_to_item_with_stats(item.object)
       %table.list.tablesorter
         %thead.hidden
           %tr
@@ -19,7 +21,7 @@
                 %td{ :style => 'width: 60%' }= h(wishlist.note)
                 %td{ :style => 'width: 100px'}= h(wishlist.priority.titlecase)
                 %td.lootfactor= loot_factor(wishlist.member.lf_type(wishlist.priority))
-#sidebar.clearfix
+#sidebar
   %ul
     - @root.each do |zone|
       %li.zone
