@@ -85,6 +85,9 @@ function raidsContextMenu() {
 
 /* Wishlists ---------------------------------------------------------------- */
 
+/**
+ * Sorts a single user's wishlist table, not to be confused with wishlistSortTables
+ */
 function sortWishlistTable() {
     $("table#wishlists").tablesorter({
         sortList: [[1,0], [0,0]],
@@ -117,7 +120,6 @@ function wishlistSortTables() {
                 }
             });
         }
-        $(this).children('thead').hide();
     });
 }
 
