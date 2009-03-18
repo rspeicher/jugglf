@@ -44,7 +44,7 @@ describe ItemStatsHelper do
     end
     
     it "should include the item path" do
-      link_to_item_with_stats(@item).should match(/href='\/items\/[0-9]+'/)
+      link_to_item_with_stats(@item).should match(/href='\/items\/[0-9]+-myitem'/)
     end
     
     it "should include a relative item link for tooltips" do
