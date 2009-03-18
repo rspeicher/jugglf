@@ -58,16 +58,16 @@ class Member < ActiveRecord::Base
   validates_inclusion_of :wow_class, :in => WOW_CLASSES, :message => "{{value}} is not a valid WoW class", :allow_nil => true
   
   # Class Methods -------------------------------------------------------------
-  def self.update_all_cache
-    Member.active.each { |m| m.force_recache }
+  def self.update_cache(type = :loot_factor)
+    Member.active.each { |m| m.update_cache(type) }
   end
   
   named_scope :active, :order => 'name', :conditions => ['active = ?', true]
   
   # Instance Methods ----------------------------------------------------------
-  def force_recache
-    update_attendance_cache()
+  def update_cache(type = :loot_factor)
     update_loot_factor_cache()
+    update_attendance_cache() if type == :all
     
     self.save
   end
@@ -98,23 +98,24 @@ class Member < ActiveRecord::Base
   end
   
   private
+    # Updates cache for attendance values which DO NOT affect loot factor.
+    #
+    # 30-day attendance is calculated by @update_loot_factor_cache@ because it
+    # is the only attendance value that affects loot factor. Since the other
+    # values are non-critical, we can delay updating them to once a day so that
+    # cache updates more quickly after a raid or item is added/updated.
     def update_attendance_cache
       # Total possible attendance totals
       totals = {
-        :thirty   => Raid.count_last_thirty_days * 1.00,
         :ninety   => Raid.count_last_ninety_days * 1.00,
         :lifetime => nil
       }
       
       # My attendance totals
-      att = { :thirty => 0.00, :ninety => 0.00, :lifetime => 0.00 }
+      att = { :ninety => 0.00, :lifetime => 0.00 }
       Attendee.find(:all, :include => :raid, :conditions => ["member_id = ? AND attendance > 0", self.id]).each do |a|
         self.first_raid = (self.first_raid.nil?) ? a.raid.date : [self.first_raid, a.raid.date].min
         self.last_raid  = (self.last_raid.nil?)  ? a.raid.date : [self.last_raid, a.raid.date].max
-
-        if totals[:thirty] > 0.00 and a.raid.is_in_last_thirty_days?
-          att[:thirty] += a.attendance
-        end
         
         if totals[:ninety] > 0.00 and a.raid.is_in_last_ninety_days?
           att[:ninety] += a.attendance
@@ -126,12 +127,26 @@ class Member < ActiveRecord::Base
       # We can only count lifetime now that first_raid and last_raid were set above
       totals[:lifetime] = Raid.count(:conditions => ["date >= ? AND date <= ?", self.first_raid, self.last_raid]) * 1.00
       
-      self.attendance_30       = (att[:thirty]   / totals[:thirty])   unless totals[:thirty]   == 0.00
       self.attendance_90       = (att[:ninety]   / totals[:ninety])   unless totals[:ninety]   == 0.00
       self.attendance_lifetime = (att[:lifetime] / totals[:lifetime]) unless totals[:lifetime] == 0.00
     end
     
     def update_loot_factor_cache
+      # Update 30-day attendance here instead of in update_attendance_cache for
+      # faster cache updates
+      # Total possible attendance totals
+      total = Raid.count_last_thirty_days * 1.00
+      
+      # My attendance totals
+      att = 0.00
+      Attendee.find(:all, :include => :raid, :conditions => ["member_id = ? AND #{Raid.table_name}.date >= ?", self.id, 30.days.until(Date.today)]).each do |a|
+        if total > 0.00
+          att += a.attendance
+        end
+      end
+      
+      self.attendance_30 = (att / total) unless total == 0.00
+      
       lf = { :lf => 0.00, :sitlf => 0.00, :bislf => 0.00 }
       
       # Items affecting loot factor

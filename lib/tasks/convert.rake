@@ -13,7 +13,7 @@ namespace :db do
   namespace :legacy do
     desc "Convert the legacy Juggernaut EQdkp tables to the new format"
     task :convert => ['convert:members', 'convert:raids', 'convert:wishlists'] do
-      Member.update_all_cache
+      Member.update_cache(:all)
     end
     
     namespace :convert do

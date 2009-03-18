@@ -80,6 +80,6 @@ namespace :db do
       end
     end
     
-    Member.update_all_cache
+    Member.update_cache(:all)
   end
 end

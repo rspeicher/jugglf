@@ -49,6 +49,6 @@ class Punishment < ActiveRecord::Base
   
   private
     def update_member_cache
-      self.member.force_recache unless self.member.nil?
+      self.member.update_cache unless self.member.nil?
     end
 end

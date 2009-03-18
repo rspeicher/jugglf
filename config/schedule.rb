@@ -4,7 +4,7 @@
 # http://en.wikipedia.org/wiki/Cron
 
 every 1.day, :at => '3:30 am' do
-  runner 'Member.update_all_cache'
+  runner 'Member.update_cache(:all)'
 end
 
 every 1.day, :at => '4:00 am' do

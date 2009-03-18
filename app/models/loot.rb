@@ -69,6 +69,6 @@ class Loot < ActiveRecord::Base
     end
     
     def update_buyer_cache
-      self.member.force_recache unless @update_cache == false or self.member_id.nil?
+      self.member.update_cache unless @update_cache == false or self.member_id.nil?
     end
 end
