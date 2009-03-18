@@ -95,7 +95,7 @@ describe ItemsController, "#new" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -138,7 +138,7 @@ describe ItemsController, "#edit" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -196,7 +196,7 @@ describe ItemsController, "#create" do
     it "should do nothing" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -262,7 +262,7 @@ describe ItemsController, "#update" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -306,7 +306,7 @@ describe ItemsController, "#destroy" do
     it "should do nothing" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   

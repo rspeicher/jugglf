@@ -33,7 +33,7 @@ describe UserSessionsController, "#new" do
       logout
       mock_user_session
       get_response
-      response.should_not redirect_to('/todo')
+      response.should_not redirect_to(root_url)
       assigns[:user_session].should_not be_nil
     end
   end

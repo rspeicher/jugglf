@@ -38,7 +38,7 @@ describe LootsController, "#index" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
 end
@@ -75,7 +75,7 @@ describe LootsController, "#new" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -119,7 +119,7 @@ describe LootsController, "#edit" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -177,7 +177,7 @@ describe LootsController, "#create" do
     it "should do nothing" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -243,7 +243,7 @@ describe LootsController, "#update" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -287,7 +287,7 @@ describe LootsController, "#destroy" do
     it "should do nothing" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   

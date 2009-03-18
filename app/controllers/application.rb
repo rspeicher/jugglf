@@ -36,8 +36,7 @@ class ApplicationController < ActionController::Base
       if current_user
         unless @current_user.is_admin?
           flash[:error] = "You do not have permission to access that page."
-          # TODO: Redirect to this user's member page
-          redirect_to('/todo')
+          redirect_to(root_path)
         end
       else
         return require_user

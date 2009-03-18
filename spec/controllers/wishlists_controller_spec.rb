@@ -74,7 +74,7 @@ describe WishlistsController, "#index" do
     it "should redirect to /todo" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   

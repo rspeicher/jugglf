@@ -38,7 +38,7 @@ describe RaidsController, "#index" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -91,7 +91,7 @@ describe RaidsController, "#show" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -136,7 +136,7 @@ describe RaidsController, "#new" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -178,7 +178,7 @@ describe RaidsController, "#edit" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -236,7 +236,7 @@ describe RaidsController, "#create" do
     it "should do nothing" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -302,7 +302,7 @@ describe RaidsController, "#update" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -346,7 +346,7 @@ describe RaidsController, "#destroy" do
     it "should do nothing" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   

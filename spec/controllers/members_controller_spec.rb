@@ -88,13 +88,13 @@ describe MembersController, "#show" do
     it "should not render if the member doesn't belong to the current user" do
       login({}, { :member => mock_model(Member, :id => '999'), :is_admin? => false })
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
     
     it "should not render if the current user has no associated member" do
       login({}, :member => nil, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
     
     it "should render when the current member belongs to the current user" do
@@ -142,7 +142,7 @@ describe MembersController, "#new" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -191,7 +191,7 @@ describe MembersController, "#edit" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -255,7 +255,7 @@ describe MembersController, "#create" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -321,7 +321,7 @@ describe MembersController, "#update" do
     it "should not render" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
@@ -365,7 +365,7 @@ describe MembersController, "#destroy" do
     it "should do nothing" do
       login({}, :is_admin? => false)
       get_response
-      response.should redirect_to('/todo')
+      response.should redirect_to(root_url)
     end
   end
   
