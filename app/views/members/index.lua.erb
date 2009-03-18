@@ -1,3 +1,4 @@
+<%- if admin? -%>
 JuggyCompare_Data = {
   ["updated"] = "<%= Time.now.to_s(:long) %>",
 
@@ -15,3 +16,4 @@ JuggyCompare_Data = {
   },
   <%- end -%>
 }
+<%- end -%>
