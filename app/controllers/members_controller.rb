@@ -29,6 +29,8 @@ class MembersController < ApplicationController
     
     respond_to do |wants|
       wants.html do
+        params[:tab] ||= 'raids'
+        
         case params[:tab]
         when 'raids'
           @raids = Raid.paginate(:page => params[:page], :per_page => 35, 
@@ -45,7 +47,9 @@ class MembersController < ApplicationController
           @completed = @member.completed_achievements
         end
         
-        if params[:tab]
+        # params[:tab] is 'raids' by default, so in that case we want to render
+        # the whole view rather than the individual tab
+        if params[:tab] and params[:tab] != 'raids'
           render :partial => "members/#{params[:tab]}"
         else
           render :action => :show

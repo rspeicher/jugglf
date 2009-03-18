@@ -75,7 +75,7 @@ describe MembersController, "#show" do
       Member.should_receive(:find).with('1').and_return(@mock)
     end
     
-    %w(raids loots punishments wishlist achievements).each do |tab|
+    %w(loots punishments wishlist achievements).each do |tab|
       it "should render #{tab} tab" do
         get_response(:tab => tab)
         assigns[tab.pluralize.intern].should_not be_nil
