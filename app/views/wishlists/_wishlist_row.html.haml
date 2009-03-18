@@ -1,5 +1,5 @@
 %tr{ :class => cycle('even', 'odd') }[wishlist_row]
-  %td= link_to_wowhead(wishlist_row.item) unless wishlist_row.item_id.nil?
+  %td= link_to_item_with_stats(wishlist_row.item) unless wishlist_row.item_id.nil?
   %td= h(wishlist_row.priority.titlecase)
   %td= h(wishlist_row.note)
   %td= h(wishlist_row.item.item_stat.slot) unless wishlist_row.item_id.nil? or wishlist_row.item.item_stat_id.nil?
