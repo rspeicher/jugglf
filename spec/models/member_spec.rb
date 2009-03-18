@@ -36,7 +36,7 @@ describe Member do
   end
   
   it "should have custom to_param" do
-    @member.to_param.should == "#{@member.id}-#{@member.name}"
+    @member.to_param.should == "#{@member.id}-#{@member.name.parameterize}"
   end
   
   it "should be active by default" do

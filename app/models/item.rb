@@ -53,4 +53,7 @@ class Item < ActiveRecord::Base
   end
   
   # Instance Methods ----------------------------------------------------------
+  def to_param
+    "#{self.id}-#{self.name.parameterize}"
+  end
 end

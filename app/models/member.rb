@@ -73,7 +73,7 @@ class Member < ActiveRecord::Base
   end
   
   def to_param
-    "#{self.id}-#{self.name}"
+    "#{self.id}-#{self.name.parameterize}"
   end
   
   # Takes a string or symbol representing a type of loot factor and returns the

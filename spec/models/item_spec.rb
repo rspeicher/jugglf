@@ -21,6 +21,10 @@ describe Item do
     @item.should be_valid
   end
   
+  it "should have custom to_param" do
+    @item.to_param.should == "#{@item.id}-#{@item.name.parameterize}"
+  end
+  
   describe "#safely_rename" do
     before(:each) do
       @wrong = Item.make(:name => 'Wrong')
