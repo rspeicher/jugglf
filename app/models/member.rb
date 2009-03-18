@@ -72,9 +72,9 @@ class Member < ActiveRecord::Base
     self.save
   end
   
-  # def to_param
-  #   name
-  # end
+  def to_param
+    "#{self.id}-#{self.name}"
+  end
   
   # Takes a string or symbol representing a type of loot factor and returns the
   # corresponding value
