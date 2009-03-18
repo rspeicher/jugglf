@@ -18,12 +18,22 @@ class RaidsController < ApplicationController
   def show
     page_title("Raid on #{@raid.date}")
     
-    logger.debug 'Finding attendees'
-    @attendees = Attendee.find(:all, :conditions => ['raid_id = ?', @raid.id],
+    attendees = Attendee.find(:all, :conditions => ['raid_id = ?', @raid.id],
       :include => :member)
-    logger.debug 'Finding loots'
     @loots     = Loot.find(:all, :conditions => ['raid_id = ?', @raid.id], 
       :include => [{:item => :item_stat}, :member])
+      
+    # Group attendees by class
+    @attendees = { }
+    Member::WOW_CLASSES.each do |wow_class|
+      @attendees[wow_class] = []
+    end
+    attendees.each do |att|
+      unless att.member.wow_class.nil?
+        wow_class = att.member.wow_class
+        @attendees[wow_class].push(att)
+      end
+    end
     
     respond_to do |wants|
       wants.html

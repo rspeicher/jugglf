@@ -4,14 +4,31 @@
     $('#itemfilter span.filter').click(function() {
       toggleItemTypes(this);
     });
-    $("#raid_tabs").tabs();
   });
   
-%h2= breadcrumb link_to('Raids', raids_path), h(@raid.date)
-#raid_tabs
-  %ul
-    %li= link_to_tab("Attendees (#{@raid.attendees.size})")
-    %li= link_to_tab("Drops (#{@raid.loots.size})")
-
-  #attendees= render :partial => 'attendees'
-  #drops= render :partial => 'drops'
+#attendees
+  %h2= breadcrumb link_to('Raids', raids_path), h(@raid.date), 'Attendees'
+  - @attendees.sort.each do |group,array|
+    .class_group{ :id => group }
+      %h4{ :class => group.gsub(/\s+/, '_') }= group
+      %ul
+        - array.each do |att|
+          %li
+            = raid_attendance_colored(att.attendance)
+            = link_to_member(att.member)
+#drops
+  %h2= breadcrumb 'Loots'
+  %table#loot.list.tablesorter
+    %thead
+      %tr
+        %th Name
+        %th.member Buyer
+        %th Notes
+        %th.number Price
+    %tbody#itemfilter
+      - @loots.each do |loot|
+        %tr{ :class => cycle('even', 'odd') + ' ' + loot_row_classes(loot) }
+          %td= link_to_item_with_stats(loot.item)
+          %td.member= link_to_member(loot.member)
+          %td= loot_tell_types(loot)
+          %td.number= loot_factor(loot.adjusted_price)

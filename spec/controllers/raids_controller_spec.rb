@@ -64,9 +64,11 @@ describe RaidsController, "#show" do
   describe "as_admin" do
     before(:each) do
       login({}, :is_admin? => true)
-      @raid = mock_model(Raid, :attendees => mock_model(Attendee), 
+      @attendees = mock_model(Attendee, 
+        :member => Member.make_unsaved(:wow_class => 'Druid'))
+      @raid = mock_model(Raid, :attendees => @attendees, 
         :loots => mock_model(Loot), :date => Date.today)
-      Attendee.should_receive(:find).and_return('attendees')
+      Attendee.should_receive(:find).and_return([@attendees])
       Loot.should_receive(:find).and_return('loots')
       
       find_raid
@@ -74,7 +76,7 @@ describe RaidsController, "#show" do
     end
     
     it "should assign @attendees" do
-      assigns[:attendees].should == 'attendees'
+      assigns[:attendees].class.should == Hash
     end
     
     it "should assign @loots" do

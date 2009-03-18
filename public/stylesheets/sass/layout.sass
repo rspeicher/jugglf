@@ -105,9 +105,57 @@
       :font = 14px Georgia
       :margin 0 60px 0 -3px
       
+// Wishlist item group --------------------------------------------------------
 div.loot_table
   h4
     span
       :width 30%
     img
       :float right
+      
+// Raids#show -----------------------------------------------------------------
+#raids
+  #attendees
+    h4
+      :padding-left 22px
+      :background-repeat no-repeat
+      :background-position center left
+    h4.Death_Knight
+      :background-image url(/images/classes/death_knight.gif)
+    h4.Druid
+      :background-image url(/images/classes/druid.gif)
+    h4.Hunter
+      :background-image url(/images/classes/hunter.gif)
+    h4.Mage
+      :background-image url(/images/classes/mage.gif)
+    h4.Paladin
+      :background-image url(/images/classes/paladin.gif)
+    h4.Priest
+      :background-image url(/images/classes/priest.gif)
+    h4.Rogue
+      :background-image url(/images/classes/rogue.gif)
+    h4.Shaman
+      :background-image url(/images/classes/shaman.gif)
+    h4.Warlock
+      :background-image url(/images/classes/warlock.gif)
+    h4.Warrior
+      :background-image url(/images/classes/warrior.gif)
+      
+    // Break after 5 classes
+    div#Priest
+      :clear left
+    .class_group
+      :width 20%
+      :display block
+      :float left
+      :margin 0 0 15px 0
+      h4
+        :margin 0
+      ul
+        :list-style-type none
+        li
+          :width 60%
+          span
+            :float right
+  #drops
+    :clear left
