@@ -30,7 +30,7 @@ function hideSuccessFlash() {
 /* Members ------------------------------------------------------------------ */
 
 function membersTableSort() {
-    $("table#members").tablesorter({
+    $("#members table#index").tablesorter({
         sortList: [[1,0]],
         widgets: ['zebra'],
         headers: {
