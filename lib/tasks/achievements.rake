@@ -7,7 +7,7 @@ namespace :jugg do
     total_achievements = Achievement.count
     
     Member.active.each do |member|
-      unless member.completed_achievements.count == total_achievements
+      if total_achievements == 0 or member.completed_achievements.count != total_achievements
         puts "Processing achievements for #{member.name}"
         contents = open("http://www.wowarmory.com/character-achievements.xml?r=Mal%27Ganis&n=#{member.name}&c=168",
           'User-Agent'      => "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.0.7) Gecko/2009021906 Firefox/3.0.7",
