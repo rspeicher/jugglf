@@ -38,5 +38,5 @@
         - @wishlists.each do |wishlist|
           %tr{ :class => cycle('even', 'odd') }
             %td.member{ :style => 'max-width: 150px' }= link_to_member(wishlist.member)
-            %td{ :style => 'width: 60%' }= h(wishlist.note)
+            %td{ :style => 'width: 60%' }= truncate(h(wishlist.note), :length => 80)
             %td{ :style => 'width: 100px'}= h(wishlist.priority.titlecase)

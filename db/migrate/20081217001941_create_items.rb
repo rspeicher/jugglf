@@ -1,7 +1,7 @@
 class CreateItems < ActiveRecord::Migration
   def self.up
     create_table :items do |t|
-      t.string :name
+      t.string :name, :limit => 100
       t.references :item_stat
     end
     
