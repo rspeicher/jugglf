@@ -69,14 +69,14 @@ class ItemStat < ActiveRecord::Base
       require 'open-uri'
       require 'nokogiri'
       
-      item.strip!
+      item = item.strip.downcase if item.is_a? String
       
       logger.debug "Hitting Wowhead"
       doc = Nokogiri::XML(open("http://www.wowhead.com/?item=#{CGI.escape(item.to_s)}&xml"))
       if doc.search('wowhead/error').first.nil?
         wowhead_item = doc.search('wowhead/item/name').first.content
         
-        if wowhead_item.downcase == item.downcase
+        if wowhead_item.downcase == item
           stat.item_id = doc.search('wowhead/item').first['id']
           stat.item    = wowhead_item
           stat.level   = doc.search('wowhead/item/level').first.content
