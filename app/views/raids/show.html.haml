@@ -7,17 +7,17 @@
   });
   
 #attendees
-  %h2= breadcrumb link_to('Raids', raids_path), h(@raid.date), 'Attendees'
+  %h2= breadcrumb link_to('Raids', raids_path), h(@raid.date), "Attendees (#{@raid.attendees.size})"
   - @attendees.sort.each do |group,array|
     .class_group{ :id => group }
-      %h4{ :class => group.gsub(/\s+/, '_') }= group
+      %h4{ :class => group.gsub(/\s+/, '_') }= group + " (#{array.size})"
       %ul
         - array.each do |att|
           %li
             = raid_attendance_colored(att.attendance)
             = link_to_member(att.member)
 #drops
-  %h2= breadcrumb 'Loots'
+  %h2= breadcrumb "Loots (#{@raid.loots.size})"
   %table#loot.list.tablesorter
     %thead
       %tr
