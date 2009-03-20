@@ -69,20 +69,39 @@ class ItemStat < ActiveRecord::Base
       require 'open-uri'
       require 'nokogiri'
       
+      item.strip!
+      
+      logger.debug "Hitting Wowhead"
       doc = Nokogiri::XML(open("http://www.wowhead.com/?item=#{CGI.escape(item.to_s)}&xml"))
       if doc.search('wowhead/error').first.nil?
-        stat.item_id = doc.search('wowhead/item').first['id']
-        stat.item    = doc.search('wowhead/item/name').first.content
-        stat.level   = doc.search('wowhead/item/level').first.content
-        stat.color   = "q#{doc.search('wowhead/item/quality').first['id']}"
-        stat.icon    = doc.search('wowhead/item/icon').first.content
-        stat.slot    = doc.search('wowhead/item/inventorySlot').first.content { |e| stat.slot = e.text }
+        wowhead_item = doc.search('wowhead/item/name').first.content
+        
+        if wowhead_item.downcase == item.downcase
+          stat.item_id = doc.search('wowhead/item').first['id']
+          stat.item    = wowhead_item
+          stat.level   = doc.search('wowhead/item/level').first.content
+          stat.color   = "q#{doc.search('wowhead/item/quality').first['id']}"
+          stat.icon    = doc.search('wowhead/item/icon').first.content
+          stat.slot    = doc.search('wowhead/item/inventorySlot').first.content { |e| stat.slot = e.text }
       
-        if stat.valid?
-          stat.save!
+          if stat.valid?
+            stat.save!
+          
+            return stat
+          end
         end
       end
+
+      # Something went wrong above, create an item record so we don't continue
+      # hitting Wowhead's servers with a bogus query.
+      stat.item_id = nil
+      stat.item    = item
+      stat.level   = nil
+      stat.color   = nil
+      stat.icon    = 'Trade_Engineering'
+      stat.slot    = nil
       
-      stat
+      stat.save(false)
+      return stat
     end
 end
