@@ -122,7 +122,7 @@ class MembersController < ApplicationController
       elsif current_user.member.nil? and not current_user.is_admin?
         require_admin
       # Not an admin, current member is not associated member; bounce to index
-      elsif current_user.member.id != params[:id] and not current_user.is_admin?
+      elsif current_user.member.to_param != params[:id] and not current_user.is_admin?
         require_admin
       end
     end

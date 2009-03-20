@@ -58,7 +58,7 @@ end
 # GET /members/:id
 describe MembersController, "#show" do
   def get_response(params = {})
-    get :show, params.merge!(:id => '1')
+    get :show, params.merge!(:id => '1-name')
   end
   
   before(:each) do
@@ -72,7 +72,7 @@ describe MembersController, "#show" do
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
-      Member.should_receive(:find).with('1').and_return(@mock)
+      Member.should_receive(:find).with('1-name').and_return(@mock)
     end
     
     %w(loots punishments wishlist achievements).each do |tab|
@@ -98,8 +98,8 @@ describe MembersController, "#show" do
     end
     
     it "should render when the current member belongs to the current user" do
-      login({}, { :member => mock_model(Member, :id => '1', :name => 'Name'), :is_admin? => false })
-      Member.should_receive(:find).with('1').and_return(@mock)
+      login({}, { :member => mock_model(Member, :to_param => '1-name', :id => '1', :name => 'Name'), :is_admin? => false })
+      Member.should_receive(:find).with('1-name').and_return(@mock)
       get_response
       response.should be_success
       response.should render_template(:show)
