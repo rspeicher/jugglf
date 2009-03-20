@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
     def require_admin
       if current_user
         unless @current_user.is_admin?
-          flash[:error] = "You do not have permission to access that page."
+          flash[:error] = "You do not have permission to access that page. You have been redirected back to the index."
           redirect_to(root_path)
         end
       else
