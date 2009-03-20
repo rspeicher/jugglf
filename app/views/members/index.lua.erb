@@ -6,9 +6,9 @@ JuggyCompare_Data = {
   ["<%= member.name %>"] = {
     ["NAME"]     = "<%= h(member.name) %>",
     ["RANK"]     = "<%= h(member.rank.name) unless member.rank_id.nil? %>",
-    ["RAIDS_30"] = "<%= number_with_precision(member.attendance_30 * 100.0, :precision => 0) %>%",
-    ["RAIDS_90"] = "<%= number_with_precision(member.attendance_90 * 100.0, :precision => 0) %>%",
-    ["RAIDS_LT"] = "<%= number_with_precision(member.attendance_lifetime * 100.0, :precision => 0) %>%",
+    ["RAIDS_30"] = "<%= (member.attendance_30 * 100.0).floor %>%",
+    ["RAIDS_90"] = "<%= (member.attendance_90 * 100.0).floor %>%",
+    ["RAIDS_LT"] = "<%= (member.attendance_lifetime * 100.0).floor %>%",
     ["LASTLOOT"] = "TODO: Last Loot",
     ["LF"]       = "<%= loot_factor(member.lf) %>",
     ["SLF"]      = "<%= loot_factor(member.sitlf) %>",
