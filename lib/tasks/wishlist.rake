@@ -4,9 +4,10 @@ namespace :jugg do
     zone.children.create(:object => Boss.create(:name => name))
   end
   
-  def item(boss, name)
+  def item(boss, name, note = nil)
     return if boss.nil? or name.nil? or name.empty?
-    boss.children.create(:object => Item.find_or_create_by_name(name))
+    boss.children.create(:object => Item.find_or_create_by_name(name), 
+      :note => note)
   end
   
   desc "Populate wishlist data"
@@ -394,88 +395,117 @@ namespace :jugg do
         end
     end
   
-    # ['Ulduar (H)'].each do |zone_name|
-    #   zone = LootTable.create(:object => Zone.create(:name => zone_name))
-    #   
-    #   ['Flame Leviathan', 'General Vezax', 'Iron Council', 'Kologarn'].each do |boss_name|
-    #     boss = boss(zone, boss_name)
-    #     
-    #     case boss_name
-    #     when 'Flame Leviathan'
-    #       item(boss, "Constructor's Handwraps")
-    #       item(boss, "Dragonslayer's Brace")
-    #       item(boss, "Embrace of the Leviathan")
-    #       item(boss, "Freya's Choker of Warding")
-    #       item(boss, "Gloves of the Fiery Behemoth")
-    #       item(boss, "Glowing Ring of Reclamation")
-    #       item(boss, "Iron Riveted War Helm")
-    #       item(boss, "Mechanist's Bindings")
-    #       item(boss, "Mimiron's Inferno Couplings")
-    #       item(boss, "Overcharged Fuel Rod")
-    #       item(boss, "Pattern: Belt of Arctic Life")
-    #       item(boss, "Pattern: Belt of Dragons")
-    #       item(boss, "Pattern: Boots of Wintry Endu...")
-    #       item(boss, "Pattern: Cord of the White Dawn")
-    #       item(boss, "Pattern: Lightning Grounded Boots")
-    #       item(boss, "Pattern: Sash of Ancient Power")
-    #       item(boss, "Plans: Battleord's Plate Boots")
-    #       item(boss, "Plans: Girdle of the Righteous")
-    #       item(boss, "Rising Sun")
-    #       item(boss, "Steamcaller's Totem")
-    #       item(boss, "Steamworker's Goggles")
-    #       item(boss, "Strength of the Automaton")
-    #       item(boss, "The Leviathan's Coil")
-    #       item(boss, "Titanguard")
-    #       item(boss, "Veranus' Bane")
-    #     when 'General Vezax'
-    #       item(boss, "Belt of Clinging Hope")
-    #       item(boss, "Boots of the Forgotten Depths")
-    #       item(boss, "Boots of the Underdweller")
-    #       item(boss, "Flare of the Heavens")
-    #       item(boss, "Grips of the Unbroken")
-    #       item(boss, "Helm of the Faceless")
-    #       item(boss, "Idol of the Corruptor")
-    #       item(boss, "Libram of Sacred Shield")
-    #       item(boss, "Lotrafen, Spear of the Damned")
-    #       item(boss, "Mantle of the Unknowing")
-    #       item(boss, "Metallic Loop of the Sufferer")
-    #       item(boss, "Ring of the Vacant Eye")
-    #       item(boss, "Savior's Slippers")
-    #       item(boss, "The General's Heart")
-    #       item(boss, "Voldrethar, Dark Blade of Oblivion")
-    #     when 'Iron Council'
-    #       item(boss, "Archivum Data Disc")
-    #       item(boss, "Belt of Colossal Rage")
-    #       item(boss, "Drape of the Lithe")
-    #       item(boss, "Insurmontable Fervor")
-    #       item(boss, "Iron-studded Mantle")
-    #       item(boss, "Overload Legwraps")
-    #       item(boss, "Radiant Seal")
-    #       item(boss, "Rapture")
-    #       item(boss, "Rune Edge")
-    #       item(boss, "Runed Ironhide Boots")
-    #       item(boss, "Runeshaper's Gloves")
-    #       item(boss, "Steelbreaker's Embrace")
-    #       item(boss, "Unblinking Eye")
-    #       item(boss, "Vestments of the Sprouting Seed")
-    #     when 'Kologarn'
-    #       item(boss, "Bracers of Unleashed Magic")
-    #       item(boss, "Decimator's Armguards")
-    #       item(boss, "Giant's Bane")
-    #       item(boss, "Gloves of the Pythonic Guardian")
-    #       item(boss, "Handwraps of Plentiful Recovery")
-    #       item(boss, "Idol of the Crying Wind")
-    #       item(boss, "Ironmender")
-    #       item(boss, "Leggings of the Stoneweaver")
-    #       item(boss, "Malice")
-    #       item(boss, "Necklace of Unerring Mettle")
-    #       item(boss, "Pattern: Death-Warmed Belt")
-    #       item(boss, "Robes of the Umbral Brut")
-    #       item(boss, "Saronite Plated Legguards")
-    #       item(boss, "Shoulderpads of the Monolith")
-    #       item(boss, "Wrathstone")
-    #     end
-    #   end
-    # end
+    ulduar_bosses = ['Bind on Equip', 'Flame Leviathan', 'Razorscale', 
+      'Ignis the Furnacemaster', 'XT-002 Deconstructor', 'The Iron Council', 
+      'Algalon the Observer', 'Kologarn', 'Hodir', 'Auriaya', 'Thorim', 'Freya', 
+      'Mimiron', 'Yogg-Saron']
+    
+    ['Ulduar'].each do |zone_name|
+      zone = LootTable.create(:object => Zone.create(:name => zone_name))
+      
+      ulduar_bosses.each do |boss_name|
+        boss = boss(zone, boss_name)
+        
+        case boss_name
+        when 'Flame Leviathan'
+          item(boss, "Combustion Bracers")
+          item(boss, "Energy Siphon")
+          item(boss, "Firesoul")
+          item(boss, "Firestrider Chestguard")
+          item(boss, "Flamewatch Armguards")
+          item(boss, "Gilded Steel Legplates", 'Hard Mode')
+          item(boss, "Handguards of Potent Cures", 'Hard Mode')
+          item(boss, "Ironsoul")
+          item(boss, "Kinetic Ripper")
+          item(boss, "Lifespark Visage")
+          item(boss, "Mantle of Fiery Vengeance", 'Hard Mode')
+          item(boss, "Might of the Leviathan")
+          item(boss, "Pyrite Infuser")
+          item(boss, "Shimmering Seal", 'Hard Mode')
+          item(boss, "Twirling Blades", 'Hard Mode')
+        when 'Razorscale'
+        when 'Ignis the Furnacemaster'
+        when 'XT-002 Deconstructor'
+        when 'The Iron Council'
+        when 'Algalon the Observer'
+        when 'Kologarn'
+        when 'General Vezax'
+        when 'Hodir'
+        when 'Auriaya'
+          item(boss, "Archaedas' Lost Legplates")
+          item(boss, "Chestplate of Titanic Fury")
+          item(boss, "Elemental Focus Stone")
+          item(boss, "Ironaya's Discarded Mantle")
+          item(boss, "Nimble Climber's Belt")
+          item(boss, "Nurturing Touch")
+          item(boss, "Raiments of the Corrupted")
+          item(boss, "Shieldwall of the Breaker")
+        when 'Thorim'
+        when 'Freya'
+        when 'Mimiron'
+        when 'Yogg-Saron'
+        end
+      end
+    end
+    
+    ['Ulduar (H)'].each do |zone_name|
+      zone = LootTable.create(:object => Zone.create(:name => zone_name))
+      
+      ulduar_bosses.each do |boss_name|
+        boss = boss(zone, boss_name)
+        
+        case boss_name
+        when 'Flame Leviathan'
+          item(boss, "Boots of Fiery Resolution", 'Hard Mode')
+          item(boss, "Constructor's Handwraps")
+          item(boss, "Embrace of the Leviathan")
+          item(boss, "Freya's Choker of Warding")
+          item(boss, "Gloves of the Fiery Behemoth")
+          item(boss, "Glowing Ring of Reclamation")
+          item(boss, "Golden Saronite Dragon", 'Hard Mode')
+          item(boss, "Iron Riveted War Helm")
+          item(boss, "Mechanist's Bindings")
+          item(boss, "Mimiron's Inferno Couplings")
+          item(boss, "Overcharged Fuel Rod")
+          item(boss, "Pendant of Fiery Havoc", 'Hard Mode')
+          item(boss, "Plated Leggings of Ruination", 'Hard Mode')
+          item(boss, "Rising Sun")
+          item(boss, "Shoulderpads of Dormant Energies", 'Hard Mode')
+          item(boss, "Steamcaller's Totem")
+          item(boss, "Steamworker's Goggles")
+          item(boss, "Strength of the Automaton")
+          item(boss, "The Leviathan's Coil")
+          item(boss, "Titanguard")
+        when 'Razorscale'
+        when 'Ignis the Furnacemaster'
+        when 'XT-002 Deconstructor'
+        when 'The Iron Council'
+        when 'Algalon the Observer'
+        when 'Kologarn'
+        when 'General Vezax'
+        when 'Hodir'
+        when 'Auriaya'
+          item(boss, "Amice of the Stoic Watch")
+          item(boss, "Cloak of the Makers")
+          item(boss, "Cowl of the Absolute")
+          item(boss, "Gloves of the Stonereaper")
+          item(boss, "Greaves of the Rockmender")
+          item(boss, "Libram of the Resolute")
+          item(boss, "Platinum Band of the Aesir")
+          item(boss, "Ring of the Faithful Servant")
+          item(boss, "Runescribed Blade")
+          item(boss, "Sandals of the Ancient Keeper")
+          item(boss, "Shoulderplates of the Eternal")
+          item(boss, "Siren's Cry")
+          item(boss, "Stonerender")
+          item(boss, "Unbreakable Chestguard")
+          item(boss, "Unwavering Stare")
+        when 'Thorim'
+        when 'Freya'
+        when 'Mimiron'
+        when 'Yogg-Saron'
+        end
+      end
+    end
   end
 end
