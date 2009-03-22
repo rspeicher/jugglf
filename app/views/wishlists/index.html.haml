@@ -4,7 +4,9 @@
     %div[item]
       %h4
         = link_to_function(image_tag('clipboard.png'), "wishlistCopy(#{item.id})")
-        %span= link_to_item_with_stats(item.object)
+        %span<
+          = link_to_item_with_stats(item.object)
+          = "(#{h(item.note)})" unless item.note.nil?
       %table.list.tablesorter
         %thead.hidden
           %tr
@@ -21,6 +23,8 @@
                 %td{ :style => 'width: 60%' }= h(wishlist.note)
                 %td{ :style => 'width: 100px'}= h(wishlist.priority.titlecase)
                 %td.lootfactor= loot_factor(wishlist.member.lf_type(wishlist.priority))
+  %br
+  .notice.hidden
 #sidebar
   %ul
     - @root.each do |zone|

@@ -153,11 +153,28 @@ function wishlistMenu(zone, boss) {
  * wishlist entries by an active member. Either way, we don't want them displayed.
  */
 function wishlistHideUnwanted() {
+    count = 0;
+    
     $('div.loot_table').each(function() {
         if ($(this).children('table.list').children('tbody').children('tr').length == 0) {
             $(this).hide();
+            count++;
         }
     });
+    
+    if (count > 0) {
+        $('div.notice').html("<b>Note:</b> Hiding " + count + " unwanted items. " +
+            "<a onclick=\"wishlistShowUnwanted(); return false;\" href=\"#\">Click here</a> to show them.")
+        $('div.notice').removeClass('hidden');
+    }
+}
+
+function wishlistShowUnwanted() {
+    $('div.loot_table').each(function() {
+        $(this).show();
+    });
+    
+    $('div.notice').addClass('hidden');
 }
 
 function wishlistCopy(id) {
