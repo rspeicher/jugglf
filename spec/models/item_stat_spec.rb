@@ -23,7 +23,7 @@ describe ItemStat do
   end
   
   it "should return a Wowhead item link" do
-    @stat.wowhead_link.should == "http://www.wowhead.com/?item=12345"
+    @stat.wowhead_link.should match(/wowhead.com\/\?item=12345/)
   end
   
   it "should return a Wowhead icon link" do

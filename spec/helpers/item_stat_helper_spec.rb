@@ -48,7 +48,7 @@ describe ItemStatsHelper do
     end
     
     it "should include a relative item link for tooltips" do
-      link_to_item_with_stats(@item).should match(/rel='item=12345'/)
+      link_to_item_with_stats(@item).should match(/rel='item=12345/)
     end
     
     it "should include the quality class" do
