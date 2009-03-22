@@ -407,8 +407,9 @@ namespace :jugg do
         boss = boss(zone, boss_name)
         
         case boss_name
-        when 'Flame Leviathan'
+        when 'Bind on Equip'
           item(boss, "Combustion Bracers")
+        when 'Flame Leviathan'
           item(boss, "Energy Siphon")
           item(boss, "Firesoul")
           item(boss, "Firestrider Chestguard")
@@ -427,6 +428,21 @@ namespace :jugg do
         when 'Ignis the Furnacemaster'
         when 'XT-002 Deconstructor'
         when 'The Iron Council'
+          item(boss, "Belt of the Iron Servant")
+          item(boss, "Boots of the Petrified Forest")
+          item(boss, "Circlet of True Sight")
+          item(boss, "Cloak of the Iron Council")
+          item(boss, "Greaves of Iron Intensity")
+          item(boss, "Lady Maye's Sapphire Ring")
+          item(boss, "Leggings of Swift Reflexes")
+          item(boss, "Pauldrons of Tempered Will")
+          item(boss, "Perilous Bite")
+          item(boss, "Rune-Etched Nightblade")
+          item(boss, "Runetouch Handwraps")
+          item(boss, "Stormedge")
+          item(boss, "Stormtip")
+          item(boss, "The Masticator")
+          item(boss, "Watchful Eye", 'Hard Mode')
         when 'Algalon the Observer'
         when 'Kologarn'
         when 'General Vezax'
@@ -455,6 +471,10 @@ namespace :jugg do
         boss = boss(zone, boss_name)
         
         case boss_name
+        when 'Bind on Equip'
+          item(boss, "Cowl of the Absolute")
+          item(boss, "Iron Riveted War Helm")
+          item(boss, "Phaelia's Vestments of the Sprouting Seed")
         when 'Flame Leviathan'
           item(boss, "Boots of Fiery Resolution", 'Hard Mode')
           item(boss, "Constructor's Handwraps")
@@ -463,7 +483,6 @@ namespace :jugg do
           item(boss, "Gloves of the Fiery Behemoth")
           item(boss, "Glowing Ring of Reclamation")
           item(boss, "Golden Saronite Dragon", 'Hard Mode')
-          item(boss, "Iron Riveted War Helm")
           item(boss, "Mechanist's Bindings")
           item(boss, "Mimiron's Inferno Couplings")
           item(boss, "Overcharged Fuel Rod")
@@ -480,6 +499,21 @@ namespace :jugg do
         when 'Ignis the Furnacemaster'
         when 'XT-002 Deconstructor'
         when 'The Iron Council'
+          item(boss, "Ancient Iron Heaume")
+          item(boss, "Belt of Colossal Rage", 'Hard Mode')
+          item(boss, "Drape of Mortal Downfall", 'Hard Mode')
+          item(boss, "Drape of the Lithe")
+          item(boss, "Handguards of the Enclave")
+          item(boss, "Iron-studded Mantle")
+          item(boss, "Overload Legwraps")
+          item(boss, "Radiant Seal")
+          item(boss, "Raiments of the Iron Council")
+          item(boss, "Rapture")
+          item(boss, "Rune Edge")
+          item(boss, "Runed Ironhide Boots")
+          item(boss, "Runeshaper's Gloves")
+          item(boss, "Steelbreaker's Embrace")
+          item(boss, "Unblinking Eye")
         when 'Algalon the Observer'
         when 'Kologarn'
         when 'General Vezax'
@@ -487,7 +521,6 @@ namespace :jugg do
         when 'Auriaya'
           item(boss, "Amice of the Stoic Watch")
           item(boss, "Cloak of the Makers")
-          item(boss, "Cowl of the Absolute")
           item(boss, "Gloves of the Stonereaper")
           item(boss, "Greaves of the Rockmender")
           item(boss, "Libram of the Resolute")
