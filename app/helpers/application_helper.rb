@@ -48,7 +48,7 @@ module ApplicationHelper
     options[:url]     ||= polymorphic_path(object)
     options[:text]    ||= ''
     options[:confirm] ||= 'Are you sure?'
-    options[:success] ||= "$('##{klass}-#{object.id}').fadeOut(250); zebraRows('#{klass}', 300)"
+    options[:success] ||= "$('##{klass}_#{object.id}').fadeOut(250); zebraRows('#{klass}', 300)"
     
     link_to_remote(image_tag('delete.png') + h(options[:text]), 
       :url     => options[:url],
