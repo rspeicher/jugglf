@@ -11,7 +11,7 @@ every 1.day, :at => '4:00 am' do
   rake 'jugg:achievements'
 end
 
-every 10.minutes do
+every 20.minutes do
   runner 'Session.delete_all [\'updated_at < ?\', 20.minutes.ago]'
 end
 
