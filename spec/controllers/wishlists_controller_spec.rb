@@ -2,9 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 # before_filter :find_wishlist_parent
 def find_wishlist_parent
-  @parent ||= @member ||= mock_model(Member, :to_param => '1',
+  @parent ||= @member ||= mock_model(Member, :id => '1', :to_param => '1',
     :wishlists => mock_model(Wishlist))
-  Member.should_receive(:find).with('1').and_return(@parent)
+  Member.stub!(:find).with('1').and_return(@parent)
 end
 
 # before_filter :find_wishlist, :only => [:edit, :update, :destroy]
@@ -116,8 +116,8 @@ describe WishlistsController, "#new" do
   
   describe "as user" do
     before(:each) do
-      login
       find_wishlist_parent
+      login({}, { :is_admin? => false, :member => @parent })
       @member.wishlists.should_receive(:new).and_return('wishlist')
       get_response
     end
@@ -156,8 +156,8 @@ describe WishlistsController, "#edit" do
   
   describe "as user" do
     before(:each) do
-      login
       find_wishlist_parent
+      login({}, { :is_admin? => false, :member => @parent })
       find_wishlist
     end
     
@@ -210,7 +210,7 @@ describe WishlistsController, "#create" do
     describe "when successful" do
       before(:each) do
         find_wishlist_parent
-        login
+        login({}, { :is_admin? => false, :member => @parent })
         @wishlist = mock_model(Wishlist, :to_param => '1', :save => true)
         @params = Wishlist.plan(:member => @parent).stringify_keys!
         @parent.wishlists.should_receive(:new).with(@params).and_return(@wishlist)
@@ -244,8 +244,8 @@ describe WishlistsController, "#create" do
 
     describe "when unsuccessful" do
       before(:each) do
-        login
         find_wishlist_parent
+        login({}, { :is_admin? => false, :member => @parent })
         @wishlist = mock_model(Wishlist, :save => false)
         @parent.wishlists.stub!(:new).and_return(@wishlist)
       end
@@ -298,7 +298,7 @@ describe WishlistsController, "#update" do
     
     describe "when successful" do
       before(:each) do
-        login
+        login({}, { :is_admin? => false, :member => @parent })
         @wishlist.should_receive(:update_attributes).with(@params).and_return(true)
       end
       
@@ -322,7 +322,7 @@ describe WishlistsController, "#update" do
     
     describe "when unsuccessful" do
       before(:each) do
-        login
+        login({}, { :is_admin? => false, :member => @parent })
         @wishlist.should_receive(:update_attributes).with(@params).and_return(false)
       end
       
@@ -363,8 +363,8 @@ describe WishlistsController, "#destroy" do
   
   describe "as user" do
     before(:each) do
-      login
       find_wishlist_parent
+      login({}, { :is_admin? => false, :member => @parent })
       find_wishlist
       @wishlist.should_receive(:destroy).and_return(nil)
     end
@@ -397,5 +397,52 @@ describe WishlistsController, "#destroy" do
       get_response
       response.should redirect_to(new_user_session_url)
     end
+  end
+end
+
+# -----------------------------------------------------------------------------
+# Misc
+# -----------------------------------------------------------------------------
+
+# Make sure a member can't modify another member's wishlist entries
+describe WishlistsController, "forged posts" do
+  def get_response()
+    xhr :delete, :destroy, :member_id => '999', :id => '1'
+  end
+  
+  before(:each) do
+    # Create a member with ID 999
+    @not_me = Member.make(:id => '999', :name => 'Sebudai')
+    
+    # Create a member with ID 1
+    @me = Member.make(:id => '1', :name => 'Tsigo')
+    
+    # Create a wishlist entry for Sebudai, ID 1
+    @not_me.wishlists.make(:id => '1', :item => Item.make(:name => 'Sebudai\'s Item'))
+  end
+  
+  it "should set up the environment" do
+    @not_me.id.should == 999
+    @me.id.should == 1
+    
+    Wishlist.count.should == 1
+    @me.wishlists.count.should == 0
+    @not_me.wishlists.count.should == 1
+  end
+  
+  it "should delete the record when I am an admin" do
+    login({}, { :is_admin? => true, :member => @me })
+    lambda { get_response }.should change(Wishlist, :count).by(-1)
+  end
+  
+  it "should not delete a wishlist entry that isn't mine" do
+    login({}, { :is_admin? => false, :member => @me })
+    lambda { get_response }.should raise_error(ActiveRecord::RecordNotFound)
+  end
+  
+  it "should require_admin when I have no member associated" do
+    login({}, { :is_admin? => false, :member => nil })
+    get_response
+    response.should redirect_to(root_url)
   end
 end

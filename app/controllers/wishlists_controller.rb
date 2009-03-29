@@ -101,7 +101,15 @@ class WishlistsController < ApplicationController
   private
     def find_parent
       if params[:member_id]
-        @parent = @member = Member.find(params[:member_id])
+        if current_user.is_admin?
+          # Admins can edit anyone's wishlist
+          @parent = @member = Member.find(params[:member_id])
+        elsif not current_user.member.nil?
+          # Members can only edit their own wishlist
+          @parent = @member = current_user.member
+        else
+          require_admin
+        end
       end
     end
     
