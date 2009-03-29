@@ -19,6 +19,9 @@ class WishlistsController < ApplicationController
       if @items.size > 0
         @boss  = @items[0].parent
         @zone  = @boss.parent
+      else
+        @boss = LootTable.find(params[:boss])
+        @zone = @boss.parent
       end
     else
       @items = []

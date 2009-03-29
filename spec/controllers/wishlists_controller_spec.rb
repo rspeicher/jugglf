@@ -68,6 +68,23 @@ describe WishlistsController, "#index" do
         assigns[:zone].should == 'ParentZone'
       end
     end
+    
+    describe "with boss parameter for which there are no items" do
+        before(:each) do
+          @boss = mock_model(Boss, :parent => 'ParentZone')
+          LootTable.should_receive(:find).with(:all, anything()).and_return([]) # Find items
+          LootTable.should_receive(:find).with('1').and_return(@boss)           # No items, just find the boss
+          get_response(:boss => '1')
+        end
+
+        it "should assign @boss" do
+          assigns[:boss].should == @boss
+        end
+
+        it "should re-assign @zone" do
+          assigns[:zone].should == 'ParentZone'
+        end
+      end
   end
   
   describe "as user" do
