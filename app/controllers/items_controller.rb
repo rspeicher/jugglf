@@ -17,6 +17,7 @@ class ItemsController < ApplicationController
     
     @loots = @item.loots.find(:all, :include => :member)
     @wishlists = @item.wishlists.find(:all, :include => :member, :conditions => ["#{Member.table_name}.active = ?", true])
+    @loot_table = LootTable.find(:first, :conditions => ['object_type = ? AND object_id = ?', 'Item', @item.id])
     
     respond_to do |wants|
       wants.html

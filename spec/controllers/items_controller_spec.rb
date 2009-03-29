@@ -41,10 +41,12 @@ describe ItemsController, "#show" do
     @wishlist    = mock_model(Wishlist)
     @item        = mock_model(Item, :to_param => '1', :loots => @loot, 
       :wishlists => @wishlist, :name => 'Name')
+    @loot_table  = mock_model(LootTable)
     find_item
     
     @loot.should_receive(:find).and_return([@loot])
     @wishlist.should_receive(:find).and_return([@wishlist])
+    LootTable.should_receive(:find).and_return(@loot_table)
     
     get_response
   end
