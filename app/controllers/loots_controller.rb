@@ -81,7 +81,14 @@ class LootsController < ApplicationController
     end
     
     def raids_select
-      @raids = Raid.find(:all, :order => 'date DESC', 
-        :conditions => ['date >= ?', 52.days.until(Date.today)])      
+      if @loot.nil?
+        @raids = Raid.find(:all, :order => 'date DESC', 
+          :conditions => ['date >= ?', 52.days.until(Date.today)])
+      else
+        # Make sure we include the date this loot was purchased on even if it's
+        # now outside our loot factor cutoff
+        @raids = Raid.find(:all, :order => 'date DESC', 
+          :conditions => ['date >= ? OR date = ?', 52.days.until(Date.today), @loot.purchased_on])
+      end
     end
 end

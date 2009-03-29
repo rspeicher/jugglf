@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 # before_filter :find_loot, :only => [:show, :edit, :update, :destroy]
 def find_loot
-  @loot ||= mock_model(Loot, :to_param => '1')
+  @loot ||= mock_model(Loot, :to_param => '1', :purchased_on => Date.today)
   Loot.should_receive(:find).with('1').and_return(@loot)
 end
 
@@ -101,7 +101,7 @@ describe LootsController, "#edit" do
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
-      @item = mock_model(Item, :name => 'Name')
+      @item = mock_model(Item, :name => 'Name', :purchased_on => Date.today)
       find_loot
       get_response
     end
@@ -145,7 +145,7 @@ describe LootsController, "#create" do
   describe "as admin" do
     before(:each) do
       login({}, :is_admin? => true)
-      @loot = mock_model(Loot, :to_param => '1')
+      @loot = mock_model(Loot, :to_param => '1', :purchased_on => Date.today)
       Loot.should_receive(:new).and_return(@loot)
     end
     
