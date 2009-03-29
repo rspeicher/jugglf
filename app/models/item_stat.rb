@@ -101,7 +101,7 @@ class ItemStat < ActiveRecord::Base
       stat.item    = item
       stat.level   = nil
       stat.color   = nil
-      stat.icon    = 'Trade_Engineering'
+      stat.icon    = 'INV_Misc_QuestionMark'
       stat.slot    = nil
       
       stat.save(false)
