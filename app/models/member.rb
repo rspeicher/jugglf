@@ -134,22 +134,23 @@ class Member < ActiveRecord::Base
     def update_loot_factor_cache
       # Update 30-day attendance here instead of in update_attendance_cache for
       # faster cache updates
+      
       # Total possible attendance totals
       total = Raid.count_last_thirty_days * 1.00
       
       # My attendance totals
-      att = 0.00
-      Attendee.find(:all, :include => :raid, :conditions => ["member_id = ? AND #{Raid.table_name}.date >= ?", self.id, 30.days.until(Date.today)]).each do |a|
-        if total > 0.00
+      if total > 0.00
+        att = 0.00
+        Attendee.find(:all, :include => :raid, :conditions => ["member_id = ? AND #{Raid.table_name}.date >= ?", self.id, 30.days.until(Date.today)]).each do |a|
           att += a.attendance
         end
+        
+        self.attendance_30 = (att / total)
       end
-      
-      self.attendance_30 = (att / total) unless total == 0.00
       
       lf = { :lf => 0.00, :sitlf => 0.00, :bislf => 0.00 }
       
-      # Items affecting loot factor
+      # Items affecting loot factors
       self.loots.each do |i|
         if i.affects_loot_factor? and not i.adjusted_price.nil?
           if i.situational?
@@ -162,7 +163,7 @@ class Member < ActiveRecord::Base
         end
       end
       
-      # Punishments affecting ALL loot factors
+      # Punishments affect ALL loot factors
       today = Date.today
       self.punishments.each do |p|
         if p.expires > today
