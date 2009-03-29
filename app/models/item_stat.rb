@@ -4,7 +4,7 @@
 # Table name: item_stats
 #
 #  id         :integer(4)      not null, primary key
-#  item_id    :integer(4)
+#  wow_id     :integer(4)
 #  item       :string(255)
 #  locale     :string(10)      default("en")
 #  color      :string(15)
@@ -22,22 +22,22 @@ class ItemStat < ActiveRecord::Base
   # Attributes ----------------------------------------------------------------
   
   # Validations ---------------------------------------------------------------
-  validates_presence_of :item_id
+  validates_presence_of :wow_id
   validates_presence_of :item
   
   # Callbacks -----------------------------------------------------------------
   
   # Class Methods -------------------------------------------------------------
   def self.lookup(query, refresh = false)
-    if query.is_a? String
-      self.lookup_by_name(query, refresh)
-    else
+    if query.is_a?(Integer) or query.to_s.match(/^\d+$/)
       self.lookup_by_id(query.to_i, refresh)
+    else
+      self.lookup_by_name(query, refresh)
     end
   end
   
   def self.lookup_by_id(id, refresh = false)
-    stat = ItemStat.find_or_initialize_by_item_id(id)
+    stat = ItemStat.find_or_initialize_by_wow_id(id)
     
     if stat.new_record? or refresh
       self.wowhead_lookup(id, stat)
@@ -57,7 +57,7 @@ class ItemStat < ActiveRecord::Base
   
   # Instance Methods ----------------------------------------------------------
   def wowhead_link
-    "http://ptr.wowhead.com/?item=#{self.item_id}"
+    "http://ptr.wowhead.com/?item=#{self.wow_id}"
   end
   def wowhead_icon(size = 'small')
     "http://static.wowhead.com/images/icons/#{size.downcase}/#{self.icon.downcase}.jpg"
@@ -71,13 +71,16 @@ class ItemStat < ActiveRecord::Base
       
       item = item.strip.downcase if item.is_a? String
       
-      logger.debug "Hitting Wowhead"
-      doc = Nokogiri::XML(open("http://ptr.wowhead.com/?item=#{CGI.escape(item.to_s)}&xml"))
+      url = "http://ptr.wowhead.com/?item=#{CGI.escape(item.to_s)}&xml"
+      
+      logger.debug "Hitting Wowhead (#{url})"
+      doc = Nokogiri::XML(open(url))
       if doc.search('wowhead/error').first.nil?
+        wowhead_id   = doc.search('wowhead/item').first['id']
         wowhead_item = doc.search('wowhead/item/name').first.content
         
-        if wowhead_item.downcase == item
-          stat.item_id = doc.search('wowhead/item').first['id']
+        if wowhead_id.to_i == item.to_i or wowhead_item.downcase == item
+          stat.wow_id  = wowhead_id
           stat.item    = wowhead_item
           stat.level   = doc.search('wowhead/item/level').first.content
           stat.color   = "q#{doc.search('wowhead/item/quality').first['id']}"
@@ -94,7 +97,7 @@ class ItemStat < ActiveRecord::Base
 
       # Something went wrong above, create an item record so we don't continue
       # hitting Wowhead's servers with a bogus query.
-      stat.item_id = nil
+      stat.wow_id  = nil
       stat.item    = item
       stat.level   = nil
       stat.color   = nil

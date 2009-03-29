@@ -4,7 +4,7 @@
 # Table name: item_stats
 #
 #  id         :integer(4)      not null, primary key
-#  item_id    :integer(4)
+#  wow_id     :integer(4)
 #  item       :string(255)
 #  locale     :string(10)      default("en")
 #  color      :string(15)
@@ -37,7 +37,7 @@ describe ItemStat, "lookup from database" do
   end
   
   it "should perform lookup by item id" do
-    ItemStat.lookup(@stat.item_id).should == @stat
+    ItemStat.lookup(@stat.wow_id).should == @stat
   end
   
   it "should perform lookup by item name" do
