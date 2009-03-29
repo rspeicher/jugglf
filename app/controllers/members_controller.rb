@@ -62,6 +62,8 @@ class MembersController < ApplicationController
     page_title('New Member')
     
     @member = Member.new
+    @users = InvisionUser.juggernaut
+    @ranks = MemberRank.find(:all, :order => 'name')
     
     respond_to do |wants|
       wants.html
