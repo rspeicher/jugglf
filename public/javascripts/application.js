@@ -239,10 +239,11 @@ $.tablesorter.addParser({
  * object   jQuery      Object for the clicked span
 */
 function toggleItemTypes(object) {
-    if      ($(object).hasClass('bis')) { type = 'bis' }
-    else if ($(object).hasClass('sit')) { type = 'sit' }
-    else if ($(object).hasClass('rot')) { type = 'rot' }
-    else if ($(object).hasClass('de'))  { type = 'de'  }
+    if      ($(object).hasClass('bis'))    { type = 'bis' }
+    else if ($(object).hasClass('sit'))    { type = 'sit' }
+    else if ($(object).hasClass('rot'))    { type = 'rot' }
+    else if ($(object).hasClass('de'))     { type = 'de'  }
+    else if ($(object).hasClass('normal')) { type = 'normal' }
 
     parentRow = $(object).parent().parent();
 

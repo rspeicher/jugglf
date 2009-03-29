@@ -19,6 +19,12 @@ describe LootsHelper do
       
       loot_tell_types(loot).should match(/Disenchanted/)
     end
+    
+    it "should show 'Normal' for loots without a tell type" do
+      loot = Loot.make
+      
+      loot_tell_types(loot).should match(/Normal/)
+    end
   end
   
   describe "loot_row_classes" do
@@ -26,6 +32,12 @@ describe LootsHelper do
       loot = Loot.make(:best_in_slot => true, :rot => true)
     
       loot_row_classes(loot).should == 'loot_bis loot_rot'
+    end
+    
+    it "should return 'loot_normal' for loots without a tell type" do
+      loot = Loot.make
+      
+      loot_row_classes(loot).should == 'loot_normal'
     end
   end
   
