@@ -36,6 +36,7 @@ class Member < ActiveRecord::Base
   has_many :completed_achievements, :include => :achievement, :dependent => :destroy
   
   has_many :loots, :order => "purchased_on DESC", :dependent => :nullify
+  has_one :last_loot, :class_name => "Loot", :order => 'purchased_on DESC'
   
   has_many :punishments, :dependent => :destroy
   
