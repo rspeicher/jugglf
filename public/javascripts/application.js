@@ -197,6 +197,36 @@ function wishlistCopy(id) {
 }
 
 /**
+ * Prepares a form for adding a new Wishlist entry
+ */
+function wishlistAddForm() {
+    // Hide the errors div
+    $('#errors').addClass('hidden');
+    
+    // Wipe out any lingering Edit Form data
+    $('#wishlist-edit').html('');
+    
+    // Show the New form, add autocompletion
+    $('#wishlist-new').show();
+    $('#wishlist_item_name').autocomplete('/search/items.ac', {
+      minChars: 2,
+      autoFill: true
+    });
+    
+    // Focus the first field
+    $('#wishlist-new #wishlist_item_name').focus();
+    
+    // Clear the values of the previous input
+    $('#wishlist-new input[type=text]').each(function() {
+        $(this).val('');
+    });
+    $('#wishlist-new #wishlist_priority_normal').attr('checked', 'checked');
+    
+    // Hide the 'Add Entry' button so people don't confuse it with the Submit
+    $('#wishlist-toggle').hide();
+}
+
+/**
  * Fetches a remote Wishlist edit form to be displayed inline.
  *
  * Gets a form for the specified path, then shows the form div, focuses the
@@ -209,9 +239,20 @@ function wishlistEditForm(path) {
     $.get(path, function(value) {
         $('#wishlist-edit').html(value);
         $('#wishlist-edit').show();
-        $('#wishlist_item_name').focus();
+        
+        // Hide the button to show the 'New Entry' form
         $('#wishlist-toggle').hide();
+        
+        // Hide the actual 'New Entry' form
         $('#wishlist-new').hide();
+        
+        // Add autocompletion to the edit form
+        $('#wishlist-edit #wishlist_item_name').autocomplete('/search/items.ac', {
+          minChars: 2,
+          autoFill: true
+        });
+        
+        $('#wishlist-edit #wishlist_item_name').focus();
     });
 }
 

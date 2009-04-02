@@ -10,10 +10,7 @@ if success
   page << "sortWishlistTable();"
 
   # Reset the inline form and focus the name field
-  page << "$('#wishlist_item_name').val('');"
-  page << "$('#wishlist_note').val('');"
-  page << "$('#wishlist_priority_normal').attr('checked', 'checked');"
-  page << "$('#wishlist_item_name').focus();"
+  page << "wishlistAddForm();"
 else
   # Show the errors div
   page << "$('#errors').removeClass('hidden');"

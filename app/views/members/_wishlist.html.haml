@@ -1,10 +1,6 @@
 :javascript
   $(document).ready(function() {
     sortWishlistTable();
-    $('#wishlist_item_name').autocomplete('/search/items.ac', {
-      minChars: 2,
-      autoFill: true
-    });
     $('.help').tooltip({ showURL: false });
   });
 %table#wishlists.list.tablesorter
