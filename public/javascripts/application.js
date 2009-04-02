@@ -156,9 +156,15 @@ function wishlistHideUnwanted() {
     count = 0;
     
     $('div.loot_table').each(function() {
-        if ($(this).children('table.list').children('tbody').children('tr').length == 0) {
+        wishes = $(this).children('table.list').children('tbody').children('tr').length;
+        if (wishes == 0) {
             $(this).hide();
             count++;
+        }
+        
+        // Hide the clipboard icon if 0 or 1 people want this, since there'd be nothing to compare
+        if (wishes == 0 || wishes == 1) {
+            $(this).children('h4').children('a').hide();
         }
     });
     
