@@ -58,6 +58,9 @@ class Member < ActiveRecord::Base
   validates_format_of :name, :with => /^\w+$/, :message => "{{value}} is not a valid member name"
   validates_inclusion_of :wow_class, :in => WOW_CLASSES, :message => "{{value}} is not a valid WoW class", :allow_nil => true
   
+  # Callbacks -----------------------------------------------------------------
+  before_save :clean_trash
+  
   # Class Methods -------------------------------------------------------------
   def self.update_cache(type = :loot_factor)
     Member.active.each { |m| m.update_cache(type) }
@@ -178,5 +181,17 @@ class Member < ActiveRecord::Base
       self.lf    = (lf[:lf]    / denom)
       self.sitlf = (lf[:sitlf] / denom)
       self.bislf = (lf[:bislf] / denom)
+    end
+    
+    # Once a member is marked as both inactive and a Declined Applicant, we no
+    # longer care about a few of their child entries
+    def clean_trash
+      return unless self.active? == false and self.rank === MemberRank.find_by_name('Declined Applicant')
+      
+      # Don't care about what they want
+      self.wishlists.destroy_all
+      
+      # Don't care about the achievements they mooched from us
+      self.completed_achievements.destroy_all
     end
 end

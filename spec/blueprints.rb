@@ -8,7 +8,12 @@ end
 Achievement.blueprint do
   title { Faker::Lorem.words(5) }
   icon { 'icon' }
-  armory_id { 12345 }
+  armory_id { Faker::Address.zip_code }
+end
+CompletedAchievement.blueprint do
+  member
+  achievement
+  completed_on { Date.today }
 end
 
 MemberRank.blueprint do

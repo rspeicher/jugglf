@@ -88,6 +88,38 @@ describe Member do
   end
 end
 
+# -----------------------------------------------------------------------------
+
+describe Member, "#clean_trash" do
+  before(:each) do
+    @declined = MemberRank.make(:name => 'Declined Applicant')
+    @member = Member.make(:active => false, :rank => @declined)
+    
+    3.times { @member.completed_achievements.make }
+    4.times { @member.wishlists.make }
+  end
+  
+  it "should do nothing if a member is active" do
+    @member.active = true
+    lambda { @member.save }.should_not change(@member.wishlists, :count)
+  end
+  
+  it "should do nothing if a member is not a declined applicant" do
+    @member.rank = nil
+    lambda { @member.save }.should_not change(@member.wishlists, :count)
+  end
+  
+  it "should clear completed_achievements for an inactive declined applicant" do
+    lambda { @member.save }.should change(@member.completed_achievements, :count).to(0)
+  end
+  
+  it "should clear wishlists for an inactive declined applicant" do
+    lambda { @member.save }.should change(@member.wishlists, :count).to(0)
+  end
+end
+
+# -----------------------------------------------------------------------------
+
 describe Member, "full attendance caching" do
   before(:each) do
     @member = Member.make
