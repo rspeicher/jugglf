@@ -9,7 +9,7 @@ JuggyCompare_Data = {
     ["RAIDS_30"] = "<%= (member.attendance_30 * 100.0).floor %>%",
     ["RAIDS_90"] = "<%= (member.attendance_90 * 100.0).floor %>%",
     ["RAIDS_LT"] = "<%= (member.attendance_lifetime * 100.0).floor %>%",
-    ["LASTLOOT"] = "<%= member.last_loot.purchased_on %>",
+    ["LASTLOOT"] = "<%= member.last_loot.purchased_on unless member.loots.size == 0 %>",
     ["LF"]       = "<%= loot_factor(member.lf) %>",
     ["SLF"]      = "<%= loot_factor(member.sitlf) %>",
     ["BISLF"]    = "<%= loot_factor(member.bislf) %>",
