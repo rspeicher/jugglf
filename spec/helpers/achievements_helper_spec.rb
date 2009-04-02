@@ -5,7 +5,7 @@ include AchievementsHelper
 describe AchievementsHelper do
   describe "achievement_icon" do
     before(:each) do
-      @ach = Achievement.make
+      @ach = Achievement.make(:armory_id => 12345)
     end
     
     it "should link to a Wowhead achievement" do

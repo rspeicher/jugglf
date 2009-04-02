@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="/layout/character-achievements-async.xsl"?><achievements lang="en_us" requestUrl="/character-achievements.xml">
+  <category>
+    <achievement categoryId="168" dateCompleted="2009-01-22-06:00" desc="Complete the Heroic Difficulty raid achievements listed below." icon="inv_helmet_06" id="2138" points="25" reward="Reward: Black Proto-Drake" title="Heroic: Glory of the Raider">
+      <criteria date="2009-04-02-05:00" name="Heroic: The Dedicated Few"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Arachnophobia"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Make Quick Werk Of Him"/>
+      <criteria name="Heroic: The Safety Dance"/>
+      <criteria name="Heroic: Momma Said Knock You Out"/>
+      <criteria name="The Immortal"/>
+      <criteria name="Heroic: Shocking!"/>
+      <criteria name="Heroic: And They Would All Go Down Together"/>
+      <criteria name="Heroic: Subtraction"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: The Spellweaver's Downfall"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: You Don't Have An Eternity"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: A Poke In The Eye"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Gonna Go When the Volcano Blows"/>
+      <criteria name="Heroic: Denyin' the Scion"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: The Twilight Zone"/>
+      <criteria name="Heroic: The Hundred Club"/>
+      <criteria name="Heroic: Just Can't Get Enough"/>
+    </achievement>
+    <achievement categoryId="168" dateCompleted="2009-01-21-06:00" desc="Loot 250 Emblems of Valor." icon="spell_holy_proclaimchampion_02" id="1829" points="50" title="250 Emblems of Valor">
+      <achievement categoryId="168" dateCompleted="2008-11-18-06:00" desc="Loot an Emblem of Valor." icon="spell_holy_proclaimchampion_02" id="1819" points="10" title="Emblem of Valor"/>
+      <achievement categoryId="168" dateCompleted="2008-11-19-06:00" desc="Loot 25 Emblems of Valor." icon="spell_holy_proclaimchampion_02" id="1826" points="10" title="25 Emblems of Valor"/>
+      <achievement categoryId="168" dateCompleted="2008-11-20-06:00" desc="Loot 50 Emblems of Valor." icon="spell_holy_proclaimchampion_02" id="1827" points="10" title="50 Emblems of Valor"/>
+      <achievement categoryId="168" dateCompleted="2008-12-03-06:00" desc="Loot 100 Emblems of Valor." icon="spell_holy_proclaimchampion_02" id="1828" points="10" title="100 Emblems of Valor"/>
+    </achievement>
+    <achievement categoryId="168" dateCompleted="2009-01-12-06:00" desc="Loot 500 Emblems of Heroism." icon="spell_holy_proclaimchampion" id="1824" points="60" title="500 Emblems of Heroism">
+      <achievement categoryId="168" dateCompleted="2008-11-17-06:00" desc="Loot an Emblem of Heroism." icon="spell_holy_proclaimchampion" id="1818" points="10" title="Emblem of Heroism"/>
+      <achievement categoryId="168" dateCompleted="2008-11-18-06:00" desc="Loot 25 Emblems of Heroism." icon="spell_holy_proclaimchampion" id="1820" points="10" title="25 Emblems of Heroism"/>
+      <achievement categoryId="168" dateCompleted="2008-11-19-06:00" desc="Loot 50 Emblems of Heroism." icon="spell_holy_proclaimchampion" id="1821" points="10" title="50 Emblems of Heroism"/>
+      <achievement categoryId="168" dateCompleted="2008-11-21-06:00" desc="Loot 100 Emblems of Heroism." icon="spell_holy_proclaimchampion" id="1822" points="10" title="100 Emblems of Heroism"/>
+      <achievement categoryId="168" dateCompleted="2008-11-24-06:00" desc="Loot 250 Emblems of Heroism." icon="spell_holy_proclaimchampion" id="1823" points="10" title="250 Emblems of Heroism"/>
+    </achievement>
+    <achievement categoryId="168" dateCompleted="2009-01-12-06:00" desc="Complete the Normal Difficulty raid achievements listed below." icon="inv_helmet_22" id="2137" points="25" reward="Reward: Plagued Proto-Drake" title="Glory of the Raider">
+      <criteria date="2009-04-02-05:00" name="The Dedicated Few"/>
+      <criteria date="2009-04-02-05:00" name="Arachnophobia"/>
+      <criteria date="2009-04-02-05:00" name="Make Quick Werk Of Him"/>
+      <criteria date="2009-04-02-05:00" name="The Safety Dance"/>
+      <criteria date="2009-04-02-05:00" name="Momma Said Knock You Out"/>
+      <criteria name="Shocking!"/>
+      <criteria name="Subtraction"/>
+      <criteria date="2009-04-02-05:00" name="The Spellweaver's Downfall"/>
+      <criteria date="2009-04-02-05:00" name="You Don't Have An Eternity"/>
+      <criteria date="2009-04-02-05:00" name="A Poke In The Eye"/>
+      <criteria date="2009-04-02-05:00" name="Gonna Go When the Volcano Blows"/>
+      <criteria date="2009-04-02-05:00" name="The Twilight Zone"/>
+      <criteria name="The Hundred Club"/>
+      <criteria name="And They Would All Go Down Together"/>
+      <criteria name="Denyin' the Scion"/>
+      <criteria name="The Undying"/>
+      <criteria name="Just Can't Get Enough"/>
+    </achievement>
+    <achievement categoryId="168" dateCompleted="2008-12-09-06:00" desc="Complete the heroic Northrend dungeon achievements listed below." icon="ability_rogue_feigndeath" id="1289" points="20" title="Northrend Dungeon Hero">
+      <criteria date="2009-04-02-05:00" name="Heroic: Utgarde Keep"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: The Nexus"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: The Culling of Stratholme"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Azjol-Nerub"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Ahn'kahet: The Old Kingdom"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Drak'Tharon Keep"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: The Violet Hold"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Gundrak"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Halls of Stone"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Halls of Lightning"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: The Oculus"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Utgarde Pinnacle"/>
+    </achievement>
+    <achievement categoryId="168" dateCompleted="2008-12-09-06:00" desc="Defeat the dungeon and raid bosses listed below." icon="spell_frost_chillingarmor" id="1658" points="10" reward="Title Reward: Champion of the Frozen Wastes" title="Champion of the Frozen Wastes">
+      <criteria name="Sartharion the Onyx Guardian (10 or 25 player)"/>
+      <criteria name="Kel'Thuzad (10 or 25 player)"/>
+      <criteria name="Malygos (10 or 25 player)"/>
+      <criteria name="Heroic: Anub'arak"/>
+      <criteria name="Heroic: Mal'Ganis"/>
+      <criteria name="Heroic: Sjonnir the Ironshaper"/>
+      <criteria name="Heroic: Keristrasza"/>
+      <criteria name="Heroic: Herald Volazj"/>
+      <criteria name="Heroic: Loken"/>
+      <criteria name="Heroic: Ley-Guardian Eregos"/>
+      <criteria name="Heroic: Ingvar the Plunderer"/>
+      <criteria name="Heroic: King Ymiron"/>
+      <criteria name="Heroic: The Prophet Tharon'ja"/>
+      <criteria name="Heroic: Gal'darah"/>
+      <criteria name="Heroic: Cyanigosa"/>
+    </achievement>
+    <achievement categoryId="168" dateCompleted="2008-11-24-06:00" desc="Complete the Northrend dungeon achievements listed below." icon="spell_holy_championsbond" id="1288" points="10" title="Northrend Dungeonmaster">
+      <criteria date="2009-04-02-05:00" name="Utgarde Keep"/>
+      <criteria date="2009-04-02-05:00" name="The Nexus"/>
+      <criteria date="2009-04-02-05:00" name="The Culling of Stratholme"/>
+      <criteria date="2009-04-02-05:00" name="Azjol-Nerub"/>
+      <criteria date="2009-04-02-05:00" name="Ahn'kahet: The Old Kingdom"/>
+      <criteria date="2009-04-02-05:00" name="Drak'Tharon Keep"/>
+      <criteria date="2009-04-02-05:00" name="The Violet Hold"/>
+      <criteria date="2009-04-02-05:00" name="Gundrak"/>
+      <criteria date="2009-04-02-05:00" name="Halls of Stone"/>
+      <criteria date="2009-04-02-05:00" name="Halls of Lightning"/>
+      <criteria date="2009-04-02-05:00" name="The Oculus"/>
+      <criteria date="2009-04-02-05:00" name="Utgarde Pinnacle"/>
+    </achievement>
+    <achievement categoryId="168" dateCompleted="2008-10-31-05:00" desc="Complete the classic dungeon achievements listed below." icon="spell_holy_revivechampion" id="1283" points="10" title="Classic Dungeonmaster">
+      <criteria date="2009-04-02-05:00" name="Deadmines"/>
+      <criteria date="2009-04-02-05:00" name="Ragefire Chasm"/>
+      <criteria date="2009-04-02-05:00" name="Wailing Caverns"/>
+      <criteria date="2009-04-02-05:00" name="Shadowfang Keep"/>
+      <criteria date="2009-04-02-05:00" name="Blackfathom Deeps"/>
+      <criteria date="2009-04-02-05:00" name="Stormwind Stockade"/>
+      <criteria date="2009-04-02-05:00" name="Gnomeregan"/>
+      <criteria date="2009-04-02-05:00" name="Razorfen Kraul"/>
+      <criteria date="2009-04-02-05:00" name="Razorfen Downs"/>
+      <criteria date="2009-04-02-05:00" name="Scarlet Monastery"/>
+      <criteria date="2009-04-02-05:00" name="Uldaman"/>
+      <criteria date="2009-04-02-05:00" name="Zul'Farrak"/>
+      <criteria date="2009-04-02-05:00" name="Maraudon"/>
+      <criteria date="2009-04-02-05:00" name="Sunken Temple"/>
+      <criteria date="2009-04-02-05:00" name="Blackrock Depths"/>
+      <criteria date="2009-04-02-05:00" name="Lower Blackrock Spire"/>
+      <criteria date="2009-04-02-05:00" name="King of Dire Maul"/>
+      <criteria date="2009-04-02-05:00" name="Scholomance"/>
+      <criteria date="2009-04-02-05:00" name="Stratholme"/>
+    </achievement>
+    <achievement categoryId="168" dateCompleted="2008-10-22-05:00" desc="Complete the classic raid achievements listed below." icon="inv_helmet_74" id="1285" points="20" title="Classic Raider">
+      <criteria date="2009-04-02-05:00" name="Onyxia's Lair"/>
+      <criteria date="2009-04-02-05:00" name="Blackwing Lair"/>
+      <criteria date="2009-04-02-05:00" name="Molten Core"/>
+      <criteria date="2009-04-02-05:00" name="Temple of Ahn'Qiraj"/>
+      <criteria date="2009-04-02-05:00" name="Zul'Gurub"/>
+      <criteria date="2009-04-02-05:00" name="Ruins of Ahn'Qiraj"/>
+    </achievement>
+    <achievement categoryId="168" dateCompleted="2008-10-21-05:00" desc="Complete the heroic Burning Crusade dungeon achievements listed below." icon="ability_creature_cursed_02" id="1287" points="20" title="Outland Dungeon Hero">
+      <criteria date="2009-04-02-05:00" name="Heroic: Hellfire Ramparts"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: The Blood Furnace"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: The Slave Pens"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Underbog"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Mana-Tombs"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: The Escape From Durnholde"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Sethekk Halls"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Shadow Labyrinth"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Opening of the Dark Portal"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: The Steamvault"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: The Shattered Halls"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: The Mechanar"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: The Botanica"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: The Arcatraz"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Magister's Terrace"/>
+      <criteria date="2009-04-02-05:00" name="Heroic: Auchenai Crypts"/>
+    </achievement>
+    <achievement categoryId="168" dateCompleted="2008-10-19-05:00" desc="Complete the Burning Crusade raid achievements listed below." icon="inv_helmet_90" id="1286" points="20" title="Outland Raider">
+      <criteria date="2009-04-02-05:00" name="Karazhan"/>
+      <criteria date="2009-04-02-05:00" name="Zul'Aman"/>
+      <criteria date="2009-04-02-05:00" name="Gruul's Lair"/>
+      <criteria date="2009-04-02-05:00" name="Magtheridon's Lair"/>
+      <criteria date="2009-04-02-05:00" name="Serpentshrine Cavern"/>
+      <criteria date="2009-04-02-05:00" name="The Battle for Mount Hyjal"/>
+      <criteria date="2009-04-02-05:00" name="Tempest Keep"/>
+      <criteria date="2009-04-02-05:00" name="The Black Temple"/>
+      <criteria date="2009-04-02-05:00" name="Sunwell Plateau"/>
+    </achievement>
+    <achievement categoryId="168" dateCompleted="2008-10-18-05:00" desc="Complete the Burning Crusade dungeon achievements listed below." icon="spell_holy_summonchampion" id="1284" points="10" title="Outland Dungeonmaster">
+      <criteria date="2009-04-02-05:00" name="Hellfire Ramparts"/>
+      <criteria date="2009-04-02-05:00" name="The Blood Furnace"/>
+      <criteria date="2009-04-02-05:00" name="The Slave Pens"/>
+      <criteria date="2009-04-02-05:00" name="Underbog"/>
+      <criteria date="2009-04-02-05:00" name="Mana-Tombs"/>
+      <criteria date="2009-04-02-05:00" name="The Escape From Durnholde"/>
+      <criteria date="2009-04-02-05:00" name="Sethekk Halls"/>
+      <criteria date="2009-04-02-05:00" name="Shadow Labyrinth"/>
+      <criteria date="2009-04-02-05:00" name="Opening of the Dark Portal"/>
+      <criteria date="2009-04-02-05:00" name="The Steamvault"/>
+      <criteria date="2009-04-02-05:00" name="The Shattered Halls"/>
+      <criteria date="2009-04-02-05:00" name="The Mechanar"/>
+      <criteria date="2009-04-02-05:00" name="The Botanica"/>
+      <criteria date="2009-04-02-05:00" name="The Arcatraz"/>
+      <criteria date="2009-04-02-05:00" name="Magister's Terrace"/>
+      <criteria date="2009-04-02-05:00" name="Auchenai Crypts"/>
+    </achievement>
+    <achievement categoryId="168" desc="Complete the Northrend daily dungeon quests listed below." icon="spell_arcane_focusedpower" id="2018" points="10" title="Timear Foresees">
+      <criteria date="2008-11-24-06:00" name="Timear Foresees Centrifuge Constructs in your Future!"/>
+      <criteria date="2009-01-29-06:00" name="Timear Foresees Ymirjar Berserkers in your Future!"/>
+      <criteria name="Timear Foresees Infinite Agents in your Future!"/>
+      <criteria name="Timear Foresees Titanium Starcallers in your Future!"/>
+    </achievement>
+    <achievement categoryId="168" desc="Complete the Northrend daily dungeon quests listed below." icon="ability_paladin_swiftretribution" id="2019" points="10" title="Proof of Demise">
+      <criteria date="2008-11-19-06:00" name="Proof of Demise: Ingvar the Plunderer"/>
+      <criteria name="Proof of Demise: Keristrasza"/>
+      <criteria name="Proof of Demise: Ley-Guardian Eregos"/>
+      <criteria date="2008-11-24-06:00" name="Proof of Demise: King Ymiron"/>
+      <criteria name="Proof of Demise: The Prophet Tharon'ja"/>
+      <criteria date="2009-02-01-06:00" name="Proof of Demise: Gal'darah"/>
+      <criteria name="Proof of Demise: Mal'Ganis"/>
+      <criteria name="Proof of Demise: Sjonnir The Ironshaper"/>
+      <criteria name="Proof of Demise: Loken"/>
+      <criteria date="2008-12-17-06:00" name="Proof of Demise: Anub'arak"/>
+      <criteria name="Proof of Demise: Herald Volazj"/>
+      <criteria date="2008-11-28-06:00" name="Proof of Demise: Cyanigosa"/>
+    </achievement>
+    <achievement categoryId="168" desc="Loot 1000 Emblems of Heroism." icon="spell_holy_proclaimchampion" id="1825" points="70" title="1000 Emblems of Heroism">
+      <criteria maxQuantity="1000" quantity="542"/>
+    </achievement>
+    <achievement categoryId="168" desc="Loot 500 Emblems of Valor." icon="spell_holy_proclaimchampion_02" id="1830" points="60" title="500 Emblems of Valor">
+      <criteria maxQuantity="500" quantity="490"/>
+    </achievement>
+    <achievement categoryId="168" desc="Complete the Heroic Dungeon achievements listed below." icon="inv_helmet_25" id="2136" points="25" reward="Reward: Red Proto-Drake" title="Glory of the Hero">
+      <criteria date="2009-04-02-05:00" name="On The Rocks"/>
+      <criteria name="Split Personality"/>
+      <criteria date="2009-04-02-05:00" name="Intense Cold"/>
+      <criteria name="Chaos Theory"/>
+      <criteria name="Watch Him Die"/>
+      <criteria name="Hadronox Denied"/>
+      <criteria date="2009-04-02-05:00" name="Gotta Go!"/>
+      <criteria date="2009-04-02-05:00" name="The Party's Over"/>
+      <criteria name="Volazj's Quick Demise"/>
+      <criteria name="Respect Your Elders"/>
+      <criteria date="2009-04-02-05:00" name="Volunteer Work"/>
+      <criteria name="Consumption Junction"/>
+      <criteria date="2009-04-02-05:00" name="Better Off Dred"/>
+      <criteria name="Oh Novos!"/>
+      <criteria date="2009-04-02-05:00" name="Defenseless"/>
+      <criteria date="2009-04-02-05:00" name="Lockdown!"/>
+      <criteria name="Dehydration"/>
+      <criteria date="2009-04-02-05:00" name="A Void Dance"/>
+      <criteria date="2009-04-02-05:00" name="What the Eck?"/>
+      <criteria name="Share The Love"/>
+      <criteria name="Less-rabi"/>
+      <criteria date="2009-04-02-05:00" name="Snakes. Why'd It Have To Be Snakes?"/>
+      <criteria date="2009-04-02-05:00" name="Good Grief"/>
+      <criteria date="2009-04-02-05:00" name="Brann Spankin' New"/>
+      <criteria date="2009-04-02-05:00" name="Abuse the Ooze"/>
+      <criteria date="2009-04-02-05:00" name="Timely Death"/>
+      <criteria date="2009-04-02-05:00" name="Lightning Struck"/>
+      <criteria date="2009-04-02-05:00" name="Shatter Resistant"/>
+      <criteria name="The Culling of Time"/>
+      <criteria name="Zombiefest!"/>
+      <criteria date="2009-04-02-05:00" name="The Incredible Hulk"/>
+      <criteria date="2009-04-02-05:00" name="Lodi Dodi We Loves the Skadi"/>
+      <criteria date="2009-04-02-05:00" name="My Girl Loves to Skadi All the Time"/>
+      <criteria date="2009-04-02-05:00" name="King's Bane"/>
+      <criteria date="2009-04-02-05:00" name="Experienced Drake Rider"/>
+      <criteria name="Make It Count"/>
+      <criteria name="Ruby Void"/>
+      <criteria name="Emerald Void"/>
+      <criteria name="Amber Void"/>
+    </achievement>
+    <category>
+      <achievement categoryId="168" dateCompleted="2008-10-31-05:00" desc="Defeat Shade of Eranikus." icon="inv_misc_coin_07" id="641" points="10" title="Sunken Temple"/>
+      <achievement categoryId="168" dateCompleted="2008-10-26-05:00" desc="Defeat Mekgineer Thermaplugg." icon="achievement_boss_mekgineer_thermaplugg" id="634" points="10" title="Gnomeregan"/>
+      <achievement categoryId="168" dateCompleted="2008-10-24-05:00" desc="Defeat Amnennar the Coldbringer." icon="achievement_boss_amnennar_the_coldbringer" id="636" points="10" title="Razorfen Downs"/>
+      <achievement categoryId="168" dateCompleted="2008-10-24-05:00" desc="Defeat Charlga Razorflank." icon="ability_hunter_pet_boar" id="635" points="10" title="Razorfen Kraul"/>
+      <achievement categoryId="168" dateCompleted="2008-10-24-05:00" desc="Defeat Bazil Thredd." icon="achievement_boss_bazil_thredd" id="633" points="10" title="Stormwind Stockade"/>
+      <achievement categoryId="168" dateCompleted="2008-10-24-05:00" desc="Defeat the Scarlet Crusade within the Scarlet Monastery." icon="inv_helmet_52" id="637" points="10" title="Scarlet Monastery">
+        <criteria name="Bloodmage Thalnos"/>
+        <criteria name="Arcanist Doan"/>
+        <criteria name="Herod"/>
+        <criteria name="Scarlet Commander Mograine"/>
+        <criteria name="High Inquisitor Whitemane"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-10-22-05:00" desc="Defeat Chief Ukorz Sandscalp." icon="inv_banner_01" id="639" points="10" title="Zul'Farrak"/>
+      <achievement categoryId="168" dateCompleted="2008-10-22-05:00" desc="Defeat each wing of Dire Maul." icon="ability_warrior_decisivestrike" id="644" points="10" title="King of Dire Maul">
+        <criteria name="Alzzin the Wildshaper"/>
+        <criteria name="Immol'thar"/>
+        <criteria name="King Gordok"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-10-22-05:00" desc="Defeat Hakkar." icon="achievement_boss_hakkar" id="688" points="10" title="Zul'Gurub"/>
+      <achievement categoryId="168" dateCompleted="2008-10-22-05:00" desc="Defeat Ossirian the Unscarred." icon="achievement_zone_silithus_01" id="689" points="10" title="Ruins of Ahn'Qiraj"/>
+      <achievement categoryId="168" dateCompleted="2008-10-18-05:00" desc="Defeat the leaders of Scholomance." icon="spell_holy_senseundead" id="645" points="10" title="Scholomance">
+        <criteria name="Ras Frostwhisper"/>
+        <criteria name="Darkmaster Gandling"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-10-18-05:00" desc="Defeat the evil masterminds inhabiting Stratholme." icon="spell_deathknight_armyofthedead" id="646" points="10" title="Stratholme">
+        <criteria name="Balnazzar"/>
+        <criteria name="Baron Rivendare"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-10-18-05:00" desc="Defeat Onyxia." icon="inv_misc_head_dragon_01" id="684" points="10" title="Onyxia's Lair"/>
+      <achievement categoryId="168" dateCompleted="2008-10-18-05:00" desc="Defeat Ragnaros." icon="spell_fire_elemental_totem" id="686" points="10" title="Molten Core"/>
+      <achievement categoryId="168" dateCompleted="2008-10-18-05:00" desc="Defeat Nefarian." icon="inv_misc_head_dragon_black" id="685" points="10" title="Blackwing Lair"/>
+      <achievement categoryId="168" dateCompleted="2008-10-18-05:00" desc="Defeat Edwin VanCleef." icon="achievement_boss_edwinvancleef" id="628" points="10" title="Deadmines"/>
+      <achievement categoryId="168" dateCompleted="2008-10-18-05:00" desc="Defeat Aku'mai." icon="achievement_boss_bazil_akumai" id="632" points="10" title="Blackfathom Deeps"/>
+      <achievement categoryId="168" dateCompleted="2008-10-17-05:00" desc="Defeat Mutanus the Devourer." icon="achievement_boss_mutanus_the_devourer" id="630" points="10" title="Wailing Caverns"/>
+      <achievement categoryId="168" dateCompleted="2008-10-17-05:00" desc="Defeat C'Thun." icon="achievement_boss_cthun" id="687" points="10" title="Temple of Ahn'Qiraj"/>
+      <achievement categoryId="168" dateCompleted="2008-10-16-05:00" desc="Defeat Archaedas." icon="achievement_boss_archaedas" id="638" points="10" title="Uldaman"/>
+      <achievement categoryId="168" dateCompleted="2008-10-16-05:00" desc="Defeat Overlord Wyrmthalak." icon="ability_warrior_endlessrage" id="643" points="10" title="Lower Blackrock Spire"/>
+      <achievement categoryId="168" dateCompleted="2008-10-16-05:00" desc="Defeat Emperor Dagran Thaurissan." icon="achievement_boss_emperordagranthaurissan" id="642" points="10" title="Blackrock Depths"/>
+      <achievement categoryId="168" dateCompleted="2008-10-16-05:00" desc="Defeat General Drakkisath." icon="achievement_zone_blackrock_01" id="1307" points="10" title="Upper Blackrock Spire"/>
+      <achievement categoryId="168" dateCompleted="2008-10-16-05:00" desc="Defeat Taragaman the Hungerer." icon="spell_shadow_summonfelguard" id="629" points="10" title="Ragefire Chasm"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Kill 50 rookery whelps within 15 seconds." icon="ability_mount_drake_red" id="2188" points="10" reward="Title: Jenkins" title="Leeeeeeeeeeeeeroy!">
+        <criteria maxQuantity="50" quantity="50"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Archmage Arugal." icon="spell_arcane_prismaticcloak" id="631" points="10" title="Shadowfang Keep"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Princess Theradras." icon="spell_nature_earthelemental_totem" id="640" points="10" title="Maraudon"/>
+    </category>
+    <category>
+      <achievement categoryId="168" dateCompleted="2008-10-21-05:00" desc="Defeat Kael'thas Sunstrider on Heroic Difficulty." icon="achievement_boss_kael'thassunstrider_01" id="682" points="10" title="Heroic: Magister's Terrace"/>
+      <achievement categoryId="168" dateCompleted="2008-10-21-05:00" desc="Defeat the leaders of Hellfire Ramparts on Heroic Difficulty." icon="ability_warrior_trauma" id="667" points="10" title="Heroic: Hellfire Ramparts">
+        <criteria name="Omor the Unscarred"/>
+        <criteria name="Nazan"/>
+        <criteria name="Vazruden the Herald"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-10-21-05:00" desc="Defeat Warp Splinter on Heroic Difficulty." icon="achievement_boss_warpsplinter" id="680" points="10" title="Heroic: The Botanica"/>
+      <achievement categoryId="168" dateCompleted="2008-10-20-05:00" desc="Defeat Pathaleon the Calculator on Heroic Difficulty." icon="inv_wand_19" id="679" points="10" title="Heroic: The Mechanar"/>
+      <achievement categoryId="168" dateCompleted="2008-10-19-05:00" desc="Defeat Zul'jin in Zul'Aman." icon="achievement_boss_zuljin" id="691" points="10" title="Zul'Aman"/>
+      <achievement categoryId="168" dateCompleted="2008-10-18-05:00" desc="Defeat Talon King Ikiss on Heroic Difficulty." icon="achievement_boss_talonkingikiss" id="674" points="10" title="Heroic: Sethekk Halls"/>
+      <achievement categoryId="168" dateCompleted="2008-10-18-05:00" desc="Defeat Nexus-Prince Shaffar on Heroic Difficulty." icon="achievement_boss_nexus_prince_shaffar" id="671" points="10" title="Heroic: Mana-Tombs"/>
+      <achievement categoryId="168" dateCompleted="2008-10-18-05:00" desc="Defeat Exarch Maladaar on Heroic Difficulty." icon="achievement_boss_exarch_maladaar" id="672" points="10" title="Heroic: Auchenai Crypts"/>
+      <achievement categoryId="168" dateCompleted="2008-10-18-05:00" desc="Defeat Aeonus on Heroic Difficulty." icon="inv_misc_head_dragon_black" id="676" points="10" title="Heroic: Opening of the Dark Portal"/>
+      <achievement categoryId="168" dateCompleted="2008-10-18-05:00" desc="Defeat Epoch Hunter on Heroic Difficulty." icon="inv_misc_head_dragon_bronze" id="673" points="10" title="Heroic: The Escape From Durnholde"/>
+      <achievement categoryId="168" dateCompleted="2008-10-18-05:00" desc="Defeat Keli'dan the Breaker." icon="achievement_boss_kelidanthebreaker" id="648" points="10" title="The Blood Furnace"/>
+      <achievement categoryId="168" dateCompleted="2008-10-18-05:00" desc="Defeat Keli'dan the Breaker on Heroic Difficulty." icon="achievement_boss_kelidanthebreaker" id="668" points="10" title="Heroic: The Blood Furnace"/>
+      <achievement categoryId="168" dateCompleted="2008-10-16-05:00" desc="Defeat The Black Stalker on Heroic Difficulty." icon="ability_hunter_pet_sporebat" id="670" points="10" title="Heroic: Underbog"/>
+      <achievement categoryId="168" dateCompleted="2008-10-16-05:00" desc="Defeat Quagmirran." icon="achievement_boss_quagmirran" id="649" points="10" title="The Slave Pens"/>
+      <achievement categoryId="168" dateCompleted="2008-10-16-05:00" desc="Defeat Quagmirran on Heroic Difficulty." icon="achievement_boss_quagmirran" id="669" points="10" title="Heroic: The Slave Pens"/>
+      <achievement categoryId="168" dateCompleted="2008-10-16-05:00" desc="Defeat Murmur on Heroic Difficulty." icon="inv_mace_54" id="675" points="10" title="Heroic: Shadow Labyrinth"/>
+      <achievement categoryId="168" dateCompleted="2008-10-16-05:00" desc="Defeat Warlord Kalithresh on Heroic Difficulty." icon="achievement_boss_warlord_kalithresh" id="677" points="10" title="Heroic: The Steamvault"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Omor the Unscarred." icon="ability_warrior_trauma" id="647" points="10" title="Hellfire Ramparts"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat The Black Stalker." icon="ability_hunter_pet_sporebat" id="650" points="10" title="Underbog"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Nexus-Prince Shaffar." icon="achievement_boss_nexus_prince_shaffar" id="651" points="10" title="Mana-Tombs"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Exarch Maladaar." icon="achievement_boss_exarch_maladaar" id="666" points="10" title="Auchenai Crypts"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Epoch Hunter." icon="inv_misc_head_dragon_bronze" id="652" points="10" title="The Escape From Durnholde"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Talon King Ikiss." icon="achievement_boss_talonkingikiss" id="653" points="10" title="Sethekk Halls"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Murmur." icon="inv_mace_54" id="654" points="10" title="Shadow Labyrinth"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Aeonus." icon="inv_misc_head_dragon_black" id="655" points="10" title="Opening of the Dark Portal"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Warlord Kalithresh." icon="achievement_boss_warlord_kalithresh" id="656" points="10" title="The Steamvault"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Warchief Kargath Bladefist." icon="ability_warrior_endlessrage" id="657" points="10" title="The Shattered Halls"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Pathaleon the Calculator." icon="inv_wand_19" id="658" points="10" title="The Mechanar"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Warp Splinter." icon="achievement_boss_warpsplinter" id="659" points="10" title="The Botanica"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Harbinger Skyriss." icon="achievement_boss_harbinger_skyriss" id="660" points="10" title="The Arcatraz"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Kael'thas Sunstrider." icon="achievement_boss_kael'thassunstrider_01" id="661" points="10" title="Magister's Terrace"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Warchief Kargath Bladefist on Heroic Difficulty." icon="ability_warrior_endlessrage" id="678" points="10" title="Heroic: The Shattered Halls"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Harbinger Skyriss on Heroic Difficulty." icon="achievement_boss_harbinger_skyriss" id="681" points="10" title="Heroic: The Arcatraz"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Prince Malchezaar in Karazhan." icon="achievement_zone_deadwindpass" id="690" points="10" title="Karazhan"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Gruul the Dragonkiller in Gruul's Lair." icon="achievement_boss_gruulthedragonkiller" id="692" points="10" title="Gruul's Lair"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Magtheridon in Magtheridon's Lair." icon="achievement_boss_magtheridon" id="693" points="10" title="Magtheridon's Lair"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Lady Vashj in Serpentshrine Cavern." icon="achievement_boss_ladyvashj" id="694" points="10" title="Serpentshrine Cavern"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Kael'thas Sunstrider in Tempest Keep." icon="achievement_character_bloodelf_male" id="696" points="10" title="Tempest Keep"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Archimonde in The Battle for Mount Hyjal." icon="achievement_boss_archimonde" id="695" points="10" title="The Battle for Mount Hyjal"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Illidan Stormrage in The Black Temple." icon="achievement_boss_illidan" id="697" points="10" title="The Black Temple"/>
+      <achievement categoryId="168" dateCompleted="2008-10-15-05:00" desc="Defeat Kil'jaeden in Sunwell Plateau." icon="achievement_boss_kiljaedan" id="698" points="10" title="Sunwell Plateau"/>
+    </category>
+    <category>
+      <achievement categoryId="168" dateCompleted="2008-11-24-06:00" desc="Defeat the bosses in The Nexus." icon="achievement_dungeon_nexus70_normal" id="478" points="10" title="The Nexus">
+        <criteria name="Grand Magus Telestra"/>
+        <criteria name="Anomalus"/>
+        <criteria name="Ormorok the Tree-Shaper"/>
+        <criteria name="Keristrasza"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-24-06:00" desc="Defeat the bosses in Utgarde Pinnacle." icon="achievement_dungeon_utgardepinnacle_normal" id="488" points="10" title="Utgarde Pinnacle">
+        <criteria name="Skadi the Ruthless"/>
+        <criteria name="Svala Sorrowgrave"/>
+        <criteria name="Gortok Palehoof"/>
+        <criteria name="King Ymiron"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-21-06:00" desc="Defeat the bosses in Caverns of Time: Stratholme." icon="achievement_dungeon_cotstratholme_normal" id="479" points="10" title="The Culling of Stratholme">
+        <criteria name="Meathook"/>
+        <criteria name="Chrono-Lord Epoch"/>
+        <criteria name="Salramm the Fleshcrafter"/>
+        <criteria name="Mal'Ganis"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-18-06:00" desc="Defeat the bosses in The Oculus." icon="achievement_dungeon_nexus80_normal" id="487" points="10" title="The Oculus">
+        <criteria name="Drakos the Interrogator"/>
+        <criteria name="Mage-Lord Urom"/>
+        <criteria name="Varos Cloudstrider"/>
+        <criteria name="Ley-Guardian Eregos"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-17-06:00" desc="Defeat the boss encounters in Halls of Stone." icon="achievement_dungeon_ulduar77_normal" id="485" points="10" title="Halls of Stone">
+        <criteria name="Maiden of Grief"/>
+        <criteria name="The Tribunal of Ages"/>
+        <criteria name="Krystallus"/>
+        <criteria name="Sjonnir the Ironshaper"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-17-06:00" desc="Defeat the bosses in Halls of Lightning." icon="achievement_dungeon_ulduar80_normal" id="486" points="10" title="Halls of Lightning">
+        <criteria name="General Bjarngrim"/>
+        <criteria name="Ionar"/>
+        <criteria name="Volkhan"/>
+        <criteria name="Loken"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-16-06:00" desc="Defeat the bosses in Gundrak." icon="achievement_dungeon_gundrak_normal" id="484" points="10" title="Gundrak">
+        <criteria name="Slad'ran"/>
+        <criteria name="Moorabi"/>
+        <criteria name="Drakkari Colossus"/>
+        <criteria name="Gal'darah"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-15-06:00" desc="Defeat Cyanigosa in The Violet Hold." icon="achievement_dungeon_theviolethold_normal" id="483" points="10" title="The Violet Hold"/>
+      <achievement categoryId="168" dateCompleted="2008-11-15-06:00" desc="Defeat the bosses in Drak'Tharon Keep." icon="achievement_dungeon_drak'tharon_normal" id="482" points="10" title="Drak'Tharon Keep">
+        <criteria name="Trollgore"/>
+        <criteria name="Novos the Summoner"/>
+        <criteria name="King Dred"/>
+        <criteria name="The Prophet Tharon'ja"/>
+        <criteria name="The Prophet Tharon'ja"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-15-06:00" desc="Defeat the bosses in Ahn'kahet: The Old Kingdom." icon="achievement_dungeon_azjollowercity_normal" id="481" points="10" title="Ahn'kahet: The Old Kingdom">
+        <criteria name="Prince Taldaram"/>
+        <criteria name="Elder Nadox"/>
+        <criteria name="Jedoga Shadowseeker"/>
+        <criteria name="Herald Volazj"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-15-06:00" desc="Defeat the bosses in Azjol-Nerub." icon="achievement_dungeon_azjoluppercity_normal" id="480" points="10" title="Azjol-Nerub">
+        <criteria name="Krik'thir the Gatewatcher"/>
+        <criteria name="Hadronox"/>
+        <criteria name="Anub'arak"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-13-06:00" desc="Defeat the bosses in Utgarde Keep." icon="achievement_dungeon_utgardekeep_normal" id="477" points="10" title="Utgarde Keep">
+        <criteria name="Prince Keleseth"/>
+        <criteria name="Skarvald the Constructor"/>
+        <criteria name="Dalronn the Controller"/>
+        <criteria name="Ingvar the Plunderer"/>
+      </achievement>
+    </category>
+    <category>
+      <achievement categoryId="168" dateCompleted="2009-02-03-06:00" desc="Defeat Anub'arak in Azjol-Nerub on Heroic Difficulty in 2 minutes or less." icon="achievement_dungeon_azjoluppercity" id="1860" points="10" title="Gotta Go!"/>
+      <achievement categoryId="168" dateCompleted="2009-02-01-06:00" desc="Defeat Xevozz, Lavanthor, Ichoron, Zuramat the Obliterator, Erekem, and Moragg in The Violet Hold on Heroic Difficulty." icon="achievement_dungeon_theviolethold_10man" id="1865" points="10" title="Lockdown!">
+        <criteria name="Xevozz"/>
+        <criteria name="Lavanthor"/>
+        <criteria name="Ichoron"/>
+        <criteria name="Zuramat the Obliterator"/>
+        <criteria name="Erekem"/>
+        <criteria name="Moragg"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2009-01-28-06:00" desc="Engage King Dred in Drak'Tharon Keep on Heroic Difficulty and slay 6 Drakkari Gutrippers or Drakkari Scytheclaw during his defeat." icon="ability_hunter_pet_devilsaur" id="2039" points="10" title="Better Off Dred"/>
+      <achievement categoryId="168" dateCompleted="2008-12-18-06:00" desc="Defeat Sjonnir the Ironshaper in the Halls of Stone on Heroic Difficulty and kill 5 Iron Sludges during the encounter." icon="inv_misc_slime_01" id="2155" points="10" title="Abuse the Ooze"/>
+      <achievement categoryId="168" dateCompleted="2008-12-18-06:00" desc="Defeat the Tribunal of Ages encounter in the Halls of Stone on Heroic Difficulty without allowing Brann Bronzebeard to take any damage." icon="achievement_character_dwarf_male" id="2154" points="10" title="Brann Spankin' New"/>
+      <achievement categoryId="168" dateCompleted="2008-12-18-06:00" desc="Defeat the Maiden of Grief in the Halls of Stone on Heroic Difficulty in 1 minute or less." icon="achievement_dungeon_ulduar77_10man" id="1866" points="10" title="Good Grief"/>
+      <achievement categoryId="168" dateCompleted="2008-12-18-06:00" desc="Defeat Slad'ran in Gundrak on Heroic Difficulty without getting snake wrapped." icon="ability_hunter_cobrastrikes" id="2058" points="10" title="Snakes. Why'd It Have To Be Snakes?"/>
+      <achievement categoryId="168" dateCompleted="2008-12-17-06:00" desc="Defeat Zuramat the Obliterator in The Violet Hold without killing any void sentries." icon="inv_enchant_voidsphere" id="2153" points="10" title="A Void Dance"/>
+      <achievement categoryId="168" dateCompleted="2008-12-15-06:00" desc="Defeat Prince Taldaram in Ahn'kahet on Heroic Difficulty with less than 5 people." icon="achievement_dungeon_azjollowercity_10man" id="1861" points="10" title="The Party's Over"/>
+      <achievement categoryId="168" dateCompleted="2008-12-09-06:00" desc="Defeat the Gundrak bosses on Heroic Difficulty." icon="achievement_dungeon_gundrak_heroic" id="495" points="10" title="Heroic: Gundrak">
+        <criteria name="Slad'ran"/>
+        <criteria name="Moorabi"/>
+        <criteria name="Drakkari Colossus"/>
+        <criteria name="Gal'darah"/>
+        <criteria name="Eck the Ferocious"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-12-09-06:00" desc="Defeat Gal'darah in Gundrak on Heroic Difficulty while under the effects of Eck Residue." icon="achievement_dungeon_gundrak_25man" id="1864" points="10" title="What the Eck?"/>
+      <achievement categoryId="168" dateCompleted="2008-11-28-06:00" desc="Defeat Jedoga Shadowseeker in Ahn'kahet on Heroic Difficulty without killing any Twilight Volunteers." icon="achievement_character_orc_female" id="2056" points="10" title="Volunteer Work"/>
+      <achievement categoryId="168" dateCompleted="2008-11-28-06:00" desc="Defeat the Azjol-Nerub bosses on Heroic Difficulty." icon="achievement_dungeon_azjoluppercity_heroic" id="491" points="10" title="Heroic: Azjol-Nerub">
+        <criteria name="Krik'thir the Gatewatcher"/>
+        <criteria name="Hadronox"/>
+        <criteria name="Anub'arak"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-26-06:00" desc="Defeat King Ymiron in Utgarde Pinnacle on Heroic Difficulty without anyone in the party triggering Bane." icon="achievement_boss_kingymiron_03" id="2157" points="10" title="King's Bane"/>
+      <achievement categoryId="168" dateCompleted="2008-11-26-06:00" desc="Defeat Skadi the Ruthless in Utgarde Pinnacle on Heroic Difficulty within 3 minutes of starting the gauntlet event." icon="achievement_dungeon_utgardepinnacle_10man" id="1873" points="10" title="Lodi Dodi We Loves the Skadi"/>
+      <achievement categoryId="168" dateCompleted="2008-11-26-06:00" desc="Defeat Skadi the Ruthless in Utgarde Pinnacle on Heroic Difficulty after having killed Grauf from 100% to dead in a single pass." icon="achievement_boss_kingymiron_01" id="2156" points="10" title="My Girl Loves to Skadi All the Time"/>
+      <achievement categoryId="168" dateCompleted="2008-11-26-06:00" desc="Force Svala Sorrowgrave to kill a Scourge Hulk on Heroic Difficulty in Utgarde Pinnacle." icon="spell_shadow_summoninfernal" id="2043" points="10" title="The Incredible Hulk"/>
+      <achievement categoryId="168" dateCompleted="2008-11-26-06:00" desc="Defeat Prince Keleseth in Utgarde Keep on Heroic Difficulty without shattering any Frost Tombs." icon="ability_mage_coldasice" id="1919" points="10" title="On The Rocks"/>
+      <achievement categoryId="168" dateCompleted="2008-11-24-06:00" desc="Defeat the Ahn'kahet: The Old Kingdom bosses on Heroic Difficulty." icon="achievement_dungeon_azjollowercity_heroic" id="492" points="10" title="Heroic: Ahn'kahet: The Old Kingdom">
+        <criteria name="Prince Taldaram"/>
+        <criteria name="Elder Nadox"/>
+        <criteria name="Jedoga Shadowseeker"/>
+        <criteria name="Herald Volazj"/>
+        <criteria name="Amanitar"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-24-06:00" desc="On three different visits to The Oculus, get credit for defeating Ley-Guardian Eregos while riding an Amber, Emerald, and Ruby drake on Heroic Difficulty." icon="achievement_dungeon_nexus80_10man" id="1871" points="10" title="Experienced Drake Rider">
+        <criteria name="Amber Drake"/>
+        <criteria name="Emerald Drake"/>
+        <criteria name="Ruby Drake"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-24-06:00" desc="Defeat The Nexus bosses on Heroic Difficulty." icon="achievement_dungeon_nexus70_heroic" id="490" points="10" title="Heroic: The Nexus">
+        <criteria name="Grand Magus Telestra"/>
+        <criteria name="Anomalus"/>
+        <criteria name="Ormorok the Tree-Shaper"/>
+        <criteria name="Keristrasza"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-24-06:00" desc="Defeat Keristrasza in The Nexus on Heroic Difficulty without allowing Intense Cold to reach more than two stacks." icon="ability_mage_chilledtothebone" id="2036" points="10" title="Intense Cold"/>
+      <achievement categoryId="168" dateCompleted="2008-11-24-06:00" desc="Defeat Cyanigosa in The Violet Hold on Heroic Difficulty." icon="achievement_dungeon_theviolethold_heroic" id="494" points="10" title="Heroic: The Violet Hold"/>
+      <achievement categoryId="168" dateCompleted="2008-11-24-06:00" desc="Defeat Cyanigosa in The Violet Hold without using Defense Control Crystals and with Prison Seal Integrity at 100% while in Heroic Difficulty." icon="achievement_dungeon_theviolethold_25man" id="1816" points="10" title="Defenseless"/>
+      <achievement categoryId="168" dateCompleted="2008-11-24-06:00" desc="Defeat the Utgarde Pinnacle bosses on Heroic Difficulty." icon="achievement_dungeon_utgardepinnacle_heroic" id="499" points="10" title="Heroic: Utgarde Pinnacle">
+        <criteria name="Svala Sorrowgrave"/>
+        <criteria name="Gortok Palehoof"/>
+        <criteria name="Skadi the Ruthless"/>
+        <criteria name="King Ymiron"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-21-06:00" desc="Defeat the Drak'Tharon Keep bosses on Heroic Difficulty." icon="achievement_dungeon_drak'tharon_heroic" id="493" points="10" title="Heroic: Drak'Tharon Keep">
+        <criteria name="Trollgore"/>
+        <criteria name="Novos the Summoner"/>
+        <criteria name="King Dred"/>
+        <criteria name="The Prophet Tharon'ja"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-21-06:00" desc="Defeat the Caverns of Time: Stratholme bosses on Heroic Difficulty." icon="achievement_dungeon_cotstratholme_heroic" id="500" points="10" title="Heroic: The Culling of Stratholme">
+        <criteria name="Meathook"/>
+        <criteria name="Chrono-Lord Epoch"/>
+        <criteria name="Salramm the Fleshcrafter"/>
+        <criteria name="Mal'Ganis"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-19-06:00" desc="Defeat the boss encounters in the Halls of Stone on Heroic Difficulty." icon="achievement_dungeon_ulduar77_heroic" id="496" points="10" title="Heroic: Halls of Stone">
+        <criteria name="Maiden of Grief"/>
+        <criteria name="Sjonnir the Ironshaper"/>
+        <criteria name="The Tribunal of Ages"/>
+        <criteria name="Krystallus"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-18-06:00" desc="Defeat The Oculus bosses on Heroic Difficulty." icon="achievement_dungeon_nexus80_heroic" id="498" points="10" title="Heroic: The Oculus">
+        <criteria name="Drakos the Interrogator"/>
+        <criteria name="Mage-Lord Urom"/>
+        <criteria name="Varos Cloudstrider"/>
+        <criteria name="Ley-Guardian Eregos"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-18-06:00" desc="Defeat the Halls of Lightning bosses on Heroic Difficulty." icon="achievement_dungeon_ulduar80_heroic" id="497" points="10" title="Heroic: Halls of Lightning">
+        <criteria name="General Bjarngrim"/>
+        <criteria name="Ionar"/>
+        <criteria name="Volkhan"/>
+        <criteria name="Loken"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-18-06:00" desc="Defeat Loken in the Halls of Lightning on Heroic Difficulty in 2 minutes or less." icon="achievement_dungeon_ulduar80_25man" id="1867" points="10" title="Timely Death"/>
+      <achievement categoryId="168" dateCompleted="2008-11-17-06:00" desc="Defeat Volkhan in the Halls of Lightning on Heroic Difficulty without allowing him to shatter more than 4 Brittle Golems." icon="spell_fire_incinerate" id="2042" points="10" title="Shatter Resistant"/>
+      <achievement categoryId="168" dateCompleted="2008-11-17-06:00" desc="Defeat General Bjarngrim in the Halls of Lightning on Heroic Difficulty while he has a Temporary Electrical Charge." icon="achievement_dungeon_ulduar80_heroic" id="1834" points="10" title="Lightning Struck"/>
+      <achievement categoryId="168" dateCompleted="2008-11-17-06:00" desc="Defeat the Utgarde Keep bosses on Heroic Difficulty." icon="achievement_dungeon_utgardekeep_heroic" id="489" points="10" title="Heroic: Utgarde Keep">
+        <criteria name="Prince Keleseth"/>
+        <criteria name="Skarvald the Constructor"/>
+        <criteria name="Dalronn the Controller"/>
+        <criteria name="Ingvar the Plunderer"/>
+      </achievement>
+      <achievement categoryId="168" desc="Defeat Grand Magus Telestra in The Nexus on Heroic Difficulty after having killed her images within 5 seconds of each other during both splits." icon="achievement_dungeon_nexus70_25man" id="2150" points="10" title="Split Personality"/>
+      <achievement categoryId="168" desc="Defeat Anomalus in The Nexus on Heroic Difficulty without destroying any Chaotic Rifts." icon="achievement_dungeon_nexus70_25man" id="2037" points="10" title="Chaos Theory"/>
+      <achievement categoryId="168" desc="Defeat Krik'thir the Gatewatcher in Azjol-Nerub on Heroic Difficulty while Watcher Gashra, Watcher Narjil and Watcher Silthik are still alive." icon="achievement_dungeon_azjoluppercity_25man" id="1296" points="10" title="Watch Him Die"/>
+      <achievement categoryId="168" desc="Defeat Hadronox in Azjol-Nerub on Heroic Difficulty before he webs the top doors and prevents more creatures from spawning." icon="achievement_dungeon_azjoluppercity_10man" id="1297" points="10" title="Hadronox Denied"/>
+      <achievement categoryId="168" desc="Defeat Herald Volazj in Ahn'kahet on Heroic Difficulty in 2 minutes or less." icon="achievement_dungeon_azjollowercity_25man" id="1862" points="10" title="Volazj's Quick Demise"/>
+      <achievement categoryId="168" desc="Defeat Elder Nadox in Ahn'kahet on Heroic Difficulty without killing any Ahn'kahar Guardians." icon="inv_misc_head_nerubian_01" id="2038" points="10" title="Respect Your Elders"/>
+      <achievement categoryId="168" desc="Defeat Trollgore in Drak'Tharon Keep on Heroic Difficulty before Consume reaches ten stacks." icon="achievement_dungeon_drak'tharon_25man" id="2151" points="10" title="Consumption Junction"/>
+      <achievement categoryId="168" desc="Defeat Novos the Summoner in Drak'Tharon Keep on Heroic Difficulty without allowing any undead minions to reach the floor." icon="spell_deathknight_armyofthedead" id="2057" points="10" title="Oh Novos!"/>
+      <achievement categoryId="168" desc="Defeat Ichoron in the Violet Hold on Heroic Difficulty without allowing any Ichor Globules to merge." icon="spell_frost_summonwaterelemental_2" id="2041" points="10" title="Dehydration"/>
+      <achievement categoryId="168" desc="Defeat Gal'darah in Gundrak on Heroic Difficulty and have 5 unique party members get impaled throughout the fight." icon="ability_mount_kotobrewfest" id="2152" points="10" title="Share The Love"/>
+      <achievement categoryId="168" desc="Defeat Moorabi in Gundrak on Heroic Difficulty while preventing him from transforming into a mammoth at any point during the encounter." icon="inv_misc_monsterhorn_04" id="2040" points="10" title="Less-rabi"/>
+      <achievement categoryId="168" desc="Defeat the Infinite Corruptor in The Culling of Stratholme on Heroic Difficulty." icon="achievement_dungeon_cotstratholme_25man" id="1817" points="10" title="The Culling of Time"/>
+      <achievement categoryId="168" desc="Kill 100 Risen Zombies in 1 minute in The Culling of Stratholme on Heroic Difficulty." icon="spell_deathknight_explode_ghoul" id="1872" points="10" title="Zombiefest!">
+        <criteria maxQuantity="100" quantity="0"/>
+      </achievement>
+      <achievement categoryId="168" desc="Defeat Ley-Guardian Eregos in The Oculus on Heroic Difficulty within 20 minutes of Drakos the Interrogator's death." icon="achievement_dungeon_nexus80_25man" id="1868" points="10" title="Make It Count"/>
+      <achievement categoryId="168" desc="Defeat Ley-Guardian Eregos in The Oculus on Heroic Difficulty without anyone in your party using a Ruby Drake." icon="ability_mount_drake_red" id="2044" points="10" title="Ruby Void"/>
+      <achievement categoryId="168" desc="Defeat Ley-Guardian Eregos in The Oculus on Heroic Difficulty without anyone in your party using an Emerald Drake." icon="ability_mount_drake_blue" id="2045" points="10" title="Emerald Void"/>
+      <achievement categoryId="168" desc="Defeat Ley-Guardian Eregos in The Oculus on Heroic Difficulty without anyone in your party using an Amber Drake." icon="ability_mount_drake_bronze" id="2046" points="10" title="Amber Void"/>
+    </category>
+    <category>
+      <achievement categoryId="168" dateCompleted="2009-01-12-06:00" desc="Defeat Malygos in 6 minutes or less on Normal Difficulty." icon="achievement_dungeon_nexusraid" id="1874" points="10" title="You Don't Have An Eternity"/>
+      <achievement categoryId="168" dateCompleted="2009-01-05-06:00" desc="Defeat Sartharion the Onyx Guardian on Normal Difficulty without getting hit by Lava Strike." icon="spell_shaman_lavaflow" id="2047" points="10" title="Gonna Go When the Volcano Blows"/>
+      <achievement categoryId="168" dateCompleted="2008-12-30-06:00" desc="Defeat Malygos with fewer than 9 on Normal Difficulty." icon="achievement_dungeon_nexusraid_heroic" id="1869" points="10" title="A Poke In The Eye"/>
+      <achievement categoryId="168" dateCompleted="2008-12-30-06:00" desc="Within one raid lockout period, defeat every boss in Naxxramas on Normal Difficulty without allowing any raid member to die during any of the boss encounters." icon="spell_holy_sealofvengeance" id="2187" points="10" reward="Title Reward: The Undying" title="The Undying"/>
+      <achievement categoryId="168" dateCompleted="2008-12-22-06:00" desc="Deliver a killing blow to a Scion of Eternity while riding on a hover disk on Normal Difficulty." icon="inv_elemental_mote_shadow01" id="2148" points="10" title="Denyin' the Scion"/>
+      <achievement categoryId="168" dateCompleted="2008-12-22-06:00" desc="Defeat the 4 Horsemen in Naxxramas on Normal Difficulty, ensuring that they all die within 15 seconds of each other." icon="spell_deathknight_summondeathcharger" id="2176" points="10" title="And They Would All Go Down Together"/>
+      <achievement categoryId="168" dateCompleted="2008-12-22-06:00" desc="Defeat Patchwerk in Naxxramas on Normal Difficulty in 3 minutes or less." icon="spell_shadow_abominationexplosion" id="1856" points="10" title="Make Quick Werk Of Him"/>
+      <achievement categoryId="168" dateCompleted="2008-12-20-06:00" desc="With at least one Twilight Drake still alive, engage and defeat Sartharion the Onyx Guardian on Normal Difficulty." icon="achievement_dungeon_coablackdragonflight_normal" id="2049" points="10" title="Twilight Assist"/>
+      <achievement categoryId="168" dateCompleted="2008-12-20-06:00" desc="With at least two Twilight Drakes still alive, engage and defeat Sartharion the Onyx Guardian on Normal Difficulty." icon="achievement_dungeon_coablackdragonflight_normal" id="2050" points="10" title="Twilight Duo"/>
+      <achievement categoryId="168" dateCompleted="2008-12-20-06:00" desc="With all three Twilight Drakes still alive, engage and defeat Sartharion the Onyx Guardian on Normal Difficulty." icon="achievement_dungeon_coablackdragonflight_normal" id="2051" points="10" reward="Title Reward: Of the Nightfall" title="The Twilight Zone"/>
+      <achievement categoryId="168" dateCompleted="2008-12-15-06:00" desc="Defeat the bosses of Naxxramas on Normal Difficulty with less than 9 people in the zone." icon="spell_shadow_raisedead" id="578" points="25" title="The Dedicated Few">
+        <criteria name="Kel'Thuzad"/>
+        <criteria name="Gothik the Harvester"/>
+        <criteria name="Anub'Rekhan"/>
+        <criteria name="Grobbulus"/>
+        <criteria name="Heigan the Unclean"/>
+        <criteria name="Grand Widow Faerlina"/>
+        <criteria name="Maexxna"/>
+        <criteria name="Sapphiron"/>
+        <criteria name="Loatheb"/>
+        <criteria name="Gluth"/>
+        <criteria name="Thaddius"/>
+        <criteria name="Patchwerk"/>
+        <criteria name="Instructor Razuvious"/>
+        <criteria name="Noth the Plaguebringer"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-12-15-06:00" desc="Defeat Kel'Thuzad on Normal Difficulty in Naxxramas while killing at least 18 abominations in his chamber." icon="spell_deathknight_plaguestrike" id="2184" points="10" title="Just Can't Get Enough"/>
+      <achievement categoryId="168" dateCompleted="2008-12-15-06:00" desc="Defeat Sapphiron on Normal Difficulty in Naxxramas without any member of the raid having a frost resist value over 100." icon="inv_misc_head_dragon_blue" id="2146" points="10" title="The Hundred Club"/>
+      <achievement categoryId="168" dateCompleted="2008-12-15-06:00" desc="Defeat Thaddius in Naxxramas on Normal Difficulty without anyone in the raid crossing the negative and positive charges." icon="spell_chargepositive" id="2178" points="10" title="Shocking!"/>
+      <achievement categoryId="168" dateCompleted="2008-12-15-06:00" desc="Defeat Thaddius in Naxxramas on Normal Difficulty with less than 9 people." icon="spell_chargenegative" id="2180" points="10" title="Subtraction"/>
+      <achievement categoryId="168" dateCompleted="2008-12-15-06:00" desc="Defeat Grand Widow Faerlina in Naxxramas on Normal Difficulty without dispelling frenzy." icon="spell_shadow_curseofmannoroth" id="1997" points="10" title="Momma Said Knock You Out"/>
+      <achievement categoryId="168" dateCompleted="2008-11-25-06:00" desc="Defeat Malygos on Normal Difficulty." icon="achievement_dungeon_nexusraid" id="622" points="10" title="The Spellweaver's Downfall"/>
+      <achievement categoryId="168" dateCompleted="2008-11-25-06:00" desc="Defeat Kel'Thuzad on Normal Difficulty in Naxxramas." icon="inv_trinket_naxxramas06" id="574" points="10" title="Kel'Thuzad's Defeat"/>
+      <achievement categoryId="168" dateCompleted="2008-11-25-06:00" desc="Defeat every boss in Naxxramas on Normal Difficulty." icon="achievement_dungeon_naxxramas_normal" id="576" points="25" title="The Fall of Naxxramas">
+        <criteria date="2009-04-02-05:00" name="The Arachnid Quarter"/>
+        <criteria date="2009-04-02-05:00" name="The Construct Quarter"/>
+        <criteria date="2009-04-02-05:00" name="The Plague Quarter"/>
+        <criteria date="2009-04-02-05:00" name="The Military Quarter"/>
+        <criteria date="2009-04-02-05:00" name="Sapphiron's Demise"/>
+        <criteria date="2009-04-02-05:00" name="Kel'Thuzad's Defeat"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-25-06:00" desc="Defeat Sapphiron on Normal Difficulty in Naxxramas." icon="inv_misc_head_dragon_blue" id="572" points="10" title="Sapphiron's Demise"/>
+      <achievement categoryId="168" dateCompleted="2008-11-25-06:00" desc="Defeat the bosses of The Military Quarter of Naxxramas on Normal Difficulty." icon="spell_deathknight_classicon" id="568" points="10" title="The Military Quarter">
+        <criteria name="Instructor Razuvious"/>
+        <criteria name="Gothik the Harvester"/>
+        <criteria name="The Four Horsemen"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-24-06:00" desc="Defeat the bosses of The Construct Quarter of Naxxramas on Normal Difficulty." icon="ability_rogue_deviouspoisons" id="564" points="10" title="The Construct Quarter">
+        <criteria name="Patchwerk"/>
+        <criteria name="Grobbulus"/>
+        <criteria name="Gluth"/>
+        <criteria name="Thaddius"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-24-06:00" desc="Defeat Heigan the Unclean in Naxxramas on Normal Difficulty without anyone in the raid dying." icon="ability_rogue_quickrecovery" id="1996" points="10" title="The Safety Dance"/>
+      <achievement categoryId="168" dateCompleted="2008-11-24-06:00" desc="Defeat Maexxna in Naxxramas within 20 minutes of Anub'Rekhan's death on Normal Difficulty." icon="achievement_halloween_spider_01" id="1858" points="10" title="Arachnophobia"/>
+      <achievement categoryId="168" dateCompleted="2008-11-19-06:00" desc="Defeat Sartharion the Onyx Guardian on Normal Difficulty." icon="achievement_dungeon_coablackdragonflight" id="1876" points="10" title="Besting the Black Dragonflight"/>
+      <achievement categoryId="168" dateCompleted="2008-11-18-06:00" desc="Defeat the bosses of The Arachnid Quarter of Naxxramas on Normal Difficulty." icon="inv_trinket_naxxramas04" id="562" points="10" title="The Arachnid Quarter">
+        <criteria name="Anub'Rekhan"/>
+        <criteria name="Grand Widow Faerlina"/>
+        <criteria name="Maexxna"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-18-06:00" desc="Defeat the bosses of The Plague Quarter of Naxxramas on Normal Difficulty." icon="inv_misc_cauldron_nature" id="566" points="10" title="The Plague Quarter">
+        <criteria name="Noth the Plaguebringer"/>
+        <criteria name="Heigan the Unclean"/>
+        <criteria name="Loatheb"/>
+      </achievement>
+      <achievement categoryId="168" desc="Defeat Sartharion the Onyx Guardian and the Twilight Drakes with fewer than 9 on Normal Difficulty." icon="achievement_dungeon_coablackdragonflight_heroic" id="624" points="10" title="Less Is More">
+        <criteria name="Vesperon"/>
+        <criteria name="Tenebron"/>
+        <criteria name="Shadron"/>
+      </achievement>
+      <achievement categoryId="168" desc="Defeat Loatheb in Naxxramas on Normal Difficulty without killing any spores." icon="inv_misc_herb_ragveil" id="2182" points="10" title="Spore Loser"/>
+    </category>
+    <category>
+      <achievement categoryId="168" dateCompleted="2009-02-05-06:00" desc="Defeat Loatheb in Naxxramas on Heroic Difficulty without killing any spores." icon="inv_misc_herb_ragveil" id="2183" points="10" title="Heroic: Spore Loser"/>
+      <achievement categoryId="168" dateCompleted="2009-01-22-06:00" desc="Kill Patchwerk in Naxxramas in 3 minutes or less on Heroic Difficulty." icon="spell_shadow_plaguecloud" id="1857" points="10" title="Heroic: Make Quick Werk Of Him"/>
+      <achievement categoryId="168" dateCompleted="2009-01-14-06:00" desc="Defeat Malygos on Heroic Difficulty with fewer than 21." icon="achievement_dungeon_nexusraid_25man" id="1870" points="10" title="Heroic: A Poke In The Eye"/>
+      <achievement categoryId="168" dateCompleted="2009-01-14-06:00" desc="Deliver a killing blow to a Scion of Eternity while riding on a hover disk on Heroic Difficulty." icon="inv_elemental_mote_shadow01" id="2149" points="10" title="Heroic: Denyin' the Scion"/>
+      <achievement categoryId="168" dateCompleted="2009-01-08-06:00" desc="Defeat the bosses of Naxxramas with less than 21 people in the zone on Heroic Difficulty." icon="spell_shadow_raisedead" id="579" points="50" title="Heroic: The Dedicated Few">
+        <criteria name="Anub'Rekhan"/>
+        <criteria name="Heigan the Unclean"/>
+        <criteria name="Grobbulus"/>
+        <criteria name="Gothik the Harvester"/>
+        <criteria name="Kel'Thuzad"/>
+        <criteria name="Grand Widow Faerlina"/>
+        <criteria name="Maexxna"/>
+        <criteria name="Loatheb"/>
+        <criteria name="Sapphiron"/>
+        <criteria name="Gluth"/>
+        <criteria name="Patchwerk"/>
+        <criteria name="Thaddius"/>
+        <criteria name="Instructor Razuvious"/>
+        <criteria name="Noth the Plaguebringer"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2009-01-08-06:00" desc="Defeat Thaddius in Naxxramas on Heroic Difficulty with less than 21 people." icon="spell_chargenegative" id="2181" points="10" title="Heroic: Subtraction"/>
+      <achievement categoryId="168" dateCompleted="2009-01-07-06:00" desc="Defeat Sartharion the Onyx Guardian on Heroic Difficulty without getting hit by Lava Strike." icon="spell_shaman_lavaflow" id="2048" points="10" title="Heroic: Gonna Go When the Volcano Blows"/>
+      <achievement categoryId="168" dateCompleted="2009-01-07-06:00" desc="Defeat Sartharion the Onyx Guardian and the Twilight Drakes on Heroic Difficulty with fewer than 21." icon="achievement_dungeon_coablackdragonflight_25man" id="1877" points="10" title="Heroic: Less Is More">
+        <criteria name="Vesperon"/>
+        <criteria name="Tenebron"/>
+        <criteria name="Shadron"/>
+        <criteria name="Sartharion the Onyx Guardian"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2009-01-07-06:00" desc="Defeat Malygos in 6 minutes or less on Heroic Difficulty." icon="achievement_dungeon_nexusraid" id="1875" points="10" title="Heroic: You Don't Have An Eternity"/>
+      <achievement categoryId="168" dateCompleted="2009-01-02-06:00" desc="Within one raid lockout period, defeat every boss in Naxxramas on Heroic Difficulty without allowing any raid member to die during any of the boss encounters." icon="spell_holy_weaponmastery" id="2186" points="10" reward="Title Reward: The Immortal" title="The Immortal"/>
+      <achievement categoryId="168" dateCompleted="2008-12-11-06:00" desc="Defeat Grand Widow Faerlina in Naxxramas on Heroic Difficulty without dispelling frenzy." icon="spell_shadow_curseofmannoroth" id="2140" points="10" title="Heroic: Momma Said Knock You Out"/>
+      <achievement categoryId="168" dateCompleted="2008-12-05-06:00" desc="With all three Twilight Drakes still alive, engage and defeat Sartharion the Onyx Guardian on Heroic Difficulty." icon="achievement_dungeon_coablackdragonflight_normal" id="2054" points="10" reward="Title Reward: Twilight Vanquisher" title="Heroic: The Twilight Zone"/>
+      <achievement categoryId="168" dateCompleted="2008-12-04-06:00" desc="Defeat Kel'Thuzad on Heroic Difficulty in Naxxramas while killing at least 18 abominations in his chamber." icon="spell_deathknight_plaguestrike" id="2185" points="10" title="Heroic: Just Can't Get Enough"/>
+      <achievement categoryId="168" dateCompleted="2008-12-04-06:00" desc="Defeat Sapphiron on Heroic Difficulty in Naxxramas without any member of the raid having a frost resist value over 100." icon="inv_misc_head_dragon_blue" id="2147" points="10" title="Heroic: The Hundred Club"/>
+      <achievement categoryId="168" dateCompleted="2008-12-03-06:00" desc="Defeat the 4 Horsemen in Naxxramas on Heroic Difficulty, ensuring that they all die within 15 seconds of each other." icon="spell_deathknight_summondeathcharger" id="2177" points="10" title="Heroic: And They Would All Go Down Together"/>
+      <achievement categoryId="168" dateCompleted="2008-12-03-06:00" desc="Kill Maexxna in Naxxramas within 20 minutes of Anub'Rekhan's death on Heroic Difficulty." icon="achievement_halloween_spider_01" id="1859" points="10" title="Heroic: Arachnophobia"/>
+      <achievement categoryId="168" dateCompleted="2008-12-01-06:00" desc="With at least one Twilight Drake still alive, engage and defeat Sartharion the Onyx Guardian on Heroic Difficulty." icon="achievement_dungeon_coablackdragonflight_normal" id="2052" points="10" title="Heroic: Twilight Assist"/>
+      <achievement categoryId="168" dateCompleted="2008-12-01-06:00" desc="With at least two Twilight Drakes still alive, engage and defeat Sartharion the Onyx Guardian on Heroic Difficulty." icon="achievement_dungeon_coablackdragonflight_normal" id="2053" points="10" title="Heroic: Twilight Duo"/>
+      <achievement categoryId="168" dateCompleted="2008-11-24-06:00" desc="Defeat Malygos on Heroic Difficulty." icon="achievement_dungeon_nexusraid_10man" id="623" points="25" title="Heroic: The Spellweaver's Downfall"/>
+      <achievement categoryId="168" dateCompleted="2008-11-21-06:00" desc="Defeat Kel'Thuzad on Heroic Difficulty in Naxxramas." icon="inv_trinket_naxxramas06" id="575" points="10" title="Heroic: Kel'Thuzad's Defeat"/>
+      <achievement categoryId="168" desc="Defeat every boss in Naxxramas on Heroic Difficulty." icon="achievement_dungeon_naxxramas_10man" id="577" points="50" title="Heroic: The Fall of Naxxramas">
+        <criteria date="2009-04-02-05:00" name="Heroic: The Arachnid Quarter"/>
+        <criteria date="2009-04-02-05:00" name="Heroic: The Construct Quarter"/>
+        <criteria date="2009-04-02-05:00" name="Heroic: The Plague Quarter"/>
+        <criteria date="2009-04-02-05:00" name="Heroic: The Military Quarter"/>
+        <criteria date="2009-04-02-05:00" name="Heroic: Sapphiron's Demise"/>
+        <criteria date="2009-04-02-05:00" name="Heroic: Kel'Thuzad's Defeat"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-21-06:00" desc="Defeat Sapphiron on Heroic Difficulty in Naxxramas." icon="inv_misc_head_dragon_blue" id="573" points="10" title="Heroic: Sapphiron's Demise"/>
+      <achievement categoryId="168" dateCompleted="2008-11-21-06:00" desc="Defeat the bosses of The Construct Quarter of Naxxramas on Heroic Difficulty." icon="ability_rogue_deviouspoisons" id="565" points="10" title="Heroic: The Construct Quarter">
+        <criteria name="Patchwerk"/>
+        <criteria name="Grobbulus"/>
+        <criteria name="Gluth"/>
+        <criteria name="Thaddius"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-21-06:00" desc="Defeat Thaddius in Naxxramas on Heroic Difficulty without anyone in the raid crossing the negative and positive charges." icon="spell_chargepositive" id="2179" points="10" title="Heroic: Shocking!"/>
+      <achievement categoryId="168" dateCompleted="2008-11-20-06:00" desc="Defeat the bosses of The Military Quarter of Naxxramas on Heroic Difficulty." icon="spell_deathknight_classicon" id="569" points="10" title="Heroic: The Military Quarter">
+        <criteria name="Instructor Razuvious"/>
+        <criteria name="Gothik the Harvester"/>
+        <criteria name="The Four Horsemen"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-19-06:00" desc="Defeat the bosses of The Plague Quarter of Naxxramas on Heroic Difficulty." icon="inv_misc_cauldron_nature" id="567" points="10" title="Heroic: The Plague Quarter">
+        <criteria name="Noth the Plaguebringer"/>
+        <criteria name="Heigan the Unclean"/>
+        <criteria name="Loatheb"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-19-06:00" desc="Defeat Heigan the Unclean in Naxxramas on Heroic Difficulty without anyone in the raid dying." icon="ability_rogue_quickrecovery" id="2139" points="10" title="Heroic: The Safety Dance"/>
+      <achievement categoryId="168" dateCompleted="2008-11-19-06:00" desc="Defeat the bosses of The Arachnid Quarter of Naxxramas on Heroic Difficulty." icon="inv_trinket_naxxramas04" id="563" points="10" title="Heroic: The Arachnid Quarter">
+        <criteria name="Anub'Rekhan"/>
+        <criteria name="Grand Widow Faerlina"/>
+        <criteria name="Maexxna"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2008-11-18-06:00" desc="Defeat Sartharion the Onyx Guardian on Heroic Difficulty." icon="achievement_dungeon_coablackdragonflight_10man" id="625" points="25" title="Heroic: Besting the Black Dragonflight"/>
+    </category>
+  </category>
+</achievements>
