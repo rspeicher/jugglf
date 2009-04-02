@@ -100,4 +100,26 @@ describe MembersHelper do
       loot_factor(1).should == '1.00'
     end
   end
+  
+  describe "warn_if_recently_looted" do
+    before(:each) do
+      @recent_loots = [Loot.make(:id => 1, :best_in_slot => true)]
+      @wishlist = Wishlist.make(:item => @recent_loots[0].item)
+    end
+    
+    it "should display an image if the wishlist item _of this type_ was recently looted" do
+      @wishlist.priority = 'best in slot'
+      warn_if_recently_looted(@wishlist, @recent_loots).should match(/error\.png/)
+    end
+    
+    it "should not display an image if the wishlist item was looted, but of a different type" do
+      @wishlist.priority = 'normal'
+      warn_if_recently_looted(@wishlist, @recent_loots).should be_nil
+    end
+    
+    it "should not display an image if the wishlist item wasn't looted" do
+      @wishlist.item = Item.make(:name => 'New Item')
+      warn_if_recently_looted(@wishlist, @recent_loots).should be_nil
+    end
+  end
 end

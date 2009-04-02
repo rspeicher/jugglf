@@ -43,6 +43,34 @@ describe Loot do
     @loot.affects_loot_factor?.should be_false
   end
   
+  describe "#has_purchase_type?" do
+    before(:each) do
+      @loot = Loot.make
+    end
+    
+    it "should return nil for bogus types" do
+      @loot.has_purchase_type?('bogus').should be_nil
+    end
+    
+    it "should know :best_in_slot?" do
+      @loot.best_in_slot = true
+      @loot.has_purchase_type?(:best_in_slot).should be_true
+    end
+    
+    it "should know :situational?" do
+      @loot.situational = true
+      @loot.has_purchase_type?(:situational).should be_true
+    end
+    
+    it "should know :rot?" do
+      @loot.has_purchase_type?(:rot).should be_false
+    end
+    
+    it "should know :normal?" do
+      @loot.has_purchase_type?('NORMAL?').should be_true
+    end
+  end
+  
   describe "#update_cache" do
     before(:each) do
       @loot.price = 15.0

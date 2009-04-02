@@ -78,4 +78,16 @@ module MembersHelper
   def loot_factor(value)
     number_with_precision(value, :precision => 2)
   end
+  
+  def warn_if_recently_looted(wishlist, loots)
+    return unless loots.size > 0
+    
+    loots.each do |loot|
+      if loot.item_id == wishlist.item_id and loot.has_purchase_type?(wishlist.priority)
+        return image_tag('error.png', :class => 'help', :title => 'This item was recently looted.')
+      end
+    end
+    
+    return nil
+  end
 end

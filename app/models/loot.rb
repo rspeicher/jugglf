@@ -61,6 +61,17 @@ class Loot < ActiveRecord::Base
     ( self.rot? ) ? 0.50 : self.price
   end
   
+  # Returns the value of the given purchase type (Normal, Rot, Situational, Best In Slot)
+  def has_purchase_type?(purchase_type)
+    purchase_type = purchase_type.to_s.gsub(' ', '_').strip
+    
+    if purchase_type.to_s.match(/^normal/i)
+      return (not self.best_in_slot? and not self.situational?)
+    else
+      return eval("self.#{purchase_type}") if self.respond_to?(purchase_type)
+    end
+  end
+  
   private
     def set_purchased_on
       if self.purchased_on.nil? and not self.raid_id.nil?
