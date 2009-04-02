@@ -7,11 +7,8 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user, :page_title
   
-  helper :all # include all helpers, all the time
-
-  # See ActionController::RequestForgeryProtection for details
-  # Uncomment the :secret if you're not using the cookie session store
-  protect_from_forgery :secret => 'd329d91cbe26ce677a45f274da677dde'
+  helper :all
+  protect_from_forgery
   
   @@layout = 'application'
   
