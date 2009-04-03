@@ -80,18 +80,20 @@ class InvisionUser < ActiveRecord::Base
 
   # Authlogic -----------------------------------------------------------------
   attr_accessible :login, :password, :password_confirmation
-  acts_as_authentic(
-    :crypto_provider  => Authlogic::CryptoProviders::InvisionPowerBoard, 
-    :login_field      => :name,
-    :login_field_type => :login,
-    :validate_fields  => false, 
-    :validate_password_fields => false 
-  )
+  acts_as_authentic do |c|
+    c.crypto_provider          = Authlogic::CryptoProviders::InvisionPowerBoard
+    c.login_field              = :name
+    c.crypted_password_field   = :converge_password
+    c.password_salt_field      = :converge_salt
+    # c.login_field_type         = :login
+    # c.validate_fields          = false
+    # c.validate_password_fields = false
+  end
   
-  def crypted_password
+  def converge_password
     self.converge.converge_pass_hash
   end
-  def password_salt
+  def converge_salt
     self.converge.converge_pass_salt
   end
   
