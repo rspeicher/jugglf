@@ -34,7 +34,7 @@ describe ItemsController, "#show" do
   end
   
   before(:each) do
-    login({}, :is_admin? => true)
+    login(:admin)
     
     # Set up @item before find_item so we get the stubs we want
     @loot        = mock_model(Loot)
@@ -77,7 +77,7 @@ describe ItemsController, "#new" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       @item = mock_model(Item)
       Item.should_receive(:new).and_return(@item)
       get_response
@@ -95,7 +95,7 @@ describe ItemsController, "#new" do
   
   describe "as user" do
     it "should not render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -103,7 +103,6 @@ describe ItemsController, "#new" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -122,7 +121,7 @@ describe ItemsController, "#edit" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       find_item
       get_response
     end
@@ -138,7 +137,7 @@ describe ItemsController, "#edit" do
   
   describe "as user" do
     it "should not render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -146,7 +145,6 @@ describe ItemsController, "#edit" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -165,7 +163,7 @@ describe ItemsController, "#create" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       @item = mock_model(Item, :to_param => '1')
       Item.should_receive(:new).and_return(@item)
     end
@@ -196,7 +194,7 @@ describe ItemsController, "#create" do
   
   describe "as user" do
     it "should do nothing" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -204,7 +202,6 @@ describe ItemsController, "#create" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -223,7 +220,7 @@ describe ItemsController, "#update" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       find_item
       @params = Item.plan.stringify_keys!
     end
@@ -262,7 +259,7 @@ describe ItemsController, "#update" do
   
   describe "as user" do
     it "should not render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -270,7 +267,6 @@ describe ItemsController, "#update" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -289,7 +285,7 @@ describe ItemsController, "#destroy" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       find_item
       @item.should_receive(:destroy).and_return(nil)
       get_response
@@ -306,7 +302,7 @@ describe ItemsController, "#destroy" do
   
   describe "as user" do
     it "should do nothing" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -314,7 +310,6 @@ describe ItemsController, "#destroy" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end

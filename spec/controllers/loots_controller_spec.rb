@@ -18,7 +18,7 @@ describe LootsController, "#index" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       @loot = mock_model(Loot)
       Loot.should_receive(:paginate).and_return(@loot)
       get_response
@@ -36,7 +36,7 @@ describe LootsController, "#index" do
   
   describe "as user" do
     it "should not render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -55,7 +55,7 @@ describe LootsController, "#new" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       @loot = mock_model(Loot)
       Loot.should_receive(:new).and_return(@loot)
       get_response
@@ -73,7 +73,7 @@ describe LootsController, "#new" do
   
   describe "as user" do
     it "should not render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -81,7 +81,6 @@ describe LootsController, "#new" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -100,7 +99,7 @@ describe LootsController, "#edit" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       @item = mock_model(Item, :name => 'Name', :purchased_on => Date.today)
       find_loot
       get_response
@@ -117,7 +116,7 @@ describe LootsController, "#edit" do
   
   describe "as user" do
     it "should not render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -125,7 +124,6 @@ describe LootsController, "#edit" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -144,7 +142,7 @@ describe LootsController, "#create" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       @loot = mock_model(Loot, :to_param => '1', :purchased_on => Date.today)
       Loot.should_receive(:new).and_return(@loot)
     end
@@ -175,7 +173,7 @@ describe LootsController, "#create" do
   
   describe "as user" do
     it "should do nothing" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -183,7 +181,6 @@ describe LootsController, "#create" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -202,7 +199,7 @@ describe LootsController, "#update" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       find_loot
       @params = Loot.plan(:raid => mock_model(Raid), :item => mock_model(Item)).stringify_keys!
     end
@@ -241,7 +238,7 @@ describe LootsController, "#update" do
   
   describe "as user" do
     it "should not render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -249,7 +246,6 @@ describe LootsController, "#update" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -268,7 +264,7 @@ describe LootsController, "#destroy" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       find_loot
       @loot.should_receive(:destroy).and_return(nil)
       get_response
@@ -285,7 +281,7 @@ describe LootsController, "#destroy" do
   
   describe "as user" do
     it "should do nothing" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -293,7 +289,6 @@ describe LootsController, "#destroy" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end

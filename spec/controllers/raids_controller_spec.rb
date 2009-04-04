@@ -18,7 +18,7 @@ describe RaidsController, "#index" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       @raid = mock_model(Raid)
       Raid.should_receive(:paginate).and_return(@raid)
       get_response
@@ -36,7 +36,7 @@ describe RaidsController, "#index" do
   
   describe "as user" do
     it "should not render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -44,7 +44,6 @@ describe RaidsController, "#index" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -63,7 +62,7 @@ describe RaidsController, "#show" do
   
   describe "as_admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       @attendees = mock_model(Attendee, 
         :member => Member.make_unsaved(:wow_class => 'Druid'))
       @raid = mock_model(Raid, :attendees => @attendees, 
@@ -91,7 +90,7 @@ describe RaidsController, "#show" do
   
   describe "as user" do
     it "should not render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -99,7 +98,6 @@ describe RaidsController, "#show" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -118,7 +116,7 @@ describe RaidsController, "#new" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       @raid = mock_model(Raid)
       Raid.should_receive(:new).and_return(@raid)
       get_response
@@ -136,7 +134,7 @@ describe RaidsController, "#new" do
   
   describe "as user" do
     it "should not render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -144,7 +142,6 @@ describe RaidsController, "#new" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -162,7 +159,7 @@ describe RaidsController, "#edit" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       find_raid
       get_response
     end
@@ -178,7 +175,7 @@ describe RaidsController, "#edit" do
   
   describe "as user" do
     it "should not render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -186,7 +183,6 @@ describe RaidsController, "#edit" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -205,7 +201,7 @@ describe RaidsController, "#create" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       @raid = mock_model(Raid, :to_param => '1')
       Raid.should_receive(:new).and_return(@raid)
     end
@@ -236,7 +232,7 @@ describe RaidsController, "#create" do
   
   describe "as user" do
     it "should do nothing" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -244,7 +240,6 @@ describe RaidsController, "#create" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -263,7 +258,7 @@ describe RaidsController, "#update" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       find_raid
       @params = Raid.plan.stringify_keys!
     end
@@ -302,7 +297,7 @@ describe RaidsController, "#update" do
   
   describe "as user" do
     it "should not render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -310,7 +305,6 @@ describe RaidsController, "#update" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -329,7 +323,7 @@ describe RaidsController, "#destroy" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       find_raid
       @raid.should_receive(:destroy).and_return(nil)
       get_response
@@ -346,7 +340,7 @@ describe RaidsController, "#destroy" do
   
   describe "as user" do
     it "should do nothing" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -354,7 +348,6 @@ describe RaidsController, "#destroy" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
