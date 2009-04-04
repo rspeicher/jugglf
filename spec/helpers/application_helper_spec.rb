@@ -5,17 +5,17 @@ include ApplicationHelper
 describe ApplicationHelper do
   describe "admin?" do
     it "should return false if no user is logged in" do
-      @current_user = current_user(:nil? => true)
+      stub!(:current_user).and_return(nil)
       admin?.should be_false
     end
     
     it "should return false if the current user is not an admin" do
-      @current_user = current_user(:is_admin? => false)
+      stub!(:current_user).and_return(mock_model(InvisionUser, :is_admin? => false))
       admin?.should be_false
     end
     
     it "should return true if the current user is an admin" do
-      @current_user = current_user(:is_admin? => true)
+      stub!(:current_user).and_return(mock_model(InvisionUser, :is_admin? => true))
       admin?.should be_true
     end
   end
@@ -107,12 +107,11 @@ describe ApplicationHelper do
   
   describe "link_to_login_or_logout" do
     it "should link to login when logged out" do
-      login
+      stub!(:current_user).and_return(true)
       link_to_login_or_logout.should match(/Logout/)
     end
     
     it "should link to logout when logged in" do
-      logout
       def current_user; end
       link_to_login_or_logout.should match(/Login/)
     end
