@@ -90,4 +90,9 @@ describe InvisionUser do
   it "should know if a user is an admin" do
     @user.is_admin?.should be_false
   end
+  
+  it "should take an associated member" do
+    @user = InvisionUser.make_unsaved(:member => Member.make(:name => 'Name'))
+    @user.member.name.should == 'Name'
+  end
 end

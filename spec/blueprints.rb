@@ -103,13 +103,14 @@ InvisionUser.blueprint do
   name
   mgroup { 1 }
   email { Faker::Internet.email }
+  converge { InvisionUserConverge.make }
+  member { nil }
 end
 InvisionUser.blueprint(:admin) do
   mgroup { 4 }
 end
 
 InvisionUserConverge.blueprint do
-  # converge_id { InvisionUser.make.id }
-  converge_pass_hash { 'hash' }
+  converge_pass_hash { '9c4acc137217b795b4d487bba53f5e7d' } # pass!word salted with 'salt'
   converge_pass_salt { 'salt' }
 end
