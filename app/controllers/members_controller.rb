@@ -133,4 +133,8 @@ class MembersController < ApplicationController
     def find_member
       @member = Member.find(params[:id])
     end
+    
+    def single_access_allowed?
+      action_name == 'index' and params[:format] == 'lua'
+    end
 end
