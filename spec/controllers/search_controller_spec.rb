@@ -57,12 +57,12 @@ describe SearchController, "#index" do
     end
     
     it "should support field:value query" do
-      @member.should_receive(:search).with(:per_page => 999, :order => 'name', :wow_class => '%Priest%').and_return(@member)
+      @member.should_receive(:search).with(:per_page => 999, :order => 'name', :wow_class => '%Priest%').and_return([@member])
       get_response(:normal, :format => 'xml', :query => 'class:Priest')
     end
     
     it "should disallow invalid field queries" do
-      @member.should_receive(:search).with(:per_page => 999, :order => 'name', :name => '%1%').and_return(@member)
+      @member.should_receive(:search).with(:per_page => 999, :order => 'name', :name => '%1%').and_return([@member])
       get_response(:normal, :format => 'xml', :query => 'attendance_30:1')
     end
   end
