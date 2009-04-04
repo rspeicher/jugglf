@@ -18,7 +18,7 @@ describe MembersController, "#index" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       Member.should_receive(:active).and_return(nil)
     end
     
@@ -36,7 +36,7 @@ describe MembersController, "#index" do
   
   describe "as user" do
     it "should render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should render_template(:index)
     end
@@ -44,7 +44,6 @@ describe MembersController, "#index" do
   
   describe "as anonymous" do
     it "should render" do
-      logout
       get_response
       response.should render_template(:index)
     end
@@ -71,7 +70,7 @@ describe MembersController, "#show" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       Member.should_receive(:find).with('1-name').and_return(@mock)
     end
     
@@ -86,20 +85,19 @@ describe MembersController, "#show" do
   
   describe "as user" do
     it "should not render if the member doesn't belong to the current user" do
-      login({}, { :member => mock_model(Member, :id => '999'), :is_admin? => false })
+      login(:user, :member => Member.make_unsaved(:id => '999', :name => 'Name'))
       get_response
       response.should redirect_to(root_url)
     end
     
     it "should not render if the current user has no associated member" do
-      login({}, :member => nil, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
     
     it "should render when the current member belongs to the current user" do
-      login({}, { :member => mock_model(Member, :to_param => '1-name', :id => '1', :name => 'Name'), :is_admin? => false })
-      Member.should_receive(:find).with('1-name').and_return(@mock)
+      login(:user, :member => Member.make_unsaved(:id => '1', :name => 'Name'))
       get_response
       response.should be_success
       response.should render_template(:show)
@@ -108,7 +106,6 @@ describe MembersController, "#show" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -131,7 +128,7 @@ describe MembersController, "#new" do
     end
     
     it "should render" do
-      login({}, :is_admin? => true)
+      login(:admin)
       get_response
       response.should render_template(:new)
       response.should be_success
@@ -140,7 +137,7 @@ describe MembersController, "#new" do
   
   describe "as user" do
     it "should not render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -148,7 +145,6 @@ describe MembersController, "#new" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -167,7 +163,7 @@ describe MembersController, "#edit" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       InvisionUser.should_receive(:juggernaut).and_return('users')
       find_member
       get_response
@@ -189,7 +185,7 @@ describe MembersController, "#edit" do
   
   describe "as user" do
     it "should not render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -197,7 +193,6 @@ describe MembersController, "#edit" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -217,7 +212,7 @@ describe MembersController, "#create" do
   describe "as admin" do
     describe "when successful" do
       before(:each) do
-        login({}, :is_admin? => true)
+        login(:admin)
         @member = mock_model(Member, :to_param => '1', :save => true)
         @params = Member.plan.stringify_keys!
         Member.should_receive(:new).with(@params).and_return(@member)
@@ -239,7 +234,7 @@ describe MembersController, "#create" do
   
     describe "when unsuccessful" do
       before(:each) do
-        login({}, :is_admin? => true)
+        login(:admin)
         @member = mock_model(Member, :save => false)
         Member.stub!(:new).and_return(@member)
       end
@@ -253,7 +248,7 @@ describe MembersController, "#create" do
   
   describe "as user" do
     it "should not render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -261,7 +256,6 @@ describe MembersController, "#create" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -280,7 +274,7 @@ describe MembersController, "#update" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       find_member
       @params = Member.plan.stringify_keys!
     end
@@ -319,7 +313,7 @@ describe MembersController, "#update" do
   
   describe "as user" do
     it "should not render" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -327,7 +321,6 @@ describe MembersController, "#update" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -346,7 +339,7 @@ describe MembersController, "#destroy" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       find_member
       @member.should_receive(:destroy).and_return(nil)
       get_response
@@ -363,7 +356,7 @@ describe MembersController, "#destroy" do
   
   describe "as user" do
     it "should do nothing" do
-      login({}, :is_admin? => false)
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -371,7 +364,6 @@ describe MembersController, "#destroy" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
