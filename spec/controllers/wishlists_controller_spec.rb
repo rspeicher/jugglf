@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 # before_filter :find_parent
 def find_wishlist_parent
   @parent ||= @member ||= Member.make(:id => '1', :name => 'MemberName')
-  # @parent.wishlists.make
+  @parent.wishlists.make
   Member.should_receive(:find).with(anything(), anything()).and_return(@parent)
 end
 
@@ -108,36 +108,36 @@ end
 # -----------------------------------------------------------------------------
 
 # GET /wishlists/new
-describe WishlistsController, "#new" do
-  def get_response
-    get :new, :member_id => '1'
-  end
-  
-  describe "as user" do
-    before(:each) do
-      find_wishlist_parent
-      login(:user, :member => @parent)
-      @new_wishlist = Wishlist.make_unsaved(:item => Item.make(:name => 'My Item'))
-      @parent.wishlists.should_receive(:new).and_return(@new_wishlist)
-      get_response
-    end
-    
-    it "should assign @wishlist" do
-      assigns[:wishlist].should == @new_wishlist
-    end
-    
-    it "should render" do
-      response.should render_template(:new)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(new_user_session_url)
-    end
-  end
-end
+# describe WishlistsController, "#new" do
+#   def get_response
+#     get :new, :member_id => '1'
+#   end
+#   
+#   describe "as user" do
+#     before(:each) do
+#       find_wishlist_parent
+#       login(:user, :member => @parent)
+#       @new_wishlist = Wishlist.make_unsaved(:item => Item.make(:name => 'My Item'))
+#       @parent.wishlists.should_receive(:new).and_return(@new_wishlist)
+#       get_response
+#     end
+#     
+#     it "should assign @wishlist" do
+#       assigns[:wishlist].should == @new_wishlist
+#     end
+#     
+#     it "should render" do
+#       response.should render_template(:new)
+#     end
+#   end
+#   
+#   describe "as anonymous" do
+#     it "should redirect to login" do
+#       get_response
+#       response.should redirect_to(new_user_session_url)
+#     end
+#   end
+# end
 
 # -----------------------------------------------------------------------------
 # Edit
@@ -160,19 +160,19 @@ describe WishlistsController, "#edit" do
       find_wishlist
     end
     
-    describe "wanting HTML" do
-      before(:each) do
-        get_response
-      end
-    
-      it "should assign @wishlist" do
-        assigns[:wishlist].should == @wishlist
-      end
-    
-      it "should render" do
-        response.should render_template(:edit)
-      end
-    end
+    # describe "wanting HTML" do
+    #   before(:each) do
+    #     get_response
+    #   end
+    # 
+    #   it "should assign @wishlist" do
+    #     assigns[:wishlist].should == @wishlist
+    #   end
+    # 
+    #   it "should render" do
+    #     response.should render_template(:edit)
+    #   end
+    # end
     
     describe "wanting JS" do
       it "should render" do
@@ -248,12 +248,12 @@ describe WishlistsController, "#create" do
         @parent.wishlists.stub!(:new).and_return(@wishlist)
       end
       
-      describe "wanting HTML" do
-        it "should render template :new" do
-          get_response
-          response.should render_template(:new)
-        end
-      end
+      # describe "wanting HTML" do
+      #   it "should render template :new" do
+      #     get_response
+      #     response.should render_template(:new)
+      #   end
+      # end
       
       describe "wanting JS" do
         it "should render template :create_failure" do
@@ -323,12 +323,12 @@ describe WishlistsController, "#update" do
         @wishlist.should_receive(:update_attributes).with(@params).and_return(false)
       end
       
-      describe "wanting HTML" do
-        it "should render :edit" do
-          get_response
-          response.should render_template(:edit)
-        end
-      end
+      # describe "wanting HTML" do
+      #   it "should render :edit" do
+      #     get_response
+      #     response.should render_template(:edit)
+      #   end
+      # end
       
       describe "wanting JS" do
       end
