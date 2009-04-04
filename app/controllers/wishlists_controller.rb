@@ -35,6 +35,10 @@ class WishlistsController < ApplicationController
   def new
     @wishlist = @parent.wishlists.new
     
+    puts "Parent: #{@parent.name}<br/>"
+    puts "Wishlists: #{@parent.wishlists.class} of #{@parent.wishlists.count} entries<br/>"
+    puts "New wishlist: #{@wishlist.class} for Item #{@wishlist.item.name}"
+    
     respond_to do |wants|
       wants.html
     end

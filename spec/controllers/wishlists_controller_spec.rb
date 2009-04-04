@@ -1,16 +1,16 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-# before_filter :find_wishlist_parent
+# before_filter :find_parent
 def find_wishlist_parent
-  @parent ||= @member ||= mock_model(Member, :id => '1', :to_param => '1',
-    :wishlists => mock_model(Wishlist))
-  Member.stub!(:find).with('1').and_return(@parent)
+  @parent ||= @member ||= Member.make(:id => '1', :name => 'MemberName')
+  # @parent.wishlists.make
+  Member.should_receive(:find).with(anything(), anything()).and_return(@parent)
 end
 
 # before_filter :find_wishlist, :only => [:edit, :update, :destroy]
 def find_wishlist
-  @wishlist ||= @member.wishlists
-  @member.wishlists.should_receive(:find).with('1').and_return(@wishlist)
+  @wishlist ||= @parent.wishlists[0]
+  @parent.wishlists.should_receive(:find).and_return(@wishlist)
 end
 
 # -----------------------------------------------------------------------------
@@ -25,7 +25,7 @@ describe WishlistsController, "#index" do
   
   describe "as admin" do
     before(:each) do
-      login({}, :is_admin? => true)
+      login(:admin)
       @zone = mock_model(Zone, :name => 'Zone')
       LootTable.should_receive(:find_all_by_object_type).with('Zone', anything()).
         and_return([@zone])
@@ -88,8 +88,8 @@ describe WishlistsController, "#index" do
   end
   
   describe "as user" do
-    it "should redirect to /todo" do
-      login({}, :is_admin? => false)
+    it "should redirect to root_url" do
+      login
       get_response
       response.should redirect_to(root_url)
     end
@@ -97,7 +97,6 @@ describe WishlistsController, "#index" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -117,13 +116,14 @@ describe WishlistsController, "#new" do
   describe "as user" do
     before(:each) do
       find_wishlist_parent
-      login({}, { :is_admin? => false, :member => @parent })
-      @member.wishlists.should_receive(:new).and_return('wishlist')
+      login(:user, :member => @parent)
+      @new_wishlist = Wishlist.make_unsaved(:item => Item.make(:name => 'My Item'))
+      @parent.wishlists.should_receive(:new).and_return(@new_wishlist)
       get_response
     end
     
     it "should assign @wishlist" do
-      assigns[:wishlist].should == 'wishlist'
+      assigns[:wishlist].should == @new_wishlist
     end
     
     it "should render" do
@@ -133,7 +133,6 @@ describe WishlistsController, "#new" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -157,7 +156,7 @@ describe WishlistsController, "#edit" do
   describe "as user" do
     before(:each) do
       find_wishlist_parent
-      login({}, { :is_admin? => false, :member => @parent })
+      login(:user, :member => @parent)
       find_wishlist
     end
     
@@ -185,7 +184,6 @@ describe WishlistsController, "#edit" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -210,7 +208,7 @@ describe WishlistsController, "#create" do
     describe "when successful" do
       before(:each) do
         find_wishlist_parent
-        login({}, { :is_admin? => false, :member => @parent })
+        login(:user, :member => @parent)
         @wishlist = mock_model(Wishlist, :to_param => '1', :save => true)
         @params = Wishlist.plan(:member => @parent).stringify_keys!
         @parent.wishlists.should_receive(:new).with(@params).and_return(@wishlist)
@@ -245,7 +243,7 @@ describe WishlistsController, "#create" do
     describe "when unsuccessful" do
       before(:each) do
         find_wishlist_parent
-        login({}, { :is_admin? => false, :member => @parent })
+        login(:user, :member => @parent)
         @wishlist = mock_model(Wishlist, :save => false)
         @parent.wishlists.stub!(:new).and_return(@wishlist)
       end
@@ -268,7 +266,6 @@ describe WishlistsController, "#create" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -298,7 +295,7 @@ describe WishlistsController, "#update" do
     
     describe "when successful" do
       before(:each) do
-        login({}, { :is_admin? => false, :member => @parent })
+        login(:user, :member => @parent)
         @wishlist.should_receive(:update_attributes).with(@params).and_return(true)
       end
       
@@ -322,7 +319,7 @@ describe WishlistsController, "#update" do
     
     describe "when unsuccessful" do
       before(:each) do
-        login({}, { :is_admin? => false, :member => @parent })
+        login(:user, :member => @parent)
         @wishlist.should_receive(:update_attributes).with(@params).and_return(false)
       end
       
@@ -340,7 +337,6 @@ describe WishlistsController, "#update" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -364,7 +360,7 @@ describe WishlistsController, "#destroy" do
   describe "as user" do
     before(:each) do
       find_wishlist_parent
-      login({}, { :is_admin? => false, :member => @parent })
+      login(:user, :member => @parent)
       find_wishlist
       @wishlist.should_receive(:destroy).and_return(nil)
     end
@@ -393,7 +389,6 @@ describe WishlistsController, "#destroy" do
   
   describe "as anonymous" do
     it "should redirect to login" do
-      logout
       get_response
       response.should redirect_to(new_user_session_url)
     end
@@ -431,17 +426,17 @@ describe WishlistsController, "forged posts" do
   end
   
   it "should delete the record when I am an admin" do
-    login({}, { :is_admin? => true, :member => @me })
+    login(:admin, :member => @me)
     lambda { get_response }.should change(Wishlist, :count).by(-1)
   end
   
   it "should not delete a wishlist entry that isn't mine" do
-    login({}, { :is_admin? => false, :member => @me })
+    login(:user, :member => @me)
     lambda { get_response }.should raise_error(ActiveRecord::RecordNotFound)
   end
   
   it "should require_admin when I have no member associated" do
-    login({}, { :is_admin? => false, :member => nil })
+    login(:user, :member => nil)
     get_response
     response.should redirect_to(root_url)
   end
