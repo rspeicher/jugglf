@@ -6,6 +6,7 @@ require 'spec'
 require 'spec/rails'
 require File.expand_path(File.dirname(__FILE__) + "/blueprints")
 require 'ruby-debug'
+require 'authlogic/test_case'
 
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
@@ -43,18 +44,9 @@ Spec::Runner.configure do |config|
   # For more information take a look at Spec::Runner::Configuration and Spec::Runner
 end
 
-def current_user(stubs = {})
-  @current_user ||= mock_model(InvisionUser, stubs)
-end
- 
-def user_session(stubs = {}, user_stubs = {})
-  @current_user ||= mock_model(UserSession, {:invision_user => current_user(user_stubs)}.merge(stubs))
-end
- 
-def login(session_stubs = {}, user_stubs = {})
-  UserSession.stub!(:find).and_return(user_session(session_stubs, user_stubs))
-end
- 
-def logout
-  @user_session = nil
+def login(type = nil, args = {})
+  type = nil unless type == :admin
+  
+  activate_authlogic
+  UserSession.create(InvisionUser.make(type, args))
 end
