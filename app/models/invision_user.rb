@@ -85,9 +85,8 @@ class InvisionUser < ActiveRecord::Base
     c.login_field              = :name
     c.crypted_password_field   = :converge_password
     c.password_salt_field      = :converge_salt
-    # c.login_field_type         = :login
     # c.validate_fields          = false
-    # c.validate_password_fields = false
+    c.validate_password_field  = false
   end
   
   def converge_password
