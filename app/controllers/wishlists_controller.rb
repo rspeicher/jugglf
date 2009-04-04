@@ -32,21 +32,23 @@ class WishlistsController < ApplicationController
     end
   end
   
-  def new
-    @wishlist = @parent.wishlists.new
-    
-    respond_to do |wants|
-      wants.html
-    end
-  end
+  # NOTE: Leave disabled until new.html.haml exists, if ever
+  # def new
+  #   @wishlist = @parent.wishlists.new
+  #   
+  #   respond_to do |wants|
+  #     wants.html
+  #   end
+  # end
   
   def edit
     respond_to do |wants|
       wants.html do
         if request.xhr?
           render :action => 'edit_inline'
-        else
-          render :action => 'edit'
+        # NOTE: Leave disabled until new.html.haml exists, if ever
+        # else
+        #   render :action => 'edit'
         end
       end
     end

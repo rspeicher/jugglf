@@ -314,6 +314,10 @@ describe WishlistsController, "#update" do
       end
       
       describe "wanting JS" do
+        it "should render :update" do
+          get_response(:xhr)
+          response.should render_template(:update)
+        end
       end
     end
     
@@ -331,6 +335,10 @@ describe WishlistsController, "#update" do
       # end
       
       describe "wanting JS" do
+        it "should render :update" do
+          get_response(:xhr)
+          response.should render_template(:update)
+        end
       end
     end
   end
