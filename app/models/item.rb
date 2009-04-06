@@ -28,6 +28,7 @@ class Item < ActiveRecord::Base
   validates_uniqueness_of :name
   
   # Callbacks -----------------------------------------------------------------
+  before_save :use_proper_name
   
   # Class Methods -------------------------------------------------------------
   
@@ -56,4 +57,17 @@ class Item < ActiveRecord::Base
   def to_param
     "#{self.id}-#{self.name.parameterize}"
   end
+  
+  private
+    # Use the real, in-game name at all times
+    #
+    # Some people are lazy and like to enter item names in all lowercase, or
+    # leave their caps lock on, or some shit. This method ensures that, if we
+    # have available to us an ItemStat record, we use the name from that.
+    def use_proper_name
+      return if self.item_stat_id.nil?
+      
+      item = self.item_stat.item
+      self.name = item unless item.nil? or self.name == item
+    end
 end

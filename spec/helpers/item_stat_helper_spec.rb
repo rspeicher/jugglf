@@ -4,7 +4,7 @@ include ItemStatsHelper
 
 describe ItemStatsHelper do
   before(:each) do
-    @stat = ItemStat.make
+    @stat = ItemStat.make(:item => 'MyItem')
     @item = Item.make(:name => 'MyItem')
     
     ItemStat.stub!(:lookup).and_return(@stat)

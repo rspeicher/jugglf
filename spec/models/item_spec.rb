@@ -25,6 +25,30 @@ describe Item do
     @item.to_param.should == "#{@item.id}-#{@item.name.parameterize}"
   end
   
+  describe "#use_proper_name" do
+    before(:each) do
+      @item.name = 'this name needs to be fixed'
+      @stat = ItemStat.make_unsaved
+    end
+    
+    it "should not change the name if we have no item stat record" do
+      @item.item_stat = nil
+      lambda { @item.save }.should_not change(@item, :name)
+    end
+    
+    it "should not change the name if the item stat record name is nil" do
+      @stat.item = nil
+      @item.item_stat = @stat
+      lambda { @item.save }.should_not change(@item, :name)
+    end
+    
+    it "should change the name if the item stat record appears valid" do
+      @stat.item = 'Proper Name'
+      @item.item_stat = @stat
+      lambda { @item.save }.should change(@item, :name).to('Proper Name')
+    end
+  end
+  
   describe "#safely_rename" do
     before(:each) do
       @wrong = Item.make(:name => 'Wrong')
