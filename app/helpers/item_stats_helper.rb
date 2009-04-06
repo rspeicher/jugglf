@@ -8,7 +8,7 @@ module ItemStatsHelper
       stat = item.item_stat
     end
     
-    "<a href='#{stat.wowhead_link}' class='#{stat.color}'>#{truncate(h(item.name), :length => 80)}</a>" unless stat.nil?
+    "<a href='#{stat.wowhead_link}' class='#{stat.color}' target='_new'>#{truncate(h(item.name), :length => 80)}</a>" unless stat.nil?
   end
   
   def link_to_item_with_stats(item)
