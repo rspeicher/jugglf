@@ -66,5 +66,9 @@ describe Item do
       @right.reload
       @right.loot_tables.count.should == 1
     end
+    
+    it "should accept a string for each argument" do
+      lambda { Item.safely_rename(:from => 'Wrong', :to => 'Right') }.should_not raise_error
+    end
   end
 end

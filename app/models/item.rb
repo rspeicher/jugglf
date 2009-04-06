@@ -37,8 +37,8 @@ class Item < ActiveRecord::Base
     return if args.length < 2
     return if args[:from].nil? or args[:to].nil?
     
-    from = Item.find(args[:from])
-    to   = Item.find(args[:to])
+    from = ( args[:from].is_a? String ) ? Item.find_by_name(args[:from]) : Item.find(args[:from])
+    to   = ( args[:to].is_a? String )   ? Item.find_by_name(args[:to])   : Item.find(args[:to])
     
     to.loots       += from.loots
     to.wishlists   += from.wishlists
