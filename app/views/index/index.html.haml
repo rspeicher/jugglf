@@ -1,5 +1,4 @@
-%h2= breadcrumb 'Averages'
-
+%h2= breadcrumb 'Statistics'
 %table.list{ :style => 'font-size: 1.2em' }
   %thead
     %tr
@@ -46,3 +45,53 @@
       %td.attendance= loot_factor(@lootfactor_guild.avg_sitlf.to_f)
       - @lootfactor.each do |group|
         %td.attendance= loot_factor(group.avg_sitlf.to_f)
+        
+%h2= breadcrumb 'Records'
+.record_group
+  %h4 Most Common Items
+  %table.list
+    %thead
+      %tr
+        %th Item
+        %th.number Loots
+    %tbody
+      - @common_items.each do |item|
+        %tr{ :class => cycle('even', 'odd') }
+          %td= link_to_item_with_stats(item)
+          %td.number= h(item.loots_count)
+.record_group
+  %h4 Most Common Tokens
+  %table.list
+    %thead
+      %tr
+        %th Item
+        %th.number Loots
+    %tbody
+      - @common_tokens.each do |item|
+        %tr{ :class => cycle('even', 'odd') }
+          %td= link_to_item_with_stats(item)
+          %td.number= h(item.loots_count)
+.record_group
+  %h4 Most Wanted Items
+  %table.list
+    %thead
+      %tr
+        %th Item
+        %th.number Wishlists
+    %tbody
+      - @common_wishlists.each do |item|
+        %tr{ :class => cycle('even', 'odd') }
+          %td= link_to_item_with_stats(item)
+          %td.number= h(item.wishlists_count)
+.record_group
+  %h4 Oldest Active Members
+  %table.list
+    %thead
+      %tr
+        %th Member
+        %th.number First Raid
+    %tbody
+      - @oldest_members.each do |member|
+        %tr{ :class => cycle('even', 'odd') }
+          %td= link_to_member(member)
+          %td.number= h(member.first_raid)
