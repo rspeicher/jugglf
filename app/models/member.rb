@@ -67,6 +67,7 @@ class Member < ActiveRecord::Base
   end
   
   named_scope :active, :order => 'name', :conditions => ['active = ?', true]
+  named_scope :with_class, :conditions => 'wow_class IS NOT NULL'
   
   # Instance Methods ----------------------------------------------------------
   def update_cache(type = :loot_factor)

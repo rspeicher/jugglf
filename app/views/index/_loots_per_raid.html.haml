@@ -1,0 +1,10 @@
+%table.list
+  %thead
+    %tr
+      %th Member
+      %th.number Loots/day
+  %tbody
+    - loots_per_raid.each do |member|
+      %tr{ :class => cycle('even', 'odd') }
+        %td= link_to_member(member)
+        %td.number= number_with_precision(member.loots_per_raid, :precision => 2)

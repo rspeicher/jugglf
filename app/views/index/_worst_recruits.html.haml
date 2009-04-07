@@ -4,7 +4,7 @@
       %th Class
       %th.number Declined
   %tbody
-    - worst_recruits.each do |wow_class, count|
+    - worst_recruits.each do |wow_class, percent|
       %tr{ :class => cycle('even', 'odd') }
         %td{ :class => wow_class }= wow_class.titlecase
-        %td.number= h(count)
+        %td.number== #{(percent * 100).floor}%
