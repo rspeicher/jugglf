@@ -20,6 +20,7 @@ class IndexController < ApplicationController
       [ 'loots_per_raid', IndexStat.loots_per_raid ],
       [ 'oldest_members', IndexStat.oldest_members ],
       [ 'worst_recruits', IndexStat.least_recruitable ],
+      [ 'highest_turnover', IndexStat.highest_turnover ],
     ]
     
     respond_to do |wants|

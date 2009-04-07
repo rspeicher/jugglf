@@ -91,6 +91,27 @@ class IndexStat
     
     ret.sort { |x,y| y[1] <=> x[1] }
   end
+
+  # Returns an ordered array of [Class(String), Value(Float)] where
+  # Value is the percentage of that class that is Inactive.
+  def self.highest_turnover
+    # Find the total number of members in the database, by class
+    totals = self.class_counts
+
+    # Find the total number of declined applicants in the database, by class
+    rank = MemberRank.find_by_name('Inactive')
+    inactive = Member.with_class.count(:group => 'wow_class', 
+      :conditions => ['rank_id = ?', rank.id])
+
+    ret = []
+    totals.each do |total_class, total|
+      inactive.each do |inactive_class, count|
+        ret.push([inactive_class, count.to_f/total.to_f]) if inactive_class == total_class
+      end
+    end
+
+    ret.sort { |x,y| y[1] <=> x[1] }
+  end
   
   # Returns an array of 10 Member objects, where Member.loots_per_raid is 
   # loots_count/raids_count
