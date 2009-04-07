@@ -8,6 +8,59 @@ class IndexStat
     end
   end
   
+  def self.attendance_average(group = :class)
+    if group == :guild
+      Member.active.find(:first, :conditions => 'wow_class IS NOT NULL',
+        :select => 'AVG(attendance_30) AS avg_30, AVG(attendance_90) AS avg_90, AVG(attendance_lifetime) AS avg_lifetime')
+    else
+      Member.active.find(:all, :conditions => 'wow_class IS NOT NULL', :order => 'wow_class', :group => 'wow_class', 
+        :select => 'wow_class, AVG(attendance_30) AS avg_30, AVG(attendance_90) AS avg_90, AVG(attendance_lifetime) AS avg_lifetime')
+    end
+  end
+  
+  def self.loot_factor_average(group = :class)
+    if group == :guild
+      Member.active.find(:first, :conditions => 'wow_class IS NOT NULL',
+        :select => 'AVG(lf) AS avg_lf, AVG(sitlf) AS avg_sitlf, AVG(bislf) AS avg_bislf')
+    else
+      Member.active.find(:all, :conditions => 'wow_class IS NOT NULL', :order => 'wow_class', :group => 'wow_class', 
+        :select => 'wow_class, AVG(lf) AS avg_lf, AVG(sitlf) AS avg_sitlf, AVG(bislf) AS avg_bislf')
+    end
+  end
+  
+  def self.oldest_members
+    Member.active.find(:all, :order => "first_raid", :limit => 10)
+  end
+  
+  # SQL conditions for items that should NOT be included in the 'Common Drop' list
+  ITEM_CONDITIONS = [
+    "name NOT REGEXP '.+ of the (Fallen|Lost|Forgotten) ([^\s]+)$'",
+    "name NOT LIKE 'Qiraji Bindings of%'",
+    "name != 'Vek''nilash''s Circlet'",
+    "name != 'Vek''lor''s Diadem'",
+    "name NOT LIKE '%of the Old God'",
+    "(name NOT LIKE 'Desecrated %' OR name = 'Desecrated Past')",
+    
+    # The following conditions get removed in @self.common_tokens@
+    "name != 'Splinter of Atiesh'",
+  ]
+  # SQL conditions for items that SHOULD be included in the Tier Token list
+  TIER_CONDITIONS = ITEM_CONDITIONS.map { |c| c.gsub(" NOT ", ' ').gsub("!=", '=') }
+  
+  def self.common_items
+    Item.find(:all, :include => :loots, :order => "loots_count DESC",
+      :limit => 10, :conditions => ITEM_CONDITIONS.join(' AND '))
+  end
+  
+  def self.common_tokens
+    Item.find(:all, :include => :loots, :order => "loots_count DESC",
+      :limit => 10, :conditions => TIER_CONDITIONS[0..-2].join(' OR '))
+  end
+  
+  def self.most_requested
+    Item.find(:all, :order => "wishlists_count DESC", :limit => 10)
+  end
+  
   # Returns an ordered array of [Class(String), Value(Float)] where 
   # Value is the percentage of that class that has been declined.
   def self.least_recruitable

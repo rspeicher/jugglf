@@ -47,7 +47,5 @@
         %td.attendance= loot_factor(group.avg_sitlf.to_f)
         
 %h2= breadcrumb 'Records'
-- @stat_groups.each do |partial, group|
-  .record_group
-    %h4= h(group[:header])
-    = render :partial => "index/#{partial.to_s}", :object => group[:data]
+- @stat_groups.each do |arr|
+  .record_group= render :partial => "index/#{arr[0]}", :object => arr[1]

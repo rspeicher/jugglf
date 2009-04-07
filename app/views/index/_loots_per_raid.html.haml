@@ -1,8 +1,9 @@
+%h4 Average Loots Per Raid Attended
 %table.list
   %thead
     %tr
       %th Member
-      %th.number Loots/day
+      %th.number Average
   %tbody
     - loots_per_raid.each do |member|
       %tr{ :class => cycle('even', 'odd') }
