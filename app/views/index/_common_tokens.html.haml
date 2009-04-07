@@ -1,0 +1,10 @@
+%table.list
+  %thead
+    %tr
+      %th Item
+      %th.number Loots
+  %tbody
+    - common_tokens.each do |item|
+      %tr{ :class => cycle('even', 'odd') }
+        %td= link_to_item_with_stats(item)
+        %td.number= h(item.loots_count)

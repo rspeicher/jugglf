@@ -1,0 +1,10 @@
+%table.list
+  %thead
+    %tr
+      %th Member
+      %th.number First Raid
+  %tbody
+    - oldest_members.each do |member|
+      %tr{ :class => cycle('even', 'odd') }
+        %td= link_to_member(member)
+        %td.number= h(member.first_raid)

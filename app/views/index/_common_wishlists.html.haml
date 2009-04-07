@@ -1,0 +1,10 @@
+%table.list
+  %thead
+    %tr
+      %th Item
+      %th.number Wishlists
+  %tbody
+    - common_wishlists.each do |item|
+      %tr{ :class => cycle('even', 'odd') }
+        %td= link_to_item_with_stats(item)
+        %td.number= h(item.wishlists_count)

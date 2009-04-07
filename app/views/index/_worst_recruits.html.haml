@@ -1,0 +1,10 @@
+%table.list
+  %thead
+    %tr
+      %th Class
+      %th.number Declined
+  %tbody
+    - worst_recruits.each do |wow_class, count|
+      %tr{ :class => cycle('even', 'odd') }
+        %td{ :class => wow_class }= wow_class.titlecase
+        %td.number= h(count)
