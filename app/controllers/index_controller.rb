@@ -24,25 +24,29 @@ class IndexController < ApplicationController
       "name != 'Vek''nilash''s Circlet'",
       "name != 'Vek''lor''s Diadem'",
       "name NOT LIKE '%of the Old God'",
-      "(name NOT LIKE 'Desecrated %' OR name = 'Desecrated Past')"
+      "(name NOT LIKE 'Desecrated %' OR name = 'Desecrated Past')",
+      
+      # The following conditions get removed from the tokens query
+      "name != 'Splinter of Atiesh'",
     ]
     tier_conditions = normal_conditions.map { |c| c.gsub(" NOT ", ' ').gsub("!=", '=') }
+    
     common_items     = Item.find(:all, :include => :loots, :order => "loots_count DESC",
       :limit => 10, :conditions => normal_conditions.join(' AND '))
     common_tokens    = Item.find(:all, :include => :loots, :order => "loots_count DESC",
-      :limit => 10, :conditions => tier_conditions.join(' OR '))
-    common_wishlists = Item.find(:all, :order => "wishlists_count DESC", :limit => 10)
+      :limit => 10, :conditions => tier_conditions[0..-2].join(' OR '))
+    most_wishlists = Item.find(:all, :order => "wishlists_count DESC", :limit => 10)
     oldest_members   = Member.active.find(:all, :order => "first_raid", :limit => 10)
     worst_recruits   = Member.count(:group => 'wow_class', 
       :conditions => ['rank_id = ? AND wow_class IS NOT NULL', MemberRank.find_by_name('Declined Applicant')],
       :order => 'count_all DESC')
       
     @stat_groups = {
-      :common_items     => { :data => common_items,     :header => 'Most Common Items' },
-      :common_tokens    => { :data => common_tokens,    :header => 'Most Common Tier Tokens' },
-      :common_wishlists => { :data => common_wishlists, :header => 'Most Wanted Items' },
-      :oldest_members   => { :data => oldest_members,   :header => 'Oldest Active Members' },
-      :worst_recruits   => { :data => worst_recruits,   :header => 'Worst Recruits' },
+      :common_items   => { :data => common_items,   :header => 'Most Common Items' },
+      :common_tokens  => { :data => common_tokens,  :header => 'Most Common Tier Tokens' },
+      :most_wishlists => { :data => most_wishlists, :header => 'Most Wanted Items' },
+      :oldest_members => { :data => oldest_members, :header => 'Oldest Active Members' },
+      :worst_recruits => { :data => worst_recruits, :header => 'Worst Recruits' },
     }
     
     respond_to do |wants|
