@@ -1,13 +1,8 @@
 :javascript
   $(document).ready(function() {
     membersTableSort();
-    membersContextMenu();
   });
-
-- if admin?  
-  %ul#contextMenu.contextMenu.hidden
-    %li.edit= link_to('Edit Member', '#edit')
-
+= render :partial => 'members/context_menu' if admin?
 %table#index.list.tablesorter
   %thead
     %tr

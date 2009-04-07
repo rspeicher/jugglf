@@ -19,7 +19,7 @@ describe "/members/index.html.haml" do
     end
     
     it "should have a context menu" do
-      response.should have_tag('ul#contextMenu')
+      response.should have_tag('ul#memberContextMenu')
     end
   end
   
@@ -35,7 +35,7 @@ describe "/members/index.html.haml" do
     end
     
     it "should not have a context menu" do
-      response.should_not have_tag('ul#contextMenu')
+      response.should_not have_tag('ul#memberContextMenu')
     end
   end
 end

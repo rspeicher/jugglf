@@ -4,6 +4,7 @@
       toggleItemTypes(this);
     });
   });
+= render :partial => 'loots/context_menu' if admin?
 %table.list
   %thead
     %tr
@@ -14,8 +15,8 @@
       %th.number Price
   %tbody#itemfilter
     - @loots.each do |loot|
-      %tr{ :class => cycle('even', 'odd') + ' ' + loot_row_classes(loot) }
-        %td= link_to_item_with_stats(loot.item)
+      %tr{ :class => cycle('even', 'odd') + ' ' + loot_row_classes(loot) }[loot]
+        %td[loot.item]= link_to_item_with_stats(loot.item)
         %td= loot_tell_types(loot)
         %td= loot_factor_cutoff(loot.purchased_on)
         %td.date= link_to h(loot.purchased_on), raid_path(loot.raid_id) unless loot.raid_id.nil?

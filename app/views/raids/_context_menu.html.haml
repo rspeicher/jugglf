@@ -1,0 +1,8 @@
+- if admin?
+  :javascript
+    $(document).ready(function() {
+      raidContextMenu();
+    });
+
+  %ul#raidContextMenu.contextMenu.hidden
+    %li.edit= link_to('Edit Raid', '#edit')

@@ -1,0 +1,7 @@
+- if admin?
+  :javascript
+    $(document).ready(function() {
+      memberContextMenu();
+    });
+  %ul#memberContextMenu.contextMenu.hidden
+    %li.edit= link_to('Edit Member', '#edit')

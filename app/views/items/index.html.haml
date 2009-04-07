@@ -1,3 +1,4 @@
+= render :partial => 'items/context_menu' if admin?
 = will_paginate(@items)
 %br
 %table.list
@@ -8,8 +9,8 @@
       %th Wishlists
   %tbody
     - @items.each do |item|
-      %tr{ :class => cycle('even', 'odd') }
-        %td= link_to_item_with_stats(item)
+      %tr{ :class => cycle('even', 'odd') }[item]
+        %td.item= link_to_item_with_stats(item)
         %td= h(item.loots.size)
         %td= h(item.wishlists.size)
 %br

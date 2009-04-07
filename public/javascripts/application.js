@@ -27,6 +27,52 @@ function hideSuccessFlash() {
     }, 4000);
 }
 
+function bindWithActions() {
+    $('td.with_actions').hover(function() {
+        $(this).children('ul.actions').fadeIn('fast');
+    }, function() {
+        $(this).children('ul.actions').hide();
+    });
+}
+
+/* Context Menus ------------------------------------------------------------ */
+function itemContextMenu() {
+    $('tbody tr.item td.item').contextMenu({ menu: 'itemContextMenu' }, function(action, el, pos) {
+        if (action == 'edit') {
+            window.location.href = el.children('a').attr('href') + '/edit';
+        }
+    });
+}
+function lootContextMenu() {
+    $('tbody tr.loot td.item').contextMenu({ menu: 'lootContextMenu' }, function(action, el, pos) {
+        href = ''
+        if (action == 'edit_item') {
+            href = el.children('a').attr('href') + '/edit';
+        }
+        else if (action == 'edit_loot') {
+            href = '/loots/' + el.parent().attr('id').replace(/loot_/, '') + '/edit';
+        }
+        
+        if (href != '') {
+            window.location.href = href;
+        }
+    });
+}
+function memberContextMenu() {
+    $('tbody tr td.member').contextMenu({ menu: 'memberContextMenu' }, function(action, el, pos) {
+        if (action == 'edit') {
+            window.location.href = el.children('a').attr('href') + '/edit'
+        }
+    });
+}
+function raidContextMenu() {
+    $('tbody tr td.date').contextMenu({ menu: 'raidContextMenu' }, function(action, el, pos) {
+        if (action == 'edit') {
+            location.href = el.children('a').attr('href') + '/edit'
+        }
+    });
+}
+
 /* Members ------------------------------------------------------------------ */
 
 function membersTableSort() {
@@ -37,48 +83,6 @@ function membersTableSort() {
             6: { sorter: 'currency' }, // Loot Factor
             7: { sorter: 'currency' }, // BiS
             8: { sorter: 'currency' }  // Sit
-        }
-    });
-}
-
-function membersContextMenu() {
-    $('tbody tr td.member').contextMenu({ menu: 'contextMenu' }, function(action, el, pos) {
-        if (action == 'edit')
-        {
-            location.href = el.children('a').attr('href') + '/edit'
-        }
-        else if (action == 'delete')
-        {
-            if (confirm('Are you sure you want to delete this record?'))
-            {
-                var f = document.createElement('form');
-                f.style.display = 'none';
-                el.parent().append(f);
-                f.method = 'POST';
-                f.action = el.children('a').attr('href');
-                var m = document.createElement('input');
-                m.setAttribute('type', 'hidden');
-                m.setAttribute('name', '_method');
-                m.setAttribute('value', 'delete');
-                f.appendChild(m);
-                var s = document.createElement('input');
-                s.setAttribute('type', 'hidden');
-                s.setAttribute('name', 'authenticity_token');
-                s.setAttribute('value', 'TODO: Authenticity token');
-                f.appendChild(s);f.submit(); 
-            };
-            return false;
-        }
-    });
-}
-
-/* Raids -------------------------------------------------------------------- */
-
-function raidsContextMenu() {
-    $('tbody tr td.date').contextMenu({ menu: 'contextMenu' }, function(action, el, pos) {
-        if (action == 'edit')
-        {
-            location.href = el.children('a').attr('href') + '/edit'
         }
     });
 }

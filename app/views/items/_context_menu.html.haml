@@ -1,0 +1,7 @@
+- if admin?
+  :javascript
+    $(document).ready(function() {
+      itemContextMenu();
+    });
+  %ul#itemContextMenu.contextMenu.hidden
+    %li.edit= link_to('Edit Item', '#edit')

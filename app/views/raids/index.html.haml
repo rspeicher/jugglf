@@ -1,12 +1,4 @@
-:javascript
-  $(document).ready(function() {
-    raidsContextMenu();
-  });
-
-- if admin?  
-  %ul#contextMenu.contextMenu.hidden
-    %li.edit= link_to('Edit Raid', '#edit')
-    
+= render :partial => 'raids/context_menu' if admin?
 = will_paginate @raids
 %br
 %table.list
