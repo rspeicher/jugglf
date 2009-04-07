@@ -1,5 +1,8 @@
 # A model that can calculate various stats for use by IndexController
 class IndexStat
+  # Returns an array of [Class(String), Count(Integer)], depending on the @scope@
+  #
+  # scope = :active - only count active members
   def self.class_counts(scope = nil)
     if scope == :active
       Member.active.with_class.count(:group => 'wow_class')
@@ -28,6 +31,7 @@ class IndexStat
     end
   end
   
+  # Returns an array of 10 Member objects, ordered by first_raid
   def self.oldest_members
     Member.active.find(:all, :order => "first_raid", :limit => 10)
   end
@@ -47,11 +51,17 @@ class IndexStat
   # SQL conditions for items that SHOULD be included in the Tier Token list
   TIER_CONDITIONS = ITEM_CONDITIONS.map { |c| c.gsub(" NOT ", ' ').gsub("!=", '=') }
   
+  # Returns an array of 10 Item objects, ordered by the most looted
+  #
+  # Automatically omits token items.
   def self.common_items
     Item.find(:all, :include => :loots, :order => "loots_count DESC",
       :limit => 10, :conditions => ITEM_CONDITIONS.join(' AND '))
   end
   
+  # Returns an array of 10 Item objects, ordered by the most looted
+  #
+  # Only includes token items.
   def self.common_tokens
     Item.find(:all, :include => :loots, :order => "loots_count DESC",
       :limit => 10, :conditions => TIER_CONDITIONS[0..-2].join(' OR '))
@@ -82,7 +92,8 @@ class IndexStat
     ret.sort { |x,y| y[1] <=> x[1] }
   end
   
-  # Returns an array of Member rows, where row.loots_per_raid is loots_count/raids_count
+  # Returns an array of 10 Member objects, where Member.loots_per_raid is 
+  # loots_count/raids_count
   def self.loots_per_raid
     Member.active.find(:all, :conditions => 'raids_count > 0', 
       :select => "name, wow_class, (loots_count/raids_count) AS loots_per_raid",
@@ -91,7 +102,7 @@ class IndexStat
   
   # Returns an ordered array of [Member(Member), Value(Float)] where
   # Value is total_loots divided by the number of days they have been raiding
-  # This ended up being uninteresting
+  # NOTE: This ended up being uninteresting
   # def self.loots_per_day
   #   #(Date1 - Date2).to_i
   #   today = Date.today

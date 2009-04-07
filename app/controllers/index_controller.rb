@@ -4,7 +4,7 @@ class IndexController < ApplicationController
   def index
     # Number of members in guild, number in each class
     @count_guild = Member.active.count
-    @counts = IndexStat.class_counts(:active)
+    @counts      = IndexStat.class_counts(:active)
     
     # Attendance averages
     @attendance_guild = IndexStat.attendance_average(:guild)
