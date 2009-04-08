@@ -1,4 +1,3 @@
-%h2= breadcrumb 'Statistics'
 %table.list
   %thead
     %tr
@@ -45,7 +44,6 @@
       %td.attendance= loot_factor(@lootfactor_guild.avg_sitlf.to_f)
       - @lootfactor.each do |group|
         %td.attendance= loot_factor(group.avg_sitlf.to_f)
-        
-%h2= breadcrumb 'Records'
+%br        
 - @stat_groups.each do |arr|
   .record_group= render :partial => "index/#{arr[0]}", :object => arr[1]
