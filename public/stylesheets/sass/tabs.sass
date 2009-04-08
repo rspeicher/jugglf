@@ -1,7 +1,9 @@
+@import constants.sass
+
 // Background color of the item the tabs are attaching to
-!attach_bg = #EEEEEE
+!attach_bg = !table_header_background
 // Border color of the item the tabs are attaching to
-!attach_border = #E4E4E4
+!attach_border = !table_border_color
 
 .ui-tabs
   / :padding-top 10px
@@ -11,7 +13,7 @@
     li
       :-moz-border-radius-topleft 3px
       :-moz-border-radius-topright 3px
-      :background-color #FFFFFF
+      :background-color = !wrapper_background
       :display block
       :float left
       :font-size 1.1em

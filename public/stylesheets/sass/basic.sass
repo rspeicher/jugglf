@@ -87,9 +87,9 @@ abbr, .help
 
 // Positive/Negative
 .positive
-  :color = #249901
+  :color = !positive_color
 .negative
-  :color #990000
+  :color = !negative_color
   
 // Success/Failure flash notice divs
 div.success, div.error, div.notice
@@ -97,26 +97,30 @@ div.success, div.error, div.notice
   :margin-bottom 10px
   :padding 10px 15px
 div.success
-  :background-color #DFF2D9
-  :border 1px solid #84CD6E
-  :color #249901
+  :background-color = !success_background
+  :border 1px solid
+    :color = !success_border_color
+  :color = !success_color
 div.error
-  :background-color #FAD3C5
-  :border 1px solid #F03A31
-  :color #F03A31
+  :background-color = !error_background
+  :border 1px solid
+    :color = !error_border_color
+  :color = !error_color
 noscript div.error
   :margin 20px 10px
   :font-size 2em
 div.notice
-  :background-color #FFE45C
-  :border 1px solid #FED22F
+  :background-color = !notice_background
+  :border 1px solid
+    :color = !notice_border_color
   
 // Tooltip
 #tooltip
   :position absolute
   :z-index 3000
-  :border 1px solid #FED22F
-  :background-color #FFE45C
+  :border 1px solid
+    :color = !notice_border_color
+  :background-color = !notice_background
   :padding 10px
   :-moz-border-radius 5px
 }

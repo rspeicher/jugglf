@@ -7,9 +7,9 @@ table
   td
     :padding 2px
   .odd
-    :background-color #FFFFFF
+    :background-color = !table_odd_row_color
   .even
-    :background-color #F6F7F8
+    :background-color = !table_even_row_color
 
 table.list
   :border 1px solid
@@ -43,7 +43,7 @@ table.list
   tbody
     tr
       &:hover
-        :background-color #FFFFDD
+        :background-color = !table_highlight_row_color
         
 table.tablesorter
   thead
