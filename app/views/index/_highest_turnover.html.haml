@@ -8,4 +8,4 @@
     - highest_turnover.each do |wow_class, percent|
       %tr{ :class => cycle('even', 'odd') }
         %td{ :class => wow_class }= wow_class.titlecase
-        %td.number== #{number_with_precision(percent * 100.0, :precision => 2)}%
+        %td.number== #{(percent * 100.0).floor}%
