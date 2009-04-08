@@ -1,10 +1,10 @@
 # == Schema Information
-# Schema version: 20090312150316
+# Schema version: 20090404033151
 #
 # Table name: items
 #
 #  id              :integer(4)      not null, primary key
-#  name            :string(255)
+#  name            :string(100)
 #  item_stat_id    :integer(4)
 #  wishlists_count :integer(4)      default(0)
 #  loots_count     :integer(4)      default(0)

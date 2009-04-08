@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090312150316
+# Schema version: 20090404033151
 #
 # Table name: member_ranks
 #

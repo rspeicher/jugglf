@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090312150316
+# Schema version: 20090404033151
 #
 # Table name: ibf_members
 #
@@ -69,6 +69,7 @@
 #  last_login_at           :datetime
 #  current_login_ip        :string(255)
 #  last_login_ip           :string(255)
+#  single_access_token     :string(255)     default(""), not null
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

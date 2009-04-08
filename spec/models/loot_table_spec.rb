@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20090312150316
+# Schema version: 20090404033151
 #
 # Table name: loot_tables
 #
@@ -7,6 +7,7 @@
 #  object_id   :integer(4)
 #  object_type :string(255)
 #  parent_id   :integer(4)
+#  note        :string(255)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
