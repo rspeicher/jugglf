@@ -322,5 +322,5 @@ function toggleItemTypes(object) {
         });
     }
 
-    zebraRows($(parentRow).attr('id'));
+    zebraRows($(parentRow).parent().attr('id'));
 }
