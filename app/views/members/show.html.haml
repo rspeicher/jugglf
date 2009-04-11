@@ -31,11 +31,11 @@
   %ul
     %li= link_to_tab("Raids",        '#t-raids')
     %li= link_to("Loots",            member_path(@member) + '/t.loots')
-    %li= link_to_tab("Punishments",  member_path(@member) + '/t.punishments')
     %li= link_to_tab("Wishlist",     member_path(@member) + '/t.wishlist')
     %li= link_to_tab('Achievements', member_path(@member) + '/t.achievements')
+    %li= link_to_tab("Punishments",  member_path(@member) + '/t.punishments')
   #t-raids= render :partial => 'members/raids'
   #t-loots
-  #t-punishments
   #t-wishlist
   #t-achievements
+  #t-punishments
