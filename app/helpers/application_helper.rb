@@ -68,10 +68,10 @@ module ApplicationHelper
   
   def link_to_login_or_logout
     if current_user
-      link_to("Logout", user_session_path, :method => :delete, 
+      link_to("Logout", '/logout', :method => :delete, 
         :confirm => 'Are you sure you want to log out?')
     else
-      link_to('Login', new_user_session_path, 
+      link_to('Login', '/login', 
         :class => (current_page?(new_user_session_path)) ? 'selected' : '')
     end
   end
