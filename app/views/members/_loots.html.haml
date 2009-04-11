@@ -3,6 +3,13 @@
     $('#itemfilter span.filter').click(function() {
       toggleItemTypes(this);
     });
+    
+    $('#loots_pagination a').click(function() {
+      $.get($(this).attr('href'), function(value) {
+        $('#loots_pagination').parent().html(value);
+      });
+      return false;
+    });
   });
 = render :partial => 'loots/context_menu' if admin?
 %table.list
@@ -21,3 +28,5 @@
         %td= loot_factor_cutoff(loot.purchased_on)
         %td.date= link_to h(loot.purchased_on), raid_path(loot.raid_id) unless loot.raid_id.nil?
         %td.number= loot_factor(loot.adjusted_price)
+%br
+= will_paginate(@loots, :id => 'loots_pagination')

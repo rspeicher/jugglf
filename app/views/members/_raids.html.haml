@@ -12,4 +12,4 @@
         %td.attendance= member_raid_attendance(raid, @member)
         %td.note= h(raid.note)
 %br
-= will_paginate(@raids)
+= will_paginate(@raids, :id => 'raids_pagination')
