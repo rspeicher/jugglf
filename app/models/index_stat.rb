@@ -118,7 +118,7 @@ class IndexStat
   # loots_count/raids_count
   def self.loots_per_raid
     Member.active.find(:all, :conditions => 'raids_count > 0', 
-      :select => "name, wow_class, (loots_count/raids_count) AS loots_per_raid",
+      :select => "id, name, wow_class, (loots_count/raids_count) AS loots_per_raid",
       :order => "loots_per_raid DESC", :limit => 10)
   end
   
