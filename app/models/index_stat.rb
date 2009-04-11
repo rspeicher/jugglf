@@ -68,7 +68,8 @@ class IndexStat
   end
   
   def self.most_requested
-    Item.find(:all, :order => "wishlists_count DESC", :limit => 10)
+    Wishlist.count(:group => 'item_id', :order => "count_all DESC", :limit => 10, 
+      :conditions => ['priority = ? or priority = ?', 'best in slot', 'normal'])
   end
   
   # Returns an ordered array of [Class(String), Value(Float)] where 
