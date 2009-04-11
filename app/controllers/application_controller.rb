@@ -14,7 +14,9 @@ class ApplicationController < ActionController::Base
   
   # Never render layouts for an XHR request
   def render(*args)
-    args.first[:layout] = false if request.xhr? and args.first[:layout].nil?
+    unless args.first == :update
+      args.first[:layout] = false if request.xhr? and args.first[:layout].nil?
+    end
   	super
   end
   
