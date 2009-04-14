@@ -57,7 +57,7 @@ class ItemStat < ActiveRecord::Base
   
   # Instance Methods ----------------------------------------------------------
   def wowhead_link
-    "http://ptr.wowhead.com/?item=#{self.wow_id}"
+    "http://www.wowhead.com/?item=#{self.wow_id}"
   end
   def wowhead_icon(size = 'small')
     "http://static.wowhead.com/images/icons/#{size.downcase}/#{self.icon.downcase}.jpg"
@@ -71,7 +71,7 @@ class ItemStat < ActiveRecord::Base
       
       item = item.strip.downcase if item.is_a? String
       
-      url = "http://ptr.wowhead.com/?item=#{CGI.escape(item.to_s)}&xml"
+      url = "http://www.wowhead.com/?item=#{CGI.escape(item.to_s)}&xml"
       
       logger.debug "Hitting Wowhead (#{url})"
       doc = Nokogiri::XML(open(url))

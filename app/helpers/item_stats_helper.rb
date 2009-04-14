@@ -20,6 +20,6 @@ module ItemStatsHelper
       stat = item.item_stat
     end
     
-    "<a href='#{item_path(item)}' rel='item=#{stat.wow_id}&amp;domain=ptr' class='#{stat.color}'>#{truncate(h(item.name), :length => 80)}</a>" unless stat.nil?
+    "<a href='#{item_path(item)}' rel='item=#{stat.wow_id}' class='#{stat.color}'>#{truncate(h(item.name), :length => 80)}</a>" unless stat.nil?
   end
 end
