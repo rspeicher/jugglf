@@ -63,7 +63,7 @@ describe MembersController, "#show" do
   before(:each) do
     @mock = mock_model(Member, :id => '1', :name => 'Name',
       :punishments            => mock_model(Punishment, :active => 'punishments'),
-      :loots                  => mock_model(Loot, :find => 'loots'),
+      :loots                  => mock_model(Loot, :find => 'loots', :paginate => 'loots'),
       :wishlists              => mock_model(Wishlist, :find => 'wishlists'),
       :completed_achievements => mock_model(CompletedAchievement, :find => 'achievements'))
   end
