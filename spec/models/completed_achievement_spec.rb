@@ -26,13 +26,13 @@ describe CompletedAchievement, "#parse_member" do
     @member = Member.make(:name => 'Tsigo')
     
     # Add one pre-existing completed achievement
-    @complete = Achievement.make(:armory_id => 2186, :category_id => 168,
-      :title => 'The Immortal')
+    @complete = Achievement.make(:armory_id => 2887, :category_id => 168,
+      :title => 'Heroic: The Siege of Ulduar')
     @complete.members << @member
     
     # Add one pre-existing achievement
-    @incomplete = Achievement.make(:armory_id => 575, :category_id => 168,
-      :title => "Kel'Thuzad's Defeat")
+    @incomplete = Achievement.make(:armory_id => 2889, :category_id => 168,
+      :title => "Heroic: The Antechamber of Ulduar")
     
     CompletedAchievement.stub!(:open).
       and_return(File.read(RAILS_ROOT + '/spec/fixtures/armory/achievements_tsigo.xml'))
@@ -51,11 +51,11 @@ describe CompletedAchievement, "#parse_member" do
   
   it "should create new Achievement records for achievements which don't exist" do
     lambda { CompletedAchievement.parse_member(@member) }.should change(Achievement, :count).
-      by(27) # 29 achievements, 2 pre-existing
+      by(59) # 61 achievements, 2 pre-existing
   end
   
   it "should not create a completed achievement record for an incomplete achievement" do
     lambda { CompletedAchievement.parse_member(@member) }.should change(CompletedAchievement, :count).
-      to(28) # 29 achievements, 1 incomplete
+      to(1) # 61 achievements, 1 complete
   end
 end
