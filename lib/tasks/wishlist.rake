@@ -557,6 +557,9 @@ namespace :jugg do
           item(boss, "Unblinking Eye")
         when 'Hodir'
           item(boss, "Bindings of Winter Gale")
+          item(boss, "Breastplate of the Wayward Conqueror")
+          item(boss, "Breastplate of the Wayward Protector")
+          item(boss, "Breastplate of the Wayward Vanquisher")
           item(boss, "Drape of Icy Intent")
           item(boss, "Frigid Strength of Hodir")
           item(boss, "Frost-bound Chain Bracers")
@@ -566,14 +569,22 @@ namespace :jugg do
           item(boss, "Staff of Endless Winter")
           item(boss, "Winter's Icy Embrace")
         when 'Thorim'
+          item(boss, "Crown of the Wayward Conqueror")
+          item(boss, "Crown of the Wayward Protector")
+          item(boss, "Crown of the Wayward Vanquisher")
+          item(boss, "Pauldrons of the Combatant")
           item(boss, "Scale of Fates")
           item(boss, "Sif's Promise")
+          item(boss, "Vulnir, the Northern Tempest")
         when 'Freya'
           item(boss, "Boots of the Servant")
           item(boss, "Bronze Pendant of the Vanir")
           item(boss, "Gauntlets of Ruthless Reprisal")
           item(boss, "Handguards of Revitalization")
           item(boss, "Leggings of the Lifetender")
+          item(boss, "Legplates of the Wayward Conqueror")
+          item(boss, "Legplates of the Wayward Protector")
+          item(boss, "Legplates of the Wayward Vanquisher")
           item(boss, "The Lifebinder")
           item(boss, "Titanskin Cloak")
         when 'Mimiron'
@@ -600,6 +611,11 @@ namespace :jugg do
           item(boss, "The General's Heart")
           item(boss, "Voldrethar, Dark Blade of Oblivion")
         when 'Yogg-Saron'
+          item(boss, "Earthshaper")
+          item(boss, "Mantle of the Wayward Conqueror")
+          item(boss, "Mantle of the Wayward Protector")
+          item(boss, "Mantle of the Wayward Vanquisher")
+          item(boss, "Shawl of Haunted Memories")
         when 'Algalon the Observer'
         end
       end
