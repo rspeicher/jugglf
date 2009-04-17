@@ -96,6 +96,9 @@ module Juggy
       
       options[:level] = options[:level].to_i
       
+      # Damn special items
+      return 0.00 if options[:name] == "Fragment of Val'anyr"
+      
       if not options[:level] or options[:level] < MIN_LEVEL or not options[:slot]
         options = special_case_options(options)
       end
@@ -154,7 +157,7 @@ module Juggy
           end
 
           if options[:class] == 'Death Knight'
-            value = @values['Melee DPS Weapon'][price_group]
+            value = @values['Melee DPS Weapon'][price_group][0]
           elsif options[:class] == 'Hunter'
             # Price everything as a Melee DPS weapon with the Hunter price
             value = @values['Melee DPS Weapon'][price_group][1]
@@ -163,7 +166,7 @@ module Juggy
           elsif options[:class] == 'Shaman'
             if options[:slot] == 'Shield'
               # Shields are only used by Resto/Ele Shaman, it's a normal Shield price
-              value = @values['Shield'][price_group][0]
+              value = @values['Shield'][price_group]
             elsif options[:slot] == 'One-Hand'
               # We're gonna guess that a non-Enhancement Shaman would ever use a One-Hand weapon
               value = @values['Melee DPS Weapon'][price_group][0]
