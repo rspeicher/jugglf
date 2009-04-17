@@ -23,6 +23,8 @@ class Loot < ActiveRecord::Base
   belongs_to :raid, :counter_cache => true
   belongs_to :item, :counter_cache => true
   
+  has_one :item_stat, :through => :item
+  
   # Attributes ----------------------------------------------------------------
   attr_accessor :update_cache
   
