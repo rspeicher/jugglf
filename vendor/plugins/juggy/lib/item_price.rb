@@ -11,6 +11,8 @@ module Juggy
     
     def initialize
       @values = {
+        'LEVELS' => ['199', '200', '213', '226'],
+        
         'Head' => nil, 'Chest' => nil, 'Legs' => {
           '199' => 0.00, '200' => 2.00, '213' => 2.50, '226' => 3.00
         },
@@ -26,12 +28,19 @@ module Juggy
         'Two-Hand' => {
           '199' => [0.00, 0.00], '200' => [4.00, 1.50], '213' => [5.00, 2.00], '226' => [6.00, 2.50]
         },
+        
+        # Healer/Caster
         'Main Hand' => {
-          '199' => [0.00, 0.00], '200' => [3.00, 0.75], '213' => [3.50, 1.00], '226' => [4.00, 1.25]
+          '199' => 0.00, '200' => 3.00, '213' => 3.50, '226' => 4.00
         },
-        'One-Hand' => nil, 'Off Hand' => nil, 'Shield' => nil, 'Held In Off-hand' => {
-          '199' => [0.00, 0.00], '200' => [1.00, 0.75], '213' => [1.50, 1.00], '226' => [2.00, 1.25]
+        'Shield' => nil, 'Held In Off-hand' => {
+          '199' => 0.00, '200' => 1.00, '213' => 1.50, '226' => 2.00
         },
+        # Melee DPS/Hunter
+        'One-Hand' => nil, 'Off Hand' => nil, 'Melee DPS Weapon' => {
+          '199' => [0.00, 0.00], '200' => [2.00, 0.75], '213' => [2.50, 1.00], '226' => [3.00, 1.25],
+        },
+        
         'Relic' => nil, 'Idol' => nil, 'Totem' => nil, 'Thrown' => nil, 'Sigil' => nil, 'Ranged' => {
           '199' => [0.00, 0.00], '200' => [0.50, 3.00], '213' => [1.00, 4.00], '226' => [1.50, 5.00]
         },
@@ -71,8 +80,11 @@ module Juggy
       @values['Shoulder'] = @values['Shoulders'] = @values['Hands'] = @values['Feet']
       @values['Wrist'] = @values['Waist'] = @values['Finger']
       @values['Neck'] = @values['Back']
-      @values['One-Hand'] = @values['Off Hand'] = @values['Shield'] = @values['Held In Off-hand']
+      @values['Shield'] = @values['Held In Off-hand']
+      @values['One-Hand'] = @values['Off Hand'] = @values['Melee DPS Weapon']
       @values['Relic'] = @values['Idol'] = @values['Totem'] = @values['Thrown'] = @values['Sigil'] = @values['Ranged']
+      
+      @special_weapon_slots = ['Main Hand', 'Held In Off-hand', 'One-Hand', 'Off Hand', 'Shield']
     end
 
     def price(options = {})
@@ -80,7 +92,7 @@ module Juggy
       options[:item]   ||= options[:name] # Item name
       options[:slot]   ||= nil            # Item slot
       options[:level]  ||= 0              # Item level (ilvl)
-      options[:hunter] ||= false          # Buyer is a hunter; special cases for weapons
+      options[:class]  ||= nil            # Buyer WoW class; special cases for weapons
       
       options[:level] = options[:level].to_i
       
@@ -94,8 +106,8 @@ module Juggy
       
       if options[:slot] == 'Trinket'
         value = trinket_value(options)
-      elsif options[:slot] == 'One-Hand'
-        value = onehand_value(options)
+      elsif @special_weapon_slots.include?(options[:slot])
+        value = special_weapon_value(options)
       else
         value = default_value(options)
       end
@@ -113,11 +125,57 @@ module Juggy
             if values.is_a? Float
               value = values
             else
-              value = options[:hunter] ? values[1] : values[0]
+              value = (options[:class] == 'Hunter') ? values[1] : values[0]
             end
           end
         end
         
+        value
+      end
+      
+      # Determines the price for Weapons that ARE NOT Two-Handers and ARE NOT Ranged
+      # based on conditions such as buyer class and slot.
+      def special_weapon_value(options)
+        return if options[:class].nil?
+
+        # Figure out the price on a per-class special case basis
+        value = nil
+        if ['Druid', 'Mage', 'Paladin', 'Priest', 'Warlock'].include? options[:class]
+          # These classes have no special cases, use the defaults
+          value = default_value(options)
+        else
+          # Find out what item level group we're dealing with
+          price_group = nil
+          slotval = @values['LEVELS']
+          slotval.sort.each do |level|
+            if level.to_i <= options[:level]
+              price_group = level.to_s
+            end
+          end
+
+          if options[:class] == 'Death Knight'
+            value = @values['Melee DPS Weapon'][price_group]
+          elsif options[:class] == 'Hunter'
+            # Price everything as a Melee DPS weapon with the Hunter price
+            value = @values['Melee DPS Weapon'][price_group][1]
+          elsif options[:class] == 'Rogue'
+            value = @values['Melee DPS Weapon'][price_group][0]
+          elsif options[:class] == 'Shaman'
+            if options[:slot] == 'Shield'
+              # Shields are only used by Resto/Ele Shaman, it's a normal Shield price
+              value = @values['Shield'][price_group][0]
+            elsif options[:slot] == 'One-Hand'
+              # We're gonna guess that a non-Enhancement Shaman would ever use a One-Hand weapon
+              value = @values['Melee DPS Weapon'][price_group][0]
+            else
+              value = default_value(options)
+            end
+          elsif options[:class] == 'Warrior'
+            # Price everything as a Melee DPS weapon, even Shields
+            value = @values['Melee DPS Weapon'][price_group][0]
+          end
+        end
+
         value
       end
       
@@ -128,24 +186,6 @@ module Juggy
           value = @values['Trinket'][options[:item]]
         else
           # raise "Invalid Trinket: #{options[:item]}"
-        end
-
-        value
-      end
-
-      def onehand_value(options)
-        value = nil
-
-        slotval = @values[options[:slot]]
-        slotval.sort.each do |level,values|
-          if level.to_i <= options[:level]
-            # One-Hand weapons have the same price for Hunters regardless of MH/OH
-            if options[:hunter]
-              value = values[1]
-            else
-              value = [ @values['Main Hand'][level][0], values[0] ]
-            end
-          end
         end
 
         value
@@ -167,18 +207,18 @@ module Juggy
         options
       end
       
-      def determine_token_slot(piece)
-        piece = piece.strip.downcase
+      def determine_token_slot(name)
+        name = name.strip.downcase
         
-        if piece == 'breastplate' or piece == 'chestguard'
+        if name == 'breastplate' or name == 'chestguard'
           return 'Chest'
-        elsif piece == 'crown' or piece == 'helm'
+        elsif name == 'crown' or name == 'helm'
           return 'Helm'
-        elsif piece == 'gauntlets' or piece == 'gloves'
+        elsif name == 'gauntlets' or name == 'gloves'
           return 'Hands'
-        elsif piece == 'legplates' or piece == 'leggings'
+        elsif name == 'legplates' or name == 'leggings'
           return 'Legs'
-        elsif piece == 'mantle' or piece == 'spaulders'
+        elsif name == 'mantle' or name == 'spaulders'
           return 'Shoulders'
         end
       end

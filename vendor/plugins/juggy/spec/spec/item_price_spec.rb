@@ -24,22 +24,22 @@ describe ItemPrice do
   
     it "should calculate Two-Hand prices" do
       @ip.price(:slot => 'Two-Hand', :level => 213).should == 5.00
-      @ip.price(:slot => 'Two-Hand', :level => 213, :hunter => true).should == 2.00
+      @ip.price(:slot => 'Two-Hand', :level => 213, :class => 'Hunter').should == 2.00
     end
   
     it "should calculate Main Hand prices" do
-      @ip.price(:slot => 'Main Hand', :level => 226).should == 4.00
-      @ip.price(:slot => 'Main Hand', :level => 226, :hunter => true).should == 1.25
+      @ip.price(:slot => 'Main Hand', :level => 226, :class => 'Priest').should == 4.00
+      @ip.price(:slot => 'Main Hand', :level => 226, :class => 'Hunter').should == 1.25
     end
   
     it "should calculate One-Hand prices" do
-      @ip.price(:slot => 'One-Hand', :level => 213).should == [3.50, 1.50]
-      @ip.price(:slot => 'One-Hand', :level => 213, :hunter => true).should == 1.00
+      @ip.price(:slot => 'One-Hand', :level => 213, :class => 'Rogue').should == 2.50
+      @ip.price(:slot => 'One-Hand', :level => 213, :class => 'Hunter').should == 1.00
     end
   
     it "should calculate Relic and Ranged prices" do
       @ip.price(:slot => 'Relic', :level => 213).should == 1.00
-      @ip.price(:slot => 'Ranged', :level => 213, :hunter => true).should == 4.00
+      @ip.price(:slot => 'Ranged', :level => 213, :class => 'Hunter').should == 4.00
     end
   
     it "should calculate Trinket prices" do
