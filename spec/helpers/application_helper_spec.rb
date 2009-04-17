@@ -97,11 +97,15 @@ describe ApplicationHelper do
   
   describe "progress_bar" do
     it "should take a custom container width" do
-      progress_bar(100, :container_width => '15%').should match(/width: 15%/)
+      progress_bar(:width => 100, :container_width => '15%').should match(/width: 15%.*width: 100%/)
     end
     
     it "should take a custom color code" do
-      progress_bar(15, :color => '#000').should match(/background-color: \#000/)
+      progress_bar(:width => 15, :color => '#000').should match(/background-color: \#000/)
+    end
+    
+    it "should multiply the width by 100 if a value less than 1 is provided" do
+      progress_bar(:width => 2.00/30.00).should match(/width: 6%/)
     end
   end
   

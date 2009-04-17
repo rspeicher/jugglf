@@ -57,12 +57,15 @@ module ApplicationHelper
       :success => options[:success])
   end
   
-  def progress_bar(width, options = {})
+  def progress_bar(options = {})
+    options[:width]           ||= 0
     options[:container_width] ||= '95'
     options[:color]           ||= '#ACE97C'
     
+    options[:width] *= 100 if options[:width] < 1.00
+    
     "<div class='progress-container' style='width: #{options[:container_width].to_i}%'>" +
-      "<div style='width: #{width.to_i}%; background-color: #{options[:color]}'></div>" +
+      "<div style='width: #{options[:width].to_i}%; background-color: #{options[:color]}'></div>" +
     "</div>"
   end
   

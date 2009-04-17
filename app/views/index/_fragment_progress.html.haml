@@ -9,5 +9,5 @@
       %tr{ :class => cycle('even', 'odd') }
         %td= link_to_member(Member.find(member_id))
         %td.note
-          = progress_bar((count.to_f / 30.00) * 100, :container_width => 80, :color => "#FF8000")
+          = progress_bar(:width => count.to_f/30.00, :container_width => 80, :color => "#FF8000")
           %span.progress= count
