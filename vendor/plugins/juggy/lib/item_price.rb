@@ -156,45 +156,44 @@ module Juggy
           options[:slot]  = 'Neck'
           options[:level] = 226
         elsif options[:level] == 80
-          # Probably a Tier 7/7.5 token
-          matches = options[:item].match(/^(.+) of the Lost (Conqueror|Protector|Vanquisher)$/)
+          # Probably a Tier 7/8 token
+          matches = options[:item].match(/^(.+) of the (Lost|Wayward) (Conqueror|Protector|Vanquisher)$/)
           if matches.length > 0
-            case matches[1]
-            when 'Breastplate'
-              options[:slot]  = 'Chest'
-              options[:level] = 213
-            when 'Chestguard'
-              options[:slot]  = 'Chest'
-              options[:level] = 200
-            when 'Crown'
-              options[:slot]  = 'Head'
-              options[:level] = 213
-            when 'Helm'
-              options[:slot]  = 'Head'
-              options[:level] = 200
-            when 'Gauntlets'
-              options[:slot]  = 'Hands'
-              options[:level] = 213
-            when 'Gloves'
-              options[:slot]  = 'Hands'
-              options[:level] = 200
-            when 'Legplates'
-              options[:slot]  = 'Legs'
-              options[:level] = 213
-            when 'Leggings'
-              options[:slot]  = 'Legs'
-              options[:level] = 200
-            when 'Mantle'
-              options[:slot]  = 'Shoulders'
-              options[:level] = 213
-            when 'Spaulders'
-              options[:slot]  = 'Shoulders'
-              options[:level] = 200
-            end
+            options[:slot] = determine_token_slot(matches[1])
+            options[:level] = determine_token_level(matches[1], matches[2])
           end
         end
 
         options
+      end
+      
+      def determine_token_slot(piece)
+        piece = piece.strip.downcase
+        
+        if piece == 'breastplate' or piece == 'chestguard'
+          return 'Chest'
+        elsif piece == 'crown' or piece == 'helm'
+          return 'Helm'
+        elsif piece == 'gauntlets' or piece == 'gloves'
+          return 'Hands'
+        elsif piece == 'legplates' or piece == 'leggings'
+          return 'Legs'
+        elsif piece == 'mantle' or piece == 'spaulders'
+          return 'Shoulders'
+        end
+      end
+      
+      def determine_token_level(piece, group)
+        piece = piece.strip.downcase
+        group = group.strip.downcase
+        
+        if ['chestguard', 'helm', 'gloves', 'leggings', 'spaulders'].include? piece
+          # 10-man
+          return ( group == 'lost' ) ? 200 : 219
+        else
+          # 25-man
+          return ( group == 'lost' ) ? 213 : 226
+        end
       end
   end
 end
