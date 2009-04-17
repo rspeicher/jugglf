@@ -20,6 +20,7 @@ describe IndexController do
     IndexStat.stub!(:oldest_members).and_return(nil)
     IndexStat.stub!(:least_recruitable).and_return(nil)
     IndexStat.stub!(:highest_turnover).and_return(nil)
+    IndexStat.stub!(:fragment_progress).and_return(nil)
   end
   
   it "should render" do

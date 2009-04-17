@@ -1,0 +1,13 @@
+%h4 Fragments of Val'anyr
+%table.list
+  %thead
+    %tr
+      %th Member
+      %th Progress
+  %tbody
+    - fragment_progress.each do |member_id,count|
+      %tr{ :class => cycle('even', 'odd') }
+        %td= link_to_member(Member.find(member_id))
+        %td.note
+          = progress_bar((count.to_f / 30.00) * 100, :container_width => 80, :color => "#FF8000")
+          %span.progress= count

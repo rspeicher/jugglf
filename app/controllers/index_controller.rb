@@ -13,14 +13,15 @@ class IndexController < ApplicationController
     @lootfactor       = IndexStat.loot_factor_average(:class)
       
     @stat_groups = [
-      # Partial             Object
-      [ 'common_items',     IndexStat.common_items ],
-      [ 'common_tokens',    IndexStat.common_tokens ],
-      [ 'most_wishlists',   IndexStat.most_requested ],
-      [ 'loots_per_raid',   IndexStat.loots_per_raid ],
-      [ 'oldest_members',   IndexStat.oldest_members ],
-      [ 'worst_recruits',   IndexStat.least_recruitable ],
-      [ 'highest_turnover', IndexStat.highest_turnover ],
+      # Partial              Object
+      [ 'common_items',      IndexStat.common_items ],
+      [ 'common_tokens',     IndexStat.common_tokens ],
+      [ 'most_wishlists',    IndexStat.most_requested ],
+      [ 'loots_per_raid',    IndexStat.loots_per_raid ],
+      [ 'oldest_members',    IndexStat.oldest_members ],
+      [ 'worst_recruits',    IndexStat.least_recruitable ],
+      [ 'highest_turnover',  IndexStat.highest_turnover ],
+      [ 'fragment_progress', IndexStat.fragment_progress ],
     ]
     
     respond_to do |wants|
