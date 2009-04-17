@@ -1,4 +1,4 @@
-namespace :jugg do
+namespace :juggernaut do
   def boss(zone, name)
     return if zone.nil? or name.nil? or name.empty?
     zone.children.create(:object => Boss.create(:name => name))
@@ -400,31 +400,31 @@ namespace :jugg do
       'Hodir','Thorim','Freya','Mimiron',
       'General Vezax', 'Yogg-Saron', 'Algalon the Observer']
     
-    ['Ulduar'].each do |zone_name|
-      zone = LootTable.create(:object => Zone.create(:name => zone_name))
-      
-      ulduar_bosses.each do |boss_name|
-        boss = boss(zone, boss_name)
-        
-        case boss_name
-        when 'Bind on Equip'
-        when 'Flame Leviathan'
-        when 'Ignis the Furnacemaster'
-        when 'Razorscale'
-        when 'XT-002 Deconstructor'
-        when 'Kologarn'
-        when 'Auriaya'
-        when 'Assembly of Iron'
-        when 'Hodir'
-        when 'Thorim'
-        when 'Freya'
-        when 'Mimiron'
-        when 'General Vezax'
-        when 'Yogg-Saron'
-        when 'Algalon the Observer'
-        end
-      end
-    end
+    # ['Ulduar'].each do |zone_name|
+    #   zone = LootTable.create(:object => Zone.create(:name => zone_name))
+    #   
+    #   ulduar_bosses.each do |boss_name|
+    #     boss = boss(zone, boss_name)
+    #     
+    #     case boss_name
+    #     when 'Bind on Equip'
+    #     when 'Flame Leviathan'
+    #     when 'Ignis the Furnacemaster'
+    #     when 'Razorscale'
+    #     when 'XT-002 Deconstructor'
+    #     when 'Kologarn'
+    #     when 'Auriaya'
+    #     when 'Assembly of Iron'
+    #     when 'Hodir'
+    #     when 'Thorim'
+    #     when 'Freya'
+    #     when 'Mimiron'
+    #     when 'General Vezax'
+    #     when 'Yogg-Saron'
+    #     when 'Algalon the Observer'
+    #     end
+    #   end
+    # end
     
     ['Ulduar (H)'].each do |zone_name|
       zone = LootTable.create(:object => Zone.create(:name => zone_name))
