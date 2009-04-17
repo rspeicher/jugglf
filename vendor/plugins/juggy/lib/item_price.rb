@@ -101,6 +101,9 @@ module Juggy
       
       if not options[:level] or options[:level] < MIN_LEVEL or not options[:slot]
         options = special_case_options(options)
+        
+        # Still lower than our min level, which means it's an older item, just make it 0.00
+        return 0.00 if options[:level] < MIN_LEVEL
       end
       
       return if options[:level] < MIN_LEVEL or options[:slot] == nil
@@ -201,7 +204,7 @@ module Juggy
         elsif options[:level] == 80
           # Probably a Tier 7/8 token
           matches = options[:item].match(/^(.+) of the (Lost|Wayward) (Conqueror|Protector|Vanquisher)$/)
-          if matches.length > 0
+          if matches and matches.length > 0
             options[:slot] = determine_token_slot(matches[1])
             options[:level] = determine_token_level(matches[1], matches[2])
           end
@@ -216,7 +219,7 @@ module Juggy
         if name == 'breastplate' or name == 'chestguard'
           return 'Chest'
         elsif name == 'crown' or name == 'helm'
-          return 'Helm'
+          return 'Head'
         elsif name == 'gauntlets' or name == 'gloves'
           return 'Hands'
         elsif name == 'legplates' or name == 'leggings'

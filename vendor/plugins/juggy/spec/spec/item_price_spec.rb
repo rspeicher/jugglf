@@ -51,17 +51,42 @@ describe ItemPrice do
       @ip.price(:name => 'Heroic Key to the Focusing Iris').should == 2.00
     end
     
-    it "should calculate for T7 Tokens" do
-      # 226 Chest
-      @ip.price(:name => 'Breastplate of the Lost Conqueror', :level => 80).should == 2.00
-    end
-    
-    it "should calculate for T8 Tokens" do
-      @ip.price(:name => 'Mantle of the Wayward Vanquisher', :level => 80).should == 2.00
-    end
-    
     it "should calculate for Fragment of Val'anyr" do
       @ip.price(:name => 'Fragment of Val\'anyr', :level => 80).should == 0.00
+    end
+    
+    it "should not return nil for older items" do
+      @ip.price(:slot => "Two-Hand", :level => 158, :class => "Warlock").should == 0.00
+    end
+    
+    describe "tier tokens" do
+      it "should calculate for Breastplate" do
+        @ip.price(:name => 'Breastplate of the Wayward Conqueror', :level => 80).should == 2.50
+      end
+      
+      it "should calculate for Crown" do
+        @ip.price(:name => 'Crown of the Wayward Conqueror', :level => 80).should == 2.50
+      end
+      
+      it "should calculate for Gauntlets" do
+        @ip.price(:name => 'Gauntlets of the Wayward Conqueror', :level => 80).should == 2.00
+      end
+      
+      it "should calculate for Legplates" do
+        @ip.price(:name => 'Legplates of the Wayward Conqueror', :level => 80).should == 2.50
+      end
+      
+      it "should calculate for Mantle" do
+        @ip.price(:name => 'Mantle of the Wayward Conqueror', :level => 80).should == 2.00
+      end
+      
+      it "should calculate for Lost" do
+        @ip.price(:name => 'Mantle of the Lost Vanquisher', :level => 80).should == 1.50
+      end
+      
+      it "should calculate for Wayward" do
+        @ip.price(:name => 'Mantle of the Wayward Vanquisher', :level => 80).should == 2.00        
+      end
     end
   end
 end
