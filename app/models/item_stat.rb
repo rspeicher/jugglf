@@ -69,7 +69,8 @@ class ItemStat < ActiveRecord::Base
       require 'open-uri'
       require 'nokogiri'
       
-      item_name = item.strip.downcase if item.is_a? String
+      item      = item.to_s if item.respond_to? 'to_s'
+      item_name = item.strip.downcase
       
       url = "http://www.wowhead.com/?item=#{CGI.escape(item_name.to_s)}&xml"
       
