@@ -13,6 +13,10 @@ class ItemsController < ApplicationController
   end
   
   def show
+    if defined? params[:refresh]
+      ItemStat.lookup(@item.name, true)
+    end
+    
     page_title(@item.name)
     
     @loots = @item.loots.find(:all, :include => :member)

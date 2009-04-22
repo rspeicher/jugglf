@@ -24,16 +24,19 @@ module ItemStatsHelper
     end
     
     def wowhead_link(item, options = {})
-      return if item.item_stat.nil?
-      
-      options[:rel] ||= false
-      
-      if options[:rel]
-        link_to(truncate(h(item.name), :length => 80), item_path(item), 
-          :class => item.item_stat.color, :rel => "item=#{item.item_stat.wow_id}").gsub(/"/, "'")
+      if item.item_stat.wow_id.nil?
+        link_to(truncate(h(item.name), :length => 80), item_path(item) + "?refresh",
+          :class => 'q0')
       else
-        link_to(truncate(h(item.name), :length => 80), item.item_stat.wowhead_link, 
-          :class => item.item_stat.color).gsub(/"/, "'")
+        options[:rel] ||= false
+      
+        if options[:rel]
+          link_to(truncate(h(item.name), :length => 80), item_path(item), 
+            :class => item.item_stat.color, :rel => "item=#{item.item_stat.wow_id}").gsub(/"/, "'")
+        else
+          link_to(truncate(h(item.name), :length => 80), item.item_stat.wowhead_link, 
+            :class => item.item_stat.color).gsub(/"/, "'")
+        end
       end
     end
 end
