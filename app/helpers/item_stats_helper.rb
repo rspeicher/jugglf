@@ -35,7 +35,7 @@ module ItemStatsHelper
             :class => item.item_stat.color, :rel => "item=#{item.item_stat.wow_id}").gsub(/"/, "'")
         else
           link_to(truncate(h(item.name), :length => 80), item.item_stat.wowhead_link, 
-            :class => item.item_stat.color).gsub(/"/, "'")
+            :class => item.item_stat.color, :target => '_new').gsub(/"/, "'")
         end
       end
     end
