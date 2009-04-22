@@ -66,7 +66,7 @@ module Juggy
         # Item Pricing
         price = nil
         stats = ItemStat.lookup(item_name)
-        unless stats.new_record?
+        unless stats.new_record? or retval[:member].nil?
           price = ItemPrice.instance.price(:name => stats.item, 
             :level => stats.level, :slot => stats.slot, 
             :class => retval[:member].wow_class
