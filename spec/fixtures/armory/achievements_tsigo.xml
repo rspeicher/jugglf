@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="/layout/character/achievements-async.xsl"?><achievements lang="en_us" requestUrl="/character-achievements.xml">
   <category>
+    <achievement categoryId="168" dateCompleted="2009-04-22-05:00" desc="Loot 25 Emblems of Conquest." icon="spell_holy_championsgrace" id="2897" points="20" title="25 Emblems of Conquest">
+      <achievement categoryId="168" dateCompleted="2009-04-15-05:00" desc="Loot an Emblem of Conquest." icon="spell_holy_championsgrace" id="2896" points="10" title="Emblem of Conquest"/>
+    </achievement>
     <achievement categoryId="168" dateCompleted="2009-04-10-05:00" desc="Loot 500 Emblems of Valor." icon="spell_holy_proclaimchampion_02" id="1830" points="60" title="500 Emblems of Valor">
       <achievement categoryId="168" dateCompleted="2008-11-18-06:00" desc="Loot an Emblem of Valor." icon="spell_holy_proclaimchampion_02" id="1819" points="10" title="Emblem of Valor"/>
       <achievement categoryId="168" dateCompleted="2008-11-19-06:00" desc="Loot 25 Emblems of Valor." icon="spell_holy_proclaimchampion_02" id="1826" points="10" title="25 Emblems of Valor"/>
@@ -197,45 +200,47 @@
       <criteria maxQuantity="1000" quantity="542"/>
     </achievement>
     <achievement categoryId="168" desc="Loot 1000 Emblems of Valor." icon="spell_holy_proclaimchampion_02" id="1831" points="70" title="1000 Emblems of Valor">
-      <criteria maxQuantity="1000" quantity="512"/>
+      <criteria maxQuantity="1000" quantity="531"/>
     </achievement>
-    <achievement categoryId="168" desc="Loot an Emblem of Conquest." icon="spell_holy_championsgrace" id="2896" points="10" title="Emblem of Conquest"/>
+    <achievement categoryId="168" desc="Loot 50 Emblems of Conquest." icon="spell_holy_championsgrace" id="2898" points="30" title="50 Emblems of Conquest">
+      <criteria maxQuantity="50" quantity="25"/>
+    </achievement>
     <achievement categoryId="168" desc="Complete the Heroic Dungeon achievements listed below." icon="inv_helmet_25" id="2136" points="25" reward="Reward: Red Proto-Drake" title="Glory of the Hero">
-      <criteria date="2009-04-15-05:00" name="On The Rocks"/>
+      <criteria date="2009-04-22-05:00" name="On The Rocks"/>
       <criteria name="Split Personality"/>
-      <criteria date="2009-04-15-05:00" name="Intense Cold"/>
+      <criteria date="2009-04-22-05:00" name="Intense Cold"/>
       <criteria name="Chaos Theory"/>
       <criteria name="Watch Him Die"/>
       <criteria name="Hadronox Denied"/>
-      <criteria date="2009-04-15-05:00" name="Gotta Go!"/>
-      <criteria date="2009-04-15-05:00" name="The Party's Over"/>
+      <criteria date="2009-04-22-05:00" name="Gotta Go!"/>
+      <criteria date="2009-04-22-05:00" name="The Party's Over"/>
       <criteria name="Volazj's Quick Demise"/>
       <criteria name="Respect Your Elders"/>
-      <criteria date="2009-04-15-05:00" name="Volunteer Work"/>
+      <criteria date="2009-04-22-05:00" name="Volunteer Work"/>
       <criteria name="Consumption Junction"/>
-      <criteria date="2009-04-15-05:00" name="Better Off Dred"/>
+      <criteria date="2009-04-22-05:00" name="Better Off Dred"/>
       <criteria name="Oh Novos!"/>
-      <criteria date="2009-04-15-05:00" name="Defenseless"/>
-      <criteria date="2009-04-15-05:00" name="Lockdown!"/>
+      <criteria date="2009-04-22-05:00" name="Defenseless"/>
+      <criteria date="2009-04-22-05:00" name="Lockdown!"/>
       <criteria name="Dehydration"/>
-      <criteria date="2009-04-15-05:00" name="A Void Dance"/>
-      <criteria date="2009-04-15-05:00" name="What the Eck?"/>
+      <criteria date="2009-04-22-05:00" name="A Void Dance"/>
+      <criteria date="2009-04-22-05:00" name="What the Eck?"/>
       <criteria name="Share The Love"/>
       <criteria name="Less-rabi"/>
-      <criteria date="2009-04-15-05:00" name="Snakes. Why'd It Have To Be Snakes?"/>
-      <criteria date="2009-04-15-05:00" name="Good Grief"/>
-      <criteria date="2009-04-15-05:00" name="Brann Spankin' New"/>
-      <criteria date="2009-04-15-05:00" name="Abuse the Ooze"/>
-      <criteria date="2009-04-15-05:00" name="Timely Death"/>
-      <criteria date="2009-04-15-05:00" name="Lightning Struck"/>
-      <criteria date="2009-04-15-05:00" name="Shatter Resistant"/>
+      <criteria date="2009-04-22-05:00" name="Snakes. Why'd It Have To Be Snakes?"/>
+      <criteria date="2009-04-22-05:00" name="Good Grief"/>
+      <criteria date="2009-04-22-05:00" name="Brann Spankin' New"/>
+      <criteria date="2009-04-22-05:00" name="Abuse the Ooze"/>
+      <criteria date="2009-04-22-05:00" name="Timely Death"/>
+      <criteria date="2009-04-22-05:00" name="Lightning Struck"/>
+      <criteria date="2009-04-22-05:00" name="Shatter Resistant"/>
       <criteria name="The Culling of Time"/>
       <criteria name="Zombiefest!"/>
-      <criteria date="2009-04-15-05:00" name="The Incredible Hulk"/>
-      <criteria date="2009-04-15-05:00" name="Lodi Dodi We Loves the Skadi"/>
-      <criteria date="2009-04-15-05:00" name="My Girl Loves to Skadi All the Time"/>
-      <criteria date="2009-04-15-05:00" name="King's Bane"/>
-      <criteria date="2009-04-15-05:00" name="Experienced Drake Rider"/>
+      <criteria date="2009-04-22-05:00" name="The Incredible Hulk"/>
+      <criteria date="2009-04-22-05:00" name="Lodi Dodi We Loves the Skadi"/>
+      <criteria date="2009-04-22-05:00" name="My Girl Loves to Skadi All the Time"/>
+      <criteria date="2009-04-22-05:00" name="King's Bane"/>
+      <criteria date="2009-04-22-05:00" name="Experienced Drake Rider"/>
       <criteria name="Make It Count"/>
       <criteria name="Ruby Void"/>
       <criteria name="Emerald Void"/>
@@ -246,11 +251,11 @@
       <criteria name="Stokin' the Furnace"/>
       <criteria name="Iron Dwarf, Medium Rare"/>
       <criteria name="Heartbreaker"/>
-      <criteria name="I Choose You, Steelbreaker"/>
-      <criteria name="Disarmed"/>
+      <criteria date="2009-04-22-05:00" name="I Choose You, Steelbreaker"/>
+      <criteria date="2009-04-22-05:00" name="Disarmed"/>
       <criteria name="Crazy Cat Lady"/>
       <criteria name="Getting Cold in Here"/>
-      <criteria name="Lose Your Illusion"/>
+      <criteria date="2009-04-22-05:00" name="Lose Your Illusion"/>
       <criteria name="Knock, Knock, Knock on Wood"/>
       <criteria name="Firefighter"/>
       <criteria name="I Love the Smell of Saronite in the Morning"/>
@@ -262,8 +267,8 @@
       <criteria name="Heroic: Iron Dwarf, Medium Rare"/>
       <criteria name="Heroic: Heartbreaker"/>
       <criteria name="Heroic: I Choose You, Steelbreaker"/>
-      <criteria name="Heroic: Disarmed"/>
-      <criteria name="Heroic: Crazy Cat Lady"/>
+      <criteria date="2009-04-22-05:00" name="Heroic: Disarmed"/>
+      <criteria date="2009-04-22-05:00" name="Heroic: Crazy Cat Lady"/>
       <criteria name="Heroic: I Could Say That This Cache Was Rare"/>
       <criteria name="Heroic: Lose Your Illusion"/>
       <criteria name="Heroic: Knock, Knock, Knock on Wood"/>
@@ -669,7 +674,7 @@
       <achievement categoryId="168" dateCompleted="2008-12-01-06:00" desc="With at least one Twilight Drake still alive, engage and defeat Sartharion the Onyx Guardian on Heroic Difficulty." icon="achievement_dungeon_coablackdragonflight_normal" id="2052" points="10" title="Heroic: Twilight Assist"/>
       <achievement categoryId="168" dateCompleted="2008-12-01-06:00" desc="With at least two Twilight Drakes still alive, engage and defeat Sartharion the Onyx Guardian on Heroic Difficulty." icon="achievement_dungeon_coablackdragonflight_normal" id="2053" points="10" title="Heroic: Twilight Duo"/>
       <achievement categoryId="168" dateCompleted="2008-11-24-06:00" desc="Defeat Malygos on Heroic Difficulty." icon="achievement_dungeon_nexusraid_10man" id="623" points="25" title="Heroic: The Spellweaver's Downfall"/>
-      <achievement categoryId="168" desc="Defeat Kel'Thuzad on Heroic Difficulty in Naxxramas." icon="inv_trinket_naxxramas06" id="575" points="10" title="Heroic: Kel'Thuzad's Defeat"/>
+      <achievement categoryId="168" dateCompleted="2008-11-21-06:00" desc="Defeat Kel'Thuzad on Heroic Difficulty in Naxxramas." icon="inv_trinket_naxxramas06" id="575" points="10" title="Heroic: Kel'Thuzad's Defeat"/>
       <achievement categoryId="168" dateCompleted="2008-11-21-06:00" desc="Defeat every boss in Naxxramas on Heroic Difficulty." icon="achievement_dungeon_naxxramas_10man" id="577" points="50" title="Heroic: The Fall of Naxxramas">
         <criteria name="Heroic: The Arachnid Quarter"/>
         <criteria name="Heroic: The Construct Quarter"/>
@@ -705,51 +710,68 @@
       <achievement categoryId="168" dateCompleted="2008-11-18-06:00" desc="Defeat Sartharion the Onyx Guardian on Heroic Difficulty." icon="achievement_dungeon_coablackdragonflight_10man" id="625" points="25" title="Heroic: Besting the Black Dragonflight"/>
     </category>
     <category>
-      <achievement categoryId="168" desc="Defeat the bosses of The Siege area of Ulduar on Normal Difficulty." icon="achievement_dungeon_ulduarraid_archway_01" id="2886" points="10" title="The Siege of Ulduar">
-        <criteria name="Flame Leviathan"/>
-        <criteria name="Razorscale"/>
-        <criteria name="XT-002 Deconstructor"/>
-        <criteria name="Ignis the Furnace Master"/>
-      </achievement>
-      <achievement categoryId="168" desc="Defeat the bosses of The Antechamber area of Ulduar on Normal Difficulty." icon="achievement_boss_tribunalofages" id="2888" points="10" title="The Antechamber of Ulduar">
-        <criteria name="Assembly of Iron"/>
-        <criteria name="Kologarn"/>
-        <criteria name="Auriaya"/>
-      </achievement>
-      <achievement categoryId="168" desc="Defeat the Keeper bosses of Ulduar on Normal Difficulty." icon="achievement_dungeon_ulduarraid_misc_05" id="2890" points="10" title="The Keepers of Ulduar">
-        <criteria name="Hodir"/>
-        <criteria name="Thorim"/>
-        <criteria name="Freya"/>
-        <criteria name="Mimiron"/>
-      </achievement>
-      <achievement categoryId="168" desc="Defeat the bosses of The Descent into Madness area of Ulduar on Normal Difficulty." icon="achievement_boss_yoggsaron_01" id="2892" points="10" title="The Descent into Madness">
+      <achievement categoryId="168" dateCompleted="2009-04-21-05:00" desc="Defeat the bosses of The Descent into Madness area of Ulduar on Normal Difficulty." icon="achievement_boss_yoggsaron_01" id="2892" points="10" title="The Descent into Madness">
         <criteria name="General Vezax"/>
         <criteria name="Yogg-Saron"/>
       </achievement>
-      <achievement categoryId="168" desc="Defeat every boss in Ulduar on Normal Difficulty." icon="achievement_dungeon_ulduarraid_misc_01" id="2894" points="25" title="The Secrets of Ulduar">
+      <achievement categoryId="168" dateCompleted="2009-04-21-05:00" desc="Defeat every boss in Ulduar on Normal Difficulty." icon="achievement_dungeon_ulduarraid_misc_01" id="2894" points="25" title="The Secrets of Ulduar">
         <criteria name="The Siege of Ulduar"/>
         <criteria name="The Antechamber of Ulduar"/>
         <criteria name="The Keepers of Ulduar"/>
         <criteria name="The Descent into Madness"/>
       </achievement>
+      <achievement categoryId="168" dateCompleted="2009-04-21-05:00" desc="Defeat Yogg-Saron without any raid member going insane on Normal Difficulty." icon="spell_shadow_mindrot" id="3008" points="10" title="Drive Me Crazy"/>
+      <achievement categoryId="168" dateCompleted="2009-04-21-05:00" desc="/Kiss Sara in Ulduar while she is angry with you on Normal Difficulty." icon="inv_valentinescard02" id="3009" points="10" title="Kiss and Make Up"/>
+      <achievement categoryId="168" dateCompleted="2009-04-21-05:00" desc="Defeat the Keeper bosses of Ulduar on Normal Difficulty." icon="achievement_dungeon_ulduarraid_misc_05" id="2890" points="10" title="The Keepers of Ulduar">
+        <criteria name="Hodir"/>
+        <criteria name="Thorim"/>
+        <criteria name="Freya"/>
+        <criteria name="Mimiron"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2009-04-20-05:00" desc="Defeat Freya while she is affected by 25 stacks of Attuned to Nature on Normal Difficulty." icon="achievement_boss_freya_01" id="2982" points="10" title="Getting Back to Nature"/>
+      <achievement categoryId="168" dateCompleted="2009-04-20-05:00" desc="Defeat Thorim, the Ancient Rune Giant and the Rune Colossus on Normal Difficulty." icon="achievement_dungeon_ulduarraid_ironsentinel_01" id="2973" points="10" title="I'll Take You All On">
+        <criteria name="Defeat Thorim"/>
+        <criteria name="Participate in slaying Runic Colossus"/>
+        <criteria name="Participate in slaying Ancient Rune Giant"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2009-04-20-05:00" desc="Defeat Thorim while Sif is present on Normal Difficulty." icon="achievement_boss_thorim" id="3176" points="20" title="Lose Your Illusion">
+        <achievement categoryId="168" dateCompleted="2009-04-20-05:00" desc="Force Thorim to enter the arena while Sif is present on Normal Difficulty." icon="achievement_boss_thorim" id="2977" points="10" title="Siffed"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2009-04-20-05:00" desc="Defeat Hodir without any raid member being hit by Flash Freeze on Normal Difficulty." icon="spell_frost_freezingbreath" id="2961" points="10" title="Cheese the Freeze"/>
+      <achievement categoryId="168" dateCompleted="2009-04-20-05:00" desc="Defeat Hodir without any friendly NPC dying on Normal Difficulty." icon="spell_frost_manarecharge" id="2963" points="10" title="I Have the Coolest Friends"/>
+      <achievement categoryId="168" dateCompleted="2009-04-20-05:00" desc="Defeat Hodir before he shatters his rare cache on Normal Difficulty." icon="inv_box_04" id="3182" points="10" title="I Could Say That This Cache Was Rare"/>
+      <achievement categoryId="168" dateCompleted="2009-04-19-05:00" desc="Possess the effects of Toasty Fire, Storm Power and Starlight at the same time on Normal Difficulty." icon="spell_fire_fire" id="2969" points="10" title="Staying Buffed All Winter"/>
+      <achievement categoryId="168" dateCompleted="2009-04-19-05:00" desc="Defeat the bosses of The Antechamber area of Ulduar on Normal Difficulty." icon="achievement_boss_tribunalofages" id="2888" points="10" title="The Antechamber of Ulduar">
+        <criteria name="Assembly of Iron"/>
+        <criteria name="Kologarn"/>
+        <criteria name="Auriaya"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2009-04-18-05:00" desc="Destroy both of Kologarn's arms within 12 seconds and then defeat Kologarn on Normal Difficulty." icon="ability_warrior_disarm" id="2953" points="10" title="Disarmed"/>
+      <achievement categoryId="168" dateCompleted="2009-04-18-05:00" desc="Defeat the Assembly of Iron with Steelbreaker as the last member alive on Normal Difficulty." icon="achievement_boss_theironcouncil_01" id="2941" points="10" title="I Choose You, Steelbreaker"/>
+      <achievement categoryId="168" dateCompleted="2009-04-18-05:00" desc="Defeat the bosses of The Siege area of Ulduar on Normal Difficulty." icon="achievement_dungeon_ulduarraid_archway_01" id="2886" points="10" title="The Siege of Ulduar">
+        <criteria name="Flame Leviathan"/>
+        <criteria name="Razorscale"/>
+        <criteria name="XT-002 Deconstructor"/>
+        <criteria name="Ignis the Furnace Master"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2009-04-18-05:00" desc="Survive being thrown into Ignis the Furnace Master's Slag Pot on Normal Difficulty." icon="spell_fire_immolation" id="2927" points="10" title="Hot Pocket"/>
+      <achievement categoryId="168" dateCompleted="2009-04-18-05:00" desc="Defeat Razorscale without allowing her to fly into the air more than once on Normal Difficulty." icon="achievement_boss_razorscale" id="2919" points="10" title="A Quick Shave"/>
+      <achievement categoryId="168" dateCompleted="2009-04-18-05:00" desc="Defeat Flame Leviathan on the first try without anyone repairing their vehicle on Normal Difficulty." icon="inv_misc_wrench_02" id="2905" points="10" title="Unbroken"/>
       <achievement categoryId="168" desc="Destroy 100 Steelforged Defenders in 10 seconds on the Ulduar gauntlet on Normal Difficulty." icon="ability_vehicle_liquidpyrite_blue" id="3097" points="10" title="Dwarfageddon">
         <criteria maxQuantity="100" quantity="0"/>
       </achievement>
-      <achievement categoryId="168" desc="Defeat Flame Leviathan on the first try without anyone repairing their vehicle on Normal Difficulty." icon="inv_misc_wrench_02" id="2905" points="10" title="Unbroken"/>
       <achievement categoryId="168" desc="Defeat Flame Leviathan while in each of the following vehicles on Normal Difficulty." icon="inv_gizmo_02" id="2907" points="10" title="Three Car Garage">
-        <criteria name="Salvaged Chopper"/>
+        <criteria date="2009-04-18-05:00" name="Salvaged Chopper"/>
         <criteria name="Salvaged Siege Engine"/>
         <criteria name="Salvaged Demolisher"/>
       </achievement>
       <achievement categoryId="168" desc="Destroy a Flame Leviathan Defense Turret on Normal Difficulty." icon="achievement_boss_theflameleviathan_01" id="2909" points="10" title="Take Out Those Turrets"/>
       <achievement categoryId="168" desc="Defeat Flame Leviathan without causing a System Shutdown on Normal Difficulty." icon="inv_misc_enggizmos_02" id="2911" points="10" title="Shutout"/>
       <achievement categoryId="168" desc="Defeat Flame Leviathan with at least 1 Orbital Defense System active on Normal Difficulty." icon="inv_misc_orb_04" id="2913" points="10" title="Orbital Bombardment"/>
-      <achievement categoryId="168" desc="Defeat Razorscale without allowing her to fly into the air more than once on Normal Difficulty." icon="achievement_boss_razorscale" id="2919" points="10" title="A Quick Shave"/>
       <achievement categoryId="168" desc="Defeat 25 Dark Rune Guardian Dwarves with Razorscale's Flame Breath on Normal Difficulty." icon="achievement_dungeon_ulduarraid_irondwarf_01" id="2923" points="10" title="Iron Dwarf, Medium Rare">
         <criteria maxQuantity="25" quantity="0"/>
       </achievement>
       <achievement categoryId="168" desc="Defeat Ignis the Furnace Master after shattering 2 Iron Constructs within 5 seconds on Normal Difficulty." icon="spell_frost_frostshock" id="2925" points="10" title="Shattered"/>
-      <achievement categoryId="168" desc="Survive being thrown into Ignis the Furnace Master's Slag Pot on Normal Difficulty." icon="spell_fire_immolation" id="2927" points="10" title="Hot Pocket"/>
       <achievement categoryId="168" desc="Defeat Ignis the Furnace Master in 4 minutes on Normal Difficulty." icon="achievement_boss_ignis_01" id="2930" points="10" title="Stokin' the Furnace"/>
       <achievement categoryId="168" desc="Defeat XT-002 Deconstructor without him recovering any health from XS-013 Scrapbots on Normal Difficulty." icon="inv_misc_enggizmos_14" id="2931" points="10" title="Nerf Engineering"/>
       <achievement categoryId="168" desc="Defeat 20 XS-013 Scrapbots within 12 seconds using XE-321 Boombots on Normal Difficulty." icon="inv_misc_bomb_01" id="2933" points="10" title="Nerf Scrapbots">
@@ -760,32 +782,19 @@
       <achievement categoryId="168" desc="Defeat XT-002 Deconstructor after destroying his heart on Normal Difficulty." icon="inv_valentinescardtornleft" id="3058" points="10" title="Heartbreaker"/>
       <achievement categoryId="168" desc="Defeat the Assembly of Iron with Runemaster Molgeim as the last member alive on Normal Difficulty." icon="achievement_boss_theironcouncil_01" id="2939" points="10" title="I Choose You, Runemaster Molgeim"/>
       <achievement categoryId="168" desc="Defeat the Assembly of Iron with Stormcaller Brundir as the last member alive on Normal Difficulty." icon="achievement_boss_theironcouncil_01" id="2940" points="10" title="I Choose You, Stormcaller Brundir"/>
-      <achievement categoryId="168" desc="Defeat the Assembly of Iron with Steelbreaker as the last member alive on Normal Difficulty." icon="achievement_boss_theironcouncil_01" id="2941" points="10" title="I Choose You, Steelbreaker"/>
       <achievement categoryId="168" desc="Defeat the Assembly of Iron while under the effect of an Iron Boot Flask on Normal Difficulty." icon="inv_drink_01" id="2945" points="10" title="But I'm on Your Side"/>
       <achievement categoryId="168" desc="Defeat the Assembly of Iron without allowing Stormcaller Brundir to damage anyone with Chain Lightning or Lightning Whirl on Normal Difficulty." icon="spell_lightning_lightningbolt01" id="2947" points="10" title="Can't Do That While Stunned"/>
       <achievement categoryId="168" desc="Defeat Kologarn without destroying either of his arms on Normal Difficulty." icon="achievement_boss_kologarn_01" id="2951" points="10" title="With Open Arms"/>
-      <achievement categoryId="168" desc="Destroy both of Kologarn's arms within 12 seconds and then defeat Kologarn on Normal Difficulty." icon="ability_warrior_disarm" id="2953" points="10" title="Disarmed"/>
       <achievement categoryId="168" desc="Defeat Kologarn without any raid member being hit by Focused Eyebeams on Normal Difficulty." icon="spell_fire_blueflamebolt" id="2955" points="10" title="If Looks Could Kill"/>
       <achievement categoryId="168" desc="Defeat Kologarn with 25 Rubble creatures alive on Normal Difficulty." icon="inv_elemental_primal_earth" id="2959" points="10" title="Rubble and Roll"/>
       <achievement categoryId="168" desc="Defeat Auriaya without destroying her Sanctum Sentries on Normal Difficulty." icon="achievement_boss_auriaya_01" id="3006" points="10" title="Crazy Cat Lady"/>
       <achievement categoryId="168" desc="Defeat the Feral Defender while defeating Auriaya on Normal Difficulty." icon="ability_mount_blackpanther" id="3076" points="10" title="Nine Lives"/>
-      <achievement categoryId="168" desc="Defeat Hodir without any raid member being hit by Flash Freeze on Normal Difficulty." icon="spell_frost_freezingbreath" id="2961" points="10" title="Cheese the Freeze"/>
-      <achievement categoryId="168" desc="Defeat Hodir without any friendly NPC dying on Normal Difficulty." icon="spell_frost_manarecharge" id="2963" points="10" title="I Have the Coolest Friends"/>
       <achievement categoryId="168" desc="Defeat Hodir without any raid member having more than 2 stacks of Biting Cold on Normal Difficulty." icon="achievement_boss_hodir_01" id="2967" points="10" title="Getting Cold in Here"/>
-      <achievement categoryId="168" desc="Defeat Hodir before he shatters his rare cache on Normal Difficulty." icon="inv_box_04" id="3182" points="10" title="I Could Say That This Cache Was Rare"/>
-      <achievement categoryId="168" desc="Possess the effects of Toasty Fire, Storm Power and Starlight at the same time on Normal Difficulty." icon="spell_fire_fire" id="2969" points="10" title="Staying Buffed All Winter"/>
       <achievement categoryId="168" desc="Defeat Thorim without any raid member being struck by Lightning Charge on Normal Difficulty." icon="spell_lightning_lightningbolt01" id="2971" points="10" title="Don't Stand in the Lightning"/>
-      <achievement categoryId="168" desc="Defeat Thorim, the Ancient Rune Giant and the Rune Colossus on Normal Difficulty." icon="achievement_dungeon_ulduarraid_ironsentinel_01" id="2973" points="10" title="I'll Take You All On">
-        <criteria name="Defeat Thorim"/>
-        <criteria name="Participate in slaying Runic Colossus"/>
-        <criteria name="Participate in slaying Ancient Rune Giant"/>
-      </achievement>
       <achievement categoryId="168" desc="Defeat Thorim while under the effect of Aura of Celerity on Normal Difficulty." icon="spell_nature_wispsplode" id="2975" points="10" title="Who Needs Bloodlust?"/>
-      <achievement categoryId="168" desc="Force Thorim to enter the arena while Sif is present on Normal Difficulty." icon="achievement_boss_thorim" id="2977" points="10" title="Siffed"/>
       <achievement categoryId="168" desc="Defeat Elder Brightleaf, Elder Ironbranch and Elder Stonebark within 15 seconds of each other on Normal Difficulty." icon="ability_druid_forceofnature" id="2979" points="10" title="Lumberjacked"/>
       <achievement categoryId="168" desc="Defeat Freya within 20 minutes of the first creature you kill in the Conservatory of Life on Normal Difficulty." icon="ability_druid_flourish" id="2980" points="10" title="Con-speed-atory"/>
       <achievement categoryId="168" desc="Defeat 2 Ancient Water Spirits, 2 Storm Lashers and 2 Snaplashers within 10 seconds on Normal Difficulty." icon="spell_nature_naturetouchdecay" id="2985" points="10" title="Deforestation"/>
-      <achievement categoryId="168" desc="Defeat Freya while she is affected by 25 stacks of Attuned to Nature on Normal Difficulty." icon="achievement_boss_freya_01" id="2982" points="10" title="Getting Back to Nature"/>
       <achievement categoryId="168" desc="Defeat Freya while leaving at least 1 Elder alive on Normal Difficulty." icon="achievement_boss_warpsplinter" id="3177" points="10" title="Knock on Wood"/>
       <achievement categoryId="168" desc="Defeat Mimiron without anyone in the raid being hit by the following on Normal Difficulty." icon="ability_mage_missilebarrage" id="2989" points="10" title="Set Up Us the Bomb">
         <criteria name="A Proximity Mine"/>
@@ -796,9 +805,7 @@
       <achievement categoryId="168" desc="Defeat Mimiron after activating his Self-Destruct mechanism on Normal Difficulty." icon="inv_misc_bomb_04" id="3180" points="10" title="Firefighter"/>
       <achievement categoryId="168" desc="Defeat General Vezax without any raid member being hit by Shadow Crash on Normal Difficulty." icon="spell_shadow_painspike" id="2996" points="10" title="Shadowdodger"/>
       <achievement categoryId="168" desc="Defeat General Vezax after defeating the Saronite Animus on Normal Difficulty.&#13;&#10;" icon="achievement_boss_generalvezax_01" id="3181" points="10" title="I Love the Smell of Saronite in the Morning"/>
-      <achievement categoryId="168" desc="/Kiss Sara in Ulduar while she is angry with you on Normal Difficulty." icon="inv_valentinescard02" id="3009" points="10" title="Kiss and Make Up"/>
       <achievement categoryId="168" desc="Defeat Yogg-Saron with the assistance of three or fewer Keepers on Normal Difficulty." icon="spell_shadow_shadesofdarkness" id="3157" points="10" title="Three Lights in the Darkness"/>
-      <achievement categoryId="168" desc="Defeat Yogg-Saron without any raid member going insane on Normal Difficulty." icon="spell_shadow_mindrot" id="3008" points="10" title="Drive Me Crazy"/>
       <achievement categoryId="168" desc="Defeat Yogg-Saron within 7 minutes on Normal Difficulty." icon="achievement_boss_yoggsaron_01" id="3012" points="10" title="He's Not Getting Any Older"/>
       <achievement categoryId="168" desc="Defeat 9 Guardians of Yogg-Saron within 12 seconds on Normal Difficulty." icon="achievement_boss_heraldvolazj" id="3014" points="10" title="They're Coming Out of the Walls">
         <criteria maxQuantity="9" quantity="0"/>
@@ -806,7 +813,7 @@
       <achievement categoryId="168" desc="Experience all 3 visions of Yogg-Saron's mind on Normal Difficulty." icon="spell_shadow_brainwash" id="3015" points="10" title="In His House He Waits Dreaming">
         <criteria name="The Assassination of King Llane"/>
         <criteria name="The Forging of the Demon Soul"/>
-        <criteria name="The Tortured Champion"/>
+        <criteria date="2009-04-21-05:00" name="The Tortured Champion"/>
       </achievement>
       <achievement categoryId="168" desc="Defeat Algalon the Observer on Normal Difficulty." icon="achievement_boss_algalon_01" id="3036" points="10" reward="Title Reward: Starcaller" title="Observed"/>
       <achievement categoryId="168" desc="Defeat Algalon the Observer while closing 3 Black Holes within 10 seconds on Normal Difficulty." icon="spell_shadow_mindtwisting" id="3003" points="10" title="Supermassive">
@@ -816,8 +823,8 @@
       <achievement categoryId="168" desc="Defeat Algalon the Observer on Normal Difficulty without any raid member dying to Algalon at any point during that raid lockout period." icon="spell_misc_emotionsad" id="3004" points="10" title="He Feeds On Your Tears"/>
       <achievement categoryId="168" desc="Defeat Algalon the Observer on Normal Difficulty without anyone in the raid wearing any equipment with an item level higher than 226." icon="achievement_boss_algalon_01" id="3316" points="10" reward="Title Reward: Herald of the Titans" title="Herald of the Titans"/>
       <achievement categoryId="168" desc="Defeat each boss in Ulduar on Normal Difficulty without allowing any raid member to die to that boss at any point during that raid lockout period." icon="spell_holy_sealofvengeance" id="2903" points="10" reward="Title Reward: Champion of Ulduar" title="Champion of Ulduar">
-        <criteria name="Flame Leviathan"/>
-        <criteria name="Ignis the Furnace Master"/>
+        <criteria date="2009-04-18-05:00" name="Flame Leviathan"/>
+        <criteria date="2009-04-18-05:00" name="Ignis the Furnace Master"/>
         <criteria name="Razorscale"/>
         <criteria name="XT-002 Deconstructor"/>
         <criteria name="Assembly of Iron"/>
@@ -832,81 +839,84 @@
       </achievement>
     </category>
     <category>
-      <achievement categoryId="168" desc="Defeat the bosses of The Siege area of Ulduar on Heroic Difficulty." icon="achievement_dungeon_ulduarraid_archway_01" dateCompleted="2009-04-15" id="2887" points="10" title="Heroic: The Siege of Ulduar">
+      <achievement categoryId="168" dateCompleted="2009-04-22-05:00" desc="Possess the effects of Toasty Fire, Storm Power and Starlight at the same time on Heroic Difficulty." icon="spell_fire_fire" id="2970" points="10" title="Heroic: Staying Buffed All Winter"/>
+      <achievement categoryId="168" dateCompleted="2009-04-22-05:00" desc="Destroy both of Kologarn's arms within 10 seconds and then defeat Kologarn on Heroic Difficulty." icon="ability_warrior_disarm" id="2954" points="10" title="Heroic: Disarmed"/>
+      <achievement categoryId="168" dateCompleted="2009-04-22-05:00" desc="Defeat the Assembly of Iron while under the effect of an Iron Boot Flask on Heroic Difficulty." icon="inv_drink_01" id="2946" points="10" title="Heroic: But I'm on Your Side"/>
+      <achievement categoryId="168" dateCompleted="2009-04-22-05:00" desc="Defeat Flame Leviathan on the first try without anyone repairing their vehicle on Heroic Difficulty." icon="inv_misc_wrench_02" id="2906" points="10" title="Heroic: Unbroken"/>
+      <achievement categoryId="168" dateCompleted="2009-04-22-05:00" desc="Defeat Flame Leviathan without causing a System Shutdown on Heroic Difficulty." icon="inv_misc_enggizmos_02" id="2912" points="10" title="Heroic: Shutout"/>
+      <achievement categoryId="168" dateCompleted="2009-04-18-05:00" desc="/Kiss Sara in Ulduar while she is angry with you on Heroic Difficulty." icon="inv_valentinescard02" id="3011" points="10" title="Heroic: Kiss and Make Up"/>
+      <achievement categoryId="168" dateCompleted="2009-04-18-05:00" desc="Defeat the bosses of The Siege area of Ulduar on Heroic Difficulty." icon="achievement_dungeon_ulduarraid_archway_01" id="2887" points="10" title="Heroic: The Siege of Ulduar">
         <criteria name="Flame Leviathan"/>
         <criteria name="Razorscale"/>
         <criteria name="XT-002 Deconstructor"/>
         <criteria name="Ignis the Furnace Master"/>
       </achievement>
-      <achievement categoryId="168" desc="Defeat the bosses of The Antechamber area of Ulduar on Heroic Difficulty." icon="achievement_boss_tribunalofages" id="2889" points="10" title="Heroic: The Antechamber of Ulduar">
-        <criteria name="Assembly of Iron"/>
-        <criteria name="Kologarn"/>
-        <criteria name="Auriaya"/>
-      </achievement>
-      <achievement categoryId="168" desc="Defeat the Keeper bosses of Ulduar on Heroic Difficulty." icon="achievement_dungeon_ulduarraid_misc_05" id="2891" points="10" title="Heroic: The Keepers of Ulduar">
+      <achievement categoryId="168" dateCompleted="2009-04-18-05:00" desc="Survive being thrown into Ignis the Furnace Master's Slag Pot on Heroic Difficulty." icon="spell_fire_immolation" id="2928" points="10" title="Heroic: Hot Pocket"/>
+      <achievement categoryId="168" dateCompleted="2009-04-18-05:00" desc="Defeat the Keeper bosses of Ulduar on Heroic Difficulty." icon="achievement_dungeon_ulduarraid_misc_05" id="2891" points="10" title="Heroic: The Keepers of Ulduar">
         <criteria name="Hodir"/>
         <criteria name="Thorim"/>
         <criteria name="Freya"/>
         <criteria name="Mimiron"/>
       </achievement>
+      <achievement categoryId="168" dateCompleted="2009-04-17-05:00" desc="Defeat Thorim, the Ancient Rune Giant and the Rune Colossus on Heroic Difficulty." icon="achievement_dungeon_ulduarraid_ironsentinel_01" id="2974" points="10" title="Heroic: I'll Take You All On">
+        <criteria name="Defeat Thorim"/>
+        <criteria name="Participate in slaying Runic Colossus"/>
+        <criteria name="Participate in slaying Ancient Rune Giant"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2009-04-17-05:00" desc="Force Mimiron to kill an Assault Bot with a Rocket Strike on Heroic Difficulty." icon="inv_gizmo_rocketlauncher" id="2995" points="10" title="Heroic: Not-So-Friendly Fire"/>
+      <achievement categoryId="168" dateCompleted="2009-04-17-05:00" desc="Defeat the bosses of The Antechamber area of Ulduar on Heroic Difficulty." icon="achievement_boss_tribunalofages" id="2889" points="10" title="Heroic: The Antechamber of Ulduar">
+        <criteria name="Assembly of Iron"/>
+        <criteria name="Kologarn"/>
+        <criteria name="Auriaya"/>
+      </achievement>
+      <achievement categoryId="168" dateCompleted="2009-04-17-05:00" desc="Defeat Auriaya without destroying her Sanctum Sentries on Heroic Difficulty." icon="achievement_boss_auriaya_01" id="3007" points="10" title="Heroic: Crazy Cat Lady"/>
+      <achievement categoryId="168" dateCompleted="2009-04-16-05:00" desc="Defeat Hodir without any friendly NPC dying on Heroic Difficulty." icon="spell_frost_manarecharge" id="2965" points="10" title="Heroic: I Have the Coolest Friends"/>
+      <achievement categoryId="168" dateCompleted="2009-04-16-05:00" desc="Defeat the Assembly of Iron with Runemaster Molgeim as the last member alive on Heroic Difficulty." icon="achievement_boss_theironcouncil_01" id="2942" points="10" title="Heroic: I Choose You, Runemaster Molgeim"/>
+      <achievement categoryId="168" dateCompleted="2009-04-16-05:00" desc="Defeat XT-002 Deconstructor without any raid member dying from a Gravity Bomb on Heroic Difficulty." icon="inv_misc_bomb_02" id="2936" points="10" title="Heroic: Nerf Gravity Bombs"/>
+      <achievement categoryId="168" dateCompleted="2009-04-15-05:00" desc="Defeat Razorscale without allowing her to fly into the air more than once on Heroic Difficulty." icon="achievement_boss_razorscale" id="2921" points="10" title="Heroic: A Quick Shave"/>
+      <achievement categoryId="168" dateCompleted="2009-04-15-05:00" desc="Defeat Flame Leviathan with 1 Orbital Defense System active on Heroic Difficulty." icon="inv_misc_orb_04" id="2918" points="10" title="Heroic: Orbital Bombardment"/>
       <achievement categoryId="168" desc="Defeat the bosses of The Descent into Madness area of Ulduar on Heroic Difficulty." icon="achievement_boss_yoggsaron_01" id="2893" points="10" title="Heroic: The Descent into Madness">
-        <criteria name="General Vezax"/>
+        <criteria date="2009-04-18-05:00" name="General Vezax"/>
         <criteria name="Yogg-Saron"/>
       </achievement>
       <achievement categoryId="168" desc="Defeat every boss in Ulduar on Heroic Difficulty." icon="achievement_dungeon_ulduarraid_misc_01" id="2895" points="25" title="Heroic: The Secrets of Ulduar">
-        <criteria name="Heroic: The Siege of Ulduar"/>
-        <criteria name="Heroic: The Antechamber of Ulduar"/>
-        <criteria name="Heroic: The Keepers of Ulduar"/>
+        <criteria date="2009-04-22-05:00" name="Heroic: The Siege of Ulduar"/>
+        <criteria date="2009-04-22-05:00" name="Heroic: The Antechamber of Ulduar"/>
+        <criteria date="2009-04-22-05:00" name="Heroic: The Keepers of Ulduar"/>
         <criteria name="Heroic: The Descent into Madness"/>
       </achievement>
       <achievement categoryId="168" desc="Destroy 200 Steelforged Defenders in 10 seconds on the Ulduar gauntlet on Heroic Difficulty." icon="ability_vehicle_liquidpyrite_blue" id="3098" points="10" title="Heroic: Dwarfageddon">
         <criteria maxQuantity="100" quantity="0"/>
       </achievement>
-      <achievement categoryId="168" desc="Defeat Flame Leviathan on the first try without anyone repairing their vehicle on Heroic Difficulty." icon="inv_misc_wrench_02" id="2906" points="10" title="Heroic: Unbroken"/>
       <achievement categoryId="168" desc="Defeat Flame Leviathan while in each of the following vehicles on Heroic Difficulty." icon="inv_gizmo_02" id="2908" points="10" title="Heroic: Three Car Garage">
-        <criteria name="Salvaged Chopper"/>
-        <criteria name="Salvaged Siege Engine"/>
+        <criteria date="2009-04-15-05:00" name="Salvaged Chopper"/>
+        <criteria date="2009-04-22-05:00" name="Salvaged Siege Engine"/>
         <criteria name="Salvaged Demolisher"/>
       </achievement>
       <achievement categoryId="168" desc="Destroy a Flame Leviathan Defense Turret on Heroic Difficulty." icon="inv_misc_missilesmall_red" id="2910" points="10" title="Heroic: Take Out Those Turrets"/>
-      <achievement categoryId="168" desc="Defeat Flame Leviathan without causing a System Shutdown on Heroic Difficulty." icon="inv_misc_enggizmos_02" id="2912" points="10" title="Heroic: Shutout"/>
-      <achievement categoryId="168" desc="Defeat Flame Leviathan with 1 Orbital Defense System active on Heroic Difficulty." icon="inv_misc_orb_04" id="2918" points="10" title="Heroic: Orbital Bombardment"/>
-      <achievement categoryId="168" desc="Defeat Razorscale without allowing her to fly into the air more than once on Heroic Difficulty." icon="achievement_boss_razorscale" id="2921" points="10" title="Heroic: A Quick Shave"/>
+      <achievement categoryId="168" desc="Defeat Flame Leviathan with 2 Orbital Defense Systems active on Heroic Difficulty." icon="inv_misc_orb_03" id="2916" points="20" title="Heroic: Orbital Devastation"/>
       <achievement categoryId="168" desc="Defeat 50 Dark Rune Guardian Dwarves with Razorscale's Flame Breath on Heroic Difficulty." icon="achievement_dungeon_ulduarraid_irondwarf_01" id="2924" points="10" title="Heroic: Iron Dwarf, Medium Rare">
-        <criteria maxQuantity="50" quantity="0"/>
+        <criteria maxQuantity="50" quantity="1"/>
       </achievement>
       <achievement categoryId="168" desc="Defeat Ignis the Furnace Master after shattering 2 Iron Constructs within 5 seconds on Heroic Difficulty." icon="spell_frost_frostshock" id="2926" points="10" title="Heroic: Shattered"/>
-      <achievement categoryId="168" desc="Survive being thrown into Ignis the Furnace Master's Slag Pot on Heroic Difficulty." icon="spell_fire_immolation" id="2928" points="10" title="Heroic: Hot Pocket"/>
       <achievement categoryId="168" desc="Defeat Ignis the Furnace Master in 4 minutes on Heroic Difficulty." icon="achievement_boss_ignis_01" id="2929" points="10" title="Heroic: Stokin' the Furnace"/>
       <achievement categoryId="168" desc="Defeat XT-002 Deconstructor without him recovering any health from XS-013 Scrapbots on Heroic Difficulty." icon="inv_misc_enggizmos_14" id="2932" points="10" title="Heroic: Nerf Engineering"/>
       <achievement categoryId="168" desc="Defeat 20 XS-013 Scrapbots within 12 seconds using XE-321 Boombots on Heroic Difficulty." icon="inv_misc_bomb_01" id="2935" points="10" title="Heroic: Nerf Scrapbots">
         <criteria maxQuantity="20" quantity="0"/>
       </achievement>
-      <achievement categoryId="168" desc="Defeat XT-002 Deconstructor without any raid member dying from a Gravity Bomb on Heroic Difficulty." icon="inv_misc_bomb_02" id="2936" points="10" title="Heroic: Nerf Gravity Bombs"/>
       <achievement categoryId="168" desc="Defeat XT-002 Deconstructor in 205 seconds on Heroic Difficulty." icon="achievement_boss_xt002deconstructor_01" id="2938" points="10" title="Heroic: Must Deconstruct Faster"/>
       <achievement categoryId="168" desc="Defeat XT-002 Deconstructor after destroying his heart on Heroic Difficulty." icon="inv_valentinescardtornleft" id="3059" points="10" title="Heroic: Heartbreaker"/>
-      <achievement categoryId="168" desc="Defeat the Assembly of Iron with Runemaster Molgeim as the last member alive on Heroic Difficulty." icon="achievement_boss_theironcouncil_01" id="2942" points="10" title="Heroic: I Choose You, Runemaster Molgeim"/>
       <achievement categoryId="168" desc="Defeat the Assembly of Iron with Stormcaller Brundir as the last member alive on Heroic Difficulty." icon="achievement_boss_theironcouncil_01" id="2943" points="10" title="Heroic: I Choose You, Stormcaller Brundir"/>
       <achievement categoryId="168" desc="Defeat the Assembly of Iron with Steelbreaker as the last member alive on Heroic Difficulty." icon="achievement_boss_theironcouncil_01" id="2944" points="10" title="Heroic: I Choose You, Steelbreaker"/>
-      <achievement categoryId="168" desc="Defeat the Assembly of Iron while under the effect of an Iron Boot Flask on Heroic Difficulty." icon="inv_drink_01" id="2946" points="10" title="Heroic: But I'm on Your Side"/>
       <achievement categoryId="168" desc="Defeat the Assembly of Iron without allowing Stormcaller Brundir to damage anyone with Chain Lightning or Lightning Whirl on Heroic Difficulty." icon="spell_lightning_lightningbolt01" id="2948" points="10" title="Heroic: Can't Do That While Stunned"/>
       <achievement categoryId="168" desc="Defeat Kologarn without destroying either of his arms on Heroic Difficulty." icon="achievement_boss_kologarn_01" id="2952" points="10" title="Heroic: With Open Arms"/>
-      <achievement categoryId="168" desc="Destroy both of Kologarn's arms within 10 seconds and then defeat Kologarn on Heroic Difficulty." icon="ability_warrior_disarm" id="2954" points="10" title="Heroic: Disarmed"/>
       <achievement categoryId="168" desc="Defeat Kologarn without any raid member being hit by Focused Eyebeams on Heroic Difficulty." icon="spell_fire_blueflamebolt" id="2956" points="10" title="Heroic: If Looks Could Kill"/>
       <achievement categoryId="168" desc="Defeat Kologarn with 25 Rubble creatures alive on Heroic Difficulty." icon="inv_elemental_primal_earth" id="2960" points="10" title="Heroic: Rubble and Roll"/>
-      <achievement categoryId="168" desc="Defeat Auriaya without destroying her Sanctum Sentries on Heroic Difficulty." icon="achievement_boss_auriaya_01" id="3007" points="10" title="Heroic: Crazy Cat Lady"/>
       <achievement categoryId="168" desc="Defeat the Feral Defender while defeating Auriaya on Heroic Difficulty." icon="ability_mount_blackpanther" id="3077" points="10" title="Heroic: Nine Lives"/>
       <achievement categoryId="168" desc="Defeat Hodir without any raid member being hit by Flash Freeze on Heroic Difficulty." icon="spell_frost_freezingbreath" id="2962" points="10" title="Heroic: Cheese the Freeze"/>
-      <achievement categoryId="168" desc="Defeat Hodir without any friendly NPC dying on Heroic Difficulty." icon="spell_frost_manarecharge" id="2965" points="10" title="Heroic: I Have the Coolest Friends"/>
       <achievement categoryId="168" desc="Defeat Hodir without any raid member having more than 2 stacks of Biting Cold on Heroic Difficulty." icon="spell_frost_frostward" id="2968" points="10" title="Heroic: Getting Cold in Here"/>
-      <achievement categoryId="168" desc="Possess the effects of Toasty Fire, Storm Power and Starlight at the same time on Heroic Difficulty." icon="spell_fire_fire" id="2970" points="10" title="Heroic: Staying Buffed All Winter"/>
       <achievement categoryId="168" desc="Defeat Hodir before he shatters his rare cache on Heroic Difficulty" icon="inv_box_04" id="3184" points="10" title="Heroic: I Could Say That This Cache Was Rare"/>
       <achievement categoryId="168" desc="Defeat Thorim without any raid member being struck by Lightning Charge on Heroic Difficulty." icon="spell_lightning_lightningbolt01" id="2972" points="10" title="Heroic: Don't Stand in the Lightning"/>
-      <achievement categoryId="168" desc="Defeat Thorim, the Ancient Rune Giant and the Rune Colossus on Heroic Difficulty." icon="achievement_dungeon_ulduarraid_ironsentinel_01" id="2974" points="10" title="Heroic: I'll Take You All On">
-        <criteria name="Defeat Thorim"/>
-        <criteria name="Participate in slaying Runic Colossus"/>
-        <criteria name="Participate in slaying Ancient Rune Giant"/>
-      </achievement>
       <achievement categoryId="168" desc="Defeat Thorim while under the effect of Aura of Celerity on Heroic Difficulty." icon="spell_nature_wispsplode" id="2976" points="10" title="Heroic: Who Needs Bloodlust?"/>
       <achievement categoryId="168" desc="Force Thorim to enter the arena while Sif is present on Heroic Difficulty." icon="achievement_boss_thorim" id="2978" points="10" title="Heroic: Siffed"/>
       <achievement categoryId="168" desc="Defeat Elder Brightleaf, Elder Ironbranch and Elder Stonebark within 15 seconds of each other on Heroic Difficulty." icon="ability_druid_forceofnature" id="3118" points="10" title="Heroic: Lumberjacked"/>
@@ -917,13 +927,11 @@
       <achievement categoryId="168" desc="Defeat Mimiron without anyone in the raid being hit by the following on Heroic Difficulty." icon="ability_mage_missilebarrage" id="3237" points="10" title="Heroic: Set Up Us the Bomb">
         <criteria name="A Proximity Mine"/>
         <criteria name="A Rocket Strike"/>
-        <criteria name="A Bomb Bot"/>
+        <criteria date="2009-04-17-05:00" name="A Bomb Bot"/>
       </achievement>
-      <achievement categoryId="168" desc="Force Mimiron to kill an Assault Bot with a Rocket Strike on Heroic Difficulty." icon="inv_gizmo_rocketlauncher" id="2995" points="10" title="Heroic: Not-So-Friendly Fire"/>
       <achievement categoryId="168" desc="Defeat Mimiron after activating his Self-Destruct mechanism on Heroic Difficulty." icon="inv_misc_bomb_04" id="3189" points="10" title="Heroic: Firefighter"/>
       <achievement categoryId="168" desc="Defeat General Vezax without any raid member being hit by Shadow Crash on Heroic Difficulty." icon="spell_shadow_painspike" id="2997" points="10" title="Heroic: Shadowdodger"/>
       <achievement categoryId="168" desc="Defeat General Vezax after defeating the Saronite Animus on Heroic Difficulty." icon="achievement_boss_generalvezax_01" id="3188" points="10" title="Heroic: I Love the Smell of Saronite in the Morning"/>
-      <achievement categoryId="168" desc="/Kiss Sara in Ulduar while she is angry with you on Heroic Difficulty." icon="inv_valentinescard02" id="3011" points="10" title="Heroic: Kiss and Make Up"/>
       <achievement categoryId="168" desc="Defeat Yogg-Saron with the assistance of three or fewer Keepers on Heroic Difficulty." icon="spell_shadow_shadesofdarkness" id="3161" points="10" title="Heroic: Three Lights in the Darkness"/>
       <achievement categoryId="168" desc="Defeat Yogg-Saron without any raid member going insane on Heroic Difficulty." icon="spell_shadow_mindrot" id="3010" points="10" title="Heroic: Drive Me Crazy"/>
       <achievement categoryId="168" desc="Defeat Yogg-Saron within 7 minutes on Heroic Difficulty." icon="achievement_boss_yoggsaron_01" id="3013" points="10" title="Heroic: He's Not Getting Any Older"/>
@@ -942,12 +950,12 @@
       </achievement>
       <achievement categoryId="168" desc="Defeat Algalon the Observer without any raid member dying on Heroic Difficulty." icon="spell_misc_emotionsad" id="3005" points="10" title="Heroic: He Feeds On Your Tears"/>
       <achievement categoryId="168" desc="Defeat each boss in Ulduar on Heroic Difficulty without allowing any raid member to die to that boss at any point during that raid lockout period." icon="spell_holy_weaponmastery" id="2904" points="10" reward="Title Reward: Conqueror of Ulduar" title="Conqueror of Ulduar">
-        <criteria name="Flame Leviathan"/>
+        <criteria date="2009-04-22-05:00" name="Flame Leviathan"/>
         <criteria name="Ignis the Furnace Master"/>
         <criteria name="Razorscale"/>
         <criteria name="XT-002 Deconstructor"/>
         <criteria name="Assembly of Iron"/>
-        <criteria name="Kologarn"/>
+        <criteria date="2009-04-16-05:00" name="Kologarn"/>
         <criteria name="Auriaya"/>
         <criteria name="Hodir"/>
         <criteria name="Thorim"/>
