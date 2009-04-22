@@ -556,6 +556,7 @@ namespace :juggernaut do
           item(boss, "Rune Edge")
           item(boss, "Runed Ironhide Boots")
           item(boss, "Runeshaper's Gloves")
+          item(boss, "Sapphire Amulet of Renewal", "Hard Mode")
           item(boss, "Steelbreaker's Embrace")
           item(boss, "Unblinking Eye")
         when 'Hodir'
@@ -569,7 +570,7 @@ namespace :juggernaut do
           item(boss, "Frostplate Greaves")
           item(boss, "Frozen Loop")
           item(boss, "Gloves of the Frozen Glade")
-          item(boss, "Staff of Endless Winter")
+          item(boss, "Staff of Endless Winter", "Hard Mode")
           item(boss, "Winter's Icy Embrace")
         when 'Thorim'
           item(boss, "Belt of the Betrayed")
@@ -587,6 +588,7 @@ namespace :juggernaut do
           item(boss, "Bronze Pendant of the Vanir")
           item(boss, "Gauntlets of Ruthless Reprisal")
           item(boss, "Handguards of Revitalization")
+          item(boss, "Leggings of the Enslaved Idol", "Hard Mode")
           item(boss, "Leggings of the Lifetender")
           item(boss, "Legplates of the Wayward Conqueror")
           item(boss, "Legplates of the Wayward Protector")
@@ -622,11 +624,20 @@ namespace :juggernaut do
           item(boss, "The General's Heart")
           item(boss, "Voldrethar, Dark Blade of Oblivion")
         when 'Yogg-Saron'
+          item(boss, "Blood of the Old God")
+          item(boss, "Chestguard of Insidious Intent")
+          item(boss, "Chestguard of the Fallen God")
+          item(boss, "Cowl of Dark Whispers")
           item(boss, "Earthshaper")
+          item(boss, "Garona's Guise")
+          item(boss, "Godbane Signet")
           item(boss, "Mantle of the Wayward Conqueror")
           item(boss, "Mantle of the Wayward Protector")
           item(boss, "Mantle of the Wayward Vanquisher")
+          item(boss, "Sanity's Bond")
           item(boss, "Shawl of Haunted Memories")
+          item(boss, "Soulscribe")
+          item(boss, "Vanquished Clutches of Yogg-Saron")
         when 'Algalon the Observer'
         end
       end
