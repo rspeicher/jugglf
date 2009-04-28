@@ -20,6 +20,8 @@
       %th Falls Off
       %th.date Raid
       %th.number Price
+      - if admin?
+        %th.image &nbsp;
   %tbody#itemfilter
     - @loots.each do |loot|
       %tr{ :class => cycle('even', 'odd') + ' ' + loot_row_classes(loot) }[loot]
@@ -28,5 +30,7 @@
         %td= loot_factor_cutoff(loot.purchased_on)
         %td.date= link_to h(loot.purchased_on), raid_path(loot.raid_id) unless loot.raid_id.nil?
         %td.number= loot_factor(loot.adjusted_price)
+        - if admin?
+          %td.image= link_to(image_tag('edit.png'), edit_loot_path(loot))
 %br
 = will_paginate(@loots, :id => 'loots_pagination')
