@@ -7,7 +7,7 @@
     %tr
       %th &nbsp;
       - @achievements.each do |ach|
-        %th.bullet= achievement_icon(ach)
+        %th.bullet= achievement_icon(ach, :size => '10x10')
   %tbody#achievements
     - @members.each do |member|
       %tr{ :class => cycle('even', 'odd') }
