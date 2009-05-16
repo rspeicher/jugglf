@@ -18,11 +18,12 @@ role :db,  domain, :primary => true
 
 namespace :deploy do
   task :start, :roles => :app do
+    run "rm -f #{current_release}/tmp/stop.txt"
     run "touch #{current_release}/tmp/restart.txt"
   end
 
   task :stop, :roles => :app do
-    # Do nothing.
+    run "touch #{current_release}/tmp/stop.txt"
   end
 
   desc "Restart Application"
