@@ -33,7 +33,8 @@ class IndexStat
   
   # Returns an array of 10 Member objects, ordered by first_raid
   def self.oldest_members
-    Member.active.find(:all, :order => "first_raid", :limit => 10)
+    Member.active.find(:all, :order => "first_raid", :limit => 10, 
+      :conditions => "first_raid IS NOT NULL")
   end
   
   # SQL conditions for items that should NOT be included in the 'Common Drop' list
