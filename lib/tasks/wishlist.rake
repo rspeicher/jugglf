@@ -400,31 +400,199 @@ namespace :juggernaut do
       'Hodir','Thorim','Freya','Mimiron',
       'General Vezax', 'Yogg-Saron', 'Algalon the Observer']
     
-    # ['Ulduar'].each do |zone_name|
-    #   zone = LootTable.create(:object => Zone.create(:name => zone_name))
-    #   
-    #   ulduar_bosses.each do |boss_name|
-    #     boss = boss(zone, boss_name)
-    #     
-    #     case boss_name
-    #     when 'Bind on Equip'
-    #     when 'Flame Leviathan'
-    #     when 'Ignis the Furnacemaster'
-    #     when 'Razorscale'
-    #     when 'XT-002 Deconstructor'
-    #     when 'Kologarn'
-    #     when 'Auriaya'
-    #     when 'Assembly of Iron'
-    #     when 'Hodir'
-    #     when 'Thorim'
-    #     when 'Freya'
-    #     when 'Mimiron'
-    #     when 'General Vezax'
-    #     when 'Yogg-Saron'
-    #     when 'Algalon the Observer'
-    #     end
-    #   end
-    # end
+    ['Ulduar'].each do |zone_name|
+      zone = LootTable.create(:object => Zone.create(:name => zone_name))
+      
+      ulduar_bosses.each do |boss_name|
+        boss = boss(zone, boss_name)
+        
+        case boss_name
+        when 'Bind on Equip'
+        when 'Flame Leviathan'
+          item(boss, "Combustion Bracers")
+          item(boss, "Energy Siphon")
+          item(boss, "Firesoul")
+          item(boss, "Firestrider Chestguard")
+          item(boss, "Flamewatch Armguards")
+          item(boss, "Gilded Steel Legplates")
+          item(boss, "Handguards of Potent Cures")
+          item(boss, "Ironsoul")
+          item(boss, "Kinetic Ripper")
+          item(boss, "Lifespark Visage")
+          item(boss, "Mantle of Fiery Vengeance")
+          item(boss, "Might of the Leviathan")
+          item(boss, "Petrified Ivy Sprig")
+          item(boss, "Pyrite Infuser")
+          item(boss, "Shimmering Seal")
+          item(boss, "Twirling Blades")
+        when 'Ignis the Furnacemaster'
+          item(boss, "Armbraces of the Vibrant Flame")
+          item(boss, "Drape of Fuming Anger")
+          item(boss, "Furnace Stone")
+          item(boss, "Gauntlets of the Iron Furnace")
+          item(boss, "Gloves of Smoldering Touch")
+          item(boss, "Igniter Rod")
+          item(boss, "Pauldrons of Tempered Will")
+          item(boss, "Relentless Edge")
+          item(boss, "Rifle of the Platinum Guard")
+        when 'Razorscale'
+          item(boss, "Band of Draconic Guile")
+          item(boss, "Binding of the Dragon Matriarch")
+          item(boss, "Bracers of the Smothering Inferno")
+          item(boss, "Breastplate of the Afterlife")
+          item(boss, "Dragonsteel Faceplate")
+          item(boss, "Eye of the Broodmother")
+          item(boss, "Ironscale Leggings")
+          item(boss, "Razorscale Talon")
+          item(boss, "Stormtempered Girdle")
+          item(boss, "Treads of the Invader")
+        when 'XT-002 Deconstructor'
+          item(boss, "Aesir's Edge")
+          item(boss, "Armbands of the Construct")
+          item(boss, "Breastplate of the Stoneshaper")
+          item(boss, "Chestplate of Vicious Potency")
+          item(boss, "Conductive Cord")
+          item(boss, "Fluxing Energy Coils")
+          item(boss, "Gloves of Taut Grip")
+          item(boss, "Helm of Veiled Energies")
+          item(boss, "Magnetized Projectile Emitter")
+          item(boss, "Plasma Foil")
+          item(boss, "Power Enhancing Loop")
+          item(boss, "Pulsing Spellshield")
+          item(boss, "Treacherous Shoulderpads")
+          item(boss, "Vest of the Glowing Crescent")
+        when 'Kologarn'
+          item(boss, "Emerald Signet Ring")
+          item(boss, "Greaves of the Earthbinder")
+          item(boss, "Mark of the Unyielding")
+          item(boss, "Pendant of the Piercing Glare")
+          item(boss, "Sabatons of the Iron Watcher")
+          item(boss, "Shawl of the Shattered Giant")
+          item(boss, "Shoulderguards of the Solemn Watch")
+          item(boss, "Spark of Hope")
+          item(boss, "Spire of Withering Dreams")
+          item(boss, "Stoneguard")
+        when 'Auriaya'
+          item(boss, "Archaedas' Lost Legplates")
+          item(boss, "Chestplate of Titanic Fury")
+          item(boss, "Cover of the Keepers")
+          item(boss, "Elemental Focus Stone")
+          item(boss, "Ironaya's Discarded Mantle")
+          item(boss, "Mantle of the Preserver")
+          item(boss, "Nimble Climber's Belt")
+          item(boss, "Nurturing Touch")
+          item(boss, "Raiments of the Corrupted")
+          item(boss, "Shieldwall of the Breaker")
+        when 'Assembly of Iron'
+          item(boss, "Belt of the Crystal Tree")
+          item(boss, "Belt of the Iron Servant")
+          item(boss, "Boots of the Petrified Forest")
+          item(boss, "Circlet of True Sight")
+          item(boss, "Cloak of the Iron Council")
+          item(boss, "Greaves of Iron Intensity")
+          item(boss, "Lady Maye's Sapphire Ring")
+          item(boss, "Leggings of Swift Reflexes")
+          item(boss, "Loop of the Agile")
+          item(boss, "Perilous Bite")
+          item(boss, "Rune-Etched Nightblade")
+          item(boss, "Runetouch Handwraps")
+          item(boss, "Stormtip")
+          item(boss, "The Masticator")
+          item(boss, "Watchful Eye")
+        when 'Hodir'
+          item(boss, "Avalanche")
+          item(boss, "Bitter Cold Armguards")
+          item(boss, "Cowl of Icy Breaths")
+          item(boss, "Ice Layered Barrier")
+          item(boss, "Icecore Staff")
+          item(boss, "Leggings of the Wayward Conqueror")
+          item(boss, "Leggings of the Wayward Protector")
+          item(boss, "Leggings of the Wayward Vanquisher")
+          item(boss, "Shiver")
+          item(boss, "Signet of Winter")
+          item(boss, "Stormedge")
+          item(boss, "The Boreal Guard")
+          item(boss, "Winter's Frigid Embrace")
+        when 'Thorim'
+          item(boss, "Belt of the Blood Pit")
+          item(boss, "Combatant's Bootblade")
+          item(boss, "Gauntlets of the Thunder God")
+          item(boss, "Guise of the Midgard Serpent")
+          item(boss, "Handwraps of Resonance")
+          item(boss, "Hoperender")
+          item(boss, "Legacy of Thunder")
+          item(boss, "Leggings of Unstable Discharge")
+          item(boss, "Mjolnir Runestone")
+          item(boss, "Pendant of the Shallow Grave")
+          item(boss, "Sif's Remembrance")
+          item(boss, "Spaulders of the Wayward Conqueror")
+          item(boss, "Spaulders of the Wayward Protector")
+          item(boss, "Spaulders of the Wayward Vanquisher")
+        when 'Freya'
+          item(boss, "Chestguard of the Lasher")
+          item(boss, "Fire Orchid Signet")
+          item(boss, "Gloves of Whispering Winds")
+          item(boss, "Gloves of the Wayward Conqueror")
+          item(boss, "Gloves of the Wayward Protector")
+          item(boss, "Gloves of the Wayward Vanquisher")
+          item(boss, "Ironbark Faceguard")
+          item(boss, "Legplates of Flourishing Resolve")
+          item(boss, "Seed of Budding Carnage")
+          item(boss, "Serilas, Blood Blade of Invar One-Arm")
+          item(boss, "Tunic of the Limber Stalker")
+          item(boss, "Unraveling Reach")
+        when 'Mimiron'
+          item(boss, "Cable of the Metrognome")
+          item(boss, "Fused Alloy Legplates")
+          item(boss, "Fusion Blade")
+          item(boss, "Greaves of the Iron Army")
+          item(boss, "Helm of the Wayward Conqueror")
+          item(boss, "Helm of the Wayward Protector")
+          item(boss, "Helm of the Wayward Vanquisher")
+          item(boss, "Mimiron's Flight Goggles")
+          item(boss, "Pulse Baton")
+          item(boss, "Shoulderguards of Assimilation")
+          item(boss, "Static Charge Handwraps")
+          item(boss, "Stylish Power Cape")
+          item(boss, "Tempered Mercury Greaves")
+        when 'General Vezax'
+          item(boss, "Aesuga, Hand of the Ardent Champion")
+          item(boss, "Bindings of the Depths")
+          item(boss, "Boots of Unsettled Prey")
+          item(boss, "Choker of the Abyss")
+          item(boss, "Darkstone Ring")
+          item(boss, "Drape of the Faceless General")
+          item(boss, "Leggings of Profound Darkness")
+          item(boss, "Pendant of Endless Despair")
+          item(boss, "Saronite Animus Cloak")
+          item(boss, "Shadowbite")
+          item(boss, "Tortured Earth")
+          item(boss, "Underworld Mantle")
+          item(boss, "Vestments of the Piercing Light")
+          item(boss, "Void Sabre")
+        when 'Yogg-Saron'
+          item(boss, "Abaddon")
+          item(boss, "Amice of Inconceivable Horror")
+          item(boss, "Caress of Insanity")
+          item(boss, "Chestguard of the Wayward Conqueror")
+          item(boss, "Chestguard of the Wayward Protector")
+          item(boss, "Chestguard of the Wayward Vanquisher")
+          item(boss, "Deliverance")
+          item(boss, "Devotion")
+          item(boss, "Faceguard of the Eyeless Horror")
+          item(boss, "Hammer of Crushing Whispers")
+          item(boss, "Kingsbane")
+          item(boss, "Leggings of the Insatiable")
+          item(boss, "Pendant of a Thousand Maws")
+          item(boss, "Royal Seal of King Llane")
+          item(boss, "Signet of Soft Lament")
+          item(boss, "Soul-Devouring Cinch")
+          item(boss, "Touch of Madness")
+          item(boss, "Treads of the Dragon Council")
+        when 'Algalon the Observer'
+        end
+      end
+    end
     
     ['Ulduar (H)'].each do |zone_name|
       zone = LootTable.create(:object => Zone.create(:name => zone_name))
@@ -549,6 +717,7 @@ namespace :juggernaut do
           item(boss, "Belt of Colossal Rage", "Hard Mode")
           item(boss, "Drape of Mortal Downfall", "Hard Mode")
           item(boss, "Drape of the Lithe")
+          item(boss, "Fang of Oblivion", "Hard Mode")
           item(boss, "Greaves of Swift Vengeance", "Hard Mode")
           item(boss, "Handguards of the Enclave")
           item(boss, "Insurmountable Fervor")
@@ -569,6 +738,7 @@ namespace :juggernaut do
           item(boss, "Breastplate of the Wayward Conqueror")
           item(boss, "Breastplate of the Wayward Protector")
           item(boss, "Breastplate of the Wayward Vanquisher")
+          item(boss, "Constellus", "Hard Mode")
           item(boss, "Drape of Icy Intent", "Hard Mode")
           item(boss, "Frigid Strength of Hodir", "Hard Mode")
           item(boss, "Frost-bound Chain Bracers")
@@ -587,6 +757,7 @@ namespace :juggernaut do
           item(boss, "Pauldrons of the Combatant", "Hard Mode")
           item(boss, "Scale of Fates")
           item(boss, "Sif's Promise")
+          item(boss, "Skyforge Crossbow")
           item(boss, "Vulnir, the Northern Tempest")
           item(boss, "Warhelm of the Champion", "Hard Mode")
           item(boss, "Wisdom's Hold", "Hard Mode")
