@@ -24,6 +24,7 @@ module ItemStatsHelper
     end
     
     def wowhead_link(item, options = {})
+      return if item.nil? or item.item_stat.nil?
       if item.item_stat.wow_id.nil?
         link_to(truncate(h(item.name), :length => 80), item_path(item) + "?refresh",
           :class => 'q0')
