@@ -60,19 +60,17 @@ module Juggy
           'Rune of Repulsion'               => 2.00,
           'Soul of the Dead'                => 4.00,
           
-          # Patch 3.1 (All 2.50 temporarily)
-          "Elemental Focus Stone"  => 2.50,
-          "Energy Siphon"          => 2.50,
-          "Eye of the Broodmother" => 2.50,
-          "Flare of the Heavens"   => 2.50,
-          "Heart of Iron"          => 2.50,
-          "Living Flame"           => 2.50,
-          "Pandora's Plea"         => 2.50,
-          "Pyrite Infuser"         => 2.50,
-          "Scale of Fates"         => 2.50,
-          "Spark of Hope"          => 2.50,
-          "The General's Heart"    => 2.50,
-          "Wrathstone"             => 2.50,
+          # Patch 3.1
+          "Blood of the Old God"              => 3.00,
+          "Flare of the Heavens"              => 4.00,
+          "Heart of Iron"                     => 3.00,
+          "Living Flame"                      => 2.50,
+          "Pandora's Plea"                    => 3.00,
+          "Scale of Fates"                    => 3.00,
+          "Show of Faith"                     => 4.00,
+          "The General's Heart"               => 2.50,
+          "Vanquished Clutches of Yogg-Saron" => 2.50,
+          "Wrathstone"                        => 3.00,
         }
       }
 
