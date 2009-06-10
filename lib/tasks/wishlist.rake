@@ -421,7 +421,6 @@ namespace :juggernaut do
           item(boss, "Lifespark Visage")
           item(boss, "Mantle of Fiery Vengeance")
           item(boss, "Might of the Leviathan")
-          item(boss, "Petrified Ivy Sprig")
           item(boss, "Pyrite Infuser")
           item(boss, "Shimmering Seal")
           item(boss, "Twirling Blades")
@@ -537,6 +536,7 @@ namespace :juggernaut do
           item(boss, "Gloves of the Wayward Vanquisher")
           item(boss, "Ironbark Faceguard")
           item(boss, "Legplates of Flourishing Resolve")
+          item(boss, "Petrified Ivy Sprig")
           item(boss, "Seed of Budding Carnage")
           item(boss, "Serilas, Blood Blade of Invar One-Arm")
           item(boss, "Tunic of the Limber Stalker")
@@ -590,6 +590,22 @@ namespace :juggernaut do
           item(boss, "Touch of Madness")
           item(boss, "Treads of the Dragon Council")
         when 'Algalon the Observer'
+          item(boss, "Band of Lights")
+          item(boss, "Breastplate of the Timeless")
+          item(boss, "Dark Matter")
+          item(boss, "Drape of the Messenger")
+          item(boss, "Gloves of the Endless Dark")
+          item(boss, "Meteorite Crystal")
+          item(boss, "Nebula Band")
+          item(boss, "Observer's Mantle")
+          item(boss, "Pendant of the Somber Witness")
+          item(boss, "Pulsar Gloves")
+          item(boss, "Reply-Code Alpha")
+          item(boss, "Shoulderplates of the Celestial Watch")
+          item(boss, "Starfall Girdle")
+          item(boss, "Starlight Treads")
+          item(boss, "Strength of the Heavens")
+          item(boss, "Zodiac Leggings")
         end
       end
     end
@@ -830,6 +846,19 @@ namespace :juggernaut do
           item(boss, "Treads of the False Oracle", "Hard Mode")
           item(boss, "Vanquished Clutches of Yogg-Saron")
         when 'Algalon the Observer'
+          item(boss, "Boundless Gaze")
+          item(boss, "Bulwark of Algalon")
+          item(boss, "Constellus")
+          item(boss, "Cosmos")
+          item(boss, "Dreambinder")
+          item(boss, "Fang of Oblivion")
+          item(boss, "Legplates of the Endless Void")
+          item(boss, "Pharos Gloves")
+          item(boss, "Reply-Code Alpha")
+          item(boss, "Sabatons of Lifeless Night")
+          item(boss, "Skyforge Crossbow")
+          item(boss, "Solar Bindings")
+          item(boss, "Starshard Edge")
         end
       end
     end
