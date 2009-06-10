@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090404033151) do
+ActiveRecord::Schema.define(:version => 20090529230459) do
 
   create_table "achievements", :force => true do |t|
     t.integer "armory_id"
@@ -21,6 +21,57 @@ ActiveRecord::Schema.define(:version => 20090404033151) do
   add_index "achievements", ["armory_id"], :name => "index_achievements_on_armory_id", :unique => true
   add_index "achievements", ["category_id"], :name => "index_achievements_on_category_id"
   add_index "achievements", ["title"], :name => "index_achievements_on_title"
+
+  create_table "applicants", :force => true do |t|
+    t.string   "status",              :default => "new"
+    t.integer  "user_id"
+    t.integer  "thread_id"
+    t.string   "first_name"
+    t.integer  "age"
+    t.string   "time_zone"
+    t.time     "start_sunday"
+    t.time     "end_sunday"
+    t.time     "start_monday"
+    t.time     "end_monday"
+    t.time     "start_tuesday"
+    t.time     "end_tuesday"
+    t.time     "start_wednesday"
+    t.time     "end_wednesday"
+    t.time     "start_thursday"
+    t.time     "end_thursday"
+    t.time     "start_friday"
+    t.time     "end_friday"
+    t.time     "start_saturday"
+    t.time     "end_saturday"
+    t.text     "known_members"
+    t.text     "previous_experience"
+    t.text     "future_commitments"
+    t.text     "reasons_for_joining"
+    t.string   "character_name"
+    t.string   "character_class"
+    t.string   "character_race"
+    t.string   "played_time"
+    t.boolean  "server_transfer"
+    t.string   "armory_link"
+    t.boolean  "original_owner"
+    t.text     "character_talents"
+    t.text     "previous_guilds"
+    t.text     "reasons_for_leaving"
+    t.text     "pve_experience"
+    t.text     "pvp_experience"
+    t.string   "screenshot_link"
+    t.string   "connection_type"
+    t.boolean  "has_microphone"
+    t.boolean  "has_ventrilo"
+    t.boolean  "uses_ventrilo"
+    t.text     "comments"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "applicants", ["character_name"], :name => "index_applicants_on_character_name"
+  add_index "applicants", ["thread_id"], :name => "index_applicants_on_thread_id"
+  add_index "applicants", ["user_id"], :name => "index_applicants_on_user_id"
 
   create_table "attendees", :force => true do |t|
     t.integer "member_id"
