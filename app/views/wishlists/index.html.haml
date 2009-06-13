@@ -4,9 +4,9 @@
     %div[item]
       %h4
         = link_to_function(image_tag('clipboard.png'), "wishlistCopy(#{item.id})")
-        %span<
-          = link_to_item_with_stats(item.object)
-          = "(#{h(item.note)})" unless item.note.nil?
+        %span= link_to_item_with_stats(item.object)
+        - unless item.note.nil?
+          = "(#{h(item.note)})"
       %table.list.tablesorter
         %thead.hidden
           %tr

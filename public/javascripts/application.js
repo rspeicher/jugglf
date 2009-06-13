@@ -189,7 +189,7 @@ function wishlistShowUnwanted() {
 
 function wishlistCopy(id) {
     // Whisper, item name
-    str = '/w Tsigo compare [' + $('#loot_table_' + id + ' h4 span').text() + '],';
+    str = '/w Tsigo compare [' + $('#loot_table_' + id + ' h4 span:first').text() + '],';
     
     // Build an array of "<Name> <type>" strings
     names = new Array();
