@@ -774,7 +774,7 @@ namespace :juggernaut do
           item(boss, "Scale of Fates")
           item(boss, "Sif's Promise")
           item(boss, "Skyforge Crossbow")
-          item(boss, "Vulnir, the Northern Tempest")
+          item(boss, "Vulmir, the Northern Tempest")
           item(boss, "Warhelm of the Champion", "Hard Mode")
           item(boss, "Wisdom's Hold", "Hard Mode")
         when 'Freya'
@@ -782,6 +782,7 @@ namespace :juggernaut do
           item(boss, "Boots of the Servant")
           item(boss, "Bronze Pendant of the Vanir", "Hard Mode")
           item(boss, "Drape of the Sullen Goddess", "Hard Mode")
+          item(boss, "Dreambinder", "Hard Mode")
           item(boss, "Gauntlets of Ruthless Reprisal")
           item(boss, "Handguards of Revitalization", "Hard Mode")
           item(boss, "Leggings of the Enslaved Idol", "Hard Mode")
@@ -803,6 +804,7 @@ namespace :juggernaut do
           item(boss, "Malleable Steelweave Mantle")
           item(boss, "Pandora's Plea")
           item(boss, "Titanskin Cloak", "Hard Mode")
+          item(boss, "Starshard Edge", "Hard Mode")
           item(boss, "Waistguard of the Creator")
         when 'General Vezax'
           item(boss, "Belt of Clinging Hope")
@@ -859,6 +861,7 @@ namespace :juggernaut do
           item(boss, "Skyforge Crossbow")
           item(boss, "Solar Bindings")
           item(boss, "Starshard Edge")
+          item(boss, "Starwatcher's Binding")
         end
       end
     end
