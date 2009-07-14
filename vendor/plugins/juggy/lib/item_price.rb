@@ -62,6 +62,7 @@ module Juggy
           
           # Patch 3.1
           "Blood of the Old God"              => 3.00,
+          "Comet's Trail"                     => 4.00,
           "Flare of the Heavens"              => 4.00,
           "Heart of Iron"                     => 3.00,
           "Living Flame"                      => 2.50,
