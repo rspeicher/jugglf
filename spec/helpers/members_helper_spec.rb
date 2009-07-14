@@ -103,8 +103,9 @@ describe MembersHelper do
   
   describe "warn_if_recently_looted" do
     before(:each) do
-      @recent_loots = [Loot.make(:id => 1, :best_in_slot => true)]
-      @wishlist = Wishlist.make(:item => @recent_loots[0].item)
+      @member = Member.make
+      @recent_loots = [Loot.make(:id => 1, :member => @member, :best_in_slot => true)]
+      @wishlist = Wishlist.make(:member => @member, :item => @recent_loots[0].item)
     end
     
     it "should display an image if the wishlist item _of this type_ was recently looted" do
