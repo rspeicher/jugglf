@@ -107,6 +107,10 @@ describe ApplicationHelper do
     it "should multiply the width by 100 if a value less than 1 is provided" do
       progress_bar(:width => 2.00/30.00).should match(/width: 6%/)
     end
+    
+    it "should return a value of 100 when given a value of 1" do
+      progress_bar(:width => 30.00/30.00).should match(/width: 100%/)
+    end
   end
   
   describe "link_to_login_or_logout" do
