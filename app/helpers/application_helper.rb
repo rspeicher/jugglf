@@ -62,7 +62,7 @@ module ApplicationHelper
     options[:container_width] ||= '95'
     options[:color]           ||= '#ACE97C'
     
-    options[:width] *= 100 if options[:width] < 1.00
+    options[:width] *= 100 if options[:width] <= 1.00
     
     "<div class='progress-container' style='width: #{options[:container_width].to_i}%'>" +
       "<div style='width: #{options[:width].to_i}%; background-color: #{options[:color]}'></div>" +
