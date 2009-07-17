@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090529230459) do
+ActiveRecord::Schema.define(:version => 20090717234345) do
 
   create_table "achievements", :force => true do |t|
     t.integer "armory_id"
@@ -21,57 +21,6 @@ ActiveRecord::Schema.define(:version => 20090529230459) do
   add_index "achievements", ["armory_id"], :name => "index_achievements_on_armory_id", :unique => true
   add_index "achievements", ["category_id"], :name => "index_achievements_on_category_id"
   add_index "achievements", ["title"], :name => "index_achievements_on_title"
-
-  create_table "applicants", :force => true do |t|
-    t.string   "status",              :default => "new"
-    t.integer  "user_id"
-    t.integer  "thread_id"
-    t.string   "first_name"
-    t.integer  "age"
-    t.string   "time_zone"
-    t.time     "start_sunday"
-    t.time     "end_sunday"
-    t.time     "start_monday"
-    t.time     "end_monday"
-    t.time     "start_tuesday"
-    t.time     "end_tuesday"
-    t.time     "start_wednesday"
-    t.time     "end_wednesday"
-    t.time     "start_thursday"
-    t.time     "end_thursday"
-    t.time     "start_friday"
-    t.time     "end_friday"
-    t.time     "start_saturday"
-    t.time     "end_saturday"
-    t.text     "known_members"
-    t.text     "previous_experience"
-    t.text     "future_commitments"
-    t.text     "reasons_for_joining"
-    t.string   "character_name"
-    t.string   "character_class"
-    t.string   "character_race"
-    t.string   "played_time"
-    t.boolean  "server_transfer"
-    t.string   "armory_link"
-    t.boolean  "original_owner"
-    t.text     "character_talents"
-    t.text     "previous_guilds"
-    t.text     "reasons_for_leaving"
-    t.text     "pve_experience"
-    t.text     "pvp_experience"
-    t.string   "screenshot_link"
-    t.string   "connection_type"
-    t.boolean  "has_microphone"
-    t.boolean  "has_ventrilo"
-    t.boolean  "uses_ventrilo"
-    t.text     "comments"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "applicants", ["character_name"], :name => "index_applicants_on_character_name"
-  add_index "applicants", ["thread_id"], :name => "index_applicants_on_thread_id"
-  add_index "applicants", ["user_id"], :name => "index_applicants_on_user_id"
 
   create_table "attendees", :force => true do |t|
     t.integer "member_id"
@@ -100,6 +49,28 @@ ActiveRecord::Schema.define(:version => 20090529230459) do
   add_index "completed_achievements", ["achievement_id"], :name => "index_completed_achievements_on_achievement_id"
   add_index "completed_achievements", ["member_id", "achievement_id"], :name => "index_completed_achievements_on_member_id_and_achievement_id", :unique => true
   add_index "completed_achievements", ["member_id"], :name => "index_completed_achievements_on_member_id"
+
+  create_table "ibf_member_extra", :force => true do |t|
+    t.text    "notes"
+    t.text    "links"
+    t.text    "bio"
+    t.string  "ta_size",          :limit => 3
+    t.string  "photo_type",       :limit => 10,  :default => ""
+    t.string  "photo_location",                  :default => ""
+    t.string  "photo_dimensions", :limit => 200, :default => ""
+    t.string  "aim_name",         :limit => 40,  :default => "",      :null => false
+    t.integer "icq_number",                      :default => 0,       :null => false
+    t.string  "website",          :limit => 250, :default => "",      :null => false
+    t.string  "yahoo",            :limit => 40,  :default => "",      :null => false
+    t.text    "interests"
+    t.string  "msnname",          :limit => 200, :default => "",      :null => false
+    t.text    "vdirs",                                                :null => false
+    t.string  "location",         :limit => 250, :default => "",      :null => false
+    t.text    "signature",                                            :null => false
+    t.string  "avatar_location",                 :default => "",      :null => false
+    t.string  "avatar_size",      :limit => 9,   :default => "",      :null => false
+    t.string  "avatar_type",      :limit => 15,  :default => "local", :null => false
+  end
 
   create_table "ibf_members", :force => true do |t|
     t.string   "name",                                        :default => "",      :null => false
@@ -167,7 +138,7 @@ ActiveRecord::Schema.define(:version => 20090529230459) do
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
-    t.string   "single_access_token",                         :default => "",      :null => false
+    t.string   "single_access_token"
   end
 
   add_index "ibf_members", ["bday_day"], :name => "bday_day"
@@ -185,30 +156,28 @@ ActiveRecord::Schema.define(:version => 20090529230459) do
 
   add_index "ibf_members_converge", ["converge_email"], :name => "converge_email"
 
-  create_table "item_stats", :force => true do |t|
+  create_table "ibf_members_partial", :primary_key => "partial_id", :force => true do |t|
+    t.integer "partial_member_id", :default => 0, :null => false
+    t.integer "partial_date",      :default => 0, :null => false
+    t.integer "partial_email_ok",  :default => 0, :null => false
+  end
+
+  add_index "ibf_members_partial", ["partial_member_id"], :name => "partial_member_id"
+
+  create_table "items", :force => true do |t|
+    t.string   "name",            :limit => 100
+    t.integer  "wishlists_count",                :default => 0
+    t.integer  "loots_count",                    :default => 0
     t.integer  "wow_id"
-    t.string   "item"
-    t.string   "locale",     :limit => 10, :default => "en"
-    t.string   "color",      :limit => 15
+    t.string   "color",           :limit => 15
     t.string   "icon"
-    t.integer  "level",      :limit => 8,  :default => 0
+    t.integer  "level",                          :default => 0
     t.string   "slot"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "item_stats", ["item"], :name => "index_item_stats_on_item"
-  add_index "item_stats", ["wow_id"], :name => "index_item_stats_on_item_id", :unique => true
-
-  create_table "items", :force => true do |t|
-    t.string  "name",            :limit => 100
-    t.integer "item_stat_id"
-    t.integer "wishlists_count",                :default => 0
-    t.integer "loots_count",                    :default => 0
-  end
-
-  add_index "items", ["item_stat_id"], :name => "index_items_on_item_stat_id"
-  add_index "items", ["name"], :name => "index_items_on_name", :unique => true
+  add_index "items", ["name", "wow_id"], :name => "index_items_on_name_and_wow_id", :unique => true
 
   create_table "loot_tables", :force => true do |t|
     t.integer "object_id"
