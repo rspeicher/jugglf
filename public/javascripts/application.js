@@ -219,8 +219,7 @@ function wishlistAddForm() {
     // Show the New form, add autocompletion
     $('#wishlist-new').show();
     $('#wishlist_item_name').autocomplete('/search/items.ac', {
-      minChars: 2,
-      autoFill: true
+      minChars: 2
     });
     
     // Focus the first field
@@ -258,8 +257,7 @@ function wishlistEditForm(path) {
         
         // Add autocompletion to the edit form
         $('#wishlist-edit #wishlist_item_name').autocomplete('/search/items.ac', {
-          minChars: 2,
-          autoFill: true
+          minChars: 2
         });
         
         $('#wishlist-edit #wishlist_item_name').focus();
