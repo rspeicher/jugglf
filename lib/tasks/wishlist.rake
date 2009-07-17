@@ -860,6 +860,7 @@ namespace :juggernaut do
           item(boss, "Sabatons of Lifeless Night")
           item(boss, "Skyforge Crossbow")
           item(boss, "Solar Bindings")
+          item(boss, "Star-beaded Clutch")
           item(boss, "Starshard Edge")
           item(boss, "Starwatcher's Binding")
         end
