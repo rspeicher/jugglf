@@ -13,8 +13,8 @@ class ItemsController < ApplicationController
   end
   
   def show
-    if defined? params[:refresh]
-      ItemStat.lookup(@item.name, true)
+    unless params[:refresh].nil?
+      @item.lookup(true)
     end
     
     page_title(@item.name)

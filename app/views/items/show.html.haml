@@ -7,7 +7,7 @@
     });
   });
 
-%h2= breadcrumb link_to('Items', items_path), link_to_wowhead(@item)
+%h2= breadcrumb link_to('Items', items_path), link_to_wowhead(@item, :refreshable => true)
 - unless @loot_table.nil?
   %h3= "Dropped by #{@loot_table.parent.object.name} in #{@loot_table.parent.parent.object.name}"
 #item_tabs

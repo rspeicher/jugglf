@@ -214,7 +214,7 @@ describe Raid, "#parse_drops" do
     @raid = Raid.make
     @raid.loot_output = "Sebudai - [Arachnoid Gold Band]"
     
-    ItemStat.stub!(:open).
+    Item.stub!(:open).
       and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
   end
   

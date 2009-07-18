@@ -32,7 +32,6 @@ class Item < ActiveRecord::Base
   validates_uniqueness_of :name
   
   # Callbacks -----------------------------------------------------------------
-  before_save :use_proper_name
   
   # Class Methods -------------------------------------------------------------
   
@@ -65,20 +64,47 @@ class Item < ActiveRecord::Base
     "http://static.wowhead.com/images/icons/#{size.downcase}/#{self.icon.downcase}.jpg"
   end
   
+  def lookup(force_refresh = false)
+    if self.wow_id.nil? or force_refresh
+      wowhead_lookup(self.name)
+    end
+  end
+  
   def to_param
     "#{self.id}-#{self.name.parameterize}"
   end
   
   private
-    # Use the real, in-game name at all times
-    #
-    # Some people are lazy and like to enter item names in all lowercase, or
-    # leave their caps lock on, or some shit. This method ensures that, if we
-    # have available to us an ItemStat record, we use the name from that.
-    def use_proper_name
-      # return if self.item_stat_id.nil?
-      # 
-      # item = self.item_stat.item
-      # self.name = item unless item.nil? or self.name == item
+    def wowhead_lookup(query)
+      require 'cgi'
+      require 'open-uri'
+      require 'nokogiri'
+    
+      query = query.to_s if query.respond_to? 'to_s'
+      query = query.strip.downcase
+    
+      url = "http://www.wowhead.com/?item=#{CGI.escape(query)}&xml"
+    
+      logger.debug "Hitting Wowhead (#{url})"
+      doc = Nokogiri::XML(open(url))
+      if doc.search('wowhead/error').first.nil?
+        wowhead_id   = doc.search('wowhead/item').first['id']
+        wowhead_item = doc.search('wowhead/item/name').first.content
+      
+        if wowhead_id.to_i == query.to_i or wowhead_item.downcase == query
+          self.name    = wowhead_item
+          self.wow_id  = wowhead_id
+          self.color   = "q#{doc.search('wowhead/item/quality').first['id']}"
+          self.icon    = doc.search('wowhead/item/icon').first.content
+          self.level   = doc.search('wowhead/item/level').first.content
+          self.slot    = doc.search('wowhead/item/inventorySlot').first.content { |e| stat.slot = e.text }
+          
+          if self.valid?
+            self.save
+          end
+          
+          return
+        end
+      end
     end
 end

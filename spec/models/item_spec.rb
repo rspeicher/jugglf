@@ -39,30 +39,6 @@ describe Item do
     @item.wowhead_icon('medium').should == "http://static.wowhead.com/images/icons/medium/inv_icon_01.jpg"
   end
   
-  # describe "#use_proper_name" do
-  #   before(:each) do
-  #     @item.name = 'this name needs to be fixed'
-  #     @stat = ItemStat.make_unsaved
-  #   end
-  #   
-  #   it "should not change the name if we have no item stat record" do
-  #     @item.item_stat = nil
-  #     lambda { @item.save }.should_not change(@item, :name)
-  #   end
-  #   
-  #   it "should not change the name if the item stat record name is nil" do
-  #     @stat.item = nil
-  #     @item.item_stat = @stat
-  #     lambda { @item.save }.should_not change(@item, :name)
-  #   end
-  #   
-  #   it "should change the name if the item stat record appears valid" do
-  #     @stat.item = 'Proper Name'
-  #     @item.item_stat = @stat
-  #     lambda { @item.save }.should change(@item, :name).to('Proper Name')
-  #   end
-  # end
-  
   describe "#safely_rename" do
     before(:each) do
       @wrong = Item.make(:name => 'Wrong')
@@ -108,5 +84,32 @@ describe Item do
     it "should accept a string for each argument" do
       lambda { Item.safely_rename(:from => 'Wrong', :to => 'Right') }.should_not raise_error
     end
+  end
+end
+
+describe Item, "lookup from database" do
+  before(:each) do
+    @item = Item.make(:with_real_stats)
+  end
+  
+  it "should perform lookup" do
+    @item.should_not_receive(:wowhead_lookup)
+    @item.lookup
+  end
+end
+  
+describe Item, "lookup from Wowhead" do
+  before(:each) do
+    Item.destroy_all
+    @item = Item.make(:name => 'Torch of Holy Fire', :wow_id => nil, :level => 0)
+    
+    Item.stub!(:open).
+      and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
+  end
+  
+  it "should perform lookup" do
+    # Force a refresh
+    @item.wow_id.should be_nil
+    lambda { @item.lookup(true) }.should change(@item, :wow_id).to(40395)
   end
 end

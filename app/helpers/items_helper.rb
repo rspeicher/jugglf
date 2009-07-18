@@ -1,16 +1,17 @@
 module ItemsHelper
-  def link_to_wowhead(item)
+  def link_to_wowhead(item, options = {})
     return if item.nil?
     item = stat_lookup(item)
     
-    wowhead_link(item)
+    wowhead_link(item, options)
   end
   
-  def link_to_item_with_stats(item)
+  def link_to_item_with_stats(item, options = {})
     return if item.nil?
     item = stat_lookup(item)
     
-    wowhead_link(item, :rel => true)
+    options[:rel] ||= true
+    wowhead_link(item, options)
   end
   
   private
