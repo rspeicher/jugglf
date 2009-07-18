@@ -1,13 +1,19 @@
 # == Schema Information
-# Schema version: 20090404033151
+# Schema version: 20090717234345
 #
 # Table name: items
 #
 #  id              :integer(4)      not null, primary key
 #  name            :string(100)
-#  item_stat_id    :integer(4)
 #  wishlists_count :integer(4)      default(0)
 #  loots_count     :integer(4)      default(0)
+#  wow_id          :integer(4)
+#  color           :string(15)
+#  icon            :string(255)
+#  level           :integer(4)      default(0)
+#  slot            :string(255)
+#  created_at      :datetime
+#  updated_at      :datetime
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
