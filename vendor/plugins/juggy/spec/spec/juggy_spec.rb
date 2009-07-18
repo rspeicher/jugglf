@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Juggy do
   before(:each) do
-    ItemStat.destroy_all
+    Item.destroy_all
     
     @attendance_output = "Sebudai,1.00,233"
     @loot_output = "Sebudai - [Arachnoid Gold Band]"
@@ -10,9 +10,9 @@ describe Juggy do
   
   describe "#parse_loots" do
     before(:each) do
-      # Juggy.parse_loots tries to figure out the price via ItemStat's
+      # Juggy.parse_loots tries to figure out the price via Item's
       # data; fake that so we don't hit Wowhead for non-existant items
-      ItemStat.stub!(:lookup).and_return(ItemStat.make)
+      Item.stub!(:find_or_initialize_by_name).and_return(Item.make)
     end
     
     it "should return an array of hashes" do

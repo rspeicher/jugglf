@@ -96,7 +96,7 @@ module Juggy
       options[:level] = options[:level].to_i
       
       # Damn special items
-      return 0.00 if options[:name] == "Fragment of Val'anyr"
+      return 0.00 if options[:item] == "Fragment of Val'anyr"
       
       if not options[:level] or options[:level] < MIN_LEVEL or not options[:slot]
         options = special_case_options(options)
