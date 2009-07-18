@@ -22,8 +22,6 @@ class Item < ActiveRecord::Base
   has_many :wishlists, :order => 'priority', :dependent => :destroy
   has_many :loot_tables, :as => :object, :dependent => :destroy
   
-  belongs_to :item_stat
-  
   # Attributes ----------------------------------------------------------------
   attr_accessible :name, :item_stat, :item_stat_id
   
