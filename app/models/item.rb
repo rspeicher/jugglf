@@ -23,7 +23,7 @@ class Item < ActiveRecord::Base
   has_many :loot_tables, :as => :object, :dependent => :destroy
   
   # Attributes ----------------------------------------------------------------
-  attr_accessible :name, :item_stat, :item_stat_id
+  attr_accessible :name, :wow_id, :color, :icon, :level, :slot
   
   searchify :name
   
@@ -69,9 +69,9 @@ class Item < ActiveRecord::Base
     # leave their caps lock on, or some shit. This method ensures that, if we
     # have available to us an ItemStat record, we use the name from that.
     def use_proper_name
-      return if self.item_stat_id.nil?
-      
-      item = self.item_stat.item
-      self.name = item unless item.nil? or self.name == item
+      # return if self.item_stat_id.nil?
+      # 
+      # item = self.item_stat.item
+      # self.name = item unless item.nil? or self.name == item
     end
 end
