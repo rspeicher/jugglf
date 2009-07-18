@@ -26,8 +26,7 @@ describe ItemsHelper do
       link_to_wowhead(@item).should match(/MyItem/)
     end
     
-    it "should use existing item_stat if available" do
-      @item.stub!(:item_stat).and_return(@stat)
+    it "should use existing item record if available" do
       @item.should_not_receive(:lookup)
       link_to_wowhead(@item).should match(/MyItem/)
     end
@@ -54,8 +53,7 @@ describe ItemsHelper do
       link_to_item_with_stats(@item).should match(/MyItem/)
     end
     
-    it "should use existing item_stat if available" do
-      @item.stub!(:item_stat).and_return(@stat)
+    it "should use existing item record if available" do
       @item.should_not_receive(:lookup)
       link_to_item_with_stats(@item).should match(/MyItem/)
     end

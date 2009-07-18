@@ -21,7 +21,7 @@ class RaidsController < ApplicationController
     attendees = Attendee.find(:all, :conditions => ['raid_id = ?', @raid.id],
       :include => :member)
     @loots     = Loot.find(:all, :conditions => ['raid_id = ?', @raid.id], 
-      :include => [{:item => :item_stat}, :member])
+      :include => [:item, :member])
       
     # Group attendees by class
     @attendees = { }

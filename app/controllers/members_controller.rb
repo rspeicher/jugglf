@@ -35,7 +35,7 @@ class MembersController < ApplicationController
         :include => [:attendees], :order => "date DESC")
     when 'loots'
       @loots = @member.loots.paginate(:page => params[:page], :per_page => 35,
-        :include => [{:item => :item_stat}])
+        :include => :item)
     when 'punishments'
       @punishments = @member.punishments.active
     when 'wishlist'
