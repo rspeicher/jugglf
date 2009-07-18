@@ -41,7 +41,21 @@ Attendee.blueprint do
 end
 
 Item.blueprint do
-  name
+  name { Faker::Lorem.words(2) }
+  wow_id { 12345 }
+  color { 'q4' }
+  icon { 'INV_Icon_01' }
+  level { 223 }
+  slot { 'Trinket' }
+end
+# Item.blueprint(:with_stats) do
+# end
+Item.blueprint(:with_real_stats) do
+  name { 'Torch of Holy Fire' }
+  wow_id { 40395 }
+  icon { 'INV_Mace_82' }
+  level { 226 }
+  slot { 'Main Hand' }
 end
 Loot.blueprint do
   item
@@ -60,22 +74,6 @@ end
 Punishment.blueprint(:expired) do
   expires { Date.yesterday }
 end
-
-# ItemStat.blueprint do
-#   wow_id { 12345 }
-#   item { Faker::Lorem.words(2) }
-#   color { 'q4' }
-#   icon { 'INV_Icon_01' }
-#   level { 223 }
-#   slot { 'Trinket' }
-# end
-# ItemStat.blueprint(:real) do
-#   wow_id { 40395 }
-#   item { 'Torch of Holy Fire' }
-#   icon { 'INV_Mace_82' }
-#   level { 226 }
-#   slot { 'Main Hand' }
-# end
 
 # -----------------------------------------------------------------------------
 

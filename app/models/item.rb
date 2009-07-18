@@ -58,6 +58,13 @@ class Item < ActiveRecord::Base
   end
   
   # Instance Methods ----------------------------------------------------------
+  def wowhead_link
+    "http://www.wowhead.com/?item=#{self.wow_id}"
+  end
+  def wowhead_icon(size = 'small')
+    "http://static.wowhead.com/images/icons/#{size.downcase}/#{self.icon.downcase}.jpg"
+  end
+  
   def to_param
     "#{self.id}-#{self.name.parameterize}"
   end

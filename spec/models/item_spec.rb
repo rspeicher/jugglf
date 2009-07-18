@@ -31,6 +31,14 @@ describe Item do
     @item.to_param.should == "#{@item.id}-#{@item.name.parameterize}"
   end
   
+  it "should return a Wowhead item link" do
+    @item.wowhead_link.should match(/wowhead.com\/\?item=12345/)
+  end
+  
+  it "should return a Wowhead icon link" do
+    @item.wowhead_icon('medium').should == "http://static.wowhead.com/images/icons/medium/inv_icon_01.jpg"
+  end
+  
   # describe "#use_proper_name" do
   #   before(:each) do
   #     @item.name = 'this name needs to be fixed'
