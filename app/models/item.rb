@@ -32,6 +32,7 @@ class Item < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :wow_id
   
   # Callbacks -----------------------------------------------------------------
+  before_validation_on_create :convert_item_id_to_name
   
   # Class Methods -------------------------------------------------------------
   
@@ -67,6 +68,10 @@ class Item < ActiveRecord::Base
   def lookup(force_refresh = false)
     if self.wow_id.nil? or force_refresh
       wowhead_lookup(self.name)
+      
+      if self.valid?
+        self.save
+      end
     end
   end
   
@@ -75,6 +80,14 @@ class Item < ActiveRecord::Base
   end
   
   private
+    # Allow a user to enter an item ID in the name field to have the Item record
+    # automatically look up the record from Wowhead
+    def convert_item_id_to_name
+      return unless self.name =~ /^\d+$/
+      
+      wowhead_lookup(self.name)
+    end
+    
     def wowhead_lookup(query)
       require 'cgi'
       require 'open-uri'
@@ -90,7 +103,7 @@ class Item < ActiveRecord::Base
       if doc.search('wowhead/error').first.nil?
         wowhead_id   = doc.search('wowhead/item').first['id']
         wowhead_item = doc.search('wowhead/item/name').first.content
-      
+        
         if wowhead_id.to_i == query.to_i or wowhead_item.downcase == query
           self.name    = wowhead_item
           self.wow_id  = wowhead_id
@@ -98,12 +111,6 @@ class Item < ActiveRecord::Base
           self.icon    = doc.search('wowhead/item/icon').first.content
           self.level   = doc.search('wowhead/item/level').first.content
           self.slot    = doc.search('wowhead/item/inventorySlot').first.content { |e| stat.slot = e.text }
-          
-          if self.valid?
-            self.save
-          end
-          
-          return
         end
       end
     end

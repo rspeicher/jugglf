@@ -102,6 +102,35 @@ describe Item, "uniqueness" do
   end
 end
 
+describe Item, "automatic lookup based on item name" do
+  before(:each) do
+    @item1 = Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32837)
+  end
+  
+  it "should not perform a lookup if the item name is a non-numeric string" do
+    item = Item.make_unsaved(:name => 'Warglaive of Azzinoth')
+    item.should_not_receive(:wowhead_lookup)
+    item.save
+  end
+  
+  describe "when given an integer as the name" do
+    before(:each) do
+      @item = Item.make_unsaved(:name => '32838')
+      @item.stub!(:open).
+        and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_32838.xml'))
+    end
+    
+    it "should perform a lookup automatically" do
+      lambda { @item.save }.should change(@item, :name).to('Warglaive of Azzinoth')
+    end
+    
+    it "should be valid" do
+      @item.save
+      @item.should be_valid
+    end
+  end
+end
+
 describe Item, "lookup from database" do
   before(:each) do
     @item = Item.make(:with_real_stats)
@@ -118,7 +147,7 @@ describe Item, "lookup from Wowhead" do
     Item.destroy_all
     @item = Item.make(:name => 'Torch of Holy Fire', :wow_id => nil, :level => 0)
     
-    Item.stub!(:open).
+    @item.stub!(:open).
       and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
   end
   
