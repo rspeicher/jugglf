@@ -87,6 +87,21 @@ describe Item do
   end
 end
 
+describe Item, "uniqueness" do
+  before(:each) do
+    @item1 = Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32837)
+    @item1.should be_valid
+  end
+  
+  it "should allow a duplicate name with a unique wow_id" do
+    lambda { Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32838) }.should_not raise_error(ActiveRecord::RecordInvalid)
+  end
+  
+  it "should not allow a duplicate name with a duplicate wow_id" do
+    lambda { Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32837) }.should raise_error(ActiveRecord::RecordInvalid)
+  end
+end
+
 describe Item, "lookup from database" do
   before(:each) do
     @item = Item.make(:with_real_stats)
