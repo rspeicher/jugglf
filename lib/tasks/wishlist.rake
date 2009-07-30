@@ -791,7 +791,6 @@ namespace :juggernaut do
           item(boss, "Legplates of the Wayward Protector")
           item(boss, "Legplates of the Wayward Vanquisher")
           item(boss, "The Lifebinder")
-          item(boss, "Titanskin Cloak")
         when 'Mimiron'
           item(boss, "Armbands of Bedlam", "Hard Mode")
           item(boss, "Conductive Seal", "Hard Mode")
