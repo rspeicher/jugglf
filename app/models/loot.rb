@@ -33,7 +33,7 @@ class Loot < ActiveRecord::Base
     self.item.name unless self.item_id.nil?
   end
   def item_name=(value)
-    self.item = Item.find_by_name(value)
+    self.item = Item.find_by_name_or_wow_id(value)
   end
   
   def member_name

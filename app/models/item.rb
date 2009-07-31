@@ -40,11 +40,17 @@ class Item < ActiveRecord::Base
   # Allows the user to pass either an integer to FoC by wow_id, or a string to FoC by name
   def self.find_or_create_by_name_or_wow_id(value)
     if value =~ /^\d+$/ or value.is_a? Fixnum
-      # Value is an integer, search by wow_id
       self.find_or_create_by_wow_id(value)
     else
-      # Value is a string, search by name
       self.find_or_create_by_name(value)
+    end
+  end
+  
+  def self.find_by_name_or_wow_id(value)
+    if value =~ /^\d+$/ or value.is_a? Fixnum
+      self.find_by_wow_id(value)
+    else
+      self.find_by_name(value)
     end
   end
   
