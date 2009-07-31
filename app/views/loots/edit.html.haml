@@ -1,11 +1,7 @@
 :javascript
   $(document).ready(function() {
-    $('#loot_item_name').autocomplete('/search/items.ac', {
-      minChars: 2
-    });
-    $('#loot_member_name').autocomplete('/search/members.ac', {
-      minChars: 1
-    });
+    addItemAutoComplete('#loot_item_name');
+    addMemberAutoComplete('#loot_member_name');
   });
 %h2= breadcrumb link_to('Loot', loots_path), 'Edit'
 %fieldset

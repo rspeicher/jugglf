@@ -35,6 +35,18 @@ function bindWithActions() {
     });
 }
 
+function addItemAutoComplete(field) {
+    $(field).autocomplete('/search/items.ac', {
+      minChars: 2
+    });
+}
+
+function addMemberAutoComplete(field) {
+    $(field).autocomplete('/search/members.ac', {
+      minChars: 1
+    });
+}
+
 /* Context Menus ------------------------------------------------------------ */
 function itemContextMenu() {
     $('tbody tr.item td.item').contextMenu({ menu: 'itemContextMenu' }, function(action, el, pos) {
@@ -218,9 +230,7 @@ function wishlistAddForm() {
     
     // Show the New form, add autocompletion
     $('#wishlist-new').show();
-    $('#wishlist_item_name').autocomplete('/search/items.ac', {
-      minChars: 2
-    });
+    addItemAutoComplete('#wishlist_item_name')
     
     // Focus the first field
     $('#wishlist-new #wishlist_item_name').focus();
@@ -256,9 +266,7 @@ function wishlistEditForm(path) {
         $('#wishlist-new').hide();
         
         // Add autocompletion to the edit form
-        $('#wishlist-edit #wishlist_item_name').autocomplete('/search/items.ac', {
-          minChars: 2
-        });
+        addItemAutoComplete('#wishlist-edit #wishlist_item_name')
         
         $('#wishlist-edit #wishlist_item_name').focus();
     });
