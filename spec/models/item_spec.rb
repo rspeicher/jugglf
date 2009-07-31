@@ -41,8 +41,8 @@ describe Item do
   
   describe "uniqueness validation" do
     before(:each) do
-      @item1 = Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32837)
-      @item1.should be_valid
+      item = Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32837)
+      item.should be_valid
     end
 
     it "should allow a duplicate name with a unique wow_id" do
