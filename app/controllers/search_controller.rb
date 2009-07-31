@@ -1,7 +1,7 @@
 class SearchController < ApplicationController
   def index
-    @include_fields = [:id, :name, :wow_class, :active, :loots_count, 
-      :wishlists_count, :raid_count, :created_at, :updated_at]
+    @include_fields = [:id, :name, :wow_id, :slot, :level, :color, :wow_class, 
+      :active, :loots_count, :wishlists_count, :raid_count]
     
     params[:query] = params[:q] unless params[:q].nil? # jquery.autocomplete uses 'q' and it can't be configured
     
@@ -37,7 +37,6 @@ class SearchController < ApplicationController
       end
       wants.js { render :json => @results.to_json(:only => @include_fields) }
       wants.xml { render :xml => @results.to_xml(:only => @include_fields) }
-      wants.ac { render :text => @results.collect { |x| x.name }.join("\n") }
     end
   end
 end

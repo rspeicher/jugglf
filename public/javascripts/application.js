@@ -36,14 +36,51 @@ function bindWithActions() {
 }
 
 function addItemAutoComplete(field) {
-    $(field).autocomplete('/search/items.ac', {
-      minChars: 2
+    $(field).autocomplete('/search/items.js', {
+      minChars: 2,
+      dataType: 'json',
+      parse: function(data) {
+          var array = new Array();
+          for (var i = 0; i < data.length; i++) {
+              if (data[i].item) {
+                  // var formatted = "<span class=" + data[i].item.color + ">" + data[i].item.name + "</span> (" + data[i].item.level + " " + data[i].item.slot + ")";
+                  var formatted = data[i].item.name + " (" + data[i].item.level + " " + data[i].item.slot + ")";
+                  array[array.length] = { 
+                      data: data[i],
+                      value: formatted,
+                      result: data[i].item.wow_id
+                  }
+              };
+          }
+          return array;
+      },
+      formatItem: function(row, i, max, value) {
+          return value;
+      },
     });
 }
 
 function addMemberAutoComplete(field) {
-    $(field).autocomplete('/search/members.ac', {
-      minChars: 1
+    $(field).autocomplete('/search/members.js', {
+      minChars: 1,
+      dataType: 'json',
+      parse: function(data) {
+          var array = new Array();
+          for (var i = 0; i < data.length; i++) {
+              if (data[i].member) {
+                  array[array.length] = { 
+                      data: data[i], 
+                      value: data[i].member.name,
+                      result: data[i].member.name
+                  }
+              };
+          }
+          
+          return array;
+      },
+      formatItem: function(row, i, max, value) {
+          return value;
+      },
     });
 }
 
