@@ -187,7 +187,7 @@ function wishlistShowUnwanted() {
     $('div.notice').addClass('hidden');
 }
 
-function wishlistCopy(id) {
+function wishlistCompare(id) {
     // Whisper, item name
     str = '/w Tsigo compare [' + $('#loot_table_' + id + ' h4 span:first').text() + '],';
     
