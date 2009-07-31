@@ -34,7 +34,7 @@ class Item < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :wow_id
   
   # Callbacks -----------------------------------------------------------------
-  before_save :do_stuff
+  before_save :get_name_from_wow_id
   
   # Class Methods -------------------------------------------------------------
   # Allows the user to pass either an integer to FoC by wow_id, or a string to FoC by name
@@ -99,29 +99,12 @@ class Item < ActiveRecord::Base
   end
   
   protected
-    def do_stuff
+    def get_name_from_wow_id
       if self.wow_id.nil? == false and self.name.nil? == true
         # Record was probably created with nothing but a wow_id; perform a lookup
         wowhead_lookup(self.wow_id)
       end
     end
-    
-    # Allow a user to enter an item ID in the name field to have the Item record
-    # automatically look up the record from Wowhead
-    # def convert_item_id_to_name
-    #   return unless self.name =~ /^\d+$/
-    #   
-    #   wowhead_lookup(self.name)
-    # end
-    # 
-    # def check_for_existing_record(current)
-    #   puts current.name
-    #   return unless self.errors.on(:name) == "has already been taken"
-    #   existing = Item.find(:first, :conditions => ["name = ? AND wow_id = ?", self.name, self.wow_id])
-    #   current = existing
-    #   
-    #   return false
-    # end
     
     def wowhead_lookup(query)
       require 'cgi'
