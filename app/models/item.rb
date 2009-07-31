@@ -28,13 +28,25 @@ class Item < ActiveRecord::Base
   searchify :name
   
   # Validations ---------------------------------------------------------------
-  validates_presence_of :name
+  # Check that name exists, but only if we don't have a wow_id, since we allow
+  # lookup by name OR wow_id
+  validates_presence_of :name, :if => Proc.new { |item| item.wow_id.nil? }
   validates_uniqueness_of :name, :scope => :wow_id
   
   # Callbacks -----------------------------------------------------------------
-  before_validation_on_create :convert_item_id_to_name
+  before_save :do_stuff
   
   # Class Methods -------------------------------------------------------------
+  # Allows the user to pass either an integer to FoC by wow_id, or a string to FoC by name
+  def self.find_or_create_by_name_or_wow_id(value)
+    if value =~ /^\d+$/ or value.is_a? Fixnum
+      # Value is an integer, search by wow_id
+      self.find_or_create_by_wow_id(value)
+    else
+      # Value is a string, search by name
+      self.find_or_create_by_name(value)
+    end
+  end
   
   # Moves one item's children from one Item to another to safely handle duplicate
   # item names.
@@ -65,6 +77,7 @@ class Item < ActiveRecord::Base
     "http://static.wowhead.com/images/icons/#{size.downcase}/#{self.icon.downcase}.jpg"
   end
   
+  # NOTE: Can only lookup by name
   def lookup(force_refresh = false)
     if self.wow_id.nil? or force_refresh
       wowhead_lookup(self.name)
@@ -79,14 +92,30 @@ class Item < ActiveRecord::Base
     "#{self.id}-#{self.name.parameterize}"
   end
   
-  private
+  protected
+    def do_stuff
+      if self.wow_id.nil? == false and self.name.nil? == true
+        # Record was probably created with nothing but a wow_id; perform a lookup
+        wowhead_lookup(self.wow_id)
+      end
+    end
+    
     # Allow a user to enter an item ID in the name field to have the Item record
     # automatically look up the record from Wowhead
-    def convert_item_id_to_name
-      return unless self.name =~ /^\d+$/
-      
-      wowhead_lookup(self.name)
-    end
+    # def convert_item_id_to_name
+    #   return unless self.name =~ /^\d+$/
+    #   
+    #   wowhead_lookup(self.name)
+    # end
+    # 
+    # def check_for_existing_record(current)
+    #   puts current.name
+    #   return unless self.errors.on(:name) == "has already been taken"
+    #   existing = Item.find(:first, :conditions => ["name = ? AND wow_id = ?", self.name, self.wow_id])
+    #   current = existing
+    #   
+    #   return false
+    # end
     
     def wowhead_lookup(query)
       require 'cgi'

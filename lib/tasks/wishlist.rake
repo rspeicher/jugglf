@@ -6,7 +6,7 @@ namespace :juggernaut do
   
   def item(boss, name, note = nil)
     return if boss.nil? or name.nil? or name.empty?
-    boss.children.create(:object => Item.find_or_create_by_name(name), 
+    boss.children.create(:object => Item.find_or_create_by_name_or_wow_id(name), 
       :note => note)
   end
   
@@ -742,7 +742,7 @@ namespace :juggernaut do
           item(boss, "Radiant Seal")
           item(boss, "Raiments of the Iron Council")
           item(boss, "Rapture")
-          item(boss, "Rune Edge")
+          item(boss, "45233") # Rune Edge
           item(boss, "Runed Ironhide Boots")
           item(boss, "Runeshaper's Gloves")
           item(boss, "Sapphire Amulet of Renewal", "Hard Mode")

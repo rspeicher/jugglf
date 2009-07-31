@@ -39,6 +39,21 @@ describe Item do
     @item.wowhead_icon('medium').should == "http://static.wowhead.com/images/icons/medium/inv_icon_01.jpg"
   end
   
+  describe "uniqueness validation" do
+    before(:each) do
+      @item1 = Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32837)
+      @item1.should be_valid
+    end
+
+    it "should allow a duplicate name with a unique wow_id" do
+      lambda { Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32838) }.should_not raise_error(ActiveRecord::RecordInvalid)
+    end
+
+    it "should not allow a duplicate name with a duplicate wow_id" do
+      lambda { Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32837) }.should raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
+  
   describe "#safely_rename" do
     before(:each) do
       @wrong = Item.make(:name => 'Wrong')
@@ -87,47 +102,40 @@ describe Item do
   end
 end
 
-describe Item, "uniqueness" do
+describe Item, "#find_or_create_by_name_or_wow_id" do
   before(:each) do
-    @item1 = Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32837)
-    @item1.should be_valid
+    @item = Item.make(:name => 'Item', :wow_id => 12345)
   end
-  
-  it "should allow a duplicate name with a unique wow_id" do
-    lambda { Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32838) }.should_not raise_error(ActiveRecord::RecordInvalid)
+
+  it "should find by wow_id when given a numeric string" do
+    Item.find_or_create_by_name_or_wow_id('12345').should == @item
   end
-  
-  it "should not allow a duplicate name with a duplicate wow_id" do
-    lambda { Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32837) }.should raise_error(ActiveRecord::RecordInvalid)
+
+  it "should find by wow_id when given an integer" do
+    Item.find_or_create_by_name_or_wow_id(12345).should == @item
+  end
+
+  it "should find by name when given a non-numeric string" do
+    Item.find_or_create_by_name_or_wow_id('Item').should == @item
   end
 end
 
-describe Item, "automatic lookup based on item name" do
+describe Item, "automatic stat lookup" do
   before(:each) do
-    @item1 = Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32837)
+    Item.destroy_all
+    @item = Item.make_unsaved(:wow_id => 40395)
+    @item.stub!(:open).
+      and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
   end
   
-  it "should not perform a lookup if the item name is a non-numeric string" do
-    item = Item.make_unsaved(:name => 'Warglaive of Azzinoth')
-    item.should_not_receive(:wowhead_lookup)
-    item.save
+  it "should perform a lookup when name is nil" do
+    @item.name = nil
+    lambda { @item.save }.should change(@item, :name).to('Torch of Holy Fire')
   end
   
-  describe "when given an integer as the name" do
-    before(:each) do
-      @item = Item.make_unsaved(:name => '32838')
-      @item.stub!(:open).
-        and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_32838.xml'))
-    end
-    
-    it "should perform a lookup automatically" do
-      lambda { @item.save }.should change(@item, :name).to('Warglaive of Azzinoth')
-    end
-    
-    it "should be valid" do
-      @item.save
-      @item.should be_valid
-    end
+  it "should do nothing when name is not nil" do
+    @item.name = "Item"
+    lambda { @item.save }.should_not change(@item, :name)
   end
 end
 
