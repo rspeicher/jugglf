@@ -102,38 +102,23 @@ describe Item do
   end
 end
 
-describe Item, "#find_or_create_by_name_or_wow_id" do
+describe Item, "#find_[or_create_]by_name_or_wow_id" do
   before(:each) do
     @item = Item.make(:name => 'Item', :wow_id => 12345)
   end
 
   it "should find by wow_id when given a numeric string" do
     Item.find_or_create_by_name_or_wow_id('12345').should == @item
-  end
-
-  it "should find by wow_id when given an integer" do
-    Item.find_or_create_by_name_or_wow_id(12345).should == @item
-  end
-
-  it "should find by name when given a non-numeric string" do
-    Item.find_or_create_by_name_or_wow_id('Item').should == @item
-  end
-end
-
-describe Item, "#find_by_name_or_wow_id" do
-  before(:each) do
-    @item = Item.make(:name => 'Item', :wow_id => 12345)
-  end
-
-  it "should find by wow_id when given a numeric string" do
     Item.find_by_name_or_wow_id('12345').should == @item
   end
 
   it "should find by wow_id when given an integer" do
+    Item.find_or_create_by_name_or_wow_id(12345).should == @item
     Item.find_by_name_or_wow_id(12345).should == @item
   end
 
   it "should find by name when given a non-numeric string" do
+    Item.find_or_create_by_name_or_wow_id('Item').should == @item
     Item.find_by_name_or_wow_id('Item').should == @item
   end
 end
