@@ -23,7 +23,7 @@ class WishlistsController < ApplicationController
         # Find items looted in the last week, so we can add a note if an item
         # matching the current wishlist item was recently looted by that person
         @recent_loots = Loot.find(:all, :conditions => ["item_id IN (:item_ids) AND purchased_on >= :purchased_on", {
-          :purchased_on => 1.week.ago,
+          :purchased_on => 2.weeks.ago,
           :item_ids     => @items.map { |i| i.object_id }
         }])
       else

@@ -41,7 +41,7 @@ class MembersController < ApplicationController
     when 'wishlist'
       @wishlists = @member.wishlists
       @wishlist = Wishlist.new
-      @recent_loots = @member.loots.find(:all, :conditions => ['purchased_on >= ?', 2.weeks.until(Date.today)])
+      @recent_loots = @member.loots.find(:all, :conditions => ['purchased_on >= ?', 2.weeks.ago])
     when 'achievements'
       @achievements = Achievement.find(:all, :order => 'title')
       @completed = @member.completed_achievements
