@@ -497,7 +497,7 @@ namespace :juggernaut do
           item(boss, "Runetouch Handwraps")
           item(boss, "Stormtip")
           item(boss, "The Masticator")
-          item(boss, "Watchful Eye")
+          item(boss, "45447") # Watchful Eye
         when 'Hodir'
           item(boss, "Avalanche")
           item(boss, "Bitter Cold Armguards")
@@ -592,7 +592,7 @@ namespace :juggernaut do
         when 'Algalon the Observer'
           item(boss, "Band of Lights")
           item(boss, "Breastplate of the Timeless")
-          item(boss, "Dark Matter")
+          item(boss, "46038") # Dark Matter
           item(boss, "Drape of the Messenger")
           item(boss, "Gloves of the Endless Dark")
           item(boss, "Meteorite Crystal")
