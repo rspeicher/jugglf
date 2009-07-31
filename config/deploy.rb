@@ -17,11 +17,13 @@ role :web, domain
 role :db,  domain, :primary => true
 
 namespace :deploy do
+  desc "Start the server"
   task :start, :roles => :app do
     run "rm -f #{current_release}/tmp/stop.txt"
     run "touch #{current_release}/tmp/restart.txt"
   end
 
+  desc "Redirect to a 503 file (stop the server)"
   task :stop, :roles => :app do
     run "touch #{current_release}/tmp/stop.txt"
   end
