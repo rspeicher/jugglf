@@ -21,10 +21,10 @@ function zebraRows(tbody_id, delay) {
 // Hide the flash success message after giving the user 4s to read it
 // Don't hide the error messages; we probably want to give them more time to be
 // processed by the user
-function hideSuccessFlash() {
-    setTimeout(function() {
-        $('div#flash.success').fadeOut('slow')
-    }, 4000);
+function clickableFlash() {
+    $('#flash.success').click(function() {
+        $(this).fadeOut('slow');
+    });
 }
 
 function bindWithActions() {
