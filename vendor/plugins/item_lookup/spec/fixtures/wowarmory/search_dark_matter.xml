@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="/layout/search/search.xsl"?><page globalSearch="1" lang="en_us" requestQuery="searchType=all&amp;searchQuery=Dark%20Matter&amp;selectedTab=items" requestUrl="/search.xml">
+  <armorySearch>
+    <tabs count="63" selected="items">
+      <tab count="0" label="armory.tabs.characters" type="characters"/>
+      <tab count="11" label="armory.tabs.arenateams" type="arenateams"/>
+      <tab count="2" label="armory.tabs.items" type="items"/>
+      <tab count="50" label="armory.tabs.guilds" type="guilds"/>
+    </tabs>
+    <searchResults pageCount="1" pageCurrent="1" searchError="" searchFilter="" searchMsg="" searchText="Dark Matter" searchType="all" url="searchType=all&amp;searchQuery=Dark+Matter&amp;p=1&amp;selectedTab=items&amp;sd=a" version="1.0">
+      <filters/>
+      <filterColumns>
+        <filter name="itemLevel" sortName="itemLevel"/>
+        <filter name="source" sortName="source"/>
+        <filter name="relevance" sortName="relevance"/>
+      </filterColumns>
+      <items>
+        <item icon="spell_shadow_seedofdestruction" id="44434" name="Dark Matter" rarity="1" url="i=44434">
+          <filter name="itemLevel" value="0"/>
+          <filter name="source" value="sourceType.createdBySpell"/>
+          <filter name="relevance" value="100"/>
+        </item>
+        <item icon="spell_shadow_seedofdestruction" id="46038" name="Dark Matter" rarity="4" url="i=46038">
+          <filter name="itemLevel" value="226"/>
+          <filter areaId="4273" areaKey="ulduar" areaName="Ulduar" creatureId="32871" creatureName="Algalon the Observer" difficulty="n" dropRate="3" name="source" value="sourceType.creatureDrop"/>
+          <filter name="relevance" value="100"/>
+        </item>
+      </items>
+    </searchResults>
+  </armorySearch>
+</page>

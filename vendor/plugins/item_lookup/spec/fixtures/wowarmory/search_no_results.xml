@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="/layout/search/search.xsl"?><page globalSearch="1" lang="en_us" requestQuery="searchQuery=Some+Junk&amp;searchType=items" requestUrl="/search.xml">
+  <armorySearch>
+    <tabs count="0" selected="items">
+      <tab count="0" label="armory.tabs.items" type="items"/>
+    </tabs>
+    <searchResults pageCount="1" pageCurrent="1" searchError="" searchFilter="" searchMsg="" searchText="Some Junk" searchType="items" url="searchType=items&amp;searchQuery=Some+Junk&amp;p=1&amp;selectedTab=items&amp;sd=a" version="1.0">
+      <filters/>
+      <filterColumns>
+        <filter name="itemLevel" sortName="itemLevel"/>
+        <filter name="source" sortName="source"/>
+        <filter name="relevance" sortName="relevance"/>
+      </filterColumns>
+      <items/>
+    </searchResults>
+  </armorySearch>
+</page>

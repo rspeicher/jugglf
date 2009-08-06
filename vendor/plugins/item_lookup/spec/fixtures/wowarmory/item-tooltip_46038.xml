@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="/layout/items/tooltip.xsl"?><page globalSearch="1" lang="en_us" requestUrl="/item-tooltip.xml">
+  <itemTooltips>
+    <itemTooltip>
+      <id>46038</id>
+      <name>Dark Matter</name>
+      <icon>spell_shadow_seedofdestruction</icon>
+      <overallQualityId>4</overallQualityId>
+      <bonding>1</bonding>
+      <maxCount>1</maxCount>
+      <classId>4</classId>
+      <equipData>
+        <inventoryType>12</inventoryType>
+      </equipData>
+      <damageData/>
+      <requiredLevel>80</requiredLevel>
+      <bonusAttackPower>222</bonusAttackPower>
+      <spellData>
+        <spell>
+          <trigger>1</trigger>
+          <desc>Your melee and ranged attacks have a chance to increase your critical strike rating by 612 for 10 sec.</desc>
+        </spell>
+      </spellData>
+      <itemSource areaId="4273" areaName="Ulduar" creatureId="32871" creatureName="Algalon the Observer" difficulty="n" dropRate="3" value="sourceType.creatureDrop"/>
+    </itemTooltip>
+  </itemTooltips>
+</page>

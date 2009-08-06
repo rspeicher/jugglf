@@ -107,29 +107,14 @@ class Item < ActiveRecord::Base
     end
     
     def wowhead_lookup(query)
-      require 'cgi'
-      require 'open-uri'
-      require 'nokogiri'
-    
-      query = query.to_s if query.respond_to? 'to_s'
-      query = query.strip.downcase
-    
-      url = "http://www.wowhead.com/?item=#{CGI.escape(query)}&xml"
-    
-      logger.debug "Hitting Wowhead (#{url})"
-      doc = Nokogiri::XML(open(url))
-      if doc.search('wowhead/error').first.nil?
-        wowhead_id   = doc.search('wowhead/item').first['id']
-        wowhead_item = doc.search('wowhead/item/name').first.content
-        
-        if wowhead_id.to_i == query.to_i or wowhead_item.downcase == query
-          self.name    = wowhead_item
-          self.wow_id  = wowhead_id
-          self.color   = "q#{doc.search('wowhead/item/quality').first['id']}"
-          self.icon    = doc.search('wowhead/item/icon').first.content
-          self.level   = doc.search('wowhead/item/level').first.content
-          self.slot    = doc.search('wowhead/item/inventorySlot').first.content { |e| stat.slot = e.text }
-        end
+      result = ItemLookup.search(query, :source => 'wowhead')
+      if result.valid?
+        self.wow_id = result.id
+        self.name   = result.name
+        self.color  = result.css_quality
+        self.icon   = result.icon
+        self.level  = result.level
+        self.slot   = result.slot
       end
     end
 end

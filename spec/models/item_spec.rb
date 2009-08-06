@@ -158,7 +158,7 @@ describe Item, "lookup from Wowhead" do
     Item.destroy_all
     @item = Item.make(:name => 'Torch of Holy Fire', :wow_id => nil, :level => 0)
     
-    @item.stub!(:open).
+    ItemLookup::Wowhead.stub!(:open).
       and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
   end
   
