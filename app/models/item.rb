@@ -87,7 +87,7 @@ class Item < ActiveRecord::Base
   # NOTE: Can only lookup by name
   def lookup(force_refresh = false)
     if self.wow_id.nil? or force_refresh
-      wowhead_lookup(self.name)
+      stat_lookup(self.name)
       
       if self.valid?
         self.save
@@ -103,12 +103,12 @@ class Item < ActiveRecord::Base
     def get_name_from_wow_id
       if self.wow_id.nil? == false and self.name.nil? == true
         # Record was probably created with nothing but a wow_id; perform a lookup
-        wowhead_lookup(self.wow_id)
+        stat_lookup(self.wow_id)
       end
     end
     
-    def wowhead_lookup(query)
-      result = ItemLookup.search(query, :source => 'wowhead').best_result
+    def stat_lookup(query)
+      result = ItemLookup.search(query, :source => 'armory').best_result
       if result.valid?
         self.wow_id = result.id
         self.name   = result.name

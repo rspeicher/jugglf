@@ -149,18 +149,21 @@ describe Item, "lookup from database" do
   end
   
   it "should perform lookup" do
-    @item.should_not_receive(:wowhead_lookup)
+    @item.should_not_receive(:stat_lookup)
     @item.lookup
   end
 end
   
-describe Item, "lookup from Wowhead" do
+describe Item, "lookup from Internet" do
   before(:each) do
     Item.destroy_all
     @item = Item.make(:name => 'Torch of Holy Fire', :wow_id => nil, :level => 0)
     
     ItemLookup::Wowhead.stub!(:open).
       and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
+    # FIXME: We're hitting wowarmory.com here
+    # ItemLookup::Armory.stub!(:open).
+    #   and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
   end
   
   it "should perform lookup" do
