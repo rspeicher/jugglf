@@ -107,7 +107,7 @@ class Item < ActiveRecord::Base
     end
     
     def wowhead_lookup(query)
-      result = ItemLookup.search(query, :source => 'wowhead')
+      result = ItemLookup.search(query, :source => 'wowhead').best_result
       if result.valid?
         self.wow_id = result.id
         self.name   = result.name
