@@ -80,6 +80,7 @@ class Item < ActiveRecord::Base
     "http://www.wowhead.com/?item=#{self.wow_id}"
   end
   def wowhead_icon(size = 'small')
+    size = size.to_s if size.respond_to? 'to_s'
     "http://static.wowhead.com/images/icons/#{size.downcase}/#{self.icon.downcase}.jpg"
   end
   

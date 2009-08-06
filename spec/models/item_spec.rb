@@ -37,6 +37,7 @@ describe Item do
   
   it "should return a Wowhead icon link" do
     @item.wowhead_icon('medium').should == "http://static.wowhead.com/images/icons/medium/inv_icon_01.jpg"
+    @item.wowhead_icon(:large).should == "http://static.wowhead.com/images/icons/large/inv_icon_01.jpg"
   end
   
   describe "uniqueness validation" do
