@@ -49,7 +49,12 @@ module Juggy
         return if buyer.nil? or buyer.empty? or item_name.nil? or item_name.empty?
         
         retval = { }
-        retval[:item] = Item.find_or_initialize_by_name(item_name)
+        # First attempt to find an item with this name, giving higher preference to higher level items 
+        # (226 Dark Matter trinket is more likely to be recorded than the level 0 quest item)
+        retval[:item] = Item.find_by_name(item_name, :order => 'level DESC')
+        
+        # If nothing was found above, initialize a new record by name
+        retval[:item] ||= Item.new(:name => item_name)
       
         # These next regex just mean "contained within parenthesis where the only
         # other values are a-z and \s"; Prevents "Tsitgo" as a name from 

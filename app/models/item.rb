@@ -89,6 +89,7 @@ class Item < ActiveRecord::Base
     if self.wow_id.nil? or force_refresh
       stat_lookup(self.name)
       
+      # FIXME: Automatically saving here might not be the best idea
       if self.valid?
         self.save
       end
