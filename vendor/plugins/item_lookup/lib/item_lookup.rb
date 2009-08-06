@@ -26,6 +26,7 @@ module ItemLookup
     end
   end
   
+  # A single item result with the properties we care about
   class Result
     attr_accessor :id
     attr_accessor :name

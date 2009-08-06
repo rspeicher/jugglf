@@ -7,6 +7,37 @@ describe ItemLookup do
   end
 end
 
+describe ItemLookup::Results do
+  describe "#best_result" do
+    before(:each) do
+      @results = ItemLookup::Results.new
+    
+      1.upto(5) do |i|
+        result       = ItemLookup::Result.new
+        result.id    = i
+        result.name  = "Item #{i}"
+        result.level = i * 5
+        @results << result
+      end
+    end
+    
+    it "should know the best result based on level" do
+      @results.best_result.level.should == 25 # 5 * 5
+    end
+  
+    it "should return nil when no results present" do
+      @results = ItemLookup::Results.new
+      @results.best_result.should be_nil
+    end
+  
+    it "should return properly when one result present" do
+      4.times { @results.shift }
+      @results.length.should == 1
+      @results.best_result.should == @results[0]
+    end
+  end
+end
+
 describe ItemLookup::Armory do
   it "should search wowarmory.com" do
     ItemLookup::Armory.should_receive(:search).with('Torch of Holy Fire', anything()).and_return(nil)
@@ -51,7 +82,7 @@ describe ItemLookup::Armory do
         File.read(File.dirname(__FILE__) + '/../fixtures/wowarmory/search_dark_matter.xml'),
         File.read(File.dirname(__FILE__) + '/../fixtures/wowarmory/item-tooltip_46038.xml')
       )
-      @results = ItemLookup.search('Dark Matter')
+      @result = ItemLookup.search('Dark Matter').best_result
       
       @expected = {
         :id      => 46038,
@@ -63,18 +94,9 @@ describe ItemLookup::Armory do
       }
     end
     
-    it "should return an array of Result objects" do
-      @results.should be_a Array
-      @results[0].should be_a ItemLookup::Result
-    end
-    
-    it "Results object should return best_result" do
-      @results.best_result.level.should == 226
-    end
-    
     %w(id name quality icon level slot).each do |prop|
       it "a result should have a #{prop}" do
-        eval("@results[1].#{prop}").should == @expected[prop.intern]
+        eval("@result.#{prop}").should == @expected[prop.intern]
       end
     end
   end
