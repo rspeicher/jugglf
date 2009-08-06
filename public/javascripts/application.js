@@ -56,7 +56,7 @@ function addItemAutoComplete(field) {
       },
       formatItem: function(row, i, max, value) {
           return value;
-      },
+      }
     });
 }
 
@@ -80,7 +80,7 @@ function addMemberAutoComplete(field) {
       },
       formatItem: function(row, i, max, value) {
           return value;
-      },
+      }
     });
 }
 
