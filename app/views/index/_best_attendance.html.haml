@@ -1,0 +1,11 @@
+%h4 Best Attendance
+%table.list
+  %thead
+    %tr
+      %th Member
+      %th.number Lifetime
+  %tbody
+    - best_attendance.each do |member|
+      %tr{ :class => cycle('even', 'odd') }
+        %td= link_to_member(member)
+        %td.number= member_attendance_colored(member.attendance_lifetime)

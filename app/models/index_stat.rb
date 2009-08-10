@@ -129,6 +129,11 @@ class IndexStat
     Loot.count(:all, :group => 'member_id', :conditions => ['item_id = ?', Item.find_by_name("Fragment of Val'anyr")])
   end
   
+  def self.best_attendance
+    Member.active.find(:all, :conditions => ["first_raid <= ?", 6.months.until(Date.today)],
+      :order => 'attendance_lifetime DESC', :limit => 10)
+  end
+  
   # Returns an ordered array of [Member(Member), Value(Float)] where
   # Value is total_loots divided by the number of days they have been raiding
   # NOTE: This ended up being uninteresting
