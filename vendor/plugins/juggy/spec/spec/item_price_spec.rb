@@ -100,7 +100,7 @@ describe ItemPrice do
       end
       
       it "should calculate for Wayward" do
-        @ip.price(:name => 'Mantle of the Wayward Vanquisher', :level => 80).should eql(2.00        )
+        @ip.price(:name => 'Mantle of the Wayward Vanquisher', :level => 80).should eql(2.00)
       end
     end
   end
