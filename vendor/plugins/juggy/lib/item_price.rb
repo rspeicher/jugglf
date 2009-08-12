@@ -92,7 +92,7 @@ module Juggy
       options[:slot]   ||= nil            # Item slot
       options[:level]  ||= 0              # Item level (ilvl)
       options[:class]  ||= nil            # Buyer WoW class; special cases for weapons
-      
+
       options[:level] = options[:level].to_i
       
       # Damn special items
@@ -122,8 +122,9 @@ module Juggy
 
     private
       def default_value(options)
-        value = nil
+        return if @values[options[:slot]].nil?
         
+        value = nil
         slotval = @values[options[:slot]]
         slotval.sort.each do |level,values|
           if level.to_i <= options[:level]

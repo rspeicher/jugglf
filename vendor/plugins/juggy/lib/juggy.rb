@@ -79,6 +79,7 @@ module Juggy
           )
         end
         
+        # NOTE: This block shouldn't be needed anymore
         if price.is_a? Array
           # Item price returned an array, meaning it's a One-Handed weapon and could have two different prices
           # item.price = 99999.00 # FIXME: How do we tell the user that we couldn't determine the price for this item?

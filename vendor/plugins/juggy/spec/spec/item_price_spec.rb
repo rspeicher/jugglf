@@ -46,6 +46,17 @@ describe ItemPrice do
     @ip.price(:slot => 'Trinket', :name => 'InvalidTrinket', :level => 226).should be_nil
   end
   
+  it "should not raise an error when given a slot that doesn't exist" do
+    options = {
+    	:class => 'Rogue',
+    	:slot  => 'Some Slot',
+    	:item  => 'Some Item',
+    	:level => 258
+  	}
+
+    lambda { @ip.price(:slot => 'Invalid', :level => 226) }.should_not raise_error(NoMethodError)
+  end
+  
   describe "special case items" do
     it "should calculate for Heroic Key to the Focusing Iris" do
       @ip.price(:name => 'Heroic Key to the Focusing Iris').should == 2.00

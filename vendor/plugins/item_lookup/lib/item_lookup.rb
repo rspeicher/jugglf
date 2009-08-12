@@ -60,7 +60,7 @@ module ItemLookup
       # 20 => '',
       21 => 'Main Hand',
       22 => 'Off Hand',
-      23 => 'Held in Off-hand',
+      23 => 'Held In Off-hand',
       # 24 => '',
       25 => 'Thrown',
       26 => 'Ranged',
