@@ -201,6 +201,10 @@ module Juggy
         if options[:item] == 'Heroic Key to the Focusing Iris'
           options[:slot]  = 'Neck'
           options[:level] = 226
+        elsif options[:item] == 'Reply-Code Alpha'
+          # This stupid item can actually be a Ring or a Cloak. Price it as a Ring by default
+          options[:slot]  = 'Finger'
+          options[:level] = 239
         elsif options[:level] == 80
           # Probably a Tier 7/8 token
           matches = options[:item].match(/^(.+) of the (Lost|Wayward) (Conqueror|Protector|Vanquisher)$/)
