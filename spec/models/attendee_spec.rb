@@ -1,14 +1,3 @@
-# == Schema Information
-# Schema version: 20090717234345
-#
-# Table name: attendees
-#
-#  id         :integer(4)      not null, primary key
-#  member_id  :integer(4)
-#  raid_id    :integer(4)
-#  attendance :float
-#
-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Attendee do

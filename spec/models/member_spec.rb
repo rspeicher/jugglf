@@ -1,29 +1,3 @@
-# == Schema Information
-# Schema version: 20090717234345
-#
-# Table name: members
-#
-#  id                  :integer(4)      not null, primary key
-#  name                :string(255)
-#  active              :boolean(1)      default(TRUE)
-#  first_raid          :date
-#  last_raid           :date
-#  wow_class           :string(255)
-#  lf                  :float           default(0.0)
-#  sitlf               :float           default(0.0)
-#  bislf               :float           default(0.0)
-#  attendance_30       :float           default(0.0)
-#  attendance_90       :float           default(0.0)
-#  attendance_lifetime :float           default(0.0)
-#  raids_count         :integer(4)      default(0)
-#  loots_count         :integer(4)      default(0)
-#  created_at          :datetime
-#  updated_at          :datetime
-#  rank_id             :integer(4)
-#  wishlists_count     :integer(4)      default(0)
-#  user_id             :integer(4)
-#
-
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Member do
