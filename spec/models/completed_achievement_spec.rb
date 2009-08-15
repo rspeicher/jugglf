@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: completed_achievements
+#
+#  id             :integer(4)      not null, primary key
+#  member_id      :integer(4)
+#  achievement_id :integer(4)
+#  completed_on   :date
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe CompletedAchievement do

@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: raids
+#
+#  id              :integer(4)      not null, primary key
+#  date            :date
+#  note            :string(255)
+#  attendees_count :integer(4)      default(0)
+#  loots_count     :integer(4)      default(0)
+#  created_at      :datetime
+#  updated_at      :datetime
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Raid do

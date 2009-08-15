@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: loot_tables
+#
+#  id          :integer(4)      not null, primary key
+#  object_id   :integer(4)
+#  object_type :string(255)
+#  parent_id   :integer(4)
+#  note        :string(255)
+#
+
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe LootTable do
