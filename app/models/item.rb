@@ -101,7 +101,7 @@ class Item < ActiveRecord::Base
   
   protected
     def get_name_from_wow_id
-      if self.wow_id.nil? == false and self.name.nil? == true
+      if self.wow_id.present? and self.name.blank?
         # Record was probably created with nothing but a wow_id; perform a lookup
         stat_lookup(self.wow_id)
       end
