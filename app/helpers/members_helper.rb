@@ -84,7 +84,7 @@ module MembersHelper
     
     loots.each do |loot|
       if wishlist.member_id == loot.member_id and loot.item_id == wishlist.item_id and loot.has_purchase_type?(wishlist.priority)
-        return image_tag('error.png', :class => 'help', :title => 'This item was recently looted.')
+        return image_tag('error.png', :class => 'help', :title => 'This item may have been recently looted.')
       end
     end
     
