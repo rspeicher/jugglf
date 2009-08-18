@@ -1,43 +1,18 @@
 namespace :juggernaut do
   def boss(zone, name)
-    return if zone.nil? or name.nil? or name.empty?
+    return if zone.nil? or name.blank?
     zone.children.create(:object => Boss.create(:name => name))
   end
   
   def item(boss, name, note = nil)
-    return if boss.nil? or name.nil? or name.empty?
+    return if boss.nil? or name.blank?
     boss.children.create(:object => Item.find_or_create_by_name_or_wow_id(name), 
       :note => note)
   end
   
-  desc "Populate wishlist data"
-  task :wishlist => [:environment] do
-    [Boss, LootTable, Zone].each(&:destroy_all)
-    
-    ['World Drop'].each do |zone_name|
-      zone = LootTable.create(:object => Zone.create(:name => zone_name))
-      
-      boss_name = 'Bind on Equip'
-      boss = boss(zone, boss_name)
-      
-      item(boss, 'Arcanic Tramplers')
-      item(boss, 'Benefactor\'s Gauntlets')
-      item(boss, 'Bindings of Yearning')
-      item(boss, 'Boots of Impetuous Ideals')
-      item(boss, 'Boots of Septic Wounds')
-      item(boss, 'Gloves of Fast Reactions')
-      item(boss, 'Gloves of Token Respect')
-      item(boss, 'Inexorable Sabatons')
-      item(boss, 'Iron-Spring Jumpers')
-      item(boss, 'Mantle of the Eternal Sentinel')
-      item(boss, 'Poignant Sabatons')
-      item(boss, 'Slime Stream Bands')
-      item(boss, 'Spaulders of Egotism')
-      item(boss, 'Surge Needle Ring')
-      item(boss, 'Torn Web Wrapping')
-      item(boss, 'Zeliek\'s Gauntlets')
-    end
-    
+  # Data Generators ------------------------------------------------------------
+  
+  def wotlk_data
     ['The Obsidian Sanctum (H)', 'The Eye of Eternity (H)'].each do |zone_name|
       zone = LootTable.create(:object => Zone.create(:name => zone_name))
       
@@ -93,307 +68,9 @@ namespace :juggernaut do
         item(boss, "Winter Spectacle Gloves")
       end
     end
-    
-    # Naxxramas ---------------------------------------------------------------
-    ['Naxxramas (H)'].each do |zone_name|
-      zone = LootTable.create(:object => Zone.create(:name => zone_name))
-      
-      [ 'Trash', 'Anub\'Rekhan', 'Grand Widow Faerlina', 'Maexxna', 
-        'Noth the Plaguebringer', 'Heigan the Unclean', 'Loatheb', 'Patchwerk',
-        'Grobbulus', 'Thaddius', 'Instructor Razuvious', 'Gothik the Harvester', 
-        'Four Horsemen', 'Sapphiron', 'Kel\'Thuzad' ].each do |boss_name|
-          boss = boss(zone, boss_name)
-          
-          case boss_name
-          when 'Trash'
-            item(boss, "Boots of the Escaped Captive")
-            item(boss, "Haunting Call")
-            item(boss, "Inevitable Defeat")
-            item(boss, "Ousted Bead Necklace")
-            item(boss, "Shadow of the Ghoul")
-            item(boss, "Shoulderguards of the Undaunted")
-            item(boss, "Silent Crusader")
-          when 'Anub\'Rekhan'
-            item(boss, "Arachnoid Gold Band")
-            item(boss, "Chains of Adoration")
-            item(boss, "Corpse Scarab Handguards")
-            item(boss, "Cryptfiend's Bite")
-            item(boss, "Dawnwalkers")
-            item(boss, "Gemmed Wand of the Nerubians")
-            item(boss, "Leggings of Atrophy")
-            item(boss, "Mantle of the Locusts")
-            item(boss, "Pauldrons of Unnatural Death")
-            item(boss, "Rescinding Grips")
-            item(boss, "Ruthlessness")
-            item(boss, "Sabatons of Sudden Reprisal")
-            item(boss, "Sand-Worn Band")
-            item(boss, "Sash of the Parlor")
-            item(boss, "Shield of Assimilation")
-            item(boss, "Strong-Handed Ring")
-            item(boss, "Swarm Bindings")
-            item(boss, "Thunderstorm Amulet")
-          when 'Grand Widow Faerlina'
-            item(boss, "Atonement Greaves")
-            item(boss, "Belt of False Dignity")
-            item(boss, "Bracers of the Tyrant")
-            item(boss, "Callous-Hearted Gauntlets")
-            item(boss, "Cult's Chestguard")
-            item(boss, "Dislocating Handguards")
-            item(boss, "Epaulets of the Grieving Servant")
-            item(boss, "Faerlina's Madness")
-            item(boss, "Fire-Scorched Greathelm")
-            item(boss, "Fool's Trial")
-            item(boss, "Heritage")
-            item(boss, "Idol of Worship")
-            item(boss, "Lost Jewel")
-            item(boss, "Punctilious Bindings")
-            item(boss, "Ruthlessness")
-            item(boss, "Sand-Worn Band")
-            item(boss, "Seized Beauty")
-            item(boss, "Strong-Handed Ring")
-            item(boss, "Thunderstorm Amulet")
-            item(boss, "Totem of Misery")
-            item(boss, "Tunic of Prejudice")
-            item(boss, "Widow's Fury")
-          when 'Maexxna'
-            item(boss, "Ablative Chitin Girdle")
-            item(boss, "Aged Winter Cloak")
-            item(boss, "Bindings of the Hapless Prey")
-            item(boss, "Cloak of Averted Crisis")
-            item(boss, "Cloak of the Shadowed Sun")
-            item(boss, "Cowl of the Perished")
-            item(boss, "Defender's Code")
-            item(boss, "Digested Silken Robes")
-            item(boss, "Distorted Limbs")
-            item(boss, "Dying Curse")
-            item(boss, "Forethought Talisman")
-            item(boss, "Grim Toll")
-            item(boss, "Helm of Diminished Pride")
-            item(boss, "Infectious Skitterer Leggings")
-            item(boss, "Mantle of Shattered Kinship")
-            item(boss, "Matriarch's Spawn")
-            item(boss, "Quivering Tunic")
-            item(boss, "Shawl of the Old Maid")
-            item(boss, "Shroud of Luminosity")
-            item(boss, "Sinner's Bindings")
-            item(boss, "The Jawbone")
-            item(boss, "Undiminished Battleplate")
-            item(boss, "Wraith Strike")
-          when 'Noth the Plaguebringer'
-            item(boss, "Accursed Spine")
-            item(boss, "Angry Dread")
-            item(boss, "Bands of Impurity")
-            item(boss, "Belt of Potent Chanting")
-            item(boss, "Crippled Treads")
-            item(boss, "Fool's Trial")
-            item(boss, "Gauntlets of the Disobedient")
-            item(boss, "Gloves of the Fallen Wizard")
-            item(boss, "Heritage")
-            item(boss, "Legguards of the Undisturbed")
-            item(boss, "Libram of Radiance")
-            item(boss, "Lost Jewel")
-            item(boss, "Robes of Mutation")
-            item(boss, "Ruthlessness")
-            item(boss, "Sand-Worn Band")
-            item(boss, "Shoulderguards of Opportunity")
-            item(boss, "Spinning Fate")
-            item(boss, "Strong-Handed Ring")
-            item(boss, "Thrusting Bands")
-            item(boss, "Thunderstorm Amulet")
-            item(boss, "Tunic of Masked Suffering")
-          when 'Heigan the Unclean'
-            item(boss, "Bindings of the Decrepit")
-            item(boss, "Breastplate of Tormented Rage")
-            item(boss, "Chestguard of Bitter Charms")
-            item(boss, "Cloak of Averted Crisis")
-            item(boss, "Cloak of the Shadowed Sun")
-            item(boss, "Cryptfiend's Bite")
-            item(boss, "Defender's Code")
-            item(boss, "Dying Curse")
-            item(boss, "Eruption-Scared Boots")
-            item(boss, "Forethought Talisman")
-            item(boss, "Gloves of the Dancing Bear")
-            item(boss, "Grim Toll")
-            item(boss, "Heigan's Putrid Vestments")
-            item(boss, "Helm of Pilgrimage")
-            item(boss, "Leggings of Colossal Strides")
-            item(boss, "Legguards of the Apostle")
-            item(boss, "Serene Echoes")
-            item(boss, "Shawl of the Old Maid")
-            item(boss, "Shroud of Luminosity")
-            item(boss, "Sigil of Awareness")
-            item(boss, "Stalk-Skin Belt")
-            item(boss, "The Undeath Carrier")
-          when 'Loatheb'
-            item(boss, "Cowl of Innocent Delight")
-            item(boss, "Fading Glow")
-            item(boss, "Footwraps of Vile Deceit")
-            item(boss, "Girdle of Unity")
-            item(boss, "Greaves of Turbulence")
-            item(boss, "Grotesque Handgrips")
-            item(boss, "Mantle of the Lost Conqueror")
-            item(boss, "Mantle of the Lost Protector")
-            item(boss, "Mantle of the Lost Vanquisher")
-            item(boss, "The Hand of Nerub")
-            item(boss, "The Impossible Dream")
-            item(boss, "Vest of Vitality")
-          when 'Patchwerk'
-            item(boss, "Arrowsong")
-            item(boss, "Belt of the Tortured")
-            item(boss, "Boots of Persuasion")
-            item(boss, "Crude Discolored Battlegrips")
-            item(boss, "Fleshless Girdle")
-            item(boss, "Fool's Trial")
-            item(boss, "Girdle of the Gambit")
-            item(boss, "Gloves of Calculated Risk")
-            item(boss, "Heritage")
-            item(boss, "Hero's Surrender")
-            item(boss, "Libram of Tolerance")
-            item(boss, "Lost Jewel")
-            item(boss, "Ruthlessness")
-            item(boss, "Sash of Solitude")
-            item(boss, "Split Greathammer")
-            item(boss, "Strong-Handed Ring")
-            item(boss, "Thunderstorm Amulet")
-            item(boss, "Totem of Hex")
-            item(boss, "Waistguard of Divine Grace")
-          when 'Grobbulus'
-            item(boss, "Bracers of Liberation")
-            item(boss, "Chestguard of the Exhausted")
-            item(boss, "Cloak of Averted Crisis")
-            item(boss, "Cloak of the Shadowed Sun")
-            item(boss, "Cowl of Vanity")
-            item(boss, "Defender's Code")
-            item(boss, "Depraved Linked Belt")
-            item(boss, "Desecrated Past")
-            item(boss, "Dying Curse")
-            item(boss, "Fallout Impervious Tunic")
-            item(boss, "Girdle of Chivalry")
-            item(boss, "Grim Toll")
-            item(boss, "Mantle of the Corrupted")
-            item(boss, "Mantle of the Fatigued Sage")
-            item(boss, "Origin of Nightmares")
-            item(boss, "Plague Igniter")
-            item(boss, "Shawl of the Old Maid")
-            item(boss, "Shroud of Luminosity")
-            item(boss, "Spaulders of Incoherence")
-            item(boss, "Surplus Limb")
-            item(boss, "Sympathetic Amice")
-            item(boss, "Tunic of Indulgence")
-            item(boss, "Twilight Mist")
-          when 'Gluth'
-          when 'Thaddius'
-            item(boss, "Cincture of Polarity")
-            item(boss, "Cover of Silence")
-            item(boss, "Faceguard of the Succumbed")
-            item(boss, "Headpiece of Fungal Bloom")
-            item(boss, "Legplates of the Lost Conqueror")
-            item(boss, "Legplates of the Lost Protector")
-            item(boss, "Legplates of the Lost Vanquisher")
-            item(boss, "Pauldrons of the Abandoned")
-            item(boss, "Riveted Abomination Leggings")
-            item(boss, "Sabatons of Endurance")
-            item(boss, "Spire of Sunset")
-            item(boss, "Wraps of the Persecuted")
-          when 'Instructor Razuvious'
-            item(boss, "Bands of Mutual Respect")
-            item(boss, "Bindings of the Expansive Mind")
-            item(boss, "Boots of Forlorn Wishes")
-            item(boss, "Bracers of the Unholy Knight")
-            item(boss, "Chains of Adoration")
-            item(boss, "Chestpiece of Suspicion")
-            item(boss, "Esteemed Bindings")
-            item(boss, "Faithful Steel Sabatons")
-            item(boss, "Fool's Trial")
-            item(boss, "Gauntlets of Guiding Touch")
-            item(boss, "Girdle of Razuvious")
-            item(boss, "Girdle of Recuperation")
-            item(boss, "Heritage")
-            item(boss, "Idol of the Shooting Star")
-            item(boss, "Legplates of Double Strikes")
-            item(boss, "Ruthlessness")
-            item(boss, "Sand-Worn Band")
-            item(boss, "Shoulderpads of Secret Arts")
-            item(boss, "Strong-Handed Ring")
-            item(boss, "Totem of Dueling")
-          when 'Gothik the Harvester'
-            item(boss, "Abetment Bracers")
-            item(boss, "Aged Winter Cloak")
-            item(boss, "Bracers of Unrelenting Attack")
-            item(boss, "Burdened Shoulderplates")
-            item(boss, "Defender's Code")
-            item(boss, "Dying Curse")
-            item(boss, "Forethought Talisman")
-            item(boss, "Gothik's Cowl")
-            item(boss, "Grim Toll")
-            item(boss, "Helm of Unleashed Energy")
-            item(boss, "Helm of Vital Protection")
-            item(boss, "Hood of the Exodus")
-            item(boss, "Idol of Awakening")
-            item(boss, "Leggings of Failed Escape")
-            item(boss, "Leggings of Fleeting Moments")
-            item(boss, "Libram of Resurgence")
-            item(boss, "Life and Death")
-            item(boss, "Shackled Cinch")
-            item(boss, "Shawl of the Old Maid")
-            item(boss, "Shroud of Luminosity")
-            item(boss, "Touch of Horror")
-          when 'Four Horsemen'
-            item(boss, "Armageddon")
-            item(boss, "Breastplate of the Lost Conqueror")
-            item(boss, "Breastplate of the Lost Protector")
-            item(boss, "Breastplate of the Lost Vanquisher")
-            item(boss, "Broken Promise")
-            item(boss, "Damnation")
-            item(boss, "Final Voyage")
-            item(boss, "Gloves of Peaceful Death")
-            item(boss, "Helm of the Grave")
-            item(boss, "Leggings of Voracious Shadows")
-            item(boss, "Urn of Lost Memories")
-          when 'Sapphiron'
-            item(boss, "Bandit's Insignia")
-            item(boss, "Bone-Inlaid Legguards")
-            item(boss, "Boots of the Great Construct")
-            item(boss, "Breastplate of Frozen Pain")
-            item(boss, "Ceaseless Pity")
-            item(boss, "Cosmic Lights")
-            item(boss, "Extract of Necromantic Power")
-            item(boss, "Gatekeeper")
-            item(boss, "Gloves of Grandeur")
-            item(boss, "Heroic Key to the Focusing Iris")
-            item(boss, "Icy Blast Amulet")
-            item(boss, "Legguards of the Boneyard")
-            item(boss, "Legwraps of the Defeated Dragon")
-            item(boss, "Murder")
-            item(boss, "Noble Birthright Pauldrons")
-            item(boss, "Platehelm of the Great Wyrm")
-            item(boss, "Ring of Decaying Beauty")
-            item(boss, "Rune of Repulsion")
-            item(boss, "Soul of the Dead")
-            item(boss, "Sympathy")
-          when 'Kel\'Thuzad'
-            item(boss, "Betrayer of Humanity")
-            item(boss, "Boundless Ambition")
-            item(boss, "Calamity's Grasp")
-            item(boss, "Cape of the Unworthy Wizard")
-            item(boss, "Crown of the Lost Conqueror")
-            item(boss, "Crown of the Lost Protector")
-            item(boss, "Crown of the Lost Vanquisher")
-            item(boss, "Drape of the Deadly Foe")
-            item(boss, "Envoy of Mortality")
-            item(boss, "Journey's End")
-            item(boss, "Last Laugh")
-            item(boss, "Leggings of Mortal Arrogance")
-            item(boss, "Signet of Manifested Pain")
-            item(boss, "Sinister Revenge")
-            item(boss, "The Turning Tide")
-            item(boss, "Torch of Holy Fire")
-            item(boss, "Voice of Reason")
-            item(boss, "Wall of Terror")
-          end
-        end
-    end
+  end
   
+  def ulduar_data
     ulduar_bosses = ['Bind on Equip', 
       'Flame Leviathan','Ignis the Furnacemaster','Razorscale','XT-002 Deconstructor', 
       'Kologarn','Auriaya','Assembly of Iron',
@@ -865,5 +542,405 @@ namespace :juggernaut do
         end
       end
     end
+  end
+  
+  def crusade_data
+    toc_bosses = {
+      'Trial of the Crusader' => [
+        ['northrendbeasts-10'       , 'Northrend Beasts'],
+        ['jaraxxus-10'              , 'Jaraxxus'],
+        ['factionchampions-10'      , 'Faction Champions'],
+        ['twinvalkyrs-10'           , 'Twin Valkyrs'],
+        ['anubarakraid-10'          , "Anub'arak"]
+      ],
+      'Trial of the Crusader (H)' => [
+        ['northrendbeasts-10-hard'  , 'Northrend Beasts'],
+        ['jaraxxus-10-hard'         , 'Jaraxxus'],
+        ['factionchampions-10-hard' , 'Faction Champions'],
+        ['twinvalkyrs-10-hard'      , 'Twin Valkyrs'],
+        ['anubarakraid-10-hard'     , "Anub'arak"],
+        ['tributechest-10'          , 'Tribute Chest'],
+        ['tributechest-10-hard'     , 'Tribute Chest (Hard)']
+      ],
+      'Trial of the Grand Crusader' => [
+        ['northrendbeasts-25'       , 'Northrend Beasts'],
+        ['jaraxxus-25'              , 'Jaraxxus'],
+        ['factionchampions-25'      , 'Faction Champions'],
+        ['twinvalkyrs-25'           , 'Twin Valkyrs'],
+        ['anubarakraid-25'          , "Anub'arak"]
+      ],
+      'Trial of the Grand Crusader (H)' => [
+        ['northrendbeasts-25-hard'  , 'Northrend Beasts'],
+        ['jaraxxus-25-hard'         , 'Jaraxxus'],
+        ['factionchampions-25-hard' , 'Faction Champions'],
+        ['twinvalkyrs-25-hard'      , 'Twin Valkyrs'],
+        ['anubarakraid-25-hard'     , "Anub'arak"],
+        ['tributechest-25'          , 'Tribute Chest'],
+        ['tributechest-25-hard'     , 'Tribute Chest (Hard)']
+      ]
+    }
+    
+    toc_bosses.sort.each do |zone_name, bosses|
+      zone = LootTable.create(:object => Zone.create(:name => zone_name))
+      bosses.each do |boss_tag, boss_name|
+        boss = boss(zone, boss_name)
+        case boss_tag
+        when "factionchampions-10"
+          item(boss, 47880) #Binding Stone
+          item(boss, 47882) #Eitrigg's Oath
+          item(boss, 47879) #Fetish of Volatile Power
+          item(boss, 47878) #Sunreaver Assassin's Gloves
+          item(boss, 47876) #Sunreaver Champion's Faceplate
+          item(boss, 47877) #Sunreaver Defender's Pauldrons
+          item(boss, 47874) #Sunreaver Disciple's Blade
+          item(boss, 47873) #Sunreaver Magus' Sandals
+          item(boss, 47875) #Sunreaver Ranger's Helm
+          item(boss, 47881) #Vengeance of the Forsaken
+        when "factionchampions-25-hard"
+          item(boss, 47443) #Band of Callous Aggression
+          item(boss, 47448) #Bastion of Resolve
+          item(boss, 47447) #Belt of Biting Cold
+          item(boss, 47444) #Belt of Bloodied Scars
+          item(boss, 47455) #Bracers of the Broken Bond
+          item(boss, 47442) #Bracers of the Silent Massacre
+          item(boss, 47449) #Chestplate of the Frostwolf Hero
+          item(boss, 47446) #Dual-blade Butcher
+          item(boss, 47445) #Icewalker Treads
+          item(boss, 47451) #Juggernaut's Vitality
+          item(boss, 47450) #Leggings of Concealed Hatred
+          item(boss, 47453) #Robes of the Shattered Fellowship
+          item(boss, 47456) #Sabatons of Tremoring Earth
+          item(boss, 47454) #Sandals of the Mourning Widow
+          item(boss, 47452) #Shroud of Displacement
+        when "twinvalkyrs-10-hard"
+          item(boss, 48027) #Band of the Twin Val'kyr
+          item(boss, 48030) #Darkbane Amulet
+          item(boss, 48023) #Edge of Agony
+          item(boss, 48024) #Greaves of the Lingering Vortex
+          item(boss, 48034) #Helm of the High Mesa
+          item(boss, 48036) #Illumination
+          item(boss, 48032) #Lightbane Focus
+          item(boss, 48028) #Looming Shadow Wraps
+          item(boss, 48025) #Nemesis Blade
+          item(boss, 49233) #Sandals of the Grieving Soul
+          item(boss, 48038) #Sen'jin Ritualist Gloves
+          item(boss, 48026) #Vest of Shifting Shadows
+          item(boss, 48022) #Widebarrel Flintlock
+        when "anubarakraid-10"
+          item(boss, 47910) #Aegis of the Coliseum
+          item(boss, 47911) #Anguish
+          item(boss, 47899) #Ardent Guard
+          item(boss, 47909) #Belt of the Eternal
+          item(boss, 47905) #Blackhorn Bludgeon
+          item(boss, 47907) #Darkmaw Crossbow
+          item(boss, 47903) #Forsaken Bonecarver
+          item(boss, 47898) #Frostblade Hatchet
+          item(boss, 47897) #Helm of the Crypt Lord
+          item(boss, 47902) #Legplates of Redeemed Blood
+          item(boss, 47894) #Mace of the Earthborn Chieftain
+          item(boss, 47901) #Pauldrons of the Shadow Hunter
+          item(boss, 47900) #Perdition
+          item(boss, 47895) #Pride of the Kor'kron
+          item(boss, 47906) #Robes of the Sleepless
+          item(boss, 47904) #Shoulderpads of the Snow Bandit
+          item(boss, 47896) #Stoneskin Chestplate
+          item(boss, 47908) #Sunwalker Legguards
+        when "northrendbeasts-25-hard"
+          item(boss, 47422) #Barb of Tarasque
+          item(boss, 47419) #Belt of the Tenebrous Mist
+          item(boss, 47426) #Binding of the Ice Burrower
+          item(boss, 47414) #Boneshatter Vambraces
+          item(boss, 47423) #Boots of the Harsh Winter
+          item(boss, 47418) #Cloak of the Untamed Predator
+          item(boss, 47412) #Cuirass of Cruel Intent
+          item(boss, 47417) #Drape of the Refreshing Winds
+          item(boss, 47425) #Flowing Robes of Ascent
+          item(boss, 47421) #Forlorn Barrier
+          item(boss, 47415) #Hauberk of the Towering Monstrosity
+          item(boss, 47420) #Legwraps of the Broken Beast
+          item(boss, 47413) #Ring of the Violent Temperament
+          item(boss, 47424) #Sabatons of the Courageous
+          item(boss, 47416) #Stygian Bladebreaker
+        when "jaraxxus-25"
+          item(boss, 47277) #Bindings of the Autumn Willow
+          item(boss, 47266) #Blood Fury
+          item(boss, 47268) #Bloodbath Girdle
+          item(boss, 47272) #Charge of the Eredar
+          item(boss, 47278) #Circle of the Darkmender
+          item(boss, 47269) #Dawnbreaker Sabatons
+          item(boss, 47267) #Death's Head Crossbow
+          item(boss, 47279) #Leggings of Failing Light
+          item(boss, 47273) #Legplates of Feverish Dedication
+          item(boss, 47274) #Pants of the Soothing Touch
+          item(boss, 47275) #Pride of the Demon Lord
+          item(boss, 47271) #Solace of the Fallen
+          item(boss, 47276) #Talisman of Heedless Sins
+          item(boss, 47270) #Vest of Calamitous Fate
+          item(boss, 47280) #Wristwraps of Cloudy Omen
+        when "northrendbeasts-10"
+          item(boss, 47853) #Acidmaw Treads
+          item(boss, 47859) #Belt of the Impaler
+          item(boss, 47850) #Bracers of the Northern Stalker
+          item(boss, 47849) #Collar of Unending Torment
+          item(boss, 47852) #Dreadscale Bracers
+          item(boss, 47851) #Gauntlets of Mounting Anger
+          item(boss, 47858) #Girdle of the Frozen Reach
+          item(boss, 47854) #Gormok's Band
+          item(boss, 47855) #Icehowl Binding
+          item(boss, 47857) #Pauldrons of the Glacial Wilds
+          item(boss, 47860) #Pauldrons of the Spirit Walker
+          item(boss, 47856) #Scepter of Imprisoned Souls
+        when "factionchampions-10-hard"
+          item(boss, 48019) #Binding Stone
+          item(boss, 48021) #Eitrigg's Oath
+          item(boss, 48018) #Fetish of Volatile Power
+          item(boss, 48017) #Sunreaver Assassin's Gloves
+          item(boss, 48015) #Sunreaver Champion's Faceplate
+          item(boss, 48016) #Sunreaver Defender's Pauldrons
+          item(boss, 48013) #Sunreaver Disciple's Blade
+          item(boss, 48012) #Sunreaver Magus' Sandals
+          item(boss, 48014) #Sunreaver Ranger's Helm
+          item(boss, 48020) #Vengeance of the Forsaken
+        when "anubarakraid-10-hard"
+          item(boss, 48055) #Aegis of the Coliseum
+          item(boss, 48056) #Anguish
+          item(boss, 48044) #Ardent Guard
+          item(boss, 48054) #Belt of the Eternal
+          item(boss, 48050) #Blackhorn Bludgeon
+          item(boss, 48052) #Darkmaw Crossbow
+          item(boss, 48048) #Forsaken Bonecarver
+          item(boss, 48043) #Frostblade Hatchet
+          item(boss, 48042) #Helm of the Crypt Lord
+          item(boss, 48047) #Legplates of the Redeemed Blood Knight
+          item(boss, 48039) #Mace of the Earthborn Chieftain
+          item(boss, 48046) #Pauldrons of the Shadow Hunter
+          item(boss, 48045) #Perdition
+          item(boss, 48040) #Pride of the Kor'kron
+          item(boss, 48051) #Robes of the Sleepless
+          item(boss, 48049) #Shoulderpads of the Snow Bandit
+          item(boss, 48041) #Stoneskin Chestplate
+          item(boss, 48053) #Sunwalker Legguards
+        when "twinvalkyrs-10"
+          item(boss, 47888) #Band of the Twin Val'kyr
+          item(boss, 47890) #Darkbane Amulet
+          item(boss, 47884) #Edge of Agony
+          item(boss, 47885) #Greaves of the Lingering Vortex
+          item(boss, 47891) #Helm of the High Mesa
+          item(boss, 47892) #Illumination
+          item(boss, 47913) #Lightbane Focus
+          item(boss, 47889) #Looming Shadow Wraps
+          item(boss, 47886) #Nemesis Blade
+          item(boss, 49232) #Sandals of the Grieving Soul
+          item(boss, 47893) #Sen'jin Ritualist Gloves
+          item(boss, 47887) #Vest of Shifting Shadows
+          item(boss, 47883) #Widebarrel Flintlock
+        when "twinvalkyrs-25-hard"
+          item(boss, 47459) #Armguards of the Shieldmaiden
+          item(boss, 47469) #Belt of Pale Thorns
+          item(boss, 47460) #Belt of the Pitiless Killer
+          item(boss, 47471) #Chestplate of the Frozen Lake
+          item(boss, 47468) #Cry of the Val'kyr
+          item(boss, 47467) #Dark Essence Bindings
+          item(boss, 47464) #Death's Choice
+          item(boss, 47461) #Gouge of the Frigid Heart
+          item(boss, 47457) #Greaves of Ruthless Judgment
+          item(boss, 47466) #Legionnaire's Gorget
+          item(boss, 47465) #Legplates of Ascension
+          item(boss, 47470) #Mystifying Charm
+          item(boss, 47462) #Skyweaver Vestments
+          item(boss, 47458) #The Executioner's Vice
+          item(boss, 47463) #Twin's Pact
+        when "jaraxxus-25-hard"
+          item(boss, 47438) #Bindings of the Autumn Willow
+          item(boss, 47427) #Blood Fury
+          item(boss, 47429) #Bloodbath Girdle
+          item(boss, 47433) #Charge of the Eredar
+          item(boss, 47439) #Circle of the Darkmender
+          item(boss, 47430) #Dawnbreaker Sabatons
+          item(boss, 47428) #Death's Head Crossbow
+          item(boss, 47440) #Leggings of Failing Light
+          item(boss, 47434) #Legplates of Feverish Dedication
+          item(boss, 47435) #Pants of the Soothing Touch
+          item(boss, 47436) #Pride of the Demon Lord
+          item(boss, 47432) #Solace of the Fallen
+          item(boss, 47437) #Talisman of Heedless Sins
+          item(boss, 47431) #Vest of Calamitous Fate
+          item(boss, 47441) #Wristwraps of Cloudy Omen
+        when "northrendbeasts-10-hard"
+          item(boss, 47992) #Acidmaw Treads
+          item(boss, 47998) #Belt of the Impaler
+          item(boss, 47989) #Bracers of the Northern Stalker
+          item(boss, 47993) #Carnivorous Band
+          item(boss, 47988) #Collar of Unending Torment
+          item(boss, 47991) #Dreadscale Bracers
+          item(boss, 47990) #Gauntlets of Mounting Anger
+          item(boss, 47997) #Girdle of the Frozen Reach
+          item(boss, 47994) #Icehowl Binding
+          item(boss, 47996) #Pauldrons of the Glacial Wilds
+          item(boss, 47999) #Pauldrons of the Spirit Walker
+          item(boss, 47995) #Scepter of Imprisoned Souls
+        when "tributechest-25-hard"
+          item(boss, 47551) #Aethas' Intensity
+          item(boss, 47550) #Cairne's Endurance
+          item(boss, 47548) #Garrosh's Rage
+          item(boss, 47554) #Lady Liadrin's Conviction
+          item(boss, 47546) #Sylvanas' Cunning
+        when "anubarakraid-25"
+          item(boss, 47313) #Armbands of Dark Determination
+          item(boss, 47315) #Band of the Traitor King
+          item(boss, 47324) #Bindings of the Ashen Saint
+          item(boss, 47321) #Boots of the Icy Floe
+          item(boss, 47317) #Breeches of the Deepening Void
+          item(boss, 47325) #Cuirass of Flowing Elements
+          item(boss, 47330) #Gauntlets of Bitter Reprisal
+          item(boss, 47323) #Girdle of the Forgotten Martyr
+          item(boss, 47312) #Greaves of the Saronite Citadel
+          item(boss, 47326) #Handwraps of the Lifeless Touch
+          item(boss, 47329) #Hellion Glaive
+          item(boss, 47314) #Hellscream Slicer
+          item(boss, 47318) #Leggings of the Awakening
+          item(boss, 47319) #Leggings of the Lurking Threat
+          item(boss, 47327) #Lurid Manifestation
+          item(boss, 47328) #Maiden's Adoration
+          item(boss, 47320) #Might of the Nerub
+          item(boss, 47316) #Reign of the Dead
+          item(boss, 47322) #Suffering's End
+          item(boss, 47311) #Waistguard of Deathly Dominion
+        when "factionchampions-25"
+          item(boss, 47282) #Band of Callous Aggression
+          item(boss, 47287) #Bastion of Resolve
+          item(boss, 47286) #Belt of Biting Cold
+          item(boss, 47283) #Belt of Bloodied Scars
+          item(boss, 47294) #Bracers of the Broken Bond
+          item(boss, 47281) #Bracers of the Silent Massacre
+          item(boss, 47288) #Chestplate of the Frostwolf Hero
+          item(boss, 47285) #Dual-blade Butcher
+          item(boss, 47284) #Icewalker Treads
+          item(boss, 47290) #Juggernaut's Vitality
+          item(boss, 47289) #Leggings of Concealed Hatred
+          item(boss, 47292) #Robes of the Shattered Fellowship
+          item(boss, 47295) #Sabatons of Tremoring Earth
+          item(boss, 47293) #Sandals of the Mourning Widow
+          item(boss, 47291) #Shroud of Displacement
+        when "tributechest-10"
+          item(boss, 48705) #Attrition
+          item(boss, 48699) #Blood and Glory
+          item(boss, 48697) #Frenzystrike Longbow
+          item(boss, 48693) #Heartsmasher
+          item(boss, 48695) #Mor'kosh, the Bloodreaver
+          item(boss, 48701) #Spellharvest
+          item(boss, 48703) #The Facebreaker
+        when "anubarakraid-25-hard"
+          item(boss, 47474) #Armbands of Dark Determination
+          item(boss, 47476) #Band of the Traitor King
+          item(boss, 47485) #Bindings of the Ashen Saint
+          item(boss, 47482) #Boots of the Icy Floe
+          item(boss, 47478) #Breeches of the Deepening Void
+          item(boss, 47486) #Cuirass of Flowing Elements
+          item(boss, 47492) #Gauntlets of Bitter Reprisal
+          item(boss, 47484) #Girdle of the Forgotten Martyr
+          item(boss, 47473) #Greaves of the Saronite Citadel
+          item(boss, 47487) #Handwraps of the Lifeless Touch
+          item(boss, 47491) #Hellion Glaive
+          item(boss, 47475) #Hellscream Slicer
+          item(boss, 47479) #Leggings of the Awakening
+          item(boss, 47480) #Leggings of the Lurking Threat
+          item(boss, 47489) #Lurid Manifestation
+          item(boss, 47490) #Maiden's Adoration
+          item(boss, 47481) #Might of the Nerub
+          item(boss, 47477) #Reign of the Dead
+          item(boss, 47483) #Suffering's End
+          item(boss, 47472) #Waistguard of Deathly Dominion
+        when "northrendbeasts-25"
+          item(boss, 47261) #Barb of Tarasque
+          item(boss, 47258) #Belt of the Tenebrous Mist
+          item(boss, 47265) #Binding of the Ice Burrower
+          item(boss, 47253) #Boneshatter Vambraces
+          item(boss, 47262) #Boots of the Harsh Winter
+          item(boss, 47257) #Cloak of the Untamed Predator
+          item(boss, 47251) #Cuirass of Cruel Intent
+          item(boss, 47256) #Drape of the Refreshing Winds
+          item(boss, 47264) #Flowing Robes of Ascent
+          item(boss, 47260) #Forlorn Barrier
+          item(boss, 47254) #Hauberk of the Towering Monstrosity
+          item(boss, 47259) #Legwraps of the Broken Beast
+          item(boss, 47252) #Ring of the Violent Temperament
+          item(boss, 47263) #Sabatons of the Courageous
+          item(boss, 47255) #Stygian Bladebreaker
+        when "jaraxxus-10-hard"
+          item(boss, 48008) #Armplates of the Nether Lord
+          item(boss, 48002) #Belt of the Bloodhoof Emissary
+          item(boss, 48009) #Belt of the Nether Champion
+          item(boss, 48005) #Darkspear Ritual Binding
+          item(boss, 48000) #Felspark Bracers
+          item(boss, 48001) #Firestorm Band
+          item(boss, 48011) #Fortitude of the Infernal
+          item(boss, 48004) #Legwraps of the Demonic Messenger
+          item(boss, 48010) #Orcish Deathblade
+          item(boss, 48003) #Pendant of Binding Elements
+          item(boss, 48007) #Planestalker Band
+          item(boss, 49237) #Sabatons of Tortured Space
+          item(boss, 48006) #Warsong Poacher's Greaves
+        when "twinvalkyrs-25"
+          item(boss, 47298) #Armguards of the Shieldmaiden
+          item(boss, 47308) #Belt of Pale Thorns
+          item(boss, 47299) #Belt of the Pitiless Killer
+          item(boss, 47310) #Chestplate of the Frozen Lake
+          item(boss, 47307) #Cry of the Val'kyr
+          item(boss, 47306) #Dark Essence Bindings
+          item(boss, 47303) #Death's Choice
+          item(boss, 47300) #Gouge of the Frigid Heart
+          item(boss, 47296) #Greaves of Ruthless Judgment
+          item(boss, 47305) #Legionnaire's Gorget
+          item(boss, 47304) #Legplates of Ascension
+          item(boss, 47309) #Mystifying Charm
+          item(boss, 47301) #Skyweaver Vestments
+          item(boss, 47297) #The Executioner's Vice
+          item(boss, 47302) #Twin's Pact
+        when "tributechest-25"
+          item(boss, 47528) #Cudgel of the Damned
+          item(boss, 47523) #Fezzik's Autocannon
+          item(boss, 47516) #Fleshrender
+          item(boss, 47520) #Grievance
+          item(boss, 47518) #Mortalis
+          item(boss, 47513) #Ogrim's Deflector
+          item(boss, 47525) #Sufferance
+        when "tributechest-10-hard"
+          item(boss, 48668) #Cloak of Serrated Blades
+          item(boss, 48673) #Cloak of the Silver Covenant
+          item(boss, 48669) #Cloak of the Triumphant Combatant
+          item(boss, 48670) #Cloak of the Unflinching Guardian
+          item(boss, 48675) #Cloak of the Unmoving Guardian
+          item(boss, 48674) #Cloak of the Victorious Combatant
+          item(boss, 48671) #Drape of Bitter Incantation
+          item(boss, 48666) #Drape of the Sunreavers
+          item(boss, 48672) #Shawl of Fervent Crusader
+          item(boss, 48667) #Shawl of the Devout Crusader
+        when "jaraxxus-10"
+          item(boss, 47869) #Armplates of the Nether Lord
+          item(boss, 47863) #Belt of the Bloodhoof Emissary
+          item(boss, 47870) #Belt of the Nether Champion
+          item(boss, 47866) #Darkspear Ritual Binding
+          item(boss, 47861) #Felspark Bracers
+          item(boss, 47862) #Firestorm Band
+          item(boss, 47872) #Fortitude of the Infernal
+          item(boss, 47865) #Legwraps of the Demonic Messenger
+          item(boss, 47871) #Orcish Deathblade
+          item(boss, 47864) #Pendant of Binding Elements
+          item(boss, 47868) #Planestalker Band
+          item(boss, 49236) #Sabatons of Tortured Space
+          item(boss, 47867) #Warsong Poacher's Greaves
+        end
+      end
+    end
+  end
+  
+  desc "Populate wishlist data"
+  task :wishlist => [:environment] do
+    [Boss, LootTable, Zone].each(&:destroy_all)
+    
+    wotlk_data()
+    ulduar_data()
+    crusade_data()
   end
 end
