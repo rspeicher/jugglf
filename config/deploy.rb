@@ -47,4 +47,9 @@ namespace :deploy do
   task :database_yml, :roles => :db do
     run "cp #{shared_path}/config/database.yml #{current_release}/config/database.yml"
   end
+  
+  desc "Run the juggernaut:wishlist rake task"
+  task :wishlist do
+    run "cd #{release_path} && rake RAILS_ENV=production juggernaut:wishlist"
+  end
 end
