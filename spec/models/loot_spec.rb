@@ -105,11 +105,16 @@ describe Loot do
   end
   
   describe "#item_name" do
-    it "should return item's name if not nil" do
+    it "should return wow_id if present" do
+      @loot.item_name.should == 12345
+    end
+    
+    it "should return item's name wow_id is nil" do
+      @loot.item.wow_id = nil
       @loot.item_name.should == 'Item'
     end
     
-    it "should return nil if item_id is nil" do
+    it "should otherwise return nil" do
       @loot.item_id = nil
       @loot.item_name.should be_nil
     end

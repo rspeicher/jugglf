@@ -29,7 +29,13 @@ class Loot < ActiveRecord::Base
     :situational, :rot, :member, :member_id, :member_name, :raid_id, :update_cache)
   
   def item_name
-    self.item.name unless self.item_id.nil?
+    return if self.item_id.nil?
+    
+    if self.item.wow_id.present?
+      self.item.wow_id
+    else
+      self.item.name
+    end
   end
   def item_name=(value)
     self.item = Item.find_by_name_or_wow_id(value)
