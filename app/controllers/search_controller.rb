@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   def index
-    @include_fields = [:id, :name, :wow_id, :slot, :level, :color, :wow_class, 
+    @include_fields = [:id, :name, :wow_id, :slot, :level, :color, :icon, :wow_class, 
       :active, :loots_count, :wishlists_count, :raid_count]
     
     params[:query] = params[:q] unless params[:q].nil? # jquery.autocomplete uses 'q' and it can't be configured

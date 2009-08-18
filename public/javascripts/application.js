@@ -39,12 +39,15 @@ function addItemAutoComplete(field) {
     $(field).autocomplete('/search/items.js', {
       minChars: 2,
       dataType: 'json',
+      scrollHeight: 260,
       parse: function(data) {
           var array = new Array();
           for (var i = 0; i < data.length; i++) {
               if (data[i].item) {
-                  // var formatted = "<span class=" + data[i].item.color + ">" + data[i].item.name + "</span> (" + data[i].item.level + " " + data[i].item.slot + ")";
-                  var formatted = data[i].item.name + " (" + data[i].item.level + " " + data[i].item.slot + ")";
+                  var formatted = "<img src='http://static.wowhead.com/images/icons/medium/" + data[i].item.icon.toLowerCase() + ".jpg'/>" + 
+                    "<span class='" + data[i].item.color + "'>" + data[i].item.name + "</span>" + 
+                    "<br/>" + data[i].item.level + " " + data[i].item.slot;
+                    
                   array[array.length] = { 
                       data: data[i],
                       value: formatted,

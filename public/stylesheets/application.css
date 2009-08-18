@@ -54,6 +54,11 @@ html[xmlns] .clearfix {
 	overflow: hidden;
 }
 
+.ac_results li img {
+  float: left;
+  margin-right: 5px;
+}
+
 .ac_loading {
 	background: white url(/images/indicator.gif) right center no-repeat;
 }
