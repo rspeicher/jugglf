@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :items, :loots, :raids
+  map.resources :items, :raids
+  map.resources :loots, :member => { :price => :get }
   
   map.connect 'members/:id/t.:tab', :controller => 'members', :action => 'show'
   map.resources :members, :has_many => [ :punishments, :wishlists ]

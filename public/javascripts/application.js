@@ -325,6 +325,17 @@ $.tablesorter.addParser({
 });
 
 /**
+ * Given a price_loot_path value, fetch the value of the item and update the
+ * loot_price field to the returned value.
+ */
+function findItemPrice(path) {
+    $.get(path, {}, function(data) {
+        $('#loot_price').val(data);
+        $('#loot_price').effect('highlight', {}, 1500);
+    });
+}
+
+/**
  * Allows for filtering by item tell (loot) types
  *
  * Takes a tbody#itemfilter > tr > td > span object and toggles filtering by

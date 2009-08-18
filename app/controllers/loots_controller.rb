@@ -1,6 +1,6 @@
 class LootsController < ApplicationController
   before_filter :require_admin
-  before_filter :find_loot, :only => [:show, :edit, :update, :destroy]
+  before_filter :find_loot, :only => [:show, :edit, :update, :destroy, :price]
   before_filter :raids_select, :only => [:new, :edit]
   
   layout @@layout
@@ -72,6 +72,20 @@ class LootsController < ApplicationController
     
     respond_to do |wants|
       wants.html { redirect_to(loots_path) }
+    end
+  end
+  
+  # Use Juggy::ItemPrice to price an item based on this loot's properties
+  def price
+    return if @loot.item_id.nil? or @loot.item.wow_id.blank?
+    
+    wow_class = ( @loot.member_id.nil? ) ? nil : @loot.member.wow_class
+    new_price = Juggy::ItemPrice.instance.price(:name => @loot.item.name, 
+      :slot => @loot.item.slot, :level => @loot.item.level, :class => wow_class)
+    
+    respond_to do |wants|
+      wants.html { render :text => new_price }
+      wants.js { render :text => new_price }
     end
   end
   
