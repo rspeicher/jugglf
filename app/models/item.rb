@@ -96,7 +96,7 @@ class Item < ActiveRecord::Base
   end
   
   def to_param
-    "#{self.id}-#{self.name.parameterize}"
+    "#{self.id}-#{self.name.parameterize}-#{self.wow_id}".gsub(/\-$/, '')
   end
   
   protected
