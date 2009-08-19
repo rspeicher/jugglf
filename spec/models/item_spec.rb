@@ -158,11 +158,16 @@ describe Item, "lookup from Internet" do
     Item.destroy_all
     @item = Item.make(:name => 'Torch of Holy Fire', :wow_id => nil, :level => 0)
     
-    ItemLookup::Wowhead.stub!(:open).
-      and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
     # FIXME: We're hitting wowarmory.com here
+    # ItemLookup::Wowhead.stub!(:open).
+    #   and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
     # ItemLookup::Armory.stub!(:open).
     #   and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
+  end
+  
+  it "should fail silently if the item does not exist" do
+    @item.name = 'This Item Does Not Exist'
+    lambda { @item.lookup(true) }.should_not raise_error(Exception)
   end
   
   it "should perform lookup" do

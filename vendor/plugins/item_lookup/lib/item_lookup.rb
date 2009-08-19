@@ -20,7 +20,7 @@ module ItemLookup
   class Results < Array
     # Return the best result, where 'best' is the highest item level
     def best_result
-      return unless self.length > 0
+      return Result.new unless self.length > 0
       
       self.sort { |x,y| y.level <=> x.level }[0]
     end
@@ -69,7 +69,7 @@ module ItemLookup
     }
     
     def valid?
-      @id > 0 and !(@name.empty?) and @quality > -1 and !(@icon.empty?) and @level > -1
+      @id.present? and @id > 0 and !(@name.empty?) and @quality > -1 and !(@icon.empty?) and @level > -1
     end
     
     def slot
@@ -153,9 +153,9 @@ module ItemLookup
                 results << result
               end
             end
-            
-            results
           end
+          
+          results
         end
     end
     

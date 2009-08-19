@@ -25,9 +25,9 @@ describe ItemLookup::Results do
       @results.best_result.level.should == 25 # 5 * 5
     end
   
-    it "should return nil when no results present" do
+    it "should return Result.new when no results present" do
       @results = ItemLookup::Results.new
-      @results.best_result.should be_nil
+      @results.best_result.should be_kind_of ItemLookup::Result
     end
   
     it "should return properly when one result present" do
@@ -35,6 +35,21 @@ describe ItemLookup::Results do
       @results.length.should == 1
       @results.best_result.should == @results[0]
     end
+    
+    it "should return properly when no results are present" do
+      @results = ItemLookup::Results.new
+      @results.best_result.valid?.should be_false
+    end
+  end
+end
+
+describe ItemLookup::Result do
+  before(:each) do
+    @result = ItemLookup::Result.new
+  end
+  
+  it "should be invalid" do
+    @result.valid?.should be_false
   end
 end
 
@@ -107,8 +122,8 @@ describe ItemLookup::Armory do
         and_return(File.read(File.dirname(__FILE__) + '/../fixtures/wowarmory/search_no_results.xml'))
     end
     
-    it "should return nil" do
-      ItemLookup.search('Some Junk').should be_nil
+    it "should return an empty array of Results" do
+      ItemLookup.search('Some Junk').should be_a ItemLookup::Results
     end
   end
 end

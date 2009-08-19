@@ -317,7 +317,6 @@ namespace :juggernaut do
           item(boss, "Golden Saronite Dragon", "Hard Mode")
           item(boss, "Mechanist's Bindings")
           item(boss, "Mimiron's Inferno Couplings")
-          item(boss, "Overcharged Fuel Rod")
           item(boss, "Pendant of Fiery Havoc", "Hard Mode")
           item(boss, "Plated Leggings of Ruination", "Hard Mode")
           item(boss, "Shoulderpads of Dormant Energies", "Hard Mode")
