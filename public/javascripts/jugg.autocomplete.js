@@ -10,7 +10,8 @@ function addItemAutoComplete(field) {
           var array = new Array();
           for (var i = 0; i < data.length; i++) {
               if (data[i].item) {
-                  var formatted = "<img src='http://static.wowhead.com/images/icons/medium/" + data[i].item.icon.toLowerCase() + ".jpg'/>" + 
+                  var icon = ( data[i].item.icon ) ? data[i].item.icon.toLowerCase() : 'inv_misc_questionmark';
+                  var formatted = "<img src='http://static.wowhead.com/images/icons/medium/" + icon + ".jpg'/>" + 
                     "<span class='" + data[i].item.color + "'>" + data[i].item.name + "</span>" + 
                     "<br/>" + data[i].item.level + " " + data[i].item.slot;
                     
