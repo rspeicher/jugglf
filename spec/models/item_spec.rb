@@ -27,6 +27,11 @@ describe Item do
   end
   
   it "should have custom to_param" do
+    @item.to_param.should == "#{@item.id}-#{@item.name.parameterize}-#{@item.wow_id}"
+  end
+  
+  it "should not include wow_id if it's nil" do
+    @item.wow_id = nil
     @item.to_param.should == "#{@item.id}-#{@item.name.parameterize}"
   end
   
