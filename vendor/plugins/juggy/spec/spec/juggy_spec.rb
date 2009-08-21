@@ -45,10 +45,11 @@ describe Juggy do
     describe "multiple items of the same name" do
       it "should find the higher level item" do
         # Give these items different item levels; we want Juggy to find the one with the highest level when given its name
-        Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32837, :level => 123)
-        item = Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32838, :level => 456)
+        # NOTE: Temporarily we're using the lowest level
+        item1 = Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32837, :level => 123)
+        item2 = Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32838, :level => 456)
         results = Juggy.parse_loots("Tsigo (bis) - Warglaive of Azzinoth")
-        results[0][:item].should == item
+        results[0][:item].should == item1
       end
 
       # FIXME: This is performing Item.lookup and saving the record, but I'm not yet sure how to stub that out

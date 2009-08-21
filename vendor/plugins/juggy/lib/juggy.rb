@@ -51,7 +51,10 @@ module Juggy
         retval = { }
         # First attempt to find an item with this name, giving higher preference to higher level items 
         # (226 Dark Matter trinket is more likely to be recorded than the level 0 quest item)
-        retval[:item] = Item.find_by_name(item_name, :order => 'level DESC')
+        
+        # NOTE: Temporarily, while we're adding items from non-Hard modes, we're going to sort by level ascending
+        retval[:item] = Item.find_by_name(item_name, :conditions => 'level > 0', 
+          :order => 'level')
         
         # If nothing was found above, initialize a new record by name
         retval[:item] ||= Item.new(:name => item_name)
