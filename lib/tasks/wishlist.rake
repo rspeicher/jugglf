@@ -545,14 +545,21 @@ namespace :juggernaut do
   
   def crusade_data
     toc_bosses = {
-      'Trial of the Crusader' => [
+      'Trial of the Crusader (10)' => [
         ['northrendbeasts-10'       , 'Northrend Beasts'],
         ['jaraxxus-10'              , 'Jaraxxus'],
         ['factionchampions-10'      , 'Faction Champions'],
         ['twinvalkyrs-10'           , 'Twin Valkyrs'],
         ['anubarakraid-10'          , "Anub'arak"]
       ],
-      'Trial of the Crusader (H)' => [
+      'Trial of the Crusader (25)' => [
+        ['northrendbeasts-25'       , 'Northrend Beasts'],
+        ['jaraxxus-25'              , 'Jaraxxus'],
+        ['factionchampions-25'      , 'Faction Champions'],
+        ['twinvalkyrs-25'           , 'Twin Valkyrs'],
+        ['anubarakraid-25'          , "Anub'arak"]
+      ],
+      'Trial of the Grand Crusader (10H)' => [
         ['northrendbeasts-10-hard'  , 'Northrend Beasts'],
         ['jaraxxus-10-hard'         , 'Jaraxxus'],
         ['factionchampions-10-hard' , 'Faction Champions'],
@@ -561,14 +568,7 @@ namespace :juggernaut do
         ['tributechest-10'          , 'Tribute Chest'],
         ['tributechest-10-hard'     , 'Tribute Chest (Hard)']
       ],
-      'Trial of the Grand Crusader' => [
-        ['northrendbeasts-25'       , 'Northrend Beasts'],
-        ['jaraxxus-25'              , 'Jaraxxus'],
-        ['factionchampions-25'      , 'Faction Champions'],
-        ['twinvalkyrs-25'           , 'Twin Valkyrs'],
-        ['anubarakraid-25'          , "Anub'arak"]
-      ],
-      'Trial of the Grand Crusader (H)' => [
+      'Trial of the Grand Crusader (25H)' => [
         ['northrendbeasts-25-hard'  , 'Northrend Beasts'],
         ['jaraxxus-25-hard'         , 'Jaraxxus'],
         ['factionchampions-25-hard' , 'Faction Champions'],
