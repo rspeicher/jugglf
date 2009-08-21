@@ -25,19 +25,19 @@ describe Raid do
   end
   
   it "should have attendees" do
-    5.times { @raid.attendees.make }
+    2.times { @raid.attendees.make }
     
     @raid.reload
-    @raid.attendees_count.should == 5
-    @raid.attendees.size.should == 5
+    @raid.attendees_count.should == 2
+    @raid.attendees.size.should == 2
   end
   
   it "should have loots" do
-    8.times { @raid.loots.make }
+    @raid.loots.make
     
     @raid.reload
-    @raid.loots_count.should == 8
-    @raid.loots.size.should == 8
+    @raid.loots_count.should == 1
+    @raid.loots.size.should == 1
   end
   
   describe "#date_string" do
@@ -132,18 +132,16 @@ describe Raid, "dependencies" do
     [Attendee, Loot].each(&:destroy_all)
     @raid = Raid.make
 
-    3.times { Attendee.make(:member => Member.make, :raid => @raid) }
-    2.times { @raid.loots.make }
+    2.times { Attendee.make(:member => Member.make, :raid => @raid) }
+    1.times { @raid.loots.make }
   end
 
   it "should destroy associated attendees when destroyed" do
-    Attendee.count.should == 3
     @raid.destroy
     Attendee.count.should == 0
   end
   
   it "should destroy associated loots when destroyed" do
-    Loot.count.should == 2
     @raid.destroy
     Loot.count.should == 0
   end

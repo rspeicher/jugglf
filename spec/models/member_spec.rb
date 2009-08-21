@@ -51,11 +51,11 @@ describe Member do
   end
   
   it "should have loot purchases" do
-    8.times { @member.loots.make }
+    @member.loots.make
     
     @member.reload
-    @member.loots_count.should == 8
-    @member.loots.size.should == 8
+    @member.loots_count.should == 1
+    @member.loots.size.should == 1
   end
   
   describe "#lf_type" do

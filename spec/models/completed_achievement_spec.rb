@@ -21,9 +21,12 @@ describe CompletedAchievement do
 end
 
 describe CompletedAchievement, "#parse_member" do
+  before(:all) do
+    Member.destroy_all
+    @member = Member.make(:name => 'Tsigo')
+  end
   before(:each) do
     [Achievement, CompletedAchievement].each(&:destroy_all)
-    @member = Member.make(:name => 'Tsigo')
     
     # Add one pre-existing completed achievement
     @complete = Achievement.make(:armory_id => 2887, :category_id => 168,

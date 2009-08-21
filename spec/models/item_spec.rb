@@ -60,6 +60,10 @@ describe Item do
   end
   
   describe "#safely_rename" do
+    before(:all) do
+      Item.destroy_all
+    end
+    
     before(:each) do
       @wrong = Item.make(:name => 'Wrong')
       @right = Item.make(:name => 'Right')
@@ -71,29 +75,29 @@ describe Item do
     end
   
     it "should update its loot children" do
-      1.times { @wrong.loots.make }
-      5.times { @right.loots.make }
+      2.times { @wrong.loots.make }
+      1.times { @right.loots.make }
       
       Item.safely_rename(:from => @wrong, :to => @right.id)
       
       @right.reload
-      @right.loots.count.should == 6
-      @right.loots_count.should == 6
+      @right.loots.count.should == 3
+      @right.loots_count.should == 3
     end
     
     it "should update its wishlist children" do
-      4.times { @wrong.wishlists.make }
+      1.times { @wrong.wishlists.make }
       2.times { @right.wishlists.make }
       
       Item.safely_rename(:from => @wrong, :to => @right.id)
       
       @right.reload
-      @right.wishlists.count.should == 6
-      @right.wishlists_count.should == 6
+      @right.wishlists.count.should == 3
+      @right.wishlists_count.should == 3
     end
     
     it "should update its loot table children" do
-      1.times { @wrong.loot_tables.make }
+      @wrong.loot_tables.make
       
       Item.safely_rename(:from => @wrong, :to => @right.id)
       
