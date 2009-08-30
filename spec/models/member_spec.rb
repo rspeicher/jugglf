@@ -43,11 +43,11 @@ describe Member do
   end
   
   it "should have raid attendance" do
-    5.times { @member.attendance.make }
+    2.times { @member.attendance.make }
     
     @member.reload
-    @member.raids_count.should == 5
-    @member.raids.size.should == 5
+    @member.raids_count.should == 2
+    @member.raids.size.should == 2
   end
   
   it "should have loot purchases" do
@@ -91,11 +91,10 @@ end
 
 describe Member, "#clean_trash" do
   before(:each) do
-    @declined = MemberRank.make(:name => 'Declined Applicant')
-    @member = Member.make(:active => false, :rank => @declined)
+    @member = Member.make(:active => false, :rank => MemberRank.make(:name => 'Declined Applicant'))
     
-    3.times { @member.completed_achievements.make }
-    4.times { @member.wishlists.make }
+    @member.completed_achievements.make
+    @member.wishlists.make
   end
   
   it "should do nothing if a member is active" do
@@ -214,7 +213,6 @@ end
 
 describe Member, "dependencies" do
   before(:each) do
-    [Attendee, Loot, Punishment, Wishlist].each(&:destroy_all)
     @member = Member.make
     
     @member.attendance.make

@@ -84,7 +84,7 @@ describe Raid do
     it "should update purchased_on attribute for child loots" do
       Item.destroy_all
       
-      5.times { @raid.loots.make(:purchased_on => 15.days.ago) }
+      @raid.loots.make(:purchased_on => 15.days.ago)
       @raid.update_cache = false
       @raid.save
       

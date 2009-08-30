@@ -3,8 +3,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe "/raids/show.html.haml" do
   before(:each) do
     @raid = Raid.make
-    5.times { @raid.attendees.make }
-    5.times { @raid.loots.make }
+    @raid.attendees.make
+    @raid.loots.make
     
     assigns[:raid]      = @raid
     assigns[:attendees] = @raid.attendees
