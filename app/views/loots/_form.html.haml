@@ -9,7 +9,8 @@
 
 = form.label :price
 = form.text_field :price, :class => 'small with-icon'
-= link_to_function(image_tag('find.png'), "findItemPrice('#{price_loot_path(@loot)}')")
+- unless @loot.new_record?
+  = link_to_function(image_tag('find.png'), "findItemPrice('#{price_loot_path(@loot)}')")
 
 .radio-check
   = form.check_box :best_in_slot
