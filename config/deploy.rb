@@ -1,9 +1,8 @@
 set :stages, %w(production staging)
-set :default_stage, ""
+set :default_stage, "staging"
 require 'capistrano/ext/multistage'
 
 set :application, "juggrails"
-set :deploy_to,   "/var/www/rails/#{application}"
 
 set :use_sudo, false
 set :keep_releases, 3
