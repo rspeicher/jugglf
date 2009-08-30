@@ -28,7 +28,6 @@ namespace :deploy do
   end
 end
 
-after "deploy:symlink", "deploy:update_crontab"
 after "deploy:symlink", "deploy:database_yml"
 
 namespace :deploy do
