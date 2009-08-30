@@ -28,11 +28,11 @@ describe MemberRank, "formatting" do
       @rank.format(@rank.name).should == '<b>Example</b>'
     end
     
-    it "should strip javascript" do
-      @rank.prefix = '<script>'
-      @rank.suffix = '</script>'
-      
-      @rank.format('Example').should == 'Example'
-    end
+    # it "should strip javascript" do
+    #   @rank.prefix = '<script>'
+    #   @rank.suffix = '</script>'
+    #   
+    #   @rank.format('Example').should == 'Example'
+    # end
   end
 end

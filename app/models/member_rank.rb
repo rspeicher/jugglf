@@ -9,16 +9,6 @@
 #
 
 class MemberRank < ActiveRecord::Base
-  SANITIZE_CONFIG = {
-    :elements   => [ 'span', 'img', 'b', 'i' ],
-    :attributes => {
-      'span' => [ 'class', 'style' ],
-      'img'  => [ 'src', 'alt', 'width', 'height', 'class' ],
-      'b'    => [],
-      'i'    => [],
-    }
-  }
-  
   # Relationships -------------------------------------------------------------
   has_one :member
   
@@ -28,8 +18,6 @@ class MemberRank < ActiveRecord::Base
   # This method became necessary because calling Sanitize on a string with no
   # closing tag automatically closed it
   def format(inner_html)
-    require 'sanitize'
-    
-    Sanitize.clean("#{self.prefix}#{inner_html}#{self.suffix}", SANITIZE_CONFIG)
+    "#{self.prefix}#{inner_html}#{self.suffix}"
   end
 end
