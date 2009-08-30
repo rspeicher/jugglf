@@ -1,20 +1,15 @@
+set :stages, %w(production staging)
+set :default_stage, ""
+require 'capistrano/ext/multistage'
+
 set :application, "juggrails"
 set :deploy_to,   "/var/www/rails/#{application}"
-
-set :domain,      "lf.juggernautguild.com"
-set :repository,  "git@tsigo.com:#{application}.git"
-set :scm,         'git'
-set :branch,      'master'
 
 set :use_sudo, false
 set :keep_releases, 3
 
 set :user, 'tsigo'
 set :ssh_options, { :forward_agent => true, :keys => "/Users/tsigo/.ssh/id_rsa" }
-
-role :app, domain
-role :web, domain
-role :db,  domain, :primary => true
 
 namespace :deploy do
   desc "Start the server"
