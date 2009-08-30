@@ -9,3 +9,10 @@ Item.blueprint do
   slot { 'Head' }
   level { 239 }
 end
+Item.blueprint(:with_real_stats) do
+  name { 'Torch of Holy Fire' }
+  wow_id { 40395 }
+  icon { 'INV_Mace_82' }
+  level { 226 }
+  slot { 'Main Hand' }
+end

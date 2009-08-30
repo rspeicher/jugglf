@@ -3,7 +3,7 @@ require 'item_price'
 module Juggy
   class << self
     def parse_attendees(output)
-      return if output.nil? or output.empty?
+      return unless output.present?
       
       retval = []
  
@@ -43,19 +43,27 @@ module Juggy
     
     private
       def generate_loot(buyer, item_name)
-        buyer.strip! unless buyer.nil?
-        item_name.strip! unless item_name.nil?
-        
-        return if buyer.nil? or buyer.empty? or item_name.nil? or item_name.empty?
+        return unless buyer.present? and item_name.present?
+        buyer.strip!
+        item_name.strip!
         
         retval = { }
-        # First attempt to find an item with this name, giving higher preference to higher level items 
-        # (226 Dark Matter trinket is more likely to be recorded than the level 0 quest item)
         
+        # Now an Item ID might be included in the form "Name|ID", so see if we got one
+        item_name, wow_id = item_name.split('|')
+        
+        unless wow_id.nil?
+          retval[:item] ||= Item.find_by_wow_id(wow_id)
+        end
+        
+        # No wow_id was given, or we couldn't find an item with the given wow_id.
+        # Attempt to find an item by name, giving higher preference to higher
+        # level items (226 Dark Matter trinket is more likely to be recorded than
+        # the level 0 quest item)
         # NOTE: Temporarily, while we're adding items from non-Hard modes, we're going to sort by level ascending
-        retval[:item] = Item.find_by_name(item_name, :conditions => 'level > 0', 
+        retval[:item] ||= Item.find_by_name(item_name, :conditions => 'level > 0', 
           :order => 'level')
-        
+      
         # If nothing was found above, initialize a new record by name
         retval[:item] ||= Item.new(:name => item_name)
       

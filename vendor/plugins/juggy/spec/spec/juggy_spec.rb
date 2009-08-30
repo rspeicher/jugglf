@@ -21,13 +21,6 @@ describe Juggy do
         should_not change(Loot, :count)
     end
     
-    # We enabled this for a while, then wimped out because there was no
-    # distinguishing from a DE'd item and an item that had a misspelled buyer
-    # it "should not save members automatically" do
-    #   lambda { Juggy.parse_loots(@loot_output) }.
-    #     should_not change(Member, :count)
-    # end
-    
     describe "automatic pricing" do
       before(:each) do
         # Juggy.parse_loots tries to figure out the price via Item's
@@ -62,66 +55,78 @@ describe Juggy do
     end
     
     describe "loot details" do
-      before(:all) do
-        item = 'Arachnoid Gold Band'
-        @loots = {
-          :single       => Juggy.parse_loots("Sebudai - #{item}"),
-          :false_bis    => Juggy.parse_loots("Sebisudai - #{item}"),
-          :best_in_slot => Juggy.parse_loots("Modrack (bis) - #{item}"),
-          :rot          => Juggy.parse_loots("Modrack (rot) - #{item}"),
-          :sit          => Juggy.parse_loots("Modrack (sit) - #{item}"),
-          :bisrot       => Juggy.parse_loots("Modrack (bis rot) - #{item}"),
-          :multiple     => Juggy.parse_loots("Modrack (bis), Rosoo (sit), DE - #{item}"),
-          :de           => Juggy.parse_loots("DE - #{item}"),
-        }
-        
-        # parse_items returns an array; each example only wants one item
-        @loots.each { |k, v| @loots[k] = v[0] unless k == :multiple }
+      before(:each) do
+        @item = Item.make(:with_real_stats)
       end
     
       it "should return one Hash" do
-        @loots[:single].class.should == Hash
+        loot = Juggy.parse_loots("Sebudai - #{@item.name}")
+        loot[0].class.should == Hash
       end
     
       it "should correctly set best_in_slot" do
-        @loots[:best_in_slot][:best_in_slot].should be_true
+        loot = Juggy.parse_loots("Modrack (bis) - #{@item.name}")
+        loot[0][:best_in_slot].should be_true
       end
     
       it "should correctly set situational" do
-        @loots[:sit][:situational].should be_true
+        loot = Juggy.parse_loots("Modrack (sit) - #{@item.name}")
+        loot[0][:situational].should be_true
       end
     
       it "should correctly set rot" do
-        @loots[:rot][:rot].should be_true
+        loot = Juggy.parse_loots("Modrack (rot) - #{@item.name}")
+        loot[0][:rot].should be_true
       end
     
       it "should correctly set best_in_slot and rot at the same time" do
-        @loots[:bisrot][:best_in_slot].should be_true
-        @loots[:bisrot][:rot].should be_true
+        loot = Juggy.parse_loots("Modrack (bis rot) - #{@item.name}")
+        loot[0][:best_in_slot].should be_true
+        loot[0][:rot].should be_true
       end
     
       it "should not have false positives for purchase types inside buyer names" do
-        @loots[:false_bis][:best_in_slot].should be_false
+        loot = Juggy.parse_loots("Sebisudai - #{@item.name}")
+        loot[0][:best_in_slot].should be_false
       end
     
       it "should set member as nil if buyer is 'DE'" do
-        @loots[:de][:member].should be_nil
+        loot = Juggy.parse_loots("DE - #{@item.name}")
+        loot[0][:member].should be_nil
       end
       
+      it "should use the wow_id if provided" do
+        Item.destroy_all
+        glaive_main = Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32837)
+        glaive_off  = Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32838)
+        loot = Juggy.parse_loots("Kamien (bis) - [Ignore Me]|32838")
+        loot[0][:item].should eql(glaive_off)
+      end
+
+      # TODO: Couldn't get the regex figured out
+      # it "should not require parenthesis around the loot type" do
+      #   @loots[:no_parens][:best_in_slot].should be_true
+      #   @loots[:no_parens][:member].name.should eql('Kamien')
+      # end
+      
       describe "for multiple buyers" do
+        before(:each) do
+          @loot = Juggy.parse_loots("Modrack (bis), Rosoo (sit), DE - #{@item.name}")
+        end
+        
         it "should get the correct number of buyers" do
-          @loots[:multiple].size.should == 3
+          @loot.size.should == 3
         end
         
         it "should get the correct buyer names" do
-          @loots[:multiple][0][:member].name.should == 'Modrack'
-          @loots[:multiple][1][:member].name.should == 'Rosoo'
-          @loots[:multiple][2][:member].should be_nil
+          @loot[0][:member].name.should == 'Modrack'
+          @loot[1][:member].name.should == 'Rosoo'
+          @loot[2][:member].should be_nil
         end
         
         it "should get the correct item types" do
-          @loots[:multiple][0][:best_in_slot].should be_true
-          @loots[:multiple][1][:situational].should be_true
+          @loot[0][:best_in_slot].should be_true
+          @loot[1][:situational].should be_true
         end
       end
     end
