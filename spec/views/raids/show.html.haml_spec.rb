@@ -3,12 +3,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../../spec_helper')
 describe "/raids/show.html.haml" do
   before(:each) do
     @raid = Raid.make
-    @raid.attendees.make
-    @raid.loots.make
     
     assigns[:raid]      = @raid
-    assigns[:attendees] = @raid.attendees
-    assigns[:loots]     = @raid.loots
+    assigns[:attendees] = []
+    assigns[:loots]     = []
   end
   
   describe "as admin" do

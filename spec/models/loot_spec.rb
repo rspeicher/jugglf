@@ -98,7 +98,6 @@ describe Loot do
   describe "#set_purchased_on" do
     it "should set purchased_on" do
       @loot.purchased_on = nil
-      @loot.raid.make
       
       lambda { @loot.save }.should change(@loot, :purchased_on).to(Date.today)
     end
