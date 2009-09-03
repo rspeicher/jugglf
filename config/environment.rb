@@ -16,9 +16,6 @@ Rails::Initializer.run do |config|
   
   # Specify gems that this application depends on and have them installed with rake gems:install
   config.gem 'mislav-will_paginate', :lib => 'will_paginate', :version => '~> 2.2.3', :source => 'http://gems.github.com'
-  config.gem 'javan-whenever',       :lib => false,           :version => '>= 0.1.7', :source => 'http://gems.github.com'
-  config.gem "rspec",                :lib => false,           :version => ">= 1.2.0"
-  config.gem "rspec-rails",          :lib => false,           :version => ">= 1.2.0"
   
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

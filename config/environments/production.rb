@@ -27,3 +27,5 @@ config.cache_store = :file_store, 'tmp/cache/'
 
 # Enable threaded mode
 # config.threadsafe!
+
+config.gem 'javan-whenever', :lib => false, :version => '>= 0.1.7', :source => 'http://gems.github.com'
