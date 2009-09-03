@@ -47,7 +47,7 @@ module ItemLookup
       7  => 'Legs',
       8  => 'Feet',
       9  => 'Wrist',
-      10 => 'hands',
+      10 => 'Hands',
       11 => 'Finger',
       12 => 'Trinket',
       13 => 'One-Hand',
