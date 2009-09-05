@@ -15,5 +15,5 @@
     - @wishlists.each do |wishlist|
       = render :partial => "wishlists/wishlist_row", :object => wishlist, :locals => { :recent_loots => @recent_loots }
 %br
-#wishlist-edit{ :style => "display: none" }'
+#wishlist-edit{ :style => "display: none" }
 = render :partial => 'wishlists/form_inline'
