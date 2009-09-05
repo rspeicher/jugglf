@@ -62,6 +62,7 @@ class WishlistsController < ApplicationController
   end
   
   def create
+    params[:wishlist].delete(:item_name) if params[:wishlist][:wow_id].present?
     @wishlist = @parent.wishlists.new(params[:wishlist])
     
     respond_to do |wants|
@@ -79,6 +80,7 @@ class WishlistsController < ApplicationController
   end
   
   def update
+    params[:wishlist].delete(:item_name) if params[:wishlist][:wow_id].present?
     respond_to do |wants|
       if @wishlist.update_attributes(params[:wishlist])
         wants.html do

@@ -18,11 +18,14 @@ function addItemAutoComplete(field) {
                   array[array.length] = { 
                       data: data[i],
                       value: formatted,
-                      result: data[i].item.wow_id
+                      result: this.formatResult(data[i].item)
                   }
               };
           }
           return array;
+      },
+      formatResult: function(item) {
+          return item.name;
       },
       formatItem: function(row, i, max, value) {
           return value;

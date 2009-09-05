@@ -82,6 +82,9 @@ function wishlistAddForm() {
     // Show the New form, add autocompletion
     $('#wishlist-new').show();
     addItemAutoComplete('#wishlist_item_name')
+    $('#wishlist_item_name').result(function(event, data, formatted) {
+      $('#wishlist_wow_id').val(data.item.wow_id);
+    });
     
     // Focus the first field
     $('#wishlist-new #wishlist_item_name').focus();
@@ -118,6 +121,9 @@ function wishlistEditForm(path) {
         
         // Add autocompletion to the edit form
         addItemAutoComplete('#wishlist-edit #wishlist_item_name')
+        $('#wishlist-edit #wishlist_item_name').result(function(event, data, formatted) {
+          $('#wishlist-edit #wishlist_wow_id').val(data.item.wow_id);
+        });
         
         $('#wishlist-edit #wishlist_item_name').focus();
     });

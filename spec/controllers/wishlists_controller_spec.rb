@@ -245,6 +245,7 @@ describe WishlistsController, "#create" do
         find_wishlist_parent
         login(:user, :member => @parent)
         @wishlist = mock_model(Wishlist, :save => false)
+        @params = Wishlist.plan(:member => @parent).stringify_keys!
         @parent.wishlists.stub!(:new).and_return(@wishlist)
       end
       
