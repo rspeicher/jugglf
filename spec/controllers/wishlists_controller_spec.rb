@@ -235,7 +235,7 @@ describe WishlistsController, "#create" do
       describe "wanting JS" do
         it "should be successful" do
           get_response(:xhr)
-          response.should render_template(:create)
+          response.should render_template("wishlists/_create")
         end
       end
     end
@@ -258,7 +258,7 @@ describe WishlistsController, "#create" do
       describe "wanting JS" do
         it "should render template :create_failure" do
           get_response(:xhr)
-          response.should render_template(:create)
+          response.should render_template("wishlists/_create")
         end
       end
     end
@@ -316,7 +316,7 @@ describe WishlistsController, "#update" do
       describe "wanting JS" do
         it "should render :update" do
           get_response(:xhr)
-          response.should render_template(:update)
+          response.should render_template("wishlists/_update")
         end
       end
     end
@@ -337,7 +337,7 @@ describe WishlistsController, "#update" do
       describe "wanting JS" do
         it "should render :update" do
           get_response(:xhr)
-          response.should render_template(:update)
+          response.should render_template("wishlists/_update")
         end
       end
     end

@@ -78,7 +78,7 @@ describe MembersController, "#show" do
       it "should render #{tab} tab" do
         get_response(:tab => tab)
         assigns[tab.pluralize.intern].should_not be_nil
-        response.should render_template(tab.intern)
+        response.should render_template("members/_#{tab}")
       end
     end
   end
