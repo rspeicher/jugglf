@@ -50,21 +50,12 @@ describe Wishlist do
     it "should create the item if no item was found" do
       lambda { @wishlist.item_name = 'NewItem' }.should change(Item, :count).by(1)
     end
-    
-    it "should allow the note to be parsed from the item name" do
-      @wishlist.note = ''
-      @wishlist.item_name = "ItemName [Note via item name]"
-      @wishlist.note.should == 'Note via item name'
-    end
-    
-    # it "should not let note in params overwrite note in name" do
-    #   wishlist = Wishlist.make(:item_name => 'Name [Note]', :note => 'Also Note')
-    #   wishlist.note.should_not == 'Also Note'
-    # end
-    
-    it "should not set the item note via item_name if a note already exists" do
-      @wishlist.item_name = "ItemName [Note via item name]"
-      @wishlist.note.should == "I really want this item!"
+  end
+  
+  describe "#wow_id" do
+    it "should return the wow_id of the Item" do
+      @wishlist.item = Item.make(:with_real_stats)
+      @wishlist.wow_id.should eql(40395)
     end
   end
 end
