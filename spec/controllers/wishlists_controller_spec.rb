@@ -414,6 +414,8 @@ describe WishlistsController, "forged posts" do
   end
   
   before(:each) do
+    Member.destroy_all
+    
     # Create a member with ID 999
     @not_me = Member.make(:id => '999', :name => 'Sebudai')
     
@@ -441,6 +443,11 @@ describe WishlistsController, "forged posts" do
   it "should not delete a wishlist entry that isn't mine" do
     login(:user, :member => @me)
     lambda { get_response }.should raise_error(ActiveRecord::RecordNotFound)
+  end
+  
+  it "should delete a wishlist entry that is mine" do
+    login(:user, :member => @not_me)
+    lambda { get_response }.should change(Wishlist, :count).by(-1)
   end
   
   it "should require_admin when I have no member associated" do
