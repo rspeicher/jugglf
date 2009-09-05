@@ -25,6 +25,14 @@ class Item < ActiveRecord::Base
   attr_accessible :name, :wow_id, :color, :icon, :level, :slot
   
   searchify :name
+  def self.search_name_or_wow_id(query, options={})
+    if query =~ /^\d+$/ or query.is_a? Fixnum
+      options.delete(:page)
+      self.find_all_by_wow_id(query, options)
+    else
+      self.search(options.merge!(:name => "%#{query}%"))
+    end
+  end
   
   # Validations ---------------------------------------------------------------
   # Check that name exists, but only if we don't have a wow_id, since we allow

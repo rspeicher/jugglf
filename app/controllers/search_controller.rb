@@ -22,8 +22,7 @@ class SearchController < ApplicationController
       @results = @members = Member.active.search(@field => "%#{@query}%", :order => 'name', 
         :per_page => 999)
     when 'items'
-      @results = @items = Item.search(:name => "%#{@query}%", :order => 'name',
-        :page => params[:page])
+      @results = @items = Item.search_name_or_wow_id(@query, :order => 'name',:page => params[:page])
     end
     
     respond_to do |wants|
