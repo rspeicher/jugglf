@@ -51,11 +51,13 @@ function wishlistSortTables() {
  */
 function sortWishlistTable() {
     $("table#wishlists").tablesorter({
-        sortList: [[1,0], [0,0]],
+        sortList: [[2,0], [1,0]],
         widgets: ['zebra'],
         headers: {
-            1: { sorter: 'wishlist' }, // Priority
-            4: { sorter: false }       // Don't sort the 'Delete' icon'
+            0: { sorter: false },          // Don't sort the item icon
+            1: { sorter: 'without-link' }, // Sort by item name without the link
+            2: { sorter: 'wishlist' },     // Priority
+            5: { sorter: false }           // Don't sort the 'Delete' icon
         }
     });
     zebraRows('wishlist');
@@ -71,4 +73,14 @@ $.tablesorter.addParser({
         return s.toLowerCase().replace(/best in slot/, 1).replace(/normal/, 2).replace(/rot/, 3).replace(/situational/, 4);
     },
     type: 'numeric'
+});
+$.tablesorter.addParser({
+    id: 'without-link',
+    is: function(s) {
+        return false;
+    },
+    format: function(s) {
+        return s.replace(/<a.+>(.+)<\/a>/, '$1');
+    },
+    type: 'text'
 });

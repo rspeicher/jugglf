@@ -80,7 +80,7 @@ module MembersHelper
   end
   
   def warn_if_recently_looted(wishlist, loots)
-    return unless loots.size > 0
+    return unless loots.present?
     
     loots.each do |loot|
       if wishlist.member_id == loot.member_id and loot.item_id == wishlist.item_id and loot.has_purchase_type?(wishlist.priority)
