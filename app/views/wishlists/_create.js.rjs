@@ -16,7 +16,7 @@ else
   page << "$('#errors').removeClass('hidden');"
 
   # Add the error messages
-  page << "$('#errors').html('#{error_messages_for('wishlist entry', :object => create)}')"
+  page << "$('#errors').html('#{escape_javascript(error_messages_for('wishlist entry', :object => create))}')"
 
   # Focus the name field
   page << "$('#wishlist_item_name').focus();"
