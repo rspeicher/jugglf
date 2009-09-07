@@ -7,12 +7,12 @@ describe MembersHelper do
   describe "member_rank_with_formatting" do
     it "should return member.name if member.rank is nil" do
       m = Member.make
-      member_with_rank_formatting(m).should == m.name
+      member_with_rank_formatting(m).should eql(m.name)
     end
     
     it "should return a formatted name if member.rank is not nil" do
       m = Member.make(:rank => MemberRank.make)
-      member_with_rank_formatting(m).should == "<b>#{m.name}</b>"
+      member_with_rank_formatting(m).should eql("<b>#{m.name}</b>")
     end
     
     it "should ignore a nil value" do
@@ -22,7 +22,7 @@ describe MembersHelper do
   
   describe "link_to_member" do
     it "should return nil if member is nil" do
-      link_to_member(nil).should == nil
+      link_to_member(nil).should eql(nil)
     end
     
     it "should apply wow class as CSS class" do
@@ -97,7 +97,7 @@ describe MembersHelper do
   
   describe "loot_factor" do
     it "should format a value" do
-      loot_factor(1).should == '1.00'
+      loot_factor(1).should eql('1.00')
     end
   end
   

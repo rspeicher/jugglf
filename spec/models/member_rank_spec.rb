@@ -25,14 +25,14 @@ describe MemberRank, "formatting" do
     end
     
     it "should format a string" do
-      @rank.format(@rank.name).should == '<b>Example</b>'
+      @rank.format(@rank.name).should eql('<b>Example</b>')
     end
     
     # it "should strip javascript" do
     #   @rank.prefix = '<script>'
     #   @rank.suffix = '</script>'
     #   
-    #   @rank.format('Example').should == 'Example'
+    #   @rank.format('Example').should eql('Example')
     # end
   end
 end

@@ -35,7 +35,7 @@ describe Member do
   end
   
   it "should have custom to_param" do
-    @member.to_param.should == "#{@member.id}-#{@member.name.parameterize}"
+    @member.to_param.should eql("#{@member.id}-#{@member.name.parameterize}")
   end
   
   it "should be active by default" do
@@ -46,16 +46,16 @@ describe Member do
     2.times { @member.attendance.make }
     
     @member.reload
-    @member.raids_count.should == 2
-    @member.raids.size.should == 2
+    @member.raids_count.should eql(2)
+    @member.raids.size.should eql(2)
   end
   
   it "should have loot purchases" do
     @member.loots.make
     
     @member.reload
-    @member.loots_count.should == 1
-    @member.loots.size.should == 1
+    @member.loots_count.should eql(1)
+    @member.loots.size.should eql(1)
   end
   
   describe "#lf_type" do
@@ -65,24 +65,24 @@ describe Member do
       @member.sitlf = 7.89
     end
     it "should return normal LF for rot" do
-      @member.lf_type(:rot).should == @member.lf
+      @member.lf_type(:rot).should eql(@member.lf)
     end
     
     it "should return normal LF" do
-      @member.lf_type(:normal).should == @member.lf
+      @member.lf_type(:normal).should eql(@member.lf)
     end
     
     it "should return best in slot LF" do
-      @member.lf_type(:bis).should == @member.bislf
+      @member.lf_type(:bis).should eql(@member.bislf)
     end
     
     it "should return situational LF" do
-      @member.lf_type(:sit).should == @member.sitlf
-      @member.lf_type(:situational).should == @member.sitlf
+      @member.lf_type(:sit).should eql(@member.sitlf)
+      @member.lf_type(:situational).should eql(@member.sitlf)
     end
     
     it "should take a string" do
-      @member.lf_type('best in slot').should == @member.bislf
+      @member.lf_type('best in slot').should eql(@member.bislf)
     end
   end
 end
@@ -134,11 +134,11 @@ describe Member, "full attendance caching" do
   end
   
   it "should set first_raid" do
-    @member.first_raid.should == @raids[:two_months_ago].date
+    @member.first_raid.should eql(@raids[:two_months_ago].date)
   end
   
   it "should set last_raid" do
-    @member.last_raid.should == @raids[:yesterday].date
+    @member.last_raid.should eql(@raids[:yesterday].date)
   end
   
   it "should update attendance percentages" do
@@ -175,15 +175,15 @@ describe Member, "loot factor caching" do
   end
   
   it "should update normal loot factor" do
-    @member.lf.should == 1.23
+    @member.lf.should eql(1.23)
   end
   
   it "should update best in slot loot factor" do
-    @member.bislf.should == 4.56
+    @member.bislf.should eql(4.56)
   end
   
   it "should update situational loot factor" do
-    @member.sitlf.should == 7.89
+    @member.sitlf.should eql(7.89)
   end
 end
 
@@ -205,7 +205,7 @@ describe Member, "punishments" do
     @member.punishments.make(:expired)
     @member.update_cache
     
-    @member.lf.should == 0.0
+    @member.lf.should eql(0.0)
   end
 end
 
@@ -224,7 +224,7 @@ describe Member, "dependencies" do
   end
   
   it "should destroy associated attendance" do
-    Attendee.count.should == 0
+    Attendee.count.should eql(0)
   end
   
   it "should nullify loot purchases" do
@@ -233,11 +233,11 @@ describe Member, "dependencies" do
   end
   
   it "should destroy punishments" do
-    Punishment.count.should == 0
+    Punishment.count.should eql(0)
   end
   
   it "should destroy wishlists" do
-    Wishlist.count.should == 0
+    Wishlist.count.should eql(0)
   end
 end
 

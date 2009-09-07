@@ -27,12 +27,12 @@ describe Item do
   end
   
   it "should have custom to_param" do
-    @item.to_param.should == "#{@item.id}-#{@item.name.parameterize}-#{@item.wow_id}"
+    @item.to_param.should eql("#{@item.id}-#{@item.name.parameterize}-#{@item.wow_id}")
   end
   
   it "should not include wow_id if it's nil" do
     @item.wow_id = nil
-    @item.to_param.should == "#{@item.id}-#{@item.name.parameterize}"
+    @item.to_param.should eql("#{@item.id}-#{@item.name.parameterize}")
   end
   
   it "should return a Wowhead item link" do
@@ -40,8 +40,8 @@ describe Item do
   end
   
   it "should return a Wowhead icon link" do
-    @item.wowhead_icon('medium').should == "http://static.wowhead.com/images/icons/medium/inv_icon_01.jpg"
-    @item.wowhead_icon(:large).should == "http://static.wowhead.com/images/icons/large/inv_icon_01.jpg"
+    @item.wowhead_icon('medium').should eql("http://static.wowhead.com/images/icons/medium/inv_icon_01.jpg")
+    @item.wowhead_icon(:large).should eql("http://static.wowhead.com/images/icons/large/inv_icon_01.jpg")
   end
   
   it "should return an empty string if the icon does not exist" do
@@ -86,8 +86,8 @@ describe Item do
       Item.safely_rename(:from => @wrong, :to => @right.id)
       
       @right.reload
-      @right.loots.count.should == 3
-      @right.loots_count.should == 3
+      @right.loots.count.should eql(3)
+      @right.loots_count.should eql(3)
     end
     
     it "should update its wishlist children" do
@@ -97,8 +97,8 @@ describe Item do
       Item.safely_rename(:from => @wrong, :to => @right.id)
       
       @right.reload
-      @right.wishlists.count.should == 3
-      @right.wishlists_count.should == 3
+      @right.wishlists.count.should eql(3)
+      @right.wishlists_count.should eql(3)
     end
     
     it "should update its loot table children" do
@@ -107,7 +107,7 @@ describe Item do
       Item.safely_rename(:from => @wrong, :to => @right.id)
       
       @right.reload
-      @right.loot_tables.count.should == 1
+      @right.loot_tables.count.should eql(1)
     end
     
     it "should accept a string for each argument" do
@@ -122,18 +122,18 @@ describe Item, "#find_[or_create_]by_name_or_wow_id" do
   end
 
   it "should find by wow_id when given a numeric string" do
-    Item.find_or_create_by_name_or_wow_id('12345').should == @item
-    Item.find_by_name_or_wow_id('12345').should == @item
+    Item.find_or_create_by_name_or_wow_id('12345').should eql(@item)
+    Item.find_by_name_or_wow_id('12345').should eql(@item)
   end
 
   it "should find by wow_id when given an integer" do
-    Item.find_or_create_by_name_or_wow_id(12345).should == @item
-    Item.find_by_name_or_wow_id(12345).should == @item
+    Item.find_or_create_by_name_or_wow_id(12345).should eql(@item)
+    Item.find_by_name_or_wow_id(12345).should eql(@item)
   end
 
   it "should find by name when given a non-numeric string" do
-    Item.find_or_create_by_name_or_wow_id('Item').should == @item
-    Item.find_by_name_or_wow_id('Item').should == @item
+    Item.find_or_create_by_name_or_wow_id('Item').should eql(@item)
+    Item.find_by_name_or_wow_id('Item').should eql(@item)
   end
 end
 

@@ -11,7 +11,7 @@ describe ItemsHelper do
   
   describe "link_to_wowhead" do
     it "should return nil for nil item" do
-      link_to_wowhead(nil).should == nil
+      link_to_wowhead(nil).should eql(nil)
     end
     
     it "should link to wowhead" do
@@ -34,7 +34,7 @@ describe ItemsHelper do
   
   describe "link_to_item_with_stats" do
     it "should return nil for nil item" do
-      link_to_item_with_stats(nil).should == nil
+      link_to_item_with_stats(nil).should eql(nil)
     end
     
     it "should include the item path" do

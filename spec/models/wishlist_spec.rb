@@ -38,13 +38,13 @@ describe Wishlist do
     
     it "should return the name of the item" do
       @wishlist.item = Item.make(:name => 'NewItem')
-      @wishlist.item_name.should == 'NewItem'
+      @wishlist.item_name.should eql('NewItem')
     end
     
     it "should find the name of the existing item when assigned" do
       item = Item.make(:name => 'ExistingItem')
       @wishlist.item_name = 'ExistingItem'
-      @wishlist.item_id.should == item.id
+      @wishlist.item_id.should eql(item.id)
     end
     
     it "should create the item if no item was found" do

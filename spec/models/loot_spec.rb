@@ -29,10 +29,10 @@ describe Loot do
   end
   
   it "should return the correct adjusted price for rot loots" do
-    @loot.adjusted_price.should == 1.00
+    @loot.adjusted_price.should eql(1.00)
     
     @loot.rot = true
-    @loot.adjusted_price.should == 0.50
+    @loot.adjusted_price.should eql(0.50)
   end
   
   it "should know whether or not it affects loot factor" do
@@ -105,12 +105,12 @@ describe Loot do
   
   describe "#item_name" do
     it "should return wow_id if present" do
-      @loot.item_name.should == 12345
+      @loot.item_name.should eql(12345)
     end
     
     it "should return item's name wow_id is nil" do
       @loot.item.wow_id = nil
-      @loot.item_name.should == 'Item'
+      @loot.item_name.should eql('Item')
     end
     
     it "should otherwise return nil" do
@@ -121,13 +121,13 @@ describe Loot do
     it "should assign item from string" do
       item = Item.make(:name => 'New Item')
       @loot.item_name = 'New Item'
-      @loot.item.should == item
+      @loot.item.should eql(item)
     end
   end
   
   describe "#member_name" do
     it "should return member's name if not nil" do
-      @loot.member_name.should == 'Member'
+      @loot.member_name.should eql('Member')
     end
     
     it "should return nil if member_id is nil" do
@@ -138,7 +138,7 @@ describe Loot do
     it "should assign member from string" do
       member = Member.make(:name => 'NewMember')
       @loot.member_name = 'NewMember'
-      @loot.member.should == member
+      @loot.member.should eql(member)
     end
   end
 end

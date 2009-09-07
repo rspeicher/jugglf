@@ -31,13 +31,13 @@ describe LootsHelper do
     it "should return multiple classes" do
       loot = Loot.make(:best_in_slot => true, :rot => true)
     
-      loot_row_classes(loot).should == 'loot_bis loot_rot'
+      loot_row_classes(loot).should eql('loot_bis loot_rot')
     end
     
     it "should return 'loot_normal' for loots without a tell type" do
       loot = Loot.make
       
-      loot_row_classes(loot).should == 'loot_normal'
+      loot_row_classes(loot).should eql('loot_normal')
     end
   end
   
@@ -48,15 +48,15 @@ describe LootsHelper do
     end
     
     it "should display relative date for future" do
-      loot_factor_cutoff(@future).should == '2 months from today'
+      loot_factor_cutoff(@future).should eql('2 months from today')
     end
     
     it "should display relative date for past" do
-      loot_factor_cutoff(@past).should == '3 months ago'
+      loot_factor_cutoff(@past).should eql('3 months ago')
     end
     
     it "should display 'Today' for current date" do
-      loot_factor_cutoff(52.days.until(Date.today)).should == 'Today'
+      loot_factor_cutoff(52.days.until(Date.today)).should eql('Today')
     end
   end
 end

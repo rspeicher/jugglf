@@ -28,27 +28,27 @@ describe Raid do
     2.times { @raid.attendees.make }
     
     @raid.reload
-    @raid.attendees_count.should == 2
-    @raid.attendees.size.should == 2
+    @raid.attendees_count.should eql(2)
+    @raid.attendees.size.should eql(2)
   end
   
   it "should have loots" do
     @raid.loots.make
     
     @raid.reload
-    @raid.loots_count.should == 1
-    @raid.loots.size.should == 1
+    @raid.loots_count.should eql(1)
+    @raid.loots.size.should eql(1)
   end
   
   describe "#date_string" do
     it "should return today's date as a string if no date is given" do
       @raid.date = nil
-      @raid.date_string.should == Date.today.to_s(:db)
+      @raid.date_string.should eql(Date.today.to_s(:db))
     end
 
     it "should return a string of its date value" do
       @raid.date = 3.days.until(Date.today)
-      @raid.date_string.should == 3.days.until(Date.today).to_s(:db)
+      @raid.date_string.should eql(3.days.until(Date.today).to_s(:db))
     end
 
     it "should modify the date attribute" do
@@ -88,7 +88,7 @@ describe Raid do
       @raid.update_cache = false
       @raid.save
       
-      @raid.loots.find(:first).purchased_on.should == @raid.date
+      @raid.loots.find(:first).purchased_on.should eql(@raid.date)
     end
   end
 end
@@ -107,11 +107,11 @@ describe Raid do
   end
   
   it "should count the total number of raids in the last thirty days" do
-    Raid.count_last_thirty_days.should == 1
+    Raid.count_last_thirty_days.should eql(1)
   end
   
   it "should count the total number of raids in the last ninety days" do
-    Raid.count_last_ninety_days.should == 2
+    Raid.count_last_ninety_days.should eql(2)
   end
   
   it "should know if it was in the last thirty days" do
@@ -138,12 +138,12 @@ describe Raid, "dependencies" do
 
   it "should destroy associated attendees when destroyed" do
     @raid.destroy
-    Attendee.count.should == 0
+    Attendee.count.should eql(0)
   end
   
   it "should destroy associated loots when destroyed" do
     @raid.destroy
-    Loot.count.should == 0
+    Loot.count.should eql(0)
   end
 end
 
@@ -183,15 +183,15 @@ describe Raid, "#parse_attendees" do
     @raid.save
     
     kapetal = Member.find_by_name('Kapetal')
-    kapetal.raids.size.should == 1
-    kapetal.attendance[0].attendance.should == 0.83
+    kapetal.raids.size.should eql(1)
+    kapetal.attendance[0].attendance.should eql(0.83)
   end
   
   it "should return a string-based representation of attendees" do
     @raid.save
     @raid.reload
     
-    @raid.attendance_output.should == "Sebudai,1.0\nKatarzyna,0.5\nKapetal,0.83"
+    @raid.attendance_output.should eql("Sebudai,1.0\nKatarzyna,0.5\nKapetal,0.83")
   end
   
   it "should handle removed attendees on update" do

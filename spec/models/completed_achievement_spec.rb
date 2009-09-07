@@ -42,8 +42,8 @@ describe CompletedAchievement, "#parse_member" do
   end
   
   it "set up environment" do
-    @member.completed_achievements.count.should == 1
-    Achievement.count.should == 2
+    @member.completed_achievements.count.should eql(1)
+    Achievement.count.should eql(2)
   end
   
   it "should not parse this member if this member has completed all known achievements" do

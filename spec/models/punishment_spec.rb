@@ -29,22 +29,22 @@ describe Punishment do
   end
   
   it "should find all active punishments" do
-    Punishment.active.size.should == 1
+    Punishment.active.size.should eql(1)
   end
   
   describe "#expires_string" do
     it "should set expires date from a string" do
       @punishment.expires_string = 1.year.until(Date.today).to_s
-      @punishment.expires.to_date.should == 1.year.until(Date.today)
+      @punishment.expires.to_date.should eql(1.year.until(Date.today))
     end
 
     it "should return expires as a string" do
-      @punishment.expires_string.should == Date.tomorrow
+      @punishment.expires_string.should eql(Date.tomorrow)
     end
 
     it "should return a date 52 days from now if expires is not yet set" do
       @punishment.expires = nil
-      @punishment.expires_string.should == 52.days.from_now.to_date
+      @punishment.expires_string.should eql(52.days.from_now.to_date)
     end
   end
 end
@@ -65,12 +65,12 @@ describe Punishment, "callbacks" do
   it "should update member cache after expire!" do
     @member.punishments.find(:last).expire!
     @member.reload
-    @member.lf.should == 0.00
+    @member.lf.should eql(0.00)
   end
   
   it "should update member cache after destroy" do
     Punishment.destroy_all
     @member.reload
-    @member.lf.should == 0.00
+    @member.lf.should eql(0.00)
   end
 end

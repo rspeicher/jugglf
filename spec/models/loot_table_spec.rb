@@ -18,7 +18,7 @@ describe LootTable do
   
   it "should return its object's name for to_s" do
     @table.object = Boss.make(:name => 'Boss')
-    @table.to_s.should == 'Boss'
+    @table.to_s.should eql('Boss')
   end
   
   describe "polymorphic associations" do
@@ -30,20 +30,20 @@ describe LootTable do
     it "should take a zone record" do
       @table.object = @zone
       @table.should be_valid
-      @table.object_type.should == 'Zone'
+      @table.object_type.should eql('Zone')
     end
     
     it "should take a boss record" do
       @table.object = @boss
       @table.should be_valid
-      @table.object_type.should == 'Boss'
+      @table.object_type.should eql('Boss')
     end
     
     it "should take an item record" do
       @table.object = @item
       @table.should be_valid
-      @table.object_type.should == 'Item'
-      @table.object.should == @item
+      @table.object_type.should eql('Item')
+      @table.object.should eql(@item)
     end
   end
   

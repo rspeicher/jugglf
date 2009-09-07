@@ -22,7 +22,7 @@ describe ApplicationHelper do
   
   describe "breadcrumb" do
     it "should join with a specific string" do
-      breadcrumb('A', 'B', 'C').should == 'A &raquo; B &raquo; C'
+      breadcrumb('A', 'B', 'C').should eql('A &raquo; B &raquo; C')
     end
   end
   
@@ -36,7 +36,7 @@ describe ApplicationHelper do
     it "should return a link given a valid model" do
       stub!(:controller).and_return(self)
       stub!(:controller_name).and_return('members')
-      link_to_controller(Member).should == "<a href=\"#{members_path}\" class=\"selected\">Members</a>"
+      link_to_controller(Member).should eql("<a href=\"#{members_path}\" class=\"selected\">Members</a>")
     end
     
     it "should not raise an exception given an invalid model" do

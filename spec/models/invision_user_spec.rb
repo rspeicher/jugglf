@@ -80,11 +80,11 @@ describe InvisionUser do
   end
   
   it "should provide a method to get converge_pass_hash" do
-    @user.converge_password.should == @user.converge.converge_pass_hash
+    @user.converge_password.should eql(@user.converge.converge_pass_hash)
   end
   
   it "should provide a method to getconverge_pass_salt" do
-    @user.converge_salt.should == @user.converge.converge_pass_salt
+    @user.converge_salt.should eql(@user.converge.converge_pass_salt)
   end
   
   it "should know if a user is an admin" do
@@ -93,6 +93,6 @@ describe InvisionUser do
   
   it "should take an associated member" do
     @user = InvisionUser.make_unsaved(:member => Member.make(:name => 'Name'))
-    @user.member.name.should == 'Name'
+    @user.member.name.should eql('Name')
   end
 end
