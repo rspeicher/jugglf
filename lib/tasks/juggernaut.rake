@@ -33,4 +33,13 @@ namespace :juggernaut do
       end
     end
   end
+  
+  desc "Cleanup Items that may have been erroneously entered"
+  task :cleanup => [:environment] do
+    i = 0
+    Item.find_each(:conditions => "wishlists_count = 0 AND loots_count = 0 AND wow_id IS NULL") do |item|
+      puts "Deleting #{item.to_param}"
+      item.destroy
+    end
+  end
 end
