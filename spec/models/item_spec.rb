@@ -44,6 +44,11 @@ describe Item do
     @item.wowhead_icon(:large).should == "http://static.wowhead.com/images/icons/large/inv_icon_01.jpg"
   end
   
+  it "should return an empty string if the icon does not exist" do
+    @item.icon = nil
+    @item.wowhead_icon(:large).should eql('')
+  end
+  
   describe "uniqueness validation" do
     before(:each) do
       item = Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32837)

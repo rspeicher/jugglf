@@ -88,7 +88,12 @@ class Item < ActiveRecord::Base
   end
   def wowhead_icon(size = 'small')
     size = size.to_s if size.respond_to? 'to_s'
-    "http://static.wowhead.com/images/icons/#{size.downcase}/#{self.icon.downcase}.jpg"
+    
+    if self.icon.present?
+      "http://static.wowhead.com/images/icons/#{size.downcase}/#{self.icon.downcase}.jpg"
+    else
+      ''
+    end
   end
   
   # NOTE: Can only lookup by name
