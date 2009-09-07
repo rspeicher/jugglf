@@ -31,11 +31,6 @@ end
 after "deploy:symlink", "deploy:database_yml"
 
 namespace :deploy do
-  desc "Update the crontab file"
-  task :update_crontab, :roles => :db do
-    run "cd #{release_path} && whenever --update-crontab #{application}"
-  end
-  
   desc "Copy database.yml file"
   task :database_yml, :roles => :db do
     run "cp #{shared_path}/config/database.yml #{current_release}/config/database.yml"
