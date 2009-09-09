@@ -7,71 +7,77 @@ module Juggy
   
   class ItemPrice
     include Singleton
-    MIN_LEVEL = 199
+    MIN_LEVEL = 226
     
     def initialize
       @values = {
-        'LEVELS' => ['199', '200', '213', '226'],
+        'LEVELS' => ['226', '245', '258', '272'],
         
         'Head' => nil, 'Chest' => nil, 'Legs' => {
-          '199' => 0.00, '213' => 2.00, '226' => 2.50, '239' => 3.00
+          '226' => 1.50, '239' => 2.00, '245' => 2.50, '258' => 3.00, '272' => 3.50
         },
         'Shoulder' => nil, 'Shoulders' => nil, 'Hands' => nil, 'Feet' => {
-          '199' => 0.00, '213' => 1.50, '226' => 2.00, '239' => 2.50
+          '226' => 1.00, '239' => 1.50, '245' => 2.00, '258' => 2.50, '272' => 3.00
         },
         'Wrist' => nil, 'Waist' => nil, 'Finger' => {
-          '199' => 0.00, '213' => 1.00, '226' => 1.50, '239' => 2.00
+          '226' => 0.50, '239' => 1.00, '245' => 1.50, '258' => 2.00, '272' => 2.50
         },
         'Neck' => nil, 'Back' => {
-          '199' => 0.00, '213' => 1.50, '226' => 2.00, '239' => 2.50
+          '226' => 1.00, '239' => 1.50, '245' => 2.00, '258' => 2.50, '272' => 3.00
         },
         'Two-Hand' => {
-          '199' => [0.00, 0.00], '213' => [4.00, 1.50], '226' => [5.00, 2.00], '232' => [5.00, 2.00], '239' => [6.00, 2.50]
+          '226' => [2.00, 0.50], '232' => [3.00, 1.00], '239' => [4.00, 1.50], '245' => [5.00, 2.00], '258' => [6.00, 2.50], '272' => [7.00, 3.00]
         },
         
         # Healer/Caster
         'Main Hand' => {
-          '199' => 0.00, '213' => 3.00, '226' => 3.50, '232' => 3.50, '239' => 4.00
+          '226' => 2.00, '232' => 2.50, '239' => 3.00, '245' => 3.50, '258' => 4.00, '272' => 4.50
         },
         'Shield' => nil, 'Held In Off-hand' => {
-          '199' => 0.00, '213' => 1.00, '226' => 1.50, '232' => 1.50, '239' => 2.00
+          '226' => 0.00, '232' => 0.50, '239' => 1.00, '245' => 1.50, '258' => 2.00, '272' => 2.50
         },
         # Melee DPS/Hunter
         'One-Hand' => nil, 'Off Hand' => nil, 'Melee DPS Weapon' => {
-          '199' => [0.00, 0.00], '213' => [2.00, 0.75], '226' => [2.50, 1.00], '232' => [2.50, 1.00], '239' => [3.00, 1.25],
+          '226' => [1.00, 0.00], '232' => [1.50, 0.50], '239' => [2.00, 0.75], '245' => [2.50, 1.00], '258' => [3.00, 1.25], '272' => [3.50, 1.50]
         },
         
         'Relic' => nil, 'Idol' => nil, 'Totem' => nil, 'Thrown' => nil, 'Sigil' => nil, 'Ranged' => {
-          '199' => [0.00, 0.00], '213' => [0.50, 3.00], '226' => [1.00, 4.00], '232' => [1.00, 4.00], '239' => [1.50, 5.00]
+          '226' => [0.00, 1.00], '232' => [0.00, 2.00], '239' => [0.50, 3.00], '245' => [1.00, 4.00], '258' => [1.50, 5.00], '272' => [2.00, 6.00]
         },
         'Trinket' => {
-          # Wrath
-          'Bandit\'s Insignia'              => 3.50,
-          'Defender\'s Code'                => 3.00,
-          'Dying Curse'                     => 3.50,
-          'Extract of Necromantic Power'    => 2.50,
-          'Extract of Necromatic Power'     => 2.50,
-          'Forethought Talisman'            => 3.50,
-          'Fury of the Five Flights'        => 4.00,
-          'Grim Toll'                       => 3.00,
-          'Illustration of the Dragon Soul' => 4.00,
-          'Living Ice Crystals'             => 2.00,
-          'Mark of Norgannon'               => 2.00,
-          'Rune of Repulsion'               => 2.00,
-          'Soul of the Dead'                => 4.00,
+          # Wrath (Marked for Deletion)
+          # 'Bandit\'s Insignia'              => 3.50,
+          # 'Defender\'s Code'                => 3.00,
+          # 'Dying Curse'                     => 3.50,
+          # 'Extract of Necromantic Power'    => 2.50,
+          # 'Extract of Necromatic Power'     => 2.50,
+          # 'Forethought Talisman'            => 3.50,
+          # 'Fury of the Five Flights'        => 4.00,
+          # 'Grim Toll'                       => 3.00,
+          # 'Illustration of the Dragon Soul' => 4.00,
+          # 'Living Ice Crystals'             => 2.00,
+          # 'Mark of Norgannon'               => 2.00,
+          # 'Rune of Repulsion'               => 2.00,
+          # 'Soul of the Dead'                => 4.00,
           
           # Patch 3.1
-          "Blood of the Old God"              => 3.00,
-          "Comet's Trail"                     => 4.00,
-          "Flare of the Heavens"              => 4.00,
-          "Heart of Iron"                     => 3.00,
-          "Living Flame"                      => 2.50,
-          "Pandora's Plea"                    => 3.00,
-          "Scale of Fates"                    => 3.00,
-          "Show of Faith"                     => 4.00,
-          "The General's Heart"               => 2.50,
-          "Vanquished Clutches of Yogg-Saron" => 2.50,
-          "Wrathstone"                        => 3.00,
+          "Blood of the Old God"              => 1.00,
+          "Comet's Trail"                     => 2.00,
+          "Flare of the Heavens"              => 2.00,
+          "Heart of Iron"                     => 1.00,
+          "Living Flame"                      => 0.50,
+          "Pandora's Plea"                    => 1.00,
+          "Scale of Fates"                    => 1.00,
+          "Show of Faith"                     => 2.00,
+          "The General's Heart"               => 0.50,
+          "Vanquished Clutches of Yogg-Saron" => 0.50,
+          "Wrathstone"                        => 1.00,
+          
+          # Patch 3.2 [245 price, 258 price]
+          "Death's Choice"        => [2.00, 4.00],
+          "Juggernaut's Vitality" => [2.00, 4.00],
+          "Reign of the Dead"     => [2.00, 4.00],
+          "Solace of the Fallen"  => [2.00, 4.00],
         }
       }
 
@@ -171,7 +177,7 @@ module Juggy
               # Shields are only used by Resto/Ele Shaman, it's a normal Shield price
               value = @values['Shield'][price_group]
             elsif options[:slot] == 'One-Hand'
-              # We're gonna guess that a non-Enhancement Shaman would ever use a One-Hand weapon
+              # We're gonna guess that a non-Enhancement Shaman would never use a One-Hand weapon
               value = @values['Melee DPS Weapon'][price_group][0]
             else
               value = default_value(options)
@@ -190,6 +196,11 @@ module Juggy
         
         if @values['Trinket'][options[:item]]
           value = @values['Trinket'][options[:item]]
+          
+          # 3.2 Trinkets share names with their lower-level counterparts
+          if value.is_a? Array
+            value = ( options[:level] == 245 ) ? value[0] : value[1]
+          end
         else
           # raise "Invalid Trinket: #{options[:item]}"
         end
@@ -201,16 +212,30 @@ module Juggy
         if options[:item] == 'Heroic Key to the Focusing Iris'
           options[:slot]  = 'Neck'
           options[:level] = 226
+
         elsif options[:item] == 'Reply-Code Alpha'
           # This stupid item can actually be a Ring or a Cloak. Price it as a Ring by default
           options[:slot]  = 'Finger'
           options[:level] = 239
+
         elsif options[:level] == 80
-          # Probably a Tier 7/8 token
-          matches = options[:item].match(/^(.+) of the (Lost|Wayward) (Conqueror|Protector|Vanquisher)$/)
-          if matches and matches.length > 0
-            options[:slot] = determine_token_slot(matches[1])
-            options[:level] = determine_token_level(matches[1], matches[2])
+          if options[:item] =~ /^Regalia of the Grand (Conqueror|Protector|Vanquisher)$/
+            # Tier 9 258 Token
+            options[:slot] = 'Chest' # Not always, but it has the correct price point we want for all Regalia
+            options[:level] = 258
+
+          elsif options[:item] == 'Trophy of the Crusade'
+            # Tier 9 245 Token
+            options[:slot] = 'Chest' # Not always, but it has the correct price point we want for all Trophies
+            options[:level] = 245
+
+          else
+            # Tier 8 or Tier 7 token
+            matches = options[:item].match(/^(.+) of the (Lost|Wayward) (Conqueror|Protector|Vanquisher)$/)
+            if matches and matches.length > 0
+              options[:slot] = determine_token_slot(matches[1])
+              options[:level] = determine_token_level(matches[1], matches[2])
+            end
           end
         end
 
