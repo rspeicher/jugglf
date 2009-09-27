@@ -40,11 +40,13 @@ class IndexStat
   # SQL conditions for items that should NOT be included in the 'Common Drop' list
   ITEM_CONDITIONS = [
     "name NOT REGEXP '.+ of the (Fallen|Lost|Forgotten) ([^\s]+)$'",
+    "name NOT LIKE 'Regalia of the Grand %'",
+    "name != 'Trophy of the Crusade'",
     "name NOT LIKE 'Qiraji Bindings of%'",
     "name != 'Vek''nilash''s Circlet'",
     "name != 'Vek''lor''s Diadem'",
     "name NOT LIKE '%of the Old God'",
-    "(name NOT LIKE 'Desecrated %' OR name = 'Desecrated Past')",
+    "(name NOT LIKE 'Desecrated %' OR name = 'Desecrated Past')", # T3 tokens were 'Desecrated (.+)', but not Desecrated Past
     
     # The following conditions get removed in @self.common_tokens@
     "name != 'Splinter of Atiesh'",
