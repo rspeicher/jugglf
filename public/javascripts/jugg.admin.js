@@ -21,11 +21,8 @@ function wishlistCompare(id) {
     names = new Array();
     $('#loot_table_' + id + ' table tbody tr').each(function() {
         names.push(
-            // Name
-            $(this).children('td:eq(0)').text() +
-            ' ' +
-            // Type
-            $(this).children('td:eq(2)').text().substr(0,3).toLowerCase());
+            $(this).children('td:eq(0)').children('a').text() + ' ' + // Name
+            $(this).children('td:eq(2)').text().substr(0,3).toLowerCase()); // Tell Type
     });
     str += names.join(',');
     
