@@ -1,5 +1,5 @@
 set :stages, %w(production staging)
-set :default_stage, "staging"
+set :default_stage, ''
 require 'capistrano/ext/multistage'
 
 set :application, "juggrails"
