@@ -525,6 +525,7 @@ namespace :juggernaut do
         when 'Algalon the Observer'
           item(boss, "Boundless Gaze")
           item(boss, "Bulwark of Algalon")
+          item(boss, "Comet's Trail")
           item(boss, "Constellus")
           item(boss, "Cosmos")
           item(boss, "Dreambinder")
@@ -566,7 +567,6 @@ namespace :juggernaut do
         ['twinvalkyrs-10-hard'      , 'Twin Valkyrs'],
         ['anubarakraid-10-hard'     , "Anub'arak"],
         ['tributechest-10'          , 'Tribute Chest'],
-        ['tributechest-10-hard'     , 'Tribute Chest (Hard)']
       ],
       'Trial of the Grand Crusader (25H)' => [
         ['northrendbeasts-25-hard'  , 'Northrend Beasts'],
@@ -575,7 +575,6 @@ namespace :juggernaut do
         ['twinvalkyrs-25-hard'      , 'Twin Valkyrs'],
         ['anubarakraid-25-hard'     , "Anub'arak"],
         ['tributechest-25'          , 'Tribute Chest'],
-        ['tributechest-25-hard'     , 'Tribute Chest (Hard)']
       ]
     }
     
@@ -611,6 +610,7 @@ namespace :juggernaut do
           item(boss, 47456) #Sabatons of Tremoring Earth
           item(boss, 47454) #Sandals of the Mourning Widow
           item(boss, 47452) #Shroud of Displacement
+          item(boss, 47242) #Trophy of the Crusade
         when "twinvalkyrs-10-hard"
           item(boss, 48027) #Band of the Twin Val'kyr
           item(boss, 48030) #Darkbane Amulet
@@ -660,6 +660,7 @@ namespace :juggernaut do
           item(boss, 47413) #Ring of the Violent Temperament
           item(boss, 47424) #Sabatons of the Courageous
           item(boss, 47416) #Stygian Bladebreaker
+          item(boss, 47242) #Trophy of the Crusade
         when "jaraxxus-25"
           item(boss, 47277) #Bindings of the Autumn Willow
           item(boss, 47266) #Blood Fury
@@ -674,6 +675,7 @@ namespace :juggernaut do
           item(boss, 47275) #Pride of the Demon Lord
           item(boss, 47271) #Solace of the Fallen
           item(boss, 47276) #Talisman of Heedless Sins
+          item(boss, 47242) #Trophy of the Crusade
           item(boss, 47270) #Vest of Calamitous Fate
           item(boss, 47280) #Wristwraps of Cloudy Omen
         when "northrendbeasts-10"
@@ -748,6 +750,7 @@ namespace :juggernaut do
           item(boss, 47470) #Mystifying Charm
           item(boss, 47462) #Skyweaver Vestments
           item(boss, 47458) #The Executioner's Vice
+          item(boss, 47242) #Trophy of the Crusade
           item(boss, 47463) #Twin's Pact
         when "jaraxxus-25-hard"
           item(boss, 47438) #Bindings of the Autumn Willow
@@ -763,6 +766,7 @@ namespace :juggernaut do
           item(boss, 47436) #Pride of the Demon Lord
           item(boss, 47432) #Solace of the Fallen
           item(boss, 47437) #Talisman of Heedless Sins
+          item(boss, 47242) #Trophy of the Crusade
           item(boss, 47431) #Vest of Calamitous Fate
           item(boss, 47441) #Wristwraps of Cloudy Omen
         when "northrendbeasts-10-hard"
@@ -778,12 +782,6 @@ namespace :juggernaut do
           item(boss, 47996) #Pauldrons of the Glacial Wilds
           item(boss, 47999) #Pauldrons of the Spirit Walker
           item(boss, 47995) #Scepter of Imprisoned Souls
-        when "tributechest-25-hard"
-          item(boss, 47551) #Aethas' Intensity
-          item(boss, 47550) #Cairne's Endurance
-          item(boss, 47548) #Garrosh's Rage
-          item(boss, 47554) #Lady Liadrin's Conviction
-          item(boss, 47546) #Sylvanas' Cunning
         when "anubarakraid-25"
           item(boss, 47313) #Armbands of Dark Determination
           item(boss, 47315) #Band of the Traitor King
@@ -804,6 +802,7 @@ namespace :juggernaut do
           item(boss, 47320) #Might of the Nerub
           item(boss, 47316) #Reign of the Dead
           item(boss, 47322) #Suffering's End
+          item(boss, 47242) #Trophy of the Crusade
           item(boss, 47311) #Waistguard of Deathly Dominion
         when "factionchampions-25"
           item(boss, 47282) #Band of Callous Aggression
@@ -821,14 +820,21 @@ namespace :juggernaut do
           item(boss, 47295) #Sabatons of Tremoring Earth
           item(boss, 47293) #Sandals of the Mourning Widow
           item(boss, 47291) #Shroud of Displacement
+          item(boss, 47242) #Trophy of the Crusade
         when "tributechest-10"
           item(boss, 48705) #Attrition
           item(boss, 48699) #Blood and Glory
+          item(boss, 48668) #Cloak of Serrated Blades
+          item(boss, 48669) #Cloak of the Triumphant Combatant
+          item(boss, 48670) #Cloak of the Unflinching Guardian
+          item(boss, 48666) #Drape of the Sunreavers
           item(boss, 48697) #Frenzystrike Longbow
           item(boss, 48693) #Heartsmasher
           item(boss, 48695) #Mor'kosh, the Bloodreaver
+          item(boss, 48667) #Shawl of the Devout Crusader
           item(boss, 48701) #Spellharvest
           item(boss, 48703) #The Facebreaker
+          item(boss, 47242) #Trophy of the Crusade
         when "anubarakraid-25-hard"
           item(boss, 47474) #Armbands of Dark Determination
           item(boss, 47476) #Band of the Traitor King
@@ -849,6 +855,7 @@ namespace :juggernaut do
           item(boss, 47481) #Might of the Nerub
           item(boss, 47477) #Reign of the Dead
           item(boss, 47483) #Suffering's End
+          item(boss, 47242) #Trophy of the Crusade
           item(boss, 47472) #Waistguard of Deathly Dominion
         when "northrendbeasts-25"
           item(boss, 47261) #Barb of Tarasque
@@ -866,6 +873,7 @@ namespace :juggernaut do
           item(boss, 47252) #Ring of the Violent Temperament
           item(boss, 47263) #Sabatons of the Courageous
           item(boss, 47255) #Stygian Bladebreaker
+          item(boss, 47242) #Trophy of the Crusade
         when "jaraxxus-10-hard"
           item(boss, 48008) #Armplates of the Nether Lord
           item(boss, 48002) #Belt of the Bloodhoof Emissary
@@ -895,26 +903,24 @@ namespace :juggernaut do
           item(boss, 47309) #Mystifying Charm
           item(boss, 47301) #Skyweaver Vestments
           item(boss, 47297) #The Executioner's Vice
+          item(boss, 47242) #Trophy of the Crusade
           item(boss, 47302) #Twin's Pact
         when "tributechest-25"
+          item(boss, 47551) #Aethas' Intensity
+          item(boss, 47550) #Cairne's Endurance
           item(boss, 47528) #Cudgel of the Damned
           item(boss, 47523) #Fezzik's Autocannon
           item(boss, 47516) #Fleshrender
+          item(boss, 47548) #Garrosh's Rage
           item(boss, 47520) #Grievance
+          item(boss, 47554) #Lady Liadrin's Conviction
           item(boss, 47518) #Mortalis
           item(boss, 47513) #Ogrim's Deflector
+          item(boss, 47557) #Regalia of the Grand Conqueror
+          item(boss, 47558) #Regalia of the Grand Protector
+          item(boss, 47559) #Regalia of the Grand Vanquisher
           item(boss, 47525) #Sufferance
-        when "tributechest-10-hard"
-          item(boss, 48668) #Cloak of Serrated Blades
-          item(boss, 48673) #Cloak of the Silver Covenant
-          item(boss, 48669) #Cloak of the Triumphant Combatant
-          item(boss, 48670) #Cloak of the Unflinching Guardian
-          item(boss, 48675) #Cloak of the Unmoving Guardian
-          item(boss, 48674) #Cloak of the Victorious Combatant
-          item(boss, 48671) #Drape of Bitter Incantation
-          item(boss, 48666) #Drape of the Sunreavers
-          item(boss, 48672) #Shawl of Fervent Crusader
-          item(boss, 48667) #Shawl of the Devout Crusader
+          item(boss, 47546) #Sylvanas' Cunning
         when "jaraxxus-10"
           item(boss, 47869) #Armplates of the Nether Lord
           item(boss, 47863) #Belt of the Bloodhoof Emissary
