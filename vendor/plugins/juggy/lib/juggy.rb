@@ -47,32 +47,20 @@ module Juggy
         buyer.strip!
         item_name.strip!
         
-        retval = { }
+        retval = { :item   => nil, :member => nil }
         
         # Now an Item ID might be included in the form "Name|ID", so see if we got one
         item_name, wow_id = item_name.split('|')
         
-        unless wow_id.nil?
-          retval[:item] ||= Item.find_by_wow_id(wow_id)
+        # Fetch an item record based on its name or ID
+        if wow_id.nil?
+          retval[:item] = Item.find_or_initialize_by_name(item_name)
+        else
+          retval[:item] = Item.find_or_initialize_by_wow_id(wow_id)
         end
         
-        # No wow_id was given, or we couldn't find an item with the given wow_id.
-        # Attempt to find an item by name, giving higher preference to higher
-        # level items (226 Dark Matter trinket is more likely to be recorded than
-        # the level 0 quest item)
-        # NOTE: Temporarily, while we're adding items from non-Hard modes, we're going to sort by level ascending
-        retval[:item] ||= Item.find_by_name(item_name, :conditions => 'level > 0', 
-          :order => 'level')
-      
-        # If nothing was found above, initialize a new record by name
-        retval[:item] ||= Item.new(:name => item_name)
-      
-        # These next regex just mean "contained within parenthesis where the only
-        # other values are a-z and \s"; Prevents "Tsitgo" as a name from 
-        # matching "sit" as a tell type while still allowing "(bis rot)"
-        retval[:best_in_slot] = !buyer.match(/\(([a-z\s]+)?bis([a-z\s]+)?\)/).nil?
-        retval[:situational]  = !buyer.match(/\(([a-z\s]+)?sit([a-z\s]+)?\)/).nil?
-        retval[:rot]          = !buyer.match(/\(([a-z\s]+)?rot([a-z\s]+)?\)/).nil?
+        # Set BiS/Rot/Sit
+        set_loot_types(retval, buyer)
       
         # Only set the buyer if it's not disenchanted
         unless buyer == 'DE'
@@ -80,26 +68,34 @@ module Juggy
         end
       
         # Item Pricing
-        price = nil
-        retval[:item].lookup
-        stats = retval[:item]
-        unless stats.wow_id.nil? or retval[:member].nil?
-          price = ItemPrice.instance.price(:name => stats.name,
-            :level => stats.level, :slot => stats.slot, 
-            :class => retval[:member].wow_class
-          )
-        end
-        
-        # NOTE: This block shouldn't be needed anymore
-        if price.is_a? Array
-          # Item price returned an array, meaning it's a One-Handed weapon and could have two different prices
-          # item.price = 99999.00 # FIXME: How do we tell the user that we couldn't determine the price for this item?
-          retval[:price] = nil
-        else
-          retval[:price] = price
-        end
+        retval[:price] = price(retval[:item], retval[:member])
 
         retval
+      end
+      
+      def set_loot_types(loot, buyer)
+        # These next regex just mean "contained within parenthesis where the only
+        # other values are a-z and \s"; Prevents "Tsitgo" as a name from 
+        # matching "sit" as a tell type while still allowing "(bis rot)"
+        loot[:best_in_slot] = !buyer.match(/\(([a-z\s]+)?bis([a-z\s]+)?\)/).nil?
+        loot[:situational]  = !buyer.match(/\(([a-z\s]+)?sit([a-z\s]+)?\)/).nil?
+        loot[:rot]          = !buyer.match(/\(([a-z\s]+)?rot([a-z\s]+)?\)/).nil?
+      end
+      
+      # Given an initialized Item object
+      def price(item, member = nil)
+        return if member.nil?
+
+        price = nil
+
+        item.lookup # Get the data we need if we haven't already
+        unless item.wow_id.nil?
+          price = ItemPrice.instance.price(:name => item.name,
+            :level => item.level, :slot => item.slot,
+            :class => member.wow_class)
+        end
+        
+        price
       end
   end
 end

@@ -21,37 +21,23 @@ describe Juggy do
         should_not change(Loot, :count)
     end
     
-    describe "automatic pricing" do
-      before(:each) do
-        # Juggy.parse_loots tries to figure out the price via Item's
-        # data; fake that so we don't hit Wowhead for non-existant items
-        Item.stub!(:find_by_name).and_return(Item.make)
-      end
+    it "should figure out price based on item stats" do
+      # Juggy.parse_loots tries to figure out the price via Item's
+      # data; fake that so we don't hit Wowhead for non-existant items
+      Item.stub!(:find_or_initialize_by_name).and_return(Item.make)
       
-      it "should figure out price based on item stats" do
-        loots = Juggy.parse_loots('Buyer - Item')
-        
-        loots[0][:price].should == 3.00
-      end
+      loots = Juggy.parse_loots('Buyer - Item')
+      loots[0][:price].should == 3.00 # Price for a 258 Head slot
     end
     
     describe "multiple items of the same name" do
-      it "should find the higher level item" do
-        # Give these items different item levels; we want Juggy to find the one with the highest level when given its name
-        # NOTE: Temporarily we're using the lowest level
-        item1 = Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32837, :level => 123)
-        item2 = Item.make(:name => 'Warglaive of Azzinoth', :wow_id => 32838, :level => 456)
-        results = Juggy.parse_loots("Tsigo (bis) - Warglaive of Azzinoth")
-        results[0][:item].should == item1
+      it "should create a non-existent item if given the ID" do
+        Item.destroy_all
+        old_item = Item.make(:old_onyxia_head)
+        new_item = Item.make_unsaved(:new_onyxia_head)
+        loots = Juggy.parse_loots("Tsigo - [#{new_item.name}]|#{new_item.wow_id}")
+        loots[0][:item].inspect.should eql(new_item.inspect)
       end
-
-      # FIXME: This is performing Item.lookup and saving the record, but I'm not yet sure how to stub that out
-      # it "should initialize an item if one doesn't exist" do
-      #   Item.destroy_all
-      #   Item.stub!(:find_by_name).and_return(nil)
-      #   results = Juggy.parse_loots('Tsigo (bis) - Warglaive of Azzinoth')
-      #   results[0][:item].new_record?.should be_true
-      # end
     end
     
     describe "loot details" do
