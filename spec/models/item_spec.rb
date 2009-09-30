@@ -137,6 +137,29 @@ describe Item, "#find_[or_create_]by_name_or_wow_id" do
   end
 end
 
+describe Item, "#needs_lookup?" do
+  it "should return true if name is present but wow_id is not" do
+    item = Item.make_unsaved(:wow_id => nil)
+    item.name.present?.should be_true
+    item.wow_id.present?.should be_false
+    item.needs_lookup?.should be_true
+  end
+  
+  it "should return true if wow_id is present but name is not" do
+    item = Item.make_unsaved(:name => nil)
+    item.name.present?.should be_false
+    item.wow_id.present?.should be_true
+    item.needs_lookup?.should be_true
+  end
+  
+  it "should otherwise return false" do
+    item = Item.make_unsaved(:with_real_stats)
+    item.name.present?.should be_true
+    item.wow_id.present?.should be_true
+    item.needs_lookup?.should be_false
+  end
+end
+
 describe Item, "automatic stat lookup" do
   before(:each) do
     Item.destroy_all
@@ -168,15 +191,11 @@ describe Item, "lookup from database" do
 end
   
 describe Item, "lookup from Internet" do
+  # FIXME: We're kind of testing ItemLookup here, erroneously.
+  # We should mock the return value from ItemLookup instead of letting it run.
   before(:each) do
     Item.destroy_all
     @item = Item.make(:name => 'Torch of Holy Fire', :wow_id => nil, :level => 0)
-    
-    # FIXME: We're hitting wowarmory.com here
-    # ItemLookup::Wowhead.stub!(:open).
-    #   and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
-    # ItemLookup::Armory.stub!(:open).
-    #   and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
   end
   
   it "should fail silently if the item does not exist" do
@@ -184,9 +203,16 @@ describe Item, "lookup from Internet" do
     lambda { @item.lookup(true) }.should_not raise_error(Exception)
   end
   
-  it "should perform lookup" do
+  it "should perform lookup by name" do
     # Force a refresh
     @item.wow_id.should be_nil
     lambda { @item.lookup(true) }.should change(@item, :wow_id).to(40395)
+  end
+  
+  it "should perform lookup by wow_id" do
+    @item.name = nil
+    @item.wow_id = 40395
+    ItemLookup.should_receive(:search).with(40395, anything()).and_return(ItemLookup::Results.new)
+    @item.lookup
   end
 end

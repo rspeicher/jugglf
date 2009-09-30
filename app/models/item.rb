@@ -96,15 +96,20 @@ class Item < ActiveRecord::Base
     end
   end
   
-  # NOTE: Can only lookup by name
+  def needs_lookup?
+    !(self.name.present? and self.wow_id.present?)
+  end
+  
+  def lookup!(force_refresh = false)
+    self.lookup(force_refresh)
+    
+    if self.valid?
+      self.save
+    end
+  end
   def lookup(force_refresh = false)
-    if self.wow_id.nil? or force_refresh
-      stat_lookup(self.name)
-      
-      # FIXME: Automatically saving here might not be the best idea
-      if self.valid?
-        self.save
-      end
+    if force_refresh or self.needs_lookup?
+      stat_lookup(self.wow_id || self.name)
     end
   end
   
