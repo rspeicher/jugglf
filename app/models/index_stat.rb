@@ -60,7 +60,7 @@ class IndexStat
   #
   # Automatically omits token items.
   def self.common_items
-    Item.find(:all, :include => :loots, :order => "loots_count DESC",
+    Item.find(:all, :order => "loots_count DESC",
       :limit => 10, :conditions => ITEM_CONDITIONS.join(' AND '))
   end
   
@@ -68,7 +68,7 @@ class IndexStat
   #
   # Only includes token items.
   def self.common_tokens
-    Item.find(:all, :include => :loots, :order => "loots_count DESC",
+    Item.find(:all, :order => "loots_count DESC",
       :limit => 10, :conditions => TIER_CONDITIONS[0..-4].join(' OR '))
   end
   

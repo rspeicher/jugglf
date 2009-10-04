@@ -10,11 +10,11 @@ class WishlistsController < ApplicationController
   def index
     page_title('Global Wishlist View')
     
-    @root = LootTable.find_all_by_object_type('Zone', :include => :children)
+    @root = LootTable.find_all_by_object_type('Zone', :include => [:object, {:children => :object}])
     @zone = @boss = @root[0] # Set @zone so we know which bosses to not hide by default in the drop-down menu
     
     if params[:boss]
-      @items = LootTable.find(:all, :include => [:parent, {:object => [{:wishlists => :member}] }], :conditions => ['parent_id = ?', params[:boss]])
+      @items = LootTable.find(:all, :include => [:parent, {:object => {:wishlists => :member}}], :conditions => ['parent_id = ?', params[:boss]])
       
       if @items.size > 0
         @boss  = @items[0].parent

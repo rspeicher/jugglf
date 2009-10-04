@@ -16,7 +16,7 @@ class MembersController < ApplicationController
   def index
     page_title('Members')
     
-    @members = Member.active(:include => :rank)
+    @members = Member.active.find(:all, :include => [:rank])
 
     respond_to do |wants|
       wants.html
@@ -43,7 +43,7 @@ class MembersController < ApplicationController
       @wishlist = Wishlist.new
       @recent_loots = @member.loots.find(:all, :conditions => ['purchased_on >= ?', 2.weeks.ago])
     when 'achievements'
-      @achievements = Achievement.find(:all, :order => 'title')
+      @achievements = Achievement.find(:all, :include => [:completed_achievements], :order => 'title')
       @completed = @member.completed_achievements
     end
        
