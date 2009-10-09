@@ -105,6 +105,7 @@ InvisionUser.blueprint do
   email { Faker::Internet.email }
   converge { InvisionUserConverge.make }
   member { nil }
+  persistence_token { 'b18f1a5dc276001e6fe20139d5522755e414cdee' }
 end
 InvisionUser.blueprint(:admin) do
   mgroup { 4 }

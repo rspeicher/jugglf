@@ -19,7 +19,8 @@ describe MembersController, "#index" do
   describe "as admin" do
     before(:each) do
       login(:admin)
-      Member.should_receive(:active).and_return(nil)
+      Member.should_receive(:active).and_return(Member)
+      Member.should_receive(:find).and_return(nil)
     end
     
     it "should render" do

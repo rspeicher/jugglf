@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(:version => 20090717234345) do
   add_index "attendees", ["raid_id"], :name => "index_attendees_on_raid_id"
 
   create_table "bosses", :force => true do |t|
-    t.string  "name",     :default => "", :null => false
+    t.string  "name",                    :null => false
     t.integer "position", :default => 0
   end
 
@@ -49,28 +49,6 @@ ActiveRecord::Schema.define(:version => 20090717234345) do
   add_index "completed_achievements", ["achievement_id"], :name => "index_completed_achievements_on_achievement_id"
   add_index "completed_achievements", ["member_id", "achievement_id"], :name => "index_completed_achievements_on_member_id_and_achievement_id", :unique => true
   add_index "completed_achievements", ["member_id"], :name => "index_completed_achievements_on_member_id"
-
-  create_table "ibf_member_extra", :force => true do |t|
-    t.text    "notes"
-    t.text    "links"
-    t.text    "bio"
-    t.string  "ta_size",          :limit => 3
-    t.string  "photo_type",       :limit => 10,  :default => ""
-    t.string  "photo_location",                  :default => ""
-    t.string  "photo_dimensions", :limit => 200, :default => ""
-    t.string  "aim_name",         :limit => 40,  :default => "",      :null => false
-    t.integer "icq_number",                      :default => 0,       :null => false
-    t.string  "website",          :limit => 250, :default => "",      :null => false
-    t.string  "yahoo",            :limit => 40,  :default => "",      :null => false
-    t.text    "interests"
-    t.string  "msnname",          :limit => 200, :default => "",      :null => false
-    t.text    "vdirs",                                                :null => false
-    t.string  "location",         :limit => 250, :default => "",      :null => false
-    t.text    "signature",                                            :null => false
-    t.string  "avatar_location",                 :default => "",      :null => false
-    t.string  "avatar_size",      :limit => 9,   :default => "",      :null => false
-    t.string  "avatar_type",      :limit => 15,  :default => "local", :null => false
-  end
 
   create_table "ibf_members", :force => true do |t|
     t.string   "name",                                        :default => "",      :null => false
@@ -132,7 +110,7 @@ ActiveRecord::Schema.define(:version => 20090717234345) do
     t.text     "failed_logins"
     t.integer  "failed_login_count",      :limit => 2,        :default => 0,       :null => false
     t.integer  "has_gallery",                                 :default => 0
-    t.string   "persistence_token",                           :default => "",      :null => false
+    t.string   "persistence_token",                                                :null => false
     t.datetime "last_request_at"
     t.datetime "current_login_at"
     t.datetime "last_login_at"
@@ -155,14 +133,6 @@ ActiveRecord::Schema.define(:version => 20090717234345) do
   end
 
   add_index "ibf_members_converge", ["converge_email"], :name => "converge_email"
-
-  create_table "ibf_members_partial", :primary_key => "partial_id", :force => true do |t|
-    t.integer "partial_member_id", :default => 0, :null => false
-    t.integer "partial_date",      :default => 0, :null => false
-    t.integer "partial_email_ok",  :default => 0, :null => false
-  end
-
-  add_index "ibf_members_partial", ["partial_member_id"], :name => "partial_member_id"
 
   create_table "items", :force => true do |t|
     t.string   "name",            :limit => 100
@@ -261,7 +231,7 @@ ActiveRecord::Schema.define(:version => 20090717234345) do
   add_index "raids", ["date"], :name => "index_raids_on_date"
 
   create_table "sessions", :force => true do |t|
-    t.string   "session_id", :default => "", :null => false
+    t.string   "session_id", :null => false
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -283,7 +253,7 @@ ActiveRecord::Schema.define(:version => 20090717234345) do
   add_index "wishlists", ["member_id"], :name => "index_wishlists_on_member_id"
 
   create_table "zones", :force => true do |t|
-    t.string  "name",     :default => "", :null => false
+    t.string  "name",                    :null => false
     t.integer "position", :default => 0
   end
 
