@@ -32,7 +32,7 @@ module Juggy
         item_name = split[1].gsub(/\[(.+)\]/, '\1').strip # Item name, no brackets
       
         buyers.each do |buyer|
-          loot = generate_loot(buyer, item_name)
+          loot = parse_loot_line(buyer, item_name)
         
           retval << loot
         end
@@ -42,7 +42,7 @@ module Juggy
     end
     
     private
-      def generate_loot(buyer, item_name)
+      def parse_loot_line(buyer, item_name)
         return unless buyer.present? and item_name.present?
         buyer.strip!
         item_name.strip!
