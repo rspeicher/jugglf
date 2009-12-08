@@ -73,7 +73,7 @@ class Loot < ActiveRecord::Base
     if purchase_type.to_s.match(/^normal/i)
       return (not self.best_in_slot? and not self.situational?)
     else
-      return eval("self.#{purchase_type}") if self.respond_to?(purchase_type)
+      return self.send(purchase_type) if self.respond_to?(purchase_type)
     end
   end
   

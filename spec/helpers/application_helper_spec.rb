@@ -2,6 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 include ApplicationHelper
 
+# FIXME: No idea why this is needed for link_to_controller; it works fine in development, just not test
+include ActionController::PolymorphicRoutes
+
 describe ApplicationHelper do
   describe "admin?" do
     it "should return false if no user is logged in" do

@@ -22,7 +22,7 @@ module ApplicationHelper
     return if options[:admin_only] and not current_user.is_admin?
     
     controller_name = mod.to_s.downcase.pluralize
-    path = eval("#{controller_name}_path")
+    path = ( mod.respond_to? :new ) ? polymorphic_path(mod.new) : ''
     css = ( controller.controller_name == controller_name ) ? 'selected' : ''
     
     link_to h(controller_name.titlecase), path, :class => css
