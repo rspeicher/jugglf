@@ -161,11 +161,14 @@ describe Item, "#needs_lookup?" do
 end
 
 describe Item, "automatic stat lookup" do
+  before(:all) do
+    FakeWeb.register_uri(:get, %r(http://www.wowarmory.com/item-tooltip\.xml\?.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/armory/item-tooltip_40395.xml"))
+    FakeWeb.register_uri(:get, %r(http://www.wowarmory.com/item-info\.xml\?.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/armory/item-info_40395.xml"))
+  end
+  
   before(:each) do
     Item.destroy_all
     @item = Item.make_unsaved(:wow_id => 40395)
-    @item.stub!(:open).
-      and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowhead/item_40395.xml'))
   end
   
   it "should perform a lookup when name is nil" do
@@ -191,28 +194,41 @@ describe Item, "lookup from database" do
 end
   
 describe Item, "lookup from Internet" do
-  # FIXME: We're kind of testing ItemLookup here, erroneously.
-  # We should mock the return value from ItemLookup instead of letting it run.
   before(:each) do
     Item.destroy_all
     @item = Item.make(:name => 'Torch of Holy Fire', :wow_id => nil, :level => 0)
   end
   
-  it "should fail silently if the item does not exist" do
-    @item.name = 'This Item Does Not Exist'
-    lambda { @item.lookup(true) }.should_not raise_error(Exception)
+  describe "with invalid item" do
+    before(:all) do
+      FakeWeb.register_uri(:get, %r(http://www.wowarmory.com/search\.xml\?.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/armory/search_no_results.xml"))
+    end
+    
+    it "should fail silently" do
+      @item.name = 'This Item Does Not Exist'
+      lambda { @item.lookup(true) }.should_not raise_error(Exception)
+    end
   end
   
-  it "should perform lookup by name" do
-    # Force a refresh
-    @item.wow_id.should be_nil
-    lambda { @item.lookup(true) }.should change(@item, :wow_id).to(40395)
-  end
-  
-  it "should perform lookup by wow_id" do
-    @item.name = nil
-    @item.wow_id = 40395
-    ItemLookup.should_receive(:search).with(40395, anything()).and_return(ItemLookup::Results.new)
-    @item.lookup
+  describe "with valid item" do
+    before(:all) do
+      FakeWeb.register_uri(:get, %r(http://www.wowarmory.com/search\.xml\?.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/armory/search_torch_of_holy_fire.xml"))
+      FakeWeb.register_uri(:get, "http://www.wowarmory.com/item-tooltip.xml?i=40395", :body => File.read(File.dirname(__FILE__) + "/../fixtures/armory/item-tooltip_40395.xml"))
+    end
+    
+    # FIXME: We're kind of testing ItemLookup here, erroneously.
+    # We should mock the return value from ItemLookup instead of letting it run.
+    it "should perform lookup by name" do
+      # Force a refresh
+      @item.wow_id.should be_nil
+      lambda { @item.lookup(true) }.should change(@item, :wow_id).to(40395)
+    end
+
+    it "should perform lookup by wow_id" do
+      @item.name = nil
+      @item.wow_id = 40395
+      ItemLookup.should_receive(:search).with(40395, anything()).and_return(ItemLookup::Results.new)
+      @item.lookup
+    end
   end
 end

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="/layout/search/search.xsl"?><page globalSearch="1" lang="en_us" requestQuery="searchQuery=Torch+of+Holy+Fire&amp;fl%5Bsource%5D=all&amp;fl%5Btype%5D=all&amp;fl%5BusbleBy%5D=all&amp;fl%5BrqrMin%5D=&amp;fl%5BrqrMax%5D=&amp;fl%5Brrt%5D=all&amp;advOptName=none&amp;fl%5Bandor%5D=and&amp;searchType=items" requestUrl="/search.xml">
+  <armorySearch>
+    <tabs count="1" selected="items">
+      <tab count="1" label="armory.tabs.items" type="items"/>
+    </tabs>
+    <searchResults pageCount="1" pageCurrent="1" searchError="" searchFilter="fl[source]=all&amp;fl[type]=all&amp;fl[rrt]=all&amp;fl[andor]=and&amp;fl[rqrMin]=&amp;fl[usbleBy]=all&amp;fl[rqrMax]=" searchMsg="" searchText="Torch of Holy Fire" searchType="items" url="searchType=items&amp;searchQuery=Torch+of+Holy+Fire&amp;p=1&amp;selectedTab=items&amp;sd=a" version="1.0">
+      <filters>
+        <filter name="source" value="all"/>
+        <filter name="type" value="all"/>
+        <filter name="rrt" value="all"/>
+        <filter name="andor" value="and"/>
+        <filter name="rqrMin" value=""/>
+        <filter name="usbleBy" value="all"/>
+        <filter name="rqrMax" value=""/>
+      </filters>
+      <filterColumns>
+        <filter name="itemLevel" sortName="itemLevel"/>
+        <filter name="source" sortName="source"/>
+        <filter name="relevance" sortName="relevance"/>
+      </filterColumns>
+      <items>
+        <item icon="inv_mace_82" id="40395" name="Torch of Holy Fire" rarity="4" url="i=40395">
+          <filter name="itemLevel" value="226"/>
+          <filter areaId="3456" areaKey="naxxramas" areaName="Naxxramas" creatureId="15990" creatureName="Kel'Thuzad" difficulty="h" dropRate="3" name="source" value="sourceType.creatureDrop"/>
+          <filter name="relevance" value="100"/>
+        </item>
+      </items>
+    </searchResults>
+  </armorySearch>
+</page>
