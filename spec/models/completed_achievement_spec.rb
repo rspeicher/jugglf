@@ -24,7 +24,10 @@ describe CompletedAchievement, "#parse_member" do
   before(:all) do
     Member.destroy_all
     @member = Member.make(:name => 'Tsigo')
+    
+    FakeWeb.register_uri(:get, %r(http://www\.wowarmory\.com/character-achievements\.xml.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/achievements_tsigo.xml"))
   end
+  
   before(:each) do
     [Achievement, CompletedAchievement].each(&:destroy_all)
     
@@ -37,8 +40,8 @@ describe CompletedAchievement, "#parse_member" do
     @incomplete = Achievement.make(:armory_id => 2904, :category_id => 168,
       :title => "Conqueror of Ulduar")
     
-    CompletedAchievement.stub!(:open).
-      and_return(File.read(RAILS_ROOT + '/spec/fixtures/armory/achievements_tsigo.xml'))
+    # CompletedAchievement.stub!(:open).
+    #   and_return(File.read(RAILS_ROOT + '/spec/fixtures/wowarmory/achievements_tsigo.xml'))
   end
   
   it "set up environment" do

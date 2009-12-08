@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type="text/xsl" href="/layout/items/info.xsl"?><page globalSearch="1" lang="en_us" requestQuery="i=40395" requestUrl="/item-info.xml">
+  <itemInfo>
+    <item icon="inv_mace_82" id="40395" level="226" name="Torch of Holy Fire" quality="4" type="One-Handed Maces">
+      <cost sellPrice="225096"/>
+      <disenchantLoot requiredSkillRank="375">
+        <item dropRate="6" icon="inv_enchant_abysscrystal" id="34057" level="80" maxCount="1" minCount="1" name="Abyss Crystal" quality="4" type="Enchanting"/>
+      </disenchantLoot>
+      <dropCreatures>
+        <creature area="Naxxramas" areaUrl="fl[source]=dungeon&amp;fl[dungeon]=naxxramas&amp;fl[boss]=all&amp;fl[difficulty]=all" classification="3" dropRate="3" heroic="1" id="30061" maxLevel="83" minLevel="83" name="Kel'Thuzad" type="Undead" url="fl[source]=dungeon&amp;fl[dungeon]=naxxramas&amp;fl[difficulty]=heroic&amp;fl[boss]=15990"/>
+      </dropCreatures>
+    </item>
+  </itemInfo>
+</page>

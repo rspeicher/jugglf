@@ -22,7 +22,7 @@ describe ItemLookup::Results do
     end
     
     it "should know the best result based on level" do
-      @results.best_result.level.should == 25 # 5 * 5
+      @results.best_result.level.should eql(25) # 5 * 5
     end
   
     it "should return Result.new when no results present" do
@@ -32,8 +32,8 @@ describe ItemLookup::Results do
   
     it "should return properly when one result present" do
       4.times { @results.shift }
-      @results.length.should == 1
-      @results.best_result.should == @results[0]
+      @results.length.should eql(1)
+      @results.best_result.should eql(@results[0])
     end
     
     it "should return properly when no results are present" do
@@ -61,11 +61,8 @@ describe ItemLookup::Armory do
   
   describe "when searching by id" do
     before(:all) do
-      # First tooltip gets opened, then info
-      ItemLookup::Armory.stub!(:open).and_return(
-        File.read(File.dirname(__FILE__) + '/../fixtures/wowarmory/item-tooltip_40395.xml'),
-        File.read(File.dirname(__FILE__) + '/../fixtures/wowarmory/item-info_40395.xml')
-      )
+      FakeWeb.register_uri(:get, 'http://www.wowarmory.com/item-tooltip.xml?i=40395', :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/item-tooltip_40395.xml"))
+      FakeWeb.register_uri(:get, 'http://www.wowarmory.com/item-info.xml?i=40395', :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/item-info_40395.xml"))
       
       @result = ItemLookup.search('40395').best_result
       
@@ -86,17 +83,16 @@ describe ItemLookup::Armory do
     
     %w(id name quality icon level slot).each do |prop|
       it "should have a #{prop}" do
-        eval("@result.#{prop}").should == @expected[prop.intern]
+        eval("@result.#{prop}").should eql(@expected[prop.intern])
       end
     end    
   end
   
   describe "when searching by name, multiple results" do
     before(:all) do
-      ItemLookup::Armory.stub!(:open).and_return(
-        File.read(File.dirname(__FILE__) + '/../fixtures/wowarmory/search_dark_matter.xml'),
-        File.read(File.dirname(__FILE__) + '/../fixtures/wowarmory/item-tooltip_46038.xml')
-      )
+      FakeWeb.clean_registry
+      FakeWeb.register_uri(:get, %r(http://www\.wowarmory\.com/search\.xml.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/search_dark_matter.xml"))
+      FakeWeb.register_uri(:get, %r(http://www\.wowarmory\.com/item-tooltip\.xml\?i=.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/item-tooltip_46038.xml"))
       @result = ItemLookup.search('Dark Matter').best_result
       
       @expected = {
@@ -111,15 +107,15 @@ describe ItemLookup::Armory do
     
     %w(id name quality icon level slot).each do |prop|
       it "a result should have a #{prop}" do
-        eval("@result.#{prop}").should == @expected[prop.intern]
+        eval("@result.#{prop}").should eql(@expected[prop.intern])
       end
     end
   end
   
   describe "with no search results" do
     before(:each) do
-      ItemLookup::Armory.stub!(:open).
-        and_return(File.read(File.dirname(__FILE__) + '/../fixtures/wowarmory/search_no_results.xml'))
+      FakeWeb.clean_registry
+      FakeWeb.register_uri(:get, %r(http://www\.wowarmory\.com/search\.xml.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/search_no_results.xml"))
     end
     
     it "should return an empty array of Results" do
@@ -129,9 +125,8 @@ describe ItemLookup::Armory do
 end
 
 describe ItemLookup::Wowhead do
-  before(:each) do
-    ItemLookup::Wowhead.stub!(:open).
-      and_return(File.read(File.dirname(__FILE__) + '/../fixtures/wowhead/item_40395.xml'))
+  before(:all) do
+    FakeWeb.register_uri(:get, 'http://www.wowhead.com/?item=40395&xml', :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowhead/item_40395.xml"))
   end
   
   it "should search wowhead.com" do
@@ -141,8 +136,6 @@ describe ItemLookup::Wowhead do
   
   describe "results" do
     before(:all) do
-      ItemLookup::Wowhead.stub!(:open).
-        and_return(File.read(File.dirname(__FILE__) + '/../fixtures/wowhead/item_40395.xml'))
       @result = ItemLookup.search('40395', :source => 'wowhead').best_result
               
       @expected = {
@@ -161,7 +154,7 @@ describe ItemLookup::Wowhead do
     
     %w(id name quality icon level slot).each do |prop|
       it "should have a #{prop}" do
-        eval("@result.#{prop}").should == @expected[prop.intern]
+        eval("@result.#{prop}").should eql(@expected[prop.intern])
       end
     end
   end
