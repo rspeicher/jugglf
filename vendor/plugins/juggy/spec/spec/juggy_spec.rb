@@ -27,7 +27,7 @@ describe Juggy do
       Item.stub!(:find_or_initialize_by_name).and_return(Item.make)
       
       loots = Juggy.parse_loots('Buyer - Item')
-      loots[0][:price].should == 3.00 # Price for a 258 Head slot
+      loots[0][:price].should eql(3.00) # Price for a 258 Head slot
     end
     
     describe "multiple items of the same name" do
@@ -47,7 +47,7 @@ describe Juggy do
     
       it "should return one Hash" do
         loot = Juggy.parse_loots("Sebudai - #{@item.name}")
-        loot[0].class.should == Hash
+        loot[0].class.should eql(Hash)
       end
     
       it "should correctly set best_in_slot" do
@@ -101,12 +101,12 @@ describe Juggy do
         end
         
         it "should get the correct number of buyers" do
-          @loot.size.should == 3
+          @loot.size.should eql(3)
         end
         
         it "should get the correct buyer names" do
-          @loot[0][:member].name.should == 'Modrack'
-          @loot[1][:member].name.should == 'Rosoo'
+          @loot[0][:member].name.should eql('Modrack')
+          @loot[1][:member].name.should eql('Rosoo')
           @loot[2][:member].should be_nil
         end
         
@@ -133,7 +133,7 @@ describe Juggy do
       3.times { output += @attendance_output + "\n" }
       @att = Juggy.parse_attendees(output)
       
-      @att.size.should == 3
+      @att.size.should eql(3)
     end
   end
 end
