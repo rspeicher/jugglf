@@ -207,8 +207,8 @@ end
 
 describe Raid, "#parse_drops" do
   before(:all) do
-    FakeWeb.register_uri(:get, %r(http://www.wowarmory.com/search\.xml\?.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/armory/search_torch_of_holy_fire.xml"))
-    FakeWeb.register_uri(:get, "http://www.wowarmory.com/item-tooltip.xml?i=40395", :body => File.read(File.dirname(__FILE__) + "/../fixtures/armory/item-tooltip_40395.xml"))
+    FakeWeb.register_uri(:get, %r(http://www.wowarmory.com/search\.xml\?.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/search_torch_of_holy_fire.xml"))
+    FakeWeb.register_uri(:get, "http://www.wowarmory.com/item-tooltip.xml?i=40395", :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/item-tooltip_40395.xml"))
   end
   
   before(:each) do

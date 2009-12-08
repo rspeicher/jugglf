@@ -162,8 +162,8 @@ end
 
 describe Item, "automatic stat lookup" do
   before(:all) do
-    FakeWeb.register_uri(:get, %r(http://www.wowarmory.com/item-tooltip\.xml\?.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/armory/item-tooltip_40395.xml"))
-    FakeWeb.register_uri(:get, %r(http://www.wowarmory.com/item-info\.xml\?.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/armory/item-info_40395.xml"))
+    FakeWeb.register_uri(:get, %r(http://www\.wowarmory\.com/item-tooltip\.xml\?.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/item-tooltip_40395.xml"))
+    FakeWeb.register_uri(:get, %r(http://www\.wowarmory\.com/item-info\.xml\?.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/item-info_40395.xml"))
   end
   
   before(:each) do
@@ -201,7 +201,7 @@ describe Item, "lookup from Internet" do
   
   describe "with invalid item" do
     before(:all) do
-      FakeWeb.register_uri(:get, %r(http://www.wowarmory.com/search\.xml\?.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/armory/search_no_results.xml"))
+      FakeWeb.register_uri(:get, %r(http://www\.wowarmory\.com/search\.xml\?.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/search_no_results.xml"))
     end
     
     it "should fail silently" do
@@ -212,8 +212,8 @@ describe Item, "lookup from Internet" do
   
   describe "with valid item" do
     before(:all) do
-      FakeWeb.register_uri(:get, %r(http://www.wowarmory.com/search\.xml\?.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/armory/search_torch_of_holy_fire.xml"))
-      FakeWeb.register_uri(:get, "http://www.wowarmory.com/item-tooltip.xml?i=40395", :body => File.read(File.dirname(__FILE__) + "/../fixtures/armory/item-tooltip_40395.xml"))
+      FakeWeb.register_uri(:get, %r(http://www\.wowarmory\.com/search\.xml\?.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/search_torch_of_holy_fire.xml"))
+      FakeWeb.register_uri(:get, "http://www.wowarmory.com/item-tooltip.xml?i=40395", :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/item-tooltip_40395.xml"))
     end
     
     # FIXME: We're kind of testing ItemLookup here, erroneously.
