@@ -90,6 +90,7 @@ describe ItemLookup::Armory do
   
   describe "when searching by name, multiple results" do
     before(:all) do
+      FakeWeb.clean_registry
       FakeWeb.register_uri(:get, %r(http://www\.wowarmory\.com/search\.xml.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/search_dark_matter.xml"))
       FakeWeb.register_uri(:get, %r(http://www\.wowarmory\.com/item-tooltip\.xml\?i=.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/item-tooltip_46038.xml"))
       @result = ItemLookup.search('Dark Matter').best_result
