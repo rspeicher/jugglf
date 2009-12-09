@@ -1260,8 +1260,8 @@ namespace :juggernaut do
     [Boss, LootTable, Zone].each(&:destroy_all)
     
     # wotlk_data()
-    # ulduar_data()
-    # crusade_data()
+    ulduar_data()
+    crusade_data()
     icecrown_data()
   end
 end
