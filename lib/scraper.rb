@@ -41,25 +41,23 @@ class JavascriptParser
   end
   
   def parse_tag(tag, name)
-    def parse_tag(tag, name)
-      html = open("http://db.mmo-champion.com/tag/item/#{tag}/").string
-      
-      unless html.nil?
-        puts "##{tag} - #{name}"
-        puts "when \"#{name}\""
-        results = html.match(/var\ssearch_results\s=\s\{(.*)\}\s+drawtable/im)
+    html = open("http://db.mmo-champion.com/tag/item/#{tag}/").string
     
-        if results.length > 0
-          results[0].split("\n").each do |result|
-            # "47608:{'slot': 8, 'name': 'Acidmaw Boots', 'level': 232, 'subclass': 'Leather', 'link': '/i/47608/acidmaw-boots/', 'quality': 4, 'required_level': 80},"
-            details = result.match(/^([0-9]+):.+'name': '(.+)', 'level':/)
-            unless details.nil?
-              puts "  item(boss, #{details[1].to_i}) # #{details[2]}"
-            end
+    unless html.nil?
+      puts "##{tag} - #{name}"
+      puts "when \"#{name}\""
+      results = html.match(/var\ssearch_results\s=\s\{(.*)\}\s+drawtable/im)
+  
+      if results.length > 0
+        results[0].split("\n").each do |result|
+          # "47608:{'slot': 8, 'name': 'Acidmaw Boots', 'level': 232, 'subclass': 'Leather', 'link': '/i/47608/acidmaw-boots/', 'quality': 4, 'required_level': 80},"
+          details = result.match(/^([0-9]+):.+'name': '(.+)', 'level':/)
+          unless details.nil?
+            puts "  item(boss, #{details[1].to_i}) # #{details[2]}"
           end
         end
       end
-    end    
+    end
   end
 end
 
