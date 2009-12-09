@@ -65,35 +65,41 @@ end
 
 # Parses a mmo-champion.com 'Loot Table' page using Scrapi
 class ScrapiParser
-  require 'rubygems'
-  require 'scrapi'
+  require 'open-uri'
+  require 'nokogiri'
   
   attr_accessor :results
   
   def initialize
     @results = {}
     
-    scraper = Scraper.define do
-      array :items
-      # Horde tabs are "tabs3-[1-4]"
-      1.upto(4) do |i|
-        process "#tabs3-#{i} > table > tbody > tr", :items => Scraper.define {
-          process "td:nth-child(1)", :level => :text
-          process "td:nth-child(5) > a", :name => :text, :link => "@href"
-          process "td:nth-child(6) > a", :source => :text, :source_link => "@href"
-          result :level, :name, :link, :source, :source_link
+    doc = Nokogiri::HTML(open("http://www.mmo-champion.com/index.php?page=904"))
+    1.upto(4) do |i|
+      doc.css("#tabs-#{i} > table > tbody > tr").each do |tr|
+        item = {
+          :level       => tr.css("td:nth-child(1)").first.content,
+          :name        => tr.css("td:nth-child(5) > a").first.content,
+          :link        => tr.css("td:nth-child(5) > a").first['href'],
+          :hard        => false
         }
-      end
-      result :items
-    end
-    
-    uri = URI.parse("http://www.mmo-champion.com/index.php?page=870")
-    # uri = File.read(File.dirname(__FILE__) + '/page-870.html')
-    items = scraper.scrape(uri)
-    unless items.nil?
-      items.each do |item|
-        @results[item.source] ||= []
-        @results[item.source] << item
+        
+        # Sometimes a source is blank. Grumble grumble.
+        if tr.css("td:nth-child(6) > a").first.nil?
+          item[:source] = 'Unknown'
+          item[:source_link] = ''
+        else
+          item[:source]      = tr.css("td:nth-child(6) > a").first.content
+          item[:source_link] = tr.css("td:nth-child(6) > a").first['href']
+        end
+        
+        # Hard mode isn't in a separate zone no mo'.
+        if item[:source] =~ /-hard$/
+          item[:source].gsub!(/-hard$/, '')
+          item[:hard] = true
+        end
+        
+        @results[item[:source]] ||= []
+        @results[item[:source]] << item
       end
     end
   end
@@ -107,9 +113,10 @@ class ScrapiParser
         puts "when \"#{source}\""
       end
       
-      items = items.sort { |a,b| a.name <=> b.name }
+      items = items.sort { |a,b| a[:name] <=> b[:name] }
       items.each do |item|
-        puts "  item(boss, #{item.link.gsub(/.+i\/(\d+)\/.+/, '\1')}) ##{item.name}"
+        hard_mode = ( item[:hard] ) ? ", 'Heroic'" : ''
+        puts "  item(boss, #{item[:link].gsub(/.+i\/(\d+)\/.+/, '\1')}#{hard_mode}) ##{item[:name]}"
       end
     end
   end
