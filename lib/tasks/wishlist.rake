@@ -940,12 +940,328 @@ namespace :juggernaut do
     end
   end
   
+  def icecrown_data
+    icc_bosses = {
+      'Icecrown Citadel (10)' => [
+        ['trash-10',         'Trash'],
+        
+        ['marrowgar-10',     'Lord Marrowgar'],
+        ['deathwhisper-10',  'Lady Deathwhisper'],
+        ['gunship-10',       'Gunship Battle'],
+        ['saurfang-10',      'Deathbringer Saurfang'],
+        
+        ['festergut-10',     'Festergut'],
+        ['rotface-10',       "Rotface"],
+        ['putricide-10',     'Professor Putricide'], # Guessed tag
+        
+        ['bloodprinces-10',  'Blood Prince Council'],
+        ['queenlanathel-10', "Blood-Queen Lana'thel"],
+        
+        ['valithria-10',     "Valithria Dreamwalker"],
+        ['sindragosa-10',    'Sindragosa'], # Guessed tag
+        
+        ['lichking-10',      'The Lich King']
+      ],
+      'Icecrown Citadel (25)' => [
+        ['trash-25',         'Trash'],
+
+        ['marrowgar-25',     'Lord Marrowgar'],
+        ['deathwhisper-25',  'Lady Deathwhisper'],
+        ['gunship-25',       'Gunship Battle'],
+        ['saurfang-25',      'Deathbringer Saurfang'],
+
+        ['festergut-25',     'Festergut'],
+        ['rotface-25',       "Rotface"],
+        ['putricide-25',     'Professor Putricide'], # Guessed tag
+
+        ['bloodprinces-25',  'Blood Prince Council'],
+        ['queenlanathel-25', "Blood-Queen Lana'thel"],
+
+        ['valithria-25',     "Valithria Dreamwalker"],
+        ['sindragosa-25',    'Sindragosa'], # Guessed tag
+
+        ['lichking-25',      'The Lich King']
+      ]
+    }
+    
+    icc_bosses.sort.each do |zone_name, bosses|
+      zone = LootTable.create(:object => Zone.create(:name => zone_name))
+      bosses.each do |boss_tag, boss_name|
+        boss = boss(zone, boss_name)
+        case boss_tag
+        when "queenlanathel-10"
+          item(boss, 51554) #Cowl of Malefic Repose
+          item(boss, 51385) #Stakethrower
+        when "gunship-25"
+          item(boss, 50366, 'Heroic') #Althor's Abacus
+          item(boss, 50359) #Althor's Abacus
+          item(boss, 50005) #Amulet of the Silent Eulogy
+          item(boss, 50658, 'Heroic') #Amulet of the Silent Eulogy
+          item(boss, 50660, 'Heroic') #Boneguard Commander's Pauldrons
+          item(boss, 50003) #Boneguard Commander's Pauldrons
+          item(boss, 50009) #Boots of Unnatural Growth
+          item(boss, 50665, 'Heroic') #Boots of Unnatural Growth
+          item(boss, 50006) #Corp'rethar Ceremonial Crown
+          item(boss, 50661, 'Heroic') #Corp'rethar Ceremonial Crown
+          item(boss, 50352) #Corpse Tongue Coin
+          item(boss, 50349, 'Heroic') #Corpse Tongue Coin
+          item(boss, 50663, 'Heroic') #Gunship Captain's Mittens
+          item(boss, 50011) #Gunship Captain's Mittens
+          item(boss, 50001) #Ikfirus's Sack of Wonder
+          item(boss, 50656, 'Heroic') #Ikfirus's Sack of Wonder
+          item(boss, 50659, 'Heroic') #Polar Bear Claw Bracers
+          item(boss, 50002) #Polar Bear Claw Bracers
+          item(boss, 50664, 'Heroic') #Ring of Rapid Ascent
+          item(boss, 50008) #Ring of Rapid Ascent
+          item(boss, 50000) #Scourge Hunter's Vambraces
+          item(boss, 50655, 'Heroic') #Scourge Hunter's Vambraces
+          item(boss, 50654, 'Heroic') #Scourgeborne Waraxe
+          item(boss, 50411) #Scourgeborne Waraxe
+          item(boss, 50653, 'Heroic') #Shadowvault Slayer's Cloak
+          item(boss, 49998) #Shadowvault Slayer's Cloak
+          item(boss, 50657, 'Heroic') #Skeleton Lord's Circle
+          item(boss, 49999) #Skeleton Lord's Circle
+          item(boss, 50010) #Waistband of Righteous Fury
+          item(boss, 50667, 'Heroic') #Waistband of Righteous Fury
+        when "festergut-10"
+          item(boss, 50966) #Abracadaver
+          item(boss, 50988) #Bloodstained Surgeon's Shoulderguards
+          item(boss, 50859) #Cloak of Many Skins
+          item(boss, 50967) #Festergut's Gaseous Gloves
+          item(boss, 50811) #Festering Fingerguards
+          item(boss, 50810) #Gutbuster
+          item(boss, 50990) #Kilt of Untreated Wounds
+          item(boss, 51889, 'Heroic') #Plague-Soaked Leather Leggings
+          item(boss, 50858) #Plague-Soaked Leather Leggings
+          item(boss, 50852) #Precious's Putrid Collar
+          item(boss, 50986) #Signet of Putrefaction
+          item(boss, 51884, 'Heroic') #Signet of Putrefaction
+          item(boss, 50985) #Wrists of Septic Shock
+        when "saurfang-10"
+          item(boss, 51902, 'Heroic') #Blade-Scored Carapace
+          item(boss, 50801) #Blade-Scored Carapace
+          item(boss, 51895, 'Heroic') #Deathforged Legplates
+          item(boss, 50808) #Deathforged Legplates
+          item(boss, 50802) #Gargoyle Spit Bracers
+          item(boss, 51901, 'Heroic') #Gargoyle Spit Bracers
+          item(boss, 50800) #Hauberk of a Thousand Cuts
+          item(boss, 51903, 'Heroic') #Hauberk of a Thousand Cuts
+          item(boss, 50804) #Icecrown Spire Sandals
+          item(boss, 51899, 'Heroic') #Icecrown Spire Sandals
+          item(boss, 51897, 'Heroic') #Leggings of Unrelenting Blood
+          item(boss, 50806) #Leggings of Unrelenting Blood
+          item(boss, 50805) #Mag'hari Chieftain's Staff
+          item(boss, 51898, 'Heroic') #Mag'hari Chieftain's Staff
+          item(boss, 50798) #Ramaladni's Blade of Culling
+          item(boss, 51905, 'Heroic') #Ramaladni's Blade of Culling
+          item(boss, 51900, 'Heroic') #Saurfang's Cold-Forged Band
+          item(boss, 50803) #Saurfang's Cold-Forged Band
+          item(boss, 51904, 'Heroic') #Scourge Stranglers
+          item(boss, 50799) #Scourge Stranglers
+          item(boss, 50809) #Soulcleave Pendant
+          item(boss, 51894, 'Heroic') #Soulcleave Pendant
+          item(boss, 50807) #Thaumaturge's Crackling Cowl
+          item(boss, 51896, 'Heroic') #Thaumaturge's Crackling Cowl
+        when "trash-25"
+          item(boss, 50451) #Belt of the Lonely Noble
+          item(boss, 50447) #Harbinger's Bone Band
+          item(boss, 50450) #Leggings of Dubious Charms
+          item(boss, 50453) #Ring of Rotting Sinew
+          item(boss, 50444) #Rowan's Rifle of Silver Bullets
+          item(boss, 50449) #Stiffened Corpse Shoulderpads
+          item(boss, 50452) #Wodin's Lucky Necklace
+        when "bloodprinces-25"
+          item(boss, 50175) #Crypt Keeper's Bracers
+          item(boss, 49919) #Cryptmaker
+          item(boss, 50073) #Geistlord's Punishment Sack
+          item(boss, 50184) #Keleseth's Seducer
+          item(boss, 50072) #Landsoul's Horned Greathelm
+          item(boss, 50177) #Mail of Crimson Coins
+          item(boss, 50176) #San'layn Ritualist Gloves
+          item(boss, 50172) #Sanguine Silk Robes
+          item(boss, 50173) #Shadow Silk Spindle
+          item(boss, 50171) #Shoulders of Frost-Tipped Thorns
+          item(boss, 50075) #Taldaram's Plated Fists
+          item(boss, 50071) #Treads of the Wasteland
+          item(boss, 50170) #Valanar's Other Signet Ring
+        when "lichking-10"
+          item(boss, 51947, 'Heroic') #Troggbane, Axe of the Frostborne King
+        when "valithria-25"
+          item(boss, 50619, 'Heroic') #Anub'ar Stalker's Gloves
+          item(boss, 50188) #Anub'ar Stalker's Gloves
+          item(boss, 50205) #Frostbinder's Shredded Cape
+          item(boss, 50628, 'Heroic') #Frostbinder's Shredded Cape
+          item(boss, 50186) #Frostbrood Sapphire Ring
+          item(boss, 50618, 'Heroic') #Frostbrood Sapphire Ring
+          item(boss, 50190) #Grinning Skull Greatboots
+          item(boss, 50629, 'Heroic') #Robe of the Waking Nightmare
+          item(boss, 50624, 'Heroic') #Scourge Reaver's Legplates
+          item(boss, 50626, 'Heroic') #Snowstorm Helm
+        when "deathwhisper-25"
+          item(boss, 49989) #Ahn'kahar Onyx Neckguard
+          item(boss, 49983) #Blood-Soaked Saronite Stompers
+          item(boss, 49986) #Broken Ram Skull Helm
+          item(boss, 49987) #Cultist's Bloodsoaked Spaulders
+          item(boss, 49996) #Deathwhisper Chestpiece
+          item(boss, 49995) #Fallen Lord's Handguards
+          item(boss, 49985) #Juggernaut Band
+          item(boss, 49988) #Leggings of Northern Lights
+          item(boss, 49993) #Necrophotic Greaves
+          item(boss, 49992) #Nibelung
+          item(boss, 49990) #Ring of Maddening Whispers
+          item(boss, 49991) #Shoulders of Mercy Killing
+          item(boss, 49994) #The Lady's Brittle Bracers
+        when "marrowgar-10"
+          item(boss, 50772) #Ancient Skeletal Boots
+          item(boss, 50759) #Bone Warden's Splitter
+          item(boss, 50760) #Bonebreaker Scepter
+          item(boss, 51937, 'Heroic') #Bonebreaker Scepter
+          item(boss, 50761) #Citadel Enforcer's Claymore
+          item(boss, 50774) #Coldwraith Bracers
+          item(boss, 50773) #Cord of the Patronizing Practitioner
+          item(boss, 50775) #Corrupted Silverplate Leggings
+          item(boss, 50771) #Frost Needle
+          item(boss, 50762) #Linked Scourge Vertebrae
+          item(boss, 50763) #Marrowgar's Scratching Choker
+          item(boss, 50764) #Shawl of Nerubian Silk
+        when "festergut-25"
+          item(boss, 50036) #Belt of Broken Bones
+          item(boss, 50035) #Black Bruise
+          item(boss, 50038) #Carapace of Forgotten Kings
+          item(boss, 50040) #Distant Land
+          item(boss, 50060) #Faceplate of the Forgotten
+          item(boss, 50037) #Fleshrending Gauntlets
+          item(boss, 50042) #Gangrenous Leggings
+          item(boss, 50061) #Holiday's Grace
+          item(boss, 50059) #Horrific Flesh Epaulets
+          item(boss, 50063) #Lingering Illness
+          item(boss, 50414) #Might of Blight
+          item(boss, 50413) #Nerub'ar Stalker's Cord
+          item(boss, 50062) #Plague Scientist's Boots
+          item(boss, 50056) #Plaguebringer's Stained Pants
+          item(boss, 50064) #Unclean Surgical Gloves
+        when "rotface-10"
+          item(boss, 51009) #Chestguard of the Failed Experiment
+          item(boss, 51000) #Flesh-Shaper's Gurney Strap
+          item(boss, 51006) #Shuffling Shoes
+          item(boss, 51002) #Taldron's Short-Sighted Helm
+        when "saurfang-25"
+          item(boss, 50671, 'Heroic') #Belt of the Blood Nova
+          item(boss, 50015) #Belt of the Blood Nova
+          item(boss, 50412) #Bloodvenom Blade
+          item(boss, 50672, 'Heroic') #Bloodvenom Blade
+          item(boss, 52027) # Conqueror's Mark of Sanctification
+          item(boss, 52030, 'Heroic') # Conqueror's Mark of Sanctification
+          item(boss, 50362) #Deathbringer's Will
+          item(boss, 50363, 'Heroic') #Deathbringer's Will
+          item(boss, 50668, 'Heroic') #Greatcloak of the Turned Champion
+          item(boss, 50014) #Greatcloak of the Turned Champion
+          item(boss, 52026) # Protector's Mark of Sanctification
+          item(boss, 52029, 'Heroic') # Protector's Mark of Sanctification
+          item(boss, 50333) #Toskk's Maximized Wristguards
+          item(boss, 50670, 'Heroic') #Toskk's Maximized Wristguards
+          item(boss, 52025) # Vanquisher's Mark of Sanctification
+          item(boss, 52028, 'Heroic') # Vanquisher's Mark of Sanctification
+        when "gunship-10"
+          item(boss, 50790) #Abomination's Bloody Ring
+          item(boss, 51913, 'Heroic') #Abomination's Bloody Ring
+          item(boss, 51915, 'Heroic') #Bone Drake's Enameled Boots
+          item(boss, 50788) #Bone Drake's Enameled Boots
+          item(boss, 50796) #Bracers of Pale Illumination
+          item(boss, 51907, 'Heroic') #Bracers of Pale Illumination
+          item(boss, 51908, 'Heroic') #Cord of Dark Suffering
+          item(boss, 50795) #Cord of Dark Suffering
+          item(boss, 50787) #Frost Giant's Cleaver
+          item(boss, 51916, 'Heroic') #Frost Giant's Cleaver
+          item(boss, 50797) #Ice-Reinforced Vrykul Helm
+          item(boss, 51906, 'Heroic') #Ice-Reinforced Vrykul Helm
+          item(boss, 51914, 'Heroic') #Icecrown Rampart Bracers
+          item(boss, 50789) #Icecrown Rampart Bracers
+          item(boss, 51910, 'Heroic') #Midnight Sun
+          item(boss, 50793) #Midnight Sun
+          item(boss, 50345, 'Heroic') #Muradin's Spyglass
+          item(boss, 50340) #Muradin's Spyglass
+          item(boss, 51909, 'Heroic') #Neverending Winter
+          item(boss, 50794) #Neverending Winter
+          item(boss, 50792) #Pauldrons of Lost Hope
+          item(boss, 51911, 'Heroic') #Pauldrons of Lost Hope
+          item(boss, 50791) #Saronite Gargoyle Cloak
+          item(boss, 51912, 'Heroic') #Saronite Gargoyle Cloak
+          item(boss, 50341) #Unidentifiable Organ
+          item(boss, 50344, 'Heroic') #Unidentifiable Organ
+        when "marrowgar-25"
+          item(boss, 49949) #Band of the Bone Colossus
+          item(boss, 49975) #Bone Sentinel's Amulet
+          item(boss, 49960) #Bracers of Dark Reckoning
+          item(boss, 50415) #Bryntroll, the Bone Arbiter
+          item(boss, 49976) #Bulwark of Smouldering Steel
+          item(boss, 49978) #Crushing Coldwraith Belt
+          item(boss, 49950) #Frostbitten Fur Boots
+          item(boss, 49968) #Frozen Bonespike
+          item(boss, 49951) #Gendarme's Cuirass
+          item(boss, 49979) #Handguards of Winter's Respite
+          item(boss, 49964) #Legguards of Lost Hope
+          item(boss, 49977) #Loop of the Endless Labyrinth
+          item(boss, 49967) #Marrowgar's Frigid Eye
+          item(boss, 49980) #Rusted Bonespike Pauldrons
+          item(boss, 49952) #Snowserpent Mail Helm
+        when "valithria-10"
+          item(boss, 51561) #Dreamhunter's Carbine
+          item(boss, 51586) #Emerald Saint's Spaulders
+          item(boss, 51564) #Ironrope Belt of Ymirjar
+          item(boss, 51777) #Leggings of the Refracted Mind
+          item(boss, 51562) #Oxheart
+          item(boss, 51582) #Sister Svalna's Aether Staff
+          item(boss, 51585) #Sister Svalna's Spangenhelm
+          item(boss, 51565) #Skinned Whelp Shoulders
+          item(boss, 51583) #Stormbringer Gloves
+          item(boss, 51563) #Taiga Bindings
+        when "deathwhisper-10"
+          item(boss, 50783) #Boots of the Frozen Seed
+          item(boss, 50785) #Bracers of Dark Blessings
+          item(boss, 51923, 'Heroic') #Chestguard of the Frigid Noose
+          item(boss, 50780) #Chestguard of the Frigid Noose
+          item(boss, 50784) #Deathspeaker Disciple's Belt
+          item(boss, 50779) #Deathspeaker Zealot's Helm
+          item(boss, 50786) #Ghoul Commander's Cuirass
+          item(boss, 50777) #Handgrips of Frost and Sleet
+          item(boss, 50776) #Njordnar Bone Bow
+          item(boss, 50781) #Scourgelord's Baton
+          item(boss, 50782) #Sister's Handshrouds
+          item(boss, 51921, 'Heroic') #Sister's Handshrouds
+          item(boss, 50778) #Soulthief's Braided Belt
+        when "rotface-25"
+          item(boss, 50021) #Aldriana's Gloves of Secrecy
+          item(boss, 50024) #Blightborne Warplate
+          item(boss, 50033) #Corpse-Impaling Spike
+          item(boss, 50032) #Death Surgeon's Sleeves
+          item(boss, 50353) #Dislodged Foreign Object
+          item(boss, 50022) #Dual-Bladed Pauldrons
+          item(boss, 50026) #Helm of the Elder Moon
+          item(boss, 50020) #Raging Behemoth's Shoulderplates
+          item(boss, 50016) #Rib Spreader
+          item(boss, 50027) #Rot-Resistant Breastplate
+          item(boss, 50025) #Seal of Many Mouths
+          item(boss, 50023) #Sepsis
+          item(boss, 50028) #Trauma
+          item(boss, 50019) #Winding Sheet
+        when "Unknown"
+          item(boss, 50416) #Boots of the Funeral March
+          item(boss, 50339) #Sliver of Pure Ice
+          item(boss, 50342) #Whispering Fanged Skull
+          item(boss, 50034) #Zod's Repeating Longbow
+        end
+      end
+    end
+  end
+  
   desc "Populate wishlist data"
   task :wishlist => [:environment] do
     [Boss, LootTable, Zone].each(&:destroy_all)
     
-    wotlk_data()
-    ulduar_data()
-    crusade_data()
+    # wotlk_data()
+    # ulduar_data()
+    # crusade_data()
+    icecrown_data()
   end
 end
