@@ -61,8 +61,8 @@ class JavascriptParser
   end
 end
 
-# Parses a mmo-champion.com 'Loot Table' page using Scrapi
-class ScrapiParser
+# Parses a mmo-champion.com 'Loot Table' page using Nokogiri
+class NokogiriParser
   require 'open-uri'
   require 'nokogiri'
   
@@ -91,10 +91,10 @@ class ScrapiParser
         end
         
         # Hard mode isn't in a separate zone no mo'.
-        if item[:source] =~ /-hard$/
-          item[:source].gsub!(/-hard$/, '')
-          item[:hard] = true
-        end
+        # if item[:source] =~ /-hard$/
+        #   item[:source].gsub!(/-hard$/, '')
+        #   item[:hard] = true
+        # end
         
         @results[item[:source]] ||= []
         @results[item[:source]] << item
@@ -120,5 +120,5 @@ class ScrapiParser
   end
 end
 
-parser = ScrapiParser.new
+parser = NokogiriParser.new
 parser.print_results
