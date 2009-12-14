@@ -9,7 +9,7 @@ Item.blueprint do
   name { Faker::Lorem.words(2) }
   wow_id { Faker::Address.zip_code }
   slot { 'Head' }
-  level { 258 }
+  level { 277 }
 end
 Item.blueprint(:with_real_stats) do
   name { 'Torch of Holy Fire' }

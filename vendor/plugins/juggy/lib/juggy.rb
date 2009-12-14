@@ -92,7 +92,7 @@ module Juggy
         unless item.wow_id.nil?
           price = ItemPrice.instance.price(:name => item.name,
             :level => item.level, :slot => item.slot,
-            :class => member.wow_class)
+            :class => member.wow_class, :id => item.wow_id)
         end
         
         price

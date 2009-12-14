@@ -11,79 +11,89 @@ module Juggy
     
     def initialize
       @values = {
-        'LEVELS' => ['226', '245', '258', '272'],
+        'LEVELS' => ['226', '239', '245', '258', '264', '277'], # NOTE: Not 272, this array is only used for weapons.
         
         'Head' => nil, 'Chest' => nil, 'Legs' => {
-          '226' => 1.50,
-          '239' => 2.00,
-          '245' => 2.50,
-          '258' => 3.00,
-          '272' => 3.50
-        },
-        'Shoulder' => nil, 'Shoulders' => nil, 'Hands' => nil, 'Feet' => {
-          '226' => 1.00,
-          '239' => 1.50,
-          '245' => 2.00,
-          '258' => 2.50,
-          '272' => 3.00
-        },
-        'Wrist' => nil, 'Waist' => nil, 'Finger' => {
           '226' => 0.50,
           '239' => 1.00,
           '245' => 1.50,
           '258' => 2.00,
-          '272' => 2.50
+          '264' => 2.50,
+          '277' => 3.00
+        },
+        'Shoulder' => nil, 'Shoulders' => nil, 'Hands' => nil, 'Feet' => {
+          '226' => 0.00,
+          '239' => 0.50,
+          '245' => 1.00,
+          '258' => 1.50,
+          '264' => 2.00,
+          '277' => 2.50
+        },
+        'Wrist' => nil, 'Waist' => nil, 'Finger' => {
+          '226' => 0.00,
+          '239' => 0.00,
+          '245' => 0.50,
+          '258' => 1.00,
+          '264' => 1.50,
+          '277' => 2.00
         },
         'Neck' => nil, 'Back' => {
-          '226' => 1.00,
-          '239' => 1.50,
-          '245' => 2.00,
-          '258' => 2.50,
-          '272' => 3.00
+          '226' => 0.00,
+          '239' => 0.00,
+          '245' => 0.50,
+          '258' => 1.00,
+          '264' => 1.50,
+          '272' => 2.00, # Special case for Tribute Chest, grumble.
+          '277' => 2.50
         },
         'Two-Hand' => {
-          '226' => [2.00, 0.50],
-          '232' => [3.00, 1.00],
-          '239' => [4.00, 1.50],
-          '245' => [5.00, 2.00],
-          '258' => [6.00, 2.50],
-          '272' => [7.00, 3.00]
+          '226' => [0.00, 0.00],
+          '232' => [1.00, 0.00],
+          '239' => [2.00, 0.50],
+          '245' => [3.00, 1.00],
+          '258' => [4.00, 1.50],
+          '264' => [5.00, 2.00],
+          '277' => [6.00, 2.50],
         },
         
         # Healer/Caster
         'Main Hand' => {
-          '226' => 2.00,
-          '232' => 2.50,
-          '239' => 3.00,
-          '245' => 3.50,
-          '258' => 4.00,
-          '272' => 4.50
+          '226' => 1.00,
+          '232' => 1.50,
+          '239' => 2.00,
+          '245' => 2.50,
+          '258' => 3.00,
+          '264' => 3.50,
+          '277' => 4.00
         },
         'Shield' => nil, 'Held In Off-hand' => {
           '226' => 0.00,
-          '232' => 0.50,
-          '239' => 1.00,
-          '245' => 1.50,
-          '258' => 2.00,
-          '272' => 2.50
+          '232' => 0.00,
+          '239' => 0.00,
+          '245' => 0.50,
+          '258' => 1.00,
+          '264' => 1.50,
+          '277' => 2.00
         },
         # Melee DPS/Hunter
         'One-Hand' => nil, 'Off Hand' => nil, 'Melee DPS Weapon' => {
-          '226' => [1.00, 0.00],
-          '232' => [1.50, 0.50],
-          '239' => [2.00, 0.75],
-          '245' => [2.50, 1.00],
-          '258' => [3.00, 1.25],
-          '272' => [3.50, 1.50]
+          '226' => [0.00, 0.00],
+          '232' => [0.50, 0.00],
+          '239' => [1.00, 0.00],
+          '245' => [1.50, 0.50],
+          '258' => [2.00, 0.75],
+          '264' => [2.50, 1.00],
+          '277' => [3.00, 1.25]
         },
         
         'Relic' => nil, 'Idol' => nil, 'Totem' => nil, 'Thrown' => nil, 'Sigil' => nil, 'Ranged' => {
-          '226' => [0.00, 1.00],
-          '232' => [0.00, 2.00],
-          '239' => [0.50, 3.00],
-          '245' => [1.00, 4.00],
-          '258' => [1.50, 5.00],
-          '272' => [2.00, 6.00]
+          '226' => [0.00, 0.00],
+          '232' => [0.00, 0.00],
+          '239' => [0.00, 1.00],
+          '245' => [0.00, 2.00],
+          '258' => [0.50, 3.00],
+          '264' => [1.00, 4.00],
+          '277' => [1.50, 5.00]
         },
         'Trinket' => {
           # Patch 3.1
@@ -100,10 +110,17 @@ module Juggy
           "Wrathstone"                        => 0.00,
           
           # Patch 3.2 [245 price, 258 price]
-          "Death's Choice"        => [2.00, 4.00],
-          "Juggernaut's Vitality" => [2.00, 4.00],
-          "Reign of the Dead"     => [2.00, 4.00],
-          "Solace of the Fallen"  => [2.00, 4.00],
+          "Death's Choice"        => [1.00, 2.00],
+          "Juggernaut's Vitality" => [1.00, 2.00],
+          "Reign of the Dead"     => [1.00, 2.00],
+          "Solace of the Fallen"  => [1.00, 2.00],
+          
+          # Patch 3.3 [264 price, 277 price]
+          "Althor's Abacus"          => [2.00, 4.00],
+          "Corpse Tongue Coin"       => [2.00, 4.00],
+          "Deathbringer's Will"      => [2.00, 4.00],
+          "Dislodged Foreign Object" => [2.00, 4.00],
+          "Unidentifiable Organ"     => [2.00, 4.00],
         }
       }
 
@@ -119,6 +136,7 @@ module Juggy
     end
 
     def price(options = {})
+      options[:id]     ||= nil
       options[:name]   ||= nil
       options[:item]   ||= options[:name] # Item name
       options[:slot]   ||= nil            # Item slot
@@ -254,6 +272,16 @@ module Juggy
             # Tier 9 245 Token
             options[:slot] = 'Chest' # Not always, but it has the correct price point we want for all Trophies
             options[:level] = 245
+
+          elsif [52028, 52029, 52030].include? options[:id]
+            # Tier 10 277 Token
+            options[:slot] = 'Chest' # Not always, but it has the correct price point we want for all Marks
+            options[:level] = 277
+
+          elsif [52025, 52026, 52027].include? options[:id]
+            # Tier 10 266 Token
+            options[:slot] = 'Chest' # Not always, but it has the correct price point we want for all Marks
+            options[:level] = 266
 
           else
             # Tier 8 or Tier 7 token
