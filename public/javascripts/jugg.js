@@ -24,6 +24,7 @@ function wishlistMenu(zone, boss) {
             $(this).hide();
         }
         else {
+            $(this).removeClass('hidden');
             $(this).children().each(function() {
                 if ($(this).attr('id') == 'loot_table_' + boss) {
                     $(this).html('<b>' + $(this).text() + '</b>');

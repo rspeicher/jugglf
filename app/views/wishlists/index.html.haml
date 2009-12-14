@@ -1,4 +1,7 @@
-%h2= breadcrumb 'Global Wishlist View', @zone, @boss
+- if @zone and @boss
+  %h2= breadcrumb link_to('Global Wishlist View', wishlists_path), @zone, @boss
+- else
+  %h2= breadcrumb link_to('Global Wishlist View', wishlists_path)
 #content
   - @items.each do |item|
     %div[item]
@@ -32,15 +35,16 @@
     - @root.each do |zone|
       %li.zone
         = link_to_function(h(zone.object.name), "$('ul#loot_table_#{zone.id}').toggle('slow')")
-        %ul[zone]
+        %ul.hidden[zone]
           - zone.children.each do |boss|
             %li.boss[boss]
               = link_to h(boss.object.name), "?boss=#{boss.id}"
-              
-:javascript
-  $(document).ready(function() {
-    wishlistMenu(#{@zone.id}, #{@boss.id});
-    wishlistHideUnwanted();
-    wishlistSortTables();
-    $('.help').tooltip({ showURL: false });
-  });
+     
+- unless @zone.nil? or @boss.nil?
+  :javascript
+    $(document).ready(function() {
+      wishlistMenu(#{@zone.id}, #{@boss.id});
+      wishlistHideUnwanted();
+      wishlistSortTables();
+      $('.help').tooltip({ showURL: false });
+    });
