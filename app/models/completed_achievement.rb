@@ -26,10 +26,11 @@ class CompletedAchievement < ActiveRecord::Base
           'Accept-language' => 'enUS'
         )
         doc = Nokogiri::XML(contents)
-  
+        
         # 6th Category = Lich King Heroic Raid
         # 8th Category = Secrets of Ulduar Heroic
-        doc.search("category:nth(8) achievement").each do |ach|
+        # 12th Category = Fall of the Lich King 25
+        doc.search("category:nth(12) achievement").each do |ach|
           achievement = Achievement.find_or_initialize_by_armory_id(ach['id'])
     
           if achievement.new_record?
