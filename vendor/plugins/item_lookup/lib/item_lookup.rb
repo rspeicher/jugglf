@@ -33,6 +33,7 @@ module ItemLookup
     attr_accessor :quality
     attr_accessor :icon
     attr_accessor :level
+    attr_accessor :heroic
     
     # TODO: Store all slots in the DB as an integer, and translate them to a string as necessary
     # Requires some heavy migrating
@@ -121,6 +122,7 @@ module ItemLookup
             result.quality = item.search('overallQualityId').first.content.to_i
             result.icon    = item.search('icon').first.content
             result.slot    = item.search('equipData/inventoryType').first.content.to_i
+            result.heroic  = item.search('heroic').first.present?
             
             # Wowarmory tooltip pages don't include the item level, and item info pages don't include the slot. That's gonna cost them an extra hit.
             info = Nokogiri::XML(open("http://www.wowarmory.com/item-info.xml?i=#{result.id}", content_headers))
@@ -145,6 +147,7 @@ module ItemLookup
                 result.quality = item['rarity'].to_i
                 result.icon    = item['icon']
                 result.level   = item.search('filter[@name="itemLevel"]').first['value'].to_i
+                result.heroic  = item.search('heroic').first.present?
                 
                 # Search results don't include the item slot. That's gonna cost them an extra hit.
                 tooltip = Nokogiri::XML(open("http://www.wowarmory.com/item-tooltip.xml?i=#{result.id}", content_headers))
@@ -181,6 +184,7 @@ module ItemLookup
             result.icon    = doc.search('wowhead/item/icon').first.content
             result.level   = doc.search('wowhead/item/level').first.content.to_i
             result.slot    = doc.search('wowhead/item/inventorySlot').first['id'].to_i
+            result.heroic  = doc.search('wowhead/item/json').first.content.include?('heroic:1')
             
             results << result
           end

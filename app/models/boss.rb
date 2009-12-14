@@ -3,7 +3,7 @@
 # Table name: bosses
 #
 #  id       :integer(4)      not null, primary key
-#  name     :string(255)     default(""), not null
+#  name     :string(255)     not null
 #  position :integer(4)      default(0)
 #
 

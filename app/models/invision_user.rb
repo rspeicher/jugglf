@@ -62,7 +62,7 @@
 #  failed_logins           :text
 #  failed_login_count      :integer(2)      default(0), not null
 #  has_gallery             :integer(4)      default(0)
-#  persistence_token       :string(255)     default(""), not null
+#  persistence_token       :string(255)     not null
 #  last_request_at         :datetime
 #  current_login_at        :datetime
 #  last_login_at           :datetime

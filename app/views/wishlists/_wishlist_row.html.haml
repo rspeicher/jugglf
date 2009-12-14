@@ -3,7 +3,8 @@
   %td.item
     = warn_if_recently_looted(wishlist_row, recent_loots) if defined? recent_loots
     = link_to_item_with_stats(wishlist_row.item) unless wishlist_row.item_id.nil?
-    %span= "Item Level #{wishlist_row.item.level}" unless wishlist_row.item_id.nil?
+    - if wishlist_row.item_id.present? and wishlist_row.item.heroic?
+      %span (Heroic)
   %td= h(wishlist_row.priority.titlecase)
   %td= truncate(h(wishlist_row.note), :length => 80)
   %td= h(wishlist_row.item.slot) unless wishlist_row.item_id.nil?

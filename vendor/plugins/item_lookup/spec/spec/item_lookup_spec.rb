@@ -72,7 +72,8 @@ describe ItemLookup::Armory do
         :quality => 4,
         :icon    => 'inv_mace_82',
         :level   => 226,
-        :slot    => 'Main Hand'
+        :slot    => 'Main Hand',
+        :heroic  => false
       }
     end
     
@@ -81,9 +82,9 @@ describe ItemLookup::Armory do
       @result.should be_valid
     end
     
-    %w(id name quality icon level slot).each do |prop|
+    %w(id name quality icon level slot heroic).each do |prop|
       it "should have a #{prop}" do
-        eval("@result.#{prop}").should eql(@expected[prop.intern])
+        @result.send(prop.intern).should eql(@expected[prop.intern])
       end
     end    
   end
@@ -101,13 +102,14 @@ describe ItemLookup::Armory do
         :quality => 4,
         :icon    => 'spell_shadow_seedofdestruction',
         :level   => 226,
-        :slot    => 'Trinket'
+        :slot    => 'Trinket',
+        :heroic  => false
       }
     end
     
-    %w(id name quality icon level slot).each do |prop|
+    %w(id name quality icon level slot heroic).each do |prop|
       it "a result should have a #{prop}" do
-        eval("@result.#{prop}").should eql(@expected[prop.intern])
+        @result.send(prop.intern).should eql(@expected[prop.intern])
       end
     end
   end
@@ -144,7 +146,8 @@ describe ItemLookup::Wowhead do
         :quality => 4,
         :icon    => 'INV_Mace_82',
         :level   => 226,
-        :slot    => 'Main Hand'
+        :slot    => 'Main Hand',
+        :heroic  => false
       }
     end
     
@@ -152,9 +155,9 @@ describe ItemLookup::Wowhead do
       @result.should be_a ItemLookup::Result 
     end
     
-    %w(id name quality icon level slot).each do |prop|
+    %w(id name quality icon level slot heroic).each do |prop|
       it "should have a #{prop}" do
-        eval("@result.#{prop}").should eql(@expected[prop.intern])
+        @result.send(prop.intern).should eql(@expected[prop.intern])
       end
     end
   end

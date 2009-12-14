@@ -13,6 +13,7 @@
 #  slot            :string(255)
 #  created_at      :datetime
 #  updated_at      :datetime
+#  heroic          :boolean(1)
 #
 
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')

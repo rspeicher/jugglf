@@ -13,6 +13,7 @@
 #  slot            :string(255)
 #  created_at      :datetime
 #  updated_at      :datetime
+#  heroic          :boolean(1)
 #
 
 class Item < ActiveRecord::Base
@@ -134,6 +135,7 @@ class Item < ActiveRecord::Base
         self.icon   = result.icon
         self.level  = result.level
         self.slot   = result.slot
+        self.heroic = result.heroic
       end
     end
 end
