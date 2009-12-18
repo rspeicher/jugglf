@@ -2,6 +2,7 @@
 log/*.log
 tmp/**/*
 config/database.yml
+vendor/plugins/invision_bridge/config/database.yml
 db/*.sqlite3
 .idea/*
 coverage/*

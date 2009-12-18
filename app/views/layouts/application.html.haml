@@ -3,7 +3,9 @@
 %html{html_attrs('en-US')}
   %head
     %title= truncate(@page_title || page_title, :length => 150)
-    = stylesheet_link_tag 'basic', 'buttons', 'forms', 'layout', 'tables', 'tabs', 'application', :cache => 'default'
+    %link{ :rel => "shortcut icon", :href => 'http://www.juggernautguild.com/favicon.ico'}/
+    / = stylesheet_link_tag 'basic', 'buttons', 'forms', 'layout', 'tables', 'tabs', 'application', :cache => 'default'
+    = stylesheet_link_tag 'http://www.juggernautguild.com/public/min/index.php?f=public/style_css/css_4/calendar_select.css,public/style_css/css_4/ipb_styles.css,public/style_css/css_4/ipb_editor.css,public/style_css/css_4/juggernaut.css'
     = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'
     = javascript_include_tag 'jquery.ui', 'jquery.tablesorter.min', 'jquery.tooltip', 'jquery.autocomplete', 'jquery.contextmenu', :cache => 'jquery'
     = javascript_include_tag 'jugg', 'jugg.autocomplete', 'jugg.tablesorter', :cache => 'application'
@@ -16,37 +18,102 @@
         $('#main').removeClass('hidden');
         clickableFlash();
       });
-  %body{:id => controller.controller_name}
-    #wrapper.clearfix
-      #top-menu.clearfix
-        %ul
-          %li= link_to "Juggernaut (Mal'Ganis US Horde)", 'http://www.juggernautguild.com/'
-        %ul#right
-          %li= link_to 'Home', 'http://www.juggernautguild.com/index.php?act=home'
-          %li= link_to 'About Us', 'http://www.juggernautguild.com/index.php?showtopic=13476'
-          %li= link_to 'Joining', 'http://www.juggernautguild.com/index.php?showtopic=13475'
-          %li= link_to 'Forums', 'http://www.juggernautguild.com/index.php?act=idx'
-          %li= link_to 'Calendar', 'http://www.juggernautguild.com/index.php?act=calendar'
-          %li= link_to 'Roster', 'http://www.wowarmory.com/guild-info.xml?r=Mal%27Ganis&n=Juggernaut&p=1'
-          %li= link_to 'LF', 'http://www.juggernautguild.com/index.php?showforum=23'
-      #header.clearfix
-        #main-menu.clearfix
-          %ul
-            %li= link_to 'Index', root_path, :class => ( current_page?(root_path) ) ? 'selected' : ''
-            - unless current_user.nil? or current_user.member.nil?
-              %li= link_to 'My Standing', member_path(current_user.member), :class => ( current_page?(member_path(current_user.member)) ) ? 'selected' : ''
-            %li= link_to_controller(Achievement)
-            %li= link_to_controller(Member)
-            %li= link_to_controller(Raid, :admin_only => true)
-            %li= link_to_controller(Item)
-            %li= link_to_controller(Loot, :admin_only => true)
-            %li= link_to_controller(Wishlist, :admin_only => true)
-            %li= link_to_login_or_logout
-      %noscript
-        .error This site makes extensive use of JavaScript. Please enable it to continue.
-      #main.hidden
-        - if flash[:error]
-          #flash.error= flash[:error]
-        - if flash[:success]
-          #flash.success= flash[:success]
-        = yield
+  %body#ipboard_body.lf
+    #ipbwrapper
+      %h1= truncate(@page_title || page_title, :length => 150)
+      #header
+        #branding
+          #user_bar
+            #user_navigation.logged_in
+              #user_links
+                = link_to(image_tag('http://www.juggernautguild.com/uploads/profile/photo-1.jpg', :alt => '', :class => 'photo') + ' Signed in as Kamien', '#')
+                = link_to(image_tag('http://www.juggernautguild.com/public/style_images/splat/user_arrow.png', :alt => '', :class => 'user_arrow'), '#', :id => 'user_link', :class => 'ipbmenu', :name => 'user_link')
+                = link_to('My Settings', '#')
+                = link_to('Messenger', '#')
+                = link_to('Sign Out', '#')
+                %br.clear
+              / TODO: Fix this
+              / #user_info
+              /   %ul#user_link_menucontent
+              /     %li#user_profile= link_to('My Profile', '#', :title => 'Your Profile')
+              /     %li#user_ucp= link_to('My Settings', '#', :title => "Edit my settings, such as signature, avatar and more...")
+              /     %li#user_msg= link_to('Messenger', '#')
+              /     %li#user_friends= link_to('Manage Friends', '#')
+              /     %li#user_enemies= link_to('Manage Ignored Users', '#')
+          = link_to(image_tag('http://www.juggernautguild.com/public/style_images/4_Banner_1_copy.png', :alt => 'Logo'), :title => 'Go to board index', :rel => 'home', :accesskey => '1')
+        #nav_container
+          #nav_con_left
+            #nav_con_right
+              #search
+                / TODO: Search field
+              #primary_nav
+                %ul
+                  %li#nav_home= link_to(content_tag(:span, 'News'), 'http://www.juggernautguild.com/', :title => 'Homepage', :rel => 'home')
+                  %li#nav_discussion= link_to(content_tag(:span, 'Forums'), 'http://www.juggernautguild.com/index', :title => 'Go to Forums')
+                  %li#nav_about= link_to(content_tag(:span, 'About Us'), 'http://www.juggernautguild.com/topic/13476-about-us/')
+                  %li#nav_joining= link_to(content_tag(:span, 'Joining'), 'http://www.juggernautguild.com/topic/13475-joining/')
+                  %li#nav_roster= link_to(content_tag(:span, 'Roster'), 'http://www.wowarmory.com/guild-info.xml?r=Mal%27Ganis&amp;gn=Juggernaut')
+                  %li#nav_lf.active= link_to(content_tag(:span, 'LF'), root_url)
+                  %li#nav_calendar= link_to(content_tag(:span, 'Calendar'), 'http://www.juggernautguild.com/calendar/', :title => 'Go to Calendar')
+                  %li#nav_search= link_to(content_tag(:span, 'Search'), 'http://www.juggernautguild.com/index.php?app=core&amp;module=search', :title => '', :accesskey => '4', :rel => 'search')
+      %div.content.clear
+        #sec_nav_con
+          #sec_nav_left
+            #sec_nav_right
+              #secondary_nav
+                %ul#breadcrumb.left
+                  = yield :breadcrumb
+                %ul#section_links.right
+                  %li= link_to 'Index', root_path, :class => ( current_page?(root_path) ) ? 'selected' : ''
+                  - unless current_user.nil? or current_user.member.nil?
+                    %li= link_to 'My Standing', member_path(current_user.member), :class => ( current_page?(member_path(current_user.member)) ) ? 'selected' : ''
+                  %li= link_to_controller(Achievement)
+                  %li= link_to_controller(Member)
+                  %li= link_to_controller(Raid, :admin_only => true)
+                  %li= link_to_controller(Item)
+                  %li= link_to_controller(Loot, :admin_only => true)
+                  %li= link_to_controller(Wishlist, :admin_only => true)
+                  %li= link_to_login_or_logout
+                %br.clear
+        #content.clear
+          - if flash[:error]
+            #flash.error= flash[:error]
+          - if flash[:success]
+            #flash.success= flash[:success]
+            
+          %h2.hide= controller.controller_name.titlecase
+          
+          #board_index.clearfix
+            #categories.hover_rows.no_sidebar.clearfix
+              %div.category_block.block_wrap
+                %div.maintitle_base
+                  %div.header_left
+                    %div.header_right
+                      %h3.maintitle TODO
+                %div.border
+                  = yield
+          
+          %ul#stat_links.filter_bar.rounded.hide
+          
+          #board_statistics.statistics.general_box.clearfix.hide
+            #stats
+              %h2
+          
+          %br.clear
+          
+          #footer_utilities.clearfix.clear.hide
+          
+          #board_footer
+            %ul#utility_links.left
+              %li= link_to('Back to top', '#top', :ittle => 'Go to top')
+              %li= link_to('Forum Home', 'http://www.juggernautguild.com/index', :title => 'Forum Home')
+            %p#copyright.right
+              = "Powered by #{link_to('Ruby on Rails', 'http://rubyonrails.org/')}"
+              %br
+              = "Hosted by #{link_to('NetworkRedux', 'http://www.networkredux.com/')}"
+            %br.clear
+            
+          #stats_div
+
+  %noscript
+    .error This site makes extensive use of JavaScript. Please enable it to continue.

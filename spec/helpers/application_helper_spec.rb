@@ -25,7 +25,7 @@ describe ApplicationHelper do
   
   describe "breadcrumb" do
     it "should join with a specific string" do
-      breadcrumb('A', 'B', 'C').should eql('A &raquo; B &raquo; C')
+      breadcrumb('A', 'B', 'C').should eql(['A', 'B', 'C'])
     end
   end
   

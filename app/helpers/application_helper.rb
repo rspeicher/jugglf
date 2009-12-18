@@ -9,7 +9,13 @@ module ApplicationHelper
   end
   
   def breadcrumb(*args)
-    args.join(' &raquo; ')
+    # Insert the first breadcrumb, it's always the same
+    content_for(:breadcrumb) { content_tag(:li, link_to('Loot Factor', root_url), :class => 'first') }
+
+    # Insert the supplied arguments
+    args.each do |arg|
+      content_for(:breadcrumb) { content_tag(:li, arg) }
+    end
   end
   
   def link_to_tab(text, path = nil)
