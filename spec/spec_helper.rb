@@ -7,6 +7,8 @@ require 'spec/rails'
 require 'fakeweb'
 require 'blueprints'
 require 'authlogic/test_case'
+require 'invision_bridge'
+require 'invision_bridge/spec_helper'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
@@ -62,5 +64,5 @@ def login(type = nil, args = {})
   type = nil unless type == :admin
   
   activate_authlogic
-  UserSession.create(InvisionUser.make_unsaved(type, args))
+  UserSession.create(InvisionBridge::InvisionUser.make_unsaved(type, args))
 end

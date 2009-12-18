@@ -96,22 +96,3 @@ end
 
 LootTable.blueprint do
 end
-
-# -----------------------------------------------------------------------------
-
-InvisionUser.blueprint do
-  name
-  mgroup { 1 }
-  email { Faker::Internet.email }
-  converge { InvisionUserConverge.make }
-  member { nil }
-  persistence_token { 'b18f1a5dc276001e6fe20139d5522755e414cdee' }
-end
-InvisionUser.blueprint(:admin) do
-  mgroup { 4 }
-end
-
-InvisionUserConverge.blueprint do
-  converge_pass_hash { '9c4acc137217b795b4d487bba53f5e7d' } # pass!word salted with 'salt'
-  converge_pass_salt { 'salt' }
-end
