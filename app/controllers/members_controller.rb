@@ -64,7 +64,7 @@ class MembersController < ApplicationController
     page_title('New Member')
     
     @member = Member.new
-    @users = InvisionUser.juggernaut
+    @users = InvisionBridge::InvisionUser.juggernaut
     @ranks = MemberRank.find(:all, :order => 'name')
     
     respond_to do |wants|
@@ -75,7 +75,7 @@ class MembersController < ApplicationController
   def edit
     page_title(@member.name, 'Edit')
     
-    @users = InvisionUser.juggernaut
+    @users = InvisionBridge::InvisionUser.juggernaut
     @ranks = MemberRank.find(:all, :order => 'name')
     
     respond_to do |wants|

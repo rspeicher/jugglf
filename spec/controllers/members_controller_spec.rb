@@ -165,7 +165,7 @@ describe MembersController, "#edit" do
   describe "as admin" do
     before(:each) do
       login(:admin)
-      InvisionUser.should_receive(:juggernaut).and_return('users')
+      InvisionBridge::InvisionUser.should_receive(:juggernaut).and_return('users')
       find_member
       get_response
     end
