@@ -1,0 +1,20 @@
+invision_bridge_development:
+  adapter: mysql
+  database: invision_forums_development
+  user: username
+  password: password
+  prefix: ibf_
+
+invision_bridge_test:
+  adapter: mysql
+  database: invision_forums_test
+  user: username
+  password: password
+  prefix: ibf_
+
+invision_bridge_production:
+  adapter: mysql
+  database: invision_forums
+  user: username
+  password: password
+  prefix: ibf_
