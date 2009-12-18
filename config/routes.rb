@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :achievements, :only => [:index]
   map.resources :wishlists, :only => [:index]
   
-  map.resource :user_session
+  map.resource :user_session, :only => [:new, :create, :destroy]
 
   map.connect 'search/:context.:format',        :controller => 'search', :action => 'index'
   map.connect 'search/:context/:query',         :controller => 'search', :action => 'index'
