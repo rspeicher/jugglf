@@ -1,3 +1,0 @@
-[submodule "vendor/plugins/invision_bridge"]
-	path = vendor/plugins/invision_bridge
-	url = git://github.com/tsigo/invision_bridge.git
