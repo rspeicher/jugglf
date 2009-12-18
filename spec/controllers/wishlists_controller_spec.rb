@@ -38,8 +38,8 @@ describe WishlistsController, "#index" do
     
     it "should assign @zone" do
       get_response
-      assigns[:zone].should == @zone
-      assigns[:boss].should == @zone
+      assigns[:zone].should == nil
+      assigns[:boss].should == nil
     end
     
     it "should assign empty @items" do
