@@ -8,7 +8,7 @@
 - breadcrumb link_to('Raids', raids_path), h(@raid.date)
 
 #attendees
-  = maintitle("Attendees (#{@raid.attendees.size})")
+  = render :partial => 'shared/maintitle', :object => "Attendees (#{@raid.attendees.size})"
   - @attendees.sort.each do |group,array|
     .class_group{ :id => group.gsub(/\s+/, '_') }
       %h4{ :class => group.gsub(/\s+/, '_') }= group + " (#{array.size})"
@@ -18,8 +18,7 @@
             = raid_attendance_colored(att.attendance)
             = link_to_member(att.member)
 #drops
-  = maintitle("Loots (#{@raid.loots.size})")
-  = render :partial => 'loots/context_menu' if admin?
+  = render :partial => 'shared/maintitle', :object => "Loots (#{@raid.loots.size})"
   %table#loot.ipb_table.tablesorter
     %thead
       %tr
@@ -30,7 +29,9 @@
     %tbody#itemfilter
       - @loots.each do |loot|
         %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }[loot]
-          %td= link_to_item_with_stats(loot.item)
+          %td
+            = link_to_item_with_stats(loot.item)
+            = render :partial => 'shared/moderation', :object => loot if admin?
           %td.member= link_to_member(loot.member)
           %td= loot_tell_types(loot)
           %td.number= loot_factor(loot.adjusted_price)

@@ -1,16 +1,17 @@
-/**
- * Allow the user to click the #flash.success div in order to hide the message.
- */
-function clickableFlash() {
-    $('#flash.success').click(function() {
+$(document).ready(function() {
+    // Make the page viewable to those allowing Javascript
+    $('#ipbwrapper').removeClass('hide');
+    
+    // Make success messages clickable to hide them
+    $('div.message.success').click(function() {
         $(this).fadeOut('slow');
     });
-}
+});
 
-function initToggles() {
-    $('.toggle').click(function() {
-    });
-}
+// function initToggles() {
+//     $('.toggle').click(function() {
+//     });
+// }
 
 /* Wishlists ---------------------------------------------------------------- */
 

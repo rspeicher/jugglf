@@ -131,47 +131,6 @@ body#raids_root
             float: right
   #drops
     clear: left
-
-// Context Menus --------------------------------------------------------------
-.contextMenu
-  position: absolute
-  width: 120px
-  z-index: 99999
-  border: solid 1px #CCC
-  background: #EEE
-  padding: 0px
-  margin: 0px
-  display: none
-
-  li
-    list-style: none
-    padding: 0px
-    margin: 0px
-    &.hover a
-      color: #FFF
-      background-color: #3399FF
-    &.disabled a
-      color: #AAA
-      cursor: default
-    &.hover.disabled a
-      background-color: transparent
-    &.separator
-      border-top: solid 1px #CCC
-    &.edit a
-      background-image: url(/images/edit.png)
-    &.delete a
-      background-image: url(/images/delete.png)
-  a
-    color: #333
-    text-decoration: none
-    display: block
-    line-height: 20px
-    height: 20px
-    background-position: 6px center
-    background-repeat: no-repeat
-    outline: none
-    padding: 1px 5px
-    padding-left: 28px
     
 // Forms ----------------------------------------------------------------------
 @import formtastic_base.sass
@@ -235,6 +194,10 @@ table.ipb_table
     padding: 2px
   th.center, td.center
     text-align: center
+  tr.user_missing
+    td
+      background-color: #F3DDDD
+      border-color: #DEB7B7
     
   thead
     tr

@@ -3,9 +3,8 @@
     membersTableSort();
   });
 - breadcrumb 'Members'
-= render :partial => 'members/context_menu' if admin?
 %div.category_block.block_wrap
-  = maintitle
+  = render :partial => 'shared/maintitle'
   %table#index.ipb_table.tablesorter
     %thead
       %tr
@@ -21,9 +20,11 @@
           %th.lootfactor Situational
     %tbody
       - @members.each do |member|
-        %tr{ :class => cycle('row1', 'row2') }
+        %tr{ :class => cycle('row1', 'row2') + ((member.user_id.nil?) ? ' user_missing' : '') }
           %td.icon= image_tag("classes/#{member.wow_class.downcase.gsub(/\s+/, '_')}.gif", :alt => member.wow_class) unless member.wow_class.nil?
-          %td.member{ :class => ( member.user_id.nil? ) ? 'user-missing' : '' }= link_to_member(member)
+          %td.member
+            = link_to_member(member)
+            = render :partial => 'shared/moderation', :object => member if admin?
           %td= h(member.rank.name) unless member.rank.nil?
           %td.attendance= member_attendance_colored(member.attendance_30)
           %td.attendance= member_attendance_colored(member.attendance_90)

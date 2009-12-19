@@ -1,3 +1,7 @@
+$(function() {
+    $('ul.topic_moderation').moderation();
+});
+
 /**
  * Given a price_loot_path value, fetch the value of the item and update the
  * loot_price field to the returned value.
@@ -26,47 +30,5 @@ function wishlistCompare(id) {
     });
     str += names.join(',');
     
-	prompt("Copy and paste:", str);
-}
-
-// Context Menus ---------------------------------------------------------------
-
-function itemContextMenu() {
-    $('tbody tr.item td.item').contextMenu({ menu: 'itemContextMenu' }, function(action, el, pos) {
-        if (action == 'edit') {
-            window.location.href = el.children('a').attr('href') + '/edit';
-        }
-    });
-}
-
-function lootContextMenu() {
-    $('tbody tr.loot td.item').contextMenu({ menu: 'lootContextMenu' }, function(action, el, pos) {
-        href = ''
-        if (action == 'edit_item') {
-            href = el.children('a').attr('href') + '/edit';
-        }
-        else if (action == 'edit_loot') {
-            href = '/loots/' + el.parent().attr('id').replace(/loot_/, '') + '/edit';
-        }
-        
-        if (href != '') {
-            window.location.href = href;
-        }
-    });
-}
-
-function memberContextMenu() {
-    $('tbody tr td.member').contextMenu({ menu: 'memberContextMenu' }, function(action, el, pos) {
-        if (action == 'edit') {
-            window.location.href = el.children('a').attr('href') + '/edit'
-        }
-    });
-}
-
-function raidContextMenu() {
-    $('tbody tr td.date').contextMenu({ menu: 'raidContextMenu' }, function(action, el, pos) {
-        if (action == 'edit') {
-            location.href = el.children('a').attr('href') + '/edit'
-        }
-    });
+    prompt("Copy and paste:", str);
 }

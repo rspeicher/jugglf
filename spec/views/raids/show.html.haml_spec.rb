@@ -14,20 +14,12 @@ describe "/raids/show.html.haml" do
       @controller.template.stub!(:admin?).and_return(true)
       render '/raids/show.html.haml'
     end
-
-    it "should have a loot context menu" do
-      response.should have_tag('ul#lootContextMenu', 1)
-    end
   end
 
   describe "as user" do
     before(:each) do
       @controller.template.stub!(:admin?).and_return(false)
       render '/raids/show.html.haml'
-    end
-
-    it "should not have a loot context menu" do
-      response.should_not have_tag('ul#lootContextMenu')
     end
   end
 end

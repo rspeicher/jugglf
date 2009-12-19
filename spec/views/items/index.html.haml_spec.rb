@@ -13,20 +13,12 @@ describe "/items/index.html.haml" do
       @controller.template.stub!(:admin?).and_return(true)
       render '/items/index.html.haml'
     end
-
-    it "should have a context menu" do
-      response.should have_tag('ul#itemContextMenu', 1)
-    end
   end
 
   describe "as user" do
     before(:each) do
       @controller.template.stub!(:admin?).and_return(false)
       render '/items/index.html.haml'
-    end
-
-    it "should not have a context menu" do
-      response.should_not have_tag('ul#itemContextMenu')
     end
   end
 end

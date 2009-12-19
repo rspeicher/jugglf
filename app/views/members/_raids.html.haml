@@ -1,4 +1,3 @@
-= render :partial => 'raids/context_menu' if admin?
 %table.ipb_table
   %thead
     %tr
@@ -8,8 +7,9 @@
   %tbody
     - @raids.each do |raid|
       %tr{ :class => cycle('row1', 'row2') + raid_date_classes(raid) }
-        %td.date= link_to h(raid.date), raid_path(raid)
+        %td.date
+          = link_to h(raid.date), raid_path(raid)
+          = render :partial => 'shared/moderation', :object => raid if admin?
         %td.attendance= member_raid_attendance(raid, @member)
         %td.note= h(raid.note)
-%br
 = will_paginate(@raids, :id => 'raids_pagination')

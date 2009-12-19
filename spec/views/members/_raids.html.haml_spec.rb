@@ -15,20 +15,12 @@ describe "/members/_raids.html.haml" do
       @controller.template.stub!(:admin?).and_return(true)
       render '/members/_raids.html.haml'
     end
-    
-    it "should have a context menu" do
-      response.should have_tag('ul#raidContextMenu')
-    end
   end
   
   describe "as user" do
     before(:each) do
       @controller.template.stub!(:admin?).and_return(false)
       render '/members/_raids.html.haml'
-    end
-    
-    it "should have a context menu" do
-      response.should_not have_tag('ul#raidContextMenu')
     end
   end
 end

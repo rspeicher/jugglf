@@ -1,8 +1,7 @@
 - breadcrumb 'Loots'
-= render :partial => 'loots/context_menu' if admin?
 = will_paginate @loots
 %div.category_block.block_wrap
-  = maintitle
+  = render :partial => 'shared/maintitle'
   %table.ipb_table
     %thead
       %tr
@@ -13,8 +12,10 @@
         %th.number Price
     %tbody
       - @loots.each do |loot|
-        %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }[loot]
-          %td[loot.item]= link_to_item_with_stats(loot.item)
+        %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }
+          %td
+            = link_to_item_with_stats(loot.item)
+            = render :partial => 'shared/moderation', :object => loot if admin?
           %td= link_to_member(loot.member)
           %td= loot_tell_types(loot)
           %td.date= link_to h(loot.purchased_on), raid_path(loot.raid) unless loot.raid.nil?

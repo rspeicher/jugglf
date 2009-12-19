@@ -10,7 +10,6 @@
 - breadcrumb link_to('Items', items_path), link_to_wowhead(@item, :refreshable => true)
 - unless @loot_table.nil?
   %h3= "Dropped by #{@loot_table.parent.object.name} in #{@loot_table.parent.parent.object.name}"
-= render :partial => 'loots/context_menu' if admin?
 %div.category_block.block_wrap
   #item_tabs
     %ol.tab_bar.no_title.mini
@@ -27,7 +26,9 @@
         %tbody#itemfilter
           - @loots.each do |loot|
             %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }[loot]
-              %td.date= link_to h(loot.purchased_on), raid_path(loot.raid_id) unless loot.raid_id.nil?
+              %td.date
+                = link_to h(loot.purchased_on), raid_path(loot.raid_id) unless loot.raid_id.nil?
+                = render :partial => 'shared/moderation', :object => loot if admin?
               %td.member= link_to_member(loot.member)
               %td.note.item= loot_tell_types(loot)
               %td.number= loot_factor(loot.adjusted_price)

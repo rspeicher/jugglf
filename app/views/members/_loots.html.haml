@@ -11,7 +11,6 @@
       return false;
     });
   });
-= render :partial => 'loots/context_menu' if admin?
 %table.ipb_table
   %thead
     %tr
@@ -20,17 +19,14 @@
       %th Falls Off
       %th.date Raid
       %th.number Price
-      - if admin?
-        %th.image &nbsp;
   %tbody#itemfilter
     - @loots.each do |loot|
-      %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }[loot]
-        %td[loot.item]= link_to_item_with_stats(loot.item)
+      %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }
+        %td
+          = link_to_item_with_stats(loot.item)
+          = render :partial => 'shared/moderation', :object => loot if admin?
         %td= loot_tell_types(loot)
         %td= loot_factor_cutoff(loot.purchased_on)
         %td.date= link_to h(loot.purchased_on), raid_path(loot.raid_id) unless loot.raid_id.nil?
         %td.number= loot_factor(loot.adjusted_price)
-        - if admin?
-          %td.image= link_to(image_tag('edit.png'), edit_loot_path(loot))
-%br
 = will_paginate(@loots, :id => 'loots_pagination')

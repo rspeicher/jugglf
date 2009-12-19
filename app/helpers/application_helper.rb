@@ -18,19 +18,6 @@ module ApplicationHelper
     end
   end
   
-  def maintitle(arg = '')
-    content_tag(:div, :class => 'maintitle_base') do
-      content_tag(:div, :class => 'header_left') do
-        content_tag(:div, :class => 'header_right') do
-          content_tag(:h3, :class => 'maintitle') do
-            # link_to('Toggle this category', '#', :class => 'toggle right', :title => 'Toggle this category') + # TODO: Make toggles work?
-            h(arg)
-          end
-        end
-      end
-    end
-  end
-  
   def link_to_tab(text, path = nil)
     path = ( path.nil? ) ? "##{text.gsub(/^(\w+).*/, '\1').downcase}" : path
     
