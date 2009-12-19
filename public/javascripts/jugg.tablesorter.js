@@ -19,7 +19,7 @@ function zebraRows(tbody_id, delay) {
 }
 
 function membersTableSort() {
-    $("#members table#index").tablesorter({
+    $("#members_root table#index").tablesorter({
         sortList: [[1,0]],
         widgets: ['zebra'],
         headers: {
