@@ -45,7 +45,7 @@ describe ItemsController, "#show" do
     find_item
     
     @item.should_not_receive(:lookup)
-    @loot.should_receive(:find).and_return([@loot])
+    @loot.should_receive(:paginate).and_return([@loot])
     @wishlist.should_receive(:find).and_return([@wishlist])
     LootTable.should_receive(:find).and_return(@loot_table)
     

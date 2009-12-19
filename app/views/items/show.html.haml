@@ -32,6 +32,7 @@
               %td.member= link_to_member(loot.member)
               %td.note.item= loot_tell_types(loot)
               %td.number= loot_factor(loot.adjusted_price)
+      = will_paginate @loots
     #t-wishlists
       %table.ipb_table
         %thead

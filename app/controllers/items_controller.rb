@@ -19,7 +19,7 @@ class ItemsController < ApplicationController
     
     page_title(@item.name)
     
-    @loots = @item.loots.find(:all, :include => :member)
+    @loots = @item.loots.paginate(:include => :member, :page => params[:page], :per_page => 35, :order => 'purchased_on desc')
     @wishlists = @item.wishlists.find(:all, :include => :member, :conditions => ["#{Member.table_name}.active = ?", true])
     @loot_table = LootTable.find(:first, :conditions => ['object_type = ? AND object_id = ?', 'Item', @item.id])
     
