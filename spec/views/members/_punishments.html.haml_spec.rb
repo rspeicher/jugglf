@@ -15,13 +15,8 @@ describe "/members/_punishments.html.haml" do
       render '/members/_punishments.html.haml'
     end
     
-    it "should show admin actions" do
-      response.should have_tag('th.image', 1)
-      response.should have_tag('td.image', 3)
-    end
-    
     it "should show 'Add Punishment' button" do
-      response.should have_tag('div.buttons', 1)
+      response.should have_tag('a.input_submit', 1)
     end
   end
   
@@ -31,13 +26,8 @@ describe "/members/_punishments.html.haml" do
       render '/members/_punishments.html.haml'
     end
     
-    it "should not show admin actions" do
-      response.should_not have_tag('th.image')
-      response.should_not have_tag('td.image')
-    end
-    
     it "should not show 'Add Punishment' button" do
-      response.should_not have_tag('div.buttons')
+      response.should_not have_tag('a.input_submit')
     end
   end
 end
