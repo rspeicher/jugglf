@@ -1,9 +1,8 @@
-= form.label :expires_string, 'Expires on'
-= form.text_field :expires_string, :class => 'small'
-%em Defaults to one full loot factor cycle (52 days)
-
-= form.label :reason
-= form.text_field :reason, :class => 'large'
-
-= form.label :value
-= form.text_field :value, :class => 'small'
+- form.inputs do
+  = form.input :expires_string, :label => 'Expires on', :hint => 'Defaults to one full loot factor cycle (52 days)'
+  = form.input :reason
+  = form.input :value
+- form.buttons :class => 'submit' do
+  = form.submit 'Save', :class => 'input_submit'
+  or
+  = link_to('Cancel', member_path(@member), :class => 'cancel')
