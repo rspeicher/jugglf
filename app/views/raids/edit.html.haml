@@ -1,11 +1,10 @@
-%h2= breadcrumb link_to('Raids', raids_path), link_to(h(@raid.date), raid_path(@raid)), 'Edit'
-%fieldset
-  - form_for @raid do |f|
-    - unless f.error_messages.empty?
-      .error= f.error_messages
-      
-    = render :partial => "form", :object => f
-    
-    .buttons
-      = styled_button(:type => 'submit', :text => 'Save', :image => 'tick.png')
-      = link_to_delete(:path => raid_path(@raid), :confirm => 'Are you sure you want to delete this raid?')
+- breadcrumb link_to('Raids', raids_path), link_to(h(@raid.date), raid_path(@raid)), 'Edit'
+- semantic_form_for @raid do |form|
+  - form.inputs do
+    = form.input :date_string, :label => 'Date'
+    = form.input :note, :required => false
+    = form.input :attendance_output, :as => :text, :label => 'Attendance', :input_html => {:size => '60x15'}
+  - form.buttons :class => 'submit' do
+    = form.submit 'Save Raid', :class => 'input_submit'
+    or
+    = link_to('Cancel', raids_path, :class => 'cancel')

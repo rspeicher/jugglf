@@ -37,6 +37,10 @@ class Raid < ActiveRecord::Base
     self.date = Time.parse(value)
   end
   
+  def to_s
+    self.date.to_s
+  end
+  
   # Validations ---------------------------------------------------------------
   validates_presence_of :date
   

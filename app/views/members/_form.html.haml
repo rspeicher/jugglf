@@ -1,15 +1,10 @@
-= form.label :name
-= form.text_field :name, :class => 'small'
-
-= form.label :wow_class, 'Class'
-= form.select :wow_class, Member::WOW_CLASSES
-
-= form.label :rank_id, 'Rank'
-= form.select :rank_id, @ranks.collect { |r| [r.name, r.id] }, :include_blank => true
-
-= form.label :user_id, 'User'
-= form.select :user_id, @users.collect { |u| [u.name, u.id] }, :include_blank => true
-
-.radio-check
-  = form.check_box :active
-  = form.label :active, 'Active?'
+- form.inputs do
+  = form.input :name
+  = form.input :wow_class, :as => :select, :collection => Member::WOW_CLASSES, :label => 'Class'
+  = form.input :rank_id, :as => :select, :collection => @ranks.collect { |r| [r.name, r.id] }, :include_blank => true, :required => false
+  = form.input :user_id, :as => :select, :collection => @users.collect { |u| [u.name, u.id] }, :include_blank => true, :required => false
+  = form.input :active, :as => :boolean
+- form.buttons :class => 'submit' do
+  = form.submit 'Create Member', :class => 'input_submit'
+  or
+  = link_to('Cancel', members_path, :class => 'cancel')

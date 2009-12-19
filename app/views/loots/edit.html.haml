@@ -3,15 +3,6 @@
     addItemAutoComplete('#loot_item_name');
     addMemberAutoComplete('#loot_member_name');
   });
-%h2= breadcrumb link_to('Loot', loots_path), 'Edit'
-%fieldset
-  - form_for @loot do |f|
-    - unless f.error_messages.empty?
-      .error= f.error_messages
-      
-    = render :partial => "form", :object => f
-    
-    .buttons
-      = styled_button(:type => 'submit', :text => 'Save', :image => 'tick.png')
-      = styled_button(:type => 'reset', :image => 'form_delete.png')
-      = link_to_delete(:path => loot_path(@loot))
+- breadcrumb link_to('Loot', loots_path), 'Edit'
+- semantic_form_for @loot do |form|
+  = render :partial => 'form', :object => form

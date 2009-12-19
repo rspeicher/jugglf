@@ -1,11 +1,3 @@
-%h2= breadcrumb link_to('Items', items_path), 'New'
-%fieldset
-  - form_for @item do |f|
-    - unless f.error_messages.empty?
-      .error= f.error_messages
-      
-    = render :partial => "form", :object => f
-    
-    .buttons
-      = styled_button(:type => 'submit', :text => 'Save', :image => 'tick.png')
-      = styled_button(:type => 'reset', :image => 'form_delete.png')
+- breadcrumb link_to('Items', items_path), 'New'
+- semantic_form_for @item do |form|
+  = render :partial => 'form', :object => form

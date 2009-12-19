@@ -1,23 +1,12 @@
-= form.label :item_name, 'Item name or ID'
-= form.text_field :item_name, :class => 'medium'
-
-= form.label :member_name, 'Buyer name'
-= form.text_field :member_name, :class => 'small'
-
-= form.label :raid_id, 'Raid'
-= form.select :raid_id, @raids.collect { |r| [r.date, r.id] }, :include_blank => true
-
-= form.label :price
-= form.text_field :price, :class => 'small with-icon'
-- unless @loot.new_record?
-  = link_to_function(image_tag('find.png'), "findItemPrice('#{price_loot_path(@loot)}')")
-
-.radio-check
-  = form.check_box :best_in_slot
-  = form.label :best_in_slot, 'Best In Slot'
-  
-  = form.check_box :situational
-  = form.label :situational
-  
-  = form.check_box :rot
-  = form.label :rot
+- form.inputs do
+  = form.input :item_name, :label => 'Item name or ID'
+  = form.input :member_name, :label => 'Buyer', :required => false
+  = form.input :raid, :include_blank => true
+  = form.input :price, :required => false
+  = form.input :best_in_slot, :required => false
+  = form.input :situational, :required => false
+  = form.input :rot, :required => false
+- form.buttons :class => 'submit' do
+  = form.submit 'Save Loot', :class => 'input_submit'
+  or
+  = link_to('Cancel', loots_path, :class => 'cancel')
