@@ -1,6 +1,6 @@
 :javascript
   $(document).ready(function(){
-    $("table#loot").tablesorter({ sortList: [[0,0]], widgets: ['zebra'] });
+    $("table#loot").tablesorter({ sortList: [[0,0]], widgets: ['zebra'], headers: {0:{sorter: 'without-link'}} });
     $('#itemfilter span.filter').click(function() {
       toggleItemTypes(this);
     });
