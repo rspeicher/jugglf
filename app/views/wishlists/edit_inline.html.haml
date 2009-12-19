@@ -1,7 +1,7 @@
-%fieldset
-  #errors.error.hide
-  - remote_form_for :wishlist, @wishlist, :url => member_wishlist_path(@member, @wishlist), :html => { :method => :put } do |f|
-    = render :partial => 'wishlists/form', :object => f
-    .buttons
-      = styled_button(:type => 'submit', :text => 'Save', :image => 'tick.png')
-      = link_to_function(image_tag('cancel.png') + 'Cancel', "$('#wishlist-edit').hide(); $('#wishlist-toggle').show()")
+%div.message.error.hide
+- semantic_remote_form_for :wishlist, @wishlist, :url => member_wishlist_path(@member, @wishlist), :html => { :method => :put } do |form|
+  = render :partial => 'wishlists/form', :object => form
+  - form.buttons :class => 'submit' do
+    = form.submit 'Save', :class => 'input_submit'
+    or
+    = link_to_function('Cancel', "$('#wishlist-edit').hide(); $('#wishlist-toggle').show()", :class => 'cancel')

@@ -1,20 +1,6 @@
-= form.hidden_field :wow_id
-
-= form.label :item_name, 'Item name or ID'
-= form.text_field :item_name, :class => 'large'
-
-= form.label :note, 'Note'
-= form.text_field :note, :class => 'large'
-
-.radio-check
-  = form.radio_button :priority, 'best in slot'
-  = form.label :priority_best_in_slot, 'Best in Slot'
-  
-  = form.radio_button :priority, 'normal'
-  = form.label :priority_normal, 'Normal'
-
-  = form.radio_button :priority, 'rot'
-  = form.label :priority_rot, 'Rot'
-
-  = form.radio_button :priority, 'situational'
-  = form.label :priority_situational, 'Situational'
+- form.inputs do
+  = form.input :wow_id, :as => :hidden
+  = form.input :item_name, :label => 'Item name or ID'
+  = form.input :note, :required => false
+  .wishlist_priority
+    = form.input :priority, :as => :radio, :collection => [['Best in Slot', 'best in slot'], ['Normal', 'normal'], ['Rot', 'rot'], ['Situational', 'situational']]

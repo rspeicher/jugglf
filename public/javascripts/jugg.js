@@ -81,7 +81,8 @@ function wishlistShowUnwanted() {
  */
 function wishlistAddForm() {
     // Hide the errors div
-    $('#errors').addClass('hide');
+    $('#wishlist-new div.messages.hide').addClass('hide');
+    $('#wishlist-edit div.messages.hide').addClass('hide');
     
     // Wipe out any lingering Edit Form data
     $('#wishlist-edit').html('');

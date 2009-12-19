@@ -1,6 +1,6 @@
 if success
   # Hide the errors div
-  page << "$('#errors').addClass('hide');"
+  page << "$('div.message.error').addClass('hide');"
 
   # Add a new table row
   page.insert_html :bottom, 'wishlist', :partial => "wishlists/wishlist_row", :object => create
@@ -13,10 +13,10 @@ if success
   page << "wishlistAddForm();"
 else
   # Show the errors div
-  page << "$('#errors').removeClass('hide');"
+  page << "$('div.message.error').removeClass('hide');"
 
   # Add the error messages
-  page << "$('#errors').html('#{escape_javascript(error_messages_for('wishlist entry', :object => create))}')"
+  page << "$('div.message.error').html('#{escape_javascript(error_messages_for('wishlist entry', :object => create))}')"
 
   # Focus the name field
   page << "$('#wishlist_item_name').focus();"
