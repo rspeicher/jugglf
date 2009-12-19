@@ -1,4 +1,4 @@
-%table.list
+%table.ipb_table
   %thead
     %tr
       %th.note Reason
@@ -8,7 +8,7 @@
         %th.image Actions
   %tbody
     - @punishments.each do |pun|
-      %tr{ :class => cycle('even', 'odd') }
+      %tr{ :class => cycle('row1', 'row2') }
         %td.note= h(pun.reason)
         %td.date
           = h(pun.expires.to_s(:db))

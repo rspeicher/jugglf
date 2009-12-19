@@ -1,11 +1,11 @@
 %h4 Most Wanted Items
-%table.list
+%table.ipb_table
   %thead
     %tr
       %th Item
       %th.number Wishlists
   %tbody
     - most_wishlists.each do |item_id, count|
-      %tr{ :class => cycle('even', 'odd') }
+      %tr{ :class => cycle('row1', 'row2') }
         %td= link_to_item_with_stats(Item.find(item_id))
         %td.number= h(count)

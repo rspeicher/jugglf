@@ -1,7 +1,7 @@
 = render :partial => 'raids/context_menu' if admin?
 = will_paginate @raids
 %br
-%table.list
+%table.ipb_table
   %thead
     %tr
       %th.date Date
@@ -10,7 +10,7 @@
       %th.note Note
   %tbody
     - @raids.each do |raid|
-      %tr{ :class => cycle('even', 'odd') }
+      %tr{ :class => cycle('row1', 'row2') }
         %td.date= link_to h(raid.date), raid_path(raid)
         %td.number= h(raid.attendees.size)
         %td.number= h(raid.loots.size)

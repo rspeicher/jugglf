@@ -5,7 +5,7 @@
 
 %h2= breadcrumb 'Login'
 %fieldset
-  %legend.hidden Login
+  %legend.hide Login
 
   - form_for @user_session, :url => user_session_path do |f|
     - unless f.error_messages.empty?

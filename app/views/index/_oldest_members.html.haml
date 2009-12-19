@@ -1,11 +1,11 @@
 %h4 Most Senior Active Members
-%table.list
+%table.ipb_table
   %thead
     %tr
       %th Member
       %th.number First Raid
   %tbody
     - oldest_members.each do |member|
-      %tr{ :class => cycle('even', 'odd') }
+      %tr{ :class => cycle('row1', 'row2') }
         %td= link_to_member(member)
         %td.number= h(member.first_raid)

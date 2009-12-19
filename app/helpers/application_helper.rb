@@ -10,11 +10,26 @@ module ApplicationHelper
   
   def breadcrumb(*args)
     # Insert the first breadcrumb, it's always the same
-    content_for(:breadcrumb) { content_tag(:li, link_to('Loot Factor', root_url), :class => 'first') }
+    content_for(:breadcrumb) { content_tag(:li, link_to('Juggernaut Loot Factor', root_url), :class => 'first') }
 
     # Insert the supplied arguments
     args.each do |arg|
       content_for(:breadcrumb) { content_tag(:li, arg) }
+    end
+  end
+  
+  def maintitle(arg)
+    content_tag(:div, :class => 'category_block.block_wrap') do
+      content_tag(:div, :class => 'maintitle_base') do
+        content_tag(:div, :class => 'header_left') do
+          content_tag(:div, :class => 'header_right') do
+            content_tag(:h3, :class => 'maintitle') do
+              # link_to('Toggle this category', '#', :class => 'toggle right', :title => 'Toggle this category') + # TODO: Make toggles work?
+              h(arg)
+            end
+          end
+        end
+      end
     end
   end
   

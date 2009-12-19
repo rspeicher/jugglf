@@ -1,5 +1,5 @@
 = render :partial => 'raids/context_menu' if admin?
-%table.list
+%table.ipb_table
   %thead
     %tr
       %th.date Date
@@ -7,7 +7,7 @@
       %th.note Note
   %tbody
     - @raids.each do |raid|
-      %tr{ :class => cycle('even', 'odd') + raid_date_classes(raid) }
+      %tr{ :class => cycle('row1', 'row2') + raid_date_classes(raid) }
         %td.date= link_to h(raid.date), raid_path(raid)
         %td.attendance= member_raid_attendance(raid, @member)
         %td.note= h(raid.note)

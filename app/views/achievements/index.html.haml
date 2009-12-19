@@ -2,7 +2,7 @@
   $(document).ready(function() {
     $('#achievements img').tooltip({ showURL: false });
   });
-%table.list
+%table.ipb_table
   %thead
     %tr
       %th &nbsp;
@@ -10,7 +10,7 @@
         %th.bullet= achievement_icon(ach)
   %tbody#achievements
     - @members.each do |member|
-      %tr{ :class => cycle('even', 'odd') }
+      %tr{ :class => cycle('row1', 'row2') }
         %td= link_to_member(member)
         - @achievements.each do |ach|
           %td.bullet= image_tag('bullet_yellow.png', :alt => 'Incomplete', :class => 'help', :title => "#{member.name} - #{ach.title}") unless member.achievements.include? ach

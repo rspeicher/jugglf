@@ -5,11 +5,12 @@
       toggleItemTypes(this);
     });
   });
-  
+- breadcrumb link_to('Raids', raids_path), h(@raid.date)
+
 #attendees
-  %h2= breadcrumb link_to('Raids', raids_path), h(@raid.date), "Attendees (#{@raid.attendees.size})"
+  = maintitle("Attendees (#{@raid.attendees.size})")
   - @attendees.sort.each do |group,array|
-    .class_group{ :id => group }
+    .class_group{ :id => group.gsub(/\s+/, '_') }
       %h4{ :class => group.gsub(/\s+/, '_') }= group + " (#{array.size})"
       %ul
         - array.each do |att|
@@ -17,9 +18,9 @@
             = raid_attendance_colored(att.attendance)
             = link_to_member(att.member)
 #drops
+  = maintitle("Loots (#{@raid.loots.size})")
   = render :partial => 'loots/context_menu' if admin?
-  %h2= breadcrumb "Loots (#{@raid.loots.size})"
-  %table#loot.list.tablesorter
+  %table#loot.ipb_table.tablesorter
     %thead
       %tr
         %th Name
@@ -28,7 +29,7 @@
         %th.number Price
     %tbody#itemfilter
       - @loots.each do |loot|
-        %tr{ :class => cycle('even', 'odd') + ' ' + loot_row_classes(loot) }[loot]
+        %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }[loot]
           %td[loot.item]= link_to_item_with_stats(loot.item)
           %td.member= link_to_member(loot.member)
           %td= loot_tell_types(loot)

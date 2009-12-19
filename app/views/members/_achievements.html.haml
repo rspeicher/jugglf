@@ -1,4 +1,4 @@
-%table.list
+%table.ipb_table
   %thead
     %tr
       %th &nbsp;
@@ -6,7 +6,7 @@
       %th.date Completed On
   %tbody
     - @achievements.each do |ach|
-      %tr{ :class => cycle('even', 'odd') }
+      %tr{ :class => cycle('row1', 'row2') }
         %td.icon= achievement_icon(ach)
         %td= h(ach.title)
         %td= h(member_completed_achievement(ach, @member))

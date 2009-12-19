@@ -1,6 +1,6 @@
 %h2= breadcrumb link_to('Members', members_path), 'New'
 %fieldset
-  %legend.hidden New Member
+  %legend.hide New Member
   
   - form_for @member do |f|
     - unless f.error_messages.empty?

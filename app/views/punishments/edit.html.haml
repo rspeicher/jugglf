@@ -1,6 +1,6 @@
 %h2=breadcrumb link_to('Members', members_path), link_to_member(@member), 'Punishments', 'Edit'
 %fieldset
-  %legend.hidden Edit Punishment
+  %legend.hide Edit Punishment
   
   - form_for @punishment, :url => member_punishment_path(@member, @punishment) do |f|
     - unless f.error_messages.empty?

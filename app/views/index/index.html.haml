@@ -1,5 +1,5 @@
 - breadcrumb 'Index'
-%table.list
+%table.ipb_table
   %thead
     %tr
       %th &nbsp;
@@ -8,39 +8,39 @@
         %th.right= image_tag("classes/#{wow_class.downcase.gsub(/\s+/, '_')}.gif", :alt => wow_class)
   %tbody
     / Class Counts
-    %tr{ :class => cycle('even', 'odd') }
+    %tr{ :class => cycle('row1', 'row2') }
       %td.right Active
       %td.right= h(@count_guild)
       - @counts.each do |wow_class, count|
         %td.number= link_to h(count), url_for(:controller => 'search', :context => 'members', :query => "class:#{wow_class}")
     / Attendance Averages
-    %tr{ :class => cycle('even', 'odd') }
+    %tr{ :class => cycle('row1', 'row2') }
       %td.right 30-Day
       %td.attendance= member_attendance_colored(@attendance_guild.avg_30.to_f)
       - @attendance.each do |group|
         %td.attendance= member_attendance_colored(group.avg_30.to_f)
-    %tr{ :class => cycle('even', 'odd') }
+    %tr{ :class => cycle('row1', 'row2') }
       %td.right 90-Day
       %td.attendance= member_attendance_colored(@attendance_guild.avg_90.to_f)
       - @attendance.each do |group|
         %td.attendance= member_attendance_colored(group.avg_90.to_f)
-    %tr{ :class => cycle('even', 'odd') }
+    %tr{ :class => cycle('row1', 'row2') }
       %td.right Lifetime
       %td.attendance= member_attendance_colored(@attendance_guild.avg_lifetime.to_f)
       - @attendance.each do |group|
         %td.attendance= member_attendance_colored(group.avg_lifetime.to_f)
     / Loot Factor Averages
-    %tr{ :class => cycle('even', 'odd') }
+    %tr{ :class => cycle('row1', 'row2') }
       %td.right Loot Factor
       %td.attendance= loot_factor(@lootfactor_guild.avg_lf.to_f)
       - @lootfactor.each do |group|
         %td.attendance= loot_factor(group.avg_lf.to_f)
-    %tr{ :class => cycle('even', 'odd') }
+    %tr{ :class => cycle('row1', 'row2') }
       %td.right Best In Slot
       %td.attendance= loot_factor(@lootfactor_guild.avg_bislf.to_f)
       - @lootfactor.each do |group|
         %td.attendance= loot_factor(group.avg_bislf.to_f)
-    %tr{ :class => cycle('even', 'odd') }
+    %tr{ :class => cycle('row1', 'row2') }
       %td.right Situational
       %td.attendance= loot_factor(@lootfactor_guild.avg_sitlf.to_f)
       - @lootfactor.each do |group|

@@ -1,5 +1,5 @@
 %fieldset
-  #errors.error.hidden
+  #errors.error.hide
   - remote_form_for :wishlist, @wishlist, :url => member_wishlist_path(@member, @wishlist), :html => { :method => :put } do |f|
     = render :partial => 'wishlists/form', :object => f
     .buttons

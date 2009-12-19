@@ -6,6 +6,7 @@
     %link{ :rel => "shortcut icon", :href => 'http://www.juggernautguild.com/favicon.ico'}/
     / = stylesheet_link_tag 'basic', 'buttons', 'forms', 'layout', 'tables', 'tabs', 'application', :cache => 'default'
     = stylesheet_link_tag 'http://www.juggernautguild.com/public/min/index.php?f=public/style_css/css_4/calendar_select.css,public/style_css/css_4/ipb_styles.css,public/style_css/css_4/ipb_editor.css,public/style_css/css_4/juggernaut.css'
+    = stylesheet_link_tag 'lootfactor'
     = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'
     = javascript_include_tag 'jquery.ui', 'jquery.tablesorter.min', 'jquery.tooltip', 'jquery.autocomplete', 'jquery.contextmenu', :cache => 'jquery'
     = javascript_include_tag 'jugg', 'jugg.autocomplete', 'jugg.tablesorter', :cache => 'application'
@@ -15,12 +16,20 @@
 
     :javascript
       $(document).ready(function() {
-        $('#main').removeClass('hidden');
+        $('#main').removeClass('hide');
         clickableFlash();
       });
-  %body#ipboard_body.lf
+  %body.lf{ :id => controller.controller_name }
     #ipbwrapper
       %h1= truncate(@page_title || page_title, :length => 150)
+      - if admin?
+        #admin_bar
+          %p.right= link_to('Log in to your Admin CP &gt;', 'http://www.juggernautguild.com/a__dmin/index.php')
+          %strong Mod Tools:
+          %ul#mod_tools
+            %li= link_to('IP Lookup', 'http://www.juggernautguild.com/index.php?app=core&amp;module=usercp&amp;tab=members&amp;area=mod_ipaddress', :title => 'IP Lookup')
+            %li= link_to('Manage Announcement', 'http://www.juggernautguild.com/index.php?app=core&amp;module=usercp&amp;tab=forums&amp;area=mod_announcements', :title => 'Manage Announcement')
+
       #header
         #branding
           #user_bar
@@ -77,21 +86,15 @@
                 %br.clear
         #content.clear
           - if flash[:error]
-            #flash.error= flash[:error]
+            %div.message.error= flash[:error]
           - if flash[:success]
-            #flash.success= flash[:success]
+            %div.message.success= flash[:success]
             
           %h2.hide= controller.controller_name.titlecase
           
           #board_index.clearfix
             #categories.hover_rows.no_sidebar.clearfix
-              %div.category_block.block_wrap
-                %div.maintitle_base
-                  %div.header_left
-                    %div.header_right
-                      %h3.maintitle TODO
-                %div.border
-                  = yield
+              = yield
           
           %ul#stat_links.filter_bar.rounded.hide
           

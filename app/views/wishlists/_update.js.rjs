@@ -1,6 +1,6 @@
 if success
   # Hide the errors div
-  page << "$('#errors').addClass('hidden');"
+  page << "$('#errors').addClass('hide');"
   
   # Replace the table row with the updated values
   page.replace "wishlist_#{update.id}", :partial => "wishlists/wishlist_row", :object => update
@@ -14,7 +14,7 @@ if success
   page << "$('#wishlist_#{update.id}').focus();"
 else
   # Show the errors div
-  page << "$('#errors').removeClass('hidden');"
+  page << "$('#errors').removeClass('hide');"
 
   # Add the error messages
   page << "$('#errors').html('#{error_messages_for('wishlist entry', :object => update)}')"

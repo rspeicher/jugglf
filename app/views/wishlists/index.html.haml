@@ -10,8 +10,8 @@
         %span= link_to_item_with_stats(item.object)
         - unless item.note.nil?
           = "(#{h(item.note)})"
-      %table.list.tablesorter
-        %thead.hidden
+      %table.ipb_table.tablesorter
+        %thead.hide
           %tr
             %th Member
             %th Note
@@ -21,7 +21,7 @@
           - reset_cycle
           - item.object.wishlists.each do |wishlist|
             - if wishlist.member.active?
-              %tr{ :class => cycle('even', 'odd') }
+              %tr{ :class => cycle('row1', 'row2') }
                 %td.member{ :style => 'max-width: 150px' }
                   = warn_if_recently_looted(wishlist, @recent_loots)
                   = link_to_member(wishlist.member)
@@ -29,13 +29,13 @@
                 %td{ :style => 'width: 100px'}= h(wishlist.priority.titlecase)
                 %td.lootfactor= loot_factor(wishlist.member.lf_type(wishlist.priority))
   %br
-  .notice.hidden
+  .notice.hide
 #sidebar
   %ul
     - @root.each do |zone|
       %li.zone
         = link_to_function(h(zone.object.name), "$('ul#loot_table_#{zone.id}').toggle('slow')")
-        %ul.hidden[zone]
+        %ul.hide[zone]
           - zone.children.each do |boss|
             %li.boss[boss]
               = link_to h(boss.object.name), "?boss=#{boss.id}"

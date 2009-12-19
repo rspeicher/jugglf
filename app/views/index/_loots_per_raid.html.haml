@@ -1,11 +1,11 @@
 %h4 Average Loots Per Raid Attended
-%table.list
+%table.ipb_table
   %thead
     %tr
       %th Member
       %th.number Average
   %tbody
     - loots_per_raid.each do |member|
-      %tr{ :class => cycle('even', 'odd') }
+      %tr{ :class => cycle('row1', 'row2') }
         %td= link_to_member(member)
         %td.number= number_with_precision(member.loots_per_raid, :precision => 2)

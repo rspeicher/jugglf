@@ -1,11 +1,11 @@
 %h4 Least Recruitable Class
-%table.list
+%table.ipb_table
   %thead
     %tr
       %th Class
       %th.number Declined
   %tbody
     - worst_recruits.each do |wow_class, percent|
-      %tr{ :class => cycle('even', 'odd') }
+      %tr{ :class => cycle('row1', 'row2') }
         %td{ :class => wow_class }= wow_class.titlecase
         %td.number== #{(percent * 100).floor}%

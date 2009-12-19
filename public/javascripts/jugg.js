@@ -7,6 +7,11 @@ function clickableFlash() {
     });
 }
 
+function initToggles() {
+    $('.toggle').click(function() {
+    });
+}
+
 /* Wishlists ---------------------------------------------------------------- */
 
 /**
@@ -24,7 +29,7 @@ function wishlistMenu(zone, boss) {
             $(this).hide();
         }
         else {
-            $(this).removeClass('hidden');
+            $(this).removeClass('hide');
             $(this).children().each(function() {
                 if ($(this).attr('id') == 'loot_table_' + boss) {
                     $(this).html('<b>' + $(this).text() + '</b>');
@@ -43,7 +48,7 @@ function wishlistHideUnwanted() {
     count = 0;
     
     $('div.loot_table').each(function() {
-        wishes = $(this).children('table.list').children('tbody').children('tr').length;
+        wishes = $(this).children('table.ipb_table').children('tbody').children('tr').length;
         if (wishes == 0) {
             $(this).hide();
             count++;
@@ -58,7 +63,7 @@ function wishlistHideUnwanted() {
     if (count > 0) {
         $('div.notice').html("<b>Note:</b> Hiding " + count + " unwanted items. " +
             "<a onclick=\"wishlistShowUnwanted(); return false;\" href=\"#\">Click here</a> to show them.")
-        $('div.notice').removeClass('hidden');
+        $('div.notice').removeClass('hide');
     }
 }
 
@@ -67,7 +72,7 @@ function wishlistShowUnwanted() {
         $(this).show();
     });
     
-    $('div.notice').addClass('hidden');
+    $('div.notice').addClass('hide');
 }
 
 /**
@@ -75,7 +80,7 @@ function wishlistShowUnwanted() {
  */
 function wishlistAddForm() {
     // Hide the errors div
-    $('#errors').addClass('hidden');
+    $('#errors').addClass('hide');
     
     // Wipe out any lingering Edit Form data
     $('#wishlist-edit').html('');

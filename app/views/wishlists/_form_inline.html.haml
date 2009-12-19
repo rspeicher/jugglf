@@ -1,7 +1,7 @@
 #wishlist-new{ :style => "display: none" }
   %fieldset
-    %legend.hidden Add Wishlist Entry
-    #errors.error.hidden
+    %legend.hide Add Wishlist Entry
+    #errors.error.hide
     - remote_form_for :wishlist, @wishlist, :url => member_wishlists_path(@member), :html => { :method => :post } do |f|
       = render :partial => 'wishlists/form', :object => f
       .buttons

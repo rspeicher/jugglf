@@ -1,4 +1,4 @@
-%tr{ :class => cycle('even', 'odd') }[wishlist_row]
+%tr{ :class => cycle('row1', 'row2') }[wishlist_row]
   %td.icon= image_tag(wishlist_row.item.wowhead_icon(:small), :alt => 'Icon') unless wishlist_row.item_id.nil?
   %td.item
     = warn_if_recently_looted(wishlist_row, recent_loots) if defined? recent_loots

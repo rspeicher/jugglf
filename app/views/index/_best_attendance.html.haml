@@ -1,11 +1,11 @@
 %h4 Best Attendance
-%table.list
+%table.ipb_table
   %thead
     %tr
       %th Member
       %th.number Lifetime
   %tbody
     - best_attendance.each do |member|
-      %tr{ :class => cycle('even', 'odd') }
+      %tr{ :class => cycle('row1', 'row2') }
         %td= link_to_member(member)
         %td.number= "<span class='positive'>#{number_with_precision(member.attendance_lifetime * 100.0, :precision => 1)}%</span>"

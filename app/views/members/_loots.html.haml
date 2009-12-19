@@ -12,7 +12,7 @@
     });
   });
 = render :partial => 'loots/context_menu' if admin?
-%table.list
+%table.ipb_table
   %thead
     %tr
       %th Name
@@ -24,7 +24,7 @@
         %th.image &nbsp;
   %tbody#itemfilter
     - @loots.each do |loot|
-      %tr{ :class => cycle('even', 'odd') + ' ' + loot_row_classes(loot) }[loot]
+      %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }[loot]
         %td[loot.item]= link_to_item_with_stats(loot.item)
         %td= loot_tell_types(loot)
         %td= loot_factor_cutoff(loot.purchased_on)
