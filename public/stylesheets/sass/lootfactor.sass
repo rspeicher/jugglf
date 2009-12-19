@@ -1,11 +1,16 @@
 @import constants.sass
 
 // Override WoW class styling -------------------------------------------------
-.Death_Knight, .Death, .Knight, .Druid, .Hunter, .Mage, .Paladin, .Shaman, .Priest, .Rogue, .Warlock, .Warrior
+.Death_Knight, .Death, .Knight, .Deathknight, .Druid, .Hunter, .Mage, .Paladin, .Shaman, .Priest, .Rogue, .Warlock, .Warrior
   &, &:link, &:visited
     font-weight: normal
     background: none
     padding-left: 0
+  #breadcrumb &
+    font-weight: bold
+    
+#ipbwrapper .q1, #ipbwrapper .q1 a, .ac_results .q1, .ac_results .q1 a
+  color: #000000 !important
     
 // Success/Failure flash notice divs ------------------------------------------
 .positive
@@ -26,6 +31,34 @@
 #tooltip 
   h3, div
     margin: 0
+    
+// Index#index
+body#index
+  .record_group
+    min-width: 317px
+    display: block
+    float: left
+    margin: 6px 2px 12px 2px
+    h4
+      margin: 4px 0 4px 0
+    
+// Members#show ---------------------------------------------------------------
+body#members
+  #member_stats
+    text-align: center
+    h3
+      display: inline
+      font: 3em Georgia
+      margin: 0
+      span.small
+        vertical-align: middle
+        font: 14px "Georgia", "serif"
+        margin: 0 60px 0 -3px
+  #wishlists
+    .wishlist
+      span
+        color: #888
+        font-size: 0.85em
     
 // Raids#show -----------------------------------------------------------------
 body#raids
@@ -82,9 +115,10 @@ body#raids
     
 // Tables ---------------------------------------------------------------------
 table.ipb_table
-  // Table Cell Types
+  // // Table Cell Types
   th.number, td.number, th.right, td.right
     text-align: right
+    float: none !important
   th.note, td.note
     text-align: left
     width: 75%
@@ -123,9 +157,9 @@ table.ipb_table
       text-shadow: #fff 0px 1px 0px
 
       th
+        color: #838383
         border-top: 1px solid #fff
         border-bottom: 1px solid #e4e4e4
-      
     a
       color: #838383
 
@@ -157,3 +191,60 @@ table.ipb_table
           background-image: url(/images/sort_desc.gif)
         th.note, th.attendance, th.lootfactor, th.number, th.right
           padding-right: 20px
+          
+// Pagination -----------------------------------------------------------------
+div.pagination
+  height: 30px
+  padding: 0
+  margin: 5px 0 0 0
+  a, span
+    color: #838383
+    display: block
+    font-weight: bold
+    padding: 4px 7px
+    text-decoration: none
+    -moz-border-radius: 3px
+    background: #E4E4E4 url(http://www.juggernautguild.com/public/style_images/splat/page.png) repeat-x scroll 0 50%
+    float: left
+    font-size: 0.9em
+    margin: 0 2px 0 0
+    
+    &.disabled
+      background-color: #FFFFFF
+      color: #838383
+    
+  a
+    &.current, &:hover
+      background-color: #E9712D
+      color: #FFFFFF
+  span.current
+    background-color: #E9712D
+    color: #FFFFFF
+  .gap
+    background: transparent
+          
+// Progress Bars --------------------------------------------------------------
+// See http://blog.leetsoft.com/2006/8/22/super-simple-css-bars
+// and http://wiki.github.com/paolodona/rails-widgets/progressbar
+div.progress-container
+  border: 1px solid #ccc
+  width: 90%
+  margin: 2px 5px 2px 0
+  padding: 1px
+  float: left
+  background: white
+  div
+    height: 12px
+span.progress
+  line-height: 15px
+
+// Tabs -----------------------------------------------------------------------
+.ui-tabs
+  .ui-tabs-nav
+    li.ui-tabs-selected
+      background-color: #cd5316
+      a
+        color: #FFFFFF
+  // Hidden tab content
+  .ui-tabs-hide
+    display: none !important

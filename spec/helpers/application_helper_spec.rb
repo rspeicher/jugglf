@@ -119,12 +119,12 @@ describe ApplicationHelper do
   describe "link_to_login_or_logout" do
     it "should link to login when logged out" do
       stub!(:current_user).and_return(true)
-      link_to_login_or_logout.should match(/Logout/)
+      link_to_login_or_logout.should match(/Sign Out/)
     end
     
     it "should link to logout when logged in" do
       def current_user; end
-      link_to_login_or_logout.should match(/Login/)
+      link_to_login_or_logout.should match(/Sign In/)
     end
   end
 end

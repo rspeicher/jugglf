@@ -20,8 +20,15 @@
         clickableFlash();
       });
   %body.lf{ :id => controller.controller_name }
+    %noscript
+      .error This site makes extensive use of JavaScript. Please enable it to continue.
     #ipbwrapper
-      %h1= truncate(@page_title || page_title, :length => 150)
+      %h1= @page_title || page_title
+      
+      %p#content_jump
+        %a#top{ :name => 'top' }
+        %a{ :href => '#j_content', :title => 'Jump to content', :accesskey => 'm' }Jump to content
+        
       - if admin?
         #admin_bar
           %p.right= link_to('Log in to your Admin CP &gt;', 'http://www.juggernautguild.com/a__dmin/index.php')
@@ -33,22 +40,20 @@
       #header
         #branding
           #user_bar
-            #user_navigation.logged_in
-              #user_links
-                = link_to(image_tag('http://www.juggernautguild.com/uploads/profile/photo-1.jpg', :alt => '', :class => 'photo') + ' Signed in as Kamien', '#')
-                = link_to(image_tag('http://www.juggernautguild.com/public/style_images/splat/user_arrow.png', :alt => '', :class => 'user_arrow'), '#', :id => 'user_link', :class => 'ipbmenu', :name => 'user_link')
-                = link_to('My Settings', '#')
-                = link_to('Messenger', '#')
-                = link_to('Sign Out', '#')
-                %br.clear
-              / TODO: Fix this
-              / #user_info
-              /   %ul#user_link_menucontent
-              /     %li#user_profile= link_to('My Profile', '#', :title => 'Your Profile')
-              /     %li#user_ucp= link_to('My Settings', '#', :title => "Edit my settings, such as signature, avatar and more...")
-              /     %li#user_msg= link_to('Messenger', '#')
-              /     %li#user_friends= link_to('Manage Friends', '#')
-              /     %li#user_enemies= link_to('Manage Ignored Users', '#')
+            - unless current_user.nil?
+              #user_navigation.logged_in
+                #user_links
+                  = link_to("Signed in as #{current_user.name}", "http://www.juggernautguild.com/user/#{current_user.member_id}-#{current_user.name.downcase}/")
+                  - unless current_user.member.nil?
+                    = link_to('My Standing', member_path(current_user.member))
+                  = link_to_login_or_logout
+                  %br.clear
+            - else
+              #user_navigation.not_logged_in
+                #user_links
+                  = link_to_login_or_logout
+                  = link_to(image_tag('http://www.juggernautguild.com/public/style_images/splat/paste_plain.png', :alt => '') + ' Register', 'http://www.juggernautguild.com/index.php?app=core&module=global&section=register')
+                  = link_to(image_tag('http://www.juggernautguild.com/public/style_images/splat/help.png', :alt => '') + ' Help', 'http://www.juggernautguild.com/index.php?app=core&module=help')
           = link_to(image_tag('http://www.juggernautguild.com/public/style_images/4_Banner_1_copy.png', :alt => 'Logo'), :title => 'Go to board index', :rel => 'home', :accesskey => '1')
         #nav_container
           #nav_con_left
@@ -66,6 +71,7 @@
                   %li#nav_calendar= link_to(content_tag(:span, 'Calendar'), 'http://www.juggernautguild.com/calendar/', :title => 'Go to Calendar')
                   %li#nav_search= link_to(content_tag(:span, 'Search'), 'http://www.juggernautguild.com/index.php?app=core&amp;module=search', :title => '', :accesskey => '4', :rel => 'search')
       %div.content.clear
+        %a#j_content{ :name => 'j_content' }
         #sec_nav_con
           #sec_nav_left
             #sec_nav_right
@@ -74,15 +80,12 @@
                   = yield :breadcrumb
                 %ul#section_links.right
                   %li= link_to 'Index', root_path, :class => ( current_page?(root_path) ) ? 'selected' : ''
-                  - unless current_user.nil? or current_user.member.nil?
-                    %li= link_to 'My Standing', member_path(current_user.member), :class => ( current_page?(member_path(current_user.member)) ) ? 'selected' : ''
                   %li= link_to_controller(Achievement)
                   %li= link_to_controller(Member)
                   %li= link_to_controller(Raid, :admin_only => true)
                   %li= link_to_controller(Item)
                   %li= link_to_controller(Loot, :admin_only => true)
                   %li= link_to_controller(Wishlist, :admin_only => true)
-                  %li= link_to_login_or_logout
                 %br.clear
         #content.clear
           - if flash[:error]
@@ -96,7 +99,7 @@
             #categories.hover_rows.no_sidebar.clearfix
               = yield
           
-          %ul#stat_links.filter_bar.rounded.hide
+          / %ul#stat_links.filter_bar.rounded
           
           #board_statistics.statistics.general_box.clearfix.hide
             #stats
@@ -108,7 +111,7 @@
           
           #board_footer
             %ul#utility_links.left
-              %li= link_to('Back to top', '#top', :ittle => 'Go to top')
+              %li= link_to('Back to top', '#top', :title => 'Go to top')
               %li= link_to('Forum Home', 'http://www.juggernautguild.com/index', :title => 'Forum Home')
             %p#copyright.right
               = "Powered by #{link_to('Ruby on Rails', 'http://rubyonrails.org/')}"
@@ -117,6 +120,3 @@
             %br.clear
             
           #stats_div
-
-  %noscript
-    .error This site makes extensive use of JavaScript. Please enable it to continue.

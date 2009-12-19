@@ -18,15 +18,13 @@ module ApplicationHelper
     end
   end
   
-  def maintitle(arg)
-    content_tag(:div, :class => 'category_block.block_wrap') do
-      content_tag(:div, :class => 'maintitle_base') do
-        content_tag(:div, :class => 'header_left') do
-          content_tag(:div, :class => 'header_right') do
-            content_tag(:h3, :class => 'maintitle') do
-              # link_to('Toggle this category', '#', :class => 'toggle right', :title => 'Toggle this category') + # TODO: Make toggles work?
-              h(arg)
-            end
+  def maintitle(arg = '')
+    content_tag(:div, :class => 'maintitle_base') do
+      content_tag(:div, :class => 'header_left') do
+        content_tag(:div, :class => 'header_right') do
+          content_tag(:h3, :class => 'maintitle') do
+            # link_to('Toggle this category', '#', :class => 'toggle right', :title => 'Toggle this category') + # TODO: Make toggles work?
+            h(arg)
           end
         end
       end
@@ -92,11 +90,10 @@ module ApplicationHelper
   
   def link_to_login_or_logout
     if current_user
-      link_to("Logout", '/logout', :method => :delete, 
+      link_to("Sign Out", '/logout', :method => :delete, 
         :confirm => 'Are you sure you want to log out?')
     else
-      link_to('Login', '/login', 
-        :class => (current_page?(new_user_session_path)) ? 'selected' : '')
+      link_to(image_tag('http://www.juggernautguild.com/public/style_images/splat/key.png', :alt => '') + ' Sign In', '/login')
     end
   end
 end

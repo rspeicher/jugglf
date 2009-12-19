@@ -11,35 +11,36 @@
 - unless @loot_table.nil?
   %h3= "Dropped by #{@loot_table.parent.object.name} in #{@loot_table.parent.parent.object.name}"
 = render :partial => 'loots/context_menu' if admin?
-#item_tabs
-  %ul
-    %li= link_to_tab("Loots (#{@loots.size})", '#t-loots')
-    %li= link_to_tab("Wishlists (#{@wishlists.size})", '#t-wishlists')
-  #t-loots
-    %table#loot.ipb_table.tablesorter
-      %thead
-        %tr
-          %th.date Raid
-          %th.member Buyer
-          %th.note Notes
-          %th.number Price
-      %tbody#itemfilter
-        - @loots.each do |loot|
-          %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }[loot]
-            %td.date= link_to h(loot.purchased_on), raid_path(loot.raid_id) unless loot.raid_id.nil?
-            %td.member= link_to_member(loot.member)
-            %td.note[@item]= loot_tell_types(loot)
-            %td.number= loot_factor(loot.adjusted_price)
-  #t-wishlists
-    %table.ipb_table
-      %thead
-        %tr
-          %th Member
-          %th Note
-          %th Priority
-      %tbody
-        - @wishlists.each do |wishlist|
-          %tr{ :class => cycle('row1', 'row2') }
-            %td.member{ :style => 'max-width: 150px' }= link_to_member(wishlist.member)
-            %td{ :style => 'width: 60%' }= truncate(h(wishlist.note), :length => 80)
-            %td{ :style => 'width: 100px'}= h(wishlist.priority.titlecase)
+%div.category_block.block_wrap
+  #item_tabs
+    %ol.tab_bar.no_title.mini
+      %li= link_to("Loots (#{@loots.size})",         '#t-loots')
+      %li= link_to("Wishlists (#{@wishlists.size})", '#t-wishlists')
+    #t-loots
+      %table#loot.ipb_table.tablesorter
+        %thead
+          %tr
+            %th.date Raid
+            %th.member Buyer
+            %th.note Notes
+            %th.number Price
+        %tbody#itemfilter
+          - @loots.each do |loot|
+            %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }[loot]
+              %td.date= link_to h(loot.purchased_on), raid_path(loot.raid_id) unless loot.raid_id.nil?
+              %td.member= link_to_member(loot.member)
+              %td.note= loot_tell_types(loot)
+              %td.number= loot_factor(loot.adjusted_price)
+    #t-wishlists
+      %table.ipb_table
+        %thead
+          %tr
+            %th Member
+            %th Note
+            %th Priority
+        %tbody
+          - @wishlists.each do |wishlist|
+            %tr{ :class => cycle('row1', 'row2') }
+              %td.member{ :style => 'max-width: 150px' }= link_to_member(wishlist.member)
+              %td{ :style => 'width: 60%' }= truncate(h(wishlist.note), :length => 80)
+              %td{ :style => 'width: 100px'}= h(wishlist.priority.titlecase)

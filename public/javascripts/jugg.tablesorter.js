@@ -8,12 +8,12 @@ function zebraRows(tbody_id, delay) {
     delay = (delay == null) ? 0: delay
 
     setTimeout(function() {
-        background = 'even';
+        background = 'row1';
         $('tbody#' + tbody_id + ' > tr:visible').each(function() {
-            $(this).removeClass('even');
-            $(this).removeClass('odd');
+            $(this).removeClass('row1');
+            $(this).removeClass('row2');
             $(this).addClass(background);
-            background = (background == 'even') ? 'odd': 'even';
+            background = (background == 'row1') ? 'row2': 'row1';
         });
     }, delay);
 }

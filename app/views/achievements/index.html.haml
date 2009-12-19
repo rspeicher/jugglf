@@ -2,15 +2,18 @@
   $(document).ready(function() {
     $('#achievements img').tooltip({ showURL: false });
   });
-%table.ipb_table
-  %thead
-    %tr
-      %th &nbsp;
-      - @achievements.each do |ach|
-        %th.bullet= achievement_icon(ach)
-  %tbody#achievements
-    - @members.each do |member|
-      %tr{ :class => cycle('row1', 'row2') }
-        %td= link_to_member(member)
+- breadcrumb 'Achievements'
+%div.category_block.block_wrap
+  = maintitle
+  %table.ipb_table
+    %thead
+      %tr
+        %th &nbsp;
         - @achievements.each do |ach|
-          %td.bullet= image_tag('bullet_yellow.png', :alt => 'Incomplete', :class => 'help', :title => "#{member.name} - #{ach.title}") unless member.achievements.include? ach
+          %th.bullet= achievement_icon(ach)
+    %tbody#achievements
+      - @members.each do |member|
+        %tr{ :class => cycle('row1', 'row2') }
+          %td= link_to_member(member)
+          - @achievements.each do |ach|
+            %td.bullet= image_tag('bullet_yellow.png', :alt => 'Incomplete', :class => 'help', :title => "#{member.name} - #{ach.title}") unless member.achievements.include? ach
