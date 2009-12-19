@@ -54,9 +54,13 @@ module ApplicationHelper
     
     options[:text]    ||= 'Delete'
     options[:confirm] ||= 'Are you sure you want to delete this record?'
+    options[:image]   = (options[:image].nil?) ? true : options[:image]
+    options[:class]   ||= 'negative'
     
-    link_to(image_tag('delete.png') + h(options[:text]), options[:path], 
-      :confirm => options[:confirm], :method => :delete, :class => 'negative')
+    image = ( options[:image] == true ) ? image_tag('delete.png') : ''
+    
+    link_to(image + h(options[:text]), options[:path], 
+      :confirm => options[:confirm], :method => :delete, :class => options[:class])
   end
   
   def link_to_remote_delete(object, options = {})

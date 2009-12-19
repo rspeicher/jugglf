@@ -3,23 +3,13 @@
     $('#user_session_name').focus();
   });
 
-- breadcrumb 'Login'
-%fieldset
-  %legend.hide Login
-
-  - form_for @user_session, :url => user_session_path do |f|
-    - unless f.error_messages.empty?
-      .error= f.error_messages
-
-    = f.label :name, 'Login'
-    = f.text_field :name, :class => 'large'
-
-    = f.label :password
-    = f.password_field :password, :class => 'large'
-
-    .radio-check
-      = f.check_box :remember_me
-      = f.label :remember_me, 'Remember Me'
-  
-    .buttons
-      = styled_button(:type => 'submit', :text => 'Login', :image => 'bullet_go.png')
+- breadcrumb 'Sign In'
+%div.category_block.block_wrap
+  = maintitle 'Sign In'
+  - semantic_form_for @user_session, :url => user_session_path do |form|
+    - form.inputs do
+      = form.input :name, :label => 'Username', :required => false
+      = form.input :password, :required => false
+      = form.input :remember_me, :as => :boolean, :required => false
+    - form.buttons :class => 'submit' do
+      = form.submit 'Sign In', :class => 'input_submit'

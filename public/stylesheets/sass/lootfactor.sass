@@ -116,6 +116,32 @@ body#raids
   #drops
     clear: left
     
+// Forms ----------------------------------------------------------------------
+@import formtastic_base.sass
+@import skintastic.sass
+form
+  +stack-form(nil)
+  fieldset.submit
+    padding: 15px 6px
+    text-align: center
+  input.update
+    background: #e36d2c url(http://www.juggernautguild.com/public/style_images/splat/input_submit.png) repeat-x scroll 0 50%
+    color: #fff
+    border: 1px solid #b2531f
+    font-weight: bold
+    font-size: 0.85em
+    text-decoration: none
+    border-width: 1px
+    border-style: solid
+    padding: 3px 9px
+    overflow: visible
+    cursor: pointer
+    -moz-border-radius: 2px
+    -webkit-border-radius: 2px
+    
+    &:hover
+      background: #e7834b url(http://www.juggernautguild.com/public/style_images/splat/input_submit.png) repeat-x scroll 0 50%
+    
 // Tables ---------------------------------------------------------------------
 table.ipb_table
   // // Table Cell Types

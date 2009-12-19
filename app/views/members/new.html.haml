@@ -1,13 +1,12 @@
-%h2= breadcrumb link_to('Members', members_path), 'New'
-%fieldset
-  %legend.hide New Member
-  
-  - form_for @member do |f|
-    - unless f.error_messages.empty?
-      .error= f.error_messages
-  
-    = render :partial => 'form', :object => f
-    
-    .buttons
-      = styled_button(:type => 'submit', :image => 'tick.png', :text => 'Save')
-      = styled_button(:type => 'reset', :image => 'form_delete.png')
+- breadcrumb link_to('Members', members_path), 'New'
+- semantic_form_for @member do |form|
+  - form.inputs do
+    = form.input :name
+    = form.input :wow_class, :as => :select, :collection => Member::WOW_CLASSES, :label => 'Class'
+    = form.input :rank_id, :as => :select, :collection => @ranks.collect { |r| [r.name, r.id] }, :include_blank => true, :required => false
+    = form.input :user_id, :as => :select, :collection => @users.collect { |u| [u.name, u.id] }, :include_blank => true, :required => false
+    = form.input :active, :as => :boolean
+  - form.buttons :class => 'submit' do
+    = form.submit 'Save Member', :class => 'input_submit'
+    or
+    = link_to('Cancel', members_path, :class => 'cancel')

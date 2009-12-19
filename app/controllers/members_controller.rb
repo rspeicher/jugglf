@@ -13,6 +13,9 @@ class MembersController < ApplicationController
   # Find the given member
   before_filter :find_member,                 :only   => [:show, :edit, :update, :destroy]
   
+  # Populate the Rank and Invision User collections
+  before_filter :field_collections, :only => [:new, :edit, :create, :update]
+  
   def index
     page_title('Members')
     
@@ -64,8 +67,6 @@ class MembersController < ApplicationController
     page_title('New Member')
     
     @member = Member.new
-    @users = InvisionBridge::InvisionUser.juggernaut
-    @ranks = MemberRank.find(:all, :order => 'name')
     
     respond_to do |wants|
       wants.html
@@ -74,9 +75,6 @@ class MembersController < ApplicationController
   
   def edit
     page_title(@member.name, 'Edit')
-    
-    @users = InvisionBridge::InvisionUser.juggernaut
-    @ranks = MemberRank.find(:all, :order => 'name')
     
     respond_to do |wants|
       wants.html
@@ -129,6 +127,11 @@ class MembersController < ApplicationController
       elsif current_user.member.to_param != params[:id] and not current_user.is_admin?
         require_admin
       end
+    end
+    
+    def field_collections
+      @users = InvisionBridge::InvisionUser.juggernaut
+      @ranks = MemberRank.find(:all, :order => 'name')
     end
     
     def find_member
