@@ -23,6 +23,7 @@ function membersTableSort() {
         sortList: [[1,0]],
         widgets: ['zebra'],
         headers: {
+            1: { sorter: 'without-link' }, // Name
             6: { sorter: 'currency' }, // Loot Factor
             7: { sorter: 'currency' }, // BiS
             8: { sorter: 'currency' }  // Sit
@@ -80,7 +81,7 @@ $.tablesorter.addParser({
         return false;
     },
     format: function(s) {
-        return s.replace(/<a.+>(.+)<\/a>/, '$1');
+        return s.replace(/.*<a.+>(.+)<\/a>.*/, '$1');
     },
     type: 'text'
 });
