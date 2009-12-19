@@ -115,6 +115,8 @@ class Item < ActiveRecord::Base
   end
   
   def to_param
+    return self.id.to_s if self.name.nil?
+    
     "#{self.id}-#{self.name.parameterize}-#{self.wow_id}".gsub(/\-$/, '')
   end
   

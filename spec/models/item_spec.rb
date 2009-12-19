@@ -27,13 +27,20 @@ describe Item do
     @item.should be_valid
   end
   
-  it "should have custom to_param" do
-    @item.to_param.should eql("#{@item.id}-#{@item.name.parameterize}-#{@item.wow_id}")
-  end
-  
-  it "should not include wow_id if it's nil" do
-    @item.wow_id = nil
-    @item.to_param.should eql("#{@item.id}-#{@item.name.parameterize}")
+  describe "to_param" do
+    it "should use name and wow_id if available" do
+      @item.to_param.should eql("#{@item.id}-#{@item.name.parameterize}-#{@item.wow_id}")
+    end
+    
+    it "should not include wow_id if it's nil" do
+      @item.wow_id = nil
+      @item.to_param.should eql("#{@item.id}-#{@item.name.parameterize}")
+    end
+    
+    it "should return just the ID if name or wow_id are not available" do
+      @item.name = nil
+      @item.to_param.should eql(@item.id.to_s)
+    end
   end
   
   it "should return a Wowhead item link" do

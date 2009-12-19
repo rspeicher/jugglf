@@ -7,7 +7,7 @@ module ItemsHelper
   end
   
   def link_to_item_with_stats(item, options = {})
-    return if item.nil?
+    return if item.nil? or item.name.nil?
     item = stat_lookup(item)
     
     options[:rel] ||= true
