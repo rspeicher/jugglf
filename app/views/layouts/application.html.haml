@@ -13,16 +13,11 @@
     - if admin?
       = javascript_include_tag 'jugg.admin'
     = javascript_include_tag 'http://static.wowhead.com/widgets/power.js'
-
-    :javascript
-      $(document).ready(function() {
-        $('#main').removeClass('hide');
-        clickableFlash();
-      });
-  %body.lf{ :id => controller.controller_name }
+  %body.lf{ :id => "#{controller.controller_name}_root" }
     %noscript
-      .error This site makes extensive use of JavaScript. Please enable it to continue.
-    #ipbwrapper
+      .error
+        %span This site makes extensive use of JavaScript. Please enable it to continue.
+    #ipbwrapper.hide
       %h1= @page_title || page_title
       
       %p#content_jump
