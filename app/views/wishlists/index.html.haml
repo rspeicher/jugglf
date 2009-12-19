@@ -1,45 +1,51 @@
-- if @zone and @boss
-  - breadcrumb link_to('Global Wishlist View', wishlists_path), @zone, @boss
+- if @zone
+  - breadcrumb link_to('Global Wishlist View', wishlists_path), @zone
 - else
   - breadcrumb link_to('Global Wishlist View', wishlists_path)
-%div.category_block.block_wrap
-  #content
-    - @items.each do |item|
-      %div[item]
-        %h4
-          = link_to_function(image_tag('clipboard.png'), "wishlistCompare(#{item.id})")
-          %span= link_to_item_with_stats(item.object)
-          - unless item.note.nil?
-            = "(#{h(item.note)})"
-        %table.ipb_table.tablesorter
-          %thead.hide
-            %tr
-              %th Member
-              %th Note
-              %th Priority
-              %th LF
-          %tbody
-            - reset_cycle
-            - item.object.wishlists.each do |wishlist|
-              - if wishlist.member.active?
-                %tr{ :class => cycle('row1', 'row2') }
-                  %td.member{ :style => 'max-width: 150px' }
-                    = warn_if_recently_looted(wishlist, @recent_loots)
-                    = link_to_member(wishlist.member)
-                  %td{ :style => 'width: 60%' }= h(wishlist.note)
-                  %td{ :style => 'width: 100px'}= h(wishlist.priority.titlecase)
-                  %td.lootfactor= loot_factor(wishlist.member.lf_type(wishlist.priority))
-    %br
-    .notice.hide
-  #sidebar
-    %ul
-      - @root.each do |zone|
-        %li.zone
-          = link_to_function(h(zone.object.name), "$('ul#loot_table_#{zone.id}').toggle('slow')")
-          %ul.hide[zone]
-            - zone.children.each do |boss|
-              %li.boss[boss]
-                = link_to h(boss.object.name), "?boss=#{boss.id}"
+%div.topic.hfeed
+  = render :partial => 'shared/maintitle', :object => @boss
+  %div.border
+    %div.post_block.hentry.clear
+      %div.post_wrap
+        %h3 &nbsp;
+        %div.author_info
+          %ul
+            - @root.each do |zone|
+              %li.zone
+                = link_to_function(h(zone.object.name), "$('ul#loot_table_#{zone.id}').toggle('slow')")
+                %ul.hide[zone]
+                  - zone.children.each do |boss|
+                    %li.boss[boss]
+                      = link_to h(boss.object.name), "?boss=#{boss.id}"
+        %div.post_body
+          - @items.each do |item|
+            %div[item]
+              %p.posted_info
+                = link_to_function(image_tag('clipboard.png'), "wishlistCompare(#{item.id})")
+                %span= link_to_item_with_stats(item.object)
+                - unless item.note.nil?
+                  = "(#{h(item.note)})"
+              %table.ipb_table.tablesorter
+                %thead.hide
+                  %tr
+                    %th Member
+                    %th Priority
+                    %th LF
+                %tbody
+                  - reset_cycle
+                  - item.object.wishlists.each do |wishlist|
+                    - if wishlist.member.active?
+                      %tr{ :class => cycle('row2', 'row1') }
+                        %td.member{ :style => 'max-width: 150px' }
+                          = warn_if_recently_looted(wishlist, @recent_loots)
+                          %span.larger= link_to_member(wishlist.member)
+                          %br
+                          %span.smaller= h(wishlist.note)
+                        %td{ :style => 'width: 90px'}= h(wishlist.priority.titlecase)
+                        %td.lootfactor= loot_factor(wishlist.member.lf_type(wishlist.priority))
+          .notice.hide
+        %ul.post_controls
+          %li.top= link_to(image_tag('http://www.juggernautguild.com/public/style_images/splat/post_top.png', :alt => '') + ' Back to top', '#top', :class => 'top')
      
 - unless @zone.nil? or @boss.nil?
   :javascript

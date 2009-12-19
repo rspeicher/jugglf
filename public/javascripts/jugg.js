@@ -25,7 +25,7 @@ $(document).ready(function() {
  * boss     integer     ID of the current Boss row
  */
 function wishlistMenu(zone, boss) {
-    $('#sidebar ul ul').each(function() {
+    $('div.author_info ul ul').each(function() {
         if ($(this).attr('id') != 'loot_table_' + zone) {
             $(this).hide();
         }
@@ -57,7 +57,7 @@ function wishlistHideUnwanted() {
         
         // Hide the clipboard icon if 0 or 1 people want this, since there'd be nothing to compare
         if (wishes == 0 || wishes == 1) {
-            $(this).children('h4').children('a').hide();
+            $(this).children('p.posted_info').children('a').hide();
         }
     });
     

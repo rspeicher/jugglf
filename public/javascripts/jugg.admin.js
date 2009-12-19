@@ -19,14 +19,14 @@ function findItemPrice(path) {
  */
 function wishlistCompare(id) {
     // Whisper, item name
-    str = '/w Tsigo compare [' + $('#loot_table_' + id + ' h4 span:first').text() + '],';
+    str = '/w Tsigo compare [' + $('#loot_table_' + id + ' p.posted_info span:first').text() + '],';
     
     // Build an array of "<Name> <type>" strings
     names = new Array();
     $('#loot_table_' + id + ' table tbody tr').each(function() {
         names.push(
-            $(this).children('td:eq(0)').children('a').text() + ' ' + // Name
-            $(this).children('td:eq(2)').text().substr(0,3).toLowerCase()); // Tell Type
+            $(this).find('td.member span.larger a').text() + ' ' + // Name
+            $(this).children('td:eq(1)').text().substr(0,3).toLowerCase()); // Tell Type
     });
     str += names.join(',');
     

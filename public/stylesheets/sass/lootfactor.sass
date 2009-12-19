@@ -11,6 +11,11 @@
     
 #ipbwrapper .q1, #ipbwrapper .q1 a, .ac_results .q1, .ac_results .q1 a
   color: #000000 !important
+  
+span.larger
+  font-size: 110%
+span.smaller
+  font-size: 85%
     
 // Success/Failure flash notice divs ------------------------------------------
 .positive
@@ -131,6 +136,36 @@ body#raids_root
             float: right
   #drops
     clear: left
+
+// Wishlists#index ------------------------------------------------------------
+body#wishlists_root
+  .author_info
+    ul
+      padding: 0 0 10px 0
+      li
+        padding: 0 0 0 15px
+  .post_body
+    p.posted_info
+      font-size: 1.3em
+      font-weight: bold
+      a
+        text-decoration: none
+      img
+        float: right
+    table
+      margin-bottom: 15px
+      border-bottom: 3px solid #C1C1C1
+    div.notice
+      margin: 10px
+      padding: 10px
+      -moz-border-radius: 2px
+      -webkit-border-radius: 2px
+      background-color = !notice_background
+      border: 1px solid
+        color = !notice_border_color
+      color: #000000
+      a
+        color: #000000
 
 // Autocomplete ---------------------------------------------------------------
 .ac_results
