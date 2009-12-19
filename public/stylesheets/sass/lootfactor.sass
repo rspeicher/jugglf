@@ -1,5 +1,14 @@
 @import constants.sass
 
+// IPB Style overrides --------------------------------------------------------
+ul#section_links
+  li
+    // border-right: 1px solid #CCC
+    margin: 0 5px
+  li.last
+    border-right: 0
+    margin: 0
+
 // Override WoW class styling -------------------------------------------------
 .Death_Knight, .Death, .Knight, .Deathknight, .Druid, .Hunter, .Mage, .Paladin, .Shaman, .Priest, .Rogue, .Warlock, .Warrior
   &, &:link, &:visited
@@ -25,7 +34,9 @@ span.smaller
   
 div.message.success
   cursor: pointer
+  margin: 10px 0
 div.message.error
+  margin: 10px 0
   .errorExplanation
     ul
       list-style-type: disc
