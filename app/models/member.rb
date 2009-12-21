@@ -43,7 +43,7 @@ class Member < ActiveRecord::Base
   
   belongs_to :rank, :class_name => "MemberRank", :foreign_key => "rank_id"
 
-  belongs_to :user, :class_name => "InvisionUser", :foreign_key => "user_id"  
+  belongs_to :user, :class_name => "InvisionBridge::InvisionUser", :foreign_key => "user_id"
 
   has_many :wishlists, :include => :item, :order => 'priority', :dependent => :destroy
   
