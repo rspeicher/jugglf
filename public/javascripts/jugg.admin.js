@@ -1,6 +1,10 @@
 $(function() {
-    $('ul.topic_moderation').moderation();
+    setupModeration();
 });
+
+function setupModeration() {
+    $('ul.topic_moderation').moderation();
+}
 
 /**
  * Given a price_loot_path value, fetch the value of the item and update the
