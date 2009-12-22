@@ -12,9 +12,9 @@
   %h3= "Dropped by #{@loot_table.parent.object.name} in #{@loot_table.parent.parent.object.name}"
 %div.category_block.block_wrap
   #item_tabs
-    %ol.tab_bar.no_title.mini
-      %li= link_to("Loots (#{@loots.size})",         '#t-loots')
-      %li= link_to("Wishlists (#{@wishlists.size})", '#t-wishlists')
+    %ul.tab_bar.no_title.mini
+      %li.tab_toggle= link_to(content_tag(:span, "Loots (#{@loots.size})"),         '#t-loots')
+      %li.tab_toggle= link_to(content_tag(:span, "Wishlists (#{@wishlists.size})"), '#t-wishlists')
     #t-loots
       %table#loot.ipb_table.tablesorter
         %thead
