@@ -1,11 +1,3 @@
-$(function() {
-    setupModeration();
-});
-
-function setupModeration() {
-    $('ul.topic_moderation').moderation();
-}
-
 /**
  * Given a price_loot_path value, fetch the value of the item and update the
  * loot_price field to the returned value.

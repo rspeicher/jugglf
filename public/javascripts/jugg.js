@@ -6,7 +6,13 @@ $(document).ready(function() {
     $('div.message.success').click(function() {
         $(this).fadeOut('slow');
     });
+    
+    setupModeration();
 });
+
+function setupModeration() {
+    $('ul.topic_moderation').moderation();
+}
 
 // function initToggles() {
 //     $('.toggle').click(function() {
