@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // Make the page viewable to those allowing Javascript
-    $('#ipbwrapper').removeClass('hide');
+    // $('#ipbwrapper').removeClass('hide');
     
     // Make success messages clickable to hide them
     $('div.message.success').click(function() {
