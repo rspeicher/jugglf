@@ -110,10 +110,10 @@ module Juggy
           "Wrathstone"                        => 0.00,
           
           # Patch 3.2 [245 price, 258 price]
-          "Death's Choice"        => [1.00, 2.00],
-          "Juggernaut's Vitality" => [1.00, 2.00],
-          "Reign of the Dead"     => [1.00, 2.00],
-          "Solace of the Fallen"  => [1.00, 2.00],
+          "Death's Choice"        => [2.00, 4.00],
+          "Juggernaut's Vitality" => [2.00, 4.00],
+          "Reign of the Dead"     => [2.00, 4.00],
+          "Solace of the Fallen"  => [2.00, 4.00],
           
           # Patch 3.3 [264 price, 277 price]
           "Althor's Abacus"          => [2.00, 4.00],
