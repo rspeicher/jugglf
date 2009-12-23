@@ -21,9 +21,9 @@ namespace :juggernaut do
   desc "Update Loot prices based on ItemPrice values"
   task :prices => [:environment] do
     ip = Juggy::ItemPrice.instance
-    # 2008-11-05 was our last TBC raid; 
+    # 2009-04-14 was the 3.1 patch release;
     # 1588 is the Fragment of Val'anyr ID, which we don't want to re-price since some of them have to be 5.00
-    Loot.find_each(:conditions => ["purchased_on > ? AND item_id != ?", '2008-11-05', 1588]) do |loot|
+    Loot.find_each(:conditions => ["purchased_on > ? AND item_id != ?", '2009-04-14', 1588]) do |loot|
       if loot.item.wow_id.nil?
         puts "Critical: #{loot.item.name} does not have a valid Item record; will not be able to determine price"
       else
