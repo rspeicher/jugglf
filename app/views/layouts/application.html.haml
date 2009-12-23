@@ -12,7 +12,7 @@
     = javascript_include_tag 'jugg.core', 'jugg', 'jugg.autocomplete', 'jugg.tablesorter', :cache => 'application'
     - if admin?
       = javascript_include_tag 'jugg.admin'
-    / = javascript_include_tag 'http://static.wowhead.com/widgets/power.js'
+    = javascript_include_tag 'http://static.wowhead.com/widgets/power.js'
   %body.lf{ :id => "#{controller.controller_name}_root" }
     #ipbwrapper
       %h1= @page_title || page_title
