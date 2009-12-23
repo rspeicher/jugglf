@@ -39,9 +39,9 @@ function wishlistSortTables() {
         // tablesorter had some errors with trying to sort a table that only had one row
         if ($(this).children('tbody').children('tr').length > 1) {
             $(this).tablesorter({
-                sortList: [[2,0], [3,0]],
+                sortList: [[1,0], [2,0]],
                 widgets: ['zebra'],
-                headers: { 2: { sorter: 'wishlist' }, 3: { sorter: 'currency' } }
+                headers: { 1: { sorter: 'wishlist' }, 2: { sorter: 'currency' } }
             });
         }
     });
