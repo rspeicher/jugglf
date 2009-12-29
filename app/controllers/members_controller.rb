@@ -130,7 +130,7 @@ class MembersController < ApplicationController
     end
     
     def field_collections
-      @users = InvisionBridge::InvisionUser.juggernaut
+      @users = User.juggernaut
       @ranks = MemberRank.find(:all, :order => 'name')
     end
     

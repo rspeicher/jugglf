@@ -64,5 +64,5 @@ def login(type = nil, args = {})
   type = nil unless type == :admin
   
   activate_authlogic
-  UserSession.create(InvisionBridge::InvisionUser.make_unsaved(type, args))
+  UserSession.create(User.make_unsaved(type, args))
 end

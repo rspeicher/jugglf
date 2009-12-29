@@ -13,12 +13,12 @@ describe ApplicationHelper do
     end
     
     it "should return false if the current user is not an admin" do
-      stub!(:current_user).and_return(mock_model(InvisionBridge::InvisionUser, :is_admin? => false))
+      stub!(:current_user).and_return(mock_model(User, :is_admin? => false))
       admin?.should be_false
     end
     
     it "should return true if the current user is an admin" do
-      stub!(:current_user).and_return(mock_model(InvisionBridge::InvisionUser, :is_admin? => true))
+      stub!(:current_user).and_return(mock_model(User, :is_admin? => true))
       admin?.should be_true
     end
   end
