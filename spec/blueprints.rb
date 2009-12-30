@@ -100,6 +100,7 @@ LootTable.blueprint do
 end
 
 # -----------------------------------------------------------------------------
+
 User.blueprint do
   name
   member_group_id { 1 }
@@ -109,4 +110,13 @@ User.blueprint do
 end
 User.blueprint(:admin) do
   member_group_id { 4 }
+end
+
+# -----------------------------------------------------------------------------
+
+LiveLoot.blueprint do
+  wow_id
+  item_name
+  member_name { Sham.name }
+  loot_type { nil }
 end
