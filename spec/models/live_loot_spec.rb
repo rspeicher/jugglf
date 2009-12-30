@@ -20,7 +20,8 @@ describe LiveLoot do
     @live_loot.should be_valid
   end
   
-  it { should validate_presence_of(:item_name) }
+  it { should belong_to(:item) }
+  it { should belong_to(:member) }
   
   it { should allow_value(nil).for(:loot_type) }
   it { should allow_value('bis').for(:loot_type) }
@@ -31,17 +32,66 @@ describe LiveLoot do
   it { should_not allow_value('BiS').for(:loot_type) }
   
   it { should allow_mass_assignment_of(:wow_id) }
+  it { should allow_mass_assignment_of(:item_id) }
   it { should allow_mass_assignment_of(:item_name) }
+  it { should allow_mass_assignment_of(:member_id) }
   it { should allow_mass_assignment_of(:member_name) }
   it { should allow_mass_assignment_of(:loot_type) }
 end
 
+describe LiveLoot, "item assocation" do
+  describe "with an existing item" do
+    before(:each) do
+      @item = Item.make(:wow_id => 12345, :name => 'LiveLootItem')
+      @live_loot = LiveLoot.make_unsaved(:wow_id => nil, :item_name => nil, :member_name => nil)
+    end
+  
+    it "should set the value of item_id based on wow_id, if given" do
+      lambda { @live_loot.wow_id = 12345 }.should change(@live_loot, :item_id).to(@item.id)
+    end
+  
+    it "should set the value of item_id based on item_name, if wow_id is unavailable" do
+      lambda { @live_loot.item_name = 'LiveLootItem' }.should change(@live_loot, :item_id).to(@item.id)
+    end
+  end
+  
+  describe "with a new item" do
+    # TODO: Should we just let it make the item?
+  end
+end
+
+describe LiveLoot, "member association" do
+  describe "with an existing member" do
+    before(:each) do
+      @member = Member.make(:name => 'LiveLooter')
+      @live_loot = LiveLoot.make_unsaved(:wow_id => nil, :item_name => nil, :member_name => nil)
+    end
+  
+    it "should set the value of member_id based on member_name" do
+      lambda { @live_loot.member_name = 'LiveLooter' }.should change(@live_loot, :member_id).to(@member.id)
+    end
+  end
+  
+  describe "with a new member" do
+    before(:each) do
+      @live_loot = LiveLoot.make_unsaved(:wow_id => nil, :item_name => nil, :member_name => nil)
+    end
+    
+    it "should raise an exception, maybe?" do
+      lambda {
+        @live_loot.member_name = 'InvalidMember'
+        @live_loot.save!
+      }.should raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
+end
+
 describe LiveLoot, ".from_text" do
   before(:all) do
-    @text = "DE, Tsigo - [Snowserpent Mail Helm]|49952\n" +
-      "Duskshadow - [Crushing Coldwraith Belt]|49978\n" +
-      "Sebudai (sit) - Stygian Bladebreaker|47255\n" +
-      "Kazanir bis - [Death's Choice]|47303\n"
+    @text = "DE, Tsigo - [Death's Choice]|47303\n" +
+      "Tsigo - [Death's Choice]|47303\n" +
+      "Tsigo (sit) - Death's Choice|47303\n" +
+      "Tsigo bis - [Death's Choice]|47303\n"
   end
   
   it "should return an empty array if no text is given" do
@@ -50,12 +100,16 @@ describe LiveLoot, ".from_text" do
   
   describe "parsing" do
     before(:all) do
+      [Member, Item].each(&:destroy_all)
+      Member.make(:name => 'Tsigo')
+      Item.make(:wow_id => 47303, :name => "Death's Choice")
+      
       @expected = [
-        { :wow_id => 49952, :item_name => "Snowserpent Mail Helm",    :member_name => nil,          :loot_type => nil },
-        { :wow_id => 49952, :item_name => "Snowserpent Mail Helm",    :member_name => "Tsigo",      :loot_type => nil },
-        { :wow_id => 49978, :item_name => "Crushing Coldwraith Belt", :member_name => "Duskshadow", :loot_type => nil },
-        { :wow_id => 47255, :item_name => "Stygian Bladebreaker",     :member_name => "Sebudai",    :loot_type => 'sit' },
-        { :wow_id => 47303, :item_name => "Death's Choice",           :member_name => "Kazanir",    :loot_type => 'bis' },
+        { :wow_id => 47303, :item_name => "Death's Choice", :member_name => nil,     :loot_type => nil },
+        { :wow_id => 47303, :item_name => "Death's Choice", :member_name => "Tsigo", :loot_type => nil },
+        { :wow_id => 47303, :item_name => "Death's Choice", :member_name => "Tsigo", :loot_type => nil },
+        { :wow_id => 47303, :item_name => "Death's Choice", :member_name => "Tsigo", :loot_type => 'sit' },
+        { :wow_id => 47303, :item_name => "Death's Choice", :member_name => "Tsigo", :loot_type => 'bis' },
       ]
       
       @loots = LiveLoot.from_text(@text)

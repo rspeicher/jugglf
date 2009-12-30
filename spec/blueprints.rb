@@ -117,6 +117,5 @@ end
 LiveLoot.blueprint do
   wow_id
   item_name
-  member_name { Sham.name }
   loot_type { nil }
 end

@@ -10,9 +10,42 @@
 #
 
 class LiveLoot < ActiveRecord::Base
-  attr_accessible :wow_id, :item_name, :member_name, :loot_type
-  validates_presence_of :item_name
+  belongs_to :item, :autosave => true, :readonly => true
+  belongs_to :member, :readonly => true
+  
+  attr_accessible :wow_id, :item_id, :item_name, :member_id, :member_name, :loot_type
+  
   validates_inclusion_of :loot_type, :in => %w(bis rot sit bisrot), :allow_nil => true
+  
+  # Attempts to associate with an +Item+ given its +wow_id+
+  def wow_id=(value)
+    self.item = Item.find_or_initialize_by_wow_id(value)
+  end
+  
+  # Returns the +wow_id+ attribute of the associated +Item+, if present.
+  def wow_id
+    self.item.wow_id unless self.item_id.nil?
+  end
+  
+  # Attempts to associate with an +Item+ given its +name+
+  def item_name=(value)
+    self.item = Item.find_or_initialize_by_name(value)
+  end
+  
+  # Returns the +name+ attribute of the associated +Item+, if present.
+  def item_name
+    self.item.name unless self.item_id.nil?
+  end
+  
+  # Attempts to associate with a +Member+ given its +name+
+  def member_name=(value)
+    self.member = Member.find_or_initialize_by_name(value)
+  end
+  
+  # Returns the +name+ attribute of the associated +Member+, if present.
+  def member_name
+    self.member.name unless self.member_id.nil?
+  end
   
   # Takes a block of text in a specific format and creates instances of +LiveLoot+ objects.
   #
@@ -64,4 +97,11 @@ class LiveLoot < ActiveRecord::Base
   
   # Dummy method for Formtastic
   attr_accessor :input_text # :nodoc:
+  
+  protected
+    def validate_on_create
+      if self.member.present? and self.member.new_record?
+        errors.add('member_id', "attempted to assign loot to a member who did not yet exist")
+      end
+    end
 end

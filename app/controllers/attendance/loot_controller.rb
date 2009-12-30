@@ -2,7 +2,7 @@ class Attendance::LootController < ApplicationController
   before_filter :require_admin
 
   def edit
-    @loots = LiveLoot.all
+    @loots = LiveLoot.find(:all, :include => [:item, :member], :order => "id DESC")
     
     respond_to do |wants|
       wants.html
@@ -24,7 +24,7 @@ class Attendance::LootController < ApplicationController
       ensure
         respond_to do |wants|
           wants.html { redirect_to edit_live_loot_path(1) } # TODO: What ID do we want to use?
-          wants.js
+          wants.js # FIXME: Rows are prepended regardless success or failure
         end
       end
     end
