@@ -8,7 +8,6 @@ require 'fakeweb'
 require 'blueprints'
 require 'authlogic/test_case'
 require 'invision_bridge'
-require 'invision_bridge/spec_helper'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
