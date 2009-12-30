@@ -1,0 +1,2 @@
+module Attendance::LootHelper
+end

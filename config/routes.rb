@@ -8,6 +8,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :achievements, :only => [:index]
   map.resources :wishlists, :only => [:index]
   
+  map.resources :live_loots, :controller => 'attendance/loot'
+  
+  # map.resources :live_raids, :as => 'attendance', :controller => 'attendance', :member => { :stop => :get, :resume => :get, :insert => :get } do |live|
+  #   live.resources :live_attendees, :as => 'attendees', :controller => 'attendance_attendees', :only => [:update]
+  #   live.resources :live_loots,     :as => 'loots',     :controller => 'attendance_loots',     :only => [:edit, :update, :destroy]
+  # end
+  
   map.resource :user_session, :only => [:new, :create, :destroy]
 
   map.connect 'search/:context.:format',        :controller => 'search', :action => 'index'

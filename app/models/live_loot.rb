@@ -61,4 +61,9 @@ class LiveLoot < ActiveRecord::Base
   
     retval
   end
+  
+  # Dummy method to allow us to use Formtastic
+  def input_text #:nodoc:
+    ''
+  end
 end
