@@ -6,6 +6,7 @@ require 'spec/autorun'
 require 'spec/rails'
 require 'fakeweb'
 require 'blueprints'
+require 'shoulda'
 require 'authlogic/test_case'
 require 'invision_bridge'
 

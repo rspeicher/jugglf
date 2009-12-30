@@ -5,12 +5,14 @@ require 'faker'
 Sham.define do
   name { Faker::Name.first_name }
   price(:unique => false) { 1.0 }
+  wow_id { Faker::Address.zip_code }
+  item_name { Faker::Lorem.words(2) }
 end
 
 Achievement.blueprint do
   title { Faker::Lorem.words(5) }
   icon { 'icon' }
-  armory_id { Faker::Address.zip_code }
+  armory_id { Sham.wow_id }
 end
 CompletedAchievement.blueprint do
   member
@@ -43,7 +45,7 @@ Attendee.blueprint do
 end
 
 Item.blueprint do
-  name { Faker::Lorem.words(2) }
+  name { Sham.item_name }
   wow_id { 12345 }
   color { 'q4' }
   icon { 'INV_Icon_01' }
