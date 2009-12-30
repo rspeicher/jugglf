@@ -1,0 +1,5 @@
+%tr{ :class => cycle('row1', 'row2') }[loot_row]
+  %td
+    = loot_row.wow_id
+  %td= h(loot_row.member_name)
+  %td= loot_row.loot_type

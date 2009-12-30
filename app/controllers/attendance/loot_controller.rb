@@ -24,6 +24,7 @@ class Attendance::LootController < ApplicationController
       ensure
         respond_to do |wants|
           wants.html { redirect_to edit_live_loot_path(1) } # TODO: What ID do we want to use?
+          wants.js
         end
       end
     end

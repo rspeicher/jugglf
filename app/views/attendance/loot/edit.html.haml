@@ -1,9 +1,8 @@
-- semantic_form_for :live_loot, LiveLoot.new, :url => live_loot_path, :html => {:method => :put} do |form|
+- semantic_remote_form_for :live_loot, LiveLoot.new, :url => live_loot_path, :html => {:method => :put} do |form|
   - form.inputs do
     = form.input :input_text, :as => :text, :label => 'Loots', :required => false, :input_html => {:size => '60x15'}
   - form.buttons :class => 'submit' do
     = form.submit 'Parse', :class => 'input_submit'
-    
 %div.category_block.block_wrap
   = render :partial => 'shared/maintitle', :object => 'Loots'
   %table.ipb_table
@@ -12,10 +11,5 @@
         %th Name
         %th Buyer
         %th Notes
-    %tbody
-      - @loots.each do |loot|
-        %tr{ :class => cycle('row1', 'row2') }
-          %td
-            = loot.wow_id
-          %td= h(loot.member_name)
-          %td= loot.loot_type
+    %tbody#live_loots
+      = render :partial => 'loot_row', :collection => @loots
