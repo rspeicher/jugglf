@@ -52,7 +52,7 @@ class LiveLoot < ActiveRecord::Base
           loot.wow_id      = matches[3].to_i
           loot.item_name   = matches[2].gsub(/\[(.+)\]/, '\1').strip # Remove brackets
           loot.member_name = buyer.gsub(/^([^\s]+).*/, '\1') unless buyer == 'DE'
-          loot.loot_type   = buyer.gsub(/^(\w+) \(?(bis|rot|bisrot|sit)\)?$/, '\2') if buyer.match(/\s\(?(bis|rot|bisrot|sit)\)?$/)
+          loot.loot_type   = buyer.gsub(/^(\w+)\s\(?([a-z\s]+)\)?$/, '\2') if buyer.match(/\s\(?([a-z\s]+)\)?$/)
           
           retval << loot
         end
@@ -62,8 +62,6 @@ class LiveLoot < ActiveRecord::Base
     retval
   end
   
-  # Dummy method to allow us to use Formtastic
-  def input_text #:nodoc:
-    ''
-  end
+  # Dummy method for Formtastic
+  attr_accessor :input_text # :nodoc:
 end
