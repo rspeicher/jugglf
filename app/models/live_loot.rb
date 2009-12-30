@@ -37,8 +37,13 @@ class LiveLoot < ActiveRecord::Base
     return retval unless input.present?
     
     input.split("\n").each do |line|
+      line.strip!
+      
+      # Expects a member name with optional tell types, a space, a hyphen, a space, and then an item name
+      # with or without brackets and an optional item ID, appended in the format "|12345"
       matches = line.match(/^([\w,\(\)\s]+) - ([^\|]+)(?:\|([0-9]+))?$/)
-      if matches.length >= 2
+      if matches and matches.length >= 2
+        # Handle multiple buyers on the same item
         buyers = matches[1].split(',')
         buyers.each do |buyer|
           buyer.strip!

@@ -51,11 +51,11 @@ describe LiveLoot, ".from_text" do
   describe "parsing" do
     before(:all) do
       @expected = [
-        { :wow_id => 49952, :item_name => "Snowserpent Mail Helm", :member_name => nil, :loot_type => nil },
-        { :wow_id => 49952, :item_name => "Snowserpent Mail Helm", :member_name => "Tsigo", :loot_type => nil },
+        { :wow_id => 49952, :item_name => "Snowserpent Mail Helm",    :member_name => nil,          :loot_type => nil },
+        { :wow_id => 49952, :item_name => "Snowserpent Mail Helm",    :member_name => "Tsigo",      :loot_type => nil },
         { :wow_id => 49978, :item_name => "Crushing Coldwraith Belt", :member_name => "Duskshadow", :loot_type => nil },
-        { :wow_id => 47255, :item_name => "Stygian Bladebreaker", :member_name => "Sebudai", :loot_type => 'sit' },
-        { :wow_id => 47303, :item_name => "Death's Choice", :member_name => "Kazanir", :loot_type => 'bis' },
+        { :wow_id => 47255, :item_name => "Stygian Bladebreaker",     :member_name => "Sebudai",    :loot_type => 'sit' },
+        { :wow_id => 47303, :item_name => "Death's Choice",           :member_name => "Kazanir",    :loot_type => 'bis' },
       ]
       
       @loots = LiveLoot.from_text(@text)
