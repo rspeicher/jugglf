@@ -11,13 +11,20 @@ class Attendance::LootController < ApplicationController
   
   def update
     @loots = LiveLoot.from_text(params[:live_loot][:input_text])
-    begin
-      @loots.each(&:save!)
-    rescue Exception => e
-      flash[:error] = "Could not save all live loot records."
-    else
-      respond_to do |wants|
-        wants.html { redirect_to edit_live_loot_path(1) } # TODO: What ID do we want to use?
+    
+    # FIXME: This works, but if we fail to save the records, we destroy the user's input string.
+    # Maybe store it in a session value and clear it once it works?
+    LiveLoot.transaction do
+      begin
+        @loots.each(&:save!)
+      rescue ActiveRecord::RecordInvalid => e
+        # TODO: We need a detailed error message.
+        flash[:error] = "At least one live loot record was invalid."
+        raise ActiveRecord::Rollback
+      ensure
+        respond_to do |wants|
+          wants.html { redirect_to edit_live_loot_path(1) } # TODO: What ID do we want to use?
+        end
       end
     end
   end
