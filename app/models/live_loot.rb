@@ -25,11 +25,11 @@ class LiveLoot < ActiveRecord::Base
   #
   # ...will return an array with the following *unsaved* objects
   #
-  #   #<LiveLoot id: nil, wow_id: 49952, item_name: "Snowserpent Mail Helm", member_name: nil, loot_type: nil>
-  #   #<LiveLoot id: nil, wow_id: 49952, item_name: "Snowserpent Mail Helm", member_name: "Tsigo", loot_type: nil>
+  #   #<LiveLoot id: nil, wow_id: 49952, item_name: "Snowserpent Mail Helm",    member_name: nil,          loot_type: nil>
+  #   #<LiveLoot id: nil, wow_id: 49952, item_name: "Snowserpent Mail Helm",    member_name: "Tsigo",      loot_type: nil>
   #   #<LiveLoot id: nil, wow_id: 49978, item_name: "Crushing Coldwraith Belt", member_name: "Duskshadow", loot_type: nil>
-  #   #<LiveLoot id: nil, wow_id: 47255, item_name: "Stygian Bladebreaker", member_name: "Sebudai", loot_type: "sit">
-  #   #<LiveLoot id: nil, wow_id: 47303, item_name: "Death's Choice", member_name: "Kazanir", loot_type: "bis">
+  #   #<LiveLoot id: nil, wow_id: 47255, item_name: "Stygian Bladebreaker",     member_name: "Sebudai",    loot_type: "sit">
+  #   #<LiveLoot id: nil, wow_id: 47303, item_name: "Death's Choice",           member_name: "Kazanir",    loot_type: "bis">
   #
   # Note that both the parenthesis around loot types and the brackets around the item name are optional.
   def self.from_text(input)
