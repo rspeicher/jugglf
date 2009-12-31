@@ -69,6 +69,15 @@ module ItemLookup
       28 => 'Relic'
     }
     
+    def initialize(args = {})
+      self.id      = args.delete(:id)
+      self.name    = args.delete(:name)
+      self.quality = args.delete(:quality)
+      self.icon    = args.delete(:icon)
+      self.level   = args.delete(:level)
+      self.heroic  = args.delete(:heroic)
+    end
+    
     def valid?
       @id.present? and @id > 0 and !(@name.empty?) and @quality > -1 and !(@icon.empty?) and @level > -1
     end

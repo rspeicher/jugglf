@@ -14,6 +14,7 @@
 #  created_at      :datetime
 #  updated_at      :datetime
 #  heroic          :boolean(1)
+#  authentic       :boolean(1)
 #
 
 class Item < ActiveRecord::Base
@@ -23,7 +24,7 @@ class Item < ActiveRecord::Base
   has_many :loot_tables, :as => :object, :dependent => :destroy
   
   # Attributes ----------------------------------------------------------------
-  attr_accessible :name, :wow_id, :color, :icon, :level, :slot
+  attr_accessible :name, :wow_id, :color, :icon, :level, :slot, :heroic
   
   searchify :name
   def self.search_name_or_wow_id(query, options={})
@@ -36,13 +37,10 @@ class Item < ActiveRecord::Base
   end
   
   # Validations ---------------------------------------------------------------
-  # Check that name exists, but only if we don't have a wow_id, since we allow
-  # lookup by name OR wow_id
-  validates_presence_of :name, :if => Proc.new { |item| item.wow_id.nil? }
   validates_uniqueness_of :name, :scope => :wow_id
+  validates_uniqueness_of :wow_id
   
   # Callbacks -----------------------------------------------------------------
-  before_save :get_name_from_wow_id
   
   # Class Methods -------------------------------------------------------------
   # Allows the user to pass either an integer to FoC by wow_id, or a string to FoC by name
@@ -62,43 +60,9 @@ class Item < ActiveRecord::Base
     end
   end
   
-  # Moves one item's children from one Item to another to safely handle duplicate
-  # item names.
-  def self.safely_rename(args = {})
-    return if args.length < 2
-    return if args[:from].nil? or args[:to].nil?
-    
-    from = ( args[:from].is_a? String ) ? Item.find_by_name(args[:from]) : Item.find(args[:from])
-    to   = ( args[:to].is_a? String )   ? Item.find_by_name(args[:to])   : Item.find(args[:to])
-    
-    to.loots       += from.loots
-    to.wishlists   += from.wishlists
-    to.loot_tables += from.loot_tables
-    
-    Item.update_counters(to.id, :loots_count => from.loots_count, 
-      :wishlists_count => from.wishlists_count)
-    
-    from.delete
-    
-    return to
-  end
-  
   # Instance Methods ----------------------------------------------------------
-  def wowhead_link
-    "http://www.wowhead.com/?item=#{self.wow_id}"
-  end
-  def wowhead_icon(size = 'small')
-    size = size.to_s if size.respond_to? 'to_s'
-    
-    if self.icon.present?
-      "http://static.wowhead.com/images/icons/#{size.downcase}/#{self.icon.downcase}.jpg"
-    else
-      ''
-    end
-  end
-  
   def needs_lookup?
-    !(self.name.present? and self.wow_id.present?)
+    !self.authentic?
   end
   
   def lookup!(force_refresh = false)
@@ -128,16 +92,41 @@ class Item < ActiveRecord::Base
       end
     end
     
+    def validate
+      self.get_name_from_wow_id
+      
+      unless self.authentic?
+        self.errors.add_to_base("Attempted to save an invalid item")
+      end
+    end
+    
+    # Given a +query+, either a WoW ID or an Item name, performs an item lookup
+    # via wowarmory.com
+    #
+    # Sets the following attributes on the current +Item+:
+    # - +wow_id+
+    # - +name+
+    # - +color+
+    # - +icon+
+    # - +level+
+    # - +slot+
+    # - +heroic+
+    # - +authentic+
     def stat_lookup(query)
       result = ItemLookup.search(query, :source => 'armory').best_result
       if result.valid?
-        self.wow_id = result.id
-        self.name   = result.name
-        self.color  = result.css_quality
-        self.icon   = result.icon
-        self.level  = result.level
-        self.slot   = result.slot
-        self.heroic = result.heroic
+        self.wow_id    = result.id
+        self.name      = result.name
+        self.color     = result.css_quality
+        self.icon      = result.icon
+        self.level     = result.level
+        self.slot      = result.slot
+        self.heroic    = result.heroic
+        self.authentic = true
+        
+        return true
+      else
+        return false
       end
     end
 end

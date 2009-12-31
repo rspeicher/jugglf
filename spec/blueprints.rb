@@ -46,20 +46,20 @@ end
 
 Item.blueprint do
   name { Sham.item_name }
-  wow_id { 12345 }
+  wow_id
   color { 'q4' }
   icon { 'INV_Icon_01' }
   level { 223 }
   slot { 'Trinket' }
+  authentic { true } # Not really, but it for the purposes of specs it's fine?
 end
-# Item.blueprint(:with_stats) do
-# end
 Item.blueprint(:with_real_stats) do
   name { 'Torch of Holy Fire' }
   wow_id { 40395 }
   icon { 'INV_Mace_82' }
   level { 226 }
   slot { 'Main Hand' }
+  authentic { true }
 end
 Loot.blueprint do
   item

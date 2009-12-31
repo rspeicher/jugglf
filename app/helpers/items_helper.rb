@@ -14,6 +14,16 @@ module ItemsHelper
     wowhead_link(item, options)
   end
   
+  def wowhead_item_icon(icon, size = 'small')
+    size = size.to_s if size.respond_to? 'to_s'
+    
+    if icon.present?
+      "http://static.wowhead.com/images/icons/#{size.downcase}/#{icon.downcase}.jpg"
+    else
+      ''
+    end
+  end
+  
   private
     def stat_lookup(item)
       if item.wow_id.nil?
@@ -38,7 +48,7 @@ module ItemsHelper
           link_to(truncate(h(item.name), :length => 80), item_path(item), 
             :class => item.color, :rel => "item=#{item.wow_id}").gsub(/"/, "'")
         else
-          link_to(truncate(h(item.name), :length => 80), item.wowhead_link, 
+          link_to(truncate(h(item.name), :length => 80), "http://www.wowhead.com/?item=#{item.wow_id}", 
             :class => item.color, :target => '_new').gsub(/"/, "'")
         end
       end

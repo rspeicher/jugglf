@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091230223431) do
+ActiveRecord::Schema.define(:version => 20091231211108) do
 
   create_table "achievements", :force => true do |t|
     t.integer "armory_id"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20091230223431) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "heroic",                         :default => false
+    t.boolean  "authentic"
   end
 
   add_index "items", ["name", "wow_id"], :name => "index_items_on_name_and_wow_id", :unique => true

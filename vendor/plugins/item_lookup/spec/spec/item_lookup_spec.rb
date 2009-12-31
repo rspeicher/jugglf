@@ -44,12 +44,13 @@ describe ItemLookup::Results do
 end
 
 describe ItemLookup::Result do
-  before(:each) do
-    @result = ItemLookup::Result.new
+  it "should not validate by default" do
+    ItemLookup::Result.new.valid?.should be_false
   end
   
-  it "should be invalid" do
-    @result.valid?.should be_false
+  it "should accept properties in its initializer" do
+    result = ItemLookup::Result.new(:id => 1, :name => 'a', :quality => 1, :icon => 'b', :level => 1)
+    result.valid?.should be_true
   end
 end
 

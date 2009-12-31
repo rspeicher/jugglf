@@ -105,12 +105,12 @@ describe Loot do
   
   describe "#item_name" do
     it "should return wow_id if present" do
-      @loot.item_name.should eql(12345)
+      @loot.item_name.should eql(@loot.item.wow_id)
     end
     
     it "should return item's name wow_id is nil" do
       @loot.item.wow_id = nil
-      @loot.item_name.should eql('Item')
+      @loot.item_name.should eql(@loot.item.name)
     end
     
     it "should otherwise return nil" do
