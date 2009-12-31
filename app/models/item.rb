@@ -67,10 +67,7 @@ class Item < ActiveRecord::Base
   
   def lookup!(force_refresh = false)
     self.lookup(force_refresh)
-    
-    if self.valid?
-      self.save
-    end
+    self.save
   end
   def lookup(force_refresh = false)
     if force_refresh or self.needs_lookup?
@@ -85,13 +82,6 @@ class Item < ActiveRecord::Base
   end
   
   protected
-    def get_name_from_wow_id
-      if self.wow_id.present? and self.name.blank?
-        # Record was probably created with nothing but a wow_id; perform a lookup
-        stat_lookup(self.wow_id)
-      end
-    end
-    
     def validate
       self.lookup
       

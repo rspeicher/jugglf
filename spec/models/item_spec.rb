@@ -132,6 +132,24 @@ describe Item, "automatic stat lookup before save" do
   end
 end
 
+describe Item, "#lookup!" do
+  before(:each) do
+    @item = Item.make
+  end
+  
+  it "should call lookup" do
+    @item.should_receive(:lookup).with(true)
+    @item.stub!(:save).and_return(true)
+    @item.lookup!(true)
+  end
+  
+  it "should call save" do
+    @item.stub!(:lookup).and_return(true)
+    @item.should_receive(:save).and_return(true)
+    @item.lookup!(true)
+  end
+end
+
 describe Item, "#lookup" do
   it "should not perform a lookup unless it's necessary" do
     item = Item.make(:with_real_stats)
