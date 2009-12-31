@@ -67,18 +67,18 @@ describe LiveLoot, "member association" do
     end
   end
   
-  describe "with a new member" do
-    before(:each) do
-      @live_loot = LiveLoot.make_unsaved(:wow_id => nil, :member_name => nil)
-    end
-    
-    it "should raise an exception, maybe?" do
-      lambda {
-        @live_loot.member_name = 'InvalidMember'
-        @live_loot.save!
-      }.should raise_error(ActiveRecord::RecordInvalid)
-    end
-  end
+  # describe "with a new member" do
+  #   before(:each) do
+  #     @live_loot = LiveLoot.make_unsaved(:wow_id => nil, :member_name => nil)
+  #   end
+  #   
+  #   it "should raise an exception, maybe?" do
+  #     lambda {
+  #       @live_loot.member_name = 'InvalidMember'
+  #       @live_loot.save!
+  #     }.should raise_error(ActiveRecord::RecordInvalid)
+  #   end
+  # end
 end
 
 describe LiveLoot, ".from_text" do
