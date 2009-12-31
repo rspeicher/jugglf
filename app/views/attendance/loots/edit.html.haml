@@ -1,6 +1,7 @@
 - semantic_remote_form_for :live_loot, LiveLoot.new, :url => live_loot_path, :html => {:method => :put} do |form|
+  %div#form_errors.message.error.hide
   - form.inputs do
-    = form.input :input_text, :as => :text, :label => 'Loots', :required => false, :input_html => {:size => '60x15'}
+    = form.input :input_text, :as => :text, :label => 'Loots', :required => false, :input_html => {:size => '90x10'}
   - form.buttons :class => 'submit' do
     = form.submit 'Parse', :class => 'input_submit'
 %div.category_block.block_wrap
