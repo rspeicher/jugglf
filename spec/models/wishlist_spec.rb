@@ -46,10 +46,11 @@ describe Wishlist do
       @wishlist.item_name = 'ExistingItem'
       @wishlist.item_id.should eql(item.id)
     end
-    
-    it "should create the item if no item was found" do
-      lambda { @wishlist.item_name = 'NewItem' }.should change(Item, :count).by(1)
-    end
+
+    # NOTE: Disabled behavior
+    # it "should create the item if no item was found" do
+    #   lambda { @wishlist.item_name = 'NewItem' }.should change(Item, :count).by(1)
+    # end
   end
   
   describe "#wow_id" do
