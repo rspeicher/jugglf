@@ -22,6 +22,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Item do
   before(:each) do
     @item = Item.make(:with_real_stats)
+    ItemLookup.stub!(:search).and_return(valid_lookup_results)
   end
   
   it "should be valid" do
@@ -97,45 +98,24 @@ describe Item, "#needs_lookup?" do
   end
 end
 
-
-# Stub out the return value of ItemLookup.search, so we're testing its usage
-# and not its implementation
-def valid_results
-  results = ItemLookup::Results.new
-  result = ItemLookup::Result.new({
-    :id      => 40395,
-    :name    => 'Torch of Holy Fire',
-    :quality => 4,
-    :icon    => 'INV_Mace_82',
-    :level   => 226,
-    :heroic  => false
-  })
-  results << result
-end
-def invalid_results
-  results = ItemLookup::Results.new
-  result = ItemLookup::Result.new
-  results << result
-end
-
 describe Item, "automatic stat lookup before save" do
   describe "with a valid item" do
     before(:each) do
       Item.destroy_all
-      @item = Item.make_unsaved(:wow_id => 40395, :name => nil)
     end
   
     it "should perform a lookup when name is nil" do
+      item = Item.make_unsaved(:wow_id => 40395, :name => nil, :authentic => false)
       lambda {
-        ItemLookup.should_receive(:search).with(40395, anything()).and_return(valid_results)
-        @item.save
-      }.should change(@item, :name).from(nil).to('Torch of Holy Fire')
+        ItemLookup.should_receive(:search).with(40395, anything()).and_return(valid_lookup_results)
+        item.save
+      }.should change(item, :name).from(nil).to('Torch of Holy Fire')
     end
   
     it "should do nothing when name is not nil" do
+      item = Item.make_unsaved(:with_real_stats)
       ItemLookup.should_not_receive(:search)
-      @item.name = "Item"
-      lambda { @item.save }.should_not change(@item, :name)
+      lambda { item.save }.should_not change(item, :name)
     end
   end
   
@@ -143,7 +123,7 @@ describe Item, "automatic stat lookup before save" do
     before(:each) do
       Item.destroy_all
       @item = Item.make_unsaved(:wow_id => 654321, :name => nil, :authentic => false)
-      ItemLookup.should_receive(:search).with(654321, anything()).and_return(invalid_results)
+      ItemLookup.should_receive(:search).with(654321, anything()).and_return(invalid_lookup_results)
     end
     
     it "should invalidate record when name is nil after lookup" do
@@ -168,7 +148,7 @@ describe Item, "#lookup" do
       it "should fail silently" do
         item = Item.make_unsaved(:wow_id => nil, :name => 'This Item Does Not Exist')
         lambda {
-          ItemLookup.should_receive(:search).with(item.name, anything()).and_return(invalid_results)
+          ItemLookup.should_receive(:search).with(item.name, anything()).and_return(invalid_lookup_results)
           item.lookup(true)
         }.should_not raise_error(Exception)
       end
@@ -177,13 +157,13 @@ describe Item, "#lookup" do
     describe "with valid item" do
       it "should perform lookup by name" do
         item = Item.make_unsaved(:wow_id => nil, :name => 'Torch of Holy Fire')
-        ItemLookup.should_receive(:search).with('Torch of Holy Fire', anything()).and_return(valid_results)
+        ItemLookup.should_receive(:search).with('Torch of Holy Fire', anything()).and_return(valid_lookup_results)
         lambda { item.lookup(true) }.should change(item, :wow_id).from(nil).to(40395)
       end
 
       it "should perform lookup by wow_id" do
         item = Item.make_unsaved(:wow_id => 40395, :name => nil)
-        ItemLookup.should_receive(:search).with(40395, anything()).and_return(valid_results)
+        ItemLookup.should_receive(:search).with(40395, anything()).and_return(valid_lookup_results)
         lambda { item.lookup(true) }.should change(item, :name).from(nil).to('Torch of Holy Fire')
       end
     end

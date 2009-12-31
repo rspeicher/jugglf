@@ -25,7 +25,8 @@ class Wishlist < ActiveRecord::Base
     self.item.name unless self.item_id.nil?
   end
   def item_name=(value)
-    item = Item.find_by_name(value)
+    # NOTE: Using custom find_or_create_by method here to allow the user to enter an item ID instead of a name
+    item = Item.find_or_create_by_name_or_wow_id(value)
     self.item = item unless item.nil?
   end
   

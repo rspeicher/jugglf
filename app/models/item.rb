@@ -93,7 +93,7 @@ class Item < ActiveRecord::Base
     end
     
     def validate
-      self.get_name_from_wow_id
+      self.lookup
       
       unless self.authentic?
         self.errors.add_to_base("Attempted to save an invalid item")

@@ -46,11 +46,14 @@ describe Wishlist do
       @wishlist.item_name = 'ExistingItem'
       @wishlist.item_id.should eql(item.id)
     end
-
-    # NOTE: Disabled behavior
-    # it "should create the item if no item was found" do
-    #   lambda { @wishlist.item_name = 'NewItem' }.should change(Item, :count).by(1)
-    # end
+    
+    it "should create the item if no item was found" do
+      lambda {
+        # FIXME: This is getting pretty intimate with the way Item works
+        ItemLookup.stub!(:search).and_return(valid_lookup_results)
+        @wishlist.item_name = 'NewItem'
+      }.should change(Item, :count).by(1)
+    end
   end
   
   describe "#wow_id" do
