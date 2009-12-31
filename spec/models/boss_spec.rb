@@ -10,4 +10,13 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Boss do
+  before(:each) do
+    @boss = Boss.make
+  end
+  
+  it "should be valid" do
+    @boss.should be_valid
+  end
+  
+  it { should validate_presence_of(:name) }
 end
