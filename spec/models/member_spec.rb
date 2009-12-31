@@ -34,28 +34,48 @@ describe Member do
     @member.should be_valid
   end
   
+  it { should have_many(:achievements) }
+  it { should have_many(:attendees) }
+  it { should have_many(:completed_achievements) }
+  it { should have_many(:loots) }
+  it { should have_one(:last_loot) }
+  it { should have_many(:punishments) }
+  it { should have_many(:raids) }
+  it { should belong_to(:rank) }
+  it { should belong_to(:user) }
+  it { should have_many(:wishlists) }
+  
+  it { should allow_mass_assignment_of(:name) }
+  it { should allow_mass_assignment_of(:active) }
+  it { should_not allow_mass_assignment_of(:first_raid) }
+  it { should_not allow_mass_assignment_of(:last_raid) }
+  it { should allow_mass_assignment_of(:wow_class) }
+  it { should_not allow_mass_assignment_of(:lf) }
+  it { should_not allow_mass_assignment_of(:sitlf) }
+  it { should_not allow_mass_assignment_of(:bislf) }
+  it { should_not allow_mass_assignment_of(:attendance_30) }
+  it { should_not allow_mass_assignment_of(:attendance_90) }
+  it { should_not allow_mass_assignment_of(:attendance_lifetime) }
+  it { should_not allow_mass_assignment_of(:raids_count) }
+  it { should_not allow_mass_assignment_of(:loots_count) }
+  it { should_not allow_mass_assignment_of(:created_at) }
+  it { should_not allow_mass_assignment_of(:updated_at) }
+  it { should allow_mass_assignment_of(:rank_id) }
+  it { should_not allow_mass_assignment_of(:wishlists_count) }
+  it { should allow_mass_assignment_of(:user_id) }
+  
+  it { should validate_presence_of(:name) }
+  it { should validate_uniqueness_of(:name).with_message(/already exists/) }
+  it { should allow_value(nil).for(:wow_class) }
+  it { should allow_value('Priest').for(:wow_class) }
+  it { should_not allow_value('Invalid').for(:wow_class) }
+  
   it "should have custom to_param" do
     @member.to_param.should eql("#{@member.id}-#{@member.name.parameterize}")
   end
   
   it "should be active by default" do
     @member.active?.should be_true
-  end
-  
-  it "should have raid attendance" do
-    2.times { @member.attendance.make }
-    
-    @member.reload
-    @member.raids_count.should eql(2)
-    @member.raids.size.should eql(2)
-  end
-  
-  it "should have loot purchases" do
-    @member.loots.make
-    
-    @member.reload
-    @member.loots_count.should eql(1)
-    @member.loots.size.should eql(1)
   end
   
   describe "#lf_type" do
