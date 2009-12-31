@@ -10,7 +10,13 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Zone do
-  it "should be valid" do
-    Zone.make.should be_valid
+  before(:each) do
+    @zone = Zone.make
   end
+  
+  it "should be valid" do
+    @zone.should be_valid
+  end
+  
+  it { should validate_presence_of(:name) }
 end
