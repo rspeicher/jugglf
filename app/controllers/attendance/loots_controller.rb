@@ -1,4 +1,4 @@
-class Attendance::LootController < ApplicationController
+class Attendance::LootsController < ApplicationController
   before_filter :require_admin
 
   def edit

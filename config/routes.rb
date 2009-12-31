@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :achievements, :only => [:index]
   map.resources :wishlists, :only => [:index]
   
-  map.resources :live_loots, :controller => 'attendance/loot'
+  map.resources :live_loots, :controller => 'attendance/loots'
   
   # map.resources :live_raids, :as => 'attendance', :controller => 'attendance', :member => { :stop => :get, :resume => :get, :insert => :get } do |live|
   #   live.resources :live_attendees, :as => 'attendees', :controller => 'attendance_attendees', :only => [:update]
