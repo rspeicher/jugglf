@@ -77,6 +77,8 @@ class LiveLoot < ActiveRecord::Base
           
           retval << loot
         end
+      else
+        raise "Invalid loot string format: \"#{line}\""
       end
     end
   

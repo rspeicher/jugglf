@@ -93,7 +93,13 @@ describe LiveLoot, ".from_text" do
     LiveLoot.from_text(nil).should eql([])
   end
   
-  describe "parsing" do
+  describe "parsing invalid text" do
+    it "should not parse an empty buyer string" do
+      lambda { LiveLoot.from_text(" - [Death's Choice]|47303") }.should raise_error(RuntimeError)
+    end
+  end
+  
+  describe "parsing valid text" do
     before(:all) do
       [Member, Item].each(&:destroy_all)
       @member = Member.make(:name => 'Tsigo')

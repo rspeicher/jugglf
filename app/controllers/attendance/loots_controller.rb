@@ -20,8 +20,8 @@ class Attendance::LootsController < ApplicationController
         wants.js
       end
     end
-    rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-      flash[:error] = "At least one loot entry was invalid."
+    rescue RuntimeError, ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid => e
+      flash[:error] = "At least one loot entry was invalid. (#{e.message})"
       respond_to do |wants|
         wants.html { render :action => "edit" }
         wants.js
