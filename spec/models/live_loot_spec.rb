@@ -2,18 +2,18 @@
 #
 # Table name: live_loots
 #
-#  id          :integer(4)      not null, primary key
-#  wow_id      :integer(4)
-#  item_name   :string(255)
-#  member_name :string(255)
-#  loot_type   :string(255)
+#  id        :integer(4)      not null, primary key
+#  loot_type :string(255)
+#  item_id   :integer(4)
+#  member_id :integer(4)
 #
 
 require 'spec_helper'
 
 describe LiveLoot do
   before(:each) do
-    @live_loot = LiveLoot.make
+    # Saving it might force an item lookup, which we don't want
+    @live_loot = LiveLoot.make_unsaved
   end
   
   it "should be valid" do
@@ -33,7 +33,6 @@ describe LiveLoot do
   
   it { should allow_mass_assignment_of(:wow_id) }
   it { should allow_mass_assignment_of(:item_id) }
-  it { should allow_mass_assignment_of(:item_name) }
   it { should allow_mass_assignment_of(:member_id) }
   it { should allow_mass_assignment_of(:member_name) }
   it { should allow_mass_assignment_of(:loot_type) }
@@ -43,15 +42,11 @@ describe LiveLoot, "item assocation" do
   describe "with an existing item" do
     before(:each) do
       @item = Item.make(:wow_id => 12345, :name => 'LiveLootItem')
-      @live_loot = LiveLoot.make_unsaved(:wow_id => nil, :item_name => nil, :member_name => nil)
+      @live_loot = LiveLoot.make_unsaved(:wow_id => nil, :member_name => nil)
     end
   
     it "should set the value of item_id based on wow_id, if given" do
       lambda { @live_loot.wow_id = 12345 }.should change(@live_loot, :item_id).to(@item.id)
-    end
-  
-    it "should set the value of item_id based on item_name, if wow_id is unavailable" do
-      lambda { @live_loot.item_name = 'LiveLootItem' }.should change(@live_loot, :item_id).to(@item.id)
     end
   end
   
@@ -64,7 +59,7 @@ describe LiveLoot, "member association" do
   describe "with an existing member" do
     before(:each) do
       @member = Member.make(:name => 'LiveLooter')
-      @live_loot = LiveLoot.make_unsaved(:wow_id => nil, :item_name => nil, :member_name => nil)
+      @live_loot = LiveLoot.make_unsaved(:wow_id => nil, :member_name => nil)
     end
   
     it "should set the value of member_id based on member_name" do
@@ -74,7 +69,7 @@ describe LiveLoot, "member association" do
   
   describe "with a new member" do
     before(:each) do
-      @live_loot = LiveLoot.make_unsaved(:wow_id => nil, :item_name => nil, :member_name => nil)
+      @live_loot = LiveLoot.make_unsaved(:wow_id => nil, :member_name => nil)
     end
     
     it "should raise an exception, maybe?" do
@@ -101,15 +96,15 @@ describe LiveLoot, ".from_text" do
   describe "parsing" do
     before(:all) do
       [Member, Item].each(&:destroy_all)
-      Member.make(:name => 'Tsigo')
-      Item.make(:wow_id => 47303, :name => "Death's Choice")
+      @member = Member.make(:name => 'Tsigo')
+      @item = Item.make(:wow_id => 47303, :name => "Death's Choice")
       
       @expected = [
-        { :wow_id => 47303, :item_name => "Death's Choice", :member_name => nil,     :loot_type => nil },
-        { :wow_id => 47303, :item_name => "Death's Choice", :member_name => "Tsigo", :loot_type => nil },
-        { :wow_id => 47303, :item_name => "Death's Choice", :member_name => "Tsigo", :loot_type => nil },
-        { :wow_id => 47303, :item_name => "Death's Choice", :member_name => "Tsigo", :loot_type => 'sit' },
-        { :wow_id => 47303, :item_name => "Death's Choice", :member_name => "Tsigo", :loot_type => 'bis' },
+        { :wow_id => 47303, :item => @item, :member => nil,     :loot_type => nil },
+        { :wow_id => 47303, :item => @item, :member => @member, :loot_type => nil },
+        { :wow_id => 47303, :item => @item, :member => @member, :loot_type => nil },
+        { :wow_id => 47303, :item => @item, :member => @member, :loot_type => 'sit' },
+        { :wow_id => 47303, :item => @item, :member => @member, :loot_type => 'bis' },
       ]
       
       @loots = LiveLoot.from_text(@text)
@@ -126,7 +121,7 @@ describe LiveLoot, ".from_text" do
     
     0.upto(4) do |i|
       describe "Loot #{i}" do
-        %w(wow_id item_name member_name loot_type).each do |param|
+        %w(wow_id item member loot_type).each do |param|
           it "should correctly set the #{param} attribute" do
             @loots[i].send(param).should eql(@expected[i][param.intern])
           end

@@ -2,18 +2,17 @@
 #
 # Table name: live_loots
 #
-#  id          :integer(4)      not null, primary key
-#  wow_id      :integer(4)
-#  item_name   :string(255)
-#  member_name :string(255)
-#  loot_type   :string(255)
+#  id        :integer(4)      not null, primary key
+#  loot_type :string(255)
+#  item_id   :integer(4)
+#  member_id :integer(4)
 #
 
 class LiveLoot < ActiveRecord::Base
   belongs_to :item, :autosave => true, :readonly => true
   belongs_to :member, :readonly => true
   
-  attr_accessible :wow_id, :item_id, :item_name, :member_id, :member_name, :loot_type
+  attr_accessible :wow_id, :item_id, :member_id, :member_name, :loot_type
   
   validates_inclusion_of :loot_type, :in => %w(bis rot sit bisrot), :allow_nil => true
   
@@ -25,16 +24,6 @@ class LiveLoot < ActiveRecord::Base
   # Returns the +wow_id+ attribute of the associated +Item+, if present.
   def wow_id
     self.item.wow_id unless self.item_id.nil?
-  end
-  
-  # Attempts to associate with an +Item+ given its +name+
-  def item_name=(value)
-    self.item = Item.find_or_initialize_by_name(value)
-  end
-  
-  # Returns the +name+ attribute of the associated +Item+, if present.
-  def item_name
-    self.item.name unless self.item_id.nil?
   end
   
   # Attempts to associate with a +Member+ given its +name+
@@ -83,7 +72,6 @@ class LiveLoot < ActiveRecord::Base
           
           loot = LiveLoot.new
           loot.wow_id      = matches[3].to_i
-          loot.item_name   = matches[2].gsub(/\[(.+)\]/, '\1').strip # Remove brackets
           loot.member_name = buyer.gsub(/^([^\s]+).*/, '\1') unless buyer == 'DE'
           loot.loot_type   = buyer.gsub(/^(\w+)\s\(?([a-z\s]+)\)?$/, '\2') if buyer.match(/\s\(?([a-z\s]+)\)?$/)
           

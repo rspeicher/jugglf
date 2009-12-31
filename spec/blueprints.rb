@@ -116,6 +116,5 @@ end
 
 LiveLoot.blueprint do
   wow_id
-  item_name
   loot_type { nil }
 end
