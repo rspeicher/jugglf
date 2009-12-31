@@ -50,6 +50,10 @@ describe Item do
   it { should validate_uniqueness_of(:name).scoped_to(:wow_id) }
   # it { should validate_uniqueness_of(:wow_id) } # FIXME: Performs a lookup
   
+  it "should have a custom to_s" do
+    @item.to_s.should eql("#{@item.wow_id}-#{@item.name}")
+  end
+  
   describe "to_param" do
     it "should use name and wow_id if available" do
       @item.to_param.should eql("#{@item.id}-#{@item.name.parameterize}-#{@item.wow_id}")

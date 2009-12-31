@@ -81,12 +81,16 @@ class Item < ActiveRecord::Base
     "#{self.id}-#{self.name.parameterize}-#{self.wow_id}".gsub(/\-$/, '')
   end
   
+  def to_s
+    "#{self.wow_id}-#{self.name}"
+  end
+  
   protected
     def validate
       self.lookup
       
       unless self.authentic?
-        self.errors.add_to_base("Attempted to save an invalid item")
+        self.errors.add_to_base("attempted to save an invalid item (#{self.to_s})")
       end
     end
     

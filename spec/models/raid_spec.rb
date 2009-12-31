@@ -24,6 +24,10 @@ describe Raid do
     @raid.should be_valid
   end
   
+  it "should have a custom to_s" do
+    @raid.to_s.should eql("#{@raid.date}")
+  end
+  
   it "should have attendees" do
     2.times { @raid.attendees.make }
     

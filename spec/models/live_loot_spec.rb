@@ -66,10 +66,11 @@ describe LiveLoot, "member association" do
       lambda { @live_loot.member_name = 'LiveLooter' }.should change(@live_loot, :member_id).to(@member.id)
     end
   end
-  
+
+  # TODO: Spec this. It shouldn't be able to assign to a member who doesn't exist. nil's fine, that's DE.
   # describe "with a new member" do
   #   before(:each) do
-  #     @live_loot = LiveLoot.make_unsaved(:wow_id => nil, :member_name => nil)
+  #     @live_loot = LiveLoot.make_unsaved(:wow_id => 12345, :member_name => nil)
   #   end
   #   
   #   it "should raise an exception, maybe?" do

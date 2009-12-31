@@ -38,7 +38,7 @@ class Raid < ActiveRecord::Base
   end
   
   def to_s
-    self.date.to_s
+    "#{self.date}"
   end
   
   # Validations ---------------------------------------------------------------

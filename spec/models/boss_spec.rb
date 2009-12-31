@@ -19,4 +19,8 @@ describe Boss do
   end
   
   it { should validate_presence_of(:name) }
+  
+  it "should have a custom to_s" do
+    @boss.to_s.should eql("#{@boss.name}")
+  end
 end

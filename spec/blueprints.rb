@@ -12,6 +12,7 @@ end
 Achievement.blueprint do
   title { Faker::Lorem.words(5) }
   icon { 'icon' }
+  category_id { 168 }
   armory_id { Sham.wow_id }
 end
 CompletedAchievement.blueprint do
