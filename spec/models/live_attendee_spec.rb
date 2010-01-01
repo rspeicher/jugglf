@@ -32,7 +32,6 @@ describe LiveAttendee do
   it { should belong_to(:live_raid) }
   
   it { should validate_presence_of(:member_name) }
-  it { should validate_presence_of(:live_raid) }
   it { should validate_uniqueness_of(:member_name).scoped_to(:live_raid_id) }
 end
 

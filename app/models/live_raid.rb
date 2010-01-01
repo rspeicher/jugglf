@@ -8,7 +8,7 @@
 #
 
 class LiveRaid < ActiveRecord::Base
-  attr_accessible nil
+  attr_accessible :attendees_string
   
   has_many :live_attendees, :dependent => :destroy
   has_many :live_loots, :dependent => :destroy
@@ -46,8 +46,13 @@ class LiveRaid < ActiveRecord::Base
   #
   # Sets the value of +started_at+ to the current time and saves the record. Calling 
   # +start!+ subsequent times will have no effect.
+  #
+  # Any associated +LiveAttendee+ records will also have their <tt>start!</tt> method called.
   def start!
     return unless self.started_at.nil?
+    
+    # Each attendee needs to be started as well.
+    self.attendees.each(&:start!)
     
     self.update_attribute(:started_at, Time.now)
   end
@@ -57,11 +62,12 @@ class LiveRaid < ActiveRecord::Base
   # Sets the value of +stopped_at+ to the current time and saves the record. Calling
   # +stop!+ subsequent times, or on an unstarted raid, will have no effect.
   #
-  # Any associated +LiveAttendee+ records will also have their +stop!+ method called
+  # Any associated +LiveAttendee+ records will also have their <tt>stop!</tt> method called.
   def stop!
     return unless self.started_at.present? and self.stopped_at.nil?
     
-    # TODO: Attendees
+    # Each attendee needs to be stopped as well.
+    self.attendees.each(&:stop!)
     
     self.update_attribute(:stopped_at, Time.now)
   end
@@ -83,6 +89,6 @@ class LiveRaid < ActiveRecord::Base
   
   attr_reader :attendees_string
   def attendees_string=(value)
-    
+    self.attendees << LiveAttendee.from_text(value)
   end
 end

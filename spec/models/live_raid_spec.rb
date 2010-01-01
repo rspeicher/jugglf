@@ -18,6 +18,7 @@ describe LiveRaid do
     @live_raid.should be_valid
   end
   
+  it { should allow_mass_assignment_of(:attendees_string) }
   it { should_not allow_mass_assignment_of(:started_at) }
   it { should_not allow_mass_assignment_of(:stopped_at) }
 
@@ -59,6 +60,12 @@ describe LiveRaid, "#start" do
     live_raid = Factory(:live_raid, :started_at => 1.minute.until(Time.now))
     lambda { live_raid.start! }.should_not change(live_raid, :started_at)
   end
+  
+  it "should call start! on each associated Attendee" do
+    live_raid = Factory(:live_raid_with_attendees)
+    live_raid.attendees.each { |a| a.should_receive(:start!) }
+    live_raid.start!
+  end
 end
 
 describe LiveRaid, "#stop" do
@@ -81,12 +88,11 @@ describe LiveRaid, "#stop" do
     lambda { live_raid.stop! }.should_not change(live_raid, :stopped_at)
   end
 
-  # TODO:
-  # it "should call stop! on each associated Attendee" do
-  #   live_raid = Factory(:live_raid_with_attendee, :started_at => Time.now)
-  #   live_raid.attendees.each { |a| a.should_receive(:stop!) }
-  #   live_raid.stop!
-  # end
+  it "should call stop! on each associated Attendee" do
+    live_raid = Factory(:live_raid_with_attendees, :started_at => Time.now)
+    live_raid.attendees.each { |a| a.should_receive(:stop!) }
+    live_raid.stop!
+  end
 end
 
 describe LiveRaid, "#status" do
@@ -103,5 +109,21 @@ describe LiveRaid, "#status" do
   it "should return 'Completed' for a stopped raid" do
     live_raid = Factory(:live_raid, :started_at => Time.now, :stopped_at => Time.now)
     live_raid.status.should eql('Completed')
+  end
+end
+
+describe LiveRaid, "#attendees_string" do
+  it "should assign to attendees collection" do
+    live_raid = Factory(:live_raid)
+    live_raid.attendees_string = 'Tsigo,Sebudai'
+    live_raid.attendees.size.should eql(2)
+    live_raid.attendees[0].live_raid_id.should eql(live_raid.id)
+  end
+  
+  it "should work on an unsaved LiveRaid" do
+    live_raid = Factory.build(:live_raid)
+    live_raid.attendees_string = 'Tsigo,Sebudai'
+    live_raid.attendees.size.should eql(2)
+    lambda { live_raid.save }.should change(live_raid.attendees[0], :live_raid_id)
   end
 end

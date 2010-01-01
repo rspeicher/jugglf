@@ -17,7 +17,6 @@ class LiveAttendee < ActiveRecord::Base
   belongs_to :live_raid
   
   validates_presence_of :member_name
-  validates_presence_of :live_raid
   validates_uniqueness_of :member_name, :scope => :live_raid_id
   
   # Calls <tt>stop!</tt> if +active+ is true, or <tt>start!</tt> if not.
