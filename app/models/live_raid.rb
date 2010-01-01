@@ -8,6 +8,8 @@
 #
 
 class LiveRaid < ActiveRecord::Base
+  attr_accessible nil
+  
   has_many :live_loots, :dependent => :destroy
   alias_method :loots, :live_loots
   

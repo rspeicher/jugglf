@@ -72,7 +72,7 @@ class LiveLoot < ActiveRecord::Base
         buyers.each do |buyer|
           buyer.strip!
           
-          loot = LiveLoot.new
+          loot = self.new
           loot.wow_id      = matches[3].to_i
           loot.member_name = buyer.gsub(/^([^\s]+).*/, '\1') unless buyer == 'DE'
           loot.loot_type   = buyer.gsub(/^(\w+)\s\(?([a-z\s]+)\)?$/, '\2') if buyer.match(/\s\(?([a-z\s]+)\)?$/)

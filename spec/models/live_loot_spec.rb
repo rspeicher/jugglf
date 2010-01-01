@@ -124,7 +124,7 @@ describe LiveLoot, ".from_text" do
       @loots[0].should be_a(LiveLoot)
     end
     
-    it "should not save the LiveLoot record" do
+    it "should not save the LiveLoot records" do
       @loots[0].new_record?.should be_true
     end
     
