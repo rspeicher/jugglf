@@ -1,0 +1,2 @@
+module Attendance::AttendeesHelper
+end
