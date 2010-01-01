@@ -26,11 +26,13 @@ class LiveRaid < ActiveRecord::Base
   # Example:
   #   Started at Thu Dec 31 22:16:33 -0500 2009
   #   Stopped at Thu Dec 31 23:16:33 -0500 2009
-  #   Returns 60
+  # 
+  # Returns 60
   #
   #   Started at Thu Dec 31 22:16:33 -0500 2009
   #   Stopped at nil
-  #   Returns 5, assuming +Time.now+ is Thu Dec 31 22:21:33 -0500 2009
+  # 
+  # Returns 5, assuming <tt>Time.now</tt> is Thu Dec 31 22:21:33 -0500 2009
   def running_time_in_minutes
     return 0 if self.started_at.nil? and self.stopped_at.nil?
     
@@ -45,7 +47,7 @@ class LiveRaid < ActiveRecord::Base
   # Start a raid
   #
   # Sets the value of +started_at+ to the current time and saves the record. Calling 
-  # +start!+ subsequent times will have no effect.
+  # <tt>start!</tt> subsequent times will have no effect.
   #
   # Any associated +LiveAttendee+ records will also have their <tt>start!</tt> method called.
   def start!
@@ -60,7 +62,7 @@ class LiveRaid < ActiveRecord::Base
   # Stop a raid
   #
   # Sets the value of +stopped_at+ to the current time and saves the record. Calling
-  # +stop!+ subsequent times, or on an unstarted raid, will have no effect.
+  # <tt>stop!</tt> subsequent times, or on an unstarted raid, will have no effect.
   #
   # Any associated +LiveAttendee+ records will also have their <tt>stop!</tt> method called.
   def stop!
@@ -74,9 +76,9 @@ class LiveRaid < ActiveRecord::Base
   
   # Returns a string representing the current status of the raid.
   #
-  # Pending: Not started, not stopped
-  # Active: Started, not stopped
-  # Completed: Started, stopped
+  # - Pending: Not started, not stopped
+  # - Active: Started, not stopped
+  # - Completed: Started, stopped
   def status
     if self.started_at.nil? and self.stopped_at.nil?
       'Pending'
