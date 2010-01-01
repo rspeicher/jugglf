@@ -54,7 +54,7 @@ jQuery.fn.identify = function(prefix) {
                     showMod.push(theUL);
                 }
                 
-                e.stopPropagation();
+                // e.stopPropagation(); // Breaks Wowhead tooltips
             }
             
             function hideAllModeration() {
