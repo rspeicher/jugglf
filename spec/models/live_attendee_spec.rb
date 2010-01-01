@@ -195,7 +195,7 @@ describe LiveAttendee, ".from_text" do
     @attendees[0].new_record?.should be_true
   end
   
-  it "should correclty set the member_name attribute" do
+  it "should correctly set the member_name attribute" do
     @attendees[0].member_name.should eql('Tsigo')
   end
 end
