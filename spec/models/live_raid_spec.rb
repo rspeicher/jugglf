@@ -21,6 +21,7 @@ describe LiveRaid do
   it { should_not allow_mass_assignment_of(:started_at) }
   it { should_not allow_mass_assignment_of(:stopped_at) }
 
+  it { should have_many(:live_attendees).dependent(:destroy) }
   it { should have_many(:live_loots).dependent(:destroy) }
 
   it "should invalidate if stopped_at is set but not started_at" do
@@ -86,4 +87,21 @@ describe LiveRaid, "#stop" do
   #   live_raid.attendees.each { |a| a.should_receive(:stop!) }
   #   live_raid.stop!
   # end
+end
+
+describe LiveRaid, "#status" do
+  it "should return 'Pending' for an unstarted, unstopped raid" do
+    live_raid = Factory(:live_raid)
+    live_raid.status.should eql('Pending')
+  end
+  
+  it "should return 'Active' for a started, unstopped raid" do
+    live_raid = Factory(:live_raid, :started_at => Time.now)
+    live_raid.status.should eql('Active')
+  end
+  
+  it "should return 'Completed' for a stopped raid" do
+    live_raid = Factory(:live_raid, :started_at => Time.now, :stopped_at => Time.now)
+    live_raid.status.should eql('Completed')
+  end
 end

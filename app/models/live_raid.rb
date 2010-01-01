@@ -10,7 +10,10 @@
 class LiveRaid < ActiveRecord::Base
   attr_accessible nil
   
+  has_many :live_attendees, :dependent => :destroy
   has_many :live_loots, :dependent => :destroy
+  
+  alias_method :attendees, :live_attendees
   alias_method :loots, :live_loots
   
   validates_presence_of :started_at, :if => Proc.new { |obj| obj.stopped_at.present? }
@@ -61,5 +64,25 @@ class LiveRaid < ActiveRecord::Base
     # TODO: Attendees
     
     self.update_attribute(:stopped_at, Time.now)
+  end
+  
+  # Returns a string representing the current status of the raid.
+  #
+  # Pending: Not started, not stopped
+  # Active: Started, not stopped
+  # Completed: Started, stopped
+  def status
+    if self.started_at.nil? and self.stopped_at.nil?
+      'Pending'
+    elsif self.started_at.present? and self.stopped_at.nil?
+      'Active'
+    elsif self.started_at.present? and self.stopped_at.present?
+      'Completed'
+    end
+  end
+  
+  attr_reader :attendees_string
+  def attendees_string=(value)
+    
   end
 end
