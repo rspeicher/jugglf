@@ -1,0 +1,25 @@
+:javascript
+  $(document).ready(function(){
+    $("#attendance_tabs").tabs();
+  });
+
+- breadcrumb link_to('Attendance', live_raids_path), "#{@live_raid.status} Raid"
+%div.category_block.block_wrap
+  #attendance_tabs
+    %ul.tab_bar.no_title.mini
+      %li.tab_toggle= link_to(content_tag(:span, "Attendance"), '#t-attendance')
+      %li.tab_toggle= link_to(content_tag(:span, "Loots"),      '#t-loots')
+    #t-attendance
+      %table.ipb_table
+        %thead
+          %tr
+            %th Name
+            %th Status
+            %th.number Active Minutes
+        %tbody
+          - @live_raid.attendees.each do |att|
+            %tr{ :class => cycle('row1', 'row2') }
+              %td= h(att.member_name)
+              %td= link_to_toggle_attendee(att)
+              %td.number= att.active_minutes
+    #t-loots

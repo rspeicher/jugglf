@@ -1,0 +1,24 @@
+- breadcrumb 'Attendance'
+%div.category_block.block_wrap
+  = render :partial => 'shared/maintitle'
+  %table#index.ipb_table.tablesorter
+    %thead
+      %tr
+        %th.center &nbsp;
+        %th.center Status
+        %th.date Started At
+        %th.date Stopped At
+        %th.number Attendees
+        %th.number Loots
+    %tbody
+      - @raids.each do |raid|
+        %tr{ :class => cycle('row1', 'row2') }
+          %td.center
+            = link_to(image_tag('edit.png'), live_raid_path(raid))
+          %td.center= h(raid.status)
+          %td.date= h(raid.started_at)
+          %td.date= h(raid.stopped_at)
+          %td.number= h(raid.attendees.size)
+          %td.number= h(raid.loots.size)
+
+%fieldset.submit= link_to('Start a New Raid', new_live_raid_path, :class => 'input_submit')
