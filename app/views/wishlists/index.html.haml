@@ -1,7 +1,7 @@
 - if @zone
-  - breadcrumb link_to('Global Wishlist View', wishlists_path), @zone
+  - breadcrumb link_to('Wishlists', wishlists_path), @zone
 - else
-  - breadcrumb link_to('Global Wishlist View', wishlists_path)
+  - breadcrumb link_to('Wishlists', wishlists_path)
 %div.topic.hfeed
   = render :partial => 'shared/maintitle', :object => @boss
   %div.border

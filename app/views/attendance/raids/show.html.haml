@@ -14,12 +14,12 @@
         %thead
           %tr
             %th Name
-            %th Status
+            %th.icon Active?
             %th.number Active Minutes
         %tbody
           - @live_raid.attendees.each do |att|
             %tr{ :class => cycle('row1', 'row2') }
               %td= h(att.member_name)
-              %td= link_to_toggle_attendee(att)
+              %td.icon= link_to_toggle_attendee(att)
               %td.number= att.active_minutes
     #t-loots
