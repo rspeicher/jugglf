@@ -70,6 +70,8 @@ class LiveAttendee < ActiveRecord::Base
   # - An attendee was active in the same raid for 10 minutes, left for 20 minutes, and then came back.
   #   Their +minutes_attended+ would be 10, but +active_minutes+ would be 50.
   def active_minutes
+    return self.minutes_attended if self.started_at.nil?
+    
     if self.active?
       # If we're active, we need to use the last known started_at as well as
       # adding any existing minutes_attended (in case they were stopped and then

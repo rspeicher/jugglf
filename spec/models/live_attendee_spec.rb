@@ -126,6 +126,10 @@ describe LiveAttendee, "#active_minutes" do
     @live_att = Factory(:live_attendee, :started_at => 20.minutes.until(Time.now))
   end
   
+  it "should return 0 for an unstarted record" do
+    Factory(:live_attendee).active_minutes.should eql(0)
+  end
+  
   it "should calculate the active minutes if the current value is 0" do
     @live_att.minutes_attended.should eql(0)
     @live_att.active_minutes.should eql(20)
