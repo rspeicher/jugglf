@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100101025112) do
+ActiveRecord::Schema.define(:version => 20100101033711) do
 
   create_table "achievements", :force => true do |t|
     t.integer "armory_id"
@@ -66,6 +66,17 @@ ActiveRecord::Schema.define(:version => 20100101025112) do
   end
 
   add_index "items", ["name", "wow_id"], :name => "index_items_on_name_and_wow_id", :unique => true
+
+  create_table "live_attendees", :force => true do |t|
+    t.string   "member_name",                        :null => false
+    t.integer  "live_raid_id"
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.boolean  "active",           :default => true
+    t.integer  "minutes_attended", :default => 0
+  end
+
+  add_index "live_attendees", ["live_raid_id"], :name => "index_live_attendees_on_live_raid_id"
 
   create_table "live_loots", :force => true do |t|
     t.string  "loot_type"
