@@ -24,18 +24,6 @@ module ApplicationHelper
     link_to "<span>#{h(text)}</span>", path
   end
   
-  def link_to_controller(mod, options = {})
-    return if options[:admin_only] and not current_user.is_admin?
-    
-    controller_name = mod.to_s.downcase.pluralize
-    path = ( mod.respond_to? :new ) ? polymorphic_path(mod.new) : ''
-    css = ( controller.controller_name == controller_name ) ? 'selected' : ''
-    
-    link_to h(controller_name.titlecase), path, :class => css
-  rescue NameError
-    return ''
-  end
-  
   def link_to_delete(options = {})
     return if options[:path].nil?
     

@@ -2,9 +2,6 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 include ApplicationHelper
 
-# FIXME: No idea why this is needed for link_to_controller; it works fine in development, just not test
-include ActionController::PolymorphicRoutes
-
 describe ApplicationHelper do
   describe "admin?" do
     it "should return false if no user is logged in" do
@@ -32,18 +29,6 @@ describe ApplicationHelper do
   describe "link_to_tab" do
     it "should figure out nil path based on text" do
       link_to_tab('Text (123)').should match(/href=.+\#text/)
-    end
-  end
-  
-  describe "link_to_controller" do
-    it "should return a link given a valid model" do
-      stub!(:controller).and_return(self)
-      stub!(:controller_name).and_return('members')
-      link_to_controller(Member).should eql("<a href=\"#{members_path}\" class=\"selected\">Members</a>")
-    end
-    
-    it "should not raise an exception given an invalid model" do
-      lambda { link_to_controller(Spec) }.should_not raise_error
     end
   end
   

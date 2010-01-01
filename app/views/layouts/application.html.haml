@@ -73,12 +73,16 @@
                   = yield :breadcrumb
                 %ul#section_links.right
                   %li.first= link_to 'Index', root_path, :class => ( current_page?(root_path) ) ? 'selected' : ''
-                  %li= link_to_controller(Achievement)
-                  %li= link_to_controller(Member)
-                  %li= link_to_controller(Raid, :admin_only => true)
-                  %li= link_to_controller(Item)
-                  %li= link_to_controller(Loot, :admin_only => true)
-                  %li.last= link_to_controller(Wishlist, :admin_only => true)
+                  %li= link_to('Achievements', achievements_path)
+                  %li= link_to('Attendance', live_raids_path)
+                  %li= link_to('Members', members_path)
+                  - if admin?
+                    %li= link_to('Raids', raids_path)
+                  %li= link_to('Items', items_path)
+                  - if admin?
+                    %li= link_to('Loots', loots_path)
+                  - if admin?
+                    %li= link_to('Wishlists', wishlists_path)
                 %br.clear
         #content.clear
           %noscript
