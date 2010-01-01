@@ -28,7 +28,9 @@ config.action_mailer.delivery_method = :test
 # config.active_record.schema_format = :sql
 
 config.gem 'fakeweb'
+config.gem 'factory_girl', :source => 'http://gemcutter.org'
 config.gem 'shoulda', :lib => false
 config.gem "rspec", :lib => false, :version => ">= 1.2.0"
 config.gem "rspec-rails", :lib => false, :version => ">= 1.2.0"
+config.gem 'timecop', :source => 'http://gemcutter.org'
 config.gem "notahat-machinist", :lib => false, :version => ">= 1.0.0", :source => 'http://gems.github.com'
