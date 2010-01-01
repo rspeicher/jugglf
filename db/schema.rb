@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091231211108) do
+ActiveRecord::Schema.define(:version => 20100101025112) do
 
   create_table "achievements", :force => true do |t|
     t.integer "armory_id"
@@ -71,10 +71,17 @@ ActiveRecord::Schema.define(:version => 20091231211108) do
     t.string  "loot_type"
     t.integer "item_id"
     t.integer "member_id"
+    t.integer "live_raid_id"
   end
 
   add_index "live_loots", ["item_id"], :name => "index_live_loots_on_item_id"
+  add_index "live_loots", ["live_raid_id"], :name => "index_live_loots_on_live_raid_id"
   add_index "live_loots", ["member_id"], :name => "index_live_loots_on_member_id"
+
+  create_table "live_raids", :force => true do |t|
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+  end
 
   create_table "loot_tables", :force => true do |t|
     t.integer "object_id"

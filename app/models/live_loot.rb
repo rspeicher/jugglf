@@ -2,15 +2,17 @@
 #
 # Table name: live_loots
 #
-#  id        :integer(4)      not null, primary key
-#  loot_type :string(255)
-#  item_id   :integer(4)
-#  member_id :integer(4)
+#  id           :integer(4)      not null, primary key
+#  loot_type    :string(255)
+#  item_id      :integer(4)
+#  member_id    :integer(4)
+#  live_raid_id :integer(4)
 #
 
 class LiveLoot < ActiveRecord::Base
   belongs_to :item, :autosave => true, :readonly => true
   belongs_to :member, :readonly => true
+  belongs_to :live_raid
   
   attr_accessible :wow_id, :item_id, :member_id, :member_name, :loot_type
   
