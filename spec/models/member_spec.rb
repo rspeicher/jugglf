@@ -34,16 +34,16 @@ describe Member do
     @member.should be_valid
   end
   
-  it { should have_many(:achievements) }
-  it { should have_many(:attendees) }
-  it { should have_many(:completed_achievements) }
-  it { should have_many(:loots) }
+  it { should have_many(:achievements).through(:completed_achievements) }
+  it { should have_many(:attendees).dependent(:destroy) }
+  it { should have_many(:completed_achievements).dependent(:destroy) }
+  it { should have_many(:loots).dependent(:nullify) }
   it { should have_one(:last_loot) }
-  it { should have_many(:punishments) }
-  it { should have_many(:raids) }
+  it { should have_many(:punishments).dependent(:destroy) }
+  it { should have_many(:raids).through(:attendees) }
   it { should belong_to(:rank) }
   it { should belong_to(:user) }
-  it { should have_many(:wishlists) }
+  it { should have_many(:wishlists).dependent(:destroy) }
   
   it { should allow_mass_assignment_of(:name) }
   it { should allow_mass_assignment_of(:active) }
@@ -72,6 +72,10 @@ describe Member do
   
   it "should have custom to_param" do
     @member.to_param.should eql("#{@member.id}-#{@member.name.parameterize}")
+  end
+  
+  it "should have a custom to_s" do
+    @member.to_s.should eql("#{@member.name}")
   end
   
   it "should be active by default" do

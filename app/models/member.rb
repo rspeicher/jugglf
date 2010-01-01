@@ -80,6 +80,10 @@ class Member < ActiveRecord::Base
     "#{self.id}-#{self.name.parameterize}"
   end
   
+  def to_s
+    "#{self.name}"
+  end
+  
   # Takes a string or symbol representing a type of loot factor and returns the
   # corresponding value
   def lf_type(type)

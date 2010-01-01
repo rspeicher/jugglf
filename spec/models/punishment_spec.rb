@@ -23,6 +23,20 @@ describe Punishment do
     @punishment.should be_valid
   end
   
+  it { should belong_to(:member) }
+
+  it { should_not allow_mass_assignment_of(:member_id) }
+  it { should allow_mass_assignment_of(:reason) }
+  it { should allow_mass_assignment_of(:expires) }
+  it { should allow_mass_assignment_of(:value) }
+  it { should_not allow_mass_assignment_of(:created_at) }
+  it { should_not allow_mass_assignment_of(:updated_at) }
+  
+  it { should validate_presence_of(:reason) }
+  it { should validate_presence_of(:value) }
+  it { should validate_presence_of(:expires) }
+  it { should validate_numericality_of(:value) }
+  
   it "should forcibly expire" do
     @punishment.expire!
     @punishment.expires.should_not >= Date.today

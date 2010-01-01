@@ -12,11 +12,20 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Attendee do
   before(:each) do
-    Member.destroy_all
     @attendee = Attendee.make
   end
   
   it "should be valid" do
     @attendee.should be_valid
+  end
+  
+  it { should belong_to(:member) }
+  it { should belong_to(:raid) }
+  
+  it { should validate_presence_of(:member) }
+  it { should validate_presence_of(:raid) }
+  
+  it "should have a custom to_s" do
+    @attendee.to_s.should eql("#{@attendee.member.name} on #{@attendee.raid.date}")
   end
 end

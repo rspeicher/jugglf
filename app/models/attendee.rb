@@ -11,4 +11,11 @@
 class Attendee < ActiveRecord::Base
   belongs_to :member, :counter_cache => :raids_count
   belongs_to :raid, :counter_cache => true
+  
+  validates_presence_of :member
+  validates_presence_of :raid
+  
+  def to_s
+    "#{self.member.name} on #{self.raid.date}"
+  end
 end

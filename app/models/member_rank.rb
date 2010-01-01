@@ -20,4 +20,8 @@ class MemberRank < ActiveRecord::Base
   def format(inner_html)
     "#{self.prefix}#{inner_html}#{self.suffix}"
   end
+  
+  def to_s
+    "#{self.name}"
+  end
 end

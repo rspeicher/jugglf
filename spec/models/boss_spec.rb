@@ -18,6 +18,8 @@ describe Boss do
     @boss.should be_valid
   end
   
+  it { should have_many(:loot_tables) }
+  
   it { should validate_presence_of(:name) }
   
   it "should have a custom to_s" do

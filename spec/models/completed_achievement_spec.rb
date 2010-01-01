@@ -18,6 +18,12 @@ describe CompletedAchievement do
   it "should be valid" do
     @completed.should be_valid
   end
+  
+  it { should belong_to(:achievement) }
+  it { should belong_to(:member) }
+  
+  it { should validate_presence_of(:achievement) }
+  it { should validate_presence_of(:member) }
 end
 
 describe CompletedAchievement, "#parse_member" do

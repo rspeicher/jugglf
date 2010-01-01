@@ -12,6 +12,9 @@ class CompletedAchievement < ActiveRecord::Base
   belongs_to :achievement
   belongs_to :member
   
+  validates_presence_of :achievement
+  validates_presence_of :member
+  
   def self.parse_member(member)
     total_achievements = Achievement.count
     

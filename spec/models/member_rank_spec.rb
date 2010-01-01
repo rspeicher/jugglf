@@ -11,8 +11,20 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe MemberRank do
+  before(:each) do
+    @rank = MemberRank.make
+  end
+  
   it "should be valid" do
-    MemberRank.make.should be_valid
+    @rank.should be_valid
+  end
+  
+  # it { should have_one(:member) } # FIXME: Expected MemberRank to have a has_one association called member (Member does not have a member_rank_id foreign key.)
+  
+  it { should validate_presence_of(:name) }
+  
+  it "should have a custom to_s" do
+    @rank.to_s.should eql("#{@rank.name}")
   end
 end
 
