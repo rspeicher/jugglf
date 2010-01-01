@@ -18,7 +18,7 @@ describe Boss do
     @boss.should be_valid
   end
   
-  it { should have_many(:loot_tables) }
+  it { should have_many(:loot_tables).dependent(:destroy) }
   
   it { should validate_presence_of(:name) }
   

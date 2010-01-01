@@ -29,9 +29,9 @@ describe Item do
     @item.should be_valid
   end
   
-  it { should have_many(:loots) }
-  it { should have_many(:wishlists) }
-  it { should have_many(:loot_tables) }
+  it { should have_many(:loots).dependent(:destroy) }
+  it { should have_many(:wishlists).dependent(:destroy) }
+  it { should have_many(:loot_tables).dependent(:destroy) }
   
   it { should_not allow_mass_assignment_of(:id) }
   it { should allow_mass_assignment_of(:name) }

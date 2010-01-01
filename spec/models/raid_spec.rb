@@ -24,24 +24,21 @@ describe Raid do
     @raid.should be_valid
   end
   
+  it { should have_many(:attendees).dependent(:destroy) }
+  it { should have_many(:loots).dependent(:destroy) }
+  it { should have_many(:members).through(:attendees) }
+  
+  it { should allow_mass_assignment_of(:date) }
+  it { should allow_mass_assignment_of(:note) }
+  it { should_not allow_mass_assignment_of(:attendees_count) }
+  it { should_not allow_mass_assignment_of(:loots_count) }
+  it { should_not allow_mass_assignment_of(:created_at) }
+  it { should_not allow_mass_assignment_of(:updated_at) }
+  
+  it { should validate_presence_of(:date) }
+  
   it "should have a custom to_s" do
     @raid.to_s.should eql("#{@raid.date}")
-  end
-  
-  it "should have attendees" do
-    2.times { @raid.attendees.make }
-    
-    @raid.reload
-    @raid.attendees_count.should eql(2)
-    @raid.attendees.size.should eql(2)
-  end
-  
-  it "should have loots" do
-    @raid.loots.make
-    
-    @raid.reload
-    @raid.loots_count.should eql(1)
-    @raid.loots.size.should eql(1)
   end
   
   describe "#date_string" do
@@ -126,28 +123,6 @@ describe Raid do
   it "should know if it was in the last ninety days" do
     @raids[:today].is_in_last_ninety_days?.should be_true
     @raids[:four_months].is_in_last_ninety_days?.should be_false
-  end
-end
-
-# -----------------------------------------------------------------------------
-
-describe Raid, "dependencies" do
-  before(:each) do
-    [Attendee, Loot].each(&:destroy_all)
-    @raid = Raid.make
-
-    2.times { Attendee.make(:member => Member.make, :raid => @raid) }
-    1.times { @raid.loots.make }
-  end
-
-  it "should destroy associated attendees when destroyed" do
-    @raid.destroy
-    Attendee.count.should eql(0)
-  end
-  
-  it "should destroy associated loots when destroyed" do
-    @raid.destroy
-    Loot.count.should eql(0)
   end
 end
 

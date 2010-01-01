@@ -20,7 +20,7 @@ describe Achievement do
     @ach.should be_valid
   end
   
-  it { should have_many(:completed_achievements) }
+  it { should have_many(:completed_achievements).dependent(:destroy) }
   it { should have_many(:members) }
   
   it { should validate_presence_of(:armory_id) }
