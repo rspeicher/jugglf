@@ -1,6 +1,8 @@
 class Attendance::RaidsController < ApplicationController
   before_filter :require_admin
   
+  before_filter :find_raid, :only => [:show, :start]
+  
   def index
     @raids = LiveRaid.find(:all, :order => 'id DESC')
     
@@ -10,8 +12,6 @@ class Attendance::RaidsController < ApplicationController
   end
   
   def show
-    @live_raid = LiveRaid.find(params[:id])
-    
     respond_to do |wants|
       wants.html
     end
@@ -36,4 +36,17 @@ class Attendance::RaidsController < ApplicationController
       end
     end
   end
+  
+  def start
+    @live_raid.start!
+    
+    respond_to do |wants|
+      wants.html { redirect_to live_raid_path(@live_raid) }
+    end
+  end
+  
+  private
+    def find_raid
+      @live_raid = LiveRaid.find(params[:id])
+    end
 end

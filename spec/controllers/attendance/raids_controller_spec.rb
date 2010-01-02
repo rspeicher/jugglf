@@ -1,5 +1,15 @@
 require 'spec_helper'
 
+def mock_find
+  @live_raid ||= mock_model(LiveRaid)
+  LiveRaid.should_receive(:find).with(anything()).and_return(@live_raid)
+end
+
+def mock_new
+  @live_raid = mock_model(LiveRaid)
+  LiveRaid.should_receive(:new).and_return(@live_raid)
+end
+
 describe Attendance::RaidsController, "#index" do
   describe "basics" do
     before(:each) do
@@ -17,10 +27,7 @@ describe Attendance::RaidsController, "#show" do
   describe "basics" do
     before(:each) do
       login(:admin)
-      
-      @live_raid = mock_model(LiveRaid)
-      LiveRaid.should_receive(:find).with(anything()).and_return(@live_raid)
-      
+      mock_find
       get :show, :id => @live_raid.id
     end
     
@@ -46,17 +53,13 @@ end
 describe Attendance::RaidsController, "#create" do
   before(:each) do
     login(:admin)
-    
-    @live_raid = mock_model(LiveRaid)
-    LiveRaid.should_receive(:new).and_return(@live_raid)
-    
+    mock_new
     @params = {:live_raid => {:attendees_string => 'Tsigo'}}
   end
   
   describe "success" do
     before(:each) do
       @live_raid.stub!(:save).and_return(true)
-      
       post :create, @params
     end
     
@@ -67,11 +70,22 @@ describe Attendance::RaidsController, "#create" do
   describe "failure" do
     before(:each) do
       @live_raid.stub!(:save).and_return(false)
-      
       post :create, @params
     end
     
     it { should respond_with(:success) }
     it { should render_template(:new) }
   end
+end
+
+describe Attendance::RaidsController, "#start" do
+  before(:each) do
+    login(:admin)
+    mock_find
+    @live_raid.should_receive(:start!)
+    get :start, :id => @live_raid.id
+  end
+  
+  it { should respond_with(:redirect) }
+  it { should redirect_to(live_raid_path(@live_raid)) }
 end
