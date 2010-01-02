@@ -7,7 +7,7 @@
 #  live_raid_id     :integer(4)
 #  started_at       :datetime
 #  stopped_at       :datetime
-#  active           :boolean(1)      default(TRUE)
+#  active           :boolean(1)
 #  minutes_attended :integer(4)      default(0)
 #
 

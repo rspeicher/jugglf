@@ -68,11 +68,11 @@ ActiveRecord::Schema.define(:version => 20100101033711) do
   add_index "items", ["name", "wow_id"], :name => "index_items_on_name_and_wow_id", :unique => true
 
   create_table "live_attendees", :force => true do |t|
-    t.string   "member_name",                        :null => false
+    t.string   "member_name",                         :null => false
     t.integer  "live_raid_id"
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.boolean  "active",           :default => true
+    t.boolean  "active",           :default => false
     t.integer  "minutes_attended", :default => 0
   end
 
