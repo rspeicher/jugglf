@@ -1,6 +1,6 @@
 if flash[:error].nil?
   # Add each row to the top of the tbody
-  page << "$('#live_loots').prepend('#{escape_javascript(render :partial => 'loot_row', :collection => @loots)}');"
+  page << "$('#live_loots').prepend('#{escape_javascript(render :partial => 'attendance/loots/loot_row', :collection => @loots)}');"
 
   # Highlight each row that we added
   @loots.each { |loot| page << "$('#live_loot_#{loot.id}').effect('highlight', {}, 1500);" }

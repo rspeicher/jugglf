@@ -41,7 +41,7 @@ module ApplicationHelper
   def link_to_remote_delete(object, options = {})
     return if object.nil?
     
-    klass = object.class.to_s.downcase
+    klass = object.class.to_s.underscore
     
     options[:url]     ||= polymorphic_path(object)
     options[:text]    ||= ''

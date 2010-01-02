@@ -1,3 +1,3 @@
 %ul.topic_moderation.right.rounded
-  %li.t_rename= link_to(image_tag('edit.png'), edit_polymorphic_path(moderation))
-  %li.t_delete= link_to_delete(:text => '', :path => polymorphic_path(moderation))
+  %li= link_to(image_tag('edit.png'), edit_polymorphic_path(moderation))
+  %li= link_to_delete(:text => '', :path => polymorphic_path(moderation))
