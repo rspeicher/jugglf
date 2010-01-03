@@ -115,8 +115,11 @@ class LiveRaid < ActiveRecord::Base
     
     new_attendees.each do |new_att|
       if current_names.include? new_att.member_name
-        # TODO: Clean this up, it's ugly and there's got to be a better way.
-        self.attendees[current_names.index(new_att.member_name)].toggle!
+        # We don't want to toggle an attendee's status unless the raid is active
+        if self.active?
+          # TODO: Clean this up, it's ugly and there's got to be a better way.
+          self.attendees[current_names.index(new_att.member_name)].toggle!
+        end
       else
         new_att.start if self.active?
         self.attendees << new_att

@@ -144,18 +144,31 @@ describe LiveRaid, "#attendees_string" do
     live_raid.attendees[0].active?.should be_true
     live_raid.attendees[0].started_at.should_not be_nil
   end
-
-  it "should toggle an attendee's status when given an attendee that already exists" do
-    live_raid = Factory(:live_raid_with_attendees)
-    existing = live_raid.attendees[0]
-    
-    existing.should_receive(:toggle!)
-    live_raid.attendees_string = existing.member_name
-  end
   
   it "should add a new attendee to an already existing collection" do
     live_raid = Factory(:live_raid_with_attendees)
     live_raid.start!
     lambda { live_raid.attendees_string = 'Tsigo,Sebudai' }.should change(live_raid.attendees, :length).from(2).to(4)
+  end
+  
+  describe "when given an existing attendee" do
+    before(:each) do
+      @live_raid = Factory(:live_raid_with_attendees)
+      @existing = @live_raid.attendees[0]
+    end
+    
+    after(:each) do
+      @live_raid.attendees_string = @existing.member_name
+    end
+    
+    it "should do nothing if raid is not active" do
+      @live_raid.stop!
+      @existing.should_not_receive(:toggle!)
+    end
+    
+    it "should call toggle! if raid is active" do
+      @live_raid.start!
+      @existing.should_receive(:toggle!)
+    end
   end
 end
