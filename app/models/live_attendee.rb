@@ -33,14 +33,10 @@ class LiveAttendee < ActiveRecord::Base
     return nil if self.active? and self.started_at.present?
     
     self.started_at = Time.now
-    self.active     = true    
+    self.active     = true
   end
   def start!
-    # Don't need to do anything if we're already active or started
-    return nil if self.active? and self.started_at.present?
-    
-    self.start
-    self.save
+    self.save if self.start
   end
   
   def stop!
