@@ -5,7 +5,7 @@ include Attendance::AttendeesHelper
 describe Attendance::AttendeesHelper do
   describe "link_to_toggle_attendee" do
     before(:each) do
-      @raid = Factory(:live_raid_with_attendees)
+      @raid = Factory(:live_raid_with_attendee)
       @attendee = @raid.attendees[0]
       
       @raid.start!

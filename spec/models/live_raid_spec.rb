@@ -62,7 +62,7 @@ describe LiveRaid, "#start" do
   end
   
   it "should call start! on each associated Attendee" do
-    live_raid = Factory(:live_raid_with_attendees)
+    live_raid = Factory(:live_raid_with_attendee)
     live_raid.attendees.each { |a| a.should_receive(:start!) }
     live_raid.start!
   end
@@ -89,7 +89,7 @@ describe LiveRaid, "#stop" do
   end
 
   it "should call stop! on each associated Attendee" do
-    live_raid = Factory(:live_raid_with_attendees, :started_at => Time.now)
+    live_raid = Factory(:live_raid_with_attendee, :started_at => Time.now)
     live_raid.attendees.each { |a| a.should_receive(:stop!) }
     live_raid.stop!
   end
@@ -146,14 +146,14 @@ describe LiveRaid, "#attendees_string" do
   end
   
   it "should add a new attendee to an already existing collection" do
-    live_raid = Factory(:live_raid_with_attendees)
+    live_raid = Factory(:live_raid_with_attendee)
     live_raid.start!
-    lambda { live_raid.attendees_string = 'Tsigo,Sebudai' }.should change(live_raid.attendees, :length).from(2).to(4)
+    lambda { live_raid.attendees_string = 'Tsigo,Sebudai' }.should change(live_raid.attendees, :length).from(1).to(3)
   end
   
   describe "when given an existing attendee" do
     before(:each) do
-      @live_raid = Factory(:live_raid_with_attendees)
+      @live_raid = Factory(:live_raid_with_attendee)
       @existing = @live_raid.attendees[0]
     end
     
@@ -179,7 +179,7 @@ describe LiveRaid, "#post_to_forum" do
   end
   
   before(:each) do
-    @live_raid = Factory(:live_raid_with_attendees)
+    @live_raid = Factory(:live_raid_with_attendee)
     @live_raid.start!
   end
   
