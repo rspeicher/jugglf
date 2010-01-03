@@ -1,6 +1,13 @@
 :javascript
   $(document).ready(function(){
     $("#attendance_tabs").tabs();
+    
+    $(document).bind('keydown', 'Alt+1', function() {
+      $('#attendance_tabs').tabs('select', 0);
+    });
+    $(document).bind('keydown', 'Alt+2', function() {
+      $('#attendance_tabs').tabs('select', 1);
+    });
   });
 
 - breadcrumb link_to('Attendance', live_raids_path), "#{@live_raid.status} Raid"
