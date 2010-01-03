@@ -7,9 +7,9 @@ module Attendance::AttendeesHelper
     end
     
     if live_attendee.live_raid.active?
-      image
-      # link_to_remote(image, :method => :put,
-      #   :url => live_raid_live_attendee_path(live_attendee.live_raid, live_attendee))
+      # TODO: Swap the image on success
+      link_to_remote(image, :method => :put,
+        :url => live_raid_live_attendee_path(live_attendee.live_raid, live_attendee))
     else
       image
     end

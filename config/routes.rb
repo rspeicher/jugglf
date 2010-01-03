@@ -10,6 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :live_raids, :as => 'attendance', :controller => 'attendance/raids', :except => [:edit], :member => { :start => :get, :stop => :get } do |lr|
     lr.resources :live_loots, :as => 'loots', :controller => 'attendance/loots', :only => [:update, :destroy]
+    lr.resources :live_attendees, :as => 'attendeees', :controller => 'attendance/attendees', :only => [:update, :destroy]
   end
   
   # map.resources :live_raids, :as => 'attendance', :controller => 'attendance', :member => { :stop => :get, :resume => :get, :insert => :get } do |live|

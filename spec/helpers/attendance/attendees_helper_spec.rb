@@ -17,7 +17,6 @@ describe Attendance::AttendeesHelper do
     end
     
     it "should return a link if the raid is active" do
-      pending("Not yet ready to modify attendees")
       link_to_toggle_attendee(@attendee).should match(/href/)
     end
     

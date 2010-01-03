@@ -9,6 +9,8 @@
   %div.message.error= "This raid has not yet been started. #{link_to('Click', start_live_raid_path(@live_raid))} to start."
 - elsif @live_raid.status == 'Active'
   %div.message.notice= "This raid is active. #{link_to('Click', stop_live_raid_path(@live_raid))} to stop."
+- elsif @live_raid.status == 'Completed'
+  %div.message.notice= "This raid has been completed. #{link_to('Click', '#')} to post."
 %div.category_block.block_wrap
   #attendance_tabs
     %ul.tab_bar.no_title.mini
@@ -32,7 +34,7 @@
         - form.inputs do
           = form.input :attendees_string, :label => 'Add or toggle an attendee', :required => false, :input_html => {:size => '50'}
         - form.buttons :class => 'submit' do
-          = form.submit 'Save', :class => 'input_submit'
+          = form.submit 'Parse Attendees', :class => 'input_submit'
     #t-loots
       %table.ipb_table
         %thead
@@ -48,4 +50,4 @@
         - form.inputs do
           = form.input :input_text, :as => :text, :label => 'Add Loot', :required => false, :input_html => {:size => '90x10'}
         - form.buttons :class => 'submit' do
-          = form.submit 'Parse', :class => 'input_submit'
+          = form.submit 'Parse Loot', :class => 'input_submit'

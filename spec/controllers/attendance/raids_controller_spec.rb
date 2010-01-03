@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-def mock_find
-  @live_raid ||= mock_model(LiveRaid, 'attributes=' => nil)
+def mock_find(stubs = {})
+  @live_raid ||= mock_model(LiveRaid, stubs)
   LiveRaid.should_receive(:find).with(anything()).and_return(@live_raid)
 end
 
@@ -81,7 +81,7 @@ end
 describe Attendance::RaidsController, "#update" do
   before(:each) do
     login(:admin)
-    mock_find
+    mock_find('attributes=' => nil)
     @params = {:live_raid => {:attendees_string => 'Tsigo'}}
   end
   
