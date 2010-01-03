@@ -3,7 +3,7 @@ require 'spec_helper'
 module AttendanceRaidsHelperMethods
   def mock_find(stubs = {})
     @live_raid ||= mock_model(LiveRaid, stubs)
-    LiveRaid.should_receive(:find).with(anything()).and_return(@live_raid)
+    LiveRaid.should_receive(:find).with(anything()).exactly(:once).and_return(@live_raid)
   end
 
   def mock_new

@@ -10,6 +10,10 @@ module AttendanceAttendeesHelperMethods
     @live_attendee ||= mock_model(LiveAttendee)
     LiveAttendee.should_receive(:find).with(anything()).and_return(@live_attendee)
   end
+  
+  def params(extras = {})
+    {:live_raid_id => @parent.id, :id => @live_attendee.id}.merge!(extras)
+  end
 end
 
 describe Attendance::AttendeesController, "#update" do
@@ -19,7 +23,7 @@ describe Attendance::AttendeesController, "#update" do
     login(:admin)
     mock_find
     @live_attendee.should_receive(:toggle!)    
-    put :update, :live_raid_id => @parent.id, :id => @live_attendee.id
+    put :update, params
   end
   
   it { should respond_with(:success) }
@@ -32,7 +36,7 @@ describe Attendance::AttendeesController, "#destroy" do
     login(:admin)
     mock_find
     @live_attendee.should_receive(:destroy)
-    delete :destroy, :live_raid_id => @parent.id, :id => @live_attendee.id
+    delete :destroy, params
   end
   
   it { should respond_with(:success) }

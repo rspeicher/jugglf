@@ -1,7 +1,7 @@
 class Attendance::LootsController < ApplicationController
   before_filter :require_admin
   
-  before_filter :find_parent
+  before_filter :find_parent, :only => [:update, :destroy]
 
   def update
     @loots = LiveLoot.from_text(params[:live_loot][:input_text])
@@ -25,11 +25,11 @@ class Attendance::LootsController < ApplicationController
   
   def destroy
     @live_loot = @parent.loots.find(params[:id])
-    # @live_loot.destroy
+    @live_loot.destroy
     
     respond_to do |wants|
       wants.html { redirect_to(live_raid_path(@parent)) }
-      wants.js { head interpret_status(:ok) } # FIXME: Is this the right way to do this?
+      wants.js { head :ok }
     end
   end
   
