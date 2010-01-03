@@ -17,18 +17,18 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = false
 
 # Bullet
-config.gem 'flyerhzm-bullet', :lib => 'bullet', :source => 'http://gems.github.com'
-config.after_initialize do
-  Bullet.enable = false
-  Bullet.alert = true
-  Bullet.bullet_logger = false
-  Bullet.console = true
-  Bullet.rails_logger = true
-  Bullet.disable_browser_cache = true
-  
-  begin
-    require 'ruby-growl'
-    Bullet.growl = true
-  rescue MissingSourceFile
-  end
-end
+# config.gem 'flyerhzm-bullet', :lib => 'bullet', :source => 'http://gems.github.com'
+# config.after_initialize do
+#   Bullet.enable = true
+#   Bullet.alert = true
+#   Bullet.bullet_logger = false
+#   Bullet.console = true
+#   Bullet.rails_logger = true
+#   Bullet.disable_browser_cache = true
+#   
+#   begin
+#     require 'ruby-growl'
+#     Bullet.growl = true
+#   rescue MissingSourceFile
+#   end
+# end

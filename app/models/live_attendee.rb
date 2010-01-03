@@ -14,7 +14,7 @@
 class LiveAttendee < ActiveRecord::Base
   attr_accessible :member_name, :live_raid_id
   
-  belongs_to :live_raid
+  belongs_to :live_raid, :counter_cache => true
   
   validates_presence_of :member_name
   validates_uniqueness_of :member_name, :scope => :live_raid_id

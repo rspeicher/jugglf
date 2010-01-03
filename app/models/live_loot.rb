@@ -10,11 +10,11 @@
 #
 
 class LiveLoot < ActiveRecord::Base
+  attr_accessible :wow_id, :item_id, :member_id, :member_name, :loot_type
+  
   belongs_to :item, :autosave => true, :readonly => true
   belongs_to :member, :readonly => true
-  belongs_to :live_raid
-  
-  attr_accessible :wow_id, :item_id, :member_id, :member_name, :loot_type
+  belongs_to :live_raid, :counter_cache => true
   
   validates_inclusion_of :loot_type, :in => %w(bis rot sit bisrot), :allow_nil => true
   

@@ -21,6 +21,14 @@ describe LiveLoot do
     @live_loot.should be_valid
   end
   
+  it { should allow_mass_assignment_of(:wow_id) }
+  it { should allow_mass_assignment_of(:item_id) }
+  it { should allow_mass_assignment_of(:member_id) }
+  it { should allow_mass_assignment_of(:member_name) }
+  it { should allow_mass_assignment_of(:loot_type) }
+  it { should_not allow_mass_assignment_of(:live_raid) }
+  it { should_not allow_mass_assignment_of(:live_raid_id) }
+
   it { should belong_to(:item) }
   it { should belong_to(:member) }
   it { should belong_to(:live_raid) }
@@ -32,12 +40,6 @@ describe LiveLoot do
   it { should allow_value('bisrot').for(:loot_type) }
   it { should_not allow_value('invalid').for(:loot_type) }
   it { should_not allow_value('BiS').for(:loot_type) }
-  
-  it { should allow_mass_assignment_of(:wow_id) }
-  it { should allow_mass_assignment_of(:item_id) }
-  it { should allow_mass_assignment_of(:member_id) }
-  it { should allow_mass_assignment_of(:member_name) }
-  it { should allow_mass_assignment_of(:loot_type) }
 end
 
 describe LiveLoot, "item assocation" do

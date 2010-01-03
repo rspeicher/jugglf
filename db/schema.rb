@@ -92,6 +92,8 @@ ActiveRecord::Schema.define(:version => 20100101033711) do
   create_table "live_raids", :force => true do |t|
     t.datetime "started_at"
     t.datetime "stopped_at"
+    t.integer  "live_attendees_count", :default => 0
+    t.integer  "live_loots_count",     :default => 0
   end
 
   create_table "loot_tables", :force => true do |t|
