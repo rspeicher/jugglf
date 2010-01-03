@@ -172,3 +172,30 @@ describe LiveRaid, "#attendees_string" do
     end
   end
 end
+
+describe LiveRaid, "#post_to_forum" do
+  before(:all) do
+    require 'xmlrpc/client'
+  end
+  
+  before(:each) do
+    @live_raid = Factory(:live_raid_with_attendees)
+    @live_raid.start!
+  end
+  
+  it "should make an XMLRPC call" do
+    obj = Object.new
+    obj.should_receive(:call).with('postTopic', {
+      :api_module   => 'ipb',
+      :api_key      => anything(),
+      :member_field => 'id',
+      :member_key   => 4095, # Attendance
+      :forum_id     => 53,   # Temp, grumble
+      :topic_title  => @live_raid.started_at.to_date.to_s(:db),
+      :post_content => anything()
+    })
+    XMLRPC::Client.should_receive(:new2).and_return(obj)
+    
+    @live_raid.post_to_forum
+  end
+end
