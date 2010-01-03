@@ -103,9 +103,7 @@ class WishlistsController < ApplicationController
         flash[:success] = "Wishlist entry was successfully deleted."
         redirect_to(wishlists_path)
       end
-      wants.js do
-        head interpret_status(:ok) # FIXME: Is this the right way to do this?
-      end
+      wants.js { head :ok }
     end
   end
   
