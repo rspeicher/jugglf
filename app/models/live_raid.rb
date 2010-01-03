@@ -129,43 +129,4 @@ class LiveRaid < ActiveRecord::Base
   
   # Dummy method for Formtastic
   attr_reader :attendees_string #:nodoc:
-  
-  # Uses IPB's XMLRPC API to create a traditional "Attendance" thread on the forums.
-  #
-  # This thread is basically a log of the raid that can then be parsed into the
-  # LF system.
-  def post_to_forum
-    require 'xmlrpc/client'
-
-    server = XMLRPC::Client.new2('http://www.juggernautguild.com/interface/board/')
-
-    server.call('postTopic', {
-      :api_module   => 'ipb',
-      :api_key      => Juggernaut[:ipb_api_key],
-      :member_field => 'id',
-      :member_key   => 4095, # Attendance
-      :forum_id     => 53,   # Temp, grumble
-      :topic_title  => self.started_at.to_date.to_s(:db),
-      :post_content => self.forum_post
-    })
-  end
-  
-  protected
-    def forum_post
-      retval = ""
-      
-      retval += "[b][u][size=3]Attendance[/size][/u][/b] (#{self.running_time_in_minutes} minutes total)\n\n"
-      self.attendees.each do |att|
-        # TODO: I'd like to use number_with_precision to format the percentage, but can't find out the right way to use a view helper in a model.
-        retval += "#{att.member_name}," +
-          "#{att.active_minutes.to_f/self.running_time_in_minutes.to_f}," +
-          "#{att.active_minutes}\n"
-      end
-      retval += "\n[b][u][size=3]Drops[/size][/u][/b]\n\n"
-      self.loots.each do |loot|
-        retval += "#{loot.member.name} #{loot.loot_type} - [item]#{loot.item.name}[/item]|#{loot.item.wow_id}\n"
-      end
-      
-      retval
-    end
 end

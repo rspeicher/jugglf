@@ -1,0 +1,11 @@
+[b][u][size=3]Attendance[/size][/u][/b] (<%= @live_raid.running_time_in_minutes %> minutes total)
+
+<%- @live_raid.attendees.each do |att| -%>
+<%= att.member_name %>,<%= number_with_precision(att.active_minutes.to_f/@live_raid.running_time_in_minutes.to_f, :precision => 2) %>,<%= att.active_minutes %>
+<%- end -%>
+
+[b][u][size=3]Drops[/size][/u][/b]
+
+<%- @live_raid.loots.each do |loot| -%>
+<%= (loot.member_id.present?) ? loot.member.name : 'DE' %><%= (loot.loot_type.present?) ? " (#{loot.loot_type})" : '' %> - [item]<%= loot.item.name %>[/item]|<%= loot.item.wow_id %>
+<%- end -%>

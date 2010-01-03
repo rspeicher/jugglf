@@ -17,7 +17,7 @@
 - elsif @live_raid.status == 'Active'
   %div.message.notice= "This raid is active. #{link_to('Click', stop_live_raid_path(@live_raid))} to stop."
 - elsif @live_raid.status == 'Completed'
-  %div.message.notice= "This raid has been completed. #{link_to('Click', '#')} to post."
+  %div.message.notice= "This raid has been completed. #{link_to('Click', post_live_raid_path(@live_raid))} to post."
 %div.category_block.block_wrap
   #attendance_tabs
     %ul.tab_bar.no_title.mini
