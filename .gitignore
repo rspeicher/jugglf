@@ -1,6 +1,7 @@
 .DS_Store
 log/*.log
 tmp/**/*
+config/juggernaut.yml
 config/database.yml
 vendor/plugins/invision_bridge/config/database.yml
 db/*.sqlite3
