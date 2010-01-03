@@ -79,7 +79,7 @@ describe LiveAttendee, "#stop!" do
   end
   
   before(:each) do
-    @live_att = Factory(:live_attendee, :started_at => 1.minute.until(Time.now), :stopped_at => nil)
+    @live_att = Factory(:live_attendee, :started_at => 1.minute.until(Time.now), :stopped_at => nil, :active => true)
   end
   
   it "should do nothing if not active" do
@@ -123,7 +123,7 @@ describe LiveAttendee, "#active_minutes" do
   end
   
   before(:each) do
-    @live_att = Factory(:live_attendee, :started_at => 20.minutes.until(Time.now))
+    @live_att = Factory(:live_attendee_with_raid, :started_at => 20.minutes.until(Time.now))
   end
   
   it "should return 0 for an unstarted record" do
@@ -145,7 +145,7 @@ describe LiveAttendee, "#active_minutes" do
   # Their +minutes_attended+ would be 10, but +active_minutes+ would be 50.
   describe "after multiple toggles" do
     it "should be correct" do
-      @live_att = Factory(:live_attendee, :started_at => Time.now)
+      @live_att = Factory(:live_attendee_with_raid, :started_at => Time.now)
 
       # Leave after 10 minutes attended
       Timecop.freeze(10.minutes.since(Time.now)) do

@@ -28,19 +28,24 @@ class LiveAttendee < ActiveRecord::Base
     end
   end
   
-  def start!
+  def start
     # Don't need to do anything if we're already active or started
     return nil if self.active? and self.started_at.present?
     
     self.started_at = Time.now
-    self.active     = true
+    self.active     = true    
+  end
+  def start!
+    # Don't need to do anything if we're already active or started
+    return nil if self.active? and self.started_at.present?
     
+    self.start
     self.save
   end
   
   def stop!
     # Don't need to stop unless we're active
-    return nil unless self.active?
+    return nil unless self.active? and self.started_at.present?
     
     self.stopped_at = Time.now
     self.active     = false

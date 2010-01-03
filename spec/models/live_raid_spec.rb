@@ -112,18 +112,50 @@ describe LiveRaid, "#status" do
   end
 end
 
+describe LiveRaid, "#active?" do
+  it "should be true if active" do
+    Factory(:live_raid, :started_at => Time.now).active?.should be_true
+  end
+  
+  it "should otherwise be false" do
+    Factory(:live_raid).active?.should be_false
+  end
+end
+
 describe LiveRaid, "#attendees_string" do
   it "should assign to attendees collection" do
     live_raid = Factory(:live_raid)
     live_raid.attendees_string = 'Tsigo,Sebudai'
-    live_raid.attendees.size.should eql(2)
+    live_raid.attendees.length.should eql(2)
     live_raid.attendees[0].live_raid_id.should eql(live_raid.id)
   end
   
   it "should work on an unsaved LiveRaid" do
     live_raid = Factory.build(:live_raid)
     live_raid.attendees_string = 'Tsigo,Sebudai'
-    live_raid.attendees.size.should eql(2)
+    live_raid.attendees.length.should eql(2)
     lambda { live_raid.save }.should change(live_raid.attendees[0], :live_raid_id)
+  end
+  
+  it "should start a new attendee if the current raid is active" do
+    live_raid = Factory(:live_raid)
+    live_raid.start!
+    live_raid.attendees_string = 'Tsigo'
+    live_raid.attendees[0].active?.should be_true
+    live_raid.attendees[0].started_at.should_not be_nil
+  end
+
+  it "should toggle an attendee's status when given an attendee that already exists" do
+    live_raid = Factory(:live_raid_with_attendees)
+    existing = live_raid.attendees[0]
+    
+    existing.should_receive(:toggle!)
+    live_raid.attendees_string = existing.member_name
+  end
+  
+  it "should add a new attendee to an already existing collection" do
+    live_raid = Factory(:live_raid_with_attendees)
+    live_raid.start!
+    lambda { live_raid.attendees_string = 'Tsigo,Sebudai' }.should change(live_raid.attendees, :length).from(2).to(4)
   end
 end

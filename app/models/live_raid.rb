@@ -89,8 +89,41 @@ class LiveRaid < ActiveRecord::Base
     end
   end
   
-  attr_reader :attendees_string
-  def attendees_string=(value)
-    self.attendees << LiveAttendee.from_text(value)
+  # Retruns +true+ if <tt>status == 'Active'</tt>, otherwise +false+
+  def active?
+    self.status == 'Active'
   end
+  
+  # Adds records to the +attendees+ assocation by parsing a comma-separated list
+  # of names.
+  #
+  # If the name of an existing attendee is passed, it will have its <tt>toggle!</tt>
+  # method called.
+  #
+  # Example:
+  # Assuming the following +attendee+ associations...
+  #
+  #     #<LiveAttendee id: 3, member_name: "Baud", live_raid_id: 1, started_at: nil, stopped_at: nil, active: false, minutes_attended: 0>, 
+  #     #<LiveAttendee id: 2, member_name: "Sebudai", live_raid_id: 1, started_at: nil, stopped_at: nil, active: false, minutes_attended: 0>, 
+  #     #<LiveAttendee id: 1, member_name: "Tsigo", live_raid_id: 1, started_at: nil, stopped_at: nil, active: false, minutes_attended: 0>
+  #
+  # ...calling <tt>attendees_string = 'Tsigo,Duskshadow'</tt> will create a new +LiveAttendee+ record for "Duskshadow", 
+  # and call <tt>toggle!</tt> on the "Tsigo" record, since it already exists.
+  def attendees_string=(value)
+    current_names = self.attendees.collect(&:member_name)
+    new_attendees = LiveAttendee.from_text(value)
+    
+    new_attendees.each do |new_att|
+      if current_names.include? new_att.member_name
+        # TODO: Clean this up, it's ugly and there's got to be a better way.
+        self.attendees[current_names.index(new_att.member_name)].toggle!
+      else
+        new_att.start if self.active?
+        self.attendees << new_att
+      end
+    end
+  end
+  
+  # Dummy method for Formtastic
+  attr_reader :attendees_string #:nodoc:
 end
