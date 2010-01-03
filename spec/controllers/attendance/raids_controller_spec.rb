@@ -1,16 +1,20 @@
 require 'spec_helper'
 
-def mock_find(stubs = {})
-  @live_raid ||= mock_model(LiveRaid, stubs)
-  LiveRaid.should_receive(:find).with(anything()).and_return(@live_raid)
-end
+module AttendanceRaidsHelperMethods
+  def mock_find(stubs = {})
+    @live_raid ||= mock_model(LiveRaid, stubs)
+    LiveRaid.should_receive(:find).with(anything()).and_return(@live_raid)
+  end
 
-def mock_new
-  @live_raid = mock_model(LiveRaid)
-  LiveRaid.should_receive(:new).and_return(@live_raid)
+  def mock_new
+    @live_raid = mock_model(LiveRaid)
+    LiveRaid.should_receive(:new).and_return(@live_raid)
+  end
 end
 
 describe Attendance::RaidsController, "#index" do
+  include AttendanceRaidsHelperMethods
+  
   describe "basics" do
     before(:each) do
       login(:admin)
@@ -24,6 +28,8 @@ describe Attendance::RaidsController, "#index" do
 end
 
 describe Attendance::RaidsController, "#show" do
+  include AttendanceRaidsHelperMethods
+  
   describe "basics" do
     before(:each) do
       login(:admin)
@@ -38,6 +44,8 @@ describe Attendance::RaidsController, "#show" do
 end
 
 describe Attendance::RaidsController, "#new" do
+  include AttendanceRaidsHelperMethods
+  
   describe "basics" do
     before(:each) do
       login(:admin)
@@ -51,6 +59,8 @@ describe Attendance::RaidsController, "#new" do
 end
 
 describe Attendance::RaidsController, "#create" do
+  include AttendanceRaidsHelperMethods
+  
   before(:each) do
     login(:admin)
     mock_new
@@ -79,6 +89,8 @@ describe Attendance::RaidsController, "#create" do
 end
 
 describe Attendance::RaidsController, "#update" do
+  include AttendanceRaidsHelperMethods
+  
   before(:each) do
     login(:admin)
     mock_find('attributes=' => nil)
@@ -107,6 +119,8 @@ describe Attendance::RaidsController, "#update" do
 end
 
 describe Attendance::RaidsController, "#start" do
+  include AttendanceRaidsHelperMethods
+  
   before(:each) do
     login(:admin)
     mock_find
@@ -119,6 +133,8 @@ describe Attendance::RaidsController, "#start" do
 end
 
 describe Attendance::RaidsController, "#stop" do
+  include AttendanceRaidsHelperMethods
+  
   before(:each) do
     login(:admin)
     mock_find

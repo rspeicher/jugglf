@@ -1,16 +1,20 @@
 require 'spec_helper'
 
-def mock_find
-  # This is a namespaced controller, so it always has a parent
-  # We stub :attendees to LiveAttendee so that @parent.attendees.find works as expected
-  @parent ||= @live_raid ||= mock_model(LiveRaid, :attendees => LiveAttendee)
-  LiveRaid.should_receive(:find).with(anything()).and_return(@live_raid)
+module AttendanceAttendeesHelperMethods
+  def mock_find
+    # This is a namespaced controller, so it always has a parent
+    # We stub :attendees to LiveAttendee so that @parent.attendees.find works as expected
+    @parent ||= @live_raid ||= mock_model(LiveRaid, :attendees => LiveAttendee)
+    LiveRaid.should_receive(:find).with(anything()).and_return(@live_raid)
   
-  @live_attendee ||= mock_model(LiveAttendee)
-  LiveAttendee.should_receive(:find).with(anything()).and_return(@live_attendee)
+    @live_attendee ||= mock_model(LiveAttendee)
+    LiveAttendee.should_receive(:find).with(anything()).and_return(@live_attendee)
+  end
 end
 
 describe Attendance::AttendeesController, "#update" do
+  include AttendanceAttendeesHelperMethods
+  
   before(:each) do
     login(:admin)
     mock_find
@@ -22,6 +26,8 @@ describe Attendance::AttendeesController, "#update" do
 end
 
 describe Attendance::AttendeesController, "#destroy" do
+  include AttendanceAttendeesHelperMethods
+  
   before(:each) do
     login(:admin)
     mock_find
