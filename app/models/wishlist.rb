@@ -12,7 +12,7 @@
 #
 
 class Wishlist < ActiveRecord::Base
-  PRIORITIES = ['best in slot','normal','situational','rot']
+  PRIORITIES = ['best in slot','normal','situational','rot'].freeze
   
   # Relationships -------------------------------------------------------------
   belongs_to :item, :counter_cache => true
