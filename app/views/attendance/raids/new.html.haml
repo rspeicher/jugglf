@@ -1,6 +1,6 @@
 - breadcrumb link_to('Attendance', live_raids_path), 'New'
 - semantic_form_for @live_raid do |form|
   - form.inputs do
-    = form.input :attendees_string, :label => 'Initial attendees', :input_html => {:size => 100}
+    = form.input :attendees_string, :label => 'Initial attendees', :hint => 'Comma-separated', :input_html => {:size => 100}
   - form.buttons :class => 'submit' do
     = form.submit 'Start', :class => 'input_submit'

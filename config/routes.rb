@@ -8,8 +8,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :achievements, :only => [:index]
   map.resources :wishlists, :only => [:index]
   
-  map.resources :live_raids, :as => 'attendance', :controller => 'attendance/raids', :member => { :start => :get } do |lr|
-    lr.resources :live_loots, :as => 'loots', :controller => 'attendance/loots', :only => [:edit, :update, :destroy]
+  map.resources :live_raids, :as => 'attendance', :controller => 'attendance/raids', :except => [:edit], :member => { :start => :get } do |lr|
+    lr.resources :live_loots, :as => 'loots', :controller => 'attendance/loots', :only => [:update, :destroy]
   end
   
   # map.resources :live_raids, :as => 'attendance', :controller => 'attendance', :member => { :stop => :get, :resume => :get, :insert => :get } do |live|

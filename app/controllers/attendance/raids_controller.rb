@@ -1,7 +1,7 @@
 class Attendance::RaidsController < ApplicationController
   before_filter :require_admin
   
-  before_filter :find_raid, :only => [:show, :start]
+  before_filter :find_raid, :only => [:show, :update, :start]
   
   def index
     @raids = LiveRaid.find(:all)
@@ -22,6 +22,21 @@ class Attendance::RaidsController < ApplicationController
     
     respond_to do |wants|
       wants.html
+    end
+  end
+  
+  def update
+    @live_raid.attributes = params[:live_raid]
+    
+    if @live_raid.save
+      respond_to do |wants|
+        wants.html { redirect_to live_raid_path(@live_raid) }
+      end
+    else
+      flash[:error] = "Failed to update the raid."
+      respond_to do |wants|
+        wants.html { redirect_to live_raid_path(@live_raid) }
+      end
     end
   end
   

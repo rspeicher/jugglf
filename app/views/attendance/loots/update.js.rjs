@@ -7,11 +7,11 @@ if flash[:error].nil?
   
   # Clear the input form and possibly hide the errors div, since it worked
   page << "$('#live_loot_input_text').val('');"
-  page << "$('#form_errors').addClass('hide');"
+  page << "$('#loot_errors').addClass('hide');"
 else
   # Show the errors div and populate it
-  page << "$('#form_errors').removeClass('hide');"
-  page << "$('#form_errors').html('#{escape_javascript(flash[:error])}');"
+  page << "$('#loot_errors').removeClass('hide');"
+  page << "$('#loot_errors').html('#{escape_javascript(flash[:error])}');"
   
   # Focus the input field
   page << "$('#live_loot_input_text').focus();"
