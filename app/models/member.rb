@@ -24,7 +24,7 @@
 #
 
 class Member < ActiveRecord::Base
-  WOW_CLASSES = ['Death Knight'] + (%w(Druid Hunter Mage Paladin Priest Rogue Shaman Warlock Warrior))
+  WOW_CLASSES = ['Death Knight'] + (%w(Druid Hunter Mage Paladin Priest Rogue Shaman Warlock Warrior)).freeze
   
   # Relationships -------------------------------------------------------------
   has_many :achievements, :through => :completed_achievements
