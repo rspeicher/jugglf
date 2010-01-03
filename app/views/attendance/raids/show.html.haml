@@ -7,6 +7,8 @@
 
 - if @live_raid.status == 'Pending'
   %div.message.error= "This raid has not yet been started. #{link_to('Click', start_live_raid_path(@live_raid))} to start."
+- elsif @live_raid.status == 'Active'
+  %div.message.notice= "This raid is active. #{link_to('Click', stop_live_raid_path(@live_raid))} to stop."
 %div.category_block.block_wrap
   #attendance_tabs
     %ul.tab_bar.no_title.mini

@@ -117,3 +117,15 @@ describe Attendance::RaidsController, "#start" do
   it { should respond_with(:redirect) }
   it { should redirect_to(live_raid_path(@live_raid)) }
 end
+
+describe Attendance::RaidsController, "#stop" do
+  before(:each) do
+    login(:admin)
+    mock_find
+    @live_raid.should_receive(:stop!)
+    get :stop, :id => @live_raid.id
+  end
+  
+  it { should respond_with(:redirect) }
+  it { should redirect_to(live_raid_path(@live_raid)) }
+end
