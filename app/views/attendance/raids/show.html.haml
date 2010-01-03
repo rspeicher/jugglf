@@ -4,9 +4,23 @@
     
     $(document).bind('keydown', 'Alt+1', function() {
       $('#attendance_tabs').tabs('select', 0);
+      $('#live_raid_attendees_string').focus();
+      return false;
     });
     $(document).bind('keydown', 'Alt+2', function() {
       $('#attendance_tabs').tabs('select', 1);
+      $('#live_loot_input_text').focus();
+      return false;
+    });
+    $(document).bind('keydown', 'Ctrl+S', function() {
+      if ($('#attendance_tabs').tabs('option', 'selected') == 0) {
+        $('#live_raid_submit').click();
+      }
+      else {
+        $('#live_loot_submit').click();
+      }
+      
+      return false;
     });
   });
 
