@@ -4,7 +4,7 @@ class Attendance::RaidsController < ApplicationController
   before_filter :find_raid, :only => [:show, :start]
   
   def index
-    @raids = LiveRaid.find(:all, :order => 'id DESC')
+    @raids = LiveRaid.find(:all)
     
     respond_to do |wants|
       wants.html
