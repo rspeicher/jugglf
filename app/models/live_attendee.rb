@@ -64,7 +64,7 @@ class LiveAttendee < ActiveRecord::Base
   #
   # Example:
   # - An attendee has been active since the start of a raid that began one hour ago.
-  #   Their +minutes_attended+ attended attribute would be 0, but +active_minutes+ would be 60.
+  #   Their +minutes_attended+ attribute would be 0, but +active_minutes+ would be 60.
   # - An attendee was active in the same raid for 30 minutes, and then left for the night.
   #   Both their +minutes_attended+ and +active_minutes+ would be 30.
   # - An attendee was active in the same raid for 10 minutes, left for 20 minutes, and then came back.
