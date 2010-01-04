@@ -2,12 +2,12 @@
   $(document).ready(function(){
     $("#attendance_tabs").tabs();
     
-    $(document).bind('keydown', 'Alt+1', function() {
+    $(document).bind('keydown', 'Shift+1', function() {
       $('#attendance_tabs').tabs('select', 0);
       $('#live_raid_attendees_string').focus();
       return false;
     });
-    $(document).bind('keydown', 'Alt+2', function() {
+    $(document).bind('keydown', 'Shift+2', function() {
       $('#attendance_tabs').tabs('select', 1);
       $('#live_loot_input_text').focus();
       return false;

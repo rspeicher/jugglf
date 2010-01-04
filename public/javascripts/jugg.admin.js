@@ -45,11 +45,8 @@ function attendanceEditLoot(id) {
     loot_string += item_name + '|' + wow_id;
     loot_string += "\n";
     
-    // Highlight the text area; focus it?
+    // Highlight the text area; focus it
     $('#live_loot_input_text').val($('#live_loot_input_text').val() + loot_string);
     $('#live_loot_input_text').effect('highlight', {}, 500);
     $('#live_loot_input_text').focus();
-}
-
-function attendanceDeleteLoot() {
 }
