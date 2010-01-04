@@ -10,7 +10,7 @@ class Attendance::LootsController < ApplicationController
       @loots.each do |loot|
         @parent.loots << loot
       end
-      @parent.save
+      @parent.save!
     
       respond_to do |wants|
         wants.js

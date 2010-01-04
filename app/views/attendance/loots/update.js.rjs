@@ -1,6 +1,6 @@
 if flash[:error].nil?
-  # Add each row to the top of the tbody
-  page << "$('#live_loots').prepend('#{escape_javascript(render :partial => 'attendance/loots/loot_row', :collection => @loots)}');"
+  # Add each row to the bottom of the tbody
+  page << "$('#live_loots').append('#{escape_javascript(render :partial => 'attendance/loots/loot_row', :collection => @loots)}');"
 
   # Highlight each row that we added
   @loots.each { |loot| page << "$('#live_loot_#{loot.id}').effect('highlight', {}, 1500);" }
@@ -8,6 +8,9 @@ if flash[:error].nil?
   # Clear the input form and possibly hide the errors div, since it worked
   page << "$('#live_loot_input_text').val('');"
   page << "$('#loot_errors').addClass('hide');"
+  
+  # Re-focus the input form
+  page << "$('#live_loot_input_text').focus();"
 else
   # Show the errors div and populate it
   page << "$('#loot_errors').removeClass('hide');"
