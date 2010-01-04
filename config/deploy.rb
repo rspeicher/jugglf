@@ -35,6 +35,7 @@ namespace :deploy do
   task :database_yml, :roles => :db do
     run "cp #{shared_path}/config/database.yml #{current_release}/config/database.yml"
     run "cp #{shared_path}/config/database.yml #{current_release}/vendor/plugins/invision_bridge/config/database.yml"
+    run "cp #{shared_path}/config/juggernaut.yml #{current_release}/config/juggernaut.yml"
   end
   
   desc "Run the juggernaut:wishlist rake task"
