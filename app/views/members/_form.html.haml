@@ -5,6 +5,6 @@
   = form.input :user_id, :as => :select, :collection => @users.collect { |u| [u.name, u.id] }, :include_blank => true, :required => false
   = form.input :active, :as => :boolean
 - form.buttons :class => 'submit' do
-  = form.submit 'Create Member', :class => 'input_submit'
+  = form.submit 'Save', :class => 'input_submit'
   or
   = link_to('Cancel', members_path, :class => 'cancel')
