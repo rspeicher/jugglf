@@ -91,7 +91,7 @@ describe LiveLoot, ".from_text" do
     @text = "DE, Tsigo - [Death's Choice]|47303\n" +
       "Tsigo - [Death's Choice]|47303\n" +
       "Tsigo (sit) - Death's Choice|47303\n" +
-      "Tsigo bis - [Death's Choice]|47303\n"
+      "Tsigo BIS - [Death's Choice]|47303\n"
   end
   
   it "should return an empty array if no text is given" do

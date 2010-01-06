@@ -75,7 +75,7 @@ class LiveLoot < ActiveRecord::Base
           loot = self.new
           loot.wow_id      = matches[3].to_i
           loot.member_name = buyer.gsub(/^([^\s]+).*/, '\1') unless buyer == 'DE'
-          loot.loot_type   = buyer.gsub(/^(\w+)\s\(?([a-z\s]+)\)?$/, '\2') if buyer.match(/\s\(?([a-z\s]+)\)?$/)
+          loot.loot_type   = buyer.gsub(/^(\w+)\s\(?([a-zA-Z\s]+)\)?$/, '\2').downcase if buyer.match(/\s\(?([a-zA-Z\s]+)\)?$/)
           
           retval << loot
         end
