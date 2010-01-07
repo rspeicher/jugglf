@@ -60,6 +60,8 @@ describe LiveLoot, "item assocation" do
 end
 
 describe LiveLoot, "member association" do
+  include ItemLookupHelpers
+  
   describe "with an existing member" do
     before(:each) do
       @member = Member.make(:name => 'LiveLooter')

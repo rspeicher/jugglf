@@ -20,6 +20,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Item do
+  include ItemLookupHelpers
+  
   before(:each) do
     @item = Item.make(:with_real_stats)
     ItemLookup.stub!(:search).and_return(valid_lookup_results)
@@ -103,6 +105,8 @@ describe Item, "#needs_lookup?" do
 end
 
 describe Item, "automatic stat lookup before save" do
+  include ItemLookupHelpers
+  
   describe "with a valid item" do
     before(:each) do
       Item.destroy_all
@@ -155,6 +159,8 @@ describe Item, "#lookup!" do
 end
 
 describe Item, "#lookup" do
+  include ItemLookupHelpers
+  
   it "should not perform a lookup unless it's necessary" do
     item = Item.make(:with_real_stats)
     ItemLookup.should_not_receive(:search)
