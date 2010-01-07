@@ -92,8 +92,10 @@ class LiveLoot < ActiveRecord::Base
   
   protected
     def validate_on_create
+      # Ensures that, when given a member record, it wasn't newly-created
+      # We don't want to accidentally typo a member's name and have loot falsely get marked as DE'd.
       if self.member.present? and self.member.new_record?
-        errors.add('member_id', "attempted to assign loot to a member who did not yet exist")
+        self.errors.add_to_base("attempted to assign loot to a member who did not yet exist: #{self.member.name}")
       end
     end
 end

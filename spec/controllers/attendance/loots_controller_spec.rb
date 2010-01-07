@@ -28,7 +28,7 @@ describe Attendance::LootsController, "#update" do
   
   describe "success" do
     before(:each) do
-      @parent.stub!(:save).and_return(true)
+      @parent.stub!(:save!).and_return(true)
       put :update, params(:live_loot => {:input_text => ''})
     end
     
@@ -38,7 +38,7 @@ describe Attendance::LootsController, "#update" do
   
   describe "failure" do
     before(:each) do
-      @parent.stub!(:save).and_raise('Exception')
+      @parent.stub!(:save!).and_raise('Exception')
       put :update, params(:live_loot => {:input_text => ''})
     end
     

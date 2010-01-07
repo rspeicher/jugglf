@@ -10,8 +10,8 @@
 class LiveRaid < ActiveRecord::Base
   attr_accessible :attendees_string
   
-  has_many :live_attendees, :dependent => :destroy, :order => 'member_name'
-  has_many :live_loots, :dependent => :destroy, :order => 'id'
+  has_many :live_attendees, :autosave => true, :dependent => :destroy, :order => 'member_name'
+  has_many :live_loots, :autosave => true, :dependent => :destroy, :order => 'id'
   
   alias_method :attendees, :live_attendees
   alias_method :loots, :live_loots

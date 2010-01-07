@@ -60,8 +60,6 @@ describe LiveLoot, "item assocation" do
 end
 
 describe LiveLoot, "member association" do
-  include ItemLookupHelpers
-  
   describe "with an existing member" do
     before(:each) do
       @member = Member.make(:name => 'LiveLooter')
@@ -73,19 +71,16 @@ describe LiveLoot, "member association" do
     end
   end
 
-  # TODO: Spec this. It shouldn't be able to assign to a member who doesn't exist. nil's fine, that's DE.
-  # describe "with a new member" do
-  #   before(:each) do
-  #     @live_loot = LiveLoot.make_unsaved(:wow_id => 12345, :member_name => nil)
-  #   end
-  #   
-  #   it "should raise an exception, maybe?" do
-  #     lambda {
-  #       @live_loot.member_name = 'InvalidMember'
-  #       @live_loot.save!
-  #     }.should raise_error(ActiveRecord::RecordInvalid)
-  #   end
-  # end
+  describe "with a new member" do
+    before(:each) do
+      @live_loot = Factory.build(:live_loot)
+    end
+    
+    it "should raise an exception, maybe?" do
+      @live_loot.member_name = 'InvalidMember'
+      @live_loot.should have(1).errors_on(:base)
+    end
+  end
 end
 
 describe LiveLoot, ".from_text" do
