@@ -71,21 +71,27 @@ class Attendance::RaidsController < ApplicationController
   def post
     require 'xmlrpc/client'
     
-    server = XMLRPC::Client.new2('http://www.juggernautguild.com/interface/board/')
+    if @live_raid.status == 'Completed'
+      server = XMLRPC::Client.new2('http://www.juggernautguild.com/interface/board/')
     
-    response = server.call('postTopic', {
-      :api_module   => 'ipb',
-      :api_key      => Juggernaut[:ipb_api_key],
-      :member_field => 'id',
-      :member_key   => 4095, # Attendance
-      :forum_id     => 53,   # Temp, grumble
-      :topic_title  => @live_raid.started_at.to_date.to_s(:db),
-      :post_content => render_to_string(:layout => false)
-    })
+      response = server.call('postTopic', {
+        :api_module   => 'ipb',
+        :api_key      => Juggernaut[:ipb_api_key],
+        :member_field => 'id',
+        :member_key   => 4095, # Attendance
+        :forum_id     => 53,   # Temp, grumble
+        :topic_title  => @live_raid.started_at.to_date.to_s(:db),
+        :post_content => render_to_string(:layout => false)
+      })
     
-    flash[:success] = "Successfully created attendance thread for #{@live_raid.started_at.to_date.to_s(:db)}."
-    respond_to do |wants|
-      wants.html { redirect_to live_raids_path }
+      flash[:success] = "Successfully created attendance thread for #{@live_raid.started_at.to_date.to_s(:db)}."
+      respond_to do |wants|
+        wants.html { redirect_to live_raids_path }
+      end
+    else
+      respond_to do |wants|
+        wants.html { redirect_to live_raid_path(@live_raid) }
+      end
     end
   end
   

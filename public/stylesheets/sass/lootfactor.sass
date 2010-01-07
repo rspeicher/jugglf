@@ -93,6 +93,30 @@ body#index_root
     margin: 6px 2px 12px 2px
     h4
       margin: 4px 0 4px 0
+      
+// Attendance#show
+body#attendance_raids_root
+  h2
+    font-size: 1.3em
+    padding: 15px 15px 15px 43px
+    -moz-border-radius: 5px
+    -webkit-border-radius: 5px
+    border:
+      width: 1px
+      style: solid
+    a
+      color: #281B1B
+      text-decoration: none
+      font-weight: bold
+    &.pending
+      background: #FFFCD7 url(/images/hourglass_large.png) no-repeat scroll 5px 10px
+      border-color: #E3D2B2
+    &.active
+      background: #F1F6EC url(/images/stop_large.png) no-repeat scroll 5px 10px
+      border-color: #B0CE94
+    &.completed
+      background: #FFFCD7 url(/images/comment_add_large.png) no-repeat scroll 5px 10px
+      border-color: #E3D2B2
     
 // Members#show ---------------------------------------------------------------
 body#members_root
