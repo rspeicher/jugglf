@@ -8,7 +8,7 @@ class Attendance::AttendeesController < ApplicationController
     @live_attendee.toggle!
     
     respond_to do |wants|
-      wants.js { head :ok }
+      wants.js
     end
   end
   

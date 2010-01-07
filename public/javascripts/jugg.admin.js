@@ -50,3 +50,20 @@ function attendanceEditLoot(id) {
     $('#live_loot_input_text').effect('highlight', {}, 500);
     $('#live_loot_input_text').focus();
 }
+
+/**
+ * Increments all active attendees' attendance by 1 minute in a loop.
+ *
+ * This won't be _perfectly_ accurate since not every page refresh happens at 0
+ * seconds of every minute, but for our purposes it will be a close-enough estimation.
+ */
+function attendanceIncrement() {
+    setTimeout(function() {
+        $('.live_attendee.active').each(function() {
+            minutes = parseInt($(this).find('td:nth-child(3)').text());
+            $(this).find('td:nth-child(3)').text(minutes + 1);
+        });
+        
+        attendanceIncrement();
+    }, 60000);
+}

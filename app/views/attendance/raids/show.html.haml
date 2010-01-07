@@ -1,7 +1,7 @@
 :javascript
   $(document).ready(function(){
     $("#attendance_tabs").tabs();
-    
+    attendanceIncrement();
     $(document).bind('keydown', 'Shift+1', function() {
       $('#attendance_tabs').tabs('select', 0);
       $('#live_raid_attendees_string').focus();
@@ -19,7 +19,6 @@
       else {
         $('#live_loot_submit').click();
       }
-      
       return false;
     });
   });
@@ -27,11 +26,11 @@
 - breadcrumb link_to('Attendance', live_raids_path), "#{@live_raid.status} Raid"
 
 - if @live_raid.status == 'Pending'
-  %div.message.error= "This raid has not yet been started. #{link_to('Click', start_live_raid_path(@live_raid))} to start."
+  %h2.pending= "This raid has not yet been started. #{link_to('Click', start_live_raid_path(@live_raid))} to start."
 - elsif @live_raid.status == 'Active'
-  %div.message.notice= "This raid is active. #{link_to('Click', stop_live_raid_path(@live_raid))} to stop."
+  %h2.active= "This raid is active. #{link_to('Click', stop_live_raid_path(@live_raid))} to stop."
 - elsif @live_raid.status == 'Completed'
-  %div.message.notice= "This raid has been completed. #{link_to('Click', post_live_raid_path(@live_raid))} to post."
+  %h2.completed= "This raid has been completed. #{link_to('Click', post_live_raid_path(@live_raid))} to post."
 %div.category_block.block_wrap
   #attendance_tabs
     %ul.tab_bar.no_title.mini
@@ -46,7 +45,7 @@
             %th.number Active Minutes
         %tbody
           - @live_raid.attendees.each do |att|
-            %tr{ :class => cycle('row1', 'row2') }
+            %tr{ :class => cycle('row1', 'row2') + (att.active? ? ' active' : ' inactive') }[att]
               %td= h(att.member_name)
               %td.icon= link_to_toggle_attendee(att)
               %td.number= att.active_minutes

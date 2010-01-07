@@ -1,0 +1,12 @@
+# Replace the icon
+page << "$('#live_attendee_#{@live_attendee.id} td.icon').html('#{escape_javascript(link_to_toggle_attendee(@live_attendee))}');"
+
+if @live_attendee.active?
+  # They were inactive, and are now active
+  page << "$('#live_attendee_#{@live_attendee.id}').removeClass('inactive');"
+  page << "$('#live_attendee_#{@live_attendee.id}').addClass('active');"
+else
+  # They were active, and are now inactive
+  page << "$('#live_attendee_#{@live_attendee.id}').removeClass('active');"
+  page << "$('#live_attendee_#{@live_attendee.id}').addClass('inactive');"
+end
