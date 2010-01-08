@@ -19,16 +19,18 @@ function zebraRows(tbody_id, delay) {
 }
 
 function membersTableSort() {
-    $("#members_root table#index").tablesorter({
-        sortList: [[1,0]],
-        widgets: ['zebra'],
-        headers: {
-            1: { sorter: 'without-link' }, // Name
-            6: { sorter: 'currency' }, // Loot Factor
-            7: { sorter: 'currency' }, // BiS
-            8: { sorter: 'currency' }  // Sit
-        }
-    });
+    if ($("#members_root table#index tbody tr").size() > 1) {
+        $("#members_root table#index").tablesorter({
+            sortList: [[1,0]],
+            widgets: ['zebra'],
+            headers: {
+                1: { sorter: 'without-link' }, // Name
+                6: { sorter: 'currency' }, // Loot Factor
+                7: { sorter: 'currency' }, // BiS
+                8: { sorter: 'currency' }  // Sit
+            }
+        });
+    }
 }
 
 /**
@@ -51,17 +53,19 @@ function wishlistSortTables() {
  * Sorts a single user's wishlist table, not to be confused with wishlistSortTables
  */
 function sortWishlistTable() {
-    $("table#wishlists").tablesorter({
-        sortList: [[2,0], [1,0]],
-        widgets: ['zebra'],
-        headers: {
-            0: { sorter: false },          // Don't sort the item icon
-            1: { sorter: 'without-link' }, // Sort by item name without the link
-            2: { sorter: 'wishlist' },     // Priority
-            5: { sorter: false }           // Don't sort the 'Delete' icon
-        }
-    });
-    zebraRows('wishlist');
+    if ($('table#wishlists tbody tr').size() > 1) {
+        $("table#wishlists").tablesorter({
+            sortList: [[2,0], [1,0]],
+            widgets: ['zebra'],
+            headers: {
+                0: { sorter: false },          // Don't sort the item icon
+                1: { sorter: 'without-link' }, // Sort by item name without the link
+                2: { sorter: 'wishlist' },     // Priority
+                5: { sorter: false }           // Don't sort the 'Delete' icon
+            }
+        });
+        zebraRows('wishlist');
+    }
 }
 
 /* Custom sorter to sort wishlist priorities as Best in Slot > Normal > Rot > Situational */

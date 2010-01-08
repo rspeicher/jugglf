@@ -1,3 +1,13 @@
+:javascript
+  $(document).ready(function() {
+    $('#raids_pagination a').click(function() {
+      $.get($(this).attr('href'), function(value) {
+        $('#raids_pagination').parent().html(value);
+        setupModeration();
+      });
+      return false;
+    });
+  });
 %table.ipb_table
   %thead
     %tr

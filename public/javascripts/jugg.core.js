@@ -25,7 +25,7 @@ jQuery.fn.identify = function(prefix) {
 
             // Private
             function setup(mod) {
-                cell = $(mod).parent('td');
+                var cell = $(mod).parent('td');
                 $(mod).hide();
                 $(mod).identify('moderation');
 
@@ -47,7 +47,7 @@ jQuery.fn.identify = function(prefix) {
             function showModeration(e) {
                 hideAllModeration();
                 
-                elem = e.target
+                elem = e.target;
                 if (elem != document) {
                     theUL = $(elem).find('ul.topic_moderation');
                     theUL.fadeTo('fast', 0.3).show();
