@@ -3,7 +3,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :loots, :member => { :price => :get }
   
   map.connect 'members/:id/t.:tab', :controller => 'members', :action => 'show'
-  map.resources :members, :has_many => [ :punishments, :wishlists ]
+  map.resources :members do |member|
+    member.resources :loots, :controller => 'members/loots', :only => [:index]
+    member.resources :raids, :controller => 'members/raids', :only => [:index]
+    member.resources :punishments
+    member.resources :wishlists
+  end
   
   map.resources :achievements, :only => [:index]
   map.resources :wishlists, :only => [:index]

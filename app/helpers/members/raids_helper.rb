@@ -1,0 +1,2 @@
+module Members::RaidsHelper
+end
