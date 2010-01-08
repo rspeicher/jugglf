@@ -1,4 +1,7 @@
 class Members::RaidsController < ApplicationController
+  # TODO: Permissions?
+  before_filter :require_user
+  
   before_filter :find_parent
   
   def index

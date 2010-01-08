@@ -1,0 +1,2 @@
+module Members::LootsHelper
+end
