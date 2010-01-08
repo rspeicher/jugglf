@@ -8,6 +8,12 @@ $(document).ready(function() {
     });
     
     setupModeration();
+    
+    $("#ajax_loading").bind("ajaxSend", function() {
+        $(this).show();
+     }).bind("ajaxComplete", function() {
+        $(this).hide();
+     });
 });
 
 function setupModeration() {
