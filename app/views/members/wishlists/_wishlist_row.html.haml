@@ -9,5 +9,5 @@
   %td= truncate(h(wishlist_row.note), :length => 80)
   %td= h(wishlist_row.item.slot) unless wishlist_row.item_id.nil?
   %td.image{ :width => "48px" }
-    = link_to_function(image_tag('edit.png'), "wishlistEditForm('#{edit_member_wishlist_path(@member, wishlist_row)}')")
+    = link_to(image_tag('edit.png'), edit_member_wishlist_path(@member, wishlist_row), :class => 'edit')
     = link_to_remote_delete(wishlist_row, :url => member_wishlist_path(@member, wishlist_row))

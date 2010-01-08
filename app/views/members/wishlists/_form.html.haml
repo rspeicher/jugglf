@@ -1,0 +1,12 @@
+%div.message.error.hide
+- semantic_remote_form_for [@member, @wishlist] do |form|
+  - form.inputs do
+    = form.input :wow_id, :as => :hidden
+    = form.input :item_name, :label => 'Item name or ID'
+    = form.input :note, :required => false
+    .wishlist_priority
+      = form.input :priority, :as => :radio, :collection => [['Best in Slot', 'best in slot'], ['Normal', 'normal'], ['Rot', 'rot'], ['Situational', 'situational']]
+  - form.buttons :class => 'submit' do
+    = form.submit 'Save', :class => 'input_submit'
+    or
+    = link_to_function('Cancel', "$('#wishlist_form').hide(); $('#wishlist_form_toggle').show()", :class => 'cancel')

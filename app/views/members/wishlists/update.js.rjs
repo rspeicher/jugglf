@@ -1,0 +1,28 @@
+if flash[:success].present?
+  flash.discard
+
+  # Hide the errors div
+  page << "$('div.message.error').addClass('hide');"
+  
+  # Replace the table row with the updated values
+  page.replace "wishlist_#{@wishlist.id}", :partial => "wishlist_row", :object => @wishlist
+  page << "$('#wishlist_#{@wishlist.id}').effect('highlight', {}, 1500);"
+  
+  page << "zebraRows('wishlist');"
+  
+  # Hide the edit form, show the add form toggle, focus our new row
+  page << "$('#wishlist_form').hide();"
+  page << "$('#wishlist_form_toggle').show();"
+  page << "$('#wishlist_#{@wishlist.id}').focus();"
+elsif flash[:error].present?
+  flash.discard
+  
+  # Show the errors div
+  page << "$('div.message.error').removeClass('hide');"
+
+  # Add the error messages
+  page << "$('div.message.error').html('#{escape_javascript(error_messages_for('wishlist entry', :object => @wishlist))}')"
+
+  # Focus the name field
+  page << "$('#wishlist_item_name').focus();"
+end

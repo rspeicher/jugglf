@@ -1,6 +1,0 @@
-- form.inputs do
-  = form.input :wow_id, :as => :hidden
-  = form.input :item_name, :label => 'Item name or ID'
-  = form.input :note, :required => false
-  .wishlist_priority
-    = form.input :priority, :as => :radio, :collection => [['Best in Slot', 'best in slot'], ['Normal', 'normal'], ['Rot', 'rot'], ['Situational', 'situational']]

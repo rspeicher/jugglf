@@ -1,10 +1,9 @@
 require 'spec_helper'
 
-module MembersRaidsHelperMethods
+module MembersWishlistsHelperMethods
   def mock_find
     # This is a namespaced controller, so it always has a parent
-    # We stub :loots to LiveLoot so that @parent.loots.find works as expected
-    @parent ||= @member ||= mock_model(Member)
+    @parent ||= @member ||= mock_model(Member, :wishlists => [])
     Member.should_receive(:find).with(anything()).exactly(:once).and_return(@member)
   end
   
@@ -13,17 +12,16 @@ module MembersRaidsHelperMethods
   end
 end
 
-describe Members::RaidsController, "#index" do
-  include MembersRaidsHelperMethods
+describe Members::WishlistsController, "#index" do
+  include MembersWishlistsHelperMethods
   
   before(:each) do
     login(:admin)
     mock_find
-    Raid.should_receive(:paginate).with(anything()).and_return([])
     get :index, params
   end
   
-  it { should assign_to(:raids) }
+  it { should assign_to(:wishlists) }
   it { should respond_with(:success) }
   it { should render_template(:index) }
 end

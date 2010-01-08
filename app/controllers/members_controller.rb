@@ -30,37 +30,16 @@ class MembersController < ApplicationController
   def show
     page_title(@member.name)
     
-    params[:tab] ||= 'raids'
-    
-    case params[:tab]
-    when 'raids'
-      @raids = Raid.paginate(:page => params[:page], :per_page => 35, 
-        :include => [:attendees], :order => "date DESC")
-    when 'loots'
-      @loots = @member.loots.paginate(:page => params[:page], :per_page => 35,
-        :include => :item)
-    when 'punishments'
-      @punishments = @member.punishments.active
-    when 'wishlist'
-      @wishlists = @member.wishlists
-      @wishlist = Wishlist.new
-      @recent_loots = @member.loots.find(:all, :conditions => ['purchased_on >= ?', 2.weeks.ago])
-    when 'achievements'
-      @achievements = Achievement.find(:all, :include => [:completed_achievements], :order => 'title')
-      @completed = @member.completed_achievements
-    end
-       
     respond_to do |wants|
-      wants.html do
-        if params[:tab] and params[:tab] != 'raids'
-          render :partial => "members/#{params[:tab]}"
-        else
-          # params[:tab] is 'raids' by default, so in that case we want to render
-          # the whole view rather than the individual tab
-          render :action => :show
-        end
-      end
+      wants.html
     end
+    
+    # when 'punishments'
+    #   @punishments = @member.punishments.active
+    # when 'achievements'
+    #   @achievements = Achievement.find(:all, :include => [:completed_achievements], :order => 'title')
+    #   @completed = @member.completed_achievements
+    # end
   end
   
   def new
