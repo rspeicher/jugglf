@@ -83,63 +83,55 @@ function wishlistShowUnwanted() {
 }
 
 /**
- * Prepares a form for adding a new Wishlist entry
+ * Wipe out an existing 'Edit' form when we want a 'New' form
  */
-function wishlistAddForm() {
+function wishlistNewForm(path) {
+    if ($('#wishlist_form form').attr('id').match(/^edit_/)) {
+        $.get(path, function(value) {
+            $('#wishlist_form').html(value);
+            wishlistForm();
+        });
+    }
+    else {
+        wishlistForm();
+    }
+}
+
+/**
+ * Prepares a form for adding or editing a Wishlist entry
+ */
+function wishlistForm() {
     // Hide the errors div
-    $('#wishlist-new div.messages.hide').addClass('hide');
-    $('#wishlist-edit div.messages.hide').addClass('hide');
+    $('#wishlist_form div.messages').addClass('hide');
     
-    // Wipe out any lingering Edit Form data
-    $('#wishlist-edit').html('');
+    // Clear the values of the previous input
+    $('#wishlist_form #wishlist_wow_id').val('');
+    $('#wishlist_form input[type=text]').each(function() {
+        $(this).val('');
+    });
+    $('#wishlist_form #wishlist_priority_normal').attr('checked', 'checked');
     
     // Show the New form, add autocompletion
-    $('#wishlist-new').show();
-    addItemAutoComplete('#wishlist_item_name')
+    $('#wishlist_form').show();
+    $('#wishlist_item_name').autocomplete_items();
     $('#wishlist_item_name').result(function(event, data, formatted) {
       $('#wishlist_wow_id').val(data.item.wow_id);
     });
     
     // Focus the first field
-    $('#wishlist-new #wishlist_item_name').focus();
-    
-    // Clear the values of the previous input
-    $('#wishlist-new input[type=text]').each(function() {
-        $(this).val('');
-    });
-    $('#wishlist-new #wishlist_priority_normal').attr('checked', 'checked');
+    $('#wishlist_form #wishlist_item_name').focus();
     
     // Hide the 'Add Entry' button so people don't confuse it with the Submit
-    $('#wishlist-toggle').hide();
+    $('#wishlist_form_toggle').hide();
 }
 
-/**
- * Fetches a remote Wishlist edit form to be displayed inline.
- *
- * Gets a form for the specified path, then shows the form div, focuses the
- * first input field, and hides the div that toggles a 'New Wishlist Entry'
- * form to avoid confusion by having two sets of buttons.
- *
- * path     string      Path to fetch (e.g., /members/1/wishlists/2/edit)
- */
-function wishlistEditForm(path) {
-    $.get(path, function(value) {
-        $('#wishlist-edit').html(value);
-        $('#wishlist-edit').show();
-        
-        // Hide the button to show the 'New Entry' form
-        $('#wishlist-toggle').hide();
-        
-        // Hide the actual 'New Entry' form
-        $('#wishlist-new').hide();
-        
-        // Add autocompletion to the edit form
-        addItemAutoComplete('#wishlist-edit #wishlist_item_name')
-        $('#wishlist-edit #wishlist_item_name').result(function(event, data, formatted) {
-          $('#wishlist-edit #wishlist_wow_id').val(data.item.wow_id);
-        });
-        
-        $('#wishlist-edit #wishlist_item_name').focus();
+function wishlistEdit() {
+    $('.wishlist a.edit').live('click', function() {
+      $.get($(this).attr('href'), function(value) {
+        wishlistForm();
+        $('#wishlist_form').html(value);
+      });
+      return false;
     });
 }
 

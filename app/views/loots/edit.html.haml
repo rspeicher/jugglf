@@ -1,7 +1,7 @@
 :javascript
   $(document).ready(function() {
-    addItemAutoComplete('#loot_item_name');
-    addMemberAutoComplete('#loot_member_name');
+    $('#loot_item_name').autocomplete_items();
+    $('#loot_member_name').autocomplete_members();
   });
 - breadcrumb link_to('Loot', loots_path), 'Edit'
 - semantic_form_for @loot do |form|
