@@ -3,11 +3,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :items, :raids
   map.resources :loots, :member => { :price => :get }
   map.resources :members do |member|
-    # member.resources :achievements, :controller => 'members/achievements', :only => [:index]
-    member.resources :loots,     :controller => 'members/loots',     :only   => [:index]
+    member.resources :achievements, :controller => 'members/achievements', :only => [:index]
+    member.resources :loots,        :controller => 'members/loots',        :only   => [:index]
     # member.resources :punishments
-    member.resources :raids,     :controller => 'members/raids',     :only   => [:index]
-    member.resources :wishlists, :controller => 'members/wishlists', :except => [:show]
+    member.resources :raids,        :controller => 'members/raids',        :only   => [:index]
+    member.resources :wishlists,    :controller => 'members/wishlists',    :except => [:show]
   end
   map.resources :live_raids, :as => 'attendance', :controller => 'attendance/raids', :except => [:edit], :member => { :start => :get, :stop => :get, :post => :get } do |lr|
     lr.resources :live_loots, :as => 'loots', :controller => 'attendance/loots', :only => [:update, :destroy]
