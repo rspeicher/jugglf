@@ -94,7 +94,7 @@ describe Attendance::RaidsController, "#update" do
   before(:each) do
     login(:admin)
     mock_find('attributes=' => nil)
-    @params = {:live_raid => {:attendees_string => 'Tsigo'}}
+    @params = {:id => @live_raid.id, :live_raid => {:attendees_string => 'Tsigo'}}
   end
   
   describe "success" do

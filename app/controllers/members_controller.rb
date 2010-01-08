@@ -33,13 +33,6 @@ class MembersController < ApplicationController
     respond_to do |wants|
       wants.html
     end
-    
-    # when 'punishments'
-    #   @punishments = @member.punishments.active
-    # when 'achievements'
-    #   @achievements = Achievement.find(:all, :include => [:completed_achievements], :order => 'title')
-    #   @completed = @member.completed_achievements
-    # end
   end
   
   def new

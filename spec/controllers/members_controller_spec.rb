@@ -74,14 +74,6 @@ describe MembersController, "#show" do
       login(:admin)
       Member.should_receive(:find).with('1-name').and_return(@mock)
     end
-    
-    %w(loots punishments wishlist achievements).each do |tab|
-      it "should render #{tab} tab" do
-        get_response(:tab => tab)
-        assigns[tab.pluralize.intern].should_not be_nil
-        response.should render_template("members/_#{tab}")
-      end
-    end
   end
   
   describe "as user" do

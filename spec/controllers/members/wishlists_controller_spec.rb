@@ -3,8 +3,10 @@ require 'spec_helper'
 module MembersWishlistsHelperMethods
   def mock_find
     # This is a namespaced controller, so it always has a parent
-    @parent ||= @member ||= mock_model(Member, :wishlists => [])
+    @parent ||= @member ||= mock_model(Member, :wishlists => [], :loots => Loot)
     Member.should_receive(:find).with(anything()).exactly(:once).and_return(@member)
+    
+    Loot.stub!(:find).and_return([])
   end
   
   def params(extras = {})
