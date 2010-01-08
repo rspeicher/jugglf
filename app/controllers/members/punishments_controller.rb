@@ -1,21 +1,22 @@
-class PunishmentsController < ApplicationController
-  layout @@layout
-  
+class Members::PunishmentsController < ApplicationController
   before_filter :require_admin
   
   before_filter :find_parent
   before_filter :find_punishment, :only => [:edit, :update, :destroy]
   
-  def new
-    page_title(@parent.name, 'Add Punishment')
-    @punishment = Punishment.new
+  def index
+    @punishments = @parent.punishments
     
     respond_to do |wants|
-      wants.html do
-        unless @parent.nil?
-          render
-        end
-      end
+      wants.html
+    end
+  end
+  
+  def new
+    @punishment = @parent.punishments.new
+    
+    respond_to do |wants|
+      wants.html
     end
   end
   
@@ -25,15 +26,13 @@ class PunishmentsController < ApplicationController
     end
   end
   
-  # Create / Update / Destroy -------------------------------------------------
-  
   def create
     @punishment = @member.punishments.create(params[:punishment])
     
     respond_to do |wants|
       if @punishment.save
         flash[:success] = "Punishment was successfully created."
-        wants.html { redirect_to(member_path(@member)) }
+        wants.html { redirect_to member_punishments_path(@member) }
       else
         wants.html { render :action => "new" }
       end
@@ -44,7 +43,7 @@ class PunishmentsController < ApplicationController
     respond_to do |wants|
       if @punishment.update_attributes(params[:punishment])
         flash[:success] = "Punishment was successfully updated."
-        wants.html { redirect_to(member_path(@member)) }
+        wants.html { redirect_to member_punishments_path(@member) }
       else
         wants.html { render :action => "edit" }
       end
@@ -55,15 +54,13 @@ class PunishmentsController < ApplicationController
     @punishment.destroy
     
     respond_to do |wants|
-      wants.html { redirect_to(member_path(@member)) }
+      wants.html { redirect_to member_punishments_path(@parent) }
     end
   end
   
-  protected
+  private
     def find_parent
-      if params[:member_id]
-        @parent = @member = Member.find(params[:member_id])
-      end
+      @parent = @member = Member.find(params[:member_id])
     end
     
     def find_punishment

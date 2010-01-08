@@ -1,13 +1,13 @@
 %table.ipb_table
   %thead
     %tr
-      %th.note Reason
+      %th Reason
       %th.date Expires
       %th.number Value
   %tbody
     - @punishments.each do |pun|
       %tr{ :class => cycle('row1', 'row2') }
-        %td.note
+        %td
           = h(pun.reason)
           = render :partial => 'shared/moderation', :object => [@member, pun] if admin?
         %td.date
@@ -15,4 +15,5 @@
           = " (#{loot_factor_cutoff(pun.expires)})"
         %td.number= loot_factor(pun.value)
 - if admin?
+  %br
   %fieldset.submit= link_to('Add Punishment', new_member_punishment_path(@member), :class => 'input_submit')

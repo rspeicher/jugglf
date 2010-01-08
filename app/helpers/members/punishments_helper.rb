@@ -1,0 +1,2 @@
+module Members::PunishmentsHelper
+end

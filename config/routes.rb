@@ -3,9 +3,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :items, :raids
   map.resources :loots, :member => { :price => :get }
   map.resources :members do |member|
-    member.resources :achievements, :controller => 'members/achievements', :only => [:index]
+    member.resources :achievements, :controller => 'members/achievements', :only   => [:index]
     member.resources :loots,        :controller => 'members/loots',        :only   => [:index]
-    # member.resources :punishments
+    member.resources :punishments,  :controller => 'members/punishments',  :except => [:show]
     member.resources :raids,        :controller => 'members/raids',        :only   => [:index]
     member.resources :wishlists,    :controller => 'members/wishlists',    :except => [:show]
   end
