@@ -82,56 +82,66 @@ function wishlistShowUnwanted() {
     $('div.notice').addClass('hide');
 }
 
-/**
- * Wipe out an existing 'Edit' form when we want a 'New' form
- */
-function wishlistNewForm(path) {
-    if ($('#wishlist_form form').attr('id').match(/^edit_/)) {
-        $.get(path, function(value) {
-            $('#wishlist_form').html(value);
-            wishlistForm();
-        });
-    }
-    else {
-        wishlistForm();
-    }
-}
 
-/**
- * Prepares a form for adding or editing a Wishlist entry
- */
-function wishlistForm() {
-    // Hide the errors div
-    $('#wishlist_form div.messages').addClass('hide');
-    
-    // Clear the values of the previous input
-    $('#wishlist_form #wishlist_wow_id').val('');
-    $('#wishlist_form input[type=text]').each(function() {
-        $(this).val('');
-    });
-    $('#wishlist_form #wishlist_priority_normal').attr('checked', 'checked');
-    
-    // Show the New form, add autocompletion
+
+function wishlistShowForm() {
     $('#wishlist_form').show();
+    $('#wishlist_form_toggle').hide();
+
+    // Autocomplete item name
+    $('#wishlist_item_name').unautocomplete();
     $('#wishlist_item_name').autocomplete_items();
     $('#wishlist_item_name').result(function(event, data, formatted) {
       $('#wishlist_wow_id').val(data.item.wow_id);
     });
     
-    // Focus the first field
-    $('#wishlist_form #wishlist_item_name').focus();
-    
-    // Hide the 'Add Entry' button so people don't confuse it with the Submit
-    $('#wishlist_form_toggle').hide();
+    $('#wishlist_item_name').focus();
 }
 
-function wishlistEdit() {
+function wishlistHideForm() {
+    $('#wishlist_form').hide();
+    $('#wishlist_form_toggle').show();
+}
+
+function wishlistCleanForm() {
+    // Hide the errors div
+    $('#wishlist_form div.messages').addClass('hide');
+
+    // Clear the values of the previous input
+    $('#wishlist_form #wishlist_wow_id').val('');
+    $('#wishlist_form #wishlist_priority_normal').attr('checked', 'checked');
+    $('#wishlist_form input[type=text]').each(function() { $(this).val(''); });
+    
+    $('#wishlist_item_name').focus();
+}
+
+function wishlistEditLinks() {
     $('.wishlist a.edit').live('click', function() {
       $.get($(this).attr('href'), function(value) {
-        wishlistForm();
+        wishlistCleanForm();
         $('#wishlist_form').html(value);
+        wishlistShowForm();
       });
+      
       return false;
+    });
+    
+    $('#wishlist_form_toggle a').click(function() {
+        // Edit form replaced us, fetch the New form
+        if ($('#wishlist_form form').attr('id').match(/^edit_/)) {
+            console.log("Replacing edit form with new form");
+            $.get($(this).attr('href'), function(value) {
+                $('#wishlist_form').html(value);
+                wishlistCleanForm();
+                wishlistShowForm();
+            });
+        }
+        else {
+            wishlistCleanForm();
+            wishlistShowForm();
+        }
+        
+        return false;
     });
 }
 

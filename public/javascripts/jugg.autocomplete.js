@@ -2,7 +2,6 @@
 {
     $.fn.autocomplete_items = function()
     {
-        console.log("Applying item autocomplete to", this);
         return this.each(function()
         {
             $(this).autocomplete('/search/items.js', {

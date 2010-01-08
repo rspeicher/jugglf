@@ -9,4 +9,4 @@
   - form.buttons :class => 'submit' do
     = form.submit 'Save', :class => 'input_submit'
     or
-    = link_to_function('Cancel', "$('#wishlist_form').hide(); $('#wishlist_form_toggle').show()", :class => 'cancel')
+    = link_to_function('Cancel', "wishlistHideForm()", :class => 'cancel')

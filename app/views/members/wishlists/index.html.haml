@@ -4,7 +4,7 @@
     $('.help').tooltip({ showURL: false });
     
     // Change normal 'Edit' links into XHR functions
-    wishlistEdit();
+    wishlistEditLinks();
   });
 %table#wishlists.ipb_table.tablesorter
   %thead
@@ -21,4 +21,4 @@
 %br
 #wishlist_form{ :style => "display: none" }= render :partial => 'form'
 #wishlist_form_toggle
-  %fieldset.submit= link_to_function('Add New Entry', "wishlistNewForm('#{new_member_wishlist_path(@member)}')", :class => 'input_submit')
+  %fieldset.submit= link_to('Add New Entry', new_member_wishlist_path(@member), :class => 'input_submit')
