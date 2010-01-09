@@ -14,6 +14,9 @@ require 'invision_bridge'
 # in ./support/ and its subdirectories.
 Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
 
+# Uncomment to not quiet backtrace
+# Rails.backtrace_cleaner.remove_silencers!
+
 Spec::Runner.configure do |config|
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
@@ -24,6 +27,28 @@ Spec::Runner.configure do |config|
   
   config.before(:all)    { Sham.reset(:before_all)  }
   config.before(:each)   { Sham.reset(:before_each) }
+  
+  # TEMP: Using this to figure out which specs are tainting my database
+  # config.after(:all) do
+  #   Achievement.count.should eql(0)
+  #   Attendee.count.should eql(0)
+  #   Boss.count.should eql(0)
+  #   CompletedAchievement.count.should eql(0)
+  #   Item.count.should eql(0)
+  #   LiveAttendee.count.should eql(0)
+  #   LiveLoot.count.should eql(0)
+  #   LiveRaid.count.should eql(0)
+  #   Loot.count.should eql(0)
+  #   LootTable.count.should eql(0)
+  #   Member.count.should eql(0)
+  #   MemberRank.count.should eql(0)
+  #   Punishment.count.should eql(0)
+  #   Raid.count.should eql(0)
+  #   Session.count.should eql(0)
+  #   # User.count.should eql(0) # I don't think this is taint so much as existing users
+  #   Wishlist.count.should eql(0)
+  #   Zone.count.should eql(0)
+  # end
   
   FakeWeb.allow_net_connect = false
 
