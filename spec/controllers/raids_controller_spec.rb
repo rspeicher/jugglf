@@ -1,355 +1,150 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
-# before_filter :find_raid, :only => [:show, :edit, :update, :destroy]
-def find_raid
-  @raid ||= mock_model(Raid, :to_param => '1', :date => Date.today)
-  Raid.should_receive(:find).with('1').and_return(@raid)
+module RaidsHelperMethods
+  def mock_find
+    @raid ||= Factory(:raid)
+    Raid.should_receive(:find).with(anything()).and_return(@raid)
+  end
+  
+  def mock_new
+    @raid ||= Factory(:raid)
+    Raid.should_receive(:new).with(anything()).and_return(@raid)
+  end
 end
 
-# -----------------------------------------------------------------------------
-# Index
-# -----------------------------------------------------------------------------
+describe RaidsController, "routing" do
+  it { should route(:get, '/raids').to(:controller => :raids, :action => :index) }
+  it { should route(:get, '/raids/1').to(:controller => :raids, :action => :show, :id => '1') }
+  it { should route(:get, '/raids/new').to(:controller => :raids, :action => :new) }
+  it { should route(:get, '/raids/1/edit').to(:controller => :raids, :action => :edit, :id => '1') }
+  it { should route(:post, '/raids').to(:controller => :raids, :action => :create) }
+  it { should route(:put, '/raids/1').to(:controller => :raids, :action => :update, :id => '1') }
+  it { should route(:delete, '/raids/1').to(:controller => :raids, :action => :destroy, :id => '1') }
+end
 
-# GET /raid/index
-describe RaidsController, "#index" do
-  def get_response()
+describe RaidsController, "GET index" do
+  before(:each) do
+    login(:admin)
+  end
+  
+  before(:each) do
     get :index
   end
-  
-  describe "as admin" do
-    before(:each) do
-      login(:admin)
-      @raid = mock_model(Raid)
-      Raid.should_receive(:paginate).and_return(@raid)
-      get_response
-    end
-    
-    it "should assign @raids" do
-      assigns[:raids].should === @raid
-    end
-    
-    it "should render" do
-      response.should render_template(:index)
-      response.should be_success
-    end
-  end
-  
-  describe "as user" do
-    it "should not render" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(new_user_session_url)
-    end
-  end
+
+  it { should respond_with(:success) }
+  it { should assign_to(:raids).with([]) }
+  it { should render_template(:index) }
 end
 
-# -----------------------------------------------------------------------------
-# Show
-# -----------------------------------------------------------------------------
-
-# GET /raids/show/:id
-describe RaidsController, "#show" do
-  def get_response
-    get :show, :id => '1'
+describe RaidsController, "GET show" do
+  include RaidsHelperMethods
+  
+  before(:each) do
+    login(:admin)
+    mock_find
+    get :show, :id => @raid
   end
   
-  describe "as_admin" do
-    before(:each) do
-      login(:admin)
-      @attendees = mock_model(Attendee, 
-        :member => Member.make_unsaved(:wow_class => 'Druid'))
-      @raid = mock_model(Raid, :attendees => @attendees, 
-        :loots => mock_model(Loot), :date => Date.today)
-      Attendee.should_receive(:find).and_return([@attendees])
-      Loot.should_receive(:find).and_return('loots')
-      
-      find_raid
-      get_response
-    end
-    
-    it "should assign @attendees" do
-      assigns[:attendees].class.should == Hash
-    end
-    
-    it "should assign @loots" do
-      assigns[:loots].should == 'loots'
-    end
-    
-    it "should render" do
-      response.should render_template(:show)
-      response.should be_success
-    end
-  end
-  
-  describe "as user" do
-    it "should not render" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(new_user_session_url)
-    end
-  end
+  it { should respond_with(:success) }
+  it { should assign_to(:raid).with(@raid) }
+  it { should assign_to(:loots).with([]) }
+  it { should assign_to(:attendees) }
+  it { should render_template(:show) }
 end
 
-# -----------------------------------------------------------------------------
-# New
-# -----------------------------------------------------------------------------
-
-# GET /raids/new
-describe RaidsController, "#new" do
-  def get_response
+describe RaidsController, "GET new" do
+  before(:each) do
+    login(:admin)
     get :new
   end
   
-  describe "as admin" do
+  it { should respond_with(:success) }
+  it { should assign_to(:raid) }
+  it { should render_template(:new) }
+end
+
+describe RaidsController, "GET edit" do
+  include RaidsHelperMethods
+  
+  before(:each) do
+    login(:admin)
+    mock_find
+    get :edit, :id => @raid
+  end
+  
+  it { should respond_with(:success) }
+  it { should assign_to(:raid).with(@raid) }
+  it { should render_template(:edit) }
+end
+
+describe RaidsController, "POST create" do
+  include RaidsHelperMethods
+
+  before(:each) do
+    login(:admin)
+    mock_new
+  end
+
+  context "success" do
     before(:each) do
-      login(:admin)
-      @raid = mock_model(Raid)
-      Raid.should_receive(:new).and_return(@raid)
-      get_response
+      @raid.should_receive(:save).and_return(true)
+      post :create, :raid => {}
     end
     
-    it "should assign @raid" do
-      assigns[:raid].should === @raid
+    it { should set_the_flash.to(/successfully created/) }
+    it { should redirect_to(raid_path(@raid)) }
+  end
+  
+  context "failure" do
+    before(:each) do
+      @raid.should_receive(:save).and_return(false)
+      post :create, :raid => {}
     end
     
-    it "should render" do
-      response.should render_template(:new)
-      response.should be_success
-    end
-  end
-  
-  describe "as user" do
-    it "should not render" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(new_user_session_url)
-    end
+    it { should_not set_the_flash }
+    it { should render_template(:new) }
   end
 end
 
-# -----------------------------------------------------------------------------
-# Edit
-# -----------------------------------------------------------------------------
-
-describe RaidsController, "#edit" do
-  def get_response
-    get :edit, :id => '1'
+describe RaidsController, "PUT update" do
+  include RaidsHelperMethods
+  
+  before(:each) do
+    login(:admin)
+    mock_find
   end
   
-  describe "as admin" do
+  context "success" do
     before(:each) do
-      login(:admin)
-      find_raid
-      get_response
+      @raid.should_receive(:update_attributes).with(anything()).and_return(true)
+      put :update, :id => @raid
     end
     
-    it "should assign @raid" do
-      assigns[:raid].should === @raid
+    it { should set_the_flash.to(/successfully updated/) }
+    it { should redirect_to(raid_path(@raid)) }
+  end
+  
+  context "failure" do
+    before(:each) do
+      @raid.should_receive(:update_attributes).with(anything()).and_return(false)
+      put :update, :id => @raid
     end
     
-    it "should render" do
-      response.should render_template(:edit)
-    end
-  end
-  
-  describe "as user" do
-    it "should not render" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(new_user_session_url)
-    end
+    it { should_not set_the_flash }
+    it { should render_template(:edit) }
   end
 end
 
-# -----------------------------------------------------------------------------
-# Create
-# -----------------------------------------------------------------------------
-
-# POST /raids/create
-describe RaidsController, "#create" do
-  def get_response
-    post :create, :raid => @params
+describe RaidsController, "DELETE destroy" do
+  include RaidsHelperMethods
+  
+  before(:each) do
+    login(:admin)
+    mock_find
+    @raid.should_receive(:destroy)
+    delete :destroy, :id => @raid
   end
   
-  describe "as admin" do
-    before(:each) do
-      login(:admin)
-      @raid = mock_model(Raid, :to_param => '1')
-      Raid.should_receive(:new).and_return(@raid)
-    end
-    
-    describe "when successful" do
-      before(:each) do
-        @raid.should_receive(:save).and_return(true)
-        get_response
-      end
-      
-      it "should add a flash success message" do
-        flash[:success].should == 'Raid was successfully created.'
-      end
-      
-      it "should redirect to the new raid" do
-        response.should redirect_to(raid_url(@raid))
-      end
-    end
-    
-    describe "when unsuccessful" do
-      it "should render template :new" do
-        @raid.should_receive(:save).and_return(false)
-        get_response
-        response.should render_template(:new)
-      end
-    end
-  end
-  
-  describe "as user" do
-    it "should do nothing" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(new_user_session_url)
-    end
-  end
-end
-
-# -----------------------------------------------------------------------------
-# Update
-# -----------------------------------------------------------------------------
-
-# PUT /raids/:id
-describe RaidsController, "#update" do
-  def get_response
-    put :update, :id => '1', :raid => @params
-  end
-  
-  describe "as admin" do
-    before(:each) do
-      login(:admin)
-      find_raid
-      @params = Raid.plan.stringify_keys!
-    end
-    
-    describe "when successful" do
-      before(:each) do
-        @raid.should_receive(:update_attributes).with(@params).and_return(true)
-        get_response
-      end
-      
-      it "should assign @raid from params" do
-        assigns[:raid].should === @raid
-      end
-      
-      it "should update attributes from params" do
-        # All handled by before
-      end
-      
-      it "should add a flash success message" do
-        flash[:success].should == 'Raid was successfully updated.'
-      end
-      
-      it "should redirect back to the raid" do
-        response.should redirect_to(raid_url('1'))
-      end
-    end
-    
-    describe "when unsuccessful" do
-      it "should render the edit form" do
-        @raid.should_receive(:update_attributes).and_return(false)
-        get_response
-        response.should render_template(:edit)
-      end
-    end
-  end
-  
-  describe "as user" do
-    it "should not render" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(new_user_session_url)
-    end
-  end
-end
-
-# -----------------------------------------------------------------------------
-# Destroy
-# -----------------------------------------------------------------------------
-
-# DELETE /raids/:id
-describe RaidsController, "#destroy" do
-  def get_response
-    delete :destroy, :id => '1'
-  end
-  
-  describe "as admin" do
-    before(:each) do
-      login(:admin)
-      find_raid
-      @raid.should_receive(:destroy).and_return(nil)
-      get_response
-    end
-    
-    it "should add a flash success message" do
-      flash[:success].should == 'Raid was successfully deleted.'
-    end
-    
-    it "should redirect to #index" do
-      response.should redirect_to(raids_url)
-    end
-  end
-  
-  describe "as user" do
-    it "should do nothing" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(new_user_session_url)
-    end
-  end
+  it { should set_the_flash.to(/deleted/) }
+  it { should redirect_to(raids_path) }
 end

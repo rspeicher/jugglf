@@ -1,6 +1,4 @@
 class MembersController < ApplicationController
-  layout @@layout
-  
   before_filter :require_user,      :except => [:index]
   before_filter :require_admin,     :except => [:index, :show] # Members can view their own standing ONLY
   before_filter :find_member,       :except => [:index, :new, :create]

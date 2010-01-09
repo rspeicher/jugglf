@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 module MembersHelperMethods
   def mock_find
@@ -7,7 +7,7 @@ module MembersHelperMethods
   end
   
   def mock_new
-    @member ||= Factory.build(:member)
+    @member ||= Factory(:member)
     Member.should_receive(:new).with(anything()).and_return(@member)
   end
   
@@ -20,17 +20,11 @@ end
 describe MembersController, "routing" do
   it { should route(:get, '/members').to(:controller => :members, :action => :index) }
   it { should route(:get, '/members.lua').to(:controller => :members, :action => :index, :format => :lua) }
-  
   it { should route(:get, '/members/1-member').to(:controller => :members, :action => :show, :id => '1-member') }
-  
   it { should route(:get, '/members/new').to(:controller => :members, :action => :new) }
-  
   it { should route(:get, '/members/1-member/edit').to(:controller => :members, :action => :edit, :id => '1-member') }
-  
   it { should route(:post, '/members').to(:controller => :members, :action => :create) }
-  
   it { should route(:put, '/members/1-member').to(:controller => :members, :action => :update, :id => '1-member') }
-  
   it { should route(:delete, '/members/1-member').to(:controller => :members, :action => :destroy, :id => '1-member') }
 end
 
@@ -116,7 +110,7 @@ describe MembersController, "POST create" do
       post :create, :member => {}
     end
     
-    it { should set_the_flash.to(/success/) }
+    it { should set_the_flash.to(/successfully created/) }
     it { should redirect_to(member_path(@member)) }
   end
   
@@ -145,7 +139,7 @@ describe MembersController, "PUT update" do
       put :update, :id => @member
     end
     
-    it { should set_the_flash.to(/success/) }
+    it { should set_the_flash.to(/successfully updated/) }
     it { should redirect_to(members_path) }
   end
   

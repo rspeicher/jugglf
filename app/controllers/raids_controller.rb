@@ -1,8 +1,5 @@
 class RaidsController < ApplicationController
-  layout @@layout
-  
   before_filter :require_admin
-  
   before_filter :find_raid, :only => [:show, :edit, :update, :destroy]
   
   def index
@@ -18,10 +15,8 @@ class RaidsController < ApplicationController
   def show
     page_title("Raid on #{@raid.date}")
     
-    attendees = Attendee.find(:all, :conditions => ['raid_id = ?', @raid.id],
-      :include => :member)
-    @loots     = Loot.find(:all, :conditions => ['raid_id = ?', @raid.id], 
-      :include => [:item, :member])
+    attendees = Attendee.find(:all, :conditions => ['raid_id = ?', @raid.id], :include => :member)
+    @loots    = Loot.find(:all, :conditions => ['raid_id = ?', @raid.id], :include => [:item, :member])
       
     # Group attendees by class
     @attendees = { }
@@ -62,7 +57,7 @@ class RaidsController < ApplicationController
     respond_to do |wants|
       if @raid.save
         flash[:success] = 'Raid was successfully created.'
-        wants.html { redirect_to(@raid) }
+        wants.html { redirect_to(raid_path(@raid)) }
       else
         wants.html { render :action => "new" }
       end
