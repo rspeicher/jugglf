@@ -30,7 +30,7 @@ describe Member do
     @member = Member.make
   end
   
-  it "should be valid" do
+  it "should validate" do
     @member.should be_valid
   end
   
@@ -70,44 +70,39 @@ describe Member do
   it { should allow_value('Priest').for(:wow_class) }
   it { should_not allow_value('Invalid').for(:wow_class) }
   
-  it "should have custom to_param" do
+  it "should have a custom to_param" do
     @member.to_param.should eql("#{@member.id}-#{@member.name.parameterize}")
   end
   
   it "should have a custom to_s" do
     @member.to_s.should eql("#{@member.name}")
   end
-  
-  it "should be active by default" do
-    @member.active?.should be_true
+end
+
+describe Member, "#lf_type" do
+  before(:each) do
+    @member = Factory(:member, :lf => 1.0, :bislf => 2.0, :sitlf => 3.0)
   end
   
-  describe "#lf_type" do
-    before(:each) do
-      @member.lf    = 1.23
-      @member.bislf = 4.56
-      @member.sitlf = 7.89
-    end
-    it "should return normal LF for rot" do
-      @member.lf_type(:rot).should eql(@member.lf)
-    end
-    
-    it "should return normal LF" do
-      @member.lf_type(:normal).should eql(@member.lf)
-    end
-    
-    it "should return best in slot LF" do
-      @member.lf_type(:bis).should eql(@member.bislf)
-    end
-    
-    it "should return situational LF" do
-      @member.lf_type(:sit).should eql(@member.sitlf)
-      @member.lf_type(:situational).should eql(@member.sitlf)
-    end
-    
-    it "should take a string" do
-      @member.lf_type('best in slot').should eql(@member.bislf)
-    end
+  it "should return normal LF for rot" do
+    @member.lf_type(:rot).should eql(1.0)
+  end
+  
+  it "should return normal LF" do
+    @member.lf_type(:normal).should eql(1.0)
+  end
+  
+  it "should return best in slot LF" do
+    @member.lf_type(:bis).should eql(2.0)
+  end
+  
+  it "should return situational LF" do
+    @member.lf_type(:sit).should eql(3.0)
+    @member.lf_type(:situational).should eql(3.0)
+  end
+  
+  it "should take a string" do
+    @member.lf_type('best in slot').should eql(2.0)
   end
 end
 
@@ -166,9 +161,9 @@ describe Member, "full attendance caching" do
   end
   
   it "should update attendance percentages" do
-    @member.attendance_30.should_not       == 0.00
-    @member.attendance_90.should_not       == 0.00
-    @member.attendance_lifetime.should_not == 0.00
+    @member.attendance_30.should_not       eql(0.00)
+    @member.attendance_90.should_not       eql(0.00)
+    @member.attendance_lifetime.should_not eql(0.00)
   end
   
   it "should update all member cache" do
