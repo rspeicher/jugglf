@@ -1,20 +1,10 @@
 class MembersController < ApplicationController
   layout @@layout
   
-  # Viewing a member requires a user of some type
-  before_filter :require_user,                :only   => [:show]
-  
-  # Doing anything else with members requires admin
-  before_filter :require_admin,               :except => [:index, :show]
-  
-  # Viewing a member may or may not require admin, depending if the user is viewing their own member entry
-  before_filter :require_admin_conditionally, :only   => [:show]
-  
-  # Find the given member
-  before_filter :find_member,                 :only   => [:show, :edit, :update, :destroy]
-  
-  # Populate the Rank and Invision User collections
-  before_filter :field_collections, :only => [:new, :edit, :create, :update]
+  before_filter :require_user,      :except => [:index]
+  before_filter :require_admin,     :except => [:index, :show] # Members can view their own standing ONLY
+  before_filter :find_member,       :except => [:index, :new, :create]
+  before_filter :field_collections, :except => [:index, :show, :destroy] # Populate the Rank and Invision User collections
   
   def index
     page_title('Members')
@@ -59,7 +49,7 @@ class MembersController < ApplicationController
     respond_to do |wants|
       if @member.save
         flash[:success] = 'Member was successfully created.'
-        wants.html { redirect_to(@member) }
+        wants.html { redirect_to(member_path(@member)) }
       else
         wants.html { render :action => "new" }
       end
@@ -88,26 +78,19 @@ class MembersController < ApplicationController
   end
   
   private
-    def require_admin_conditionally
-      # Render regardless for admins
-      if current_user.is_admin?
-        return true
-      # Not an admin, no associated member; bounce to index
-      elsif current_user.member.nil? and not current_user.is_admin?
-        require_admin
-      # Not an admin, current member is not associated member; bounce to index
-      elsif current_user.member.to_param != params[:id] and not current_user.is_admin?
-        require_admin
-      end
-    end
-    
     def field_collections
       @users = User.juggernaut
       @ranks = MemberRank.find(:all, :order => 'name')
     end
     
     def find_member
-      @member = Member.find(params[:id])
+      if current_user.is_admin?
+        @member = Member.find(params[:id])
+      else
+        # Scope to the current user
+        @member = current_user.member
+        require_admin if @member.nil?
+      end
     end
     
     def single_access_allowed?

@@ -1,5 +1,5 @@
 class Members::WishlistsController < ApplicationController
-  before_filter :require_user_with_member
+  before_filter :require_user
   
   before_filter :find_parent
   before_filter :find_wishlist, :only => [:edit, :update, :destroy]
@@ -79,6 +79,7 @@ class Members::WishlistsController < ApplicationController
       else
         # Scope to the current user
         @parent = @member = current_user.member
+        require_admin if @parent.nil?
       end
     end
     
