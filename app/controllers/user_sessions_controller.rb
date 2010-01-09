@@ -13,7 +13,7 @@ class UserSessionsController < ApplicationController
     
     if @user_session.save
       flash[:success] = "Login successful!"
-      redirect_back_or_default members_url
+      redirect_back_or_default members_path
     else
       render :action => :new
     end

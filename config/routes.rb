@@ -15,14 +15,13 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :wishlists, :only => [:index]
   
-  map.resource :user_session, :only => [:new, :create, :destroy]
-
   map.connect 'search/:context.:format',        :controller => 'search', :action => 'index'
   map.connect 'search/:context/:query',         :controller => 'search', :action => 'index'
   map.connect 'search/:context/:query.:format', :controller => 'search', :action => 'index'
-  
+
+  map.resource :user_session, :only => [:create, :destroy]  
   map.login  'login',  :controller => 'user_sessions', :action => 'new'
-  map.logout 'logout', :controller => 'user_sessions', :action => 'destroy', :method => :delete
+  map.logout 'logout', :controller => 'user_sessions', :action => 'destroy', :method => 'delete'
   
   map.root :controller => 'index', :action => 'index'
 end
