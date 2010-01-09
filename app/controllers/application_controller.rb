@@ -51,6 +51,13 @@ class ApplicationController < ActionController::Base
       end
     end
     
+    def require_user_with_member
+      unless current_user and current_user.member
+        flash[:error] = "You do not have permission to access that page. You have been redirected back to the index."
+        redirect_to(root_path)
+      end
+    end
+    
     def require_no_user
       if current_user
         store_location
