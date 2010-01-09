@@ -60,11 +60,11 @@ Spec::Runner.configure do |config|
   # For more information take a look at Spec::Runner::Configuration and Spec::Runner
 end
 
-def login(type = nil, args = {})
-  type = nil unless type == :admin
+def login(type = :user, args = {})
+  type = :user unless type == :admin
   
   activate_authlogic
-  UserSession.create(User.make_unsaved(type, args))
+  UserSession.create(Factory(type))
 end
 
 module ItemLookupHelpers
