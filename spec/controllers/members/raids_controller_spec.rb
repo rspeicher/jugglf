@@ -4,7 +4,7 @@ module MembersRaidsHelperMethods
   def mock_find
     # This is a namespaced controller, so it always has a parent
     # We stub :loots to LiveLoot so that @parent.loots.find works as expected
-    @parent ||= @member ||= mock_model(Member)
+    @parent ||= @member ||= Factory(:member)
     Member.should_receive(:find).with(anything()).exactly(:once).and_return(@member)
   end
   
