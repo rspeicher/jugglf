@@ -1,364 +1,175 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
-# before_filter :find_member, :only => [:show, :edit, :update, :destroy]
-def find_member
-  @member ||= mock_model(Member, :to_param => '1', :name => 'Name')
-  Member.should_receive(:find).with('1').and_return(@member)
-end
-
-# -----------------------------------------------------------------------------
-# Index
-# -----------------------------------------------------------------------------
-
-# GET /members/index
-describe MembersController, "#index" do
-  def get_response(args = {})
-    get :index, args
+module MembersHelperMethods
+  def mock_find
+    @member ||= Factory(:member)
+    Member.should_receive(:find).with(anything()).and_return(@member)
   end
   
-  describe "as admin" do
+  def mock_new
+    @member ||= Factory.build(:member)
+    Member.should_receive(:new).with(anything()).and_return(@member)
+  end
+  
+  def mock_field_collections
+    User.should_receive(:juggernaut).and_return([])
+    MemberRank.should_receive(:find).with(:all, anything()).and_return([])
+  end
+end
+
+describe MembersController, "routing" do
+  it { should route(:get, '/members').to(:controller => :members, :action => :index) }
+  it { should route(:get, '/members.lua').to(:controller => :members, :action => :index, :format => :lua) }
+  
+  it { should route(:get, '/members/1-member').to(:controller => :members, :action => :show, :id => '1-member') }
+  
+  it { should route(:get, '/members/new').to(:controller => :members, :action => :new) }
+  
+  it { should route(:get, '/members/1-member/edit').to(:controller => :members, :action => :edit, :id => '1-member') }
+  
+  it { should route(:post, '/members').to(:controller => :members, :action => :create) }
+  
+  it { should route(:put, '/members/1-member').to(:controller => :members, :action => :update, :id => '1-member') }
+  
+  it { should route(:delete, '/members/1-member').to(:controller => :members, :action => :destroy, :id => '1-member') }
+end
+
+describe MembersController, "GET index" do
+  before(:each) do
+    login(:admin)
+  end
+  
+  context ".html" do
     before(:each) do
-      login(:admin)
-      Member.should_receive(:active).and_return(Member)
-      Member.should_receive(:find).and_return(nil)
+      get :index
     end
-    
-    it "should render" do
-      get_response
-      response.should render_template(:index)
-      response.should be_success
-    end
-    
-    it "should render lua" do
-      get_response(:format => 'lua')
-      response.should be_success
-    end
+  
+    it { should respond_with(:success) }
+    it { should assign_to(:members).with([]) }
+    it { should render_template(:index) }
   end
   
-  describe "as user" do
-    it "should render" do
-      login
-      get_response
-      response.should render_template(:index)
+  context ".lua" do
+    before(:each) do
+      get :index, :format => 'lua'
     end
-  end
-  
-  describe "as anonymous" do
-    it "should render" do
-      get_response
-      response.should render_template(:index)
-    end
+    
+    it { should respond_with(:success) }
+    it { should assign_to(:members).with([]) }
+    it { should render_template(:index) }
   end
 end
 
-# -----------------------------------------------------------------------------
-# Show
-# -----------------------------------------------------------------------------
-
-# GET /members/:id
-describe MembersController, "#show" do
-  def get_response(params = {})
-    get :show, params.merge!(:id => '1-name')
-  end
+describe MembersController, "GET show" do
+  include MembersHelperMethods
   
   before(:each) do
-    @mock = mock_model(Member, :id => '1', :name => 'Name',
-      :punishments            => mock_model(Punishment, :active => 'punishments'),
-      :loots                  => mock_model(Loot, :find => 'loots', :paginate => 'loots'),
-      :wishlists              => mock_model(Wishlist, :find => 'wishlists'),
-      :completed_achievements => mock_model(CompletedAchievement, :find => 'achievements'))
+    login(:admin)
+    mock_find
+    get :show, :id => @member
   end
   
-  describe "as admin" do
-    before(:each) do
-      login(:admin)
-      Member.should_receive(:find).with('1-name').and_return(@mock)
-    end
-  end
-  
-  describe "as user" do
-    it "should not render if the member doesn't belong to the current user" do
-      login(:user, :member => Member.make_unsaved(:id => '999', :name => 'Name'))
-      get_response
-      response.should redirect_to(root_url)
-    end
-    
-    it "should not render if the current user has no associated member" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-    
-    it "should render when the current member belongs to the current user" do
-      login(:user, :member => Member.make_unsaved(:id => '1', :name => 'Name'))
-      get_response
-      response.should be_success
-      response.should render_template(:show)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(new_user_session_url)
-    end
-  end
+  it { should respond_with(:success) }
+  it { should assign_to(:member).with(@member) }
+  it { should render_template(:show) }
 end
 
-# -----------------------------------------------------------------------------
-# New
-# -----------------------------------------------------------------------------
-
-# GET /members/new
-describe MembersController, "#new" do
-  def get_response
+describe MembersController, "GET new" do
+  before(:each) do
+    login(:admin)
     get :new
   end
   
-  describe "as admin" do
+  it { should respond_with(:success) }
+  it { should assign_to(:member) }
+  it { should render_template(:new) }  
+end
+
+describe MembersController, "GET edit" do
+  include MembersHelperMethods
+  
+  before(:each) do
+    login(:admin)
+    mock_find
+    mock_field_collections
+    get :edit, :id => @member
+  end
+  
+  it { should respond_with(:success) }
+  it { should assign_to(:member).with(@member) }
+  it { should assign_to(:users).with([]) }
+  it { should assign_to(:ranks).with([]) }
+  it { should render_template(:edit) }
+end
+
+describe MembersController, "POST create" do
+  include MembersHelperMethods
+
+  before(:each) do
+    login(:admin)
+    mock_new
+  end
+
+  context "success" do
     before(:each) do
-      Member.should_receive(:new).and_return(nil)
+      @member.should_receive(:save).and_return(true)
+      post :create, :member => {}
     end
     
-    it "should render" do
-      login(:admin)
-      get_response
-      response.should render_template(:new)
-      response.should be_success
-    end
+    it { should set_the_flash.to(/success/) }
+    it { should redirect_to(member_path(@member)) }
   end
   
-  describe "as user" do
-    it "should not render" do
-      login
-      get_response
-      response.should redirect_to(root_url)
+  context "failure" do
+    before(:each) do
+      @member.should_receive(:save).and_return(false)
+      post :create, :member => {}
     end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(new_user_session_url)
-    end
+    
+    it { should_not set_the_flash }
+    it { should render_template(:new) }
   end
 end
 
-# -----------------------------------------------------------------------------
-# Edit
-# -----------------------------------------------------------------------------
-
-# GET /members/edit/:id
-describe MembersController, "#edit" do
-  def get_response
-    get :edit, :id => '1'
+describe MembersController, "PUT update" do
+  include MembersHelperMethods
+  
+  before(:each) do
+    login(:admin)
+    mock_find
   end
   
-  describe "as admin" do
+  context "success" do
     before(:each) do
-      login(:admin)
-      User.should_receive(:juggernaut).and_return('users')
-      find_member
-      get_response
+      @member.should_receive(:update_attributes).with(anything()).and_return(true)
+      put :update, :id => @member
     end
     
-    it "should assign @users" do
-      assigns[:users].should == 'users'
-    end
-
-    it "should assign @member" do
-      assigns[:member].should === @member
+    it { should set_the_flash.to(/success/) }
+    it { should redirect_to(members_path) }
+  end
+  
+  context "failure" do
+    before(:each) do
+      @member.should_receive(:update_attributes).with(anything()).and_return(false)
+      put :update, :id => @member
     end
     
-    it "should render" do
-      response.should render_template(:edit)
-      response.should be_success
-    end
-  end
-  
-  describe "as user" do
-    it "should not render" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(new_user_session_url)
-    end
+    it { should_not set_the_flash }
+    it { should render_template(:edit) }
   end
 end
 
-# -----------------------------------------------------------------------------
-# Create
-# -----------------------------------------------------------------------------
-
-# POST /members
-describe MembersController, "#create" do
-  def get_response
-    post :create, :member => @params
+describe MembersController, "DELETE destroy" do
+  include MembersHelperMethods
+  
+  before(:each) do
+    login(:admin)
+    mock_find
+    @member.should_receive(:destroy)
+    delete :destroy, :id => @member
   end
   
-  describe "as admin" do
-    describe "when successful" do
-      before(:each) do
-        login(:admin)
-        @member = mock_model(Member, :to_param => '1', :save => true)
-        @params = Member.plan.stringify_keys!
-        Member.should_receive(:new).with(@params).and_return(@member)
-        get_response
-      end
-      
-      it "should create a new member from params" do
-        # All handled by before
-      end
-      
-      it "should add a flash success message" do
-        flash[:success].should == 'Member was successfully created.'
-      end
-    
-      it "should redirect to the new member" do
-        response.should redirect_to(member_url('1'))
-      end
-    end
-  
-    describe "when unsuccessful" do
-      before(:each) do
-        login(:admin)
-        @member = mock_model(Member, :save => false)
-        Member.stub!(:new).and_return(@member)
-      end
-    
-      it "should render template :new" do
-        get_response
-        response.should render_template(:new)
-      end
-    end
-  end
-  
-  describe "as user" do
-    it "should not render" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(new_user_session_url)
-    end
-  end
-end
-
-# -----------------------------------------------------------------------------
-# Update
-# -----------------------------------------------------------------------------
-
-# PUT /members/:id
-describe MembersController, "#update" do
-  def get_response
-    put :update, :id => '1', :member => @params
-  end
-  
-  describe "as admin" do
-    before(:each) do
-      login(:admin)
-      find_member
-      @params = Member.plan.stringify_keys!
-    end
-    
-    describe "when successful" do
-      before(:each) do
-        @member.should_receive(:update_attributes).with(@params).and_return(true)
-        get_response
-      end
-      
-      it "should assign @member from params" do
-        assigns[:member].should == @member
-      end
-      
-      it "should update attributes from params" do
-        # All handled by before
-      end
-      
-      it "should add a flash success message" do
-        flash[:success].should == 'Member was successfully updated.'
-      end
-      
-      it "should redirect back to the member index" do
-        response.should redirect_to(members_url)
-      end
-    end
-    
-    describe "when unsuccessful" do
-      it "should render the edit form" do
-        @member.should_receive(:update_attributes).and_return(false)
-        get_response
-        response.should render_template(:edit)
-      end
-    end
-  end
-  
-  describe "as user" do
-    it "should not render" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(new_user_session_url)
-    end
-  end
-end
-
-# -----------------------------------------------------------------------------
-# Destroy
-# -----------------------------------------------------------------------------
-
-# DELETE /members/:id
-describe MembersController, "#destroy" do
-  def get_response
-    delete :destroy, :id => '1'
-  end
-  
-  describe "as admin" do
-    before(:each) do
-      login(:admin)
-      find_member
-      @member.should_receive(:destroy).and_return(nil)
-      get_response
-    end
-    
-    it "should add a flash success message" do
-      flash[:success].should == 'Member was successfully deleted.'
-    end
-    
-    it "should redirect to #index" do
-      response.should redirect_to(members_url)
-    end
-  end
-  
-  describe "as user" do
-    it "should do nothing" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(new_user_session_url)
-    end
-  end
+  it { should set_the_flash.to(/deleted/) }
+  it { should redirect_to(members_path) }
 end
