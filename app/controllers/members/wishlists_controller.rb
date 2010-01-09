@@ -1,6 +1,5 @@
 class Members::WishlistsController < ApplicationController
-  # TODO: Permissions?
-  before_filter :require_user
+  before_filter :require_user_with_member
   
   before_filter :find_parent
   before_filter :find_wishlist, :only => [:edit, :update, :destroy]
@@ -75,7 +74,12 @@ class Members::WishlistsController < ApplicationController
   
   private
     def find_parent
-      @parent = @member = Member.find(params[:member_id])
+      if current_user.is_admin?
+        @parent = @member = Member.find(params[:member_id])
+      else
+        # Scope to the current user
+        @parent = @member = current_user.member
+      end
     end
     
     def find_wishlist

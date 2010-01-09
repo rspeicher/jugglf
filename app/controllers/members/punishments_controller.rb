@@ -60,7 +60,12 @@ class Members::PunishmentsController < ApplicationController
   
   private
     def find_parent
-      @parent = @member = Member.find(params[:member_id])
+      if current_user.is_admin?
+        @parent = @member = Member.find(params[:member_id])
+      else
+        # Scope to the current user
+        @parent = @member = current_user.member
+      end
     end
     
     def find_punishment

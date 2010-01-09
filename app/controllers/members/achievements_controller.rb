@@ -1,6 +1,5 @@
 class Members::AchievementsController < ApplicationController
-  # TODO: Permissions?
-  before_filter :require_user
+  before_filter :require_user_with_member
   
   before_filter :find_parent
   
@@ -15,6 +14,11 @@ class Members::AchievementsController < ApplicationController
   
   private
     def find_parent
-      @parent = @member = Member.find(params[:member_id])
+      if current_user.is_admin?
+        @parent = @member = Member.find(params[:member_id])
+      else
+        # Scope to the current user
+        @parent = @member = current_user.member
+      end
     end
 end
