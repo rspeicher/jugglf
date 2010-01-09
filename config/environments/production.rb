@@ -28,4 +28,4 @@ config.cache_store = :file_store, 'tmp/cache/'
 # Enable threaded mode
 # config.threadsafe!
 
-config.gem 'javan-whenever', :lib => false, :version => '>= 0.1.7', :source => 'http://gems.github.com'
+config.gem 'whenever', :lib => false, :version => '>= 0.4.1', :source => 'http://gemcutter.org'
