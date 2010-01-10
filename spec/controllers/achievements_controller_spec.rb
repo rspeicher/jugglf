@@ -1,22 +1,16 @@
 require 'spec_helper'
 
-# -----------------------------------------------------------------------------
-# Index
-# -----------------------------------------------------------------------------
+describe MembersController, "routing" do
+  it { should route(:get, '/achievements').to(:controller => :achievements, :action => :index) }
+end
 
-# GET /achievements
-describe AchievementsController, "#index" do
-  def get_response
+describe AchievementsController, "GET index" do
+  before(:each) do
     get :index
   end
   
-  before(:each) do
-    Achievement.should_receive(:find).and_return(['achievements'])
-    Member.should_receive(:active).and_return(mock_model(Member, :find => ['members']))
-  end
-  
-  it "should render" do
-    get_response
-    response.should render_template(:index)
-  end
+  it { should respond_with(:success) }
+  it { should assign_to(:achievements).with_kind_of(Array) }
+  it { should assign_to(:members).with_kind_of(Array) }
+  it { should render_template(:index) }
 end
