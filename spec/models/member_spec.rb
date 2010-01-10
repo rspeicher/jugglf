@@ -23,7 +23,7 @@
 #  user_id             :integer(4)
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 describe Member do
   before(:each) do

@@ -7,7 +7,7 @@
 #  position :integer(4)      default(0)
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 describe Zone do
   before(:each) do

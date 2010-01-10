@@ -8,7 +8,7 @@
 #  attendance :float
 #
 
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 describe Attendee do
   before(:each) do

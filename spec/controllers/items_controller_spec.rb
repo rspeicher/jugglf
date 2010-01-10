@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
+require 'spec_helper'
 
 # before_filter :find_item, :only => [:show, :edit, :update, :destroy]
 def find_item
