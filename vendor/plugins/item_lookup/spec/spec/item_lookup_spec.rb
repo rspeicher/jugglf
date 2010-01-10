@@ -62,8 +62,8 @@ describe ItemLookup::Armory do
   
   describe "when searching by id" do
     before(:all) do
-      FakeWeb.register_uri(:get, 'http://www.wowarmory.com/item-tooltip.xml?i=40395', :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/item-tooltip_40395.xml"))
-      FakeWeb.register_uri(:get, 'http://www.wowarmory.com/item-info.xml?i=40395', :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/item-info_40395.xml"))
+      FakeWeb.register_uri(:get, 'http://www.wowarmory.com/item-tooltip.xml?i=40395', :body => file_fixture('wowarmory', 'item-tooltip_40395.xml'))
+      FakeWeb.register_uri(:get, 'http://www.wowarmory.com/item-info.xml?i=40395', :body => file_fixture('wowarmory', 'item-info_40395.xml'))
       
       @result = ItemLookup.search('40395').best_result
       
@@ -93,8 +93,8 @@ describe ItemLookup::Armory do
   describe "when searching by name, multiple results" do
     before(:all) do
       FakeWeb.clean_registry
-      FakeWeb.register_uri(:get, %r(http://www\.wowarmory\.com/search\.xml.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/search_dark_matter.xml"))
-      FakeWeb.register_uri(:get, %r(http://www\.wowarmory\.com/item-tooltip\.xml\?i=.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/item-tooltip_46038.xml"))
+      FakeWeb.register_uri(:get, %r(http://www\.wowarmory\.com/search\.xml.+), :body => file_fixture('wowarmory', 'search_dark_matter.xml'))
+      FakeWeb.register_uri(:get, %r(http://www\.wowarmory\.com/item-tooltip\.xml\?i=.+), :body => file_fixture('wowarmory', 'item-tooltip_46038.xml'))
       @result = ItemLookup.search('Dark Matter').best_result
       
       @expected = {
@@ -118,7 +118,7 @@ describe ItemLookup::Armory do
   describe "with no search results" do
     before(:each) do
       FakeWeb.clean_registry
-      FakeWeb.register_uri(:get, %r(http://www\.wowarmory\.com/search\.xml.+), :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/search_no_results.xml"))
+      FakeWeb.register_uri(:get, %r(http://www\.wowarmory\.com/search\.xml.+), :body => file_fixture('wowarmory', 'search_no_results.xml'))
     end
     
     it "should return an empty array of Results" do
@@ -129,7 +129,7 @@ end
 
 describe ItemLookup::Wowhead do
   before(:all) do
-    FakeWeb.register_uri(:get, 'http://www.wowhead.com/?item=40395&xml', :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowhead/item_40395.xml"))
+    FakeWeb.register_uri(:get, 'http://www.wowhead.com/?item=40395&xml', :body => file_fixture('wowhead', 'item_40395.xml'))
   end
   
   it "should search wowhead.com" do

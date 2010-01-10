@@ -88,6 +88,10 @@ Spec::Runner.configure do |config|
   # For more information take a look at Spec::Runner::Configuration and Spec::Runner
 end
 
+def file_fixture(*args)
+  File.read(File.join(File.dirname(__FILE__), "file_fixtures", args))
+end
+
 module ItemLookupHelpers
   def valid_lookup_results
     results = ItemLookup::Results.new

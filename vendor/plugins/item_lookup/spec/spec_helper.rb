@@ -14,3 +14,7 @@ Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].e
 Spec::Runner.configure do |config|
   FakeWeb.allow_net_connect = false
 end
+
+def file_fixture(*args)
+  File.read(File.join(File.dirname(__FILE__), "file_fixtures", args))
+end

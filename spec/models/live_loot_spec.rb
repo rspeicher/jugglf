@@ -102,7 +102,7 @@ describe LiveLoot, ".from_text" do
   end
   
   describe "parsing valid text" do
-    before(:all) do
+    before(:each) do
       [Member, Item].each(&:destroy_all)
       @member = Member.make(:name => 'Tsigo')
       @item = Item.make(:wow_id => 47303, :name => "Death's Choice")

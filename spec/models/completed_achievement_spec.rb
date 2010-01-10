@@ -28,14 +28,13 @@ end
 
 describe CompletedAchievement, "#parse_member" do
   before(:all) do
-    Member.destroy_all
-    @member = Member.make(:name => 'Tsigo')
-    
-    FakeWeb.register_uri(:get, "http://www.wowarmory.com/character-achievements.xml?r=Mal%27Ganis&n=Tsigo&c=168", :body => File.read(File.dirname(__FILE__) + "/../fixtures/wowarmory/achievements_tsigo.xml"))
+    FakeWeb.register_uri(:get, "http://www.wowarmory.com/character-achievements.xml?r=Mal%27Ganis&n=Tsigo&c=168", :body => file_fixture('wowarmory', 'achievements_tsigo.xml'))
   end
   
   before(:each) do
-    [Achievement, CompletedAchievement].each(&:destroy_all)
+    [Achievement, CompletedAchievement, Member].each(&:destroy_all)
+    
+    @member = Member.make(:name => 'Tsigo')
     
     # Add one pre-existing completed achievement
     # <achievement categoryId="168" dateCompleted="2009-12-09T03:25:00-06:00" desc="Defeat the first four bosses in Icecrown Citadel in 25-player mode." icon="achievement_dungeon_icecrown_icecrownentrance" id="4604" points="10" title="Storming the Citadel (25 player)">
