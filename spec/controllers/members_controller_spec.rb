@@ -1,26 +1,5 @@
 require 'spec_helper'
 
-module MembersHelperMethods
-  def mock_find
-    @member ||= Factory(:member)
-    Member.should_receive(:find).with(anything()).and_return(@member)
-  end
-  
-  def mock_create(expects = {})
-    @member ||= Factory(:member)
-    Member.should_receive(:new).with(anything()).and_return(@member)
-    
-    expects.each_pair do |msg, val|
-      @member.should_receive(msg).and_return(val)
-    end
-  end
-  
-  def mock_field_collections
-    User.should_receive(:juggernaut).and_return([])
-    MemberRank.should_receive(:find).with(:all, anything()).and_return([])
-  end
-end
-
 describe MembersController, "routing" do
   it { should route(:get, '/members').to(:controller => :members, :action => :index) }
   it { should route(:get, '/members.lua').to(:controller => :members, :action => :index, :format => :lua) }
@@ -84,16 +63,14 @@ describe MembersController, "GET index" do
 end
 
 describe MembersController, "GET show" do
-  include MembersHelperMethods
-  
   before(:each) do
     login(:admin)
-    mock_find
-    get :show, :id => @member
+    mock_find(:member)
+    get :show, :id => @object
   end
   
   it { should respond_with(:success) }
-  it { should assign_to(:member).with(@member) }
+  it { should assign_to(:member).with(@object) }
   it { should render_template(:show) }
 end
 
@@ -109,42 +86,39 @@ describe MembersController, "GET new" do
 end
 
 describe MembersController, "GET edit" do
-  include MembersHelperMethods
-  
   before(:each) do
     login(:admin)
-    mock_find
-    mock_field_collections
-    get :edit, :id => @member
+    mock_find(:member)
+    User.should_receive(:juggernaut).and_return([])
+    MemberRank.should_receive(:find).with(:all, anything()).and_return([])
+    get :edit, :id => @object
   end
   
   it { should respond_with(:success) }
-  it { should assign_to(:member).with(@member) }
+  it { should assign_to(:member).with(@object) }
   it { should assign_to(:users).with_kind_of(Array) }
   it { should assign_to(:ranks).with_kind_of(Array) }
   it { should render_template(:edit) }
 end
 
 describe MembersController, "POST create" do
-  include MembersHelperMethods
-
   before(:each) do
     login(:admin)
   end
 
   context "success" do
     before(:each) do
-      mock_create(:save => true)
+      mock_create(:member, :save => true)
       post :create, :member => {}
     end
     
     it { should set_the_flash.to(/successfully created/) }
-    it { should redirect_to(member_path(@member)) }
+    it { should redirect_to(member_path(@object)) }
   end
   
   context "failure" do
     before(:each) do
-      mock_create(:save => false)
+      mock_create(:member, :save => false)
       post :create, :member => {}
     end
     
@@ -154,17 +128,15 @@ describe MembersController, "POST create" do
 end
 
 describe MembersController, "PUT update" do
-  include MembersHelperMethods
-  
   before(:each) do
     login(:admin)
-    mock_find
+    mock_find(:member)
   end
   
   context "success" do
     before(:each) do
-      @member.should_receive(:update_attributes).with(anything()).and_return(true)
-      put :update, :id => @member
+      @object.should_receive(:update_attributes).with(anything()).and_return(true)
+      put :update, :id => @object
     end
     
     it { should set_the_flash.to(/successfully updated/) }
@@ -173,8 +145,8 @@ describe MembersController, "PUT update" do
   
   context "failure" do
     before(:each) do
-      @member.should_receive(:update_attributes).with(anything()).and_return(false)
-      put :update, :id => @member
+      @object.should_receive(:update_attributes).with(anything()).and_return(false)
+      put :update, :id => @object
     end
     
     it { should_not set_the_flash }
@@ -183,13 +155,11 @@ describe MembersController, "PUT update" do
 end
 
 describe MembersController, "DELETE destroy" do
-  include MembersHelperMethods
-  
   before(:each) do
     login(:admin)
-    mock_find
-    @member.should_receive(:destroy)
-    delete :destroy, :id => @member
+    mock_find(:member)
+    @object.should_receive(:destroy)
+    delete :destroy, :id => @object
   end
   
   it { should set_the_flash.to(/deleted/) }
