@@ -1,318 +1,151 @@
 require 'spec_helper'
 
-# before_filter :find_item, :only => [:show, :edit, :update, :destroy]
-def find_item
-  @item ||= mock_model(Item, :to_param => '1', :name => 'Name')
-  Item.should_receive(:find).with('1').and_return(@item)
+module ItemsHelperMethods
+  def mock_find
+    @item ||= Factory(:item)
+    Item.should_receive(:find).with(anything()).and_return(@item)
+  end
+  
+  def mock_create(expects = {})
+    @item ||= Factory(:item)
+    Item.should_receive(:new).with(anything()).and_return(@item)
+    
+    expects.each_pair do |msg, val|
+      @item.should_receive(msg).and_return(val)
+    end
+  end
 end
 
-# -----------------------------------------------------------------------------
-# Index
-# -----------------------------------------------------------------------------
+describe ItemsController, "routing" do
+  it { should route(:get,    '/items'       ).to(:controller => :items, :action => :index) }
+  it { should route(:post,   '/items'       ).to(:controller => :items, :action => :create) }
+  it { should route(:get,    '/items/new'   ).to(:controller => :items, :action => :new) }
+  it { should route(:get,    '/items/1/edit').to(:controller => :items, :action => :edit,    :id => '1') }
+  it { should route(:get,    '/items/1'     ).to(:controller => :items, :action => :show,    :id => '1') }
+  it { should route(:put,    '/items/1'     ).to(:controller => :items, :action => :update,  :id => '1') }
+  it { should route(:delete, '/items/1'     ).to(:controller => :items, :action => :destroy, :id => '1') }
+end
 
-# GET /items
-describe ItemsController, "#index" do
-  def get_response
+describe ItemsController, "GET index" do
+  before(:each) do
+    login(:admin)
     get :index
   end
   
-  it "should render" do
-    Item.should_receive(:paginate).and_return('Item')
-    get_response
-    response.should render_template(:index)
-  end
+  it { should respond_with(:success) }
+  it { should assign_to(:items).with_kind_of(Array) }
+  it { should render_template(:index) }
 end
 
-# -----------------------------------------------------------------------------
-# Show
-# -----------------------------------------------------------------------------
-
-# GET /items/:id
-describe ItemsController, "#show" do
-  def get_response
-    get :show, :id => '1'
-  end
+describe ItemsController, "GET show" do
+  include ItemsHelperMethods
   
   before(:each) do
     login(:admin)
-    
-    # Set up @item before find_item so we get the stubs we want
-    @loot        = mock_model(Loot)
-    @wishlist    = mock_model(Wishlist)
-    @item        = mock_model(Item, :to_param => '1', :loots => @loot, 
-      :wishlists => @wishlist, :name => 'Name')
-    @loot_table  = mock_model(LootTable)
-    find_item
-    
-    @item.should_not_receive(:lookup)
-    @loot.should_receive(:paginate).and_return([@loot])
-    @wishlist.should_receive(:find).and_return([@wishlist])
-    LootTable.should_receive(:find).and_return(@loot_table)
-    
-    get_response
+    mock_find
+    get :show, :id => @item.id
   end
   
-  it "should assign @loots" do
-    assigns[:loots].should == [@loot]
-  end
-  
-  it "should assign @wishlists" do
-    assigns[:wishlists].should == [@wishlist]
-  end
-  
-  it "should render" do
-    response.should render_template(:show)
-    response.should be_success
-  end
+  it { should respond_with(:success) }
+  it { should assign_to(:item).with(@item) }
+  it { should assign_to(:loots).with(@item.loots) }
+  it { should assign_to(:wishlists).with(@item.wishlists) }
+  # it { should assign_to(:loot_table) } # FIXME: ???
+  it { should render_template(:show) }
 end
 
-# -----------------------------------------------------------------------------
-# New
-# -----------------------------------------------------------------------------
-
-# GET /items/new
-describe ItemsController, "#new" do
-  def get_response
+describe ItemsController, "GET new" do
+  before(:each) do
+    login(:admin)
     get :new
   end
   
-  describe "as admin" do
+  it { should respond_with(:success) }
+  it { should assign_to(:item).with_kind_of(Item) }
+  it { should render_template(:new) }
+end
+
+describe ItemsController, "GET edit" do
+  include ItemsHelperMethods
+  
+  before(:each) do
+    login(:admin)
+    mock_find
+    get :edit, :id => @item
+  end
+  
+  it { should respond_with(:success) }
+  it { should assign_to(:item).with(@item) }
+  it { should render_template(:edit) }
+end
+
+describe ItemsController, "POST create" do
+  include ItemsHelperMethods
+
+  before(:each) do
+    login(:admin)
+  end
+
+  context "success" do
     before(:each) do
-      login(:admin)
-      @item = mock_model(Item)
-      Item.should_receive(:new).and_return(@item)
-      get_response
+      mock_create(:save => true)
+      post :create, :item => {}
     end
     
-    it "should assign @item" do
-      assigns[:item].should === @item
+    it { should set_the_flash.to(/successfully created/) }
+    it { should redirect_to(item_path(@item)) }
+  end
+  
+  context "failure" do
+    before(:each) do
+      mock_create(:save => false)
+      post :create, :item => {}
     end
     
-    it "should render" do
-      response.should render_template(:new)
-      response.should be_success
-    end
-  end
-  
-  describe "as user" do
-    it "should not render" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(login_url)
-    end
+    it { should_not set_the_flash }
+    it { should render_template(:new) }
   end
 end
 
-# -----------------------------------------------------------------------------
-# Edit
-# -----------------------------------------------------------------------------
-
-# GET /items/:id/edit
-describe ItemsController, "#edit" do
-  def get_response
-    get :edit, :id => '1'
+describe ItemsController, "PUT update" do
+  include ItemsHelperMethods
+  
+  before(:each) do
+    login(:admin)
+    mock_find
   end
   
-  describe "as admin" do
+  context "success" do
     before(:each) do
-      login(:admin)
-      find_item
-      get_response
+      @item.should_receive(:update_attributes).with(anything()).and_return(true)
+      put :update, :id => @item
     end
     
-    it "should assign @item" do
-      assigns[:item].should == @item
+    it { should set_the_flash.to(/successfully updated/) }
+    it { should redirect_to(item_path(@item)) }
+  end
+  
+  context "failure" do
+    before(:each) do
+      @item.should_receive(:update_attributes).with(anything()).and_return(false)
+      put :update, :id => @item
     end
     
-    it "should render" do
-      response.should render_template(:edit)
-    end
-  end
-  
-  describe "as user" do
-    it "should not render" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(login_url)
-    end
+    it { should_not set_the_flash }
+    it { should render_template(:edit) }
   end
 end
 
-# -----------------------------------------------------------------------------
-# Create
-# -----------------------------------------------------------------------------
-
-# POST /items/create
-describe ItemsController, "#create" do
-  def get_response
-    post :create, :item => @params
+describe ItemsController, "DELETE destroy" do
+  include ItemsHelperMethods
+  
+  before(:each) do
+    login(:admin)
+    mock_find
+    @item.should_receive(:destroy)
+    delete :destroy, :id => @item
   end
   
-  describe "as admin" do
-    before(:each) do
-      login(:admin)
-      @item = mock_model(Item, :to_param => '1')
-      Item.should_receive(:new).and_return(@item)
-    end
-    
-    describe "when successful" do
-      before(:each) do
-        @item.should_receive(:save).and_return(true)
-        get_response
-      end
-      
-      it "should add a flash success message" do
-        flash[:success].should == 'Item was successfully created.'
-      end
-      
-      it "should redirect to the new item" do
-        response.should redirect_to(item_url(@item))
-      end
-    end
-    
-    describe "when unsuccessful" do
-      it "should render template :new" do
-        @item.should_receive(:save).and_return(false)
-        get_response
-        response.should render_template(:new)
-      end
-    end
-  end
-  
-  describe "as user" do
-    it "should do nothing" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(login_url)
-    end
-  end
-end
-
-# -----------------------------------------------------------------------------
-# Update
-# -----------------------------------------------------------------------------
-
-# PUT /items/:id
-describe ItemsController, "#update" do
-  def get_response
-    put :update, :id => '1', :item => @params
-  end
-  
-  describe "as admin" do
-    before(:each) do
-      login(:admin)
-      find_item
-      @params = Item.plan.stringify_keys!
-    end
-    
-    describe "when successful" do
-      before(:each) do
-        @item.should_receive(:update_attributes).with(@params).and_return(true)
-        get_response
-      end
-      
-      it "should assign @item from params" do
-        assigns[:item].should === @item
-      end
-      
-      it "should update attributes from params" do
-        # All handled by before
-      end
-      
-      it "should add a flash success message" do
-        flash[:success].should == 'Item was successfully updated.'
-      end
-      
-      it "should redirect back to the item" do
-        response.should redirect_to(item_url('1'))
-      end
-    end
-    
-    describe "when unsuccessful" do
-      it "should render the edit form" do
-        @item.should_receive(:update_attributes).and_return(false)
-        get_response
-        response.should render_template(:edit)
-      end
-    end
-  end
-  
-  describe "as user" do
-    it "should not render" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(login_url)
-    end
-  end
-end
-
-# -----------------------------------------------------------------------------
-# Destroy
-# -----------------------------------------------------------------------------
-
-# DELETE /items/:id
-describe ItemsController, "#destroy" do
-  def get_response
-    delete :destroy, :id => '1'
-  end
-  
-  describe "as admin" do
-    before(:each) do
-      login(:admin)
-      find_item
-      @item.should_receive(:destroy).and_return(nil)
-      get_response
-    end
-    
-    it "should add a flash success message" do
-      flash[:success].should == 'Item was successfully deleted.'
-    end
-    
-    it "should redirect to #index" do
-      response.should redirect_to(items_url)
-    end
-  end
-  
-  describe "as user" do
-    it "should do nothing" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(login_url)
-    end
-  end
+  it { should set_the_flash.to(/deleted/) }
+  it { should redirect_to(items_path) }
 end

@@ -36,21 +36,14 @@ module ItemsHelper
     def wowhead_link(item, options = {})
       return if item.nil?
       
-      options[:refreshable] ||= false
-      
-      if item.wow_id.nil? and options[:refreshable]
-        link_to(truncate(h(item.name), :length => 80), item_path(item) + "?refresh",
-          :class => 'q0')
+      options[:rel] ||= false
+    
+      if options[:rel]
+        link_to(truncate(h(item.name), :length => 80), item_path(item), 
+          :class => item.color, :rel => "item=#{item.wow_id}").gsub(/"/, "'")
       else
-        options[:rel] ||= false
-      
-        if options[:rel]
-          link_to(truncate(h(item.name), :length => 80), item_path(item), 
-            :class => item.color, :rel => "item=#{item.wow_id}").gsub(/"/, "'")
-        else
-          link_to(truncate(h(item.name), :length => 80), "http://www.wowhead.com/?item=#{item.wow_id}", 
-            :class => item.color, :target => '_new').gsub(/"/, "'")
-        end
+        link_to(truncate(h(item.name), :length => 80), "http://www.wowhead.com/?item=#{item.wow_id}", 
+          :class => item.color, :target => '_new').gsub(/"/, "'")
       end
     end
 end

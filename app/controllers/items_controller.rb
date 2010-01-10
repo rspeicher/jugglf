@@ -13,10 +13,6 @@ class ItemsController < ApplicationController
   end
   
   def show
-    unless params[:refresh].nil?
-      @item.lookup(true)
-    end
-    
     page_title(@item.name)
     
     @loots = @item.loots.paginate(:include => :member, :page => params[:page], :per_page => 35, :order => 'purchased_on desc')
@@ -52,7 +48,7 @@ class ItemsController < ApplicationController
     respond_to do |wants|
       if @item.save
         flash[:success] = 'Item was successfully created.'
-        wants.html { redirect_to(@item) }
+        wants.html { redirect_to(item_path(@item)) }
       else
         wants.html { render :action => "new" }
       end
