@@ -8,7 +8,6 @@ require 'shoulda'
 
 require 'invision_bridge'
 require 'blueprints'
-require 'login_helper'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
@@ -25,7 +24,8 @@ Spec::Runner.configure do |config|
   config.before(:all)    { Sham.reset(:before_all)  }
   config.before(:each)   { Sham.reset(:before_each) }
   
-  config.include(LoginHelper)
+  config.include(LoginHelper,      :type => :controller)
+  config.include(ControllerHelper, :type => :controller)
   
   # TEMP: Using this to figure out which specs are tainting my database
   # config.after(:all) do
