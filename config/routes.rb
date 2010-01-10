@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
   map.resources :achievements, :only => [:index]
   map.resources :items, :raids
-  map.resources :loots, :member => { :price => :get }
+  map.resources :loots, :except => [:show], :member => { :price => :get }
   map.resources :members do |member|
     member.resources :achievements, :controller => 'members/achievements', :only   => [:index]
     member.resources :loots,        :controller => 'members/loots',        :only   => [:index]
