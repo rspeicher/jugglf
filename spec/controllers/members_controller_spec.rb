@@ -39,7 +39,7 @@ describe MembersController, "GET index" do
     end
   
     it { should respond_with(:success) }
-    it { should assign_to(:members).with([]) }
+    it { should assign_to(:members).with_kind_of(Array) }
     it { should render_template(:index) }
   end
   
@@ -49,7 +49,7 @@ describe MembersController, "GET index" do
     end
     
     it { should respond_with(:success) }
-    it { should assign_to(:members).with([]) }
+    it { should assign_to(:members).with_kind_of(Array) }
     it { should render_template(:index) }
   end
 end
@@ -75,7 +75,7 @@ describe MembersController, "GET new" do
   end
   
   it { should respond_with(:success) }
-  it { should assign_to(:member) }
+  it { should assign_to(:member).with_kind_of(Member) }
   it { should render_template(:new) }  
 end
 
@@ -91,8 +91,8 @@ describe MembersController, "GET edit" do
   
   it { should respond_with(:success) }
   it { should assign_to(:member).with(@member) }
-  it { should assign_to(:users).with([]) }
-  it { should assign_to(:ranks).with([]) }
+  it { should assign_to(:users).with_kind_of(Array) }
+  it { should assign_to(:ranks).with_kind_of(Array) }
   it { should render_template(:edit) }
 end
 
