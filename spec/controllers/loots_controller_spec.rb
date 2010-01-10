@@ -1,296 +1,110 @@
 require 'spec_helper'
 
-# before_filter :find_loot, :only => [:show, :edit, :update, :destroy]
-def find_loot
-  @loot ||= mock_model(Loot, :to_param => '1', :purchased_on => Date.today)
-  Loot.should_receive(:find).with('1').and_return(@loot)
+describe LootsController, "routing" do
+  it { should route(:get,    '/loots'        ).to(:controller => :loots, :action => :index) }
+  it { should route(:post,   '/loots'        ).to(:controller => :loots, :action => :create) }
+  it { should route(:get,    '/loots/new'    ).to(:controller => :loots, :action => :new) }
+  it { should route(:get,    '/loots/1/edit' ).to(:controller => :loots, :action => :edit,    :id => '1') }
+  it { should route(:get,    '/loots/1/price').to(:controller => :loots, :action => :price,   :id => '1') } # TODO: Don't need this anymore?
+  it { should route(:put,    '/loots/1'      ).to(:controller => :loots, :action => :update,  :id => '1') }
+  it { should route(:delete, '/loots/1'      ).to(:controller => :loots, :action => :destroy, :id => '1') }
 end
 
-# -----------------------------------------------------------------------------
-# Index
-# -----------------------------------------------------------------------------
-
-# GET /loots/index
-describe LootsController, "#index" do
-  def get_response()
+describe LootsController, "GET index" do
+  before(:each) do
+    login(:admin)
     get :index
   end
   
-  describe "as admin" do
-    before(:each) do
-      login(:admin)
-      @loot = mock_model(Loot)
-      Loot.should_receive(:paginate).and_return(@loot)
-      get_response
-    end
-    
-    it "should assign @loots" do
-      assigns[:loots].should === @loot
-    end
-    
-    it "should render" do
-      response.should render_template(:index)
-      response.should be_success
-    end
-  end
-  
-  describe "as user" do
-    it "should not render" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
+  it { should respond_with(:success) }
+  it { should assign_to(:loots).with_kind_of(Array) }
+  it { should render_template(:index) }
 end
 
-# -----------------------------------------------------------------------------
-# New
-# -----------------------------------------------------------------------------
-
-# GET /loots/new
-describe LootsController, "#new" do
-  def get_response
+describe LootsController, "GET new" do
+  before(:each) do
+    login(:admin)
     get :new
   end
   
-  describe "as admin" do
+  it { should respond_with(:success) }
+  it { should assign_to(:loot).with_kind_of(Loot) }
+  it { should assign_to(:raids).with_kind_of(Array) }
+  it { should render_template(:new) }
+end
+
+describe LootsController, "GET edit" do
+  before(:each) do
+    login(:admin)
+    mock_find(:loot)
+    get :edit, :id => @object
+  end
+  
+  it { should respond_with(:success) }
+  it { should assign_to(:loot).with(@object) }
+  it { should assign_to(:raids).with_kind_of(Array) }
+  it { should render_template(:edit) }
+end
+
+describe LootsController, "POST create" do
+  before(:each) do
+    login(:admin)
+  end
+
+  context "success" do
     before(:each) do
-      login(:admin)
-      @loot = mock_model(Loot)
-      Loot.should_receive(:new).and_return(@loot)
-      get_response
+      mock_create(:loot, :save => true)
+      post :create, :loot => {}
     end
     
-    it "should assign @loot" do
-      assigns[:loot].should === @loot
+    it { should set_the_flash.to(/successfully created/) }
+    it { should redirect_to(loots_path) }
+  end
+  
+  context "failure" do
+    before(:each) do
+      mock_create(:loot, :save => false)
+      post :create, :loot => {}
     end
     
-    it "should render" do
-      response.should render_template(:new)
-      response.should be_success
-    end
-  end
-  
-  describe "as user" do
-    it "should not render" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(login_url)
-    end
+    it { should_not set_the_flash }
+    it { should render_template(:new) }
   end
 end
 
-# -----------------------------------------------------------------------------
-# Edit
-# -----------------------------------------------------------------------------
-
-# GET /loots/:id/edit
-describe LootsController, "#edit" do
-  def get_response
-    get :edit, :id => '1'
+describe LootsController, "PUT update" do
+  before(:each) do
+    login(:admin)
   end
   
-  describe "as admin" do
+  context "success" do
     before(:each) do
-      login(:admin)
-      @item = mock_model(Item, :name => 'Name', :purchased_on => Date.today)
-      find_loot
-      get_response
+      mock_find(:loot, :update_attributes => true)
+      put :update, :id => @object
     end
     
-    it "should assign @loot" do
-      assigns[:loot].should == @loot
+    it { should set_the_flash.to(/successfully updated/) }
+    it { should redirect_to(loots_path) }
+  end
+  
+  context "failure" do
+    before(:each) do
+      mock_find(:loot, :update_attributes => false)
+      put :update, :id => @object
     end
     
-    it "should render" do
-      response.should render_template(:edit)
-    end
-  end
-  
-  describe "as user" do
-    it "should not render" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(login_url)
-    end
+    it { should_not set_the_flash }
+    it { should render_template(:edit) }
   end
 end
 
-# -----------------------------------------------------------------------------
-# Create
-# -----------------------------------------------------------------------------
-
-# POST /loots/create
-describe LootsController, "#create" do
-  def get_response
-    post :create, :loot => @params
+describe LootsController, "DELETE destroy" do
+  before(:each) do
+    login(:admin)
+    mock_find(:loot, :destroy => true)
+    delete :destroy, :id => @object
   end
   
-  describe "as admin" do
-    before(:each) do
-      login(:admin)
-      @loot = mock_model(Loot, :to_param => '1', :purchased_on => Date.today)
-      Loot.should_receive(:new).and_return(@loot)
-    end
-    
-    describe "when successful" do
-      before(:each) do
-        @loot.should_receive(:save).and_return(true)
-        get_response
-      end
-      
-      it "should add a flash success message" do
-        flash[:success].should == 'Loot was successfully created.'
-      end
-      
-      it "should redirect to the new loot" do
-        response.should redirect_to(loots_url)
-      end
-    end
-    
-    describe "when unsuccessful" do
-      it "should render template :new" do
-        @loot.should_receive(:save).and_return(false)
-        get_response
-        response.should render_template(:new)
-      end
-    end
-  end
-  
-  describe "as user" do
-    it "should do nothing" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(login_url)
-    end
-  end
-end
-
-# -----------------------------------------------------------------------------
-# Update
-# -----------------------------------------------------------------------------
-
-# PUT /loots/:id
-describe LootsController, "#update" do
-  def get_response
-    put :update, :id => '1', :loot => @params
-  end
-  
-  describe "as admin" do
-    before(:each) do
-      login(:admin)
-      find_loot
-      @params = Loot.plan(:raid => mock_model(Raid), :item => mock_model(Item)).stringify_keys!
-    end
-    
-    describe "when successful" do
-      before(:each) do
-        @loot.should_receive(:update_attributes).with(@params).and_return(true)
-        get_response
-      end
-      
-      it "should assign @loot from params" do
-        assigns[:loot].should === @loot
-      end
-      
-      it "should update attributes from params" do
-        # All handled by before
-      end
-      
-      it "should add a flash success message" do
-        flash[:success].should == 'Loot was successfully updated.'
-      end
-      
-      it "should redirect back to the loot" do
-        response.should redirect_to(loots_url)
-      end
-    end
-    
-    describe "when unsuccessful" do
-      it "should render the edit form" do
-        @loot.should_receive(:update_attributes).and_return(false)
-        get_response
-        response.should render_template(:edit)
-      end
-    end
-  end
-  
-  describe "as user" do
-    it "should not render" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(login_url)
-    end
-  end
-end
-
-# -----------------------------------------------------------------------------
-# Destroy
-# -----------------------------------------------------------------------------
-
-# DELETE /loots/:id
-describe LootsController, "#destroy" do
-  def get_response
-    delete :destroy, :id => '1'
-  end
-  
-  describe "as admin" do
-    before(:each) do
-      login(:admin)
-      find_loot
-      @loot.should_receive(:destroy).and_return(nil)
-      get_response
-    end
-    
-    it "should add a flash success message" do
-      flash[:success].should == 'Loot was successfully deleted.'
-    end
-    
-    it "should redirect to #index" do
-      response.should redirect_to(loots_url)
-    end
-  end
-  
-  describe "as user" do
-    it "should do nothing" do
-      login
-      get_response
-      response.should redirect_to(root_url)
-    end
-  end
-  
-  describe "as anonymous" do
-    it "should redirect to login" do
-      get_response
-      response.should redirect_to(login_url)
-    end
-  end
+  it { should set_the_flash.to(/deleted/) }
+  it { should redirect_to(loots_path) }
 end
