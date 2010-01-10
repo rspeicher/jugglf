@@ -6,9 +6,13 @@ module MembersHelperMethods
     Member.should_receive(:find).with(anything()).and_return(@member)
   end
   
-  def mock_new
+  def mock_create(expects = {})
     @member ||= Factory(:member)
     Member.should_receive(:new).with(anything()).and_return(@member)
+    
+    expects.each_pair do |msg, val|
+      @member.should_receive(msg).and_return(val)
+    end
   end
   
   def mock_field_collections
@@ -126,12 +130,11 @@ describe MembersController, "POST create" do
 
   before(:each) do
     login(:admin)
-    mock_new
   end
 
   context "success" do
     before(:each) do
-      @member.should_receive(:save).and_return(true)
+      mock_create(:save => true)
       post :create, :member => {}
     end
     
@@ -141,7 +144,7 @@ describe MembersController, "POST create" do
   
   context "failure" do
     before(:each) do
-      @member.should_receive(:save).and_return(false)
+      mock_create(:save => false)
       post :create, :member => {}
     end
     
