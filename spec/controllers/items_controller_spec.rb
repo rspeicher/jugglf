@@ -88,12 +88,12 @@ end
 describe ItemsController, "PUT update" do
   before(:each) do
     login(:admin)
-    mock_find(:item)
+    
   end
   
   context "success" do
     before(:each) do
-      @object.should_receive(:update_attributes).with(anything()).and_return(true)
+      mock_find(:item, :update_attributes => true)
       put :update, :id => @object
     end
     
@@ -103,7 +103,7 @@ describe ItemsController, "PUT update" do
   
   context "failure" do
     before(:each) do
-      @object.should_receive(:update_attributes).with(anything()).and_return(false)
+      mock_find(:item, :update_attributes => false)
       put :update, :id => @object
     end
     
@@ -115,8 +115,7 @@ end
 describe ItemsController, "DELETE destroy" do
   before(:each) do
     login(:admin)
-    mock_find(:item)
-    @object.should_receive(:destroy)
+    mock_find(:item, :destroy => true)
     delete :destroy, :id => @object
   end
   

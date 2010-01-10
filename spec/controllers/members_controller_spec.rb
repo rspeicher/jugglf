@@ -130,12 +130,11 @@ end
 describe MembersController, "PUT update" do
   before(:each) do
     login(:admin)
-    mock_find(:member)
   end
   
   context "success" do
     before(:each) do
-      @object.should_receive(:update_attributes).with(anything()).and_return(true)
+      mock_find(:member, :update_attributes => true)
       put :update, :id => @object
     end
     
@@ -145,7 +144,7 @@ describe MembersController, "PUT update" do
   
   context "failure" do
     before(:each) do
-      @object.should_receive(:update_attributes).with(anything()).and_return(false)
+      mock_find(:member, :update_attributes => false)
       put :update, :id => @object
     end
     
@@ -157,8 +156,7 @@ end
 describe MembersController, "DELETE destroy" do
   before(:each) do
     login(:admin)
-    mock_find(:member)
-    @object.should_receive(:destroy)
+    mock_find(:member, :destroy => true)
     delete :destroy, :id => @object
   end
   
