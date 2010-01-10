@@ -5,10 +5,11 @@ require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environ
 require 'spec/autorun'
 require 'spec/rails'
 require 'fakeweb'
-require 'blueprints'
 require 'shoulda'
-require 'authlogic/test_case'
+
 require 'invision_bridge'
+require 'blueprints'
+require 'login_helper'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
@@ -27,6 +28,8 @@ Spec::Runner.configure do |config|
   
   config.before(:all)    { Sham.reset(:before_all)  }
   config.before(:each)   { Sham.reset(:before_each) }
+  
+  config.include(LoginHelper)
   
   # TEMP: Using this to figure out which specs are tainting my database
   # config.after(:all) do
@@ -83,13 +86,6 @@ Spec::Runner.configure do |config|
   # == Notes
   #
   # For more information take a look at Spec::Runner::Configuration and Spec::Runner
-end
-
-def login(type = :user, args = {})
-  type = :user unless type == :admin
-  
-  activate_authlogic
-  UserSession.create(Factory(type))
 end
 
 module ItemLookupHelpers
