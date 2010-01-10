@@ -1,17 +1,5 @@
 require 'spec_helper'
 
-module RaidsHelperMethods
-  def mock_find
-    @raid ||= Factory(:raid)
-    Raid.should_receive(:find).with(anything()).and_return(@raid)
-  end
-  
-  def mock_new
-    @raid ||= Factory(:raid)
-    Raid.should_receive(:new).with(anything()).and_return(@raid)
-  end
-end
-
 describe RaidsController, "routing" do
   it { should route(:get, '/raids').to(:controller => :raids, :action => :index) }
   it { should route(:get, '/raids/1').to(:controller => :raids, :action => :show, :id => '1') }
@@ -37,16 +25,14 @@ describe RaidsController, "GET index" do
 end
 
 describe RaidsController, "GET show" do
-  include RaidsHelperMethods
-  
   before(:each) do
     login(:admin)
-    mock_find
-    get :show, :id => @raid
+    mock_find(:raid)
+    get :show, :id => @object
   end
   
   it { should respond_with(:success) }
-  it { should assign_to(:raid).with(@raid) }
+  it { should assign_to(:raid).with(@object) }
   it { should assign_to(:loots).with([]) }
   it { should assign_to(:attendees) }
   it { should render_template(:show) }
@@ -64,40 +50,35 @@ describe RaidsController, "GET new" do
 end
 
 describe RaidsController, "GET edit" do
-  include RaidsHelperMethods
-  
   before(:each) do
     login(:admin)
-    mock_find
-    get :edit, :id => @raid
+    mock_find(:raid)
+    get :edit, :id => @object
   end
   
   it { should respond_with(:success) }
-  it { should assign_to(:raid).with(@raid) }
+  it { should assign_to(:raid).with(@object) }
   it { should render_template(:edit) }
 end
 
 describe RaidsController, "POST create" do
-  include RaidsHelperMethods
-
   before(:each) do
     login(:admin)
-    mock_new
   end
 
   context "success" do
     before(:each) do
-      @raid.should_receive(:save).and_return(true)
+      mock_create(:raid, :save => true)
       post :create, :raid => {}
     end
     
     it { should set_the_flash.to(/successfully created/) }
-    it { should redirect_to(raid_path(@raid)) }
+    it { should redirect_to(raid_path(@object)) }
   end
   
   context "failure" do
     before(:each) do
-      @raid.should_receive(:save).and_return(false)
+      mock_create(:raid, :save => false)
       post :create, :raid => {}
     end
     
@@ -107,27 +88,24 @@ describe RaidsController, "POST create" do
 end
 
 describe RaidsController, "PUT update" do
-  include RaidsHelperMethods
-  
   before(:each) do
     login(:admin)
-    mock_find
   end
   
   context "success" do
     before(:each) do
-      @raid.should_receive(:update_attributes).with(anything()).and_return(true)
-      put :update, :id => @raid
+      mock_find(:raid, :update_attributes => true)
+      put :update, :id => @object
     end
     
     it { should set_the_flash.to(/successfully updated/) }
-    it { should redirect_to(raid_path(@raid)) }
+    it { should redirect_to(raid_path(@object)) }
   end
   
   context "failure" do
     before(:each) do
-      @raid.should_receive(:update_attributes).with(anything()).and_return(false)
-      put :update, :id => @raid
+      mock_find(:raid, :update_attributes => false)
+      put :update, :id => @object
     end
     
     it { should_not set_the_flash }
@@ -136,13 +114,10 @@ describe RaidsController, "PUT update" do
 end
 
 describe RaidsController, "DELETE destroy" do
-  include RaidsHelperMethods
-  
   before(:each) do
     login(:admin)
-    mock_find
-    @raid.should_receive(:destroy)
-    delete :destroy, :id => @raid
+    mock_find(:raid, :destroy => true)
+    delete :destroy, :id => @object
   end
   
   it { should set_the_flash.to(/deleted/) }
