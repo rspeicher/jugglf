@@ -34,3 +34,6 @@ config.gem "rspec", :lib => false, :version => ">= 1.2.0"
 config.gem "rspec-rails", :lib => false, :version => ">= 1.2.0"
 config.gem 'timecop', :source => 'http://gemcutter.org'
 config.gem "machinist", :lib => false, :version => ">= 1.0.0", :source => 'http://gemcutter.org'
+
+require 'fakeweb'
+FakeWeb.allow_net_connect = false

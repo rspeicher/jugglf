@@ -4,7 +4,6 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environment'))
 require 'spec/autorun'
 require 'spec/rails'
-require 'fakeweb'
 require 'shoulda'
 
 require 'invision_bridge'
@@ -49,8 +48,6 @@ Spec::Runner.configure do |config|
   #   Wishlist.count.should eql(0)
   #   Zone.count.should eql(0)
   # end
-  
-  FakeWeb.allow_net_connect = false
 
   # == Mock Framework
   #
