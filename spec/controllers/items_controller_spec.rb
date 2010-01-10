@@ -105,7 +105,7 @@ describe ItemsController, "#new" do
   describe "as anonymous" do
     it "should redirect to login" do
       get_response
-      response.should redirect_to(new_user_session_url)
+      response.should redirect_to(login_url)
     end
   end
 end
@@ -147,7 +147,7 @@ describe ItemsController, "#edit" do
   describe "as anonymous" do
     it "should redirect to login" do
       get_response
-      response.should redirect_to(new_user_session_url)
+      response.should redirect_to(login_url)
     end
   end
 end
@@ -204,7 +204,7 @@ describe ItemsController, "#create" do
   describe "as anonymous" do
     it "should redirect to login" do
       get_response
-      response.should redirect_to(new_user_session_url)
+      response.should redirect_to(login_url)
     end
   end
 end
@@ -269,7 +269,7 @@ describe ItemsController, "#update" do
   describe "as anonymous" do
     it "should redirect to login" do
       get_response
-      response.should redirect_to(new_user_session_url)
+      response.should redirect_to(login_url)
     end
   end
 end
@@ -312,7 +312,7 @@ describe ItemsController, "#destroy" do
   describe "as anonymous" do
     it "should redirect to login" do
       get_response
-      response.should redirect_to(new_user_session_url)
+      response.should redirect_to(login_url)
     end
   end
 end

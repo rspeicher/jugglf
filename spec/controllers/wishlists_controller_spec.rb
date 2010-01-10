@@ -98,7 +98,7 @@ describe WishlistsController, "#index" do
   describe "as anonymous" do
     it "should redirect to login" do
       get_response
-      response.should redirect_to(new_user_session_url)
+      response.should redirect_to(login_url)
     end
   end
 end
@@ -134,7 +134,7 @@ end
 #   describe "as anonymous" do
 #     it "should redirect to login" do
 #       get_response
-#       response.should redirect_to(new_user_session_url)
+#       response.should redirect_to(login_url)
 #     end
 #   end
 # end
@@ -185,7 +185,7 @@ end
 #   describe "as anonymous" do
 #     it "should redirect to login" do
 #       get_response
-#       response.should redirect_to(new_user_session_url)
+#       response.should redirect_to(login_url)
 #     end
 #   end
 # end
@@ -268,7 +268,7 @@ end
 #   describe "as anonymous" do
 #     it "should redirect to login" do
 #       get_response
-#       response.should redirect_to(new_user_session_url)
+#       response.should redirect_to(login_url)
 #     end
 #   end
 # end
@@ -347,7 +347,7 @@ end
 #   describe "as anonymous" do
 #     it "should redirect to login" do
 #       get_response
-#       response.should redirect_to(new_user_session_url)
+#       response.should redirect_to(login_url)
 #     end
 #   end
 # end
@@ -399,7 +399,7 @@ end
 #   describe "as anonymous" do
 #     it "should redirect to login" do
 #       get_response
-#       response.should redirect_to(new_user_session_url)
+#       response.should redirect_to(login_url)
 #     end
 #   end
 # end

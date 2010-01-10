@@ -82,7 +82,7 @@ describe LootsController, "#new" do
   describe "as anonymous" do
     it "should redirect to login" do
       get_response
-      response.should redirect_to(new_user_session_url)
+      response.should redirect_to(login_url)
     end
   end
 end
@@ -125,7 +125,7 @@ describe LootsController, "#edit" do
   describe "as anonymous" do
     it "should redirect to login" do
       get_response
-      response.should redirect_to(new_user_session_url)
+      response.should redirect_to(login_url)
     end
   end
 end
@@ -182,7 +182,7 @@ describe LootsController, "#create" do
   describe "as anonymous" do
     it "should redirect to login" do
       get_response
-      response.should redirect_to(new_user_session_url)
+      response.should redirect_to(login_url)
     end
   end
 end
@@ -247,7 +247,7 @@ describe LootsController, "#update" do
   describe "as anonymous" do
     it "should redirect to login" do
       get_response
-      response.should redirect_to(new_user_session_url)
+      response.should redirect_to(login_url)
     end
   end
 end
@@ -290,7 +290,7 @@ describe LootsController, "#destroy" do
   describe "as anonymous" do
     it "should redirect to login" do
       get_response
-      response.should redirect_to(new_user_session_url)
+      response.should redirect_to(login_url)
     end
   end
 end
