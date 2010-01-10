@@ -16,6 +16,11 @@ module AttendanceAttendeesHelperMethods
   end
 end
 
+describe Attendance::AttendeesController, "routing" do
+  it { should route(:put,    '/attendance/1/attendees/2').to(:controller => 'attendance/attendees', :action => :update,  :live_raid_id => '1', :id => '2') }
+  it { should route(:delete, '/attendance/1/attendees/2').to(:controller => 'attendance/attendees', :action => :destroy, :live_raid_id => '1', :id => '2') }
+end
+
 describe Attendance::AttendeesController, "#update" do
   include AttendanceAttendeesHelperMethods
   
