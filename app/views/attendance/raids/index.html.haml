@@ -4,7 +4,7 @@
   %table#index.ipb_table.tablesorter
     %thead
       %tr
-        %th.icon &nbsp;
+        %th.image{ :width => "48px" } &nbsp;
         %th.center Status
         %th.date Started At
         %th.date Stopped At
@@ -13,7 +13,9 @@
     %tbody
       - @raids.each do |raid|
         %tr{ :class => cycle('row1', 'row2') }
-          %td.icon= link_to(image_tag('edit.png'), live_raid_path(raid))
+          %td.image{ :width => "48px" }
+            = link_to(image_tag('edit.png'), live_raid_path(raid))
+            = link_to_delete(:text => '', :path => live_raid_path(raid))
           %td.center= h(raid.status)
           %td.date= h(raid.started_at)
           %td.date= h(raid.stopped_at)

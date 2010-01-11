@@ -41,13 +41,21 @@
         %thead
           %tr
             %th Name
-            %th.icon Active?
+            %th.icon
+              - if @live_raid.status == 'Completed'
+                Delete
+              - else
+                Active?
             %th.number Active Minutes
         %tbody
           - @live_raid.attendees.each do |att|
             %tr{ :class => cycle('row1', 'row2') + (att.active? ? ' active' : ' inactive') }[att]
               %td= h(att.member_name)
-              %td.icon= link_to_toggle_attendee(att)
+              %td.icon
+                - if @live_raid.status == 'Completed'
+                  = link_to_delete(:text => '', :path => live_raid_live_attendee_path(@live_raid, att))
+                - else
+                  = link_to_toggle_attendee(att)
               %td.number= att.active_minutes
       %div#attendee_errors.message.error.hide
       - semantic_form_for @live_raid do |form|

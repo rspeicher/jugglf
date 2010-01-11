@@ -16,6 +16,7 @@ class Attendance::AttendeesController < ApplicationController
     @live_attendee.destroy
     
     respond_to do |wants|
+      wants.html { redirect_to live_raid_path(@parent) }
       wants.js { head :ok }
     end
   end

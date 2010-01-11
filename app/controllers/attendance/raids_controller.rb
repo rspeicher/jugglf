@@ -1,7 +1,7 @@
 class Attendance::RaidsController < ApplicationController
   before_filter :require_admin
   
-  before_filter :find_raid, :only => [:show, :update, :start, :stop, :post]
+  before_filter :find_raid, :except => [:index, :new, :create]
   
   def index
     @raids = LiveRaid.find(:all, :order => 'id DESC')
@@ -49,6 +49,15 @@ class Attendance::RaidsController < ApplicationController
       respond_to do |wants|
         wants.html { redirect_to live_raid_path(@live_raid) }
       end
+    end
+  end
+  
+  def destroy
+    @live_raid.destroy
+    
+    flash[:success] = "Raid was successfully deleted."
+    respond_to do |wants|
+      wants.html { redirect_to live_raids_path }
     end
   end
   
