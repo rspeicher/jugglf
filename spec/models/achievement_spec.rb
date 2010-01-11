@@ -13,7 +13,7 @@ require 'spec_helper'
 
 describe Achievement do
   before(:each) do
-    @ach = Achievement.make
+    @ach = Factory(:achievement)
   end
   
   it "should be valid" do

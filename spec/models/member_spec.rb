@@ -112,7 +112,7 @@ describe Member, "#clean_trash" do
   before(:each) do
     @member = Member.make(:active => false, :rank => MemberRank.make(:name => 'Declined Applicant'))
     
-    @member.completed_achievements.make
+    @member.completed_achievements << Factory(:completed_achievement, :member => @member)
     @member.wishlists.make
   end
   
@@ -127,7 +127,7 @@ describe Member, "#clean_trash" do
   end
   
   it "should clear completed_achievements for an inactive declined applicant" do
-    lambda { @member.save }.should change(@member.completed_achievements, :count).to(0)
+    lambda { @member.save }.should change(@member.completed_achievements, :count).from(1).to(0)
   end
   
   it "should clear wishlists for an inactive declined applicant" do

@@ -9,18 +9,6 @@ Sham.define do
   item_name { Faker::Lorem.words(2) }
 end
 
-Achievement.blueprint do
-  title { Faker::Lorem.words(5) }
-  icon { 'icon' }
-  category_id { 168 }
-  armory_id { Sham.wow_id }
-end
-CompletedAchievement.blueprint do
-  member
-  achievement
-  completed_on { Date.today }
-end
-
 MemberRank.blueprint do
   name
   prefix { '<b>' }
