@@ -28,7 +28,7 @@ describe Attendance::AttendeesController, "#update" do
     login(:admin)
     mock_find
     @live_attendee.should_receive(:toggle!)    
-    put :update, params
+    xhr :put, :update, params
   end
   
   it { should respond_with(:success) }
@@ -41,8 +41,21 @@ describe Attendance::AttendeesController, "#destroy" do
     login(:admin)
     mock_find
     @live_attendee.should_receive(:destroy)
-    delete :destroy, params
   end
   
-  it { should respond_with(:success) }
+  context ".html" do
+    before(:each) do
+      delete :destroy, params
+    end
+    
+    it { should redirect_to(live_raid_path(@parent)) }
+  end
+  
+  context ".js" do
+    before(:each) do
+      xhr :delete, :destroy, params
+    end
+    
+    it { should respond_with(:success) }
+  end
 end
