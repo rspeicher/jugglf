@@ -1,11 +1,8 @@
 class WishlistsController < ApplicationController
-  before_filter :require_admin, :only => [:index]
-  # before_filter :require_user
-  
-  # before_filter :find_parent
+  before_filter :require_admin
   
   def index
-    page_title('Global Wishlist View')
+    page_title('Wishlists')
     
     @root = LootTable.find_all_by_object_type('Zone', :include => [:object, {:children => :object}])
     @zone = @boss = nil
@@ -35,19 +32,4 @@ class WishlistsController < ApplicationController
       wants.html
     end
   end
-  
-  private
-    # def find_parent
-    #   if params[:member_id]
-    #     if current_user.is_admin?
-    #       # Admins can edit anyone's wishlist
-    #       @parent = @member = Member.find(params[:member_id])
-    #     elsif not current_user.member.nil?
-    #       # Members can only edit their own wishlist
-    #       @parent = @member = current_user.member
-    #     else
-    #       require_admin
-    #     end
-    #   end
-    # end
 end
