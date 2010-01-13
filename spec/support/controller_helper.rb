@@ -1,5 +1,23 @@
 module ControllerHelper
-  # Instantiates object with the default Factory build for +var+, and expects any
+  # Instantiates +@parent+ with the default Factory build for +var+, and expects any
+  # calls to its parent class' +find+ method to return the Factory build.
+  #
+  # Example:
+  #
+  #   mock_parent(:member) # => @parent will be the result of Factory(:member), and Member.find will always return @parent
+  #   mock_parent(:member, :name => 'NewName') # => Same as above, but sets an expectation on @parent.name, and returns 'NewName'
+  def mock_parent(var, expects = {})
+    @parent ||= Factory(var)
+    @parent.class.should_receive(:find).and_return(@parent)
+    
+    expects.each_pair do |msg, val|
+      @parent.should_receive(msg).and_return(val)
+    end
+    
+    self.instance_variable_set("@#{var.to_s}", @parent) unless self.instance_variables.include? "@#{var.to_s}"
+  end
+  
+  # Instantiates +@object+ with the default Factory build for +var+, and expects any
   # calls to its parent class' +find+ method to return the Factory build.
   #
   # Example:
@@ -8,14 +26,16 @@ module ControllerHelper
   #   mock_find(:member, :name => 'NewName') # => Same as above, but sets an expectation on @object.name, and returns 'NewName'
   def mock_find(var, expects = {})
     @object ||= Factory(var)
-    @object.class.should_receive(:find).with(anything()).exactly(:once).and_return(@object)
+    @object.class.should_receive(:find).and_return(@object)
     
     expects.each_pair do |msg, val|
       @object.should_receive(msg).and_return(val)
     end
+    
+    self.instance_variable_set("@#{var.to_s}", @object) unless self.instance_variables.include? "@#{var.to_s}"
   end
 
-  # Instantiates object with the default Factory build for +var+, and expects any
+  # Instantiates +@object+ with the default Factory build for +var+, and expects any
   # calls to its parent class' +new+ method to return the Factory build.
   #
   # Example:
@@ -29,5 +49,7 @@ module ControllerHelper
     expects.each_pair do |msg, val|
       @object.should_receive(msg).and_return(val)
     end
+    
+    self.instance_variable_set("@#{var.to_s}", @object) unless self.instance_variables.include? "@#{var.to_s}"
   end
 end
