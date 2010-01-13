@@ -48,6 +48,6 @@ class Punishment < ActiveRecord::Base
   
   private
     def update_member_cache
-      self.member.update_cache unless self.member.nil?
+      self.member.update_cache unless self.member_id.nil?
     end
 end

@@ -27,12 +27,12 @@ class Members::PunishmentsController < ApplicationController
   end
   
   def create
-    @punishment = @member.punishments.create(params[:punishment])
+    @punishment = @member.punishments.new(params[:punishment])
     
     respond_to do |wants|
       if @punishment.save
         flash[:success] = "Punishment was successfully created."
-        wants.html { redirect_to member_punishments_path(@member) }
+        wants.html { redirect_to member_path(@member) }
       else
         wants.html { render :action => "new" }
       end
@@ -43,7 +43,7 @@ class Members::PunishmentsController < ApplicationController
     respond_to do |wants|
       if @punishment.update_attributes(params[:punishment])
         flash[:success] = "Punishment was successfully updated."
-        wants.html { redirect_to member_punishments_path(@member) }
+        wants.html { redirect_to member_path(@member) }
       else
         wants.html { render :action => "edit" }
       end
@@ -53,8 +53,9 @@ class Members::PunishmentsController < ApplicationController
   def destroy
     @punishment.destroy
     
+    flash[:success] = "Punishment was successfully deleted."
     respond_to do |wants|
-      wants.html { redirect_to member_punishments_path(@parent) }
+      wants.html { redirect_to member_path(@parent) }
     end
   end
   
