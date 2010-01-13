@@ -1,5 +1,5 @@
 class Members::PunishmentsController < ApplicationController
-  before_filter :require_admin
+  before_filter :require_user
   
   before_filter :find_parent
   before_filter :find_punishment, :only => [:edit, :update, :destroy]
