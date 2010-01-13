@@ -116,11 +116,14 @@ module Juggy
           "Solace of the Fallen"  => [2.00, 4.00],
           
           # Patch 3.3 [264 price, 277 price]
-          "Althor's Abacus"          => [2.00, 4.00],
-          "Corpse Tongue Coin"       => [2.00, 4.00],
-          "Deathbringer's Will"      => [2.00, 4.00],
-          "Dislodged Foreign Object" => [2.00, 4.00],
-          "Unidentifiable Organ"     => [2.00, 4.00],
+          "Althor's Abacus"                 => [2.00, 4.00],
+          "Bauble of True Blood"            => [2.00, 4.00],
+          "Corpse Tongue Coin"              => [2.00, 4.00],
+          "Deathbringer's Will"             => [2.00, 4.00],
+          "Dislodged Foreign Object"        => [2.00, 4.00],
+          "Phylactery of the Nameless Lich" => [2.00, 4.00],
+          "Sindragosa's Flawless Fang"      => [2.00, 4.00],
+          "Tiny Abomination in a Jar"       => [2.00, 4.00],
         }
       }
 
@@ -243,7 +246,7 @@ module Juggy
           
           # 3.2 Trinkets share names with their lower-level counterparts
           if value.is_a? Array
-            value = ( options[:level] == 245 ) ? value[0] : value[1]
+            value = ( options[:level] == 245 or options[:level] == 264 ) ? value[0] : value[1]
           end
         else
           # raise "Invalid Trinket: #{options[:item]}"
@@ -273,15 +276,15 @@ module Juggy
             options[:slot] = 'Chest' # Not always, but it has the correct price point we want for all Trophies
             options[:level] = 245
 
-          elsif [52028, 52029, 52030].include? options[:id]
-            # Tier 10 277 Token
-            options[:slot] = 'Chest' # Not always, but it has the correct price point we want for all Marks
-            options[:level] = 277
-
           elsif [52025, 52026, 52027].include? options[:id]
             # Tier 10 266 Token
             options[:slot] = 'Chest' # Not always, but it has the correct price point we want for all Marks
             options[:level] = 266
+            
+          elsif [52028, 52029, 52030].include? options[:id]
+            # Tier 10 277 Token
+            options[:slot] = 'Chest' # Not always, but it has the correct price point we want for all Heroic Marks
+            options[:level] = 277
 
           else
             # Tier 8 or Tier 7 token
