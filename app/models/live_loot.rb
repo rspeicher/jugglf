@@ -16,7 +16,7 @@ class LiveLoot < ActiveRecord::Base
   belongs_to :member, :readonly => true
   belongs_to :live_raid, :counter_cache => true
   
-  validates_inclusion_of :loot_type, :in => %w(bis rot sit bisrot), :allow_nil => true
+  validates_inclusion_of :loot_type, :in => %w(bis rot sit bisrot), :allow_nil => true, :message => "must be bis, rot, sit or bisrot"
   
   # Attempts to associate with an +Item+ given its +wow_id+
   def wow_id=(value)
