@@ -1,29 +1,17 @@
 require 'spec_helper'
 
-module MembersRaidsHelperMethods
-  def mock_find
-    # This is a namespaced controller, so it always has a parent
-    # We stub :loots to LiveLoot so that @parent.loots.find works as expected
-    @parent ||= @member ||= Factory(:member)
-    Member.should_receive(:find).with(anything()).exactly(:once).and_return(@member)
-  end
-  
-  def params(extras = {})
-    {:member_id => @parent.id}.merge!(extras)
-  end
+describe Members::RaidsController, "routing" do
+  it { should route(:get, '/members/1/raids').to(:controller => 'members/raids', :action => :index, :member_id => '1') }
 end
 
-describe Members::RaidsController, "#index" do
-  include MembersRaidsHelperMethods
-  
+describe Members::RaidsController, "GET index" do
   before(:each) do
     login(:admin)
-    mock_find
-    Raid.should_receive(:paginate).with(anything()).and_return([])
-    get :index, params
+    mock_parent(:member)
+    get :index, :member_id => @parent.id
   end
   
-  it { should assign_to(:raids) }
   it { should respond_with(:success) }
+  it { should assign_to(:raids).with_kind_of(Array) }
   it { should render_template(:index) }
 end

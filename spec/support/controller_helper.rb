@@ -14,7 +14,7 @@ module ControllerHelper
       @parent.should_receive(msg).and_return(val)
     end
     
-    self.instance_variable_set("@#{var.to_s}", @parent) unless self.instance_variables.include? "@#{var.to_s}"
+    self.instance_variable_set("@#{var.to_s.underscore}", @parent) unless self.instance_variables.include? "@#{var.to_s.underscore}"
   end
   
   # Instantiates +@object+ with the default Factory build for +var+, and expects any
@@ -25,14 +25,18 @@ module ControllerHelper
   #   mock_find(:member) # => @object will be the result of Factory(:member), and Member.find will always return @object
   #   mock_find(:member, :name => 'NewName') # => Same as above, but sets an expectation on @object.name, and returns 'NewName'
   def mock_find(var, expects = {})
-    @object ||= Factory(var)
+    unless @parent.nil?
+      @object ||= Factory(var, @parent.class.to_s.underscore.to_sym => @parent)
+    else
+      @object ||= Factory(var)
+    end
     @object.class.should_receive(:find).and_return(@object)
     
     expects.each_pair do |msg, val|
       @object.should_receive(msg).and_return(val)
     end
     
-    self.instance_variable_set("@#{var.to_s}", @object) unless self.instance_variables.include? "@#{var.to_s}"
+    self.instance_variable_set("@#{var.to_s.underscore}", @object) unless self.instance_variables.include? "@#{var.to_s.underscore}"
   end
 
   # Instantiates +@object+ with the default Factory build for +var+, and expects any
@@ -50,6 +54,6 @@ module ControllerHelper
       @object.should_receive(msg).and_return(val)
     end
     
-    self.instance_variable_set("@#{var.to_s}", @object) unless self.instance_variables.include? "@#{var.to_s}"
+    self.instance_variable_set("@#{var.to_s.underscore}", @object) unless self.instance_variables.include? "@#{var.to_s.underscore}"
   end
 end

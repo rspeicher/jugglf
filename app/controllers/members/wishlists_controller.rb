@@ -36,7 +36,7 @@ class Members::WishlistsController < ApplicationController
     respond_to do |wants|
       if @wishlist.save
         flash[:success] = "Wishlist entry was successfully created."
-        wants.html { redirect_to member_wishlists_path(@parent) }
+        wants.html { redirect_to member_path(@parent) }
         wants.js
       else
         flash[:error] = "Wishlist entry could not be created."
@@ -50,7 +50,7 @@ class Members::WishlistsController < ApplicationController
     respond_to do |wants|
       if @wishlist.update_attributes(params[:wishlist])
         flash[:success] = "Wishlist entry was successfully updated."
-        wants.html { redirect_to member_wishlists_path(@parent) }
+        wants.html { redirect_to member_path(@parent) }
         wants.js
       else
         flash[:error] = "Wishlist entry could not be updated."
@@ -66,7 +66,7 @@ class Members::WishlistsController < ApplicationController
     respond_to do |wants|
       wants.html do
         flash[:success] = "Wishlist entry was successfully deleted."
-        redirect_to(member_wishlists_path(@parent))
+        redirect_to(member_path(@parent))
       end
       wants.js { head :ok }
     end
@@ -89,6 +89,7 @@ class Members::WishlistsController < ApplicationController
     
     def prepare_params
       # If given the item's exact ID, we don't need to know its name
+      return unless params[:wishlist].present? and params[:wishlist][:wow_id].present?
       params[:wishlist].delete(:item_name) if params[:wishlist][:wow_id].present?
     end
 end
