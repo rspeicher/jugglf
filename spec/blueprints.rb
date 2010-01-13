@@ -58,16 +58,6 @@ Loot.blueprint do
   purchased_on { Date.today }
 end
 
-Punishment.blueprint do
-  member
-  reason { Faker::Lorem.sentence(5) }
-  expires { Date.tomorrow }
-  value { Sham.price }
-end
-Punishment.blueprint(:expired) do
-  expires { Date.yesterday }
-end
-
 # -----------------------------------------------------------------------------
 
 Wishlist.blueprint do

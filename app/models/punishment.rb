@@ -19,7 +19,7 @@ class Punishment < ActiveRecord::Base
   attr_accessible :reason, :expires, :expires_string, :value
   
   def expires_string
-    # Default to 56 days from now so that it acts as a normal loot item
+    # Default to 52 days from now so that it acts as a normal loot item
     ( self.expires.nil? ) ? 52.days.from_now.to_date : self.expires.to_date
   end
   def expires_string=(value)

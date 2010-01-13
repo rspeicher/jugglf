@@ -214,14 +214,14 @@ describe Member, "punishments" do
   end
   
   it "should affect loot factor" do
-    @member.punishments.make
+    @member.punishments << Factory.build(:punishment, :value => 1.00)
     @member.update_cache
     
     @member.lf.should > 0.0
   end
   
   it "should not include expired punishments" do
-    @member.punishments.make(:expired)
+    @member.punishments << Factory.build(:punishment_expired, :value => 1.00)
     @member.update_cache
     
     @member.lf.should eql(0.0)

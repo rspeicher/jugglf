@@ -15,8 +15,8 @@ require 'spec_helper'
 
 describe Punishment do
   before(:each) do
-    @punishment = Punishment.make
-    @expired    = Punishment.make(:expired)
+    @punishment = Factory(:punishment)
+    @expired    = Factory(:punishment_expired)
   end
   
   it "should be valid" do
@@ -28,6 +28,7 @@ describe Punishment do
   it { should_not allow_mass_assignment_of(:member_id) }
   it { should allow_mass_assignment_of(:reason) }
   it { should allow_mass_assignment_of(:expires) }
+  it { should allow_mass_assignment_of(:expires_string) }
   it { should allow_mass_assignment_of(:value) }
   it { should_not allow_mass_assignment_of(:created_at) }
   it { should_not allow_mass_assignment_of(:updated_at) }
@@ -67,8 +68,8 @@ end
 
 describe Punishment, "callbacks" do
   before(:each) do
-    @member = Member.make
-    @member.punishments.make
+    @member = Factory(:member)
+    @member.punishments << Factory.build(:punishment, :value => 1.00)
     @member.reload
   end
   
