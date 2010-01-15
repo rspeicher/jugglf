@@ -13,6 +13,7 @@ class Members::WishlistsController < ApplicationController
 
     respond_to do |wants|
       wants.html
+      wants.lua
     end
   end
   
