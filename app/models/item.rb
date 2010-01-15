@@ -18,14 +18,16 @@
 #
 
 class Item < ActiveRecord::Base
-  # Relationships -------------------------------------------------------------
+  attr_accessible :name, :wow_id, :color, :icon, :level, :slot, :heroic
+
   has_many :loots, :dependent => :destroy
   has_many :wishlists, :order => 'priority', :dependent => :destroy
   has_many :loot_tables, :as => :object, :dependent => :destroy
   
-  # Attributes ----------------------------------------------------------------
-  attr_accessible :name, :wow_id, :color, :icon, :level, :slot, :heroic
+  validates_uniqueness_of :name, :scope => :wow_id
+  validates_uniqueness_of :wow_id
   
+  # Attributes ----------------------------------------------------------------
   searchify :name
   def self.search_name_or_wow_id(query, options={})
     if query =~ /^\d+$/ or query.is_a? Fixnum
@@ -36,11 +38,15 @@ class Item < ActiveRecord::Base
     end
   end
   
-  # Validations ---------------------------------------------------------------
-  validates_uniqueness_of :name, :scope => :wow_id
-  validates_uniqueness_of :wow_id
+  def to_param
+    return self.id.to_s if self.name.nil?
+    
+    "#{self.id}-#{self.name.parameterize}-#{self.wow_id}".gsub(/\-$/, '')
+  end
   
-  # Callbacks -----------------------------------------------------------------
+  def to_s
+    "#{self.wow_id}-#{self.name}"
+  end
   
   # Class Methods -------------------------------------------------------------
   # Allows the user to pass either an integer to FoC by wow_id, or a string to FoC by name
@@ -73,16 +79,6 @@ class Item < ActiveRecord::Base
     if force_refresh or self.needs_lookup?
       stat_lookup(self.wow_id || self.name)
     end
-  end
-  
-  def to_param
-    return self.id.to_s if self.name.nil?
-    
-    "#{self.id}-#{self.name.parameterize}-#{self.wow_id}".gsub(/\-$/, '')
-  end
-  
-  def to_s
-    "#{self.wow_id}-#{self.name}"
   end
   
   protected

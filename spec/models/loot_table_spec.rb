@@ -13,20 +13,21 @@ require 'spec_helper'
 
 describe LootTable do
   before(:each) do
-    @table = LootTable.make
+    @table = Factory(:loot_table, :object => nil, :parent => nil)
   end
   
   it "should return its object's name for to_s" do
-    @table.object = Boss.make(:name => 'Boss')
+    @table.object = Factory(:boss)
     @table.to_s.should eql('Boss')
   end
   
-  describe "polymorphic associations" do
+  context "polymorphic associations" do
     before(:each) do
-      @zone = Zone.make
-      @boss = Boss.make
-      @item = Item.make
+      @zone = Factory(:zone)
+      @boss = Factory(:boss)
+      @item = Factory(:item)
     end
+    
     it "should take a zone record" do
       @table.object = @zone
       @table.should be_valid
@@ -47,9 +48,9 @@ describe LootTable do
     end
   end
   
-  it "should act as tree" do
-    @table.object = Zone.make(:name => 'Ulduar')
-    @table.children.create(:object => Boss.make(:name => 'Hodir'))
-    @table.children.should_not be_nil
+  it "should act_as_tree" do
+    @table = Factory(:loot_table)
+    @table.parent.object.should be_a Boss
+    @table.parent.parent.object.should be_a Zone
   end
 end

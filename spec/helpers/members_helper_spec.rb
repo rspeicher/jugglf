@@ -104,7 +104,7 @@ describe "warn_if_recently_looted" do
     @item = Factory(:item)
     @wishlist = Factory(:wishlist, :item => @item)
     @member = @wishlist.member
-    @recent_loots = [Factory(:loot, :item => @item, :member => @member, :best_in_slot => true)]
+    @recent_loots = [Factory(:loot, :purchased_on => Date.today, :item => @item, :member => @member, :best_in_slot => true)]
   end
   
   it "should display a warning if the wishlist item of this type was recently looted" do

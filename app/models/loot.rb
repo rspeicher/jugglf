@@ -16,17 +16,18 @@
 #
 
 class Loot < ActiveRecord::Base
-  # Relationships -------------------------------------------------------------
-  belongs_to :member, :counter_cache => true
-  alias_method :buyer, :member
-  belongs_to :raid, :counter_cache => true
+  attr_accessible(:item, :item_id, :item_name, :price, :purchased_on, 
+    :best_in_slot, :situational, :rot, :member, :member_id, :member_name, :raid, 
+    :raid_id, :update_cache)
+
   belongs_to :item, :counter_cache => true
+  belongs_to :member, :counter_cache => true
+  belongs_to :raid, :counter_cache => true
   
-  # Attributes ----------------------------------------------------------------
+  validates_numericality_of :price, :allow_nil => true
+  
+  alias_method :buyer, :member
   attr_accessor :update_cache
-  
-  attr_accessible(:item, :item_name, :price, :purchased_on, :best_in_slot, 
-    :situational, :rot, :member, :member_id, :member_name, :raid_id, :update_cache)
   
   def item_name
     return if self.item_id.nil?
@@ -47,9 +48,6 @@ class Loot < ActiveRecord::Base
   def member_name=(value)
     self.member = Member.find_by_name(value)
   end
-  
-  # Validations ---------------------------------------------------------------
-  validates_numericality_of :price, :allow_nil => true
   
   # Callbacks -----------------------------------------------------------------
   before_save [:set_purchased_on]

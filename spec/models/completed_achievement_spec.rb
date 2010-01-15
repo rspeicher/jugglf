@@ -19,11 +19,24 @@ describe CompletedAchievement do
     @completed.should be_valid
   end
   
-  it { should belong_to(:achievement) }
-  it { should belong_to(:member) }
+  context "mass assignment" do
+    it { should_not allow_mass_assignment_of(:id) }
+    it { should allow_mass_assignment_of(:member) }
+    it { should allow_mass_assignment_of(:member_id) }
+    it { should allow_mass_assignment_of(:achievement) }
+    it { should allow_mass_assignment_of(:achievement_id) }
+    it { should allow_mass_assignment_of(:completed_on) }
+  end
   
-  it { should validate_presence_of(:achievement) }
-  it { should validate_presence_of(:member) }
+  context "associations" do
+    it { should belong_to(:achievement) }
+    it { should belong_to(:member) }
+  end
+  
+  context "validations" do
+    it { should validate_presence_of(:achievement) }
+    it { should validate_presence_of(:member) }
+  end
 end
 
 describe CompletedAchievement, "#parse_member" do

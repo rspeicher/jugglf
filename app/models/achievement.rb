@@ -10,6 +10,8 @@
 #
 
 class Achievement < ActiveRecord::Base
+  attr_accessible :armory_id, :category_id, :title, :icon
+  
   has_many :completed_achievements, :dependent => :destroy
   has_many :members, :through => :completed_achievements
   

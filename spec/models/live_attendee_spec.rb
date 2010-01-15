@@ -22,17 +22,24 @@ describe LiveAttendee do
     @live_att.should be_valid
   end
 
-  it { should allow_mass_assignment_of(:member_name) }
-  it { should allow_mass_assignment_of(:live_raid_id) }
-  it { should_not allow_mass_assignment_of(:started_at) }
-  it { should_not allow_mass_assignment_of(:stopped_at) }
-  it { should_not allow_mass_assignment_of(:active) }
-  it { should_not allow_mass_assignment_of(:minutes_attended) }  
+  context "mass assignment" do
+    it { should allow_mass_assignment_of(:member_name) }
+    it { should allow_mass_assignment_of(:live_raid_id) }
+    it { should allow_mass_assignment_of(:live_raid) }
+    it { should_not allow_mass_assignment_of(:started_at) }
+    it { should_not allow_mass_assignment_of(:stopped_at) }
+    it { should_not allow_mass_assignment_of(:active) }
+    it { should_not allow_mass_assignment_of(:minutes_attended) }
+  end
 
-  it { should belong_to(:live_raid) }
+  context "associations" do
+    it { should belong_to(:live_raid) }
+  end
   
-  it { should validate_presence_of(:member_name) }
-  it { should validate_uniqueness_of(:member_name).scoped_to(:live_raid_id) }
+  context "validations" do
+    it { should validate_presence_of(:member_name) }
+    it { should validate_uniqueness_of(:member_name).scoped_to(:live_raid_id) }
+  end
 end
 
 describe LiveAttendee, "#toggle!" do

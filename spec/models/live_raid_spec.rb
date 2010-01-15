@@ -18,12 +18,16 @@ describe LiveRaid do
     @live_raid.should be_valid
   end
   
-  it { should allow_mass_assignment_of(:attendees_string) }
-  it { should_not allow_mass_assignment_of(:started_at) }
-  it { should_not allow_mass_assignment_of(:stopped_at) }
+  context "mass assignment" do
+    it { should allow_mass_assignment_of(:attendees_string) }
+    it { should_not allow_mass_assignment_of(:started_at) }
+    it { should_not allow_mass_assignment_of(:stopped_at) }
+  end
 
-  it { should have_many(:live_attendees).dependent(:destroy) }
-  it { should have_many(:live_loots).dependent(:destroy) }
+  context "associations" do
+    it { should have_many(:live_attendees).dependent(:destroy) }
+    it { should have_many(:live_loots).dependent(:destroy) }
+  end
 
   it "should invalidate if stopped_at is set but not started_at" do
     lambda { @live_raid.stopped_at = Time.now }.should change(@live_raid, :valid?).to(false)

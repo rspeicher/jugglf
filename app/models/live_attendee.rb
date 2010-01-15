@@ -12,7 +12,7 @@
 #
 
 class LiveAttendee < ActiveRecord::Base
-  attr_accessible :member_name, :live_raid_id
+  attr_accessible :member_name, :live_raid, :live_raid_id
   
   belongs_to :live_raid, :counter_cache => true
   

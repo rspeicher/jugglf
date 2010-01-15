@@ -1,5 +1,6 @@
 Factory.define :item do |f|
   f.sequence(:name) { |n| "Item#{n}" }
+  f.sequence(:wow_id) { |n| n }
   f.authentic true
 end
 
@@ -11,4 +12,9 @@ Factory.define :item_with_real_stats, :class => Item do |f|
   f.level 226
   f.slot 'Main Hand'
   f.authentic true
+end
+
+Factory.define :item_needing_lookup, :default_strategy => :build, :class => Item do |f|
+  f.wow_id 1
+  f.authentic false
 end

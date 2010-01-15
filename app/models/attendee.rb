@@ -9,6 +9,8 @@
 #
 
 class Attendee < ActiveRecord::Base
+  attr_accessible :member, :member_id, :raid, :raid_id, :attendance
+  
   belongs_to :member, :counter_cache => :raids_count
   belongs_to :raid, :counter_cache => true
   

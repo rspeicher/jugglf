@@ -14,43 +14,49 @@ require 'spec_helper'
 describe LiveLoot do
   before(:each) do
     # Saving it might force an item lookup, which we don't want
-    @live_loot = LiveLoot.make_unsaved
+    @live_loot = Factory(:live_loot)
   end
   
   it "should be valid" do
     @live_loot.should be_valid
   end
   
-  it { should allow_mass_assignment_of(:wow_id) }
-  it { should allow_mass_assignment_of(:item_id) }
-  it { should allow_mass_assignment_of(:member_id) }
-  it { should allow_mass_assignment_of(:member_name) }
-  it { should allow_mass_assignment_of(:loot_type) }
-  it { should_not allow_mass_assignment_of(:live_raid) }
-  it { should_not allow_mass_assignment_of(:live_raid_id) }
+  context "mass assignment" do
+    it { should allow_mass_assignment_of(:wow_id) }
+    it { should allow_mass_assignment_of(:item_id) }
+    it { should allow_mass_assignment_of(:member_id) }
+    it { should allow_mass_assignment_of(:member_name) }
+    it { should allow_mass_assignment_of(:loot_type) }
+    it { should_not allow_mass_assignment_of(:live_raid) }
+    it { should_not allow_mass_assignment_of(:live_raid_id) }
+  end
 
-  it { should belong_to(:item) }
-  it { should belong_to(:member) }
-  it { should belong_to(:live_raid) }
+  context "associations" do
+    it { should belong_to(:item) }
+    it { should belong_to(:member) }
+    it { should belong_to(:live_raid) }
+  end
   
-  it { should allow_value(nil).for(:loot_type) }
-  it { should allow_value('bis').for(:loot_type) }
-  it { should allow_value('rot').for(:loot_type) }
-  it { should allow_value('sit').for(:loot_type) }
-  it { should allow_value('bisrot').for(:loot_type) }
-  it { should_not allow_value('invalid').for(:loot_type) }
-  it { should_not allow_value('BiS').for(:loot_type) }
+  context "validations" do
+    it { should allow_value(nil).for(:loot_type) }
+    it { should allow_value('bis').for(:loot_type) }
+    it { should allow_value('rot').for(:loot_type) }
+    it { should allow_value('sit').for(:loot_type) }
+    it { should allow_value('bisrot').for(:loot_type) }
+    it { should_not allow_value('invalid').for(:loot_type) }
+    it { should_not allow_value('BiS').for(:loot_type) }
+  end
 end
 
 describe LiveLoot, "item assocation" do
   describe "with an existing item" do
     before(:each) do
-      @item = Item.make(:wow_id => 12345, :name => 'LiveLootItem')
-      @live_loot = LiveLoot.make_unsaved(:wow_id => nil, :member_name => nil)
+      @item      = Factory(:item)
+      @live_loot = Factory.build(:live_loot)
     end
   
     it "should set the value of item_id based on wow_id, if given" do
-      lambda { @live_loot.wow_id = 12345 }.should change(@live_loot, :item_id).to(@item.id)
+      lambda { @live_loot.wow_id = @item.wow_id }.should change(@live_loot, :item_id).to(@item.id)
     end
   end
   
@@ -62,12 +68,12 @@ end
 describe LiveLoot, "member association" do
   describe "with an existing member" do
     before(:each) do
-      @member = Member.make(:name => 'LiveLooter')
-      @live_loot = LiveLoot.make_unsaved(:wow_id => nil, :member_name => nil)
+      @member    = Factory(:member)
+      @live_loot = Factory.build(:live_loot)
     end
   
     it "should set the value of member_id based on member_name" do
-      lambda { @live_loot.member_name = 'LiveLooter' }.should change(@live_loot, :member_id).to(@member.id)
+      lambda { @live_loot.member_name = @member.name }.should change(@live_loot, :member_id).to(@member.id)
     end
   end
 
@@ -103,9 +109,8 @@ describe LiveLoot, ".from_text" do
   
   describe "parsing valid text" do
     before(:each) do
-      [Member, Item].each(&:destroy_all)
-      @member = Member.make(:name => 'Tsigo')
-      @item = Item.make(:wow_id => 47303, :name => "Death's Choice")
+      @member = Factory(:member, :name => 'Tsigo')
+      @item   = Factory(:item, :wow_id => 47303, :name => "Death's Choice")
       
       @expected = [
         { :wow_id => 47303, :item => @item, :member => nil,     :loot_type => nil },

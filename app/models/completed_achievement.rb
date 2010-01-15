@@ -9,6 +9,8 @@
 #
 
 class CompletedAchievement < ActiveRecord::Base
+  attr_accessible :member, :member_id, :achievement, :achievement_id, :completed_on
+  
   belongs_to :achievement
   belongs_to :member
   
