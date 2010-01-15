@@ -32,7 +32,6 @@ describe ItemsController, "GET show" do
   it { should assign_to(:item).with(@object) }
   it { should assign_to(:loots).with(@object.loots) }
   it { should assign_to(:wishlists).with(@object.wishlists) }
-  # it { should assign_to(:loot_table) } # FIXME: ???
   it { should render_template(:show) }
 end
 
