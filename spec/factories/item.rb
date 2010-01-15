@@ -4,8 +4,8 @@ Factory.define :item do |f|
 end
 
 Factory.define :item_with_real_stats, :class => Item do |f|
-  f.after_build { |i| i.id = 40395 }
   f.name 'Torch of Holy Fire'
+  f.wow_id 40395
   f.icon 'INV_Mace_82'
   f.color 'q4'
   f.level 226
