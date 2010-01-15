@@ -1,13 +1,14 @@
-Factory.sequence :item_name do |n|
-  "Item#{n}"
-end
-
-Factory.sequence :item_wow_id do |n|
-  n
-end
-
 Factory.define :item do |f|
-  f.name { Factory.next :item_name }
-  f.wow_id { Factory.next :item_wow_id }
+  f.sequence(:name) { |n| "Item#{n}" }
+  f.authentic true
+end
+
+Factory.define :item_with_real_stats, :class => Item do |f|
+  f.after_build { |i| i.id = 40395 }
+  f.name 'Torch of Holy Fire'
+  f.icon 'INV_Mace_82'
+  f.color 'q4'
+  f.level 226
+  f.slot 'Main Hand'
   f.authentic true
 end
