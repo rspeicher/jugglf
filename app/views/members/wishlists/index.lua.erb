@@ -1,5 +1,9 @@
 JuggyWishlist_Data = {
-  <%- @wishlists.each do |wishlist| -%>
-  ["<%= wishlist.item.wow_id %>"] = "<%= [escape_javascript(wishlist.priority.titlecase), escape_javascript(wishlist.note)].join(' - ').gsub(/ - $/, '') %>",
+  <%- group_wishlist_notes(@wishlists).each_pair do |id, wishlists| -%>
+  [<%= id %>] = {
+    <%- wishlists.each do |wishlist| -%>
+    {"<%= escape_javascript(wishlist[:priority].titlecase) %>","<%= escape_javascript(wishlist[:note]) %>"},
+    <%- end -%>
+  },
   <%- end -%>
 }
