@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100101033711) do
+ActiveRecord::Schema.define(:version => 20100118010459) do
 
   create_table "achievements", :force => true do |t|
     t.integer "armory_id"
@@ -54,7 +54,6 @@ ActiveRecord::Schema.define(:version => 20100101033711) do
     t.string   "name",            :limit => 100
     t.integer  "wishlists_count",                :default => 0
     t.integer  "loots_count",                    :default => 0
-    t.integer  "wow_id"
     t.string   "color",           :limit => 15
     t.string   "icon"
     t.integer  "level",                          :default => 0
@@ -64,8 +63,6 @@ ActiveRecord::Schema.define(:version => 20100101033711) do
     t.boolean  "heroic",                         :default => false
     t.boolean  "authentic"
   end
-
-  add_index "items", ["name", "wow_id"], :name => "index_items_on_name_and_wow_id", :unique => true
 
   create_table "live_attendees", :force => true do |t|
     t.string   "member_name",                         :null => false
