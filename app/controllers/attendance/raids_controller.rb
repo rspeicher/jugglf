@@ -3,6 +3,8 @@ class Attendance::RaidsController < ApplicationController
   
   before_filter :find_raid, :except => [:index, :new, :create]
   
+  skip_before_filter :verify_authenticity_token, :only => [:update]
+  
   def index
     @raids = LiveRaid.find(:all, :order => 'id DESC')
     

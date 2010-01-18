@@ -6,6 +6,8 @@ class Members::WishlistsController < ApplicationController
   
   before_filter :prepare_params, :only => [:create, :update]
   
+  skip_before_filter :verify_authenticity_token, :only => [:create]
+  
   def index
     @wishlist     = Wishlist.new # Let the "Add New" form work
     @wishlists    = @member.wishlists
