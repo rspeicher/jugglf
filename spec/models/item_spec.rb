@@ -6,7 +6,6 @@
 #  name            :string(100)
 #  wishlists_count :integer(4)      default(0)
 #  loots_count     :integer(4)      default(0)
-#  wow_id          :integer(4)
 #  color           :string(15)
 #  icon            :string(255)
 #  level           :integer(4)      default(0)
@@ -21,12 +20,12 @@ require 'spec_helper'
 
 describe Item do
   include ItemLookupHelpers
-  
+
   before(:each) do
     @item = Factory(:item_with_real_stats)
     ItemLookup.stub!(:search).and_return(valid_lookup_results)
   end
-  
+
   it "should be valid" do
     @item.should be_valid
   end
@@ -36,7 +35,7 @@ describe Item do
     it { should allow_mass_assignment_of(:name) }
     it { should_not allow_mass_assignment_of(:wishlists_count) }
     it { should_not allow_mass_assignment_of(:loots_count) }
-    it { should allow_mass_assignment_of(:wow_id) }
+    # it { should allow_mass_assignment_of(:wow_id) }
     it { should allow_mass_assignment_of(:color) }
     it { should allow_mass_assignment_of(:icon) }
     it { should allow_mass_assignment_of(:level) }
@@ -45,58 +44,58 @@ describe Item do
     it { should_not allow_mass_assignment_of(:updated_at) }
     it { should allow_mass_assignment_of(:heroic) }
     it { should_not allow_mass_assignment_of(:authentic) }
-  end  
+  end
 
   context "associations" do
     it { should have_many(:loots).dependent(:destroy) }
     it { should have_many(:wishlists).dependent(:destroy) }
     it { should have_many(:loot_tables).dependent(:destroy) }
   end
-  
+
   context "validations" do
-    it { should validate_uniqueness_of(:name).scoped_to(:wow_id) }
-    # it { should validate_uniqueness_of(:wow_id) } # FIXME: Performs a lookup
+    it { should_not allow_value(nil).for(:id) }
+    it { should_not allow_value(0).for(:id) }
+    it { should allow_value('1').for(:id) }
+    it { should allow_value(12345).for(:id) }
+
+    it { should validate_uniqueness_of(:id) }
+    it { should validate_uniqueness_of(:name).scoped_to(:id) }
   end
-  
+
   it "should have a custom to_s" do
-    @item.to_s.should eql("#{@item.wow_id}-#{@item.name}")
+    @item.to_s.should eql("#{@item.id}-#{@item.name}")
   end
-  
+
   describe "to_param" do
-    it "should use name and wow_id if available" do
-      @item.to_param.should eql("#{@item.id}-#{@item.name.parameterize}-#{@item.wow_id}")
-    end
-    
-    it "should not include wow_id if it's nil" do
-      @item.wow_id = nil
+    it "should use name and id if available" do
       @item.to_param.should eql("#{@item.id}-#{@item.name.parameterize}")
     end
-    
-    it "should return just the ID if name or wow_id are not available" do
+
+    it "should return just the ID if name is not available" do
       @item.name = nil
       @item.to_param.should eql(@item.id.to_s)
     end
   end
 end
 
-describe Item, "#find_[or_create_]by_name_or_wow_id" do
+describe Item, "#find_[or_create_]by_name_or_id" do
   before(:each) do
     @item = Factory(:item_with_real_stats)
   end
 
-  it "should find by wow_id when given a numeric string" do
-    Item.find_or_create_by_name_or_wow_id(@item.wow_id.to_s).should eql(@item)
-    Item.find_by_name_or_wow_id(@item.wow_id.to_s).should eql(@item)
+  it "should find by id when given a numeric string" do
+    Item.find_or_create_by_name_or_id(@item.id.to_s).should eql(@item)
+    Item.find_by_name_or_id(@item.id.to_s).should eql(@item)
   end
 
-  it "should find by wow_id when given an integer" do
-    Item.find_or_create_by_name_or_wow_id(@item.wow_id).should eql(@item)
-    Item.find_by_name_or_wow_id(@item.wow_id).should eql(@item)
+  it "should find by id when given an integer" do
+    Item.find_or_create_by_name_or_id(@item.id).should eql(@item)
+    Item.find_by_name_or_id(@item.id).should eql(@item)
   end
 
   it "should find by name when given a non-numeric string" do
-    Item.find_or_create_by_name_or_wow_id(@item.name).should eql(@item)
-    Item.find_by_name_or_wow_id(@item.name).should eql(@item)
+    Item.find_or_create_by_name_or_id(@item.name).should eql(@item)
+    Item.find_by_name_or_id(@item.name).should eql(@item)
   end
 end
 
@@ -104,7 +103,7 @@ describe Item, "#needs_lookup?" do
   it "should be based on authentic" do
     real = Factory.build(:item_with_real_stats)
     real.needs_lookup?.should be_false
-    
+
     fake = Factory.build(:item, :authentic => false)
     fake.needs_lookup?.should be_true
   end
@@ -112,29 +111,29 @@ end
 
 describe Item, "automatic stat lookup before save" do
   include ItemLookupHelpers
-  
+
   describe "with a valid item" do
     it "should perform a lookup when name is nil" do
-      item = Factory(:item_needing_lookup)
+      item = Factory(:item_needing_lookup_via_id)
       lambda {
-        ItemLookup.should_receive(:search).with(1, anything()).and_return(valid_lookup_results)
+        ItemLookup.should_receive(:search).with(item.id, anything()).and_return(valid_lookup_results)
         item.save
       }.should change(item, :name).from(nil).to('Torch of Holy Fire')
     end
-  
+
     it "should do nothing when name is not nil" do
       item = Factory.build(:item_with_real_stats)
       ItemLookup.should_not_receive(:search)
       lambda { item.save }.should_not change(item, :name)
     end
   end
-  
+
   describe "with an invalid item" do
     before(:each) do
-      @item = Factory(:item_needing_lookup)
+      @item = Factory(:item_needing_lookup_via_id)
       ItemLookup.should_receive(:search).with(1, anything()).at_least(:once).and_return(invalid_lookup_results)
     end
-    
+
     it "should invalidate record when name is nil after lookup" do
       @item.should_not be_valid
       @item.should have(1).errors_on(:base)
@@ -146,13 +145,13 @@ describe Item, "#lookup!" do
   before(:each) do
     @item = Factory(:item)
   end
-  
+
   it "should call lookup" do
     @item.should_receive(:lookup).with(true)
     @item.stub!(:save).and_return(true)
     @item.lookup!(true)
   end
-  
+
   it "should call save" do
     @item.stub!(:lookup).and_return(true)
     @item.should_receive(:save).and_return(true)
@@ -162,36 +161,36 @@ end
 
 describe Item, "#lookup" do
   include ItemLookupHelpers
-  
+
   it "should not perform a lookup unless it's necessary" do
     item = Factory(:item_with_real_stats)
     ItemLookup.should_not_receive(:search)
     item.lookup
   end
-  
+
   context "when a lookup is needed" do
     context "with invalid item" do
       it "should fail silently" do
-        item = Factory(:item_needing_lookup, :wow_id => nil, :name => 'Invalid Item')
+        item = Factory(:item_needing_lookup, :name => 'Invalid Item')
         lambda {
           ItemLookup.should_receive(:search).with(item.name, anything()).and_return(invalid_lookup_results)
           item.lookup(true)
         }.should_not raise_error(Exception)
       end
     end
-  
+
     context "with valid item" do
       before(:each) do
         @item = Factory.build(:item_with_real_stats)
       end
-      
+
       it "should perform lookup by name" do
-        @item.wow_id = nil
+        @item.id = nil
         ItemLookup.should_receive(:search).with('Torch of Holy Fire', anything()).and_return(valid_lookup_results)
-        lambda { @item.lookup(true) }.should change(@item, :wow_id).from(nil).to(40395)
+        lambda { @item.lookup(true) }.should change(@item, :id).from(nil).to(40395)
       end
 
-      it "should perform lookup by wow_id" do
+      it "should perform lookup by id" do
         @item.name = nil
         ItemLookup.should_receive(:search).with(40395, anything()).and_return(valid_lookup_results)
         lambda { @item.lookup(true) }.should change(@item, :name).from(nil).to('Torch of Holy Fire')

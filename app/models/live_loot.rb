@@ -18,14 +18,14 @@ class LiveLoot < ActiveRecord::Base
   
   validates_inclusion_of :loot_type, :in => %w(bis rot sit bisrot), :allow_nil => true, :message => "must be bis, rot, sit or bisrot"
   
-  # Attempts to associate with an +Item+ given its +wow_id+
+  # Attempts to associate with an +Item+ given its +id+
   def wow_id=(value)
-    self.item = Item.find_or_initialize_by_wow_id(value)
+    self.item = Item.find_or_initialize_by_id(value)
   end
   
-  # Returns the +wow_id+ attribute of the associated +Item+, if present.
+  # Returns the +id+ attribute of the associated +Item+, if present.
   def wow_id
-    self.item.wow_id unless self.item_id.nil?
+    self.item_id unless self.item_id.nil?
   end
   
   # Attempts to associate with a +Member+ given its +name+
@@ -49,11 +49,11 @@ class LiveLoot < ActiveRecord::Base
   #
   # ...will return an array with the following *unsaved* objects
   #
-  #   #<LiveLoot id: nil, wow_id: 49952, item_name: "Snowserpent Mail Helm",    member_name: nil,          loot_type: nil>
-  #   #<LiveLoot id: nil, wow_id: 49952, item_name: "Snowserpent Mail Helm",    member_name: "Tsigo",      loot_type: nil>
-  #   #<LiveLoot id: nil, wow_id: 49978, item_name: "Crushing Coldwraith Belt", member_name: "Duskshadow", loot_type: nil>
-  #   #<LiveLoot id: nil, wow_id: 47255, item_name: "Stygian Bladebreaker",     member_name: "Sebudai",    loot_type: "sit">
-  #   #<LiveLoot id: nil, wow_id: 47303, item_name: "Death's Choice",           member_name: "Kazanir",    loot_type: "bis">
+  #   #<LiveLoot id: nil, item_id: 49952, item_name: "Snowserpent Mail Helm",    member_name: nil,          loot_type: nil>
+  #   #<LiveLoot id: nil, item_id: 49952, item_name: "Snowserpent Mail Helm",    member_name: "Tsigo",      loot_type: nil>
+  #   #<LiveLoot id: nil, item_id: 49978, item_name: "Crushing Coldwraith Belt", member_name: "Duskshadow", loot_type: nil>
+  #   #<LiveLoot id: nil, item_id: 47255, item_name: "Stygian Bladebreaker",     member_name: "Sebudai",    loot_type: "sit">
+  #   #<LiveLoot id: nil, item_id: 47303, item_name: "Death's Choice",           member_name: "Kazanir",    loot_type: "bis">
   #
   # Note that both the parenthesis around loot types and the brackets around the item name are optional.
   def self.from_text(input)
@@ -72,12 +72,12 @@ class LiveLoot < ActiveRecord::Base
         buyers.each do |buyer|
           buyer.strip!
           
-          loot = self.new
-          loot.wow_id      = matches[3].to_i
-          loot.member_name = buyer.gsub(/^([^\s]+).*/, '\1') unless buyer == 'DE'
-          loot.loot_type   = buyer.gsub(/^(\w+)\s\(?([a-zA-Z\s]+)\)?$/, '\2').downcase if buyer.match(/\s\(?([a-zA-Z\s]+)\)?$/)
+          live_loot = self.new
+          live_loot.wow_id      = matches[3].to_i
+          live_loot.member_name = buyer.gsub(/^([^\s]+).*/, '\1') unless buyer == 'DE'
+          live_loot.loot_type   = buyer.gsub(/^(\w+)\s\(?([a-zA-Z\s]+)\)?$/, '\2').downcase if buyer.match(/\s\(?([a-zA-Z\s]+)\)?$/)
           
-          retval << loot
+          retval << live_loot
         end
       else
         raise "Invalid loot string format: \"#{line}\""

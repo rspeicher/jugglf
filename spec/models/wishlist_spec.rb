@@ -76,7 +76,7 @@ describe Wishlist, "#item_name" do
 
   it "should create the item if no item was found" do
     # Stub this so we don't perform an item lookup; we only care that it's being called
-    Item.should_receive(:find_or_create_by_name_or_wow_id).with('NewItem')
+    Item.should_receive(:find_or_create_by_name_or_id).with('NewItem')
     @wishlist.item_name = 'NewItem'
   end
 end
@@ -87,13 +87,13 @@ describe Wishlist, "#wow_id" do
     @item     = Factory(:item)
   end
 
-  it "should return the wow_id of the Item" do
+  it "should return the id of the Item" do
     @wishlist.item = @item
-    @wishlist.wow_id.should eql(@item.wow_id)
+    @wishlist.wow_id.should eql(@item.id)
   end
 
   it "should assign via wow_id" do
-    @wishlist.wow_id = @item.wow_id
+    @wishlist.wow_id = @item.id
     @wishlist.item.should eql(@item)
   end
 end

@@ -26,7 +26,7 @@ module ItemsHelper
   
   private
     def stat_lookup(item)
-      if item.wow_id.nil?
+      if item.id.nil?
         item.lookup
       end
       
@@ -40,9 +40,9 @@ module ItemsHelper
     
       if options[:rel]
         link_to(truncate(h(item.name), :length => 80), item_path(item), 
-          :class => item.color, :rel => "item=#{item.wow_id}").gsub(/"/, "'")
+          :class => item.color, :rel => "item=#{item.id}").gsub(/"/, "'")
       else
-        link_to(truncate(h(item.name), :length => 80), "http://www.wowhead.com/?item=#{item.wow_id}", 
+        link_to(truncate(h(item.name), :length => 80), "http://www.wowhead.com/?item=#{item.id}", 
           :class => item.color, :target => '_new').gsub(/"/, "'")
       end
     end
