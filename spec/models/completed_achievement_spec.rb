@@ -40,11 +40,9 @@ describe CompletedAchievement do
 end
 
 describe CompletedAchievement, "#parse_member" do
-  before(:all) do
-    FakeWeb.register_uri(:get, %r{http://www\.wowarmory\.com/character-achievements\.xml}, :body => file_fixture('wowarmory', 'achievements_tsigo.xml'))
-  end
-  
   before(:each) do
+    FakeWeb.register_uri(:get, %r{http://www\.wowarmory\.com/character-achievements\.xml}, :body => file_fixture('wowarmory', 'achievements_tsigo.xml'))
+    
     @member = Factory(:member)
     
     # Add one pre-existing completed achievement

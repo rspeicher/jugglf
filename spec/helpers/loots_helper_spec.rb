@@ -37,11 +37,8 @@ describe "loot_row_classes" do
 end
 
 describe "loot_factor_cutoff" do
-  before(:all) do
-    Timecop.freeze(Date.today)
-  end
-  
   before(:each) do
+    Timecop.freeze(Date.today)
     @future = 1.month.since(Date.today)
     @past   = 5.months.until(Date.today)
   end

@@ -7,7 +7,6 @@ require 'spec/rails'
 require 'shoulda'
 
 require 'invision_bridge'
-require 'blueprints'
 
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
@@ -20,34 +19,9 @@ Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
-  
-  config.before(:all)    { Sham.reset(:before_all)  }
-  config.before(:each)   { Sham.reset(:before_each) }
-  
+
   config.include(LoginHelper,      :type => :controller)
   config.include(ControllerHelper, :type => :controller)
-  
-  # TEMP: Using this to figure out which specs are tainting my database
-  # config.after(:all) do
-  #   Achievement.count.should eql(0)
-  #   Attendee.count.should eql(0)
-  #   Boss.count.should eql(0)
-  #   CompletedAchievement.count.should eql(0)
-  #   Item.count.should eql(0)
-  #   LiveAttendee.count.should eql(0)
-  #   LiveLoot.count.should eql(0)
-  #   LiveRaid.count.should eql(0)
-  #   Loot.count.should eql(0)
-  #   LootTable.count.should eql(0)
-  #   Member.count.should eql(0)
-  #   MemberRank.count.should eql(0)
-  #   Punishment.count.should eql(0)
-  #   Raid.count.should eql(0)
-  #   Session.count.should eql(0)
-  #   # User.count.should eql(0) # I don't think this is taint so much as existing users
-  #   Wishlist.count.should eql(0)
-  #   Zone.count.should eql(0)
-  # end
 
   # == Mock Framework
   #

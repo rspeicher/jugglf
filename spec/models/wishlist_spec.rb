@@ -14,54 +14,86 @@
 require 'spec_helper'
 
 describe Wishlist do
-  include ItemLookupHelpers
-  
   before(:each) do
-    @wishlist = Wishlist.make
+    @wishlist = Factory(:wishlist)
   end
+
   it "should be valid" do
     @wishlist.should be_valid
   end
-  
-  it "should not allow invalid priority types" do
-    @wishlist.priority = 'invalid'
-    lambda { @wishlist.save! }.should raise_error
+
+  context "mass assignment" do
+    it { should_not allow_mass_assignment_of(:id) }
+    it { should allow_mass_assignment_of(:item_id) }
+    it { should allow_mass_assignment_of(:item_name) }
+    it { should allow_mass_assignment_of(:member_id) }
+    it { should allow_mass_assignment_of(:priority) }
+    it { should allow_mass_assignment_of(:note) }
+    it { should_not allow_mass_assignment_of(:created_at) }
+    it { should_not allow_mass_assignment_of(:updated_at) }
+    it { should allow_mass_assignment_of(:wow_id) }
   end
-  
-  it "should not allow nil items" do
-    @wishlist.item_id = nil
-    lambda { @wishlist.save! }.should raise_error
+
+  context "associations" do
+    it { should belong_to(:item) }
+    it { should belong_to(:member) }
   end
-  
-  describe "#item_name" do
-    before(:each) do
-      Item.destroy_all
-    end
+
+  context "validations" do
+    it { should_not allow_value(nil).for(:priority) }
+    it { should_not allow_value('invalid').for(:priority) }
+    it { should allow_value('best in slot').for(:priority) }
     
-    it "should return the name of the item" do
-      @wishlist.item = Item.make(:name => 'NewItem')
-      @wishlist.item_name.should eql('NewItem')
+    it "should invalidate on nil item" do
+      @wishlist.item_id = nil
+      lambda { @wishlist.save! }.should raise_error
     end
-    
-    it "should find the name of the existing item when assigned" do
-      item = Item.make(:name => 'ExistingItem')
-      @wishlist.item_name = 'ExistingItem'
-      @wishlist.item_id.should eql(item.id)
-    end
-    
-    it "should create the item if no item was found" do
+
+    it "should invalidate on non-authentic item" do
+      @wishlist.item = Factory.build(:item, :authentic => false)
       lambda {
-        # FIXME: This is getting pretty intimate with the way Item works
-        ItemLookup.stub!(:search).and_return(valid_lookup_results)
-        @wishlist.item_name = 'NewItem'
-      }.should change(Item, :count).by(1)
+        @wishlist.save!
+      }.should raise_error
     end
   end
-  
-  describe "#wow_id" do
-    it "should return the wow_id of the Item" do
-      @wishlist.item = Item.make(:with_real_stats)
-      @wishlist.wow_id.should eql(40395)
-    end
+end
+
+describe Wishlist, "#item_name" do
+  before(:each) do
+    @wishlist = Factory(:empty_wishlist)
+    @item     = Factory(:item)
+  end
+
+  it "should return the name of the item" do
+    @wishlist.item = @item
+    @wishlist.item_name.should eql(@item.name)
+  end
+
+  it "should find the name of the existing item when assigned" do
+    @wishlist.item_name = @item.name
+    @wishlist.item_id.should eql(@item.id)
+  end
+
+  it "should create the item if no item was found" do
+    # Stub this so we don't perform an item lookup; we only care that it's being called
+    Item.should_receive(:find_or_create_by_name_or_wow_id).with('NewItem')
+    @wishlist.item_name = 'NewItem'
+  end
+end
+
+describe Wishlist, "#wow_id" do
+  before(:each) do
+    @wishlist = Factory(:empty_wishlist)
+    @item     = Factory(:item)
+  end
+
+  it "should return the wow_id of the Item" do
+    @wishlist.item = @item
+    @wishlist.wow_id.should eql(@item.wow_id)
+  end
+
+  it "should assign via wow_id" do
+    @wishlist.wow_id = @item.wow_id
+    @wishlist.item.should eql(@item)
   end
 end

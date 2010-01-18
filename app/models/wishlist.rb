@@ -14,12 +14,12 @@
 class Wishlist < ActiveRecord::Base
   PRIORITIES = ['best in slot','normal','situational','rot'].freeze
   
-  # Relationships -------------------------------------------------------------
+  attr_accessible :item_id, :item_name, :wow_id, :priority, :note, :member_id
+  
   belongs_to :item, :counter_cache => true
   belongs_to :member, :counter_cache => true
   
-  # Attributes ----------------------------------------------------------------
-  attr_accessible :item_id, :item_name, :wow_id, :priority, :note, :member_id
+  validates_inclusion_of :priority, :in => PRIORITIES, :message => "{{value}} is not a valid entry type"
   
   def item_name
     self.item.name unless self.item_id.nil?
@@ -37,15 +37,6 @@ class Wishlist < ActiveRecord::Base
     item = Item.find_by_name_or_wow_id(value)
     self.item = item unless item.nil?
   end
-  
-  # Validations ---------------------------------------------------------------
-  validates_inclusion_of :priority, :in => PRIORITIES, :message => "{{value}} is not a valid entry type"
-  
-  # Callbacks -----------------------------------------------------------------
-  
-  # Class Methods -------------------------------------------------------------
-  
-  # Instance Methods ----------------------------------------------------------
   
   protected
     def validate

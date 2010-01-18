@@ -1,6 +1,6 @@
 Factory.define :punishment do |f|
   f.reason 'Reason'
-  f.expires Date.tomorrow
+  f.expires 1.year.since(Date.today)
   f.value 0.0
 end
 
