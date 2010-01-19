@@ -3,22 +3,22 @@ namespace :juggernaut do
     return if zone.nil? or name.blank?
     zone.children.create(:object => Boss.create(:name => name))
   end
-  
+
   def item(boss, name, note = nil)
     return if boss.nil? or name.blank?
-    boss.children.create(:object => Item.find_or_create_by_name_or_wow_id(name), 
+    boss.children.create(:object => Item.find_or_create_by_name_or_id(name),
       :note => note)
   end
-  
+
   # Data Generators ------------------------------------------------------------
-  
+
   def wotlk_data
     ['The Obsidian Sanctum (H)', 'The Eye of Eternity (H)'].each do |zone_name|
       zone = LootTable.create(:object => Zone.create(:name => zone_name))
-      
+
       boss_name = ( zone_name == 'The Obsidian Sanctum (H)' ) ? 'Sartharion' : 'Malygos'
       boss = boss(zone, boss_name)
-      
+
       case boss_name
       when 'Sartharion'
         item(boss, "Belabored Legplates")
@@ -69,20 +69,20 @@ namespace :juggernaut do
       end
     end
   end
-  
+
   def ulduar_data
-    ulduar_bosses = ['Bind on Equip', 
-      'Flame Leviathan','Ignis the Furnacemaster','Razorscale','XT-002 Deconstructor', 
+    ulduar_bosses = ['Bind on Equip',
+      'Flame Leviathan','Ignis the Furnacemaster','Razorscale','XT-002 Deconstructor',
       'Kologarn','Auriaya','Assembly of Iron',
       'Hodir','Thorim','Freya','Mimiron',
       'General Vezax', 'Yogg-Saron', 'Algalon the Observer']
-    
+
     ['Ulduar'].each do |zone_name|
       zone = LootTable.create(:object => Zone.create(:name => zone_name))
-      
+
       ulduar_bosses.each do |boss_name|
         boss = boss(zone, boss_name)
-        
+
         case boss_name
         when 'Bind on Equip'
         when 'Flame Leviathan'
@@ -286,13 +286,13 @@ namespace :juggernaut do
         end
       end
     end
-    
+
     ['Ulduar (H)'].each do |zone_name|
       zone = LootTable.create(:object => Zone.create(:name => zone_name))
-      
+
       ulduar_bosses.each do |boss_name|
         boss = boss(zone, boss_name)
-        
+
         case boss_name
         when 'Bind on Equip'
           item(boss, "Asimov's Drape", "Mimiron")
@@ -543,7 +543,7 @@ namespace :juggernaut do
       end
     end
   end
-  
+
   def crusade_data
     toc_bosses = {
       'Trial of the Crusader (10)' => [
@@ -577,7 +577,7 @@ namespace :juggernaut do
         ['tributechest-25'          , 'Tribute Chest'],
       ]
     }
-    
+
     toc_bosses.sort.each do |zone_name, bosses|
       zone = LootTable.create(:object => Zone.create(:name => zone_name))
       bosses.each do |boss_tag, boss_name|
@@ -939,7 +939,7 @@ namespace :juggernaut do
       end
     end
   end
-  
+
   def icecrown_data
     icc_bosses = {
       'Icecrown Citadel (10)' => [
@@ -947,17 +947,17 @@ namespace :juggernaut do
         ['deathwhisper-10',  'Lady Deathwhisper'],
         ['gunship-10',       'Gunship Battle'],
         ['saurfang-10',      'Deathbringer Saurfang'],
-        
+
         ['festergut-10',     'Festergut'],
         ['rotface-10',       "Rotface"],
         ['putricide-10',     'Professor Putricide'],
-        
+
         ['bloodprinces-10',  'Blood Prince Council'],
         ['queenlanathel-10', "Blood-Queen Lana'thel"],
-        
+
         ['valithria-10',     "Valithria Dreamwalker"],
         ['sindragosa-10',    'Sindragosa'],
-        
+
         ['lichking-10',      'The Lich King']
       ],
       'Icecrown Citadel (25)' => [
@@ -985,17 +985,17 @@ namespace :juggernaut do
         ['deathwhisper-10-hard',  'Lady Deathwhisper'],
         ['gunship-10-hard',       'Gunship Battle'],
         ['saurfang-10-hard',      'Deathbringer Saurfang'],
-        
+
         ['festergut-10-hard',     'Festergut'],
         ['rotface-10-hard',       "Rotface"],
         ['putricide-10-hard',     'Professor Putricide'],
-        
+
         ['bloodprinces-10-hard',  'Blood Prince Council'],
         ['queenlanathel-10-hard', "Blood-Queen Lana'thel"],
-        
+
         ['valithria-10-hard',     "Valithria Dreamwalker"],
         ['sindragosa-10-hard',    'Sindragosa'],
-        
+
         ['lichking-10-hard',      'The Lich King']
       ],
       'Icecrown Citadel (25H)' => [
@@ -1019,7 +1019,7 @@ namespace :juggernaut do
         ['lichking-25-hard',      'The Lich King']
       ]
     }
-    
+
     icc_bosses.sort.each do |zone_name, bosses|
       zone = LootTable.create(:object => Zone.create(:name => zone_name))
       bosses.each do |boss_tag, boss_name|
@@ -1601,16 +1601,16 @@ namespace :juggernaut do
       end
     end
   end
-  
+
   desc "Populate wishlist data"
   task :wishlist => [:environment] do
     [Boss, LootTable, Zone].each(&:destroy_all)
-    
+
     # wotlk_data()
     ulduar_data()
     crusade_data()
     icecrown_data()
-    
+
     # FIXME: Needs Marks of Sanctification
   end
 end
