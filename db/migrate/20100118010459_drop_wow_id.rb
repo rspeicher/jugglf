@@ -7,6 +7,7 @@ class DropWowId < ActiveRecord::Migration
 
     # Remove the unique Name/WoW ID index
     remove_index :items, :column => [:name, :wow_id]
+    add_index :items, :name
 
     # Add temporary indexes to speed this up dramatically
     add_index :items, :old_id
