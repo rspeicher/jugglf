@@ -2,6 +2,8 @@ class Attendance::LootsController < ApplicationController
   before_filter :require_admin
   
   before_filter :find_parent, :only => [:update, :destroy]
+  
+  skip_before_filter :verify_authenticity_token, :only => [:update]
 
   def update
     @loots = LiveLoot.from_text(params[:live_loot][:input_text])

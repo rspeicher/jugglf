@@ -153,14 +153,15 @@ describe Loot, "#item_name" do
     @loot = Factory(:loot)
   end
   
-  it "should return wow_id if present" do
-    @loot.item_name.should eql(@loot.item.wow_id)
+  it "should return item id if present" do
+    @loot.item_name.should eql(@loot.item.id)
   end
-  
-  it "should return item's name wow_id is nil" do
-    @loot.item.wow_id = nil
-    @loot.item_name.should eql(@loot.item.name)
-  end
+
+  # FIXME: Remove; this is no longer possible.
+  # it "should return item's name if wow_id is nil" do
+  #   @loot.item.id = nil
+  #   @loot.item_name.should eql(@loot.item.name)
+  # end
   
   it "should otherwise return nil" do
     @loot.item_id = nil
