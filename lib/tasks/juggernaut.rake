@@ -9,11 +9,11 @@ namespace :juggernaut do
     # Surely there's a better way to do this, but whatever.
     FileUtils.rm_rf(Dir['tmp/cache/views/*/achievements*'])
   end
-  
+
   desc "Update LF Cache"
   task :lootfactors => [:environment] do
     Member.update_cache(:all)
-    
+
     # Surely there's a better way to do this, but whatever.
     FileUtils.rm_rf(Dir['tmp/cache/views/*/index*'])
   end
@@ -43,12 +43,8 @@ namespace :juggernaut do
       end
     end
   end
-  
+
   desc "Cleanup Items that may have been erroneously entered"
   task :cleanup => [:environment] do
-    Item.find_each(:conditions => "wishlists_count = 0 AND loots_count = 0 AND wow_id IS NULL") do |item|
-      puts "Deleting #{item.to_param}"
-      item.destroy
-    end
   end
 end
