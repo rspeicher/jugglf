@@ -128,7 +128,7 @@ class IndexStat
   end
   
   def self.fragment_progress
-    Loot.count(:all, :group => 'member_id', :conditions => ['item_id = ?', Item.find_by_name("Fragment of Val'anyr")])
+    Loot.count(:all, :group => 'member_id', :conditions => ['item_id = ?', 45038])
   end
   
   def self.best_attendance
