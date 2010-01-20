@@ -13,7 +13,7 @@ describe "group_wishlist_notes" do
   end
   
   it "should have Item IDs as keys" do
-    group_wishlist_notes(@wishlists).should have_key(@wishlist.item.wow_id)
+    group_wishlist_notes(@wishlists).should have_key(@wishlist.item_id)
   end
   
   it "should have wishlist priority and note" do

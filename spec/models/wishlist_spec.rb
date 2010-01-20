@@ -31,7 +31,6 @@ describe Wishlist do
     it { should allow_mass_assignment_of(:note) }
     it { should_not allow_mass_assignment_of(:created_at) }
     it { should_not allow_mass_assignment_of(:updated_at) }
-    it { should allow_mass_assignment_of(:wow_id) }
   end
 
   context "associations" do
@@ -43,7 +42,7 @@ describe Wishlist do
     it { should_not allow_value(nil).for(:priority) }
     it { should_not allow_value('invalid').for(:priority) }
     it { should allow_value('best in slot').for(:priority) }
-    
+
     it "should invalidate on nil item" do
       @wishlist.item_id = nil
       lambda { @wishlist.save! }.should raise_error
@@ -78,22 +77,5 @@ describe Wishlist, "#item_name" do
     # Stub this so we don't perform an item lookup; we only care that it's being called
     Item.should_receive(:find_or_create_by_name_or_id).with('NewItem')
     @wishlist.item_name = 'NewItem'
-  end
-end
-
-describe Wishlist, "#wow_id" do
-  before(:each) do
-    @wishlist = Factory(:empty_wishlist)
-    @item     = Factory(:item)
-  end
-
-  it "should return the id of the Item" do
-    @wishlist.item = @item
-    @wishlist.wow_id.should eql(@item.id)
-  end
-
-  it "should assign via wow_id" do
-    @wishlist.wow_id = @item.id
-    @wishlist.item.should eql(@item)
   end
 end

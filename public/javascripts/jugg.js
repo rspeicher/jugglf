@@ -1,14 +1,14 @@
 $(document).ready(function() {
     // Make the page viewable to those allowing Javascript
     // $('#ipbwrapper').removeClass('hide');
-    
+
     // Make success messages clickable to hide them
     $('div.message.success').click(function() {
         $(this).fadeOut('slow');
     });
-    
+
     setupModeration();
-    
+
     $("#ajax_loading").bind("ajaxSend", function() {
         $(this).show();
      }).bind("ajaxComplete", function() {
@@ -59,20 +59,20 @@ function wishlistMenu(zone, boss) {
  */
 function wishlistHideUnwanted() {
     count = 0;
-    
+
     $('div.loot_table').each(function() {
         wishes = $(this).children('table.ipb_table').children('tbody').children('tr').length;
         if (wishes == 0) {
             $(this).hide();
             count++;
         }
-        
+
         // Hide the clipboard icon if 0 or 1 people want this, since there'd be nothing to compare
         if (wishes == 0 || wishes == 1) {
             $(this).children('p.posted_info').children('a').hide();
         }
     });
-    
+
     if (count > 0) {
         $('div.notice').html("<b>Note:</b> Hiding " + count + " unwanted items. " +
             "<a onclick=\"wishlistShowUnwanted(); return false;\" href=\"#\">Click here</a> to show them.")
@@ -84,7 +84,7 @@ function wishlistShowUnwanted() {
     $('div.loot_table').each(function() {
         $(this).show();
     });
-    
+
     $('div.notice').addClass('hide');
 }
 
@@ -98,9 +98,9 @@ function wishlistShowForm() {
     $('#wishlist_item_name').unautocomplete();
     $('#wishlist_item_name').autocomplete_items();
     $('#wishlist_item_name').result(function(event, data, formatted) {
-      $('#wishlist_wow_id').val(data.item.wow_id);
+      $('#wishlist_item_id').val(data.item.id);
     });
-    
+
     $('#wishlist_item_name').focus();
 }
 
@@ -114,10 +114,10 @@ function wishlistCleanForm() {
     $('#wishlist_form div.messages').addClass('hide');
 
     // Clear the values of the previous input
-    $('#wishlist_form #wishlist_wow_id').val('');
+    $('#wishlist_form #wishlist_item_id').val('');
     $('#wishlist_form #wishlist_priority_normal').attr('checked', 'checked');
     $('#wishlist_form input[type=text]').each(function() { $(this).val(''); });
-    
+
     $('#wishlist_item_name').focus();
 }
 
@@ -128,14 +128,13 @@ function wishlistEditLinks() {
         $('#wishlist_form').html(value);
         wishlistShowForm();
       });
-      
+
       return false;
     });
-    
+
     $('#wishlist_form_toggle a').click(function() {
         // Edit form replaced us, fetch the New form
         if ($('#wishlist_form form').attr('id').match(/^edit_/)) {
-            console.log("Replacing edit form with new form");
             $.get($(this).attr('href'), function(value) {
                 $('#wishlist_form').html(value);
                 wishlistCleanForm();
@@ -146,7 +145,7 @@ function wishlistEditLinks() {
             wishlistCleanForm();
             wishlistShowForm();
         }
-        
+
         return false;
     });
 }
@@ -157,7 +156,7 @@ function wishlistEditLinks() {
  * Takes a tbody#itemfilter > tr > td > span object and toggles filtering by
  * that particular type of loot (BiS, Sit, Rot, Disenchant). Also handles
  * re-applying even/odd row classes so that the alternating background colors
- * are maintained even if an 'odd' row gets filtered out while the two 
+ * are maintained even if an 'odd' row gets filtered out while the two
  * surrounding 'even' rows are shown.
  *
  * object   jQuery      Object for the clicked span

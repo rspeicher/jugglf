@@ -92,7 +92,7 @@ class Members::WishlistsController < ApplicationController
     
     def prepare_params
       # If given the item's exact ID, we don't need to know its name
-      return unless params[:wishlist].present? and params[:wishlist][:wow_id].present?
-      params[:wishlist].delete(:item_name) if params[:wishlist][:wow_id].present?
+      return unless params[:wishlist].present? and params[:wishlist][:item_id].present?
+      params[:wishlist].delete(:item_name) if params[:wishlist][:item_id].present?
     end
 end

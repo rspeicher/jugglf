@@ -4,8 +4,8 @@ module Members::WishlistsHelper
     return retval if wishlists.blank?
     
     wishlists.each do |wishlist|
-      retval[wishlist.wow_id] ||= []
-      retval[wishlist.wow_id] << {:priority => wishlist.priority, :note => wishlist.note}
+      retval[wishlist.item_id] ||= []
+      retval[wishlist.item_id] << {:priority => wishlist.priority, :note => wishlist.note}
     end
     
     retval
