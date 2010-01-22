@@ -53,9 +53,6 @@ class Member < ActiveRecord::Base
 
   before_save :clean_trash
 
-  # Attributes ----------------------------------------------------------------
-  searchify :name, :wow_class
-
   # Class Methods -------------------------------------------------------------
   def self.update_cache(type = :loot_factor)
     Member.active.each { |m| m.update_cache(type) }
