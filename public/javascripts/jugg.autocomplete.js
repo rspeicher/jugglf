@@ -15,11 +15,11 @@
                             var icon = ( data[i].item.icon ) ? data[i].item.icon.toLowerCase() : 'inv_misc_questionmark';
                             var slot = ( data[i].item.slot === null ) ? 'Token' : data[i].item.slot;
                             var heroic = ( data[i].item.heroic ) ? ' (Heroic)' : '';
-                            var formatted = "<img src='http://static.wowhead.com/images/icons/medium/" + icon + ".jpg'/>" + 
-                              "<span class='" + data[i].item.color + "'>" + data[i].item.name + "</span>" + 
+                            var formatted = "<img src='http://static.wowhead.com/images/icons/medium/" + icon + ".jpg'/>" +
+                              "<span class='" + data[i].item.color + "'>" + data[i].item.name + "</span>" +
                               "<br/>" + data[i].item.level + " " + slot + heroic;
 
-                            array[array.length] = { 
+                            array[array.length] = {
                                 data: data[i],
                                 value: formatted,
                                 result: this.formatResult(data[i].item)
@@ -37,7 +37,7 @@
             });
         });
     };
-    
+
     $.fn.autocomplete_members = function()
     {
         return this.each(function()
@@ -49,8 +49,8 @@
                     var array = [];
                     for (var i = 0; i < data.length; i++) {
                         if (data[i].member) {
-                            array[array.length] = { 
-                                data: data[i], 
+                            array[array.length] = {
+                                data: data[i],
                                 value: data[i].member.name,
                                 result: data[i].member.name
                             };

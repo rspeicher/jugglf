@@ -8,12 +8,12 @@ describe WishlistsController, "GET index" do
   before(:each) do
     login(:admin)
   end
-  
+
   context "without boss param" do
     before(:each) do
       get :index
     end
-    
+
     it { should respond_with(:success) }
     it { should assign_to(:root).with_kind_of(Array) }
     it { should_not assign_to(:zone) }
@@ -21,7 +21,7 @@ describe WishlistsController, "GET index" do
     it { should assign_to(:items).with([]) }
     it { should render_template(:index) }
   end
-  
+
   context "with boss param" do
     # We got a boss param that exists, and it has items associated
     context "having items" do
@@ -29,7 +29,7 @@ describe WishlistsController, "GET index" do
         @object = Factory(:loot_table)
         get :index, :boss => @object.parent.id
       end
-      
+
       it { should respond_with(:success) }
       it { should assign_to(:root).with_kind_of(Array) }
       it { should assign_to(:boss).with(@object.parent) }
@@ -38,14 +38,14 @@ describe WishlistsController, "GET index" do
       it { should assign_to(:items).with_kind_of(Array) }
       it { should render_template(:index) }
     end
-    
+
     context "without items" do
       # We got a boss param that exists, but that boss has no items listed
       before(:each) do
         @object = Factory(:loot_table_boss)
         get :index, :boss => @object.id
       end
-      
+
       it { should respond_with(:success) }
       it { should assign_to(:root).with_kind_of(Array) }
       it { should assign_to(:boss).with(@object) }

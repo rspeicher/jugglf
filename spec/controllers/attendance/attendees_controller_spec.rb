@@ -6,11 +6,11 @@ module AttendanceAttendeesHelperMethods
     # We stub :attendees to LiveAttendee so that @parent.attendees.find works as expected
     @parent ||= @live_raid ||= mock_model(LiveRaid, :attendees => LiveAttendee)
     LiveRaid.should_receive(:find).with(anything()).and_return(@live_raid)
-  
+
     @live_attendee ||= mock_model(LiveAttendee)
     LiveAttendee.should_receive(:find).with(anything()).and_return(@live_attendee)
   end
-  
+
   def params(extras = {})
     {:live_raid_id => @parent.id, :id => @live_attendee.id}.merge!(extras)
   end
@@ -23,39 +23,39 @@ end
 
 describe Attendance::AttendeesController, "#update" do
   include AttendanceAttendeesHelperMethods
-  
+
   before(:each) do
     login(:admin)
     mock_find
-    @live_attendee.should_receive(:toggle!)    
+    @live_attendee.should_receive(:toggle!)
     xhr :put, :update, params
   end
-  
+
   it { should respond_with(:success) }
 end
 
 describe Attendance::AttendeesController, "#destroy" do
   include AttendanceAttendeesHelperMethods
-  
+
   before(:each) do
     login(:admin)
     mock_find
     @live_attendee.should_receive(:destroy)
   end
-  
+
   context ".html" do
     before(:each) do
       delete :destroy, params
     end
-    
+
     it { should redirect_to(live_raid_path(@parent)) }
   end
-  
+
   context ".js" do
     before(:each) do
       xhr :delete, :destroy, params
     end
-    
+
     it { should respond_with(:success) }
   end
 end

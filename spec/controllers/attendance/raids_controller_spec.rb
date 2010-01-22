@@ -29,7 +29,7 @@ describe Attendance::RaidsController, "GET show" do
     mock_find(:live_raid)
     get :show, :id => @object.id
   end
-  
+
   it { should assign_to(:live_raid).with_kind_of(LiveRaid) }
   it { should render_template(:show) }
   it { should respond_with(:success) }
@@ -50,23 +50,23 @@ describe Attendance::RaidsController, "POST create" do
   before(:each) do
     login(:admin)
   end
-  
+
   context "success" do
     before(:each) do
       mock_create(:live_raid, :save => true)
       post :create, :live_raid => {:attendees_string => ''}
     end
-    
+
     it { should respond_with(:redirect) }
     it { should redirect_to(live_raid_path(@object)) }
   end
-  
+
   context "failure" do
     before(:each) do
       mock_create(:live_raid, :save => false)
       post :create, :live_raid => {:attendees_string => ''}
     end
-    
+
     it { should respond_with(:success) }
     it { should render_template(:new) }
   end
@@ -76,23 +76,23 @@ describe Attendance::RaidsController, "PUT update" do
   before(:each) do
     login(:admin)
   end
-  
+
   context "success" do
     before(:each) do
       mock_find(:live_raid, :save => true)
       put :update, :id => @object.id, :live_raid => {:attendees_string => ''}
     end
-    
+
     it { should_not set_the_flash }
     it { should redirect_to(live_raid_path(@object)) }
   end
-  
+
   context "failure" do
     before(:each) do
       mock_find(:live_raid, :save => false)
       put :update, :id => @object.id, :live_raid => {:attendees_string => ''}
     end
-    
+
     it { should set_the_flash.to(/failed to update/i) }
     it { should redirect_to(live_raid_path(@object)) }
   end
@@ -104,7 +104,7 @@ describe Attendance::RaidsController, "DELETE destroy" do
     mock_find(:live_raid, :destroy => true)
     delete :destroy, :id => @object
   end
-  
+
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(live_raids_path) }
 end
@@ -115,7 +115,7 @@ describe Attendance::RaidsController, "GET start" do
     mock_find(:live_raid, :start! => true)
     get :start, :id => @object.id
   end
-  
+
   it { should respond_with(:redirect) }
   it { should redirect_to(live_raid_path(@object)) }
 end
@@ -126,7 +126,7 @@ describe Attendance::RaidsController, "GET stop" do
     mock_find(:live_raid, :stop! => true)
     get :stop, :id => @object.id
   end
-  
+
   it { should respond_with(:redirect) }
   it { should redirect_to(live_raid_path(@object)) }
 end
@@ -136,28 +136,28 @@ describe Attendance::RaidsController, "GET post" do
     login(:admin)
     @object = Factory(:live_raid, :started_at => Time.now, :stopped_at => Time.now)
   end
-  
+
   context "completed raid" do
     before(:each) do
       require 'xmlrpc/client'
       server = mock('Server')
       XMLRPC::Client.stub!(:new2).and_return(server)
       server.stub!(:call).and_return({})
-      
+
       mock_find(:live_raid, :status => 'Completed')
       get :post, :id => @object.id
     end
-    
+
     it { should set_the_flash.to(/created attendance thread/) }
     it { should redirect_to(live_raids_path) }
   end
-  
+
   context "active raid" do
     before(:each) do
       mock_find(:live_raid, :status => 'Active')
       get :post, :id => @object.id
     end
-    
+
     it { should_not set_the_flash }
     it { should redirect_to(live_raid_path(@object)) }
   end

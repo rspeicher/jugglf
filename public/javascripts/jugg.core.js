@@ -43,20 +43,20 @@ jQuery.fn.identify = function(prefix) {
                     e.stopPropagation();
                 });
             }
-            
+
             function showModeration(e) {
                 hideAllModeration();
-                
+
                 elem = e.target;
                 if (elem != document) {
                     theUL = $(elem).find('ul.topic_moderation');
                     theUL.fadeTo('fast', 0.3).show();
                     showMod.push(theUL);
                 }
-                
+
                 // e.stopPropagation(); // Breaks Wowhead tooltips
             }
-            
+
             function hideAllModeration() {
                 $.each(showMod, function() {
                     $(this).hide();
@@ -71,7 +71,7 @@ jQuery.fn.identify = function(prefix) {
             };
         }
     });
-    
+
     // extend plugin scope
     $.fn.extend({
         moderation: $.moderation.construct

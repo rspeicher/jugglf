@@ -1,6 +1,6 @@
 if flash[:success].present?
   flash.discard
-  
+
   # Hide the errors div
   page << "$('div.message.error').addClass('hide');"
 
@@ -16,7 +16,7 @@ if flash[:success].present?
   page << "wishlistCleanForm();"
 elsif flash[:error].present?
   flash.discard
-  
+
   # Show the errors div
   page << "$('div.message.error').removeClass('hide');"
 

@@ -11,7 +11,7 @@ describe UserSessionsController, "GET new" do
   before(:each) do
     get :new
   end
-  
+
   it { should assign_to(:user_session) }
   it { should render_template(:new) }
 end
@@ -24,16 +24,16 @@ describe UserSessionsController, "POST create" do
       UserSession.should_receive(:new).and_return(@user_session)
       post :create, :user_session => {}
     end
-    
+
     it { should set_the_flash.to(/success/) }
     it { should redirect_to(members_path) }
   end
-  
+
   context "failure" do
     before(:each) do
       post :create, :user_session => {}
     end
-    
+
     it { should_not set_the_flash }
     it { should render_template(:new) }
   end
@@ -44,7 +44,7 @@ describe UserSessionsController, "DELETE destroy" do
     login
     delete :destroy
   end
-  
+
   it { should set_the_flash.to(/success/) }
   it { should redirect_to(root_url) }
 end

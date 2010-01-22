@@ -8,7 +8,7 @@ module LootsHelper
     s << "<span class='filter normal'>Normal</span>"    if s.empty?
     s.join(' ')
   end
-  
+
   def loot_row_classes(loot)
     s = ''
     s << ' loot_bis'    if loot.best_in_slot?
@@ -18,13 +18,13 @@ module LootsHelper
     s << ' loot_normal' if s.empty?
     s.strip
   end
-  
+
   def loot_factor_cutoff(date)
     from = 52.days.since(date)
     to   = Date.today
-    
+
     distance = distance_of_time_in_words(from, to)
-    
+
     if from < to
       distance += ' ago'
     elsif from > to
@@ -32,7 +32,7 @@ module LootsHelper
     else
       distance = 'Today'
     end
-    
+
     distance.capitalize
   end
 end

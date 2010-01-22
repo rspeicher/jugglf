@@ -10,7 +10,7 @@ describe Members::AchievementsController, "GET index" do
     mock_parent(:member)
     get :index, :member_id => @parent.id
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:achievements).with_kind_of(Array) }
   it { should assign_to(:completed).with_kind_of(Array) }

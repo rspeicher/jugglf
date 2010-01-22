@@ -16,21 +16,21 @@ describe MembersController, "permissions" do
   #   it { should_not allow_access_to(:get, :index) }
   #   it { should_not allow_access_to(:get, :show, :id => '1-member') }
   # end
-  # 
+  #
   # context "user" do
   #   before(:each) do
   #     login
   #   end
-  #   
+  #
   #   it { should_not allow_access_to(:get, :index) }
   #   it { should_not allow_access_to(:get, :show, :id => '1-member') }
   # end
-  # 
+  #
   # context "admin" do
   #   before(:each) do
   #     login(:admin)
   #   end
-  #   
+  #
   #   it { should allow_access_to(:get, :index) }
   #   it { should allow_access_to(:get, :show, :id => '1-member') }
   # end
@@ -40,22 +40,22 @@ describe MembersController, "GET index" do
   before(:each) do
     login(:admin)
   end
-  
+
   context ".html" do
     before(:each) do
       get :index
     end
-  
+
     it { should respond_with(:success) }
     it { should assign_to(:members).with_kind_of(Array) }
     it { should render_template(:index) }
   end
-  
+
   context ".lua" do
     before(:each) do
       get :index, :format => 'lua'
     end
-    
+
     it { should respond_with(:success) }
     it { should assign_to(:members).with_kind_of(Array) }
     it { should render_template(:index) }
@@ -68,7 +68,7 @@ describe MembersController, "GET show" do
     mock_find(:member)
     get :show, :id => @object
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:member).with(@object) }
   it { should render_template(:show) }
@@ -79,10 +79,10 @@ describe MembersController, "GET new" do
     login(:admin)
     get :new
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:member).with_kind_of(Member) }
-  it { should render_template(:new) }  
+  it { should render_template(:new) }
 end
 
 describe MembersController, "GET edit" do
@@ -93,7 +93,7 @@ describe MembersController, "GET edit" do
     MemberRank.should_receive(:find).with(:all, anything()).and_return([])
     get :edit, :id => @object
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:member).with(@object) }
   it { should assign_to(:users).with_kind_of(Array) }
@@ -111,17 +111,17 @@ describe MembersController, "POST create" do
       mock_create(:member, :save => true)
       post :create, :member => {}
     end
-    
+
     it { should set_the_flash.to(/successfully created/) }
     it { should redirect_to(member_path(@object)) }
   end
-  
+
   context "failure" do
     before(:each) do
       mock_create(:member, :save => false)
       post :create, :member => {}
     end
-    
+
     it { should_not set_the_flash }
     it { should render_template(:new) }
   end
@@ -131,23 +131,23 @@ describe MembersController, "PUT update" do
   before(:each) do
     login(:admin)
   end
-  
+
   context "success" do
     before(:each) do
       mock_find(:member, :update_attributes => true)
       put :update, :id => @object
     end
-    
+
     it { should set_the_flash.to(/successfully updated/) }
     it { should redirect_to(members_path) }
   end
-  
+
   context "failure" do
     before(:each) do
       mock_find(:member, :update_attributes => false)
       put :update, :id => @object
     end
-    
+
     it { should_not set_the_flash }
     it { should render_template(:edit) }
   end
@@ -159,7 +159,7 @@ describe MembersController, "DELETE destroy" do
     mock_find(:member, :destroy => true)
     delete :destroy, :id => @object
   end
-  
+
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(members_path) }
 end

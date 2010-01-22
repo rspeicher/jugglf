@@ -1,9 +1,9 @@
 class AchievementsController < ApplicationController
   caches_action :index, :layout => false # NOTE: Gets 'expired' (deleted) by achievements.rake
-  
+
   def index
     page_title('Achievements')
-    
+
     ignored = [
       3010, # Drive Me Crazy
       2928, # Hot Pocket
@@ -27,11 +27,11 @@ class AchievementsController < ApplicationController
       3162, # Two Lights in the Darkness
       2976, # Who Needs Bloodlust?
     ]
-    
-    @achievements = Achievement.find(:all, :order => 'title', 
+
+    @achievements = Achievement.find(:all, :order => 'title',
       :conditions => ["category_id = ? AND armory_id NOT IN (#{ignored.join(',')})", 168])
     @members = Member.active.find(:all, :include => :achievements)
-    
+
     respond_to do |wants|
       wants.html
     end

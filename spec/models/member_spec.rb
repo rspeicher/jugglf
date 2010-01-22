@@ -75,7 +75,7 @@ describe Member do
     it { should allow_value('Priest').for(:wow_class) }
     it { should_not allow_value('Invalid').for(:wow_class) }
   end
-  
+
   it "should have a custom to_param" do
     @member.to_param.should eql("#{@member.id}-#{@member.name.parameterize}")
   end
@@ -141,7 +141,7 @@ end
 describe Member, "full attendance caching" do
   before(:each) do
     Timecop.freeze(Date.today)
-    
+
     @member = Factory(:member)
 
     @raids = {

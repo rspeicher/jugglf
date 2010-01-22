@@ -4,21 +4,21 @@ if flash[:error].nil?
 
   # Highlight each row that we added
   @loots.each { |loot| page << "$('#live_loot_#{loot.id}').effect('highlight', {}, 1500);" }
-  
+
   # Clear the input form and possibly hide the errors div, since it worked
   page << "$('#live_loot_input_text').val('');"
   page << "$('#loot_errors').addClass('hide');"
-  
+
   # Re-focus the input form
   page << "$('#live_loot_input_text').focus();"
 else
   # Show the errors div and populate it
   page << "$('#loot_errors').removeClass('hide');"
   page << "$('#loot_errors').html('#{escape_javascript(flash[:error])}');"
-  
+
   # Focus the input field
   page << "$('#live_loot_input_text').focus();"
-  
+
   # Clear the flash, since it'll be invalid on a page refresh
   flash[:error] = nil
 end

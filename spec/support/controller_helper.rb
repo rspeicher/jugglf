@@ -9,14 +9,14 @@ module ControllerHelper
   def mock_parent(var, expects = {})
     @parent ||= Factory(var)
     @parent.class.should_receive(:find).and_return(@parent)
-    
+
     expects.each_pair do |msg, val|
       @parent.should_receive(msg).and_return(val)
     end
-    
+
     self.instance_variable_set("@#{var.to_s.underscore}", @parent) unless self.instance_variables.include? "@#{var.to_s.underscore}"
   end
-  
+
   # Instantiates +@object+ with the default Factory build for +var+, and expects any
   # calls to its parent class' +find+ method to return the Factory build.
   #
@@ -31,11 +31,11 @@ module ControllerHelper
       @object ||= Factory(var)
     end
     @object.class.should_receive(:find).and_return(@object)
-    
+
     expects.each_pair do |msg, val|
       @object.should_receive(msg).and_return(val)
     end
-    
+
     self.instance_variable_set("@#{var.to_s.underscore}", @object) unless self.instance_variables.include? "@#{var.to_s.underscore}"
   end
 
@@ -49,11 +49,11 @@ module ControllerHelper
   def mock_create(var, expects = {})
     @object ||= Factory(var)
     @object.class.should_receive(:new).with(anything()).exactly(:once).and_return(@object)
-    
+
     expects.each_pair do |msg, val|
       @object.should_receive(msg).and_return(val)
     end
-    
+
     self.instance_variable_set("@#{var.to_s.underscore}", @object) unless self.instance_variables.include? "@#{var.to_s.underscore}"
   end
 end

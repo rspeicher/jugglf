@@ -11,33 +11,33 @@
 
 class LiveLoot < ActiveRecord::Base
   attr_accessible :wow_id, :item_id, :member_id, :member_name, :loot_type
-  
+
   belongs_to :item, :autosave => true, :readonly => true
   belongs_to :member, :readonly => true
   belongs_to :live_raid, :counter_cache => true
-  
+
   validates_inclusion_of :loot_type, :in => %w(bis rot sit bisrot), :allow_nil => true, :message => "must be bis, rot, sit or bisrot"
-  
+
   # Attempts to associate with an +Item+ given its +id+
   def wow_id=(value)
     self.item = Item.find_or_initialize_by_id(value)
   end
-  
+
   # Returns the +id+ attribute of the associated +Item+, if present.
   def wow_id
     self.item_id unless self.item_id.nil?
   end
-  
+
   # Attempts to associate with a +Member+ given its +name+
   def member_name=(value)
     self.member = Member.find_or_initialize_by_name(value)
   end
-  
+
   # Returns the +name+ attribute of the associated +Member+, if present.
   def member_name
     self.member.name unless self.member_id.nil?
   end
-  
+
   # Takes a block of text in a specific format and creates instances of +LiveLoot+ objects.
   #
   # For example, passing in the following text...
@@ -59,10 +59,10 @@ class LiveLoot < ActiveRecord::Base
   def self.from_text(input)
     retval = []
     return retval unless input.present?
-    
+
     input.split("\n").each do |line|
       line.strip!
-      
+
       # Expects a member name with optional tell types, a space, a hyphen, a space, and then an item name
       # with or without brackets and an optional item ID, appended in the format "|12345"
       matches = line.match(/^([\w,\(\)\s]+) - ([^\|]+)(?:\|([0-9]+))?$/)
@@ -71,25 +71,25 @@ class LiveLoot < ActiveRecord::Base
         buyers = matches[1].split(',')
         buyers.each do |buyer|
           buyer.strip!
-          
+
           live_loot = self.new
           live_loot.wow_id      = matches[3].to_i
           live_loot.member_name = buyer.gsub(/^([^\s]+).*/, '\1') unless buyer == 'DE'
           live_loot.loot_type   = buyer.gsub(/^(\w+)\s\(?([a-zA-Z\s]+)\)?$/, '\2').downcase if buyer.match(/\s\(?([a-zA-Z\s]+)\)?$/)
-          
+
           retval << live_loot
         end
       else
         raise "Invalid loot string format: \"#{line}\""
       end
     end
-  
+
     retval
   end
-  
+
   # Dummy method for Formtastic
   attr_accessor :input_text # :nodoc:
-  
+
   protected
     def validate_on_create
       # Ensures that, when given a member record, it wasn't newly-created

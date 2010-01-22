@@ -15,7 +15,7 @@ describe LootsController, "GET index" do
     login(:admin)
     get :index
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:loots).with_kind_of(Array) }
   it { should render_template(:index) }
@@ -26,7 +26,7 @@ describe LootsController, "GET new" do
     login(:admin)
     get :new
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:loot).with_kind_of(Loot) }
   it { should assign_to(:raids).with_kind_of(Array) }
@@ -39,7 +39,7 @@ describe LootsController, "GET edit" do
     mock_find(:loot)
     get :edit, :id => @object
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:loot).with(@object) }
   it { should assign_to(:raids).with_kind_of(Array) }
@@ -56,17 +56,17 @@ describe LootsController, "POST create" do
       mock_create(:loot, :save => true)
       post :create, :loot => {}
     end
-    
+
     it { should set_the_flash.to(/successfully created/) }
     it { should redirect_to(loots_path) }
   end
-  
+
   context "failure" do
     before(:each) do
       mock_create(:loot, :save => false)
       post :create, :loot => {}
     end
-    
+
     it { should_not set_the_flash }
     it { should render_template(:new) }
   end
@@ -76,23 +76,23 @@ describe LootsController, "PUT update" do
   before(:each) do
     login(:admin)
   end
-  
+
   context "success" do
     before(:each) do
       mock_find(:loot, :update_attributes => true)
       put :update, :id => @object
     end
-    
+
     it { should set_the_flash.to(/successfully updated/) }
     it { should redirect_to(loots_path) }
   end
-  
+
   context "failure" do
     before(:each) do
       mock_find(:loot, :update_attributes => false)
       put :update, :id => @object
     end
-    
+
     it { should_not set_the_flash }
     it { should render_template(:edit) }
   end
@@ -104,7 +104,7 @@ describe LootsController, "DELETE destroy" do
     mock_find(:loot, :destroy => true)
     delete :destroy, :id => @object
   end
-  
+
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(loots_path) }
 end

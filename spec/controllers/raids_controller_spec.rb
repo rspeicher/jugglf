@@ -14,7 +14,7 @@ describe RaidsController, "GET index" do
   before(:each) do
     login(:admin)
   end
-  
+
   before(:each) do
     get :index
   end
@@ -30,7 +30,7 @@ describe RaidsController, "GET show" do
     mock_find(:raid)
     get :show, :id => @object
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:raid).with(@object) }
   it { should assign_to(:loots).with([]) }
@@ -43,7 +43,7 @@ describe RaidsController, "GET new" do
     login(:admin)
     get :new
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:raid) }
   it { should render_template(:new) }
@@ -55,7 +55,7 @@ describe RaidsController, "GET edit" do
     mock_find(:raid)
     get :edit, :id => @object
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:raid).with(@object) }
   it { should render_template(:edit) }
@@ -71,17 +71,17 @@ describe RaidsController, "POST create" do
       mock_create(:raid, :save => true)
       post :create, :raid => {}
     end
-    
+
     it { should set_the_flash.to(/successfully created/) }
     it { should redirect_to(raid_path(@object)) }
   end
-  
+
   context "failure" do
     before(:each) do
       mock_create(:raid, :save => false)
       post :create, :raid => {}
     end
-    
+
     it { should_not set_the_flash }
     it { should render_template(:new) }
   end
@@ -91,23 +91,23 @@ describe RaidsController, "PUT update" do
   before(:each) do
     login(:admin)
   end
-  
+
   context "success" do
     before(:each) do
       mock_find(:raid, :update_attributes => true)
       put :update, :id => @object
     end
-    
+
     it { should set_the_flash.to(/successfully updated/) }
     it { should redirect_to(raid_path(@object)) }
   end
-  
+
   context "failure" do
     before(:each) do
       mock_find(:raid, :update_attributes => false)
       put :update, :id => @object
     end
-    
+
     it { should_not set_the_flash }
     it { should render_template(:edit) }
   end
@@ -119,7 +119,7 @@ describe RaidsController, "DELETE destroy" do
     mock_find(:raid, :destroy => true)
     delete :destroy, :id => @object
   end
-  
+
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(raids_path) }
 end

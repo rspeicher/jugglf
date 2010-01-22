@@ -10,7 +10,7 @@ describe Members::LootsController, "GET index" do
     mock_parent(:member)
     get :index, :member_id => @parent.id
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:loots).with_kind_of(Array) }
   it { should render_template(:index) }

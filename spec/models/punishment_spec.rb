@@ -55,7 +55,7 @@ describe Punishment, "#expires_string" do
     Timecop.freeze(Date.today)
     @punishment = Factory(:punishment, :expires => 3.days.since(Date.today))
   end
-  
+
   it "should set expires date from a string" do
     @punishment.expires_string = 1.year.until(Date.today).to_s
     @punishment.expires.to_date.should eql(1.year.until(Date.today))
@@ -68,7 +68,7 @@ describe Punishment, "#expires_string" do
   it "should return a date 52 days from now if expires is not yet set" do
     @punishment.expires = nil
     @punishment.expires_string.should eql(52.days.from_now.to_date)
-  end  
+  end
 end
 
 describe Punishment, "callbacks" do

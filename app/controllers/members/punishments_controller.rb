@@ -1,34 +1,34 @@
 class Members::PunishmentsController < ApplicationController
   before_filter :require_user
-  
+
   before_filter :find_parent
   before_filter :find_punishment, :only => [:edit, :update, :destroy]
-  
+
   def index
     @punishments = @parent.punishments
-    
+
     respond_to do |wants|
       wants.html
     end
   end
-  
+
   def new
     @punishment = @parent.punishments.new
-    
+
     respond_to do |wants|
       wants.html
     end
   end
-  
+
   def edit
     respond_to do |wants|
       wants.html
     end
   end
-  
+
   def create
     @punishment = @member.punishments.new(params[:punishment])
-    
+
     respond_to do |wants|
       if @punishment.save
         flash[:success] = "Punishment was successfully created."
@@ -38,7 +38,7 @@ class Members::PunishmentsController < ApplicationController
       end
     end
   end
-  
+
   def update
     respond_to do |wants|
       if @punishment.update_attributes(params[:punishment])
@@ -49,16 +49,16 @@ class Members::PunishmentsController < ApplicationController
       end
     end
   end
-  
+
   def destroy
     @punishment.destroy
-    
+
     flash[:success] = "Punishment was successfully deleted."
     respond_to do |wants|
       wants.html { redirect_to member_path(@parent) }
     end
   end
-  
+
   private
     def find_parent
       if current_user.is_admin?
@@ -68,7 +68,7 @@ class Members::PunishmentsController < ApplicationController
         @parent = @member = current_user.member
       end
     end
-    
+
     def find_punishment
       @punishment = @member.punishments.find(params[:id])
     end

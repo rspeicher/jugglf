@@ -15,7 +15,7 @@ describe Members::WishlistsController, "GET index" do
     mock_parent(:member)
     get :index, :member_id => @parent.id
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:wishlist).with_kind_of(Wishlist) }
   it { should assign_to(:wishlists).with_kind_of(Array) }
@@ -29,7 +29,7 @@ describe Members::WishlistsController, "GET new" do
     mock_parent(:member)
     get :new, :member_id => @parent.id
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:wishlist).with_kind_of(Wishlist) }
   it { should render_template(:edit) } # Intentional
@@ -42,7 +42,7 @@ describe Members::WishlistsController, "GET edit" do
     mock_find(:wishlist)
     get :edit, :member_id => @parent.id, :id => @wishlist.id
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:wishlist).with(@wishlist) }
   it { should render_template(:edit) }
@@ -59,17 +59,17 @@ describe Members::WishlistsController, "POST create" do
       mock_create(:wishlist, :save => true)
       post :create, :member_id => @parent.id, :wishlist => {}
     end
-    
+
     it { should set_the_flash.to(/successfully created/) }
     it { should redirect_to(member_path(@parent)) }
   end
-  
+
   context "failure" do
     before(:each) do
       mock_create(:wishlist, :save => false)
       post :create, :member_id => @parent.id, :wishlist => {}
     end
-    
+
     it { should set_the_flash.to(/could not be created/) }
     it { should render_template(:new) }
   end
@@ -80,23 +80,23 @@ describe Members::WishlistsController, "PUT update" do
     login(:admin)
     mock_parent(:member)
   end
-  
+
   context "success" do
     before(:each) do
       mock_find(:wishlist, :update_attributes => true)
       put :update, :member_id => @parent.id, :id => @wishlist.id
     end
-    
+
     it { should set_the_flash.to(/successfully updated/) }
     it { should redirect_to(member_path(@parent)) }
   end
-  
+
   context "failure" do
     before(:each) do
       mock_find(:wishlist, :update_attributes => false)
       put :update, :member_id => @parent.id, :id => @wishlist.id
     end
-    
+
     it { should set_the_flash.to(/could not be updated/) }
     it { should render_template(:edit) }
   end
@@ -109,7 +109,7 @@ describe Members::WishlistsController, "DELETE destroy" do
     mock_find(:wishlist, :destroy => true)
     delete :destroy, :member_id => @parent.id, :id => @wishlist.id
   end
-  
+
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(member_path(@parent)) }
 end

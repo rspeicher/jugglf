@@ -18,7 +18,7 @@ describe IndexController, "GET index" do
     IndexStat.stub!(:fragment_progress).and_return([])
     get :index
   end
-  
+
   it { should assign_to(:count_guild).with_kind_of(Integer) }
   it { should assign_to(:counts) }
   it { should assign_to(:attendance_guild) }

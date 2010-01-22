@@ -16,11 +16,11 @@
   %body.lf{ :id => "#{controller.controller_path.gsub(/\//, '_')}_root" }
     #ipbwrapper
       %h1= @page_title || page_title
-      
+
       %p#content_jump
         %a#top{ :name => 'top' }
         %a{ :href => '#j_content', :title => 'Jump to content', :accesskey => 'm' }Jump to content
-        
+
       - if admin?
         #admin_bar
           %p.right= link_to('Log in to your Admin CP &gt;', 'http://www.juggernautguild.com/a__dmin/index.php')
@@ -92,23 +92,23 @@
             %div.message.error= flash[:error]
           - if flash[:success]
             %div.message.success= flash[:success]
-            
+
           %h2.hide= controller.controller_name.titlecase
-          
+
           #board_index.clearfix
             #categories.hover_rows.no_sidebar.clearfix
               = yield
-          
+
           / %ul#stat_links.filter_bar.rounded
-          
+
           #board_statistics.statistics.general_box.clearfix.hide
             #stats
               %h2
-          
+
           %br.clear
-          
+
           #footer_utilities.clearfix.clear.hide
-          
+
           #board_footer
             %ul#utility_links.left
               %li= link_to('Back to top', '#top', :title => 'Go to top')
@@ -118,6 +118,6 @@
               %br
               = "Hosted by #{link_to('Network Redux', 'http://www.networkredux.com/')}"
             %br.clear
-            
+
           #stats_div
     #ajax_loading{ :style => "display: none" } Loading...

@@ -15,7 +15,7 @@ describe ItemsController, "GET index" do
     login(:admin)
     get :index
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:items).with_kind_of(Array) }
   it { should render_template(:index) }
@@ -27,7 +27,7 @@ describe ItemsController, "GET show" do
     mock_find(:item)
     get :show, :id => @object.id
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:item).with(@object) }
   it { should assign_to(:loots).with(@object.loots) }
@@ -40,7 +40,7 @@ describe ItemsController, "GET new" do
     login(:admin)
     get :new
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:item).with_kind_of(Item) }
   it { should render_template(:new) }
@@ -52,7 +52,7 @@ describe ItemsController, "GET edit" do
     mock_find(:item)
     get :edit, :id => @object
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:item).with(@object) }
   it { should render_template(:edit) }
@@ -68,17 +68,17 @@ describe ItemsController, "POST create" do
       mock_create(:item, :save => true)
       post :create, :item => {}
     end
-    
+
     it { should set_the_flash.to(/successfully created/) }
     it { should redirect_to(item_path(@object)) }
   end
-  
+
   context "failure" do
     before(:each) do
       mock_create(:item, :save => false)
       post :create, :item => {}
     end
-    
+
     it { should_not set_the_flash }
     it { should render_template(:new) }
   end
@@ -87,25 +87,25 @@ end
 describe ItemsController, "PUT update" do
   before(:each) do
     login(:admin)
-    
+
   end
-  
+
   context "success" do
     before(:each) do
       mock_find(:item, :update_attributes => true)
       put :update, :id => @object
     end
-    
+
     it { should set_the_flash.to(/successfully updated/) }
     it { should redirect_to(item_path(@object)) }
   end
-  
+
   context "failure" do
     before(:each) do
       mock_find(:item, :update_attributes => false)
       put :update, :id => @object
     end
-    
+
     it { should_not set_the_flash }
     it { should render_template(:edit) }
   end
@@ -117,7 +117,7 @@ describe ItemsController, "DELETE destroy" do
     mock_find(:item, :destroy => true)
     delete :destroy, :id => @object
   end
-  
+
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(items_path) }
 end

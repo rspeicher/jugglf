@@ -15,7 +15,7 @@ describe Members::PunishmentsController, "GET index" do
     mock_parent(:member)
     get :index, :member_id => @parent.id
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:punishments).with_kind_of(Array) }
   it { should render_template(:index) }
@@ -27,10 +27,10 @@ describe Members::PunishmentsController, "GET new" do
     mock_parent(:member)
     get :new, :member_id => @parent.id
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:punishment).with_kind_of(Punishment) }
-  it { should render_template(:new) }  
+  it { should render_template(:new) }
 end
 
 describe Members::PunishmentsController, "GET edit" do
@@ -40,7 +40,7 @@ describe Members::PunishmentsController, "GET edit" do
     mock_find(:punishment)
     get :edit, :member_id => @parent.id, :id => @punishment.id
   end
-  
+
   it { should respond_with(:success) }
   it { should assign_to(:punishment).with(@punishment) }
   it { should render_template(:edit) }
@@ -57,17 +57,17 @@ describe Members::PunishmentsController, "POST create" do
       mock_create(:punishment, :save => true)
       post :create, :member_id => @parent.id, :punishment => {}
     end
-    
+
     it { should set_the_flash.to(/successfully created/) }
     it { should redirect_to(member_path(@parent)) }
   end
-  
+
   context "failure" do
     before(:each) do
       mock_create(:punishment, :save => false)
       post :create, :member_id => @parent.id, :punishment => {}
     end
-    
+
     it { should_not set_the_flash }
     it { should render_template(:new) }
   end
@@ -78,23 +78,23 @@ describe Members::PunishmentsController, "PUT update" do
     login(:admin)
     mock_parent(:member)
   end
-  
+
   context "success" do
     before(:each) do
       mock_find(:punishment, :update_attributes => true)
       put :update, :member_id => @parent.id, :id => @punishment.id
     end
-    
+
     it { should set_the_flash.to(/successfully updated/) }
     it { should redirect_to(member_path(@parent)) }
   end
-  
+
   context "failure" do
     before(:each) do
       mock_find(:punishment, :update_attributes => false)
       put :update, :member_id => @parent.id, :id => @punishment.id
     end
-    
+
     it { should_not set_the_flash }
     it { should render_template(:edit) }
   end
@@ -107,7 +107,7 @@ describe Members::PunishmentsController, "DELETE destroy" do
     mock_find(:punishment, :destroy => true)
     delete :destroy, :member_id => @parent.id, :id => @punishment.id
   end
-  
+
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(member_path(@parent)) }
 end

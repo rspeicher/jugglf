@@ -3,7 +3,7 @@
     $('#itemfilter span.filter').click(function() {
       toggleItemTypes(this);
     });
-    
+
     $('#loots_pagination a').click(function() {
       $.get($(this).attr('href'), function(value) {
         $('#loots_pagination').parent().html(value);
