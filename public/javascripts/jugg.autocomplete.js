@@ -4,7 +4,7 @@
     {
         return this.each(function()
         {
-            $(this).autocomplete('/search/items.js', {
+            $(this).autocomplete('/search/items.json', {
                 minChars: 2,
                 dataType: 'json',
                 scrollHeight: 260,
@@ -42,7 +42,7 @@
     {
         return this.each(function()
         {
-            $(this).autocomplete('/search/members.js', {
+            $(this).autocomplete('/search/members.json', {
                 minChars: 1,
                 dataType: 'json',
                 parse: function(data) {

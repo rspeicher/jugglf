@@ -27,16 +27,6 @@ class Item < ActiveRecord::Base
   validates_numericality_of :id, :allow_nil => false, :greater_than => 0
   validates_uniqueness_of :name, :scope => :id
 
-  # Attributes ----------------------------------------------------------------
-  # def self.search_name_or_id(query, options={})
-  #   if query =~ /^\d+$/ or query.is_a? Fixnum
-  #     options.delete(:page)
-  #     self.find_all_by_id(query, options)
-  #   else
-  #     self.search(options.merge!(:name => "%#{query}%"))
-  #   end
-  # end
-
   # Legacy support
   #
   # TODO: Remove me
