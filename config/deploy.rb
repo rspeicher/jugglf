@@ -37,9 +37,15 @@ namespace :deploy do
     run "cp #{shared_path}/config/database.yml #{current_release}/vendor/plugins/invision_bridge/config/database.yml"
     run "cp #{shared_path}/config/juggernaut.yml #{current_release}/config/juggernaut.yml"
   end
-  
+
   desc "Run the juggernaut:wishlist rake task"
   task :wishlist do
     run "cd #{release_path} && rake RAILS_ENV=production juggernaut:wishlist"
   end
 end
+
+Dir[File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', 'hoptoad_notifier-*')].each do |vendored_notifier|
+  $: << File.join(vendored_notifier, 'lib')
+end
+
+require 'hoptoad_notifier/capistrano'
