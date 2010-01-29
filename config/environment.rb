@@ -17,6 +17,7 @@ Rails::Initializer.run do |config|
   # Specify gems that this application depends on and have them installed with rake gems:install
   config.gem 'formtastic'
   config.gem 'hoptoad_notifier'
+  config.gem 'invision_bridge'
   config.gem 'searchlogic'
   config.gem 'will_paginate'
 
