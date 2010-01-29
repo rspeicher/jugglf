@@ -61,10 +61,18 @@ module ApplicationHelper
     options[:color]           ||= '#ACE97C'
 
     options[:width] *= 100 if options[:width] <= 1.00
-
-    "<div class='progress-container' style='width: #{options[:container_width].to_i}%'>" +
-      "<div style='width: #{options[:width].to_i}%; background-color: #{options[:color]}'></div>" +
-    "</div>"
+    
+    # IP.Board Splat stlyle:
+    # content_tag(:p, :title => "Percentage: #{options[:width].to_i}%", :class => "progress_bar") do
+    #   content_tag(:span, :style => "width: #{options[:width].to_i}") do
+    #     content_tag(:span, "Percentage: #{options[:width].to_i}%")
+    #   end
+    # end
+    
+    # Custom style:
+    content_tag(:div, :class => 'progress-container', :style => "width: #{options[:container_width].to_i}%") do
+      content_tag(:div, nil, :style => "width: #{options[:width].to_i}%; background-color: #{options[:color]}")
+    end
   end
 
   def link_to_login_or_logout
