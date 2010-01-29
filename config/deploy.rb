@@ -34,7 +34,6 @@ namespace :deploy do
   desc "Copy database.yml file"
   task :database_yml, :roles => :db do
     run "cp #{shared_path}/config/database.yml #{current_release}/config/database.yml"
-    run "cp #{shared_path}/config/database.yml #{current_release}/vendor/plugins/invision_bridge/config/database.yml"
     run "cp #{shared_path}/config/juggernaut.yml #{current_release}/config/juggernaut.yml"
   end
 
