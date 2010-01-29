@@ -1,7 +1,0 @@
-h1. InvisionBridge
-
-A Rails plugin to allow Authlogic to use an Invision Power Board database's user credentials.
-
-h2. Credits
-
-Copyright (c) 2009 Robert Speicher, released under the MIT license

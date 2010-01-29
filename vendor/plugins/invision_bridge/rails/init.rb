@@ -1,1 +1,0 @@
-require 'invision_bridge'
