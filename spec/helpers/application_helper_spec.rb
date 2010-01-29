@@ -102,7 +102,7 @@ describe "link_to_login_or_logout" do
   end
 
   it "should link to logout when logged in" do
-    def current_user; end
+    stub!(:current_user).and_return(nil)
     link_to_login_or_logout.should match(/Sign In/)
   end
 end
