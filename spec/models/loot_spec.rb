@@ -116,7 +116,7 @@ describe Loot, "#update_cache" do
     @loot = Factory.build(:loot_with_buyer, :price => 15.00)
 
     @member = @loot.buyer
-    @member.update_attributes(:lf => 1.00)
+    @member.update_attribute(:lf, 1.00)
   end
 
   it "should update buyer cache unless disabled" do

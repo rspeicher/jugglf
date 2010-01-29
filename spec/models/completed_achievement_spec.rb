@@ -50,7 +50,7 @@ describe CompletedAchievement, "#parse_member" do
     # ...
     # </achievement>
     @complete = Factory(:achievement, :armory_id => 4604, :category_id => 168, :title => 'Storming the Citadel (25 player)')
-    @complete.members << @member
+    Factory(:completed_achievement, :member => @member, :achievement => @complete)
 
     # Add one pre-existing achievement
     # <achievement categoryId="168" desc="Defeat the bosses of The Plagueworks in Icecrown Citadel in 25-player mode." icon="achievement_dungeon_plaguewing" id="4605" points="10" title="The Plagueworks (25 player)">
@@ -60,12 +60,14 @@ describe CompletedAchievement, "#parse_member" do
   end
 
   it "set up environment" do
+    @complete.members.size.should eql(1)
+    @incomplete.members.size.should eql(0)
     @member.completed_achievements.count.should eql(1)
     Achievement.count.should eql(2)
   end
 
   it "should not parse this member if this member has completed all known achievements" do
-    @incomplete.members << @member
+    Factory(:completed_achievement, :member => @member, :achievement => @incomplete)
     CompletedAchievement.should_not_receive(:open)
     CompletedAchievement.parse_member(@member)
   end
@@ -77,6 +79,6 @@ describe CompletedAchievement, "#parse_member" do
 
   it "should not create a completed achievement record for an incomplete achievement" do
     lambda { CompletedAchievement.parse_member(@member) }.should change(CompletedAchievement, :count).
-      to(2) # 21 achievements, 2 complete
+      from(1).to(2) # 21 achievements, 2 complete
   end
 end
