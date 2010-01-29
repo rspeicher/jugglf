@@ -18,12 +18,6 @@ module ApplicationHelper
     end
   end
 
-  def link_to_tab(text, path = nil)
-    path = ( path.nil? ) ? "##{text.gsub(/^(\w+).*/, '\1').downcase}" : path
-
-    link_to "<span>#{h(text)}</span>", path
-  end
-
   def link_to_delete(options = {})
     return if options[:path].nil?
 

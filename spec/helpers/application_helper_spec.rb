@@ -26,12 +26,6 @@ describe "breadcrumb" do
   end
 end
 
-describe "link_to_tab" do
-  it "should figure out nil path based on text" do
-    link_to_tab('Text (123)').should match(/href=.+\#text/)
-  end
-end
-
 describe "link_to_delete" do
   it "should return nil if no path is given" do
     link_to_delete().should be_nil
