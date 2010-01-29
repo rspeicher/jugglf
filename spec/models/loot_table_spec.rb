@@ -21,6 +21,14 @@ describe LootTable do
     @table.to_s.should eql('Boss')
   end
 
+  context "mass assignment" do
+    it { should_not allow_mass_assignment_of(:id) }
+    it { should allow_mass_assignment_of(:object) }
+    it { should allow_mass_assignment_of(:object_id) }
+    it { should allow_mass_assignment_of(:parent_id) }
+    it { should allow_mass_assignment_of(:note) }
+  end
+
   context "polymorphic associations" do
     before(:each) do
       @zone = Factory(:zone)

@@ -12,6 +12,8 @@
 class LootTable < ActiveRecord::Base
   acts_as_tree
 
+  attr_accessible :object, :object_id, :parent_id, :note
+
   belongs_to :object, :polymorphic => true
   alias_method :zone, :object
   alias_method :boss, :object
