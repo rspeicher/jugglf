@@ -59,6 +59,8 @@ class Loot < ActiveRecord::Base
 
   # Instance Methods ----------------------------------------------------------
   def affects_loot_factor?
+    return false if self.purchased_on.blank?
+
     self.purchased_on >= 52.days.until(Date.today)
   end
 

@@ -75,6 +75,11 @@ describe Loot, "affects_loot_factor?" do
     @loot = Factory(:loot, :purchased_on => Date.today)
   end
 
+  it "should return false if purchased_on is blank" do
+    @loot.purchased_on = nil
+    @loot.affects_loot_factor?.should be_false
+  end
+
   it "should know whether or not it affects loot factor" do
     @loot.affects_loot_factor?.should be_true
 
