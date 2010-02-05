@@ -1,13 +1,13 @@
-%h4= link_to_item_with_stats(Item.find(45038)) + " Progress"
+%h4= link_to_item_with_stats(Item.find(50274)) + " Progress"
 %table.ipb_table
   %thead
     %tr
       %th Member
       %th Progress
   %tbody
-    - fragment_progress.each do |member_id,count|
+    - shadowmourne_progress.each do |member_id,count|
       %tr{ :class => cycle('row1', 'row2') }
         %td= link_to_member(Member.find(member_id))
         %td.note
-          = progress_bar(:width => count.to_f/30.00, :container_width => 80, :color => "#FF8000")
+          = progress_bar(:width => count.to_f/50.00, :container_width => 80, :color => "#FF8000")
           %span.progress= count

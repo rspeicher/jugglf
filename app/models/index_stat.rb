@@ -131,6 +131,10 @@ class IndexStat
     Loot.count(:all, :group => 'member_id', :conditions => ['item_id = ?', 45038])
   end
 
+  def self.shadowmourne_progress
+    Loot.count(:all, :group => 'member_id', :conditions => ['item_id = ?', 50274])
+  end
+
   def self.best_attendance
     Member.active.find(:all, :conditions => ["first_raid <= ?", 6.months.until(Date.today)],
       :order => 'attendance_lifetime DESC', :limit => 10)
