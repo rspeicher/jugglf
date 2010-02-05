@@ -41,6 +41,7 @@ class IndexStat
   ITEM_CONDITIONS = [
     "name NOT REGEXP '.+ of the (Fallen|Lost|Forgotten|Wayward) ([^\s]+)$'",
     "name NOT LIKE 'Regalia of the Grand %'",
+    "name NOT LIKE '% Mark of Sanctification'",
     "name != 'Trophy of the Crusade'",
     "name NOT LIKE 'Qiraji Bindings of%'",
     "name != 'Vek''nilash''s Circlet'",
