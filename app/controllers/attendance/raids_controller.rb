@@ -90,7 +90,7 @@ class Attendance::RaidsController < ApplicationController
         :api_key      => Juggernaut[:ipb_api_key],
         :member_field => 'id',
         :member_key   => 4095, # Attendance
-        :forum_id     => 53,   # Temp, grumble
+        :forum_id     => 10,
         :topic_title  => @live_raid.started_at.to_date.to_s(:db),
         :post_content => render_to_string(:layout => false)
       })
