@@ -7,5 +7,5 @@
 [b][u][size=3]Drops[/size][/u][/b]
 
 <%- @live_raid.loots.each do |loot| -%>
-<%= (loot.member_id.present?) ? loot.member.name : 'DE' %><%= (loot.loot_type.present?) ? " (#{loot.loot_type})" : '' %> - [item]<%= loot.item.name %>[/item]|<%= loot.item.wow_id %>
+<%= (loot.member_id.present?) ? loot.member.name : 'DE' %><%= (loot.loot_type.present?) ? " (#{loot.loot_type})" : '' %> - [item]<%= loot.item.wow_id %>[/item]|<%= loot.item.wow_id %>
 <%- end -%>
