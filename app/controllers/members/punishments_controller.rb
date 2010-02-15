@@ -1,4 +1,5 @@
 class Members::PunishmentsController < ApplicationController
+  before_filter :require_admin, :except => [:index]
   before_filter :require_user
 
   before_filter :find_parent
