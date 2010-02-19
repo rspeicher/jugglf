@@ -20,11 +20,14 @@ function wishlistCompare(id) {
     // Build an array of "<Name> <type>" strings
     names = new Array();
     $('#loot_table_' + id + ' table tbody tr').each(function() {
-        names.push(
-            $(this).find('td.member span.larger a').text() + ' ' + // Name
-            $(this).children('td:eq(1)').text().substr(0,3).toLowerCase()); // Tell Type
+        name     = $(this).find('td.member span.larger a').text();
+        priority = $(this).children('td:eq(1)').text().substr(0,3).toLowerCase();
+        piece    = (priority == 'nor') ? name : name + ' ' + priority;
+        if (jQuery.inArray(piece, names) < 0) {
+            names.push(piece);
+        }
     });
-    str += names.join(',');
+    str += jQuery.unique(names).join(',');
 
     prompt("Copy and paste:", str);
 }
