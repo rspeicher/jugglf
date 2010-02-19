@@ -1080,10 +1080,13 @@ namespace :juggernaut do
           item(boss, 50671) #Belt of the Blood Nova
           item(boss, 50672) #Bloodvenom Blade
           item(boss, 52030) #Conqueror's Mark of Sanctification
+          item(boss, 52027) #Conqueror's Mark of Sanctification
           item(boss, 50363) #Deathbringer's Will
           item(boss, 50668) #Greatcloak of the Turned Champion
+          item(boss, 52026) #Protector's Mark of Sanctification
           item(boss, 52029) #Protector's Mark of Sanctification
           item(boss, 50670) #Toskk's Maximized Wristguards
+          item(boss, 52025) #Vanquisher's Mark of Sanctification
           item(boss, 52028) #Vanquisher's Mark of Sanctification
         when "festergut-10"
           item(boss, 50966) #Abracadaver
@@ -1101,24 +1104,30 @@ namespace :juggernaut do
         when "putricide-25-hard"
           item(boss, 50707) #Astrylian's Sutured Cinch
           item(boss, 52030) #Conqueror's Mark of Sanctification
+          item(boss, 52027) #Conqueror's Mark of Sanctification
           item(boss, 50708) #Last Word
           item(boss, 50705) #Professor's Bloodied Smock
           item(boss, 52029) #Protector's Mark of Sanctification
+          item(boss, 52026) #Protector's Mark of Sanctification
           item(boss, 50704) #Rigormortis
           item(boss, 50706) #Tiny Abomination in a Jar
+          item(boss, 52025) #Vanquisher's Mark of Sanctification
           item(boss, 52028) #Vanquisher's Mark of Sanctification
         when "lichking-25-hard"
           item(boss, 50731) #Archus, Greatstaff of Antonidas
           item(boss, 50732) #Bloodsurge, Kel'Thuzad's Blade of Agony
           item(boss, 52030) #Conqueror's Mark of Sanctification
+          item(boss, 52027) #Conqueror's Mark of Sanctification
           item(boss, 50733) #Fal'inrush, Defender of Quel'thalas
           item(boss, 50730) #Glorenzelg, High-Blade of the Silver Hand
           item(boss, 50737) #Havoc's Call, Blade of Lordaeron Kings
           item(boss, 50736) #Heaven's Fall, Kryss of a Thousand Lies
           item(boss, 50738) #Mithrios, Bronzebeard's Legacy
           item(boss, 50735) #Oathbinder, Charge of the Ranger-General
+          item(boss, 52026) #Protector's Mark of Sanctification
           item(boss, 52029) #Protector's Mark of Sanctification
           item(boss, 50734) #Royal Scepter of Terenas II
+          item(boss, 52025) #Vanquisher's Mark of Sanctification
           item(boss, 52028) #Vanquisher's Mark of Sanctification
         when "saurfang-10"
           item(boss, 50801) #Blade-Scored Carapace
@@ -1242,10 +1251,13 @@ namespace :juggernaut do
           item(boss, 50724) #Blood Queen's Crimson Choker
           item(boss, 50727) #Bloodfall
           item(boss, 52030) #Conqueror's Mark of Sanctification
+          item(boss, 52027) #Conqueror's Mark of Sanctification
           item(boss, 50725) #Dying Light
           item(boss, 50729) #Icecrown Glacial Wall
           item(boss, 50728) #Lana'thel's Chain of Flagellation
+          item(boss, 52026) #Protector's Mark of Sanctification
           item(boss, 52029) #Protector's Mark of Sanctification
+          item(boss, 52025) #Vanquisher's Mark of Sanctification
           item(boss, 52028) #Vanquisher's Mark of Sanctification
         when "deathwhisper-25"
           item(boss, 49989) #Ahn'kahar Onyx Neckguard
@@ -1311,6 +1323,19 @@ namespace :juggernaut do
           item(boss, 50716) #Taldaram's Plated Fists
           item(boss, 50711) #Treads of the Wasteland
           item(boss, 50714) #Valanar's Other Signet Ring
+        when "marrowgar-10"
+          item(boss, 50772) #Ancient Skeletal Boots
+          item(boss, 50759) #Bone Warden's Splitter
+          item(boss, 50760) #Bonebreaker Scepter
+          item(boss, 50761) #Citadel Enforcer's Claymore
+          item(boss, 50774) #Coldwraith Bracers
+          item(boss, 50773) #Cord of the Patronizing Practitioner
+          item(boss, 50775) #Corrupted Silverplate Leggings
+          item(boss, 50771) #Frost Needle
+          item(boss, 50762) #Linked Scourge Vertebrae
+          item(boss, 50763) #Marrowgar's Scratching Choker
+          item(boss, 50764) #Shawl of Nerubian Silk
+          item(boss, 50339) #Sliver of Pure Ice
         when "putricide-10-hard"
           item(boss, 51862) #Cauterized Cord
           item(boss, 51861) #Chestplate of Septic Stitches
@@ -1371,13 +1396,16 @@ namespace :juggernaut do
           item(boss, 52026) #Protector's Mark of Sanctification
           item(boss, 52025) #Vanquisher's Mark of Sanctification
         when "sindragosa-25-hard"
+          item(boss, 52027) #Conqueror's Mark of Sanctification
           item(boss, 52030) #Conqueror's Mark of Sanctification
           item(boss, 50636) #Memory of Malygos
           item(boss, 50365) #Phylactery of the Nameless Lich
+          item(boss, 52026) #Protector's Mark of Sanctification
           item(boss, 52029) #Protector's Mark of Sanctification
           item(boss, 50633) #Sindragosa's Cruel Claw
           item(boss, 50364) #Sindragosa's Flawless Fang
           item(boss, 50635) #Sundial of Eternal Dusk
+          item(boss, 52025) #Vanquisher's Mark of Sanctification
           item(boss, 52028) #Vanquisher's Mark of Sanctification
         when "rotface-10"
           item(boss, 51003) #Abomination Knuckles
@@ -1630,6 +1658,19 @@ namespace :juggernaut do
           item(boss, 51565) #Skinned Whelp Shoulders
           item(boss, 51583) #Stormbringer Gloves
           item(boss, 51563) #Taiga Bindings
+        when "marrowgar-10-hard"
+          item(boss, 51931) #Ancient Skeletal Boots
+          item(boss, 51938) #Bone Warden's Splitter
+          item(boss, 51937) #Bonebreaker Scepter
+          item(boss, 51936) #Citadel Enforcer's Claymore
+          item(boss, 51929) #Coldwraith Bracers
+          item(boss, 51930) #Cord of the Patronizing Practitioner
+          item(boss, 51928) #Corrupted Silverplate Leggings
+          item(boss, 51932) #Frost Needle
+          item(boss, 51935) #Linked Scourge Vertebrae
+          item(boss, 51934) #Marrowgar's Scratching Choker
+          item(boss, 51933) #Shawl of Nerubian Silk
+          item(boss, 50346) #Sliver of Pure Ice
         when "rotface-25"
           item(boss, 50021) #Aldriana's Gloves of Secrecy
           item(boss, 50023) #Bile-Encrusted Medallion

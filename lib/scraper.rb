@@ -72,7 +72,7 @@ class ArmoryParser
 
     tags = {
       # Tag => [Size, Difficulty, Boss ID]
-      'marrowgar-10'          => [10, 'normal', 36112],
+      'marrowgar-10'          => [10, 'normal', 36612],
       'deathwhisper-10'       => [10, 'normal', 36855],
       'gunship-10'            => [10, 'normal', 202178],
       'saurfang-10'           => [10, 'normal', 37813],
@@ -85,7 +85,7 @@ class ArmoryParser
       'sindragosa-10'         => [10, 'normal', 36853],
       'lichking-10'           => [10, 'normal', 36597],
 
-      'marrowgar-10-hard'     => [10, 'heroic', 36112],
+      'marrowgar-10-hard'     => [10, 'heroic', 36612],
       'deathwhisper-10-hard'  => [10, 'heroic', 36855],
       'gunship-10-hard'       => [10, 'heroic', 202178],
       'saurfang-10-hard'      => [10, 'heroic', 37813],
