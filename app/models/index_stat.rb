@@ -52,6 +52,7 @@ class IndexStat
     # The following conditions get removed in @self.common_tokens@
     "name != 'Splinter of Atiesh'",
     "name != 'Fragment of Val''anyr'",
+    "name != 'Shadowfrost Shard'",
     "name != 'Onyxia Hide Backpack'",
   ]
   # SQL conditions for items that SHOULD be included in the Tier Token list
@@ -70,7 +71,7 @@ class IndexStat
   # Only includes token items.
   def self.common_tokens
     Item.find(:all, :order => "loots_count DESC",
-      :limit => 10, :conditions => TIER_CONDITIONS[0..-4].join(' OR '))
+      :limit => 10, :conditions => TIER_CONDITIONS[0..-5].join(' OR '))
   end
 
   def self.most_requested
