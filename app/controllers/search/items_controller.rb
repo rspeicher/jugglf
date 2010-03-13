@@ -3,6 +3,7 @@ class Search::ItemsController < ApplicationController
 
   def index
     params[:q] = "INVALIDSEARCH" if params[:q].blank? # Bit of a hack to prevent searching the entire database if no input was given
+    params[:q].gsub!(' ', '%')
 
     scope = Item.name_like(params[:q])
 

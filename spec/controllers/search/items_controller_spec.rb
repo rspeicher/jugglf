@@ -29,6 +29,15 @@ describe Search::ItemsController, "GET index" do
       it { should render_template('items/index') }
       it { should assign_to(:items).with_kind_of(Array) }
     end
+
+    context "using Wowhead-like matching" do
+      before(:each) do
+        @item = Factory(:item, :name => "Conqueror's Mark of Sanctification")
+        get :index, :q => 'conq sanc'
+      end
+
+      it { should redirect_to(item_path(@item)) }
+    end
   end
 
   context ".js" do
