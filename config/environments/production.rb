@@ -28,4 +28,7 @@ config.cache_store = :file_store, 'tmp/cache/'
 # Enable threaded mode
 # config.threadsafe!
 
+config.gem 'formtastic'
+config.gem 'hoptoad_notifier'
+config.gem 'invision_bridge'
 config.gem 'whenever', :lib => false, :version => '>= 0.4.1', :source => 'http://gemcutter.org'

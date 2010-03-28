@@ -16,6 +16,9 @@ config.action_controller.perform_caching             = false
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 
+config.gem 'formtastic'
+config.gem 'invision_bridge'
+
 # Bullet
 # config.gem 'flyerhzm-bullet', :lib => 'bullet', :source => 'http://gems.github.com'
 # config.after_initialize do
