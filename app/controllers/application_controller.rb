@@ -2,8 +2,6 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  include HoptoadNotifier::Catcher
-
   filter_parameter_logging :password, :password_confirmation
   helper_method :current_user_session, :current_user, :page_title
 
