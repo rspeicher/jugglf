@@ -4,15 +4,15 @@ end
 
 module Juggy
   require 'singleton'
-  
+
   class ItemPrice
     include Singleton
     MIN_LEVEL = 226
-    
+
     def initialize
       @values = {
         'LEVELS' => ['226', '239', '245', '258', '264', '277'], # NOTE: Not 272, this array is only used for weapons.
-        
+
         'Head' => nil, 'Chest' => nil, 'Legs' => {
           '226' => 0.50,
           '239' => 1.00,
@@ -37,14 +37,22 @@ module Juggy
           '264' => 1.50,
           '277' => 2.00
         },
-        'Neck' => nil, 'Back' => {
+        'Neck' => {
           '226' => 0.00,
           '239' => 0.00,
           '245' => 0.50,
           '258' => 1.00,
           '264' => 1.50,
-          '272' => 2.00, # Special case for Tribute Chest, grumble.
           '277' => 2.50
+        },
+        'Back' => {
+          '226' => 0.00,
+          '239' => 0.00,
+          '245' => 0.50,
+          '258' => 0.50,
+          '264' => 0.50,
+          '272' => 0.50, # Special case for Tribute Chest, grumble.
+          '277' => 0.50
         },
         'Two-Hand' => {
           '226' => [0.00, 0.00],
@@ -55,7 +63,7 @@ module Juggy
           '264' => [5.00, 2.00],
           '277' => [6.00, 2.50],
         },
-        
+
         # Healer/Caster
         'Main Hand' => {
           '226' => 1.00,
@@ -85,7 +93,7 @@ module Juggy
           '264' => [2.50, 1.00],
           '277' => [3.00, 1.25]
         },
-        
+
         'Relic' => nil, 'Idol' => nil, 'Totem' => nil, 'Thrown' => nil, 'Sigil' => nil, 'Ranged' => {
           '226' => [0.00, 0.00],
           '232' => [0.00, 0.00],
@@ -108,13 +116,13 @@ module Juggy
           "The General's Heart"               => 0.00,
           "Vanquished Clutches of Yogg-Saron" => 0.00,
           "Wrathstone"                        => 0.00,
-          
+
           # Patch 3.2 [245 price, 258 price]
           "Death's Choice"        => [2.00, 4.00],
           "Juggernaut's Vitality" => [2.00, 4.00],
           "Reign of the Dead"     => [2.00, 4.00],
           "Solace of the Fallen"  => [2.00, 4.00],
-          
+
           # Patch 3.3 [264 price, 277 price]
           "Althor's Abacus"                 => [2.00, 4.00],
           "Bauble of True Blood"            => [2.00, 4.00],
@@ -130,11 +138,11 @@ module Juggy
       @values['Head'] = @values['Chest'] = @values['Legs']
       @values['Shoulder'] = @values['Shoulders'] = @values['Hands'] = @values['Feet']
       @values['Wrist'] = @values['Waist'] = @values['Finger']
-      @values['Neck'] = @values['Back']
+      # @values['Neck'] = @values['Back']
       @values['Shield'] = @values['Held In Off-hand']
       @values['One-Hand'] = @values['Off Hand'] = @values['Melee DPS Weapon']
       @values['Relic'] = @values['Idol'] = @values['Totem'] = @values['Thrown'] = @values['Sigil'] = @values['Ranged']
-      
+
       @special_weapon_slots = ['Main Hand', 'Held In Off-hand', 'One-Hand', 'Off Hand', 'Shield']
     end
 
@@ -147,21 +155,21 @@ module Juggy
       options[:class]  ||= nil            # Buyer WoW class; special cases for weapons
 
       options[:level] = options[:level].to_i
-      
+
       # Damn special items
       return 0.00 if options[:item] == "Fragment of Val'anyr"
-      
+
       if not options[:level] or options[:level] < MIN_LEVEL or not options[:slot]
         options = special_case_options(options)
-        
+
         # Still lower than our min level, which means it's an older item, just make it 0.00
         return 0.00 if options[:level] < MIN_LEVEL
       end
-      
+
       return if options[:level] < MIN_LEVEL or options[:slot] == nil
-      
+
       value = nil
-      
+
       if options[:slot] == 'Trinket'
         value = trinket_value(options)
       elsif @special_weapon_slots.include?(options[:slot])
@@ -176,7 +184,7 @@ module Juggy
     private
       def default_value(options)
         return if @values[options[:slot]].nil?
-        
+
         value = nil
         slotval = @values[options[:slot]]
         slotval.sort.each do |level,values|
@@ -188,10 +196,10 @@ module Juggy
             end
           end
         end
-        
+
         value
       end
-      
+
       # Determines the price for Weapons that ARE NOT Two-Handers and ARE NOT Ranged
       # based on conditions such as buyer class and slot.
       def special_weapon_value(options)
@@ -237,13 +245,13 @@ module Juggy
 
         value
       end
-      
+
       def trinket_value(options)
         value = nil
-        
+
         if @values['Trinket'][options[:item]]
           value = @values['Trinket'][options[:item]]
-          
+
           # 3.2 Trinkets share names with their lower-level counterparts
           if value.is_a? Array
             value = ( options[:level] == 245 or options[:level] == 264 ) ? value[0] : value[1]
@@ -280,7 +288,7 @@ module Juggy
             # Tier 10 266 Token
             options[:slot] = 'Chest' # Not always, but it has the correct price point we want for all Marks
             options[:level] = 266
-            
+
           elsif [52028, 52029, 52030].include? options[:id]
             # Tier 10 277 Token
             options[:slot] = 'Chest' # Not always, but it has the correct price point we want for all Heroic Marks
@@ -298,10 +306,10 @@ module Juggy
 
         options
       end
-      
+
       def determine_token_slot(name)
         name = name.strip.downcase
-        
+
         if name == 'breastplate' or name == 'chestguard'
           return 'Chest'
         elsif name == 'crown' or name == 'helm'
@@ -314,11 +322,11 @@ module Juggy
           return 'Shoulders'
         end
       end
-      
+
       def determine_token_level(piece, group)
         piece = piece.strip.downcase
         group = group.strip.downcase
-        
+
         if ['chestguard', 'helm', 'gloves', 'leggings', 'spaulders'].include? piece
           # 10-man
           return ( group == 'lost' ) ? 200 : 219
