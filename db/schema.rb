@@ -9,23 +9,22 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100118010459) do
+ActiveRecord::Schema.define(:version => 20100402080025) do
 
   create_table "achievements", :force => true do |t|
-    t.integer "armory_id"
-    t.integer "category_id"
+    t.integer "armory_id",   :null => false
+    t.integer "category_id", :null => false
     t.string  "title"
     t.string  "icon"
   end
 
   add_index "achievements", ["armory_id"], :name => "index_achievements_on_armory_id", :unique => true
   add_index "achievements", ["category_id"], :name => "index_achievements_on_category_id"
-  add_index "achievements", ["title"], :name => "index_achievements_on_title"
 
   create_table "attendees", :force => true do |t|
     t.integer "member_id"
     t.integer "raid_id"
-    t.float   "attendance"
+    t.float   "attendance", :null => false
   end
 
   add_index "attendees", ["member_id", "raid_id"], :name => "index_attendees_on_member_id_and_raid_id", :unique => true
@@ -33,53 +32,53 @@ ActiveRecord::Schema.define(:version => 20100118010459) do
   add_index "attendees", ["raid_id"], :name => "index_attendees_on_raid_id"
 
   create_table "bosses", :force => true do |t|
-    t.string  "name",                    :null => false
-    t.integer "position", :default => 0
+    t.string "name", :null => false
   end
 
   add_index "bosses", ["name"], :name => "index_bosses_on_name"
-  add_index "bosses", ["position"], :name => "index_bosses_on_position"
 
   create_table "completed_achievements", :force => true do |t|
-    t.integer "member_id"
     t.integer "achievement_id"
+    t.integer "member_id"
     t.date    "completed_on"
   end
 
+  add_index "completed_achievements", ["achievement_id", "member_id"], :name => "index_completed_achievements_on_achievement_id_and_member_id", :unique => true
   add_index "completed_achievements", ["achievement_id"], :name => "index_completed_achievements_on_achievement_id"
-  add_index "completed_achievements", ["member_id", "achievement_id"], :name => "index_completed_achievements_on_member_id_and_achievement_id", :unique => true
   add_index "completed_achievements", ["member_id"], :name => "index_completed_achievements_on_member_id"
 
   create_table "items", :force => true do |t|
-    t.string   "name",            :limit => 100
-    t.integer  "wishlists_count",                :default => 0
-    t.integer  "loots_count",                    :default => 0
-    t.string   "color",           :limit => 15
+    t.string   "name"
+    t.string   "color"
     t.string   "icon"
-    t.integer  "level",                          :default => 0
+    t.integer  "level",           :default => 0
     t.string   "slot"
+    t.boolean  "heroic",          :default => false, :null => false
+    t.boolean  "authentic",       :default => false, :null => false
+    t.integer  "loots_count",     :default => 0,     :null => false
+    t.integer  "wishlists_count", :default => 0,     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "heroic",                         :default => false
-    t.boolean  "authentic"
   end
 
+  add_index "items", ["name"], :name => "index_items_on_name"
+
   create_table "live_attendees", :force => true do |t|
-    t.string   "member_name",                         :null => false
     t.integer  "live_raid_id"
+    t.string   "member_name",                         :null => false
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.boolean  "active",           :default => false
-    t.integer  "minutes_attended", :default => 0
+    t.boolean  "active",           :default => false, :null => false
+    t.integer  "minutes_attended", :default => 0,     :null => false
   end
 
   add_index "live_attendees", ["live_raid_id"], :name => "index_live_attendees_on_live_raid_id"
 
   create_table "live_loots", :force => true do |t|
-    t.string  "loot_type"
+    t.integer "live_raid_id"
     t.integer "item_id"
     t.integer "member_id"
-    t.integer "live_raid_id"
+    t.string  "loot_type"
   end
 
   add_index "live_loots", ["item_id"], :name => "index_live_loots_on_item_id"
@@ -89,8 +88,8 @@ ActiveRecord::Schema.define(:version => 20100118010459) do
   create_table "live_raids", :force => true do |t|
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.integer  "live_attendees_count", :default => 0
-    t.integer  "live_loots_count",     :default => 0
+    t.integer  "live_attendees_count", :default => 0, :null => false
+    t.integer  "live_loots_count",     :default => 0, :null => false
   end
 
   create_table "loot_tables", :force => true do |t|
@@ -105,13 +104,13 @@ ActiveRecord::Schema.define(:version => 20100118010459) do
 
   create_table "loots", :force => true do |t|
     t.integer  "item_id"
+    t.integer  "raid_id"
+    t.integer  "member_id"
     t.float    "price"
     t.date     "purchased_on"
-    t.boolean  "best_in_slot", :default => false
-    t.boolean  "situational",  :default => false
-    t.boolean  "rot",          :default => false
-    t.integer  "member_id"
-    t.integer  "raid_id"
+    t.boolean  "best_in_slot", :default => false, :null => false
+    t.boolean  "situational",  :default => false, :null => false
+    t.boolean  "rot",          :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -122,30 +121,30 @@ ActiveRecord::Schema.define(:version => 20100118010459) do
   add_index "loots", ["raid_id"], :name => "index_loots_on_raid_id"
 
   create_table "member_ranks", :force => true do |t|
-    t.string "name"
+    t.string "name",   :null => false
     t.string "prefix"
     t.string "suffix"
   end
 
   create_table "members", :force => true do |t|
-    t.string   "name"
+    t.string   "name",                                  :null => false
+    t.integer  "user_id"
+    t.integer  "rank_id"
     t.boolean  "active",              :default => true
     t.date     "first_raid"
     t.date     "last_raid"
     t.string   "wow_class"
-    t.float    "lf",                  :default => 0.0
-    t.float    "sitlf",               :default => 0.0
-    t.float    "bislf",               :default => 0.0
-    t.float    "attendance_30",       :default => 0.0
-    t.float    "attendance_90",       :default => 0.0
-    t.float    "attendance_lifetime", :default => 0.0
-    t.integer  "raids_count",         :default => 0
-    t.integer  "loots_count",         :default => 0
+    t.float    "lf",                  :default => 0.0,  :null => false
+    t.float    "sitlf",               :default => 0.0,  :null => false
+    t.float    "bislf",               :default => 0.0,  :null => false
+    t.float    "attendance_30",       :default => 0.0,  :null => false
+    t.float    "attendance_90",       :default => 0.0,  :null => false
+    t.float    "attendance_lifetime", :default => 0.0,  :null => false
+    t.integer  "raids_count",         :default => 0,    :null => false
+    t.integer  "loots_count",         :default => 0,    :null => false
+    t.integer  "wishlists_count",     :default => 0,    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "rank_id"
-    t.integer  "wishlists_count",     :default => 0
-    t.integer  "user_id"
   end
 
   add_index "members", ["active"], :name => "index_members_on_active"
@@ -153,10 +152,10 @@ ActiveRecord::Schema.define(:version => 20100118010459) do
   add_index "members", ["user_id"], :name => "index_members_on_user_id"
 
   create_table "punishments", :force => true do |t|
-    t.integer  "member_id"
-    t.string   "reason"
-    t.date     "expires"
-    t.float    "value",      :default => 0.0
+    t.integer  "member_id",                   :null => false
+    t.string   "reason",                      :null => false
+    t.date     "expires_on",                  :null => false
+    t.float    "value",      :default => 0.0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -164,10 +163,10 @@ ActiveRecord::Schema.define(:version => 20100118010459) do
   add_index "punishments", ["member_id"], :name => "index_punishments_on_member_id"
 
   create_table "raids", :force => true do |t|
-    t.date     "date"
+    t.date     "date",                           :null => false
     t.string   "note"
-    t.integer  "attendees_count", :default => 0
-    t.integer  "loots_count",     :default => 0
+    t.integer  "attendees_count", :default => 0, :null => false
+    t.integer  "loots_count",     :default => 0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -197,11 +196,9 @@ ActiveRecord::Schema.define(:version => 20100118010459) do
   add_index "wishlists", ["member_id"], :name => "index_wishlists_on_member_id"
 
   create_table "zones", :force => true do |t|
-    t.string  "name",                    :null => false
-    t.integer "position", :default => 0
+    t.string "name", :null => false
   end
 
   add_index "zones", ["name"], :name => "index_zones_on_name"
-  add_index "zones", ["position"], :name => "index_zones_on_position"
 
 end

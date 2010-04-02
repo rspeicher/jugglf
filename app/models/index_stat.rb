@@ -82,18 +82,21 @@ class IndexStat
   # Returns an ordered array of [Class(String), Value(Float)] where
   # Value is the percentage of that class that has been declined.
   def self.least_recruitable
+    ret = []
+
     # Find the total number of members in the database, by class
     totals = self.class_counts
 
     # Find the total number of declined applicants in the database, by class
     rank = MemberRank.find_by_name('Declined Applicant')
-    declined = Member.with_class.count(:group => 'wow_class',
-      :conditions => ['rank_id = ?', rank.id])
+    if rank
+      declined = Member.with_class.count(:group => 'wow_class',
+        :conditions => ['rank_id = ?', rank.id])
 
-    ret = []
-    totals.each do |total_class, total|
-      declined.each do |declined_class, count|
-        ret.push([declined_class, count.to_f/total.to_f]) if declined_class == total_class
+      totals.each do |total_class, total|
+        declined.each do |declined_class, count|
+          ret.push([declined_class, count.to_f/total.to_f]) if declined_class == total_class
+        end
       end
     end
 
@@ -103,18 +106,21 @@ class IndexStat
   # Returns an ordered array of [Class(String), Value(Float)] where
   # Value is the percentage of that class that is Inactive.
   def self.highest_turnover
+    ret = []
+
     # Find the total number of members in the database, by class
     totals = self.class_counts
 
     # Find the total number of declined applicants in the database, by class
     rank = MemberRank.find_by_name('Inactive')
-    inactive = Member.with_class.count(:group => 'wow_class',
-      :conditions => ['rank_id = ?', rank.id])
+    if rank
+      inactive = Member.with_class.count(:group => 'wow_class',
+        :conditions => ['rank_id = ?', rank.id])
 
-    ret = []
-    totals.each do |total_class, total|
-      inactive.each do |inactive_class, count|
-        ret.push([inactive_class, count.to_f/total.to_f]) if inactive_class == total_class
+      totals.each do |total_class, total|
+        inactive.each do |inactive_class, count|
+          ret.push([inactive_class, count.to_f/total.to_f]) if inactive_class == total_class
+        end
       end
     end
 

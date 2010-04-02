@@ -22,7 +22,7 @@ class IndexController < ApplicationController
       [ 'best_attendance',       IndexStat.best_attendance ],
       [ 'worst_recruits',        IndexStat.least_recruitable ],
       [ 'highest_turnover',      IndexStat.highest_turnover ],
-      [ 'shadowmourne_progress', IndexStat.shadowmourne_progress ],
+      [ 'shadowmourne_progress', IndexStat.shadowmourne_progress ], # FIXME: Item not found error in new installation
     ]
 
     respond_to do |wants|
