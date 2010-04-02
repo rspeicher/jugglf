@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100118010459) do
+ActiveRecord::Schema.define(:version => 20100402180644) do
 
   create_table "achievements", :force => true do |t|
     t.integer "armory_id"
@@ -50,6 +50,21 @@ ActiveRecord::Schema.define(:version => 20100118010459) do
   add_index "completed_achievements", ["member_id", "achievement_id"], :name => "index_completed_achievements_on_member_id_and_achievement_id", :unique => true
   add_index "completed_achievements", ["member_id"], :name => "index_completed_achievements_on_member_id"
 
+  create_table "item_stats", :force => true do |t|
+    t.integer  "item_id"
+    t.string   "item"
+    t.string   "locale",     :limit => 10, :default => "en"
+    t.string   "color",      :limit => 15
+    t.string   "icon"
+    t.integer  "level",      :limit => 8,  :default => 0
+    t.string   "slot"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "item_stats", ["item"], :name => "index_item_stats_on_item"
+  add_index "item_stats", ["item_id"], :name => "index_item_stats_on_item_id", :unique => true
+
   create_table "items", :force => true do |t|
     t.string   "name",            :limit => 100
     t.integer  "wishlists_count",                :default => 0
@@ -63,6 +78,8 @@ ActiveRecord::Schema.define(:version => 20100118010459) do
     t.boolean  "heroic",                         :default => false
     t.boolean  "authentic"
   end
+
+  add_index "items", ["name"], :name => "index_items_on_name"
 
   create_table "live_attendees", :force => true do |t|
     t.string   "member_name",                         :null => false
@@ -155,7 +172,7 @@ ActiveRecord::Schema.define(:version => 20100118010459) do
   create_table "punishments", :force => true do |t|
     t.integer  "member_id"
     t.string   "reason"
-    t.date     "expires"
+    t.date     "expires_on"
     t.float    "value",      :default => 0.0
     t.datetime "created_at"
     t.datetime "updated_at"

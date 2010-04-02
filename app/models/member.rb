@@ -164,7 +164,7 @@ class Member < ActiveRecord::Base
       # Punishments affect ALL loot factors
       today = Date.today
       self.punishments.each do |p|
-        if p.expires > today
+        if p.expires_on > today
           lf[:sitlf] += p.value
           lf[:bislf] += p.value
           lf[:lf]    += p.value
