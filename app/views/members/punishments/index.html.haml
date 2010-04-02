@@ -11,8 +11,8 @@
           = h(pun.reason)
           = render :partial => 'shared/moderation', :object => [@member, pun] if admin?
         %td.date
-          = h(pun.expires.to_s(:db))
-          = " (#{loot_factor_cutoff(pun.expires)})"
+          = h(pun.expires_on.to_s(:db))
+          = " (#{loot_factor_cutoff(pun.expires_on)})"
         %td.number= loot_factor(pun.value)
 - if admin?
   %br

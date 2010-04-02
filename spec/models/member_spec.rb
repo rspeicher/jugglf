@@ -216,7 +216,7 @@ describe Member, "punishments" do
   end
 
   it "should not include expired punishments" do
-    @member.punishments << Factory.build(:punishment_expired, :value => 1.00)
+    @member.punishments << Factory.build(:expired_punishment, :value => 1.00)
     lambda { @member.update_cache }.should_not change(@member, :lf)
   end
 end
