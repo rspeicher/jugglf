@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100402180644) do
+ActiveRecord::Schema.define(:version => 20100402181542) do
 
   create_table "achievements", :force => true do |t|
     t.integer "armory_id"
@@ -33,12 +33,10 @@ ActiveRecord::Schema.define(:version => 20100402180644) do
   add_index "attendees", ["raid_id"], :name => "index_attendees_on_raid_id"
 
   create_table "bosses", :force => true do |t|
-    t.string  "name",                    :null => false
-    t.integer "position", :default => 0
+    t.string "name", :null => false
   end
 
   add_index "bosses", ["name"], :name => "index_bosses_on_name"
-  add_index "bosses", ["position"], :name => "index_bosses_on_position"
 
   create_table "completed_achievements", :force => true do |t|
     t.integer "member_id"
@@ -214,11 +212,9 @@ ActiveRecord::Schema.define(:version => 20100402180644) do
   add_index "wishlists", ["member_id"], :name => "index_wishlists_on_member_id"
 
   create_table "zones", :force => true do |t|
-    t.string  "name",                    :null => false
-    t.integer "position", :default => 0
+    t.string "name", :null => false
   end
 
   add_index "zones", ["name"], :name => "index_zones_on_name"
-  add_index "zones", ["position"], :name => "index_zones_on_position"
 
 end
