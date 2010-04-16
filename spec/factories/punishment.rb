@@ -1,4 +1,5 @@
 Factory.define :punishment do |f|
+  f.association :member
   f.reason 'Reason'
   f.expires_on 1.year.since(Date.today)
   f.value 0.0

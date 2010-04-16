@@ -95,4 +95,8 @@ class Members::WishlistsController < ApplicationController
       return unless params[:wishlist].present? and params[:wishlist][:item_id].present?
       params[:wishlist].delete(:item_name) if params[:wishlist][:item_id].present?
     end
+
+    def single_access_allowed?
+      (action_name == 'index') and params[:format] == 'lua'
+    end
 end
