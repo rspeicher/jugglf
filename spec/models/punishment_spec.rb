@@ -84,19 +84,19 @@ end
 describe Punishment, "callbacks" do
   before(:each) do
     @member = Factory(:member)
-    @member.expects(:update_cache).once.returns(true)
+    @member.should_receive(:update_cache).once.and_return(true)
   end
 
   it "should update member cache after save" do
-    Factory(:punishment, :member_id => @member.id, :value => 1.00)
+    Factory(:punishment, :member => @member, :value => 1.00)
   end
 
   it "should update member cache after expire!" do
-    Factory(:punishment, :member_id => @member.id, :value => 1.00).expire!
+    Factory.build(:punishment, :member => @member, :value => 1.00).expire!
   end
 
   it "should update member cache after destroy" do
-    Factory(:punishment, :member_id => @member.id, :value => 1.00)
+    Factory(:punishment, :member => @member, :value => 1.00)
     Punishment.last.destroy
   end
 end
