@@ -8,6 +8,9 @@ require 'shoulda'
 
 require 'invision_bridge'
 
+require 'fakeweb'
+FakeWeb.allow_net_connect = false
+
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
 Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
