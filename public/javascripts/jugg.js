@@ -1,3 +1,7 @@
+function setupModeration() {
+    $('ul.topic_moderation').moderation();
+}
+
 $(document).ready(function() {
     // Make the page viewable to those allowing Javascript
     // $('#ipbwrapper').removeClass('hide');
@@ -15,10 +19,6 @@ $(document).ready(function() {
         $(this).hide();
      });
 });
-
-function setupModeration() {
-    $('ul.topic_moderation').moderation();
-}
 
 // function initToggles() {
 //     $('.toggle').click(function() {
@@ -75,7 +75,7 @@ function wishlistHideUnwanted() {
 
     if (count > 0) {
         $('div.notice').html("<b>Note:</b> Hiding " + count + " unwanted items. " +
-            "<a onclick=\"wishlistShowUnwanted(); return false;\" href=\"#\">Click here</a> to show them.")
+            "<a onclick=\"wishlistShowUnwanted(); return false;\" href=\"#\">Click here</a> to show them.");
         $('div.notice').removeClass('hide');
     }
 }
@@ -162,11 +162,11 @@ function wishlistEditLinks() {
  * object   jQuery      Object for the clicked span
 */
 function toggleItemTypes(object) {
-    if      ($(object).hasClass('bis'))    { type = 'bis' }
-    else if ($(object).hasClass('sit'))    { type = 'sit' }
-    else if ($(object).hasClass('rot'))    { type = 'rot' }
-    else if ($(object).hasClass('de'))     { type = 'de'  }
-    else if ($(object).hasClass('normal')) { type = 'normal' }
+    if      ($(object).hasClass('bis'))    { type = 'bis'; }
+    else if ($(object).hasClass('sit'))    { type = 'sit'; }
+    else if ($(object).hasClass('rot'))    { type = 'rot'; }
+    else if ($(object).hasClass('de'))     { type = 'de';  }
+    else if ($(object).hasClass('normal')) { type = 'normal'; }
 
     parentRow = $(object).parent().parent();
 
