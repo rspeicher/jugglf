@@ -136,11 +136,11 @@ class IndexStat
   end
 
   def self.fragment_progress
-    Loot.count(:all, :group => 'member_id', :conditions => ['item_id = ?', 45038])
+    Loot.count(:all, :group => 'member_id', :conditions => ['item_id = ? AND member_id IS NOT NULL', 45038])
   end
 
   def self.shadowmourne_progress
-    Loot.count(:all, :group => 'member_id', :conditions => ['item_id = ?', 50274])
+    Loot.count(:all, :group => 'member_id', :conditions => ['item_id = ? AND member_id IS NOT NULL', 50274])
   end
 
   def self.best_attendance
