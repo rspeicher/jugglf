@@ -18,7 +18,7 @@ module ItemsHelper
     size = size.to_s if size.respond_to? 'to_s'
 
     if icon.present?
-      "http://static.wowhead.com/images/icons/#{size.downcase}/#{icon.downcase}.jpg"
+      "http://static.wowhead.com/images/wow/icons/#{size.downcase}/#{icon.downcase}.jpg"
     else
       ''
     end

@@ -66,8 +66,8 @@ end
 
 describe "wowhead_item_icon" do
   it "should return a Wowhead icon link" do
-    wowhead_item_icon('INV_Icon_01', 'medium').should eql("http://static.wowhead.com/images/icons/medium/inv_icon_01.jpg")
-    wowhead_item_icon('inv_icon_01', :large).should eql("http://static.wowhead.com/images/icons/large/inv_icon_01.jpg")
+    wowhead_item_icon('INV_Icon_01', 'medium').should eql("http://static.wowhead.com/images/wow/icons/medium/inv_icon_01.jpg")
+    wowhead_item_icon('inv_icon_01', :large).should eql("http://static.wowhead.com/images/wow/icons/large/inv_icon_01.jpg")
   end
 
   it "should return an empty string if the icon does not exist" do

@@ -12,6 +12,6 @@ describe "achievement_icon" do
   end
 
   it "should contain an icon" do
-    achievement_icon(@ach).should match(%r{static\.wowhead\.com/images/icons/small/icon\.jpg})
+    achievement_icon(@ach).should match(%r{static\.wowhead\.com/images/wow/icons/small/icon\.jpg})
   end
 end
