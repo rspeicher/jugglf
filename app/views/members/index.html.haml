@@ -1,11 +1,7 @@
-:javascript
-  $(document).ready(function() {
-    membersTableSort();
-  });
 - breadcrumb 'Members'
 %div.category_block.block_wrap
   = render :partial => 'shared/maintitle'
-  %table#index.ipb_table.tablesorter
+  %table#index.ipb_table.tablesorter.as_members
     %thead
       %tr
         %th &nbsp;

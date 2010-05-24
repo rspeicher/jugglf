@@ -3,21 +3,25 @@ function setupModeration() {
 }
 
 $(document).ready(function() {
-    // Make the page viewable to those allowing Javascript
-    // $('#ipbwrapper').removeClass('hide');
-
     // Make success messages clickable to hide them
     $('div.message.success').click(function() {
-        $(this).fadeOut('slow');
+      $(this).fadeOut('slow');
     });
 
     setupModeration();
 
+    JuggLF.tablesorter.init();
+    JuggLF.itemFilter.init();
+
     $("#ajax_loading").bind("ajaxSend", function() {
-        $(this).show();
-     }).bind("ajaxComplete", function() {
-        $(this).hide();
-     });
+      $(this).show();
+    }).bind("ajaxComplete", function() {
+      $(this).hide();
+
+      // Call these a second time so we apply them for any pages that were loaded via AJAX.
+      JuggLF.tablesorter.init();
+      JuggLF.itemFilter.init();
+    });
 });
 
 // function initToggles() {
@@ -148,51 +152,4 @@ function wishlistEditLinks() {
 
         return false;
     });
-}
-
-/**
- * Allows for filtering by item tell (loot) types
- *
- * Takes a tbody#itemfilter > tr > td > span object and toggles filtering by
- * that particular type of loot (BiS, Sit, Rot, Disenchant). Also handles
- * re-applying even/odd row classes so that the alternating background colors
- * are maintained even if an 'odd' row gets filtered out while the two
- * surrounding 'even' rows are shown.
- *
- * object   jQuery      Object for the clicked span
-*/
-function toggleItemTypes(object) {
-    if      ($(object).hasClass('bis'))    { type = 'bis'; }
-    else if ($(object).hasClass('sit'))    { type = 'sit'; }
-    else if ($(object).hasClass('rot'))    { type = 'rot'; }
-    else if ($(object).hasClass('de'))     { type = 'de';  }
-    else if ($(object).hasClass('normal')) { type = 'normal'; }
-
-    parentRow = $(object).parent().parent();
-
-    // If our parent row is .shown, then we need to toggle this filter off and show all rows
-    if ($(parentRow).hasClass('shown'))
-    {
-        $('#itemfilter tr').each(function() {
-            $(this).show();
-            $(this).removeClass('shown');
-        });
-    }
-    else
-    {
-        $('#itemfilter tr').each(function() {
-            if ($(this).hasClass('loot_' + type))
-            {
-                // If this row has this tell type, apply 'shown' class
-                $(this).addClass('shown');
-            }
-            else
-            {
-                // Otherwise hide this row
-                $(this).hide();
-            }
-        });
-    }
-
-    zebraRows($(parentRow).parent().attr('id'));
 }

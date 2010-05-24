@@ -1,10 +1,6 @@
 :javascript
   $(document).ready(function(){
     $("#item_tabs").tabs();
-    $("table#loot").tablesorter({ sortList: [[0,1]], widgets: ['zebra'] });
-    $('#itemfilter span.filter').click(function() {
-      toggleItemTypes(this);
-    });
   });
 
 - breadcrumb link_to('Items', items_path), link_to_wowhead(@item)
@@ -16,14 +12,14 @@
       %li.tab_toggle= link_to(content_tag(:span, "Loots (#{@item.loots.size})"),    '#t-loots')
       %li.tab_toggle= link_to(content_tag(:span, "Wishlists (#{@wishlists.size})"), '#t-wishlists')
     #t-loots
-      %table#loot.ipb_table.tablesorter
+      %table#loot.ipb_table.tablesorter.as_items
         %thead
           %tr
             %th.date Raid
             %th.member Buyer
             %th.note Notes
             %th.number Price
-        %tbody#itemfilter
+        %tbody.filterable
           - @loots.each do |loot|
             %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }[loot]
               %td.date

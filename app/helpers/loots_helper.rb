@@ -1,11 +1,11 @@
 module LootsHelper
   def loot_tell_types(loot)
     s = []
-    s << "<span class='filter bis'>Best in Slot</span>" if loot.best_in_slot?
-    s << "<span class='filter sit'>Situational</span>"  if loot.situational?
-    s << "<span class='filter rot'>Rot</span>"          if loot.rot?
-    s << "<span class='filter de'>Disenchanted</span>"  if loot.member_id.nil?
-    s << "<span class='filter normal'>Normal</span>"    if s.empty?
+    s << content_tag(:span, 'Best in Slot', :class => 'filter filter_bis'  ) if loot.best_in_slot?
+    s << content_tag(:span, 'Situational',  :class => 'filter filter_sit'  ) if loot.situational?
+    s << content_tag(:span, 'Rot',          :class => 'filter filter_rot'  ) if loot.rot?
+    s << content_tag(:span, 'Disenchanted', :class => 'filter filter_de'   ) if loot.member_id.nil?
+    s << content_tag(:span, 'Normal',       :class => 'filter filter_none' ) if s.empty?
     s.join(' ')
   end
 

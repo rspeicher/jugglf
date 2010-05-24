@@ -1,9 +1,5 @@
 :javascript
   $(document).ready(function() {
-    $('#itemfilter span.filter').click(function() {
-      toggleItemTypes(this);
-    });
-
     $('#loots_pagination a').click(function() {
       $.get($(this).attr('href'), function(value) {
         $('#loots_pagination').parent().html(value);
@@ -20,9 +16,9 @@
       %th Falls Off
       %th.date Raid
       %th.number Price
-  %tbody#itemfilter
+  %tbody.filterable
     - @loots.each do |loot|
-      %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }
+      %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }[loot]
         %td
           = link_to_item_with_stats(loot.item)
           = render :partial => 'shared/moderation', :object => loot if admin?

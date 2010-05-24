@@ -1,9 +1,6 @@
 :javascript
   $(document).ready(function(){
     $("table#loot").tablesorter({ sortList: [[0,0]], widgets: ['zebra'], headers: {0:{sorter: 'without-link'}} });
-    $('#itemfilter span.filter').click(function() {
-      toggleItemTypes(this);
-    });
   });
 - breadcrumb link_to('Raids', raids_path), h(@raid.date)
 
@@ -26,7 +23,7 @@
         %th.member Buyer
         %th Notes
         %th.number Price
-    %tbody#itemfilter
+    %tbody.filterable
       - @loots.each do |loot|
         %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }[loot]
           %td

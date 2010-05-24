@@ -1,3 +1,11 @@
+var JuggLF = {};
+
+JuggLF.logger = {
+  debug: function(message) {
+    console.debug(message);
+  }
+};
+
 /**
  * Generates a unique ID for an element, given a prefix
  *
@@ -64,7 +72,7 @@ jQuery.fn.identify = function(prefix) {
             }
 
             // Public
-            this.construct = function(settings) {
+            this.init = function(settings) {
                 return this.each(function() {
                     setup(this);
                 });
@@ -74,6 +82,6 @@ jQuery.fn.identify = function(prefix) {
 
     // extend plugin scope
     $.fn.extend({
-        moderation: $.moderation.construct
+        moderation: $.moderation.init
     });
 })(jQuery);

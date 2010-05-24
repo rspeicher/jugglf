@@ -25,12 +25,12 @@
                 %span= link_to_item_with_stats(item.object)
                 - unless item.note.nil?
                   = "(#{h(item.note)})"
-              %table.ipb_table.tablesorter
-                %thead.hide
-                  %tr
-                    %th Member
+              %table.ipb_table.tablesorter.as_wishlist
+                %thead
+                  %tr.hide
+                    %th.member Member
                     %th Priority
-                    %th LF
+                    %th.lootfactor LF
                 %tbody
                   - reset_cycle
                   - item.object.wishlists.each do |wishlist|
@@ -52,6 +52,5 @@
     $(document).ready(function() {
       wishlistMenu(#{@zone.id}, #{@boss.id});
       wishlistHideUnwanted();
-      wishlistSortTables();
       $('.help').tooltip({ showURL: false });
     });

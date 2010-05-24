@@ -8,7 +8,7 @@ if flash[:success].present?
   page.replace "wishlist_#{@wishlist.id}", :partial => "wishlist_row", :object => @wishlist
   page << "$('#wishlist_#{@wishlist.id}').effect('highlight', {}, 1500);"
 
-  page << "zebraRows('wishlist');"
+  page << "$('tbody#wishlist').zebraRows();"
 
   # Hide the edit form, show the add form toggle, focus our new row
   page << "wishlistHideForm();"

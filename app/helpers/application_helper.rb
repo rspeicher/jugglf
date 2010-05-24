@@ -40,7 +40,7 @@ module ApplicationHelper
     options[:url]     ||= polymorphic_path(object)
     options[:text]    ||= ''
     options[:confirm] ||= 'Are you sure you want to delete this record?'
-    options[:success] ||= "$('##{klass}_#{object.id}').fadeOut(250); zebraRows('#{klass}', 300)"
+    options[:success] ||= "$('##{klass}_#{object.id}').fadeOut(250); $('tbody##{klass}').zebraRows({delay: 300});"
 
     link_to_remote(image_tag('delete.png') + h(options[:text]),
       :url     => options[:url],
@@ -55,14 +55,14 @@ module ApplicationHelper
     options[:color]           ||= '#ACE97C'
 
     options[:width] *= 100 if options[:width] <= 1.00
-    
+
     # IP.Board Splat stlyle:
     # content_tag(:p, :title => "Percentage: #{options[:width].to_i}%", :class => "progress_bar") do
     #   content_tag(:span, :style => "width: #{options[:width].to_i}") do
     #     content_tag(:span, "Percentage: #{options[:width].to_i}%")
     #   end
     # end
-    
+
     # Custom style:
     content_tag(:div, :class => 'progress-container', :style => "width: #{options[:container_width].to_i}%") do
       content_tag(:div, nil, :style => "width: #{options[:width].to_i}%; background-color: #{options[:color]}")

@@ -1,5 +1,14 @@
 (function($)
 {
+    /**
+     * Adds jQuery Autocomplete for use on an 'Item Name' field
+     *
+     * Search results have an item icon, a colorzed item name and include the
+     * slot and whether or not the item is Heroic.
+     *
+     * Example:
+     *  $('#item_name').autocomplete_items();
+     */
     $.fn.autocomplete_items = function()
     {
         return this.each(function()
@@ -38,6 +47,12 @@
         });
     };
 
+    /**
+     * Adds jQuery Autocomplete for use on a 'Member Name' field
+     *
+     * Example:
+     *  $('#member_name').autocomplete_members();
+     */
     $.fn.autocomplete_members = function()
     {
         return this.each(function()
