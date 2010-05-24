@@ -1,17 +1,12 @@
-function setupModeration() {
-    $('ul.topic_moderation').moderation();
-}
-
 $(document).ready(function() {
     // Make success messages clickable to hide them
     $('div.message.success').click(function() {
       $(this).fadeOut('slow');
     });
 
-    setupModeration();
-
-    JuggLF.tablesorter.init();
     JuggLF.itemFilter.init();
+    JuggLF.moderation.init();
+    JuggLF.tablesorter.init();
 
     $("#ajax_loading").bind("ajaxSend", function() {
       $(this).show();
@@ -19,8 +14,9 @@ $(document).ready(function() {
       $(this).hide();
 
       // Call these a second time so we apply them for any pages that were loaded via AJAX.
-      JuggLF.tablesorter.init();
       JuggLF.itemFilter.init();
+      JuggLF.moderation.init();
+      JuggLF.tablesorter.init();
     });
 });
 
@@ -91,8 +87,6 @@ function wishlistShowUnwanted() {
 
     $('div.notice').addClass('hide');
 }
-
-
 
 function wishlistShowForm() {
     $('#wishlist_form').show();
