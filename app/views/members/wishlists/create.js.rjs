@@ -13,7 +13,7 @@ if flash[:success].present?
   # page << "sortWishlistTable();"
 
   # Reset the inline form and focus the name field
-  page << "wishlistCleanForm();"
+  page << "JuggLF.wishlist_form.clear();"
 elsif flash[:error].present?
   flash.discard
 

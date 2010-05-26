@@ -15,11 +15,11 @@ $(document).ready(function() {
       $(this).show();
     }).bind("ajaxComplete", function() {
       $(this).hide();
-
+    }).bind("ajaxSuccess", function() {
       // Call these again so we apply them for any pages that were loaded via AJAX.
       JuggLF.itemFilter.init();
       JuggLF.moderation.init();
-      JuggLF.tablesorter.init();
+      // JuggLF.tablesorter.init(); // FIXME: Causes unwanted behavior with wishlist form (duplicate rows)
     });
 });
 
@@ -56,7 +56,7 @@ function wishlistMenu(zone, boss) {
  * wishlist entries by an active member. Either way, we don't want them displayed.
  */
 function wishlistHideUnwanted() {
-    count = 0;
+    var count = 0;
 
     $('div.loot_table').each(function() {
         wishes = $(this).children('table.ipb_table').children('tbody').children('tr').length;
@@ -84,64 +84,4 @@ function wishlistShowUnwanted() {
     });
 
     $('div.notice').addClass('hide');
-}
-
-function wishlistShowForm() {
-    $('#wishlist_form').show();
-    $('#wishlist_form_toggle').hide();
-
-    // Autocomplete item name
-    $('#wishlist_item_name').unautocomplete();
-    $('#wishlist_item_name').autocomplete_items();
-    $('#wishlist_item_name').result(function(event, data, formatted) {
-      $('#wishlist_item_id').val(data.item.id);
-    });
-
-    $('#wishlist_item_name').focus();
-}
-
-function wishlistHideForm() {
-    $('#wishlist_form').hide();
-    $('#wishlist_form_toggle').show();
-}
-
-function wishlistCleanForm() {
-    // Hide the errors div
-    $('#wishlist_form div.messages').addClass('hide');
-
-    // Clear the values of the previous input
-    $('#wishlist_form #wishlist_item_id').val('');
-    $('#wishlist_form #wishlist_priority_normal').attr('checked', 'checked');
-    $('#wishlist_form input[type=text]').each(function() { $(this).val(''); });
-
-    $('#wishlist_item_name').focus();
-}
-
-function wishlistEditLinks() {
-    $('.wishlist a.edit').live('click', function() {
-      $.get($(this).attr('href'), function(value) {
-        wishlistCleanForm();
-        $('#wishlist_form').html(value);
-        wishlistShowForm();
-      });
-
-      return false;
-    });
-
-    $('#wishlist_form_toggle a').click(function() {
-        // Edit form replaced us, fetch the New form
-        if ($('#wishlist_form form').attr('id').match(/^edit_/)) {
-            $.get($(this).attr('href'), function(value) {
-                $('#wishlist_form').html(value);
-                wishlistCleanForm();
-                wishlistShowForm();
-            });
-        }
-        else {
-            wishlistCleanForm();
-            wishlistShowForm();
-        }
-
-        return false;
-    });
 }

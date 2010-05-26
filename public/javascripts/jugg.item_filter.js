@@ -6,7 +6,7 @@
        */
       this.init = function() {
         $('.filterable span.filter').click(this.toggle);
-      }
+      };
 
       /**
        * Toggle visibility of rows not matching the clicked row's type

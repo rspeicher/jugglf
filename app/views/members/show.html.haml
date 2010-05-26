@@ -1,8 +1,9 @@
 :javascript
-  $(document).ready(function(){
+  $(function() {
     $('#member_tabs').tabs({
       cookie: { expires: 30 },
       cache: true,
+      ajaxOptions: { success: JuggLF.tablesorter.init }
     });
   });
 

@@ -6,12 +6,12 @@ if flash[:success].present?
 
   # Replace the table row with the updated values
   page.replace "wishlist_#{@wishlist.id}", :partial => "wishlist_row", :object => @wishlist
-  page << "$('#wishlist_#{@wishlist.id}').effect('highlight', {}, 1500);"
+  page << "$('#wishlist_#{@wishlist.id}').effect('highlight', {}, 1000);"
 
   page << "$('tbody#wishlist').zebraRows();"
 
   # Hide the edit form, show the add form toggle, focus our new row
-  page << "wishlistHideForm();"
+  page << "JuggLF.wishlist_form.hide();"
   page << "$('#wishlist_#{@wishlist.id}').focus();"
 elsif flash[:error].present?
   flash.discard

@@ -1,109 +1,119 @@
-function clearWishlistForm(which) {
-    // Hide the errors div
-    $(which + ' div.messages').addClass('hide');
+(function($) {
+  $.extend(JuggLF, {
+    wishlist_form: new function() {
+      var editing = false;
 
-    // Clear the values of the previous input
-    $(which + ' #wishlist_wow_id').val('');
-    $(which + ' input[type=text]').each(function() {
-        $(this).val('');
-    });
-    $(which + ' #wishlist_priority_normal').attr('checked', 'checked');
-}
+      /**
+       * Initializes the entire wishlist form
+       *
+       * - Adds behavior to Edit links to make them display inline
+       * - Adds behavior to "Add New Entry" to display the form inline
+       * - Adds behavior to "Cancel" on the wishlist form to hide the form
+       */
+      this.init = function() {
+        $('.wishlist a.edit').live('click', this.edit);
+        $('#wishlist_form_toggle a').click(this.toggle);
+        $('#wishlist_form a.cancel').live('click', this.hide);
+      };
 
-function showWishlistForm(which) {
-    console.log(which);
+      /**
+       * Clears the wishlist form for new input
+       */
+      this.clear = function() {
+        // Hide the errors div
+        $('#wishlist_form div.messages').addClass('hide');
 
-    // Show the New form
-    $(which).show();
+        // Clear the values of the previous input
+        $('#wishlist_form #wishlist_item_id').val('');
+        $('#wishlist_form #wishlist_priority_normal').attr('checked', 'checked');
+        $('#wishlist_form input[type=text]').each(function() { $(this).val(''); });
 
-    // Focus the first field
-    $(which + ' #wishlist_item_name').focus();
+        // Focus first field
+        $('#wishlist_item_name').focus();
 
-    // Hide the 'Add Entry' button so people don't confuse it with the Submit
-    $('#wishlist_form_toggle').hide();
+        return false;
+      };
 
-    // Add autocompletion if it doesn't already have it
-    if (!$(which + ' #wishlist_item_name').hasClass('ac_input')) {
-        $(which + ' #wishlist_item_name').autocomplete_items();
-    }
-
-    // When an autocomplete result is selected, change the value of the wow_id input
-    $(which + ' #wishlist_item_name').result(function(event, data, formatted) {
-      $(which + ' #wishlist_wow_id').val(data.item.wow_id);
-    });
-}
-
-(function($)
-{
-    $.extend({
-        wishlist_form: new function() {
-            // Private
-            function clear_form(f) {
-            }
-
-            function show_form(f) {
-            }
-
-            // Public
-            this.construct = function(settings) {
-                return this.each(function() {
-                    clear_form(this);
-                    show_form(this);
-                });
-            };
+      /**
+       * Shows the wishlist form, hides the "Add New Entry" toggle button
+       *
+       * Clears the form for a new entry, and adds autocomplete to the Item Name
+       * field
+       */
+      this.show = function() {
+        // If the form is for a new entry, we want to clear it
+        if (editing === false) {
+          this.clear();
         }
-    });
 
-    // extend plugin scope
-    $.fn.extend({
-        wishlist_form: $.wishlist_form.construct
-    });
+        $('#wishlist_form').show();
+        $('#wishlist_form_toggle').hide();
 
-
-    // -------------------------------------------------------------------------
-
-    $.extend({
-        // wishlist_form: {
-        //     hide: function() {
-        //         this.clear();
-        //         $('#wishlist_form').hide();
-        //         $('#wishlist_form_toggle').show();
-        //     }
-        // },
-
-        wishlists: {
-            edit_links: function() {
-                $('.wishlist a.edit').live('click', function() {
-                  $.get($(this).attr('href'), function(value) {
-                    $('#wishlist_form').html(value);
-                  });
-                  $.wishlist_form.show();
-                  return false;
-                });
-            }
-        }
-    });
-})(jQuery);
-
-/* BEGIN BUGGYNESS ---------------------------------------------------------- */
-
-/**
- * Wipe out an existing 'Edit' form when we want a 'New' form
- */
-function wishlistNewForm(path) {
-    if ($('#wishlist_form form').attr('id').match(/^edit_/)) {
-        $.get(path, function(value) {
-            $('#wishlist_form').html(value);
-            wishlistForm();
+        // Autocomplete item name
+        $('#wishlist_item_name').unautocomplete();
+        $('#wishlist_item_name').autocomplete_items();
+        $('#wishlist_item_name').result(function(event, data, formatted) {
+          $('#wishlist_item_id').val(data.item.id); // Set item_id value when result is selected
         });
-    }
-    else {
-        wishlistForm();
-    }
-}
 
-function wishlistEdit() {
+        // Focus first field
+        $('#wishlist_item_name').focus();
 
-}
+        return false;
+      };
 
-/* ------------------------------------------------------------ END BUGGYNESS */
+      /**
+       * Hides the wishlist form, shows the "Add New Entry" toggle button
+       */
+      this.hide = function() {
+        $('#wishlist_form').hide();
+        $('#wishlist_form_toggle').show();
+
+        return false;
+      };
+
+      /**
+       * Handler function for each wishlist row's "Edit" link
+       *
+       * Example:
+       *   $('.wishlist a.edit').live('click', JuggLF.wishlist_form.edit);
+       */
+      this.edit = function() {
+        // Take the href attr of the edit link and perform a GET request for it,
+        // replacing the value of #wishlist_form with the returned value,
+        // then show the form
+        $.get($(this).attr('href'), function(value) {
+          editing = true;
+
+          $('#wishlist_form').html(value);
+          JuggLF.wishlist_form.show();
+        });
+
+        return false;
+      };
+
+      /**
+       * Handler function for the "Add New Entry" toggle button
+       *
+       * Example:
+       *   $('#wishlist_form_toggle a').click(JuggLF.wishlist_form.toggle);
+       */
+      this.toggle = function() {
+        // Edit form replaced us, fetch the New form
+        if (editing === true) {
+          $.get($(this).attr('href'), function(value) {
+            $('#wishlist_form').html(value);
+            JuggLF.wishlist_form.show();
+          });
+
+          editing = false;
+        }
+        else {
+          JuggLF.wishlist_form.show();
+        }
+
+        return false;
+      };
+    } // wishlist_form
+  });
+})(jQuery);

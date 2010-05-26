@@ -1,6 +1,6 @@
 :javascript
-  $(document).ready(function() {
-    wishlistEditLinks();
+  $(function() {
+    JuggLF.wishlist_form.init();
   });
 %table#wishlists.ipb_table.tablesorter.as_member_wishlist
   %thead
@@ -12,8 +12,8 @@
       %th Slot
       %th.image &nbsp;
   %tbody#wishlist
-    - @wishlists.each do |wishlist|
-      = render :partial => "wishlist_row", :object => wishlist, :locals => { :recent_loots => @recent_loots }
+    = render :partial => 'wishlist_row', :collection => @wishlists, :locals => {:recent_loots => @recent_loots}
+
 %br
 #wishlist_form{ :style => "display: none" }= render :partial => 'form'
 #wishlist_form_toggle
