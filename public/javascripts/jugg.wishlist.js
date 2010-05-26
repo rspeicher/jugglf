@@ -1,3 +1,7 @@
+if (typeof JuggLF === "undefined") {
+  var JuggLF = {};
+}
+
 (function($) {
   $.extend(JuggLF, {
     wishlist_form: new function() {
@@ -114,6 +118,73 @@
 
         return false;
       };
-    } // wishlist_form
+    }, // wishlist_form
+
+    wishlist: new function() {
+      function doMenu(zone_id, boss_id) {
+        $('div.author_info ul ul').each(function() {
+          // Boss doesn't belong to this zone, so hide it
+          if ($(this).attr('id') != 'loot_table_' + zone_id) {
+            $(this).hide();
+          }
+          else {
+            // Make sure this boss is shown, since it belongs to this zone
+            $(this).removeClass('hide');
+
+            $(this).children().each(function() {
+              // Viewing this boss, so unlink it and make it bold
+              if ($(this).attr('id') == 'loot_table_' + boss_id) {
+                $(this).html('<b>' + $(this).text() + '</b>');
+              }
+            });
+          }
+        });
+      }
+
+      function hideUnwanted() {
+        var hidden = 0;
+
+        $('div.loot_table').each(function() {
+          // If a wishlist table has 0 rows, it's an unwanted item, so we can hide the table entirely
+          var wishes = $(this).children('table.ipb_table').children('tbody').children('tr').length;
+          if (wishes == 0) {
+            $(this).hide();
+            hidden++;
+          }
+
+          // Hide the clipboard icon if 0 or 1 people want this, since there'd be nothing to compare
+          if (wishes == 0 || wishes == 1) {
+            $(this).children('p.posted_info').children('a').hide();
+          }
+        });
+
+        if (hidden > 0) {
+          $('div.notice.unwanted').html($('div.notice.unwanted').html().replace('{{count}}', hidden));
+          $('div.notice.unwanted').removeClass('hide');
+        }
+      }
+
+      this.showUnwanted = function() {
+        $('div.loot_table').each(function() {
+          $(this).show();
+        });
+
+        $('div.notice.unwanted').addClass('hide');
+      };
+
+      /**
+       * Filter and style the global wishlist view menu.
+       *
+       * Hides the boss list for zones we're not currently being viewed.
+       * Removes the link and bolds the text of the currently viewed boss.
+       *
+       * zone     integer     ID of the current Zone object
+       * boss     integer     ID of the current Boss object
+       */
+      this.init = function(zone_id, boss_id) {
+        doMenu(zone_id, boss_id);
+        hideUnwanted();
+      };
+    } // wishlist
   });
 })(jQuery);

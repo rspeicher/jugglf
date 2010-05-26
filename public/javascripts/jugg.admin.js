@@ -1,12 +1,5 @@
-/**
- * Given a price_loot_path value, fetch the value of the item and update the
- * loot_price field to the returned value.
- */
-function findItemPrice(path) {
-    $.get(path, {}, function(data) {
-        $('#loot_price').val(data);
-        $('#loot_price').effect('highlight', {}, 1500);
-    });
+if (typeof JuggLF === "undefined") {
+  var JuggLF = {};
 }
 
 /**

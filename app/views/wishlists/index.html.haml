@@ -43,13 +43,15 @@
                           %span.smaller= h(wishlist.note)
                         %td{ :style => 'width: 90px'}= h(wishlist.priority.titlecase)
                         %td.lootfactor= loot_factor(wishlist.member.lf_type(wishlist.priority))
-          .notice.hide
+          .notice.unwanted.hide
+            %strong Note:
+            Hiding {{count}} unwanted items.
+            == Click #{link_to_function('here', 'JuggLF.wishlist.showUnwanted()')} to show them.
         %ul.post_controls
           %li.top= link_to(image_tag('http://www.juggernautguild.com/public/style_images/splat/post_top.png', :alt => '') + ' Back to top', '#top', :class => 'top')
 
 - unless @zone.nil? or @boss.nil?
   :javascript
     $(document).ready(function() {
-      wishlistMenu(#{@zone.id}, #{@boss.id});
-      wishlistHideUnwanted();
+      JuggLF.wishlist.init(#{@zone.id}, #{@boss.id});
     });

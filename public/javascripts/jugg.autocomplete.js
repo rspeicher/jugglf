@@ -1,3 +1,7 @@
+if (typeof JuggLF === "undefined") {
+  var JuggLF = {};
+}
+
 (function($)
 {
     /**

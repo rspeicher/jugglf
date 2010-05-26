@@ -1,3 +1,7 @@
+if (typeof JuggLF === "undefined") {
+  var JuggLF = {};
+}
+
 /**
  * Generates a unique ID for an element, given a prefix
  *
