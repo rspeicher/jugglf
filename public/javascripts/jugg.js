@@ -8,22 +8,20 @@ $(document).ready(function() {
     JuggLF.moderation.init();
     JuggLF.tablesorter.init();
 
+    // Add tooltips to '.help' objects
+    $('.help').tooltip({ showURL: false });
+
     $("#ajax_loading").bind("ajaxSend", function() {
       $(this).show();
     }).bind("ajaxComplete", function() {
       $(this).hide();
 
-      // Call these a second time so we apply them for any pages that were loaded via AJAX.
+      // Call these again so we apply them for any pages that were loaded via AJAX.
       JuggLF.itemFilter.init();
       JuggLF.moderation.init();
       JuggLF.tablesorter.init();
     });
 });
-
-// function initToggles() {
-//     $('.toggle').click(function() {
-//     });
-// }
 
 /* Wishlists ---------------------------------------------------------------- */
 
