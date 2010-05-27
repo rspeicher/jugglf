@@ -19,14 +19,14 @@
   %table#loot.ipb_table.tablesorter
     %thead
       %tr
-        %th Name
+        %th.item Name
         %th.member Buyer
         %th Notes
         %th.number Price
     %tbody.filterable
       - @loots.each do |loot|
         %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }[loot]
-          %td
+          %td.item
             = link_to_item_with_stats(loot.item)
             = render :partial => 'shared/moderation', :object => loot if admin?
           %td.member= link_to_member(loot.member)
