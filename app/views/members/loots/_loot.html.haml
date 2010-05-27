@@ -1,0 +1,8 @@
+%tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }[loot]
+  %td
+    = link_to_item_with_stats(loot.item)
+    = render :partial => 'shared/moderation', :object => loot if admin?
+  %td= loot_tell_types(loot)
+  %td= loot_factor_cutoff(loot.purchased_on)
+  %td.date= link_to h(loot.purchased_on), raid_path(loot.raid_id) unless loot.raid_id.nil?
+  %td.number= loot_factor(loot.adjusted_price)

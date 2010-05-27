@@ -1,12 +1,3 @@
-:javascript
-  $(document).ready(function() {
-    $('#loots_pagination a').click(function() {
-      $.get($(this).attr('href'), function(value) {
-        $('#loots_pagination').parent().html(value);
-      });
-      return false;
-    });
-  });
 %table.ipb_table
   %thead
     %tr
@@ -15,14 +6,6 @@
       %th Falls Off
       %th.date Raid
       %th.number Price
-  %tbody.filterable
-    - @loots.each do |loot|
-      %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }[loot]
-        %td
-          = link_to_item_with_stats(loot.item)
-          = render :partial => 'shared/moderation', :object => loot if admin?
-        %td= loot_tell_types(loot)
-        %td= loot_factor_cutoff(loot.purchased_on)
-        %td.date= link_to h(loot.purchased_on), raid_path(loot.raid_id) unless loot.raid_id.nil?
-        %td.number= loot_factor(loot.adjusted_price)
-= will_paginate(@loots, :id => 'loots_pagination')
+  %tbody#loots.filterable
+    = render :partial => 'loot', :collection => @loots
+= will_paginate(@loots, :renderer => TwitterPagination::LinkRenderer, :id => 'loots_pagination')

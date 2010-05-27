@@ -1,0 +1,2 @@
+page.insert_html :bottom, :loots, :partial => @loots
+page.replace :loots_pagination, will_paginate(@loots, :renderer => TwitterPagination::LinkRenderer, :id => 'loots_pagination')
