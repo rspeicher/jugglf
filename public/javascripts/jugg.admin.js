@@ -2,29 +2,6 @@ if (typeof JuggLF === "undefined") {
   var JuggLF = {};
 }
 
-/**
- * Prompt the user with a string to copy that allows them to whisper someone
- * in WoW for an in-game comparison from JuggyCompare
- */
-function wishlistCompare(id) {
-    // Whisper, item name
-    str = '/w Tsigo compare [' + $('#loot_table_' + id + ' p.posted_info span:first').text() + '],';
-
-    // Build an array of "<Name> <type>" strings
-    names = new Array();
-    $('#loot_table_' + id + ' table tbody tr').each(function() {
-        name     = $(this).find('td.member span.larger a').text();
-        priority = $(this).children('td:eq(1)').text().substr(0,3).toLowerCase();
-        piece    = (priority == 'nor') ? name : name + ' ' + priority;
-        if (jQuery.inArray(piece, names) < 0) {
-            names.push(piece);
-        }
-    });
-    str += jQuery.unique(names).join(',');
-
-    prompt("Copy and paste:", str);
-}
-
 function attendanceEditLoot(id) {
     loot_row   = '#live_loot_' + id;
 

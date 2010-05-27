@@ -164,6 +164,31 @@ if (typeof JuggLF === "undefined") {
         }
       }
 
+      /**
+       * Prompt the user with a string to copy that allows them to whisper someone
+       * in WoW for an in-game comparison from JuggyCompare
+       */
+      this.compare = function(id) {
+        // Whisper + item name in brackets
+        var str = '/w Tsigo compare [' + $('#loot_table_' + id + ' p.posted_info span:first').text().trim() + '],';
+
+        // Build an array of "<Name> <type>" strings
+        var pieces = [];
+        $('#loot_table_' + id + ' table tbody tr').each(function() {
+          name     = $(this).find('td.member span.larger a').text().trim();
+          priority = $(this).children('td:eq(1)').text().substr(0,3).toLowerCase().trim();
+          piece    = (priority == 'nor') ? name : name + ' ' + priority;
+
+          // Only add one entry per piece (member + type pair)
+          if ($.inArray(piece, pieces) < 0) {
+            pieces.push(piece);
+          }
+        });
+        str += $.unique(pieces).join(',');
+
+        prompt("Copy and paste:", str);
+      };
+
       this.showUnwanted = function() {
         $('div.loot_table').each(function() {
           $(this).show();
