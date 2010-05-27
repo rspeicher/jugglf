@@ -34,12 +34,13 @@ if (typeof JuggLF === "undefined") {
         else {
           // Toggle ON
           $(tbody).children('tr').filter(function() {
-              // Add a 'filtering' class to the row so the CSS can change the background icon
-              if ($(this).hasClass(filter_type)) {
-                $(this).addClass('filtering');
-              }
-              // Return true for classes that DON'T have this class, since we're hiding them
-              return !$(this).hasClass(filter_type);
+            // Add a 'filtering' class to the row so the CSS can change the background icon
+            if ($(this).hasClass(filter_type)) {
+              $(this).addClass('filtering');
+            }
+
+            // Return true for classes that DON'T have this class, since we're hiding them
+            return !$(this).hasClass(filter_type);
           }).hide();
         }
 
