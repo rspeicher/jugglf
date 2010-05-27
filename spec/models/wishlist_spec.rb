@@ -1,16 +1,3 @@
-# == Schema Information
-#
-# Table name: wishlists
-#
-#  id         :integer(4)      not null, primary key
-#  item_id    :integer(4)
-#  member_id  :integer(4)
-#  priority   :string(255)     default("normal"), not null
-#  note       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 require 'spec_helper'
 
 describe Wishlist do

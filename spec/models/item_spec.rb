@@ -1,21 +1,3 @@
-# == Schema Information
-#
-# Table name: items
-#
-#  id              :integer(4)      not null, primary key
-#  name            :string(100)
-#  wishlists_count :integer(4)      default(0)
-#  loots_count     :integer(4)      default(0)
-#  color           :string(15)
-#  icon            :string(255)
-#  level           :integer(4)      default(0)
-#  slot            :string(255)
-#  created_at      :datetime
-#  updated_at      :datetime
-#  heroic          :boolean(1)
-#  authentic       :boolean(1)
-#
-
 require 'spec_helper'
 
 describe Item do

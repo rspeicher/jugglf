@@ -1,12 +1,3 @@
-# == Schema Information
-#
-# Table name: live_raids
-#
-#  id         :integer(4)      not null, primary key
-#  started_at :datetime
-#  stopped_at :datetime
-#
-
 require 'spec_helper'
 
 describe LiveRaid do

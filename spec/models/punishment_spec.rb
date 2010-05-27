@@ -1,16 +1,3 @@
-# == Schema Information
-#
-# Table name: punishments
-#
-#  id         :integer(4)      not null, primary key
-#  member_id  :integer(4)
-#  reason     :string(255)
-#  expires_on :date
-#  value      :float           default(0.0)
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 require 'spec_helper'
 
 describe Punishment do

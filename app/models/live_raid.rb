@@ -1,12 +1,3 @@
-# == Schema Information
-#
-# Table name: live_raids
-#
-#  id         :integer(4)      not null, primary key
-#  started_at :datetime
-#  stopped_at :datetime
-#
-
 class LiveRaid < ActiveRecord::Base
   attr_accessible :attendees_string
 

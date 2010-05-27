@@ -1,14 +1,3 @@
-# == Schema Information
-#
-# Table name: live_loots
-#
-#  id           :integer(4)      not null, primary key
-#  loot_type    :string(255)
-#  item_id      :integer(4)
-#  member_id    :integer(4)
-#  live_raid_id :integer(4)
-#
-
 require 'spec_helper'
 
 describe LiveLoot do

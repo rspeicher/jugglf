@@ -1,20 +1,3 @@
-# == Schema Information
-#
-# Table name: loots
-#
-#  id           :integer(4)      not null, primary key
-#  item_id      :integer(4)
-#  price        :float
-#  purchased_on :date
-#  best_in_slot :boolean(1)
-#  situational  :boolean(1)
-#  rot          :boolean(1)
-#  member_id    :integer(4)
-#  raid_id      :integer(4)
-#  created_at   :datetime
-#  updated_at   :datetime
-#
-
 class Loot < ActiveRecord::Base
   attr_accessible(:item, :item_id, :item_name, :price, :purchased_on,
     :best_in_slot, :situational, :rot, :member, :member_id, :member_name, :raid,

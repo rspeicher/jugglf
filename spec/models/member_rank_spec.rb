@@ -1,13 +1,3 @@
-# == Schema Information
-#
-# Table name: member_ranks
-#
-#  id     :integer(4)      not null, primary key
-#  name   :string(255)
-#  prefix :string(255)
-#  suffix :string(255)
-#
-
 require 'spec_helper'
 
 describe MemberRank do

@@ -1,13 +1,3 @@
-# == Schema Information
-#
-# Table name: attendees
-#
-#  id         :integer(4)      not null, primary key
-#  member_id  :integer(4)
-#  raid_id    :integer(4)
-#  attendance :float
-#
-
 class Attendee < ActiveRecord::Base
   attr_accessible :member, :member_id, :raid, :raid_id, :attendance
 
