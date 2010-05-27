@@ -6,7 +6,8 @@
     - if wishlist_row.item_id.present? and wishlist_row.item.heroic?
       %span (Heroic)
   %td= h(wishlist_row.priority.titlecase)
-  %td= truncate(h(wishlist_row.note), :length => 80)
+  %td
+    %p{:title => h(wishlist_row.note)}= truncate(h(wishlist_row.note), :length => 70)
   %td= h(wishlist_row.item.slot) unless wishlist_row.item_id.nil?
   %td.image{ :width => "48px" }
     = link_to(image_tag('edit.png'), edit_member_wishlist_path(@member, wishlist_row), :class => 'edit')
