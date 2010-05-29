@@ -2,6 +2,8 @@ class RaidsController < ApplicationController
   before_filter :require_admin
   before_filter :find_raid, :only => [:show, :edit, :update, :destroy]
 
+  cache_sweeper :index_sweeper, :only => [:create, :update, :destroy]
+
   def index
     page_title('Raid History')
 

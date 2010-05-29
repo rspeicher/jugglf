@@ -1,29 +1,34 @@
 class IndexController < ApplicationController
-  caches_action :index, :layout => false # NOTE: Gets 'expired' (deleted) by updatelf.rake
-
   def index
+    cache_defaults = {:controller => 'index', :action => 'index'}
+
     # Number of members in guild, number in each class
-    @count_guild = Member.active.count
-    @counts      = IndexStat.class_counts(:active)
+    unless fragment_exist?(cache_defaults.merge(:action_suffix => 'class_counts'))
+      @count_guild = Member.active.count
+      @counts      = IndexStat.class_counts(:active)
+    end
 
     # Attendance averages
-    @attendance_guild = IndexStat.attendance_average(:guild)
-    @attendance       = IndexStat.attendance_average(:class)
-    @lootfactor_guild = IndexStat.loot_factor_average(:guild)
-    @lootfactor       = IndexStat.loot_factor_average(:class)
+    unless fragment_exist?(cache_defaults.merge(:action_suffix => 'attendance_averages'))
+      @attendance_guild = IndexStat.attendance_average(:guild)
+      @attendance       = IndexStat.attendance_average(:class)
+    end
 
-    @stat_groups = [
-      # Partial                  Object
-      [ 'common_items',          IndexStat.common_items ],
-      [ 'common_tokens',         IndexStat.common_tokens ],
-      [ 'most_wishlists',        IndexStat.most_requested ],
-      [ 'loots_per_raid',        IndexStat.loots_per_raid ],
-      [ 'oldest_members',        IndexStat.oldest_members ],
-      [ 'best_attendance',       IndexStat.best_attendance ],
-      [ 'worst_recruits',        IndexStat.least_recruitable ],
-      [ 'highest_turnover',      IndexStat.highest_turnover ],
-      [ 'shadowmourne_progress', IndexStat.shadowmourne_progress ], # FIXME: Item not found error in new installation
-    ]
+    unless fragment_exist?(cache_defaults.merge(:action_suffix => 'loot_factor_averages'))
+      @lootfactor_guild = IndexStat.loot_factor_average(:guild)
+      @lootfactor       = IndexStat.loot_factor_average(:class)
+    end
+
+    @stat_groups = []
+    ['common_items', 'common_tokens', 'most_requested', 'loots_per_raid', 'oldest_members', 'best_attendance', 'least_recruitable', 'highest_turnover', 'shadowmourne_progress'].each do |key|
+      unless fragment_exist?(cache_defaults.merge(:action_suffix => key))
+        # Fragment doesn't exist, call the matching IndexStat method and pass it on to the view
+        @stat_groups << [key, IndexStat.send(key)] 
+      else
+        # Fragment already exists, just add the key to array so that the partial still gets rendered
+        @stat_groups << [key, nil]
+      end
+    end
 
     respond_to do |wants|
       wants.html

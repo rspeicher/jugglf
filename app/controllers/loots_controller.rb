@@ -3,6 +3,8 @@ class LootsController < ApplicationController
   before_filter :find_loot, :only => [:show, :edit, :update, :destroy, :price]
   before_filter :raids_select, :only => [:new, :edit]
 
+  cache_sweeper :index_sweeper, :only => [:create, :update, :destroy]
+
   layout @@layout
 
   def index

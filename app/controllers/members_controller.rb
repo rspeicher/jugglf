@@ -4,6 +4,8 @@ class MembersController < ApplicationController
   before_filter :find_member,       :except => [:index, :new, :create]
   before_filter :field_collections, :except => [:index, :show, :destroy] # Populate the Rank and Invision User collections
 
+  cache_sweeper :index_sweeper, :only => [:create, :update, :destroy]
+
   def index
     page_title('Members')
 

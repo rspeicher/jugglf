@@ -9,46 +9,48 @@
         - Member::WOW_CLASSES.each do |wow_class|
           %th.right= image_tag("classes/#{wow_class.downcase.gsub(/\s+/, '_')}.gif", :alt => wow_class)
     %tbody
-      / Class Counts
-      %tr{ :class => cycle('row1', 'row2') }
-        %td.right Active
-        %td.right= h(@count_guild)
-        - @counts.each do |wow_class, count|
-          %td.number= link_to h(count), search_members_path(:q => wow_class)
-      / Attendance Averages
-      %tr{ :class => cycle('row1', 'row2') }
-        %td.right 30-Day
-        %td.number= member_attendance_colored(@attendance_guild.avg_30.to_f)
-        - @attendance.each do |group|
-          %td.number= member_attendance_colored(group.avg_30.to_f)
-      %tr{ :class => cycle('row1', 'row2') }
-        %td.right 90-Day
-        %td.number= member_attendance_colored(@attendance_guild.avg_90.to_f)
-        - @attendance.each do |group|
-          %td.number= member_attendance_colored(group.avg_90.to_f)
-      %tr{ :class => cycle('row1', 'row2') }
-        %td.right Lifetime
-        %td.number= member_attendance_colored(@attendance_guild.avg_lifetime.to_f)
-        - @attendance.each do |group|
-          %td.number= member_attendance_colored(group.avg_lifetime.to_f)
+      - cache :action => 'index', :action_suffix => 'class_counts' do
+        %tr{ :class => cycle('row1', 'row2') }
+          %td.right Active
+          %td.right= h(@count_guild)
+          - @counts.each do |wow_class, count|
+            %td.number= link_to h(count), search_members_path(:q => wow_class)
+      - cache :action => 'index', :action_suffix => 'attendance_averages' do
+        %tr{ :class => cycle('row1', 'row2') }
+          %td.right 30-Day
+          %td.number= member_attendance_colored(@attendance_guild.avg_30.to_f)
+          - @attendance.each do |group|
+            %td.number= member_attendance_colored(group.avg_30.to_f)
+        %tr{ :class => cycle('row1', 'row2') }
+          %td.right 90-Day
+          %td.number= member_attendance_colored(@attendance_guild.avg_90.to_f)
+          - @attendance.each do |group|
+            %td.number= member_attendance_colored(group.avg_90.to_f)
+        %tr{ :class => cycle('row1', 'row2') }
+          %td.right Lifetime
+          %td.number= member_attendance_colored(@attendance_guild.avg_lifetime.to_f)
+          - @attendance.each do |group|
+            %td.number= member_attendance_colored(group.avg_lifetime.to_f)
       / Loot Factor Averages
-      %tr{ :class => cycle('row1', 'row2') }
-        %td.right Loot Factor
-        %td.number= loot_factor(@lootfactor_guild.avg_lf.to_f)
-        - @lootfactor.each do |group|
-          %td.number= loot_factor(group.avg_lf.to_f)
-      %tr{ :class => cycle('row1', 'row2') }
-        %td.right Best In Slot
-        %td.number= loot_factor(@lootfactor_guild.avg_bislf.to_f)
-        - @lootfactor.each do |group|
-          %td.number= loot_factor(group.avg_bislf.to_f)
-      %tr{ :class => cycle('row1', 'row2') }
-        %td.right Situational
-        %td.number= loot_factor(@lootfactor_guild.avg_sitlf.to_f)
-        - @lootfactor.each do |group|
-          %td.number= loot_factor(group.avg_sitlf.to_f)
+      - cache :action => 'index', :action_suffix => 'loot_factor_averages' do
+        %tr{ :class => cycle('row1', 'row2') }
+          %td.right Loot Factor
+          %td.number= loot_factor(@lootfactor_guild.avg_lf.to_f)
+          - @lootfactor.each do |group|
+            %td.number= loot_factor(group.avg_lf.to_f)
+        %tr{ :class => cycle('row1', 'row2') }
+          %td.right Best In Slot
+          %td.number= loot_factor(@lootfactor_guild.avg_bislf.to_f)
+          - @lootfactor.each do |group|
+            %td.number= loot_factor(group.avg_bislf.to_f)
+        %tr{ :class => cycle('row1', 'row2') }
+          %td.right Situational
+          %td.number= loot_factor(@lootfactor_guild.avg_sitlf.to_f)
+          - @lootfactor.each do |group|
+            %td.number= loot_factor(group.avg_sitlf.to_f)
 
 %div.category_block.block_wrap
   = render :partial => 'shared/maintitle', :object => 'Records'
   - @stat_groups.each do |arr|
-    .record_group= render :partial => "index/#{arr[0]}", :object => arr[1]
+    - cache :action => 'index', :action_suffix => arr[0] do
+      .record_group= render :partial => "index/#{arr[0]}", :object => arr[1]

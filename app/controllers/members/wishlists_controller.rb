@@ -8,6 +8,8 @@ class Members::WishlistsController < ApplicationController
 
   skip_before_filter :verify_authenticity_token, :only => [:create]
 
+  cache_sweeper :index_sweeper, :only => [:create, :update, :destroy]
+
   def index
     @wishlist     = Wishlist.new # Let the "Add New" form work
     @wishlists    = @member.wishlists
