@@ -15,7 +15,8 @@ describe IndexController, "GET index" do
     IndexStat.stub!(:oldest_members).and_return([])
     IndexStat.stub!(:least_recruitable).and_return([])
     IndexStat.stub!(:highest_turnover).and_return([])
-    IndexStat.stub!(:fragment_progress).and_return([])
+    IndexStat.stub!(:shadowmourne_progress).and_return([])
+    IndexStat.stub!(:best_attendance).and_return([])
     get :index
   end
 
@@ -25,7 +26,7 @@ describe IndexController, "GET index" do
   it { should assign_to(:attendance) }
   it { should assign_to(:lootfactor_guild) }
   it { should assign_to(:lootfactor) }
-  it { should assign_to(:stat_groups) }
+  it { should assign_to(:stat_groups).with_kind_of(Array) }
   it { should render_template(:index) }
   it { should respond_with(:success) }
 end
