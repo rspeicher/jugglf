@@ -98,9 +98,8 @@ class Raid < ActiveRecord::Base
       loots = Juggy.parse_loots(@loot_output)
       return if loots.nil? or loots.size == 0
 
-      loots.each do |params|
-        self.loots.create(params.merge!(:purchased_on => self.date,
-          :update_cache => false))
+      loots.each do |attributes|
+        self.loots.create(attributes.merge!(:purchased_on => self.date, :update_cache => false))
       end
     end
 
