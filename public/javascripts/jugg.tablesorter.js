@@ -102,6 +102,22 @@ $.tablesorter.addParser({
       }
 
       /**
+       * Sort a table of Loots
+       *
+       * Assumes that the table has both a +tablesorter+ and +as_loots+ class.
+       */
+      function as_loots() {
+        if ($('table.tablesorter.as_loots tbody tr').length > 1) {
+          $('table.tablesorter.as_loots').tablesorter($.extend({
+            sortList: [[0,0]],
+            headers: {
+              0: { sorter: 'without-link' } // Item
+            }
+          }, defaults));
+        }
+      }
+
+      /**
        * Sort a table of Members
        *
        * Assumes that the table has both a +tablesorter+ and +as_members+ class.
@@ -161,6 +177,7 @@ $.tablesorter.addParser({
       // Public
       this.init = function() {
         as_items();
+        as_loots();
         as_members();
         as_member_wishlist();
         as_wishlist();

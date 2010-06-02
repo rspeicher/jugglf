@@ -1,7 +1,3 @@
-:javascript
-  $(document).ready(function(){
-    $("table#loot").tablesorter({ sortList: [[0,0]], widgets: ['zebra'], headers: {0:{sorter: 'without-link'}} });
-  });
 - breadcrumb link_to('Raids', raids_path), h(@raid.date)
 
 #attendees
@@ -16,7 +12,7 @@
             = link_to_member(att.member)
 #drops
   = render :partial => 'shared/maintitle', :object => "Loots (#{@raid.loots.size})"
-  %table#loot.ipb_table.tablesorter
+  %table#loot.ipb_table.tablesorter.as_loots
     %thead
       %tr
         %th.item Name
