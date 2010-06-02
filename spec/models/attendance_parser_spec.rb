@@ -39,78 +39,63 @@ describe AttendanceParser, ".parse_loots" do
       AttendanceParser.parse_loots("#{member.name} - [Whatever]|12345")
     end
   end
+
+  describe "loot attributes" do
+    let(:item) { Factory(:item_with_real_stats) }
+
+    it "should return one Hash" do
+      loot = AttendanceParser.parse_loots("Member - #{item.name}")
+      loot[0].should be_a Hash
+    end
+
+    it "should correctly set best_in_slot" do
+      loot = AttendanceParser.parse_loots("Member (bis) - #{item.name}")
+      loot[0][:best_in_slot].should be_true
+    end
+
+    it "should correctly set situational" do
+      loot = AttendanceParser.parse_loots("Member (sit) - #{item.name}")
+      loot[0][:situational].should be_true
+    end
+
+    it "should correctly set rot" do
+      loot = AttendanceParser.parse_loots("Member (rot) - #{item.name}")
+      loot[0][:rot].should be_true
+    end
+
+    it "should correctly set best_in_slot and rot at the same time" do
+      loot = AttendanceParser.parse_loots("Member (bis rot) - #{item.name}")
+      loot[0][:best_in_slot].should be_true
+      loot[0][:rot].should be_true
+    end
+
+    it "should not have false positives for purchase types inside buyer names" do
+      loot = AttendanceParser.parse_loots("Membiser - #{item.name}")
+      loot[0][:best_in_slot].should be_false
+    end
+
+    it "should set member as nil if buyer is 'DE'" do
+      loot = AttendanceParser.parse_loots("DE - #{item.name}")
+      loot[0][:member].should be_nil
+    end
+
+    context "with multiple buyers on one line" do
+      let(:loot) { AttendanceParser.parse_loots("Modrack (bis), Rosoo (sit), DE - #{item.name}") }
+
+      it "should get the correct number of buyers" do
+        loot.size.should eql(3)
+      end
+
+      it "should get the correct buyer names" do
+        loot[0][:member].name.should eql('Modrack')
+        loot[1][:member].name.should eql('Rosoo')
+        loot[2][:member].should be_nil
+      end
+
+      it "should get the correct item types" do
+        loot[0][:best_in_slot].should be_true
+        loot[1][:situational].should be_true
+      end
+    end
+  end
 end
-# 
-#     describe "loot details" do
-#       let(:item) { Factory(:item_with_real_stats) }
-# 
-#       it "should return one Hash" do
-#         loot = AttendanceParser.parse_loots("Sebudai - #{item.name}")
-#         loot[0].class.should eql(Hash)
-#       end
-# 
-#       it "should correctly set best_in_slot" do
-#         loot = AttendanceParser.parse_loots("Modrack (bis) - #{item.name}")
-#         loot[0][:best_in_slot].should be_true
-#       end
-# 
-#       it "should correctly set situational" do
-#         loot = AttendanceParser.parse_loots("Modrack (sit) - #{item.name}")
-#         loot[0][:situational].should be_true
-#       end
-# 
-#       it "should correctly set rot" do
-#         loot = AttendanceParser.parse_loots("Modrack (rot) - #{item.name}")
-#         loot[0][:rot].should be_true
-#       end
-# 
-#       it "should correctly set best_in_slot and rot at the same time" do
-#         loot = AttendanceParser.parse_loots("Modrack (bis rot) - #{item.name}")
-#         loot[0][:best_in_slot].should be_true
-#         loot[0][:rot].should be_true
-#       end
-# 
-#       it "should not have false positives for purchase types inside buyer names" do
-#         loot = AttendanceParser.parse_loots("Sebisudai - #{item.name}")
-#         loot[0][:best_in_slot].should be_false
-#       end
-# 
-#       it "should set member as nil if buyer is 'DE'" do
-#         loot = AttendanceParser.parse_loots("DE - #{item.name}")
-#         loot[0][:member].should be_nil
-#       end
-# 
-#       it "should use the id if provided" do
-#         glaive_main = Factory(:item, :name => 'Warglaive of Azzinoth', :id => 32837)
-#         glaive_off  = Factory(:item, :name => 'Warglaive of Azzinoth', :id => 32838)
-#         loot = AttendanceParser.parse_loots("Kamien (bis) - [Warglaive of Azzinoth]|32838")
-#         loot[0][:item].should eql(glaive_off)
-#       end
-# 
-#       # TODO: Couldn't get the regex figured out
-#       # it "should not require parenthesis around the loot type" do
-#       #   loots[:no_parens][:best_in_slot].should be_true
-#       #   loots[:no_parens][:member].name.should eql('Kamien')
-#       # end
-# 
-#       describe "for multiple buyers" do
-#         let(:loot) { AttendanceParser.parse_loots("Modrack (bis), Rosoo (sit), DE - #{item.name}") }
-# 
-#         it "should get the correct number of buyers" do
-#           loot.size.should eql(3)
-#         end
-# 
-#         it "should get the correct buyer names" do
-#           loot[0][:member].name.should eql('Modrack')
-#           loot[1][:member].name.should eql('Rosoo')
-#           loot[2][:member].should be_nil
-#         end
-# 
-#         it "should get the correct item types" do
-#           loot[0][:best_in_slot].should be_true
-#           loot[1][:situational].should be_true
-#         end
-#       end
-#     end
-#   end
-# end
