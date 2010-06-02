@@ -71,7 +71,7 @@ class Raid < ActiveRecord::Base
     def parse_attendees
       return if @attendance_output.nil? or @attendance_output.empty?
 
-      attendees = Juggy.parse_attendees(@attendance_output)
+      attendees = AttendanceParser.parse_attendees(@attendance_output)
       return if attendees.nil? or attendees.size == 0
 
       attendees.each do |att|
@@ -95,7 +95,7 @@ class Raid < ActiveRecord::Base
     def parse_drops
       return if @loot_output.nil? or @loot_output.empty?
 
-      loots = Juggy.parse_loots(@loot_output)
+      loots = AttendanceParser.parse_loots(@loot_output)
       return if loots.nil? or loots.size == 0
 
       loots.each do |attributes|
