@@ -8,8 +8,6 @@ class LootsController < ApplicationController
   layout @@layout
 
   def index
-    page_title('Loot History')
-
     @loots = Loot.paginate(:page => params[:page], :per_page => 40,
       :include => [:item, :raid, :member],
       :order => "purchased_on DESC")
@@ -20,8 +18,6 @@ class LootsController < ApplicationController
   end
 
   def new
-    page_title('New Loot')
-
     @loot = Loot.new
 
     respond_to do |wants|
@@ -30,8 +26,6 @@ class LootsController < ApplicationController
   end
 
   def edit
-    page_title('Edit Loot')
-
     respond_to do |wants|
       wants.html
     end

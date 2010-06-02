@@ -3,7 +3,7 @@
 
 class ApplicationController < ActionController::Base
   filter_parameter_logging :password, :password_confirmation
-  helper_method :current_user_session, :current_user, :page_title
+  helper_method :current_user_session, :current_user
 
   helper :all
   protect_from_forgery
@@ -64,10 +64,5 @@ class ApplicationController < ActionController::Base
     def redirect_back_or_default(default)
       redirect_to(session[:return_to] || default)
       session[:return_to] = nil
-    end
-
-    def page_title(*args)
-      args.push('Juggernaut Loot Factor')
-      @page_title = args.join(' :: ')
     end
 end

@@ -2,8 +2,6 @@ class AchievementsController < ApplicationController
   caches_action :index, :layout => false # NOTE: Gets 'expired' (deleted) by achievements.rake
 
   def index
-    page_title('Achievements')
-
     ignored = [
       3010, # Drive Me Crazy
       2928, # Hot Pocket

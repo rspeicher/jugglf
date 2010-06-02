@@ -2,7 +2,7 @@
 !!!
 %html{html_attrs('en-US')}
   %head
-    %title= truncate(@page_title || page_title, :length => 150)
+    %title= truncate(yield(:page_title), :length => 150)
     %link{ :rel => "shortcut icon", :href => 'http://www.juggernautguild.com/favicon.ico'}/
     = stylesheet_link_tag 'http://www.juggernautguild.com/public/min/index.php?f=public/style_css/css_4/calendar_select.css,public/style_css/css_4/ipb_styles.css,public/style_css/css_4/ipb_editor.css,public/style_css/css_4/juggernaut.css'
     = stylesheet_link_tag 'lootfactor'
@@ -15,7 +15,7 @@
     = javascript_include_tag 'http://static.wowhead.com/widgets/power.js'
   %body.lf{ :id => "#{controller.controller_path.gsub(/\//, '_')}_root" }
     #ipbwrapper
-      %h1= @page_title || page_title
+      %h1= yield(:page_title)
 
       %p#content_jump
         %a#top{ :name => 'top' }

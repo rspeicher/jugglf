@@ -5,8 +5,6 @@ class RaidsController < ApplicationController
   cache_sweeper :index_sweeper, :only => [:create, :update, :destroy]
 
   def index
-    page_title('Raid History')
-
     @raids = Raid.paginate(:page => params[:page], :per_page => 40, :order => "date DESC")
 
     respond_to do |wants|
@@ -15,8 +13,6 @@ class RaidsController < ApplicationController
   end
 
   def show
-    page_title("Raid on #{@raid.date}")
-
     attendees = Attendee.find(:all, :conditions => ['raid_id = ?', @raid.id], :include => :member)
     @loots    = Loot.find(:all, :conditions => ['raid_id = ?', @raid.id], :include => [:item, :member])
 
@@ -38,8 +34,6 @@ class RaidsController < ApplicationController
   end
 
   def new
-    page_title('New Raid')
-
     @raid = Raid.new
 
     respond_to do |wants|

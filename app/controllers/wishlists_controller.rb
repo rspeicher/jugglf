@@ -2,8 +2,6 @@ class WishlistsController < ApplicationController
   before_filter :require_admin
 
   def index
-    page_title('Wishlists')
-
     @root = LootTable.find_all_by_object_type('Zone', :include => [:object, {:children => :object}])
     @zone = @boss = nil
 

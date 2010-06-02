@@ -8,6 +8,11 @@ module ApplicationHelper
     end
   end
 
+  def page_title(*args)
+    args.push('Juggernaut Loot Factor')
+    content_for(:page_title) { args.join(' :: ') }
+  end
+
   def breadcrumb(*args)
     # Insert the first breadcrumb, it's always the same
     content_for(:breadcrumb) { content_tag(:li, link_to('Juggernaut Loot Factor', root_url), :class => 'first') }

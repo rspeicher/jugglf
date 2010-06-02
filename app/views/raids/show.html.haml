@@ -1,5 +1,5 @@
+- page_title "#{@raid.date} Raid"
 - breadcrumb link_to('Raids', raids_path), h(@raid.date)
-
 #attendees
   = render :partial => 'shared/maintitle', :object => "Attendees (#{@raid.attendees.size})"
   - @attendees.sort.each do |group,array|

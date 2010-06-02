@@ -7,8 +7,6 @@ class MembersController < ApplicationController
   cache_sweeper :index_sweeper, :only => [:create, :update, :destroy]
 
   def index
-    page_title('Members')
-
     @members = Member.active.find(:all, :include => [:rank])
 
     respond_to do |wants|
@@ -18,16 +16,12 @@ class MembersController < ApplicationController
   end
 
   def show
-    page_title(@member.name)
-
     respond_to do |wants|
       wants.html
     end
   end
 
   def new
-    page_title('New Member')
-
     @member = Member.new
 
     respond_to do |wants|
@@ -36,8 +30,6 @@ class MembersController < ApplicationController
   end
 
   def edit
-    page_title(@member.name, 'Edit')
-
     respond_to do |wants|
       wants.html
     end

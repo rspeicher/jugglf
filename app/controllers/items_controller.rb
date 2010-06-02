@@ -3,8 +3,6 @@ class ItemsController < ApplicationController
   before_filter :find_item, :only => [:show, :edit, :update, :destroy]
 
   def index
-    page_title('Items')
-
     @items = Item.paginate(:page => params[:page], :per_page => 35, :order => 'name')
 
     respond_to do |wants|
@@ -13,8 +11,6 @@ class ItemsController < ApplicationController
   end
 
   def show
-    page_title(@item.name)
-
     @loots = @item.loots.paginate(:include => :member, :page => params[:page], :per_page => 35, :order => 'purchased_on desc')
     @wishlists = @item.wishlists.find(:all, :include => :member, :conditions => ["#{Member.table_name}.active = ?", true])
     @loot_table = LootTable.find(:first, :conditions => ['object_type = ? AND object_id = ?', 'Item', @item.id])
@@ -25,8 +21,6 @@ class ItemsController < ApplicationController
   end
 
   def new
-    page_title('New Item')
-
     @item = Item.new
 
     respond_to do |wants|
@@ -35,8 +29,6 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    page_title(@item.name, 'Edit')
-
     respond_to do |wants|
       wants.html
     end
