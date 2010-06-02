@@ -239,7 +239,7 @@ class ItemPrice
       slotval.sort.each do |level,values|
         # Goes to the highest possible level group for values
         if level.to_i <= options[:level]
-          if value.is_a? Array
+          if values.is_a? Array
             # If it's an array, meaning the first value is for non-Hunters, and the second value is for Hunters
             value = (options[:class] == 'Hunter') ? values[1] : values[0]
           else
