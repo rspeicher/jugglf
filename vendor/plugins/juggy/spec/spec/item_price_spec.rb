@@ -77,6 +77,10 @@ describe ItemPrice do
       @ip.price(:name => "Fragment of Val'anyr", :level => 80).should eql(0.00)
     end
 
+    it "should calculate for Shadowfrost Shard" do
+      @ip.price(:name => 'Shadowfrost Shard', :level => 80).should eql(0.20)
+    end
+
     it "should not return nil for older items" do
       @ip.price(:slot => "Two-Hand", :level => 158, :class => "Warlock").should eql(0.00)
     end
