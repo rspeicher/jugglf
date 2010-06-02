@@ -14,7 +14,7 @@ describe ItemPrice do
   end
 
   it "should not raise an error when given a slot that doesn't exist" do
-    lambda { @ip.price(:slot => 'Invalid', :level => 264) }.should_not raise_error(NoMethodError)
+    lambda { @ip.price(:slot => 'Invalid', :level => median_level) }.should_not raise_error(NoMethodError)
   end
 
   context "legendary tokens" do

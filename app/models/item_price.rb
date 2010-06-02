@@ -2,9 +2,9 @@ require 'singleton'
 
 class ItemPrice
   include Singleton
-  MIN_LEVEL = 226
 
   def initialize
+    @min_level = 226
     @values = {
       'LEVELS' => ['226', '239', '245', '258', '264', '277'], # NOTE: Not 272, this array is only used for weapons.
 
@@ -135,24 +135,30 @@ class ItemPrice
       }
     }
 
-    @values['Head'] = @values['Chest'] = @values['Legs']
-    @values['Shoulder'] = @values['Shoulders'] = @values['Hands'] = @values['Feet']
-    @values['Wrist'] = @values['Waist'] = @values['Finger']
-    # @values['Neck'] = @values['Back']
-    @values['Shield'] = @values['Held In Off-hand']
-    @values['One-Hand'] = @values['Off Hand'] = @values['Melee DPS Weapon']
-    @values['Relic'] = @values['Idol'] = @values['Totem'] = @values['Thrown'] = @values['Sigil'] = @values['Ranged']
-
-    @special_weapon_slots = ['Main Hand', 'Held In Off-hand', 'One-Hand', 'Off Hand', 'Shield']
+    @values['Head']     = @values['Chest']            = @values['Legs']
+    @values['Shoulder'] = @values['Shoulders']        = @values['Hands']            = @values['Feet']
+    @values['Wrist']    = @values['Waist']            = @values['Finger']
+    # @values['Neck']     = @values['Back'] # Can't group these anymore because of pricing differences
+    @values['Shield']   = @values['Held In Off-hand']
+    @values['One-Hand'] = @values['Off Hand']         = @values['Melee DPS Weapon']
+    @values['Relic']    = @values['Idol']             = @values['Totem']            = @values['Thrown'] = @values['Sigil'] = @values['Ranged']
   end
 
+  # Given as much information as possible, attempts to determine the price of an +Item+
+  #
+  # === Valid Options
+  # id::    Items which have non-unique names, slot and level data need to be priced based on their ID (Tier 9 and 10 tokens, specifically)
+  # name::  Certain items (such as Tier tokens or Legendary fragments) are below our minimum level but still need to be priced as a special case.
+  # slot::  Required for almost every item type, as items are grouped into prices by slot
+  # level:: Items below a certain level won't be priced above 0.00 no matter what
+  # class:: Required for items which have different prices for Hunters and everyone else
   def price(options = {})
     options.assert_valid_keys(:id, :name, :slot, :level, :class)
     prepare_options(options)
 
     price = nil
 
-    if options[:level] < MIN_LEVEL or options[:slot].blank?
+    if options[:level] < @min_level or options[:slot].blank?
       # Check for a special legendary token
       if options[:name] == "Fragment of Val'anyr" or options[:name] == "Shadowfrost Shard"
         price = price_legendary(options)
@@ -161,7 +167,7 @@ class ItemPrice
       end
     elsif options[:slot] == 'Trinket'
       price = trinket_value(options)
-    elsif @special_weapon_slots.include?(options[:slot])
+    elsif special_weapon_slot?(options[:slot])
       price = special_weapon_value(options)
     else
       price = default_value(options)
@@ -182,7 +188,7 @@ class ItemPrice
       options[:level]  ||= 0
       options[:class]  ||= nil
 
-      options[:level] = options[:level].to_i
+      options[:level] = options[:level].to_i if options[:level].respond_to? 'to_i'
 
       if options[:name] == 'Heroic Key to the Focusing Iris'
         options[:slot]  = 'Neck'
@@ -214,28 +220,30 @@ class ItemPrice
           options[:slot] = 'Chest' # Not always, but it has the correct price point we want for all Heroic Marks
           options[:level] = 277
 
-        else
+        elsif options[:name] =~ /^(.+) of the (Lost|Wayward) (Conqueror|Protector|Vanquisher)$/
           # Tier 8 or Tier 7 token
-          matches = options[:name].match(/^(.+) of the (Lost|Wayward) (Conqueror|Protector|Vanquisher)$/)
-          if matches and matches.length > 0
-            options[:slot] = determine_token_slot(matches[1])
-            options[:level] = determine_token_level(matches[1], matches[2])
-          end
+          options[:slot]  = determine_token_slot($1)
+          options[:level] = determine_token_level($1, $2)
         end
       end
     end
 
+    # Simply loops through a hash of values for the given +slot+ and returns the value according to
+    # nearest +level+
     def default_value(options)
-      return if @values[options[:slot]].nil?
+      # Return early if the values for the given slot don't exist
+      return nil if @values[options[:slot]].nil?
 
       value = nil
       slotval = @values[options[:slot]]
       slotval.sort.each do |level,values|
+        # Goes to the highest possible level group for values
         if level.to_i <= options[:level]
-          if values.is_a? Float
-            value = values
-          else
+          if value.is_a? Array
+            # If it's an array, meaning the first value is for non-Hunters, and the second value is for Hunters
             value = (options[:class] == 'Hunter') ? values[1] : values[0]
+          else
+            value = values
           end
         end
       end
@@ -251,6 +259,15 @@ class ItemPrice
       elsif options[:name] == "Shadowfrost Shard"
         (10.00 / 50)
       end
+    end
+
+    # Determines if the given +slot+ is considered "special" by our pricing system
+    #
+    # "Special" slots are any of the non-Range, non-Relic weapon slots, and are
+    # considered special because they are priced differently depending on the buyer's
+    # class.
+    def special_weapon_slot?(slot)
+      ['Main Hand', 'Held In Off-hand', 'One-Hand', 'Off Hand', 'Shield'].include? slot
     end
 
     # Determines the price for Weapons that ARE NOT Two-Handers and ARE NOT Ranged
@@ -323,9 +340,9 @@ class ItemPrice
     # any chosen slot.
     #
     # Examples:
-    #   >> determine_token_slot("Breastplate of Whatever")
+    #   >> determine_token_slot("Breastplate")
     #   => 'Chest'
-    #   >> determine_token_slot("Spaulders of Whatever")
+    #   >> determine_token_slot("Spaulders")
     #   => 'Shoulders'
     def determine_token_slot(name)
       name = name.strip.downcase
