@@ -76,7 +76,7 @@ class LootsController < ApplicationController
     return if @loot.item_id.nil? or @loot.item.wow_id.blank?
 
     wow_class = ( @loot.member_id.nil? ) ? nil : @loot.member.wow_class
-    new_price = Juggy::ItemPrice.instance.price(:name => @loot.item.name,
+    new_price = ItemPrice.instance.price(:name => @loot.item.name,
       :slot => @loot.item.slot, :level => @loot.item.level, :class => wow_class)
 
     respond_to do |wants|
