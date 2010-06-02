@@ -93,6 +93,6 @@ class IndexSweeper < ActionController::Caching::Sweeper
     end
 
     def expire(suffix)
-      expire_fragment({:controller => 'index', :action => 'index', :action_suffix => suffix})
+      expire_fragment(:controller => 'index', :action => 'index', :action_suffix => suffix)
     end
 end
