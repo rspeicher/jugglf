@@ -20,5 +20,5 @@ else
   page << "$('#live_loot_input_text').focus();"
 
   # Clear the flash, since it'll be invalid on a page refresh
-  flash[:error] = nil
+  flash.discard
 end

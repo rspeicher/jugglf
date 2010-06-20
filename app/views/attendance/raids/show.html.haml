@@ -23,6 +23,7 @@
     });
   });
 
+- page_title "#{@live_raid.status} Raid"
 - breadcrumb link_to('Attendance', live_raids_path), "#{@live_raid.status} Raid"
 
 - if @live_raid.status == 'Pending'
