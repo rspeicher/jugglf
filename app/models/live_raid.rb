@@ -9,6 +9,16 @@ class LiveRaid < ActiveRecord::Base
 
   validates_presence_of :started_at, :if => Proc.new { |obj| obj.stopped_at.present? }
 
+  # Statuses
+  STATES = {
+    :pending   => 'Pending',
+    :active    => 'Active',
+    :completed => 'Completed'
+  }
+  STATES.each do |key, val|
+    define_method("#{key}?") { self.status == "#{val}" }
+  end
+
   # Uses +started_at+ and +stopped_at+ to determine the raid's total running time
   # in minutes (surprise!)
   #
@@ -78,11 +88,6 @@ class LiveRaid < ActiveRecord::Base
     elsif self.started_at.present? and self.stopped_at.present?
       'Completed'
     end
-  end
-
-  # Retruns +true+ if <tt>status == 'Active'</tt>, otherwise +false+
-  def active?
-    self.status == 'Active'
   end
 
   # Adds records to the +attendees+ assocation by parsing a comma-separated list

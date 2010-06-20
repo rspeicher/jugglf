@@ -82,7 +82,7 @@ class Attendance::RaidsController < ApplicationController
   def post
     require 'xmlrpc/client'
 
-    if @live_raid.status == 'Completed'
+    if @live_raid.completed?
       server = XMLRPC::Client.new2('http://www.juggernautguild.com/interface/board/')
 
       response = server.call('postTopic', {

@@ -16,7 +16,7 @@
         %tr{ :class => cycle('row1', 'row2') }
           %td.image{ :width => "48px" }
             = link_to(image_tag('edit.png'), live_raid_path(raid))
-            - unless raid.status == 'Active'
+            - unless raid.active?
               = link_to_delete(:text => '', :path => live_raid_path(raid))
           %td.center= h(raid.status)
           %td.date= h(raid.started_at)

@@ -26,11 +26,11 @@
 - page_title "#{@live_raid.status} Raid"
 - breadcrumb link_to('Attendance', live_raids_path), "#{@live_raid.status} Raid"
 
-- if @live_raid.status == 'Pending'
+- if @live_raid.pending?
   %h2.pending= link_to("This raid has not yet been started. Click to start.", start_live_raid_path(@live_raid))
-- elsif @live_raid.status == 'Active'
+- elsif @live_raid.active?
   %h2.active= link_to("This raid is active. Click to stop.", stop_live_raid_path(@live_raid), :confirm => "Are you sure you want to stop this raid?")
-- elsif @live_raid.status == 'Completed'
+- elsif @live_raid.completed?
   %h2.completed= link_to("This raid has been completed. Click to post.", post_live_raid_path(@live_raid))
 %div.category_block.block_wrap
   #attendance_tabs
@@ -43,7 +43,7 @@
           %tr
             %th Name
             %th.icon
-              - if @live_raid.status == 'Completed'
+              - if @live_raid.completed?
                 Delete
               - else
                 Active?
@@ -53,7 +53,7 @@
             %tr{ :class => cycle('row1', 'row2') + (att.active? ? ' active' : ' inactive') }[att]
               %td= h(att.member_name)
               %td.icon
-                - if @live_raid.status == 'Completed'
+                - if @live_raid.completed?
                   = link_to_delete(:text => '', :path => live_raid_live_attendee_path(@live_raid, att))
                 - else
                   = link_to_toggle_attendee(att)

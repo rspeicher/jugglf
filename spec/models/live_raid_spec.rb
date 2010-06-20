@@ -107,6 +107,16 @@ describe LiveRaid, "#status" do
   end
 end
 
+describe LiveRaid, "#pending?" do
+  it "should be true if pending" do
+    Factory(:live_raid).pending?.should be_true
+  end
+
+  it "should otherwise be false" do
+    Factory(:live_raid, :started_at => Time.now).pending?.should be_false
+  end
+end
+
 describe LiveRaid, "#active?" do
   it "should be true if active" do
     Factory(:live_raid, :started_at => Time.now).active?.should be_true
@@ -114,6 +124,16 @@ describe LiveRaid, "#active?" do
 
   it "should otherwise be false" do
     Factory(:live_raid).active?.should be_false
+  end
+end
+
+describe LiveRaid, "#completed?" do
+  it "should be true if active" do
+    Factory(:live_raid, :started_at => Time.now, :stopped_at => Time.now).completed?.should be_true
+  end
+
+  it "should otherwise be false" do
+    Factory(:live_raid).completed?.should be_false
   end
 end
 
