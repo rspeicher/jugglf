@@ -21,7 +21,7 @@ The default application layout uses the skin from our forum in order to fit in w
 
 ### Login
 
-The application uses a gem I wrote specifically for it called [invision_bridge](http://github.com/tsigo/invision_bridge), which lets Authlogic access an [IP.Board](http://www.invisionpower.com) database and allows users to only have one login for the entire site. I'd recommend either fully implementing the rest of an authentication with Authlogic (sign up, user management, etc.) and making users maintain two separate accounts, or writing a similar gem for your own forum system.
+The application uses a gem I wrote specifically for it called [invision_bridge](http://github.com/tsigo/invision_bridge), which lets Authlogic access an [IP.Board](http://www.invisionpower.com) database and allows users to only have one login for the entire site. I'd recommend either fully implementing the rest of an authentication system with Authlogic (sign up, user management, etc.) and making users maintain two separate accounts, or writing a similar gem for your own forum system.
 
 ### Item Prices
 
@@ -31,9 +31,9 @@ Item prices are currently determined by the ItemPrice model. Unfortunately this 
 
 ### Wishlist Data
 
-Maybe you don't raid the same zones we do. You probably want to change that.
+Maybe you don't raid the same zones we do. You probably want to change the Wishlists page to show zones and bosses you care about.
 
-Zone > Boss > Item data is currently populated by the `lib/tasks/wishlist.rake` file which is a _hot mess_. This is another area where I want to turn it into a web interface, but again, too much work, not enough reward. See the `lib/scraper.rb` file for an example of scraping loot data for a boss from the Armory. Seriously. Hot mess.
+Zone > Boss > Item data is currently populated by the `lib/tasks/wishlist.rake` file which is a _hot mess_. This is another area where I want to turn it into a web interface, but again, too much work, not enough reward for the time being. See the `lib/scraper.rb` file for an example of scraping loot data for a boss from the Armory. Seriously. Hot mess.
 
 ### Attendance Parsing
 
