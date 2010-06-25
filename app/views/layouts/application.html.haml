@@ -4,7 +4,7 @@
   %head
     %title= truncate(yield(:page_title), :length => 150) || 'Juggernaut Loot Factor'
     %link{ :rel => "shortcut icon", :href => 'http://www.juggernautguild.com/favicon.ico'}/
-    = stylesheet_link_tag 'http://www.juggernautguild.com/public/min/index.php?f=public/style_css/css_4/calendar_select.css,public/style_css/css_4/ipb_styles.css,public/style_css/css_4/ipb_editor.css,public/style_css/css_4/juggernaut.css'
+    = stylesheet_link_tag 'http://www.juggernautguild.com/public/min/index.php?f=public/style_css/css_5/ipb_help.css,public/style_css/css_5/juggernaut.css,public/style_css/css_5/calendar_select.css,public/style_css/css_5/ipb_styles.css,public/style_css/css_5/ipb_editor.css,public/style_css/css_5/ipb_common.css,public/style_css/prettify.css'
     = stylesheet_link_tag 'lootfactor'
     = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'
     = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'
@@ -13,7 +13,7 @@
     - if admin?
       = javascript_include_tag 'jugg.admin'
     = javascript_include_tag 'http://static.wowhead.com/widgets/power.js'
-  %body.lf{ :id => "#{controller.controller_path.gsub(/\//, '_')}_root" }
+  %body#ipboard_body{ :class => "#{controller.controller_path.gsub(/\//, '_')}_root lf" }
     #ipbwrapper
       %h1= yield(:page_title) || 'Juggernaut Loot Factor'
 
@@ -27,7 +27,7 @@
           %strong Mod Tools:
           %ul#mod_tools
             %li= link_to('IP Lookup', 'http://www.juggernautguild.com/index.php?app=core&amp;module=usercp&amp;tab=members&amp;area=mod_ipaddress', :title => 'IP Lookup')
-            %li= link_to('Manage Announcement', 'http://www.juggernautguild.com/index.php?app=core&amp;module=usercp&amp;tab=forums&amp;area=mod_announcements', :title => 'Manage Announcement')
+            %li= link_to('Manage Announcements', 'http://www.juggernautguild.com/index.php?app=core&amp;module=usercp&amp;tab=forums&amp;area=mod_announcements', :title => 'Manage Announcements')
 
       #header
         #branding
@@ -51,7 +51,7 @@
           #nav_con_left
             #nav_con_right
               #search
-                / TODO: Search field
+                -# TODO: Search field
               #primary_nav
                 %ul
                   %li#nav_home= link_to(content_tag(:span, 'News'), 'http://www.juggernautguild.com/', :title => 'Homepage', :rel => 'home')
@@ -99,7 +99,7 @@
             #categories.hover_rows.no_sidebar.clearfix
               = yield
 
-          / %ul#stat_links.filter_bar.rounded
+          -# %ul#stat_links.filter_bar.rounded
 
           #board_statistics.statistics.general_box.clearfix.hide
             #stats
@@ -114,7 +114,7 @@
               %li= link_to('Back to top', '#top', :title => 'Go to top')
               %li= link_to('Forum Home', 'http://www.juggernautguild.com/index', :title => 'Forum Home')
             %p#copyright.right
-              = "Powered by #{link_to('Ruby on Rails', 'http://rubyonrails.org/')}"
+              = "Powered by #{link_to('JuggLF', 'http://github.com/tsigo/jugglf')}"
               %br
               = "Hosted by #{link_to('Network Redux', 'http://www.networkredux.com/')}"
             %br.clear

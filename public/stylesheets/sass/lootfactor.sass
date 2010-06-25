@@ -12,6 +12,9 @@ ul#section_links
 .row1 td, .row2 td
   background-color: transparent !important
 
+.ipb_table
+  border-spacing: 0 !important
+
 // Override WoW class styling -------------------------------------------------
 .Death_Knight, .Death, .Knight, .Deathknight, .Druid, .Hunter, .Mage, .Paladin, .Shaman, .Priest, .Rogue, .Warlock, .Warrior
   &, &:link, &:visited
@@ -85,7 +88,7 @@ noscript
     font-size: 1em
 
 // Index#index
-body#index_root
+body.index_root
   .record_group
     min-width: 317px
     display: block
@@ -95,7 +98,7 @@ body#index_root
       margin: 4px 0 4px 0
 
 // Attendance#show
-body#attendance_raids_root
+body.attendance_raids_root
   h2
     font-size: 1.3em
     padding: 15px 15px 15px 43px
@@ -119,7 +122,7 @@ body#attendance_raids_root
       border-color: #E3D2B2
 
 // Members#show ---------------------------------------------------------------
-body#members_root
+body.members_root
   #member_stats
     text-align: center
     h3
@@ -137,7 +140,7 @@ body#members_root
         font-size: 0.85em
 
 // Raids#show -----------------------------------------------------------------
-body#raids_root
+body.raids_root
   #attendees
     h4
       font-weight: bold
@@ -190,7 +193,7 @@ body#raids_root
     clear: left
 
 // Wishlists#index ------------------------------------------------------------
-body#wishlists_root
+body.wishlists_root
   .author_info
     ul
       padding: 0 0 10px 0
