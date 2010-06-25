@@ -2,51 +2,25 @@ class IndexSweeper < ActionController::Caching::Sweeper
   observe Loot, Member, Raid, Wishlist
 
   def after_create(record)
-    if record.is_a? Loot
-      if record.item_id == 50274 # NOTE: Hard-coded Shadowfrost Shard ID
-        expire 'shadowmourne_progress'
-      else
-        expire_loot_fragments
-      end
-    elsif record.is_a? Member
-      expire_member_fragments
-    elsif record.is_a? Raid
-      expire_raid_fragments
-    elsif record.is_a? Wishlist
-      expire_wishlist_fragments
-    end
+    process_record(record)
   end
 
   def after_update(record)
-    if record.is_a? Loot
-      expire_loot_fragments
-    elsif record.is_a? Member
-      expire_member_fragments
-
-      unless record.active?
-        expire 'least_recruitable'
-        expire 'highest_turnover'
-      end
-    elsif record.is_a? Raid
-      expire_raid_fragments
-    elsif record.is_a? Wishlist
-      expire_wishlist_fragments
-    end
+    process_record(record)
   end
 
   def after_destroy(record)
-    if record.is_a? Loot
-      expire_loot_fragments
-    elsif record.is_a? Member
-      expire_member_fragments
-    elsif record.is_a? Raid
-      expire_raid_fragments
-    elsif record.is_a? Wishlist
-      expire_wishlist_fragments
-    end
+    process_record(record)
   end
 
   protected
+
+    def process_record(record)
+      record_type = record.class.to_s.underscore
+      send("expire_#{record_type}_fragments", record)
+    rescue NoMethodError
+      logger.warn "Attempted to expire fragments for unknown record type: #{record_type}"
+    end
 
     # class_counts:          expire when a Member is c/u/d
     # attendance_averages:   expire when a Member or Raid is c/u/d
@@ -61,29 +35,38 @@ class IndexSweeper < ActionController::Caching::Sweeper
     # highest_turnover:      expire when a Member is updated and marked as Inactive
     # shadowmourne_progress: expire when a Loot with its ID is created
 
-    def expire_loot_fragments
-      expire 'loot_factor_averages'
-      expire 'common_items'
-      expire 'common_tokens'
+    def expire_loot_fragments(loot)
+      if loot.item_id == Item.shadowfrost_shard.first.id
+        expire 'shadowmourne_progress'
+      else
+        expire 'loot_factor_averages'
+        expire 'common_items'
+        expire 'common_tokens'
+      end
     end
 
-    def expire_member_fragments
+    def expire_member_fragments(member)
       expire 'class_counts'
       expire 'attendance_averages'
       expire 'loot_factor_averages'
       expire 'loots_per_raid'
       expire 'oldest_members'
       expire 'best_attendance'
+
+      unless member.active?
+        expire 'least_recruitable'
+        expire 'highest_turnover'
+      end
     end
 
-    def expire_raid_fragments
+    def expire_raid_fragments(raid)
       expire 'attendance_averages'
       expire 'loot_factor_averages'
       expire 'loots_per_raid'
       expire 'best_attendance'
     end
 
-    def expire_wishlist_fragments
+    def expire_wishlist_fragments(wishlist)
       # NOTE: Because we namespace to Members::WishlistsController, we get the following error:
       # ActionController::RoutingError (No route matches {:action=>"index", :action_suffix=>"most_requested", :controller=>"members/index"})
       # expire 'most_requested'
