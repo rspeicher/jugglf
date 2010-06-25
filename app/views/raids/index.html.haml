@@ -1,6 +1,10 @@
 - page_title 'Raids'
 - breadcrumb 'Raids'
-= will_paginate @raids
+%div.topic_controls
+  = will_paginate @raids, :class => 'pagination left'
+  - if admin?
+    %ul.topic_buttons
+      %li= link_to(image_tag('raid_add.png') + 'Add Raid', new_raid_path, :title => 'Add Raid')
 %div.category_block.block_wrap
   = render :partial => 'shared/maintitle'
   %table.ipb_table
@@ -19,4 +23,8 @@
           %td.number= h(raid.attendees.size)
           %td.number= h(raid.loots.size)
           %td.note= h(raid.note)
-= will_paginate @raids
+%div.topic_controls
+  = will_paginate @raids, :class => 'pagination left'
+  - if admin?
+    %ul.topic_buttons
+      %li= link_to(image_tag('raid_add.png') + 'Add Raid', new_raid_path, :title => 'Add Raid')

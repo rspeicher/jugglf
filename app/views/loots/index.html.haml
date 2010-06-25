@@ -1,6 +1,10 @@
 - page_title 'Loots'
 - breadcrumb 'Loots'
-= will_paginate @loots
+%div.topic_controls
+  = will_paginate @loots, :class => 'pagination left'
+  - if admin?
+    %ul.topic_buttons
+      %li= link_to(image_tag('loot_add.png') + 'Add Loot', new_loot_path, :title => 'Add Loot')
 %div.category_block.block_wrap
   = render :partial => 'shared/maintitle'
   %table.ipb_table
@@ -21,4 +25,8 @@
           %td= loot_tell_types(loot)
           %td.date= link_to h(loot.purchased_on), raid_path(loot.raid) unless loot.raid.nil?
           %td.number= loot_factor(loot.adjusted_price)
-= will_paginate @loots
+%div.topic_controls
+  = will_paginate @loots, :class => 'pagination left'
+  - if admin?
+    %ul.topic_buttons
+      %li= link_to(image_tag('loot_add.png') + 'Add Loot', new_loot_path, :title => 'Add Loot')
