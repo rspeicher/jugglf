@@ -57,12 +57,16 @@ if (typeof JuggLF === "undefined") {
      * Example:
      *  $('#member_name').autocomplete_members();
      */
-    $.fn.autocomplete_members = function()
+    $.fn.autocomplete_members = function(options)
     {
+        var settings = jQuery.extend(options, {
+        });
+
         return this.each(function()
         {
             $(this).autocomplete('/search/members.json', {
                 minChars: 1,
+                extraParams: settings,
                 dataType: 'json',
                 parse: function(data) {
                     var array = [];
