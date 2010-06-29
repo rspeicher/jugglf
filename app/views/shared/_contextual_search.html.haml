@@ -1,0 +1,18 @@
+- form_tag(search_path, :method => 'get') do
+  %fieldset
+    %label.hide{:for => 'main_search'}Search
+    %span#search_wrap
+      = text_field_tag('q', '', :id => 'main_search', :class => 'text_input', :size => '17')
+      %span#search_options.choice.ipbmenu.clickable
+      %ul#search_options_menucontent{:style => 'z-index: 9999; position: absolute; top: 17px; left: 173px; display: none;'}
+        %li.title
+          %strong Search section:
+        %li.app
+          %label{:for => 's_members', :title => 'Members'}
+            = radio_button_tag('context', 'members', true, :class => 'input_radio', :id => 's_members')
+            Members
+        %li.app
+          %label{:for => 's_items', :title => 'Items'}
+            = radio_button_tag('context', 'items', false, :class => 'input_radio', :id => 's_items')
+            Items
+    = submit_tag('Search', :class => 'submit_input clickable')
