@@ -36,7 +36,7 @@ class IndexSweeper < ActionController::Caching::Sweeper
     # shadowmourne_progress: expire when a Loot with its ID is created
 
     def expire_loot_fragments(loot)
-      if loot.item_id == Item.shadowfrost_shard.first.id
+      if loot.item_id == 50274 # Item.shadowfrost_shard.first.id # FIXME: Can't use because of specs
         expire 'shadowmourne_progress'
       else
         expire 'loot_factor_averages'
