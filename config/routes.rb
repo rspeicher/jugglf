@@ -20,10 +20,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :raids
 
-  map.resource :search, :only => [] do |search|
-    search.resources :items,   :controller => 'search/items',   :only => [:index]
-    search.resources :members, :controller => 'search/members', :only => [:index]
-  end
+  map.resource :search, :only => [:show]
 
   map.resources :wishlists, :only => [:index]
 

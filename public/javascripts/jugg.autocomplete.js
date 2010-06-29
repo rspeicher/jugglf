@@ -13,12 +13,17 @@ if (typeof JuggLF === "undefined") {
      * Example:
      *  $('#item_name').autocomplete_items();
      */
-    $.fn.autocomplete_items = function()
+    $.fn.autocomplete_items = function(options)
     {
+        var settings = jQuery.extend(options, {
+          context: 'items'
+        });
+
         return this.each(function()
         {
-            $(this).autocomplete('/search/items.json', {
+            $(this).autocomplete('/search.json', {
                 minChars: 2,
+                extraParams: settings,
                 dataType: 'json',
                 scrollHeight: 260,
                 parse: function(data) {
@@ -60,11 +65,12 @@ if (typeof JuggLF === "undefined") {
     $.fn.autocomplete_members = function(options)
     {
         var settings = jQuery.extend(options, {
+          context: 'members'
         });
 
         return this.each(function()
         {
-            $(this).autocomplete('/search/members.json', {
+            $(this).autocomplete('/search.json', {
                 minChars: 1,
                 extraParams: settings,
                 dataType: 'json',

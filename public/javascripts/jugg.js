@@ -17,6 +17,7 @@ $(document).ready(function() {
     JuggLF.itemFilter.init();
     JuggLF.moderation.init();
     JuggLF.tablesorter.init();
+    JuggLF.search.init();
 
     // Add tooltips to '.help' objects
     $('.help').tooltip({ showURL: false });

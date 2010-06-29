@@ -14,7 +14,7 @@
           %td.right Active
           %td.right= h(@count_guild)
           - @counts.each do |wow_class, count|
-            %td.number= link_to h(count), search_members_path(:q => wow_class)
+            %td.number= link_to h(count), search_path(:q => wow_class, :context => 'members')
       - cache :action => 'index', :action_suffix => 'attendance_averages' do
         %tr{ :class => cycle('row1', 'row2') }
           %td.right 30-Day
