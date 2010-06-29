@@ -546,28 +546,28 @@ namespace :juggernaut do
 
   def crusade_data
     toc_bosses = {
-      'Trial of the Crusader (10)' => [
-        ['northrendbeasts-10'       , 'Northrend Beasts'],
-        ['jaraxxus-10'              , 'Jaraxxus'],
-        ['factionchampions-10'      , 'Faction Champions'],
-        ['twinvalkyrs-10'           , 'Twin Valkyrs'],
-        ['anubarakraid-10'          , "Anub'arak"]
-      ],
-      'Trial of the Crusader (25)' => [
-        ['northrendbeasts-25'       , 'Northrend Beasts'],
-        ['jaraxxus-25'              , 'Jaraxxus'],
-        ['factionchampions-25'      , 'Faction Champions'],
-        ['twinvalkyrs-25'           , 'Twin Valkyrs'],
-        ['anubarakraid-25'          , "Anub'arak"]
-      ],
-      'Trial of the Grand Crusader (10H)' => [
-        ['northrendbeasts-10-hard'  , 'Northrend Beasts'],
-        ['jaraxxus-10-hard'         , 'Jaraxxus'],
-        ['factionchampions-10-hard' , 'Faction Champions'],
-        ['twinvalkyrs-10-hard'      , 'Twin Valkyrs'],
-        ['anubarakraid-10-hard'     , "Anub'arak"],
-        ['tributechest-10'          , 'Tribute Chest'],
-      ],
+      # 'Trial of the Crusader (10)' => [
+      #   ['northrendbeasts-10'       , 'Northrend Beasts'],
+      #   ['jaraxxus-10'              , 'Jaraxxus'],
+      #   ['factionchampions-10'      , 'Faction Champions'],
+      #   ['twinvalkyrs-10'           , 'Twin Valkyrs'],
+      #   ['anubarakraid-10'          , "Anub'arak"]
+      # ],
+      # 'Trial of the Crusader (25)' => [
+      #   ['northrendbeasts-25'       , 'Northrend Beasts'],
+      #   ['jaraxxus-25'              , 'Jaraxxus'],
+      #   ['factionchampions-25'      , 'Faction Champions'],
+      #   ['twinvalkyrs-25'           , 'Twin Valkyrs'],
+      #   ['anubarakraid-25'          , "Anub'arak"]
+      # ],
+      # 'Trial of the Grand Crusader (10H)' => [
+      #   ['northrendbeasts-10-hard'  , 'Northrend Beasts'],
+      #   ['jaraxxus-10-hard'         , 'Jaraxxus'],
+      #   ['factionchampions-10-hard' , 'Faction Champions'],
+      #   ['twinvalkyrs-10-hard'      , 'Twin Valkyrs'],
+      #   ['anubarakraid-10-hard'     , "Anub'arak"],
+      #   ['tributechest-10'          , 'Tribute Chest'],
+      # ],
       'Trial of the Grand Crusader (25H)' => [
         ['northrendbeasts-25-hard'  , 'Northrend Beasts'],
         ['jaraxxus-25-hard'         , 'Jaraxxus'],
@@ -942,44 +942,44 @@ namespace :juggernaut do
 
   def icecrown_data
     icc_bosses = {
-      'Icecrown Citadel (10)' => [
-        ['marrowgar-10',     'Lord Marrowgar'],
-        ['deathwhisper-10',  'Lady Deathwhisper'],
-        ['gunship-10',       'Gunship Battle'],
-        ['saurfang-10',      'Deathbringer Saurfang'],
+      # 'Icecrown Citadel (10)' => [
+      #   ['marrowgar-10',     'Lord Marrowgar'],
+      #   ['deathwhisper-10',  'Lady Deathwhisper'],
+      #   ['gunship-10',       'Gunship Battle'],
+      #   ['saurfang-10',      'Deathbringer Saurfang'],
 
-        ['festergut-10',     'Festergut'],
-        ['rotface-10',       "Rotface"],
-        ['putricide-10',     'Professor Putricide'],
+      #   ['festergut-10',     'Festergut'],
+      #   ['rotface-10',       "Rotface"],
+      #   ['putricide-10',     'Professor Putricide'],
 
-        ['bloodprinces-10',  'Blood Prince Council'],
-        ['queenlanathel-10', "Blood-Queen Lana'thel"],
+      #   ['bloodprinces-10',  'Blood Prince Council'],
+      #   ['queenlanathel-10', "Blood-Queen Lana'thel"],
 
-        ['valithria-10',     "Valithria Dreamwalker"],
-        ['sindragosa-10',    'Sindragosa'],
+      #   ['valithria-10',     "Valithria Dreamwalker"],
+      #   ['sindragosa-10',    'Sindragosa'],
 
-        ['lichking-10',      'The Lich King']
-      ],
-      'Icecrown Citadel (25)' => [
-        ['trash-25',         'Trash'],
+      #   ['lichking-10',      'The Lich King']
+      # ],
+      # 'Icecrown Citadel (25)' => [
+      #   ['trash-25',         'Trash'],
 
-        ['marrowgar-25',     'Lord Marrowgar'],
-        ['deathwhisper-25',  'Lady Deathwhisper'],
-        ['gunship-25',       'Gunship Battle'],
-        ['saurfang-25',      'Deathbringer Saurfang'],
+      #   ['marrowgar-25',     'Lord Marrowgar'],
+      #   ['deathwhisper-25',  'Lady Deathwhisper'],
+      #   ['gunship-25',       'Gunship Battle'],
+      #   ['saurfang-25',      'Deathbringer Saurfang'],
 
-        ['festergut-25',     'Festergut'],
-        ['rotface-25',       "Rotface"],
-        ['putricide-25',     'Professor Putricide'],
+      #   ['festergut-25',     'Festergut'],
+      #   ['rotface-25',       "Rotface"],
+      #   ['putricide-25',     'Professor Putricide'],
 
-        ['bloodprinces-25',  'Blood Prince Council'],
-        ['queenlanathel-25', "Blood-Queen Lana'thel"],
+      #   ['bloodprinces-25',  'Blood Prince Council'],
+      #   ['queenlanathel-25', "Blood-Queen Lana'thel"],
 
-        ['valithria-25',     "Valithria Dreamwalker"],
-        ['sindragosa-25',    'Sindragosa'],
+      #   ['valithria-25',     "Valithria Dreamwalker"],
+      #   ['sindragosa-25',    'Sindragosa'],
 
-        ['lichking-25',      'The Lich King']
-      ],
+      #   ['lichking-25',      'The Lich King']
+      # ],
       'Icecrown Citadel (10H)' => [
         ['marrowgar-10-hard',     'Lord Marrowgar'],
         ['deathwhisper-10-hard',  'Lady Deathwhisper'],
@@ -1692,13 +1692,94 @@ namespace :juggernaut do
     end
   end
 
+  def rubysanctum_data
+    bosses = {
+      'Ruby Sanctum' => [
+        ['halion-10',      'Halion (10)'],
+        ['halion-10-hard', 'Halion (10H)'],
+        ['halion-25',      'Halion (25)'],
+        ['halion-25-hard', 'Halion (25H)']
+      ]
+    }
+
+    bosses.sort.each do |zone_name, bosses|
+      zone = LootTable.create(:object => Zone.create(:name => zone_name))
+      bosses.each do |boss_tag, boss_name|
+        boss = boss(zone, boss_name)
+        case boss_tag
+        when "halion-10-hard"
+          item(boss, 54556) #Abduction's Cover
+          item(boss, 54557) #Baltharus' Gift
+          item(boss, 54558) #Boots of Divided Being
+          item(boss, 54559) #Bracers of the Heir
+          item(boss, 54560) #Changeling Gloves
+          item(boss, 54561) #Gloaming Sark
+          item(boss, 54562) #Misbegotten Belt
+          item(boss, 54563) #Saviana's Tribute
+          item(boss, 54564) #Scion's Treads
+          item(boss, 54565) #Surrogate Belt
+          item(boss, 54566) #Twilight Scale Shoulders
+          item(boss, 54567) #Zarithrian's Offering
+        when "halion-10"
+          item(boss, 53115) #Abduction's Cover
+          item(boss, 53103) #Baltharus' Gift
+          item(boss, 53119) #Boots of Divided Being
+          item(boss, 53112) #Bracers of the Heir
+          item(boss, 53117) #Changeling Gloves
+          item(boss, 53114) #Gloaming Sark
+          item(boss, 53118) #Misbegotten Belt
+          item(boss, 53116) #Saviana's Tribute
+          item(boss, 53111) #Scion's Treads
+          item(boss, 53121) #Surrogate Belt
+          item(boss, 53113) #Twilight Scale Shoulders
+          item(boss, 53110) #Zarithrian's Offering
+        when "halion-25"
+          item(boss, 53125) #Apocalypse's Advance
+          item(boss, 53486) #Bracers of Fiery Night
+          item(boss, 54572) #Charred Twilight Scale
+          item(boss, 53489) #Cloak of Burning Dusk
+          item(boss, 53487) #Foreshadow Steps
+          item(boss, 54573) #Glowing Twilight Scale
+          item(boss, 53132) #Penumbra Pendant
+          item(boss, 54571) #Petrified Twilight Scale
+          item(boss, 53134) #Phaseshifter's Bracers
+          item(boss, 53127) #Returning Footfalls
+          item(boss, 53490) #Ring of Phased Regeneration
+          item(boss, 54569) #Sharpened Twilight Scale
+          item(boss, 53133) #Signet of Twilight
+          item(boss, 53488) #Split Shape Belt
+          item(boss, 53129) #Treads of Impending Resurrection
+          item(boss, 53126) #Umbrage Armbands
+        when "halion-25-hard"
+          item(boss, 54578) #Apocalypse's Advance
+          item(boss, 54582) #Bracers of Fiery Night
+          item(boss, 54588) #Charred Twilight Scale
+          item(boss, 54583) #Cloak of Burning Dusk
+          item(boss, 54586) #Foreshadow Steps
+          item(boss, 54589) #Glowing Twilight Scale
+          item(boss, 54581) #Penumbra Pendant
+          item(boss, 54591) #Petrified Twilight Scale
+          item(boss, 54584) #Phaseshifter's Bracers
+          item(boss, 54577) #Returning Footfalls
+          item(boss, 54585) #Ring of Phased Regeneration
+          item(boss, 54590) #Sharpened Twilight Scale
+          item(boss, 54576) #Signet of Twilight
+          item(boss, 54587) #Split Shape Belt
+          item(boss, 54579) #Treads of Impending Resurrection
+          item(boss, 54580) #Umbrage Armbands
+        end
+      end
+    end
+  end
+
   desc "Populate wishlist data"
   task :wishlist => [:environment] do
     [Boss, LootTable, Zone].each(&:destroy_all)
 
-    # wotlk_data()
-    # ulduar_data()
-    crusade_data()
-    icecrown_data()
+    # wotlk_data
+    # ulduar_data
+    crusade_data
+    icecrown_data
+    rubysanctum_data
   end
 end

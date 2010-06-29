@@ -1,3 +1,5 @@
+require 'rubygems'
+
 # Parses the javascript db.mmo-champion.com uses to populate its HTML tables
 # That method prevents Scrapi or Nokogiri from being used, so we just parse the
 # raw output with gold ol' Regex
@@ -70,59 +72,66 @@ class ArmoryParser
   def initialize
     @results = {}
 
+    # tags = {
+    #   # Tag => [Size, Difficulty, Boss ID]
+    #   'marrowgar-10'          => [10, 'normal', 36612],
+    #   'deathwhisper-10'       => [10, 'normal', 36855],
+    #   'gunship-10'            => [10, 'normal', 202178],
+    #   'saurfang-10'           => [10, 'normal', 37813],
+    #   'festergut-10'          => [10, 'normal', 36626],
+    #   'rotface-10'            => [10, 'normal', 36627],
+    #   'putricide-10'          => [10, 'normal', 36678],
+    #   'bloodprinces-10'       => [10, 'normal', 37970],
+    #   'queenlanathel-10'      => [10, 'normal', 37955],
+    #   'valithria-10'          => [10, 'normal', 201959],
+    #   'sindragosa-10'         => [10, 'normal', 36853],
+    #   'lichking-10'           => [10, 'normal', 36597],
+
+    #   'marrowgar-10-hard'     => [10, 'heroic', 36612],
+    #   'deathwhisper-10-hard'  => [10, 'heroic', 36855],
+    #   'gunship-10-hard'       => [10, 'heroic', 202178],
+    #   'saurfang-10-hard'      => [10, 'heroic', 37813],
+    #   'festergut-10-hard'     => [10, 'heroic', 36626],
+    #   'rotface-10-hard'       => [10, 'heroic', 36627],
+    #   'putricide-10-hard'     => [10, 'heroic', 36678],
+    #   'bloodprinces-10-hard'  => [10, 'heroic', 37970],
+    #   'queenlanathel-10-hard' => [10, 'heroic', 37955],
+    #   'valithria-10-hard'     => [10, 'heroic', 201959],
+    #   'sindragosa-10-hard'    => [10, 'heroic', 36853],
+    #   'lichking-10-hard'      => [10, 'heroic', 36597],
+
+    #   'marrowgar-25'          => [25, 'normal', 37957],
+    #   'deathwhisper-25'       => [25, 'normal', 38106],
+    #   'gunship-25'            => [25, 'normal', 202180],
+    #   'saurfang-25'           => [25, 'normal', 38582],
+    #   'festergut-25'          => [25, 'normal', 37504],
+    #   'rotface-25'            => [25, 'normal', 38390],
+    #   'putricide-25'          => [25, 'normal', 38431],
+    #   'bloodprinces-25'       => [25, 'normal', 38401],
+    #   'queenlanathel-25'      => [25, 'normal', 38434],
+    #   'valithria-25'          => [25, 'normal', 202339],
+    #   'sindragosa-25'         => [25, 'normal', 38265],
+    #   'lichking-25'           => [25, 'normal', 39166],
+
+    #   'marrowgar-25-hard'     => [25, 'heroic', 37957],
+    #   'deathwhisper-25-hard'  => [25, 'heroic', 38106],
+    #   'gunship-25-hard'       => [25, 'heroic', 202180],
+    #   'saurfang-25-hard'      => [25, 'heroic', 38582],
+    #   'festergut-25-hard'     => [25, 'heroic', 37504],
+    #   'rotface-25-hard'       => [25, 'heroic', 38390],
+    #   'putricide-25-hard'     => [25, 'heroic', 38431],
+    #   'bloodprinces-25-hard'  => [25, 'heroic', 38401],
+    #   'queenlanathel-25-hard' => [25, 'heroic', 38434],
+    #   'valithria-25-hard'     => [25, 'heroic', 202339],
+    #   'sindragosa-25-hard'    => [25, 'heroic', 38265],
+    #   'lichking-25-hard'      => [25, 'heroic', 39166],
+    # }
+
     tags = {
-      # Tag => [Size, Difficulty, Boss ID]
-      'marrowgar-10'          => [10, 'normal', 36612],
-      'deathwhisper-10'       => [10, 'normal', 36855],
-      'gunship-10'            => [10, 'normal', 202178],
-      'saurfang-10'           => [10, 'normal', 37813],
-      'festergut-10'          => [10, 'normal', 36626],
-      'rotface-10'            => [10, 'normal', 36627],
-      'putricide-10'          => [10, 'normal', 36678],
-      'bloodprinces-10'       => [10, 'normal', 37970],
-      'queenlanathel-10'      => [10, 'normal', 37955],
-      'valithria-10'          => [10, 'normal', 201959],
-      'sindragosa-10'         => [10, 'normal', 36853],
-      'lichking-10'           => [10, 'normal', 36597],
-
-      'marrowgar-10-hard'     => [10, 'heroic', 36612],
-      'deathwhisper-10-hard'  => [10, 'heroic', 36855],
-      'gunship-10-hard'       => [10, 'heroic', 202178],
-      'saurfang-10-hard'      => [10, 'heroic', 37813],
-      'festergut-10-hard'     => [10, 'heroic', 36626],
-      'rotface-10-hard'       => [10, 'heroic', 36627],
-      'putricide-10-hard'     => [10, 'heroic', 36678],
-      'bloodprinces-10-hard'  => [10, 'heroic', 37970],
-      'queenlanathel-10-hard' => [10, 'heroic', 37955],
-      'valithria-10-hard'     => [10, 'heroic', 201959],
-      'sindragosa-10-hard'    => [10, 'heroic', 36853],
-      'lichking-10-hard'      => [10, 'heroic', 36597],
-
-      'marrowgar-25'          => [25, 'normal', 37957],
-      'deathwhisper-25'       => [25, 'normal', 38106],
-      'gunship-25'            => [25, 'normal', 202180],
-      'saurfang-25'           => [25, 'normal', 38582],
-      'festergut-25'          => [25, 'normal', 37504],
-      'rotface-25'            => [25, 'normal', 38390],
-      'putricide-25'          => [25, 'normal', 38431],
-      'bloodprinces-25'       => [25, 'normal', 38401],
-      'queenlanathel-25'      => [25, 'normal', 38434],
-      'valithria-25'          => [25, 'normal', 202339],
-      'sindragosa-25'         => [25, 'normal', 38265],
-      'lichking-25'           => [25, 'normal', 39166],
-
-      'marrowgar-25-hard'     => [25, 'heroic', 37957],
-      'deathwhisper-25-hard'  => [25, 'heroic', 38106],
-      'gunship-25-hard'       => [25, 'heroic', 202180],
-      'saurfang-25-hard'      => [25, 'heroic', 38582],
-      'festergut-25-hard'     => [25, 'heroic', 37504],
-      'rotface-25-hard'       => [25, 'heroic', 38390],
-      'putricide-25-hard'     => [25, 'heroic', 38431],
-      'bloodprinces-25-hard'  => [25, 'heroic', 38401],
-      'queenlanathel-25-hard' => [25, 'heroic', 38434],
-      'valithria-25-hard'     => [25, 'heroic', 202339],
-      'sindragosa-25-hard'    => [25, 'heroic', 38265],
-      'lichking-25-hard'      => [25, 'heroic', 39166],
+      'halion-10'      => [10, 'normal', 39863],
+      'halion-25'      => [25, 'normal', 39864],
+      'halion-10-hard' => [10, 'heroic', 39863],
+      'halion-25-hard' => [25, 'heroic', 39864],
     }
 
     tags.each do |tag, data|
@@ -131,8 +140,8 @@ class ArmoryParser
     end
   end
 
-  def parse_boss(tag, dungeon, boss_id, difficulty)
-    url = "http://www.wowarmory.com/search.xml?fl[source]=dungeon&fl[dungeon]=icecrowncitadel#{dungeon}&fl[boss]=#{boss_id}&fl[difficulty]=#{difficulty}&searchType=items"
+  def parse_boss(tag, size, boss_id, difficulty)
+    url = "http://www.wowarmory.com/search.xml?fl[source]=dungeon&fl[dungeon]=rubysanctum#{size}&fl[boss]=#{boss_id}&fl[difficulty]=#{difficulty}&searchType=items"
 
     doc = Nokogiri::XML(open(url, content_headers))
     doc.search('page/armorySearch/searchResults/items/item').each do |item|
