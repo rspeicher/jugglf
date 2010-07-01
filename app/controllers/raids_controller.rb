@@ -34,7 +34,9 @@ class RaidsController < ApplicationController
   end
 
   def new
-    @raid = Raid.new
+    params[:date] ||= Date.today
+
+    @raid = Raid.new(:date => params[:date])
 
     respond_to do |wants|
       wants.html
