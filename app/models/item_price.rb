@@ -6,7 +6,7 @@ class ItemPrice
   def initialize
     @min_level = 226
     @values = {
-      'LEVELS' => ['226', '239', '245', '258', '264', '277'], # NOTE: Not 272, this array is only used for weapons.
+      'LEVELS' => ['226', '239', '245', '258', '264', '277', '284'], # NOTE: Not 272, this array is only used for weapons.
 
       'Head' => nil, 'Chest' => nil, 'Legs' => {
         '226' => 0.50,
@@ -14,7 +14,8 @@ class ItemPrice
         '245' => 1.50,
         '258' => 2.00,
         '264' => 2.50,
-        '277' => 3.00
+        '277' => 3.00,
+        '284' => 3.50
       },
       'Shoulder' => nil, 'Shoulders' => nil, 'Hands' => nil, 'Feet' => {
         '226' => 0.00,
@@ -22,7 +23,8 @@ class ItemPrice
         '245' => 1.00,
         '258' => 1.50,
         '264' => 2.00,
-        '277' => 2.50
+        '277' => 2.50,
+        '284' => 3.00
       },
       'Wrist' => nil, 'Waist' => nil, 'Finger' => {
         '226' => 0.00,
@@ -30,7 +32,8 @@ class ItemPrice
         '245' => 0.50,
         '258' => 1.00,
         '264' => 1.50,
-        '277' => 2.00
+        '277' => 2.00,
+        '284' => 2.50
       },
       'Neck' => {
         '226' => 0.00,
@@ -38,7 +41,8 @@ class ItemPrice
         '245' => 0.50,
         '258' => 1.00,
         '264' => 1.50,
-        '277' => 2.50
+        '277' => 2.50,
+        '284' => 3.00
       },
       'Back' => {
         '226' => 0.00,
@@ -47,7 +51,8 @@ class ItemPrice
         '258' => 0.50,
         '264' => 0.50,
         '272' => 0.50, # Special case for Tribute Chest, grumble.
-        '277' => 0.50
+        '277' => 0.50,
+        '284' => 3.00
       },
       'Two-Hand' => {
         '226' => [0.00, 0.00],
@@ -132,6 +137,12 @@ class ItemPrice
         "Phylactery of the Nameless Lich" => [2.00, 4.00],
         "Sindragosa's Flawless Fang"      => [2.00, 4.00],
         "Tiny Abomination in a Jar"       => [2.00, 4.00],
+
+        # Patch 3.3.5 [277 price, 284 price]
+        'Charred Twilight Scale'   => [2.00, 4.00],
+        'Glowing Twilight Scale'   => [2.00, 4.00],
+        'Petrified Twilight Scale' => [2.00, 4.00],
+        'Sharpened Twilight Scale' => [2.00, 4.00],
       }
     }
 
