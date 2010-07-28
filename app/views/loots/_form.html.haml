@@ -1,7 +1,8 @@
 - form.inputs do
+  = form.input :item_id, :as => :hidden
   = form.input :item_name, :label => 'Item name or ID'
   = form.input :member_name, :label => 'Buyer', :required => false
-  = form.input :raid, :include_blank => true
+  = form.input :raid, :include_blank => true, :collection => Raid.latest
   = form.input :price, :required => false
   = form.input :best_in_slot, :required => false
   = form.input :situational, :required => false

@@ -2,6 +2,7 @@ class LootsController < ApplicationController
   before_filter :require_admin
   before_filter :find_loot, :only => [:show, :edit, :update, :destroy, :price]
   before_filter :raids_select, :only => [:new, :edit]
+  before_filter :prepare_params, :only => [:create, :update]
 
   cache_sweeper :index_sweeper, :only => [:create, :update, :destroy]
 
@@ -100,5 +101,11 @@ class LootsController < ApplicationController
         @raids = Raid.find(:all, :order => 'date DESC',
           :conditions => ['date >= ? OR date = ?', 52.days.until(Date.today), @loot.purchased_on])
       end
+    end
+
+    def prepare_params
+      # If given the item's exact ID, we don't need to know its name
+      return unless params[:loot].present? and params[:loot][:item_id].present?
+      params[:loot].delete(:item_name) if params[:loot][:item_id].present?
     end
 end

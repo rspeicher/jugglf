@@ -56,9 +56,6 @@ if (typeof JuggLF === "undefined") {
         // Autocomplete item name
         $('#wishlist_item_name').unautocomplete();
         $('#wishlist_item_name').autocomplete_items();
-        $('#wishlist_item_name').result(function(event, data, formatted) {
-          $('#wishlist_item_id').val(data.item.id); // Set item_id value when result is selected
-        });
 
         // Focus first field
         $('#wishlist_item_name').focus();

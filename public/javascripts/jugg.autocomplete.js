@@ -53,6 +53,12 @@ if (typeof JuggLF === "undefined") {
                     return value;
                 }
             });
+
+            // On selected result, set the value of the item id to the item_id field
+            $(this).result(function(event, data, formatted) {
+              var id = $(this).attr('id').replace(/item_name/, 'item_id');
+              $('#' + id).val(data.item.id);
+            });
         });
     };
 
