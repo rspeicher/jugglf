@@ -31,5 +31,6 @@ $(document).ready(function() {
       JuggLF.itemFilter.init();
       JuggLF.moderation.init();
       // JuggLF.tablesorter.init(); // FIXME: Causes unwanted behavior with wishlist form (duplicate rows)
+      $('.help').tooltip({ showURL: false });
     });
 });
