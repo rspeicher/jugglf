@@ -44,7 +44,7 @@ describe "loot_factor_cutoff" do
   end
 
   it "should display relative date for future" do
-    loot_factor_cutoff(@future).should eql('2 months from today')
+    loot_factor_cutoff(@future).should eql('3 months from today')
   end
 
   it "should display relative date for past" do
