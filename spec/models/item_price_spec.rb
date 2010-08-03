@@ -49,6 +49,7 @@ describe ItemPrice do
     end
 
     it "should calculate One-Hand prices" do
+      @ip.price(:slot => 'One-Hand', :level => median_level, :class => 'Priest').should eql(2.50)
       @ip.price(:slot => 'One-Hand', :level => median_level, :class => 'Rogue').should eql(2.50)
       @ip.price(:slot => 'One-Hand', :level => median_level, :class => 'Hunter').should eql(1.00)
     end
@@ -160,11 +161,4 @@ describe ItemPrice do
       @ip.price(:level => 80, :id => 52030).should eql(3.00)
     end
   end
-end
-
-describe ItemPrice, "weapon special cases" do
-  before(:each) do
-    @ip = ItemPrice.instance
-  end
-
 end

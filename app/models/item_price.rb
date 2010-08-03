@@ -6,109 +6,41 @@ class ItemPrice
   def initialize
     @min_level = 226
     @values = {
-      'LEVELS' => ['226', '239', '245', '258', '264', '277', '284'], # NOTE: Not 272, this array is only used for weapons.
-
-      'Head' => nil, 'Chest' => nil, 'Legs' => {
-        '226' => 0.50,
-        '239' => 1.00,
-        '245' => 1.50,
-        '258' => 2.00,
-        '264' => 2.50,
-        '277' => 3.00,
-        '284' => 3.50
-      },
-      'Shoulder' => nil, 'Shoulders' => nil, 'Hands' => nil, 'Feet' => {
-        '226' => 0.00,
-        '239' => 0.50,
-        '245' => 1.00,
-        '258' => 1.50,
-        '264' => 2.00,
-        '277' => 2.50,
-        '284' => 3.00
-      },
-      'Wrist' => nil, 'Waist' => nil, 'Finger' => {
-        '226' => 0.00,
-        '239' => 0.00,
-        '245' => 0.50,
-        '258' => 1.00,
-        '264' => 1.50,
-        '277' => 2.00,
-        '284' => 2.50
-      },
-      'Neck' => {
-        '226' => 0.00,
-        '239' => 0.00,
-        '245' => 0.50,
-        '258' => 1.00,
-        '264' => 1.50,
-        '277' => 2.50,
-        '284' => 3.00
-      },
-      'Back' => {
-        '226' => 0.00,
-        '239' => 0.00,
-        '245' => 0.50,
-        '258' => 0.50,
-        '264' => 0.50,
-        '272' => 0.50, # Special case for Tribute Chest, grumble.
-        '277' => 0.50,
-        '284' => 3.00
-      },
-      'Two-Hand' => {
-        '226' => [0.00, 0.00],
-        '232' => [1.00, 0.00],
-        '239' => [2.00, 0.50],
-        '245' => [3.00, 1.00],
-        '258' => [4.00, 1.50],
-        '264' => [5.00, 2.00],
-        '277' => [6.00, 2.50],
-        '284' => [7.00, 3.00]
+      'two-hand' => {
+        (226...232) => [0.00, 0.00],
+        (232...239) => [1.00, 0.00],
+        (239...245) => [2.00, 0.50],
+        (245...258) => [3.00, 1.00],
+        (258...264) => [4.00, 1.50],
+        (264...277) => [5.00, 2.00],
+        (277...284) => [6.00, 2.50],
+        (284...300) => [7.00, 3.00]
       },
 
-      # Healer/Caster
-      'Main Hand' => {
-        '226' => 1.00,
-        '232' => 1.50,
-        '239' => 2.00,
-        '245' => 2.50,
-        '258' => 3.00,
-        '264' => 3.50,
-        '277' => 4.00,
-        '284' => 4.50
-      },
-      'Shield' => nil, 'Held In Off-hand' => {
-        '226' => 0.00,
-        '232' => 0.00,
-        '239' => 0.00,
-        '245' => 0.50,
-        '258' => 1.00,
-        '264' => 1.50,
-        '277' => 2.00,
-        '284' => 2.50
-      },
       # Melee DPS/Hunter
-      'One-Hand' => nil, 'Off Hand' => nil, 'Melee DPS Weapon' => {
-        '226' => [0.00, 0.00],
-        '232' => [0.50, 0.00],
-        '239' => [1.00, 0.00],
-        '245' => [1.50, 0.50],
-        '258' => [2.00, 0.75],
-        '264' => [2.50, 1.00],
-        '277' => [3.00, 1.25],
-        '284' => [3.50, 1.50]
+      'melee_dps_weapon' => {
+        (226...232) => [0.00, 0.00],
+        (232...239) => [0.50, 0.00],
+        (239...245) => [1.00, 0.00],
+        (245...258) => [1.50, 0.50],
+        (258...264) => [2.00, 0.75],
+        (264...277) => [2.50, 1.00],
+        (277...284) => [3.00, 1.25],
+        (284...300) => [3.50, 1.50]
       },
 
-      'Relic' => nil, 'Idol' => nil, 'Totem' => nil, 'Thrown' => nil, 'Sigil' => nil, 'Ranged' => {
-        '226' => [0.00, 0.00],
-        '232' => [0.00, 0.00],
-        '239' => [0.00, 1.00],
-        '245' => [0.00, 2.00],
-        '258' => [0.50, 3.00],
-        '264' => [1.00, 4.00],
-        '277' => [1.50, 5.00],
-        '284' => [2.00, 6.00]
+      'ranged' => {
+        (226...232) => [0.00, 0.00],
+        (232...239) => [0.00, 0.00],
+        (239...245) => [0.00, 1.00],
+        (245...258) => [0.00, 2.00],
+        (258...264) => [0.50, 3.00],
+        (264...277) => [1.00, 4.00],
+        (277...284) => [1.50, 5.00],
+        (284...300) => [2.00, 6.00]
       },
-      'Trinket' => {
+
+      'trinket' => {
         # Patch 3.1
         "Blood of the Old God"              => 0.00,
         "Comet's Trail"                     => 1.00,
@@ -146,13 +78,16 @@ class ItemPrice
       }
     }
 
-    @values['Head']     = @values['Chest']            = @values['Legs']
-    @values['Shoulder'] = @values['Shoulders']        = @values['Hands']            = @values['Feet']
-    @values['Wrist']    = @values['Waist']            = @values['Finger']
-    # @values['Neck']     = @values['Back'] # Can't group these anymore because of pricing differences
-    @values['Shield']   = @values['Held In Off-hand']
-    @values['One-Hand'] = @values['Off Hand']         = @values['Melee DPS Weapon']
-    @values['Relic']    = @values['Idol']             = @values['Totem']            = @values['Thrown'] = @values['Sigil'] = @values['Ranged']
+    default_ranges = [226...239, 239...245, 245...258, 258...264, 264...277, 277...284, 284...300]
+    weapon_ranges  = [226...232, 232...239, 239...245, 245...258, 258...264, 264...277, 277...284, 284...300]
+
+    set_prices(:slot => 'head_chest_legs',     :start =>  0.50, :step => 0.50, :ranges => default_ranges)
+    set_prices(:slot => 'shoulder_hands_feet', :start =>  0.00, :step => 0.50, :ranges => default_ranges)
+    set_prices(:slot => 'wrist_waist_finger',  :start => -0.50, :step => 0.50, :ranges => default_ranges)
+    set_prices(:slot => 'neck',                :start => -0.50, :step => 0.50, :ranges => default_ranges)
+    set_prices(:slot => 'back',                :start =>  0.50, :step => 2.50, :ranges => [245...284, 284...300])
+    set_prices(:slot => 'main hand',           :start =>  1.00, :step => 0.50, :ranges => weapon_ranges)
+    set_prices(:slot => 'shield',              :start => -1.00, :step => 0.50, :ranges => weapon_ranges)
   end
 
   # Given as much information as possible, attempts to determine the price of an +Item+
@@ -171,15 +106,13 @@ class ItemPrice
 
     if options[:level] < @min_level or options[:slot].blank?
       # Check for a special legendary token
-      if options[:name] == "Fragment of Val'anyr" or options[:name] == "Shadowfrost Shard"
-        price = price_legendary(options)
+      if legendary_item?(options)
+        price = legendary_value(options)
       else
         price = 0.00
       end
-    elsif options[:slot] == 'Trinket'
+    elsif trinket_item?(options)
       price = trinket_value(options)
-    elsif special_weapon_slot?(options[:slot])
-      price = special_weapon_value(options)
     else
       price = default_value(options)
     end
@@ -188,6 +121,35 @@ class ItemPrice
   end
 
   private
+
+    # Populates +values+ with item prices
+    #
+    # If the result of adding <tt>(start + (step * iteration))</tt> is a negative, the value will be
+    # converted to 0.00, to support a case of multiple groups having a 0.00 value
+    #
+    # === Valid Options
+    # slot::  Slot, for use as the index
+    # start:: Starting value for prices
+    # step::  Value to add to the price for each level group
+    # ranges:: Array of Range objects representing a level group
+    #
+    # === Examples
+    #   >> set_prices(:slot => 'ranged', :start => 0.50, :step => 1.00, :ranges => [1...5, 5...10, 10...15])
+    #   => @values['ranged'] = { (1...5) => 0.50, (5...10) => 1.50, (10...15) => 2.50 }
+    #   >> set_prices(:slot => 'ranged', :start => -0.50, :step => 0.50, :ranges => [1...5, 5...10, 10...15])
+    #   => @values['ranged'] = { (1...5) => 0.00, (5...10) => 0.00, (10...15) => 0.50 }
+    def set_prices(options)
+      options.assert_valid_keys(:start, :step, :slot, :ranges)
+
+      values = {}
+      options[:ranges].each_with_index do |range, i|
+        range_value = options[:start] + (options[:step] * i)
+        values[range] = ( range_value < 0.00 ) ? 0.00 : range_value
+      end
+
+      @values[options[:slot]] = values
+    end
+
     # Prepares and normalizes options passed into +price+
     #
     # If given certain token items, such as "Breastplate of the Forgotten Vanquisher",
@@ -237,6 +199,46 @@ class ItemPrice
           options[:level] = determine_token_level($1, $2)
         end
       end
+
+      special_weapon_options(options) if special_weapon_slot?(options[:slot])
+      options[:slot] = normalize_slot(options[:slot])
+
+      options
+    end
+
+    # Turns a WoW-style slot value into one usable by ItemPrice
+    #
+    # === Examples
+    #   >> normalize_slot('Neck')
+    #   => 'neck'
+    #   >> normalize_slot('Relic')
+    #   => 'ranged'
+    #   >> normalize_slot('Shoulders')
+    #   => 'shoulder_hands_feet'
+    def normalize_slot(slot)
+      return if slot.blank?
+
+      slot = slot.downcase
+
+      # Weird edge case that shouldn't exist anymore
+      slot = 'shoulder' if slot == 'shoulders'
+
+      case slot
+      when 'head', 'chest', 'legs'
+        'head_chest_legs'
+      when 'shoulder', 'hands', 'feet'
+        'shoulder_hands_feet'
+      when 'wrist', 'waist', 'finger'
+        'wrist_waist_finger'
+      when 'shield', 'held in off-hand'
+        'shield'
+      when 'one-hand', 'off hand'
+        'melee_dps_weapon'
+      when 'relic', 'idol', 'totem', 'thrown', 'sigil', 'ranged'
+        'ranged'
+      else
+        slot
+      end
     end
 
     # Simply loops through a hash of values for the given +slot+ and returns the value according to
@@ -245,13 +247,13 @@ class ItemPrice
       # Return early if the values for the given slot don't exist
       return nil if @values[options[:slot]].nil?
 
-      value = nil
+      value = 0.00
       slotval = @values[options[:slot]]
-      slotval.sort.each do |level,values|
-        # Goes to the highest possible level group for values
-        if level.to_i <= options[:level]
+
+      slotval.each_pair do |range, values|
+        if range.include? options[:level]
           if values.is_a? Array
-            # If it's an array, meaning the first value is for non-Hunters, and the second value is for Hunters
+            # It's an array, meaning the first value is for non-Hunters, and the second value is for Hunters
             value = (options[:class] == 'Hunter') ? values[1] : values[0]
           else
             value = values
@@ -262,9 +264,14 @@ class ItemPrice
       value
     end
 
+    # Determines if the provided arguments match a Legendary item
+    def legendary_item?(options)
+      options[:name] == "Fragment of Val'anyr" or options[:name] == "Shadowfrost Shard"
+    end
+
     # Returns the price value for legendary tokens that don't have traditional
     # level or slot stats
-    def price_legendary(options)
+    def legendary_value(options)
       if options[:name] == "Fragment of Val'anyr"
         0.00
       elsif options[:name] == "Shadowfrost Shard"
@@ -281,57 +288,33 @@ class ItemPrice
       ['Main Hand', 'Held In Off-hand', 'One-Hand', 'Off Hand', 'Shield'].include? slot
     end
 
-    # Determines the price for Weapons that ARE NOT Two-Handers and ARE NOT Ranged
-    # based on conditions such as buyer class and slot.
-    def special_weapon_value(options)
+    # Modifies +options+ based on special weapon conditions
+    #
+    # For example, a Main Hand and an Off Hand weapon are the same prices for a Rogue
+    def special_weapon_options(options)
       return if options[:class].nil?
 
-      # Figure out the price on a per-class special case basis
-      value = nil
-      if ['Druid', 'Mage', 'Paladin', 'Priest', 'Warlock'].include? options[:class]
-        # These classes have no special cases, use the defaults
-        value = default_value(options)
-      else
-        # Find out what item level group we're dealing with
-        price_group = nil
-        slotval = @values['LEVELS']
-        slotval.sort.each do |level|
-          if level.to_i <= options[:level]
-            price_group = level.to_s
-          end
-        end
-
-        if options[:class] == 'Death Knight'
-          value = @values['Melee DPS Weapon'][price_group][0]
-        elsif options[:class] == 'Hunter'
-          # Price everything as a Melee DPS weapon with the Hunter price
-          value = @values['Melee DPS Weapon'][price_group][1]
-        elsif options[:class] == 'Rogue'
-          value = @values['Melee DPS Weapon'][price_group][0]
-        elsif options[:class] == 'Shaman'
-          if options[:slot] == 'Shield'
-            # Shields are only used by Resto/Ele Shaman, it's a normal Shield price
-            value = @values['Shield'][price_group]
-          elsif options[:slot] == 'One-Hand'
-            # We're gonna guess that a non-Enhancement Shaman would never use a One-Hand weapon
-            value = @values['Melee DPS Weapon'][price_group][0]
-          else
-            value = default_value(options)
-          end
-        elsif options[:class] == 'Warrior'
-          # Price everything as a Melee DPS weapon, even Shields
-          value = @values['Melee DPS Weapon'][price_group][0]
+      if ['Death Knight', 'Hunter', 'Rogue', 'Warrior'].include? options[:class]
+        # Price these special slots as a melee weapon for these classes
+        options[:slot] = 'melee_dps_weapon'
+      elsif options[:class] == 'Shaman'
+        if options[:slot] == 'One-Hand'
+          # We're gonna guess that a non-Enhancement Shaman would never use a One-Hand weapon
+          options[:slot] = 'melee_dps_weapon'
         end
       end
+    end
 
-      value
+    # Determines if the provided arguments match a Trinket item
+    def trinket_item?(options)
+      options[:slot] == 'trinket'
     end
 
     def trinket_value(options)
       value = nil
 
-      if @values['Trinket'][options[:name]]
-        value = @values['Trinket'][options[:name]]
+      if @values['trinket'][options[:name]]
+        value = @values['trinket'][options[:name]]
 
         # 3.2 Trinkets share names with their lower-level counterparts
         if value.is_a? Array
@@ -354,7 +337,7 @@ class ItemPrice
     #   >> determine_token_slot("Breastplate")
     #   => 'Chest'
     #   >> determine_token_slot("Spaulders")
-    #   => 'Shoulders'
+    #   => 'Shoulder'
     def determine_token_slot(name)
       name = name.strip.downcase
 
@@ -367,7 +350,7 @@ class ItemPrice
       elsif name == 'legplates' or name == 'leggings'
         return 'Legs'
       elsif name == 'mantle' or name == 'spaulders'
-        return 'Shoulders'
+        return 'Shoulder'
       end
     end
 
