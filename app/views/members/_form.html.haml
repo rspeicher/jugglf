@@ -3,7 +3,7 @@
   = form.input :wow_class, :as => :select, :collection => Member::WOW_CLASSES, :label => 'Class'
   = form.input :rank_id, :as => :select, :collection => @ranks.collect { |r| [r.name, r.id] }, :include_blank => true, :required => false
   = form.input :user_id, :as => :select, :collection => @users.collect { |u| [u.name, u.id] }, :include_blank => true, :required => false
-  = form.input :active, :as => :boolean
+  = form.input :active, :as => :boolean, :required => false
 - form.buttons :class => 'submit' do
   = form.submit 'Save', :class => 'input_submit'
   or
