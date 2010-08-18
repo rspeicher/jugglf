@@ -15,7 +15,7 @@ Rails::Initializer.run do |config|
   config.load_paths += %W( #{RAILS_ROOT}/app/sweepers )
 
   # Specify gems that this application depends on and have them installed with rake gems:install
-  config.gem 'formtastic', :version => '0.9.7'
+  config.gem 'formtastic', :version => '>=0.9.7'
   config.gem 'haml'
   config.gem 'hoptoad_notifier', :version => '2.2.6'
   config.gem 'invision_bridge'
