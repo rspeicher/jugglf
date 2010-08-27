@@ -33,7 +33,7 @@ Item prices are currently determined by the ItemPrice model. Unfortunately this 
 
 Maybe you don't raid the same zones we do. You probably want to change the Wishlists page to show zones and bosses you care about.
 
-Zone > Boss > Item data is currently populated by the `lib/tasks/wishlist.rake` file which is a _hot mess_. This is another area where I want to turn it into a web interface, but again, too much work, not enough reward for the time being. See the `lib/scraper.rb` file for an example of scraping loot data for a boss from the Armory. Seriously. Hot mess.
+Zone > Boss > Item data is currently populated by the `lib/tasks/wishlist.rake` file and the files in the `lib/wishlist_data` folder. This is another area where I want to turn it into a web interface, but again, too much work, not enough reward for the time being. See the `lib/wishlist_data/scraper.rb` file for an example of scraping loot data for a boss from the Armory.
 
 ### Attendance Parsing
 
