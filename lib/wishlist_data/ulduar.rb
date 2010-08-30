@@ -2,484 +2,511 @@ module WishlistData
   class Ulduar
     include WishlistData
 
-    def initialize
-      # TODO: Update to new format
-      ulduar_data
-    end
+    active_difficulties :none
 
-    def ulduar_data
-      ulduar_bosses = ['Bind on Equip',
-        'Flame Leviathan','Ignis the Furnacemaster','Razorscale','XT-002 Deconstructor',
-        'Kologarn','Auriaya','Assembly of Iron',
-        'Hodir','Thorim','Freya','Mimiron',
-        'General Vezax', 'Yogg-Saron', 'Algalon the Observer']
-
-      ['Ulduar'].each do |zone_name|
-        zone = zone(zone_name)
-
-        ulduar_bosses.each do |boss_name|
-          boss = boss(zone, boss_name)
-
-          case boss_name
-          when 'Bind on Equip'
-          when 'Flame Leviathan'
-            item(boss, "Combustion Bracers")
-            item(boss, "Energy Siphon")
-            item(boss, "Firesoul")
-            item(boss, "Firestrider Chestguard")
-            item(boss, "Flamewatch Armguards")
-            item(boss, "Gilded Steel Legplates")
-            item(boss, "Handguards of Potent Cures")
-            item(boss, "Ironsoul")
-            item(boss, "Kinetic Ripper")
-            item(boss, "Lifespark Visage")
-            item(boss, "Mantle of Fiery Vengeance")
-            item(boss, "Might of the Leviathan")
-            item(boss, "Pyrite Infuser")
-            item(boss, "Shimmering Seal")
-            item(boss, "Twirling Blades")
-          when 'Ignis the Furnacemaster'
-            item(boss, "Armbraces of the Vibrant Flame")
-            item(boss, "Drape of Fuming Anger")
-            item(boss, "Furnace Stone")
-            item(boss, "Gauntlets of the Iron Furnace")
-            item(boss, "Gloves of Smoldering Touch")
-            item(boss, "Igniter Rod")
-            item(boss, "Pauldrons of Tempered Will")
-            item(boss, "Relentless Edge")
-            item(boss, "Rifle of the Platinum Guard")
-          when 'Razorscale'
-            item(boss, "Band of Draconic Guile")
-            item(boss, "Binding of the Dragon Matriarch")
-            item(boss, "Bracers of the Smothering Inferno")
-            item(boss, "Breastplate of the Afterlife")
-            item(boss, "Dragonsteel Faceplate")
-            item(boss, "Eye of the Broodmother")
-            item(boss, "Ironscale Leggings")
-            item(boss, "Razorscale Talon")
-            item(boss, "Stormtempered Girdle")
-            item(boss, "Treads of the Invader")
-          when 'XT-002 Deconstructor'
-            item(boss, "Aesir's Edge")
-            item(boss, "Armbands of the Construct")
-            item(boss, "Breastplate of the Stoneshaper")
-            item(boss, "Chestplate of Vicious Potency")
-            item(boss, "Conductive Cord")
-            item(boss, "Fluxing Energy Coils")
-            item(boss, "Gloves of Taut Grip")
-            item(boss, "Helm of Veiled Energies")
-            item(boss, "Magnetized Projectile Emitter")
-            item(boss, "Plasma Foil")
-            item(boss, "Power Enhancing Loop")
-            item(boss, "Pulsing Spellshield")
-            item(boss, "Treacherous Shoulderpads")
-            item(boss, "Vest of the Glowing Crescent")
-          when 'Kologarn'
-            item(boss, "Emerald Signet Ring")
-            item(boss, "Greaves of the Earthbinder")
-            item(boss, "Mark of the Unyielding")
-            item(boss, "Pendant of the Piercing Glare")
-            item(boss, "Sabatons of the Iron Watcher")
-            item(boss, "Shawl of the Shattered Giant")
-            item(boss, "Shoulderguards of the Solemn Watch")
-            item(boss, "Spark of Hope")
-            item(boss, "Spire of Withering Dreams")
-            item(boss, "Stoneguard")
-          when 'Auriaya'
-            item(boss, "Archaedas' Lost Legplates")
-            item(boss, "Chestplate of Titanic Fury")
-            item(boss, "Cover of the Keepers")
-            item(boss, "Elemental Focus Stone")
-            item(boss, "Ironaya's Discarded Mantle")
-            item(boss, "Mantle of the Preserver")
-            item(boss, "Nimble Climber's Belt")
-            item(boss, "Nurturing Touch")
-            item(boss, "Raiments of the Corrupted")
-            item(boss, "Shieldwall of the Breaker")
-          when 'Assembly of Iron'
-            item(boss, "Belt of the Crystal Tree")
-            item(boss, "Belt of the Iron Servant")
-            item(boss, "Boots of the Petrified Forest")
-            item(boss, "Circlet of True Sight")
-            item(boss, "Cloak of the Iron Council")
-            item(boss, "Greaves of Iron Intensity")
-            item(boss, "Lady Maye's Sapphire Ring")
-            item(boss, "Leggings of Swift Reflexes")
-            item(boss, "Loop of the Agile")
-            item(boss, "Perilous Bite")
-            item(boss, "Rune-Etched Nightblade")
-            item(boss, "Runetouch Handwraps")
-            item(boss, "Stormtip")
-            item(boss, "The Masticator")
-            item(boss, "45447") # Watchful Eye
-          when 'Hodir'
-            item(boss, "Avalanche")
-            item(boss, "Bitter Cold Armguards")
-            item(boss, "Cowl of Icy Breaths")
-            item(boss, "Ice Layered Barrier")
-            item(boss, "Icecore Staff")
-            item(boss, "Leggings of the Wayward Conqueror")
-            item(boss, "Leggings of the Wayward Protector")
-            item(boss, "Leggings of the Wayward Vanquisher")
-            item(boss, "Shiver")
-            item(boss, "Signet of Winter")
-            item(boss, "Stormedge")
-            item(boss, "The Boreal Guard")
-            item(boss, "Winter's Frigid Embrace")
-          when 'Thorim'
-            item(boss, "Belt of the Blood Pit")
-            item(boss, "Combatant's Bootblade")
-            item(boss, "Gauntlets of the Thunder God")
-            item(boss, "Guise of the Midgard Serpent")
-            item(boss, "Handwraps of Resonance")
-            item(boss, "Hoperender")
-            item(boss, "Legacy of Thunder")
-            item(boss, "Leggings of Unstable Discharge")
-            item(boss, "Mjolnir Runestone")
-            item(boss, "Pendant of the Shallow Grave")
-            item(boss, "Sif's Remembrance")
-            item(boss, "Spaulders of the Wayward Conqueror")
-            item(boss, "Spaulders of the Wayward Protector")
-            item(boss, "Spaulders of the Wayward Vanquisher")
-          when 'Freya'
-            item(boss, "Chestguard of the Lasher")
-            item(boss, "Fire Orchid Signet")
-            item(boss, "Gloves of Whispering Winds")
-            item(boss, "Gloves of the Wayward Conqueror")
-            item(boss, "Gloves of the Wayward Protector")
-            item(boss, "Gloves of the Wayward Vanquisher")
-            item(boss, "Ironbark Faceguard")
-            item(boss, "Legplates of Flourishing Resolve")
-            item(boss, "Petrified Ivy Sprig")
-            item(boss, "Seed of Budding Carnage")
-            item(boss, "Serilas, Blood Blade of Invar One-Arm")
-            item(boss, "Tunic of the Limber Stalker")
-            item(boss, "Unraveling Reach")
-          when 'Mimiron'
-            item(boss, "Cable of the Metrognome")
-            item(boss, "Fused Alloy Legplates")
-            item(boss, "Fusion Blade")
-            item(boss, "Greaves of the Iron Army")
-            item(boss, "Helm of the Wayward Conqueror")
-            item(boss, "Helm of the Wayward Protector")
-            item(boss, "Helm of the Wayward Vanquisher")
-            item(boss, "Mimiron's Flight Goggles")
-            item(boss, "Pulse Baton")
-            item(boss, "Shoulderguards of Assimilation")
-            item(boss, "Static Charge Handwraps")
-            item(boss, "Stylish Power Cape")
-            item(boss, "Tempered Mercury Greaves")
-          when 'General Vezax'
-            item(boss, "Aesuga, Hand of the Ardent Champion")
-            item(boss, "Bindings of the Depths")
-            item(boss, "Boots of Unsettled Prey")
-            item(boss, "Choker of the Abyss")
-            item(boss, "Darkstone Ring")
-            item(boss, "Drape of the Faceless General")
-            item(boss, "Leggings of Profound Darkness")
-            item(boss, "Pendant of Endless Despair")
-            item(boss, "Saronite Animus Cloak")
-            item(boss, "Shadowbite")
-            item(boss, "Tortured Earth")
-            item(boss, "Underworld Mantle")
-            item(boss, "Vestments of the Piercing Light")
-            item(boss, "Void Sabre")
-          when 'Yogg-Saron'
-            item(boss, "Abaddon")
-            item(boss, "Amice of Inconceivable Horror")
-            item(boss, "Caress of Insanity")
-            item(boss, "Chestguard of the Wayward Conqueror")
-            item(boss, "Chestguard of the Wayward Protector")
-            item(boss, "Chestguard of the Wayward Vanquisher")
-            item(boss, "Deliverance")
-            item(boss, "Devotion")
-            item(boss, "Faceguard of the Eyeless Horror")
-            item(boss, "Hammer of Crushing Whispers")
-            item(boss, "Kingsbane")
-            item(boss, "Leggings of the Insatiable")
-            item(boss, "Pendant of a Thousand Maws")
-            item(boss, "Royal Seal of King Llane")
-            item(boss, "Signet of Soft Lament")
-            item(boss, "Soul-Devouring Cinch")
-            item(boss, "Touch of Madness")
-            item(boss, "Treads of the Dragon Council")
-          when 'Algalon the Observer'
-            item(boss, "Band of Lights")
-            item(boss, "Breastplate of the Timeless")
-            item(boss, "46038") # Dark Matter
-            item(boss, "Drape of the Messenger")
-            item(boss, "Gloves of the Endless Dark")
-            item(boss, "Meteorite Crystal")
-            item(boss, "Nebula Band")
-            item(boss, "Observer's Mantle")
-            item(boss, "Pendant of the Somber Witness")
-            item(boss, "Pulsar Gloves")
-            item(boss, "Reply-Code Alpha")
-            item(boss, "Shoulderplates of the Celestial Watch")
-            item(boss, "Starfall Girdle")
-            item(boss, "Starlight Treads")
-            item(boss, "Strength of the Heavens")
-            item(boss, "Zodiac Leggings")
-          end
-        end
+    difficulty :normal_10 do
+      boss "Flame Leviathan" do
+        item "Combustion Bracers"
+        item "Energy Siphon"
+        item "Firesoul"
+        item "Firestrider Chestguard"
+        item "Flamewatch Armguards"
+        item "Gilded Steel Legplates"
+        item "Handguards of Potent Cures"
+        item "Ironsoul"
+        item "Kinetic Ripper"
+        item "Lifespark Visage"
+        item "Mantle of Fiery Vengeance"
+        item "Might of the Leviathan"
+        item "Pyrite Infuser"
+        item "Shimmering Seal"
+        item "Twirling Blades"
       end
 
-      ['Ulduar (H)'].each do |zone_name|
-        zone = LootTable.create(:object => Zone.create(:name => zone_name))
+      boss "Ignis the Furnacemaster" do
+        item "Armbraces of the Vibrant Flame"
+        item "Drape of Fuming Anger"
+        item "Furnace Stone"
+        item "Gauntlets of the Iron Furnace"
+        item "Gloves of Smoldering Touch"
+        item "Igniter Rod"
+        item "Pauldrons of Tempered Will"
+        item "Relentless Edge"
+        item "Rifle of the Platinum Guard"
+      end
 
-        ulduar_bosses.each do |boss_name|
-          boss = boss(zone, boss_name)
+      boss "Razorscale" do
+        item "Band of Draconic Guile"
+        item "Binding of the Dragon Matriarch"
+        item "Bracers of the Smothering Inferno"
+        item "Breastplate of the Afterlife"
+        item "Dragonsteel Faceplate"
+        item "Eye of the Broodmother"
+        item "Ironscale Leggings"
+        item "Razorscale Talon"
+        item "Stormtempered Girdle"
+        item "Treads of the Invader"
+      end
 
-          case boss_name
-          when 'Bind on Equip'
-            item(boss, "Asimov's Drape", "Mimiron")
-            item(boss, "Cowl of the Absolute", "Auriaya")
-            item(boss, "Darkcore Leggings", "General Vezax")
-            item(boss, "Iron Riveted War Helm", "Flame Leviathan")
-            item(boss, "Leggings of Lost Love", "Thorim")
-            item(boss, "Leggings of the Stoneweaver", "Kologarn")
-            item(boss, "Lifeforge Breastplate", "Ignis the Furnacemaster")
-            item(boss, "Northern Barrier", "Hodir")
-            item(boss, "Nymph Heart Charm", "Freya")
-            item(boss, "Phaelia's Vestments of the Sprouting Seed", "Assembly of Iron")
-            item(boss, "Proto-hide Leggings", "Razorscale")
-            item(boss, "Signet of the Earthshaker", "XT-002 Deconstructor")
-          when 'Flame Leviathan'
-            item(boss, "Boots of Fiery Resolution", "Hard Mode")
-            item(boss, "Constructor's Handwraps")
-            item(boss, "Embrace of the Leviathan")
-            item(boss, "Freya's Choker of Warding")
-            item(boss, "Gloves of the Fiery Behemoth")
-            item(boss, "Glowing Ring of Reclamation")
-            item(boss, "Golden Saronite Dragon", "Hard Mode")
-            item(boss, "Mechanist's Bindings")
-            item(boss, "Mimiron's Inferno Couplings")
-            item(boss, "Pendant of Fiery Havoc", "Hard Mode")
-            item(boss, "Plated Leggings of Ruination", "Hard Mode")
-            item(boss, "Shoulderpads of Dormant Energies", "Hard Mode")
-            item(boss, "Steamcaller's Totem")
-            item(boss, "Steamworker's Goggles")
-            item(boss, "Strength of the Automaton")
-            item(boss, "The Leviathan's Coil")
-            item(boss, "Titanguard")
-          when 'Ignis the Furnacemaster'
-            item(boss, "Cindershard Ring")
-            item(boss, "Flamestalker Boots")
-            item(boss, "Flamewrought Cinch")
-            item(boss, "Girdle of Embers")
-            item(boss, "Heart of Iron")
-            item(boss, "Helm of the Furnace Master")
-            item(boss, "Intensity")
-            item(boss, "Pyrelight Circle")
-            item(boss, "Scepter of Creation")
-            item(boss, "Soot-covered Mantle")
-            item(boss, "Totem of the Dancing Flame")
-            item(boss, "Worldcarver")
-            item(boss, "Wristguards of the Firetender")
-          when 'Razorscale'
-            item(boss, "Belt of the Fallen Wyrm")
-            item(boss, "Bracers of the Broodmother")
-            item(boss, "Charred Saronite Greaves")
-            item(boss, "Collar of the Wyrmhunter")
-            item(boss, "Dragonslayer's Brace")
-            item(boss, "Drape of the Drakerider")
-            item(boss, "Guiding Star")
-            item(boss, "Living Flame")
-            item(boss, "Razorscale Shoulderguards")
-            item(boss, "Remorse")
-            item(boss, "Saronite Mesh Legguards")
-            item(boss, "Shackles of the Odalisque")
-            item(boss, "Sigil of Deflection")
-            item(boss, "Veranus' Bane")
-          when 'XT-002 Deconstructor'
-            item(boss, "Boots of Hasty Revival")
-            item(boss, "Brass-lined Boots")
-            item(boss, "Breastplate of the Devoted", "Hard Mode")
-            item(boss, "Charm of Meticulous Timing", "Hard Mode")
-            item(boss, "Clockwork Legplates")
-            item(boss, "Crazed Construct Ring")
-            item(boss, "Gloves of the Steady Hand", "Hard Mode")
-            item(boss, "Golem-Shard Sticker")
-            item(boss, "Grasps of Reason", "Hard Mode")
-            item(boss, "Horologist's Wristguards")
-            item(boss, "Mantle of Wavering Calm")
-            item(boss, "Quartz Crystal Wand")
-            item(boss, "Quartz-studded Harness")
-            item(boss, "Sandals of Rash Temperament")
-            item(boss, "Shoulderplates of the Deconstructor")
-            item(boss, "Sigil of the Vengeful Heart")
-            item(boss, "Sorthalis, Hammer of the Watchers", "Hard Mode")
-            item(boss, "Thunderfall Totem")
-            item(boss, "Twisted Visage")
-          when 'Kologarn'
-            item(boss, "Bracers of Unleashed Magic")
-            item(boss, "Decimator's Armguards")
-            item(boss, "Giant's Bane")
-            item(boss, "Gloves of the Pythonic Guardian")
-            item(boss, "Handwraps of Plentiful Recovery")
-            item(boss, "Idol of the Crying Wind")
-            item(boss, "Ironmender")
-            item(boss, "Malice")
-            item(boss, "Necklace of Unerring Mettle")
-            item(boss, "Robes of the Umbral Brute")
-            item(boss, "Saronite Plated Legguards")
-            item(boss, "Shoulderpads of the Monolith")
-            item(boss, "Unfaltering Armguards")
-            item(boss, "Wrathstone")
-          when 'Auriaya'
-            item(boss, "Amice of the Stoic Watch")
-            item(boss, "Cloak of the Makers")
-            item(boss, "Gloves of the Stonereaper")
-            item(boss, "Greaves of the Rockmender")
-            item(boss, "Libram of the Resolute")
-            item(boss, "Platinum Band of the Aesir")
-            item(boss, "Ring of the Faithful Servant")
-            item(boss, "Runescribed Blade")
-            item(boss, "Sandals of the Ancient Keeper")
-            item(boss, "Shoulderplates of the Eternal")
-            item(boss, "Siren's Cry")
-            item(boss, "Stonerender")
-            item(boss, "Unbreakable Chestguard")
-            item(boss, "Unwavering Stare")
-          when 'Assembly of Iron'
-            item(boss, "Ancient Iron Heaume")
-            item(boss, "Belt of Colossal Rage", "Hard Mode")
-            item(boss, "Drape of Mortal Downfall", "Hard Mode")
-            item(boss, "Drape of the Lithe")
-            item(boss, "Fang of Oblivion", "Hard Mode")
-            item(boss, "Greaves of Swift Vengeance", "Hard Mode")
-            item(boss, "Handguards of the Enclave")
-            item(boss, "Insurmountable Fervor")
-            item(boss, "Iron-studded Mantle")
-            item(boss, "Overload Legwraps")
-            item(boss, "Radiant Seal")
-            item(boss, "Raiments of the Iron Council")
-            item(boss, "Rapture")
-            item(boss, "45233") # Rune Edge
-            item(boss, "Runed Ironhide Boots")
-            item(boss, "Runeshaper's Gloves")
-            item(boss, "Sapphire Amulet of Renewal", "Hard Mode")
-            item(boss, "Shoulderpads of the Intruder", "Hard Mode")
-            item(boss, "Steelbreaker's Embrace")
-            item(boss, "Unblinking Eye")
-          when 'Hodir'
-            item(boss, "Bindings of Winter Gale", "Hard Mode")
-            item(boss, "Breastplate of the Wayward Conqueror")
-            item(boss, "Breastplate of the Wayward Protector")
-            item(boss, "Breastplate of the Wayward Vanquisher")
-            item(boss, "Constellus", "Hard Mode")
-            item(boss, "Drape of Icy Intent", "Hard Mode")
-            item(boss, "Frigid Strength of Hodir", "Hard Mode")
-            item(boss, "Frost-bound Chain Bracers")
-            item(boss, "Frostplate Greaves")
-            item(boss, "Frozen Loop")
-            item(boss, "Gloves of the Frozen Glade", "Hard Mode")
-            item(boss, "Staff of Endless Winter", "Hard Mode")
-            item(boss, "Winter's Icy Embrace")
-          when 'Thorim'
-            item(boss, "Belt of the Betrayed")
-            item(boss, "Crown of the Wayward Conqueror")
-            item(boss, "Crown of the Wayward Protector")
-            item(boss, "Crown of the Wayward Vanquisher")
-            item(boss, "Embrace of the Gladiator", "Hard Mode")
-            item(boss, "Fate's Clutch", "Hard Mode")
-            item(boss, "Pauldrons of the Combatant", "Hard Mode")
-            item(boss, "Scale of Fates")
-            item(boss, "Sif's Promise")
-            item(boss, "Skyforge Crossbow")
-            item(boss, "Vulmir, the Northern Tempest")
-            item(boss, "Warhelm of the Champion", "Hard Mode")
-            item(boss, "Wisdom's Hold", "Hard Mode")
-          when 'Freya'
-            item(boss, "Bladetwister", "Hard Mode")
-            item(boss, "Boots of the Servant")
-            item(boss, "Bronze Pendant of the Vanir", "Hard Mode")
-            item(boss, "Drape of the Sullen Goddess", "Hard Mode")
-            item(boss, "Dreambinder", "Hard Mode")
-            item(boss, "Gauntlets of Ruthless Reprisal")
-            item(boss, "Handguards of Revitalization", "Hard Mode")
-            item(boss, "Leggings of the Enslaved Idol", "Hard Mode")
-            item(boss, "Leggings of the Lifetender")
-            item(boss, "Legplates of the Wayward Conqueror")
-            item(boss, "Legplates of the Wayward Protector")
-            item(boss, "Legplates of the Wayward Vanquisher")
-            item(boss, "The Lifebinder")
-          when 'Mimiron'
-            item(boss, "Armbands of Bedlam", "Hard Mode")
-            item(boss, "Conductive Seal", "Hard Mode")
-            item(boss, "Crown of Luminescence", "Hard Mode")
-            item(boss, "Delirium's Touch", "Hard Mode")
-            item(boss, "Gauntlets of the Wayward Conqueror")
-            item(boss, "Gauntlets of the Wayward Protector")
-            item(boss, "Gauntlets of the Wayward Vanquisher")
-            item(boss, "Insanity's Grip")
-            item(boss, "Malleable Steelweave Mantle")
-            item(boss, "Pandora's Plea")
-            item(boss, "Titanskin Cloak", "Hard Mode")
-            item(boss, "Starshard Edge", "Hard Mode")
-            item(boss, "Waistguard of the Creator")
-          when 'General Vezax'
-            item(boss, "Belt of Clinging Hope")
-            item(boss, "Belt of the Darkspeaker")
-            item(boss, "Boots of the Forgotten Depths")
-            item(boss, "Boots of the Underdweller")
-            item(boss, "Flare of the Heavens", "Hard Mode")
-            item(boss, "Grips of the Unbroken")
-            item(boss, "Handwraps of the Vigilant", "Hard Mode")
-            item(boss, "Helm of the Faceless")
-            item(boss, "Idol of the Corruptor")
-            item(boss, "Libram of Discord")
-            item(boss, "Libram of the Sacred Shield")
-            item(boss, "Lotrafen, Spear of the Damned")
-            item(boss, "Mantle of the Unknowing")
-            item(boss, "Metallic Loop of the Sufferer")
-            item(boss, "Pendulum of Infinity", "Hard Mode")
-            item(boss, "Ring of the Vacant Eye")
-            item(boss, "Scepter of Lost Souls")
-            item(boss, "The General's Heart")
-            item(boss, "Vestments of the Blind Denizen", "Hard Mode")
-            item(boss, "Voldrethar, Dark Blade of Oblivion", "Hard Mode")
-          when 'Yogg-Saron'
-            item(boss, "Blood of the Old God")
-            item(boss, "Chestguard of Insidious Intent")
-            item(boss, "Chestguard of the Fallen God")
-            item(boss, "Cowl of Dark Whispers")
-            item(boss, "Dark Edge of Depravity", "Hard Mode")
-            item(boss, "Earthshaper")
-            item(boss, "Garona's Guise")
-            item(boss, "Godbane Signet")
-            item(boss, "Legguards of Cunning Deception", "Hard Mode")
-            item(boss, "Mantle of the Wayward Conqueror")
-            item(boss, "Mantle of the Wayward Protector")
-            item(boss, "Mantle of the Wayward Vanquisher")
-            item(boss, "Sanity's Bond")
-            item(boss, "Seal of the Betrayed King", "Hard Mode")
-            item(boss, "Shawl of Haunted Memories")
-            item(boss, "Show of Faith", "Hard Mode")
-            item(boss, "Soulscribe")
-            item(boss, "Treads of the False Oracle", "Hard Mode")
-            item(boss, "Vanquished Clutches of Yogg-Saron")
-          when 'Algalon the Observer'
-            item(boss, "Boundless Gaze")
-            item(boss, "Bulwark of Algalon")
-            item(boss, "Comet's Trail")
-            item(boss, "Constellus")
-            item(boss, "Cosmos")
-            item(boss, "Dreambinder")
-            item(boss, "Fang of Oblivion")
-            item(boss, "Legplates of the Endless Void")
-            item(boss, "Pharos Gloves")
-            item(boss, "Reply-Code Alpha")
-            item(boss, "Sabatons of Lifeless Night")
-            item(boss, "Skyforge Crossbow")
-            item(boss, "Solar Bindings")
-            item(boss, "Star-beaded Clutch")
-            item(boss, "Starshard Edge")
-            item(boss, "Starwatcher's Binding")
-          end
-        end
+      boss "XT-002 Deconstructor" do
+        item "Aesir's Edge"
+        item "Armbands of the Construct"
+        item "Breastplate of the Stoneshaper"
+        item "Chestplate of Vicious Potency"
+        item "Conductive Cord"
+        item "Fluxing Energy Coils"
+        item "Gloves of Taut Grip"
+        item "Helm of Veiled Energies"
+        item "Magnetized Projectile Emitter"
+        item "Plasma Foil"
+        item "Power Enhancing Loop"
+        item "Pulsing Spellshield"
+        item "Treacherous Shoulderpads"
+        item "Vest of the Glowing Crescent"
+      end
+
+      boss "Kologarn" do
+        item "Emerald Signet Ring"
+        item "Greaves of the Earthbinder"
+        item "Mark of the Unyielding"
+        item "Pendant of the Piercing Glare"
+        item "Sabatons of the Iron Watcher"
+        item "Shawl of the Shattered Giant"
+        item "Shoulderguards of the Solemn Watch"
+        item "Spark of Hope"
+        item "Spire of Withering Dreams"
+        item "Stoneguard"
+      end
+
+      boss "Auriaya" do
+        item "Archaedas' Lost Legplates"
+        item "Chestplate of Titanic Fury"
+        item "Cover of the Keepers"
+        item "Elemental Focus Stone"
+        item "Ironaya's Discarded Mantle"
+        item "Mantle of the Preserver"
+        item "Nimble Climber's Belt"
+        item "Nurturing Touch"
+        item "Raiments of the Corrupted"
+        item "Shieldwall of the Breaker"
+      end
+
+      boss "Assembly of Iron" do
+        item "Belt of the Crystal Tree"
+        item "Belt of the Iron Servant"
+        item "Boots of the Petrified Forest"
+        item "Circlet of True Sight"
+        item "Cloak of the Iron Council"
+        item "Greaves of Iron Intensity"
+        item "Lady Maye's Sapphire Ring"
+        item "Leggings of Swift Reflexes"
+        item "Loop of the Agile"
+        item "Perilous Bite"
+        item "Rune-Etched Nightblade"
+        item "Runetouch Handwraps"
+        item "Stormtip"
+        item "The Masticator"
+        item 45447 #Watchful Eye
+      end
+
+      boss "Hodir" do
+        item "Avalanche"
+        item "Bitter Cold Armguards"
+        item "Cowl of Icy Breaths"
+        item "Ice Layered Barrier"
+        item "Icecore Staff"
+        item "Leggings of the Wayward Conqueror"
+        item "Leggings of the Wayward Protector"
+        item "Leggings of the Wayward Vanquisher"
+        item "Shiver"
+        item "Signet of Winter"
+        item "Stormedge"
+        item "The Boreal Guard"
+        item "Winter's Frigid Embrace"
+      end
+
+      boss "Thorim" do
+        item "Belt of the Blood Pit"
+        item "Combatant's Bootblade"
+        item "Gauntlets of the Thunder God"
+        item "Guise of the Midgard Serpent"
+        item "Handwraps of Resonance"
+        item "Hoperender"
+        item "Legacy of Thunder"
+        item "Leggings of Unstable Discharge"
+        item "Mjolnir Runestone"
+        item "Pendant of the Shallow Grave"
+        item "Sif's Remembrance"
+        item "Spaulders of the Wayward Conqueror"
+        item "Spaulders of the Wayward Protector"
+        item "Spaulders of the Wayward Vanquisher"
+      end
+
+      boss "Freya" do
+        item "Chestguard of the Lasher"
+        item "Fire Orchid Signet"
+        item "Gloves of Whispering Winds"
+        item "Gloves of the Wayward Conqueror"
+        item "Gloves of the Wayward Protector"
+        item "Gloves of the Wayward Vanquisher"
+        item "Ironbark Faceguard"
+        item "Legplates of Flourishing Resolve"
+        item "Petrified Ivy Sprig"
+        item "Seed of Budding Carnage"
+        item "Serilas, Blood Blade of Invar One-Arm"
+        item "Tunic of the Limber Stalker"
+        item "Unraveling Reach"
+      end
+
+      boss "Mimiron" do
+        item "Cable of the Metrognome"
+        item "Fused Alloy Legplates"
+        item "Fusion Blade"
+        item "Greaves of the Iron Army"
+        item "Helm of the Wayward Conqueror"
+        item "Helm of the Wayward Protector"
+        item "Helm of the Wayward Vanquisher"
+        item "Mimiron's Flight Goggles"
+        item "Pulse Baton"
+        item "Shoulderguards of Assimilation"
+        item "Static Charge Handwraps"
+        item "Stylish Power Cape"
+        item "Tempered Mercury Greaves"
+      end
+
+      boss "General Vezax" do
+        item "Aesuga, Hand of the Ardent Champion"
+        item "Bindings of the Depths"
+        item "Boots of Unsettled Prey"
+        item "Choker of the Abyss"
+        item "Darkstone Ring"
+        item "Drape of the Faceless General"
+        item "Leggings of Profound Darkness"
+        item "Pendant of Endless Despair"
+        item "Saronite Animus Cloak"
+        item "Shadowbite"
+        item "Tortured Earth"
+        item "Underworld Mantle"
+        item "Vestments of the Piercing Light"
+        item "Void Sabre"
+      end
+
+      boss "Yogg-Saron" do
+        item "Abaddon"
+        item "Amice of Inconceivable Horror"
+        item "Caress of Insanity"
+        item "Chestguard of the Wayward Conqueror"
+        item "Chestguard of the Wayward Protector"
+        item "Chestguard of the Wayward Vanquisher"
+        item "Deliverance"
+        item "Devotion"
+        item "Faceguard of the Eyeless Horror"
+        item "Hammer of Crushing Whispers"
+        item "Kingsbane"
+        item "Leggings of the Insatiable"
+        item "Pendant of a Thousand Maws"
+        item "Royal Seal of King Llane"
+        item "Signet of Soft Lament"
+        item "Soul-Devouring Cinch"
+        item "Touch of Madness"
+        item "Treads of the Dragon Council"
+      end
+
+      boss "Algalon the Observer" do
+        item "Band of Lights"
+        item "Breastplate of the Timeless"
+        item 46038 #Dark Matter
+        item "Drape of the Messenger"
+        item "Gloves of the Endless Dark"
+        item "Meteorite Crystal"
+        item "Nebula Band"
+        item "Observer's Mantle"
+        item "Pendant of the Somber Witness"
+        item "Pulsar Gloves"
+        item "Reply-Code Alpha"
+        item "Shoulderplates of the Celestial Watch"
+        item "Starfall Girdle"
+        item "Starlight Treads"
+        item "Strength of the Heavens"
+        item "Zodiac Leggings"
       end
     end
 
+    difficulty :normal_25 do
+      boss "Bind on Equip" do
+        item "Asimov's Drape", "Mimiron"
+        item "Cowl of the Absolute", "Auriaya"
+        item "Darkcore Leggings", "General Vezax"
+        item "Iron Riveted War Helm", "Flame Leviathan"
+        item "Leggings of Lost Love", "Thorim"
+        item "Leggings of the Stoneweaver", "Kologarn"
+        item "Lifeforge Breastplate", "Ignis the Furnacemaster"
+        item "Northern Barrier", "Hodir"
+        item "Nymph Heart Charm", "Freya"
+        item "Phaelia's Vestments of the Sprouting Seed", "Assembly of Iron"
+        item "Proto-hide Leggings", "Razorscale"
+        item "Signet of the Earthshaker", "XT-002 Deconstructor"
+      end
+
+      boss "Flame Leviathan" do
+        item "Boots of Fiery Resolution", "Hard Mode"
+        item "Constructor's Handwraps"
+        item "Embrace of the Leviathan"
+        item "Freya's Choker of Warding"
+        item "Gloves of the Fiery Behemoth"
+        item "Glowing Ring of Reclamation"
+        item "Golden Saronite Dragon", "Hard Mode"
+        item "Mechanist's Bindings"
+        item "Mimiron's Inferno Couplings"
+        item "Pendant of Fiery Havoc", "Hard Mode"
+        item "Plated Leggings of Ruination", "Hard Mode"
+        item "Shoulderpads of Dormant Energies", "Hard Mode"
+        item "Steamcaller's Totem"
+        item "Steamworker's Goggles"
+        item "Strength of the Automaton"
+        item "The Leviathan's Coil"
+        item "Titanguard"
+      end
+
+      boss "Ignis the Furnacemaster" do
+        item "Cindershard Ring"
+        item "Flamestalker Boots"
+        item "Flamewrought Cinch"
+        item "Girdle of Embers"
+        item "Heart of Iron"
+        item "Helm of the Furnace Master"
+        item "Intensity"
+        item "Pyrelight Circle"
+        item "Scepter of Creation"
+        item "Soot-covered Mantle"
+        item "Totem of the Dancing Flame"
+        item "Worldcarver"
+        item "Wristguards of the Firetender"
+      end
+
+      boss "Razorscale" do
+        item "Belt of the Fallen Wyrm"
+        item "Bracers of the Broodmother"
+        item "Charred Saronite Greaves"
+        item "Collar of the Wyrmhunter"
+        item "Dragonslayer's Brace"
+        item "Drape of the Drakerider"
+        item "Guiding Star"
+        item "Living Flame"
+        item "Razorscale Shoulderguards"
+        item "Remorse"
+        item "Saronite Mesh Legguards"
+        item "Shackles of the Odalisque"
+        item "Sigil of Deflection"
+        item "Veranus' Bane"
+      end
+
+      boss "XT-002 Deconstructor" do
+        item "Boots of Hasty Revival"
+        item "Brass-lined Boots"
+        item "Breastplate of the Devoted", "Hard Mode"
+        item "Charm of Meticulous Timing", "Hard Mode"
+        item "Clockwork Legplates"
+        item "Crazed Construct Ring"
+        item "Gloves of the Steady Hand", "Hard Mode"
+        item "Golem-Shard Sticker"
+        item "Grasps of Reason", "Hard Mode"
+        item "Horologist's Wristguards"
+        item "Mantle of Wavering Calm"
+        item "Quartz Crystal Wand"
+        item "Quartz-studded Harness"
+        item "Sandals of Rash Temperament"
+        item "Shoulderplates of the Deconstructor"
+        item "Sigil of the Vengeful Heart"
+        item "Sorthalis, Hammer of the Watchers", "Hard Mode"
+        item "Thunderfall Totem"
+        item "Twisted Visage"
+      end
+
+      boss "Kologarn" do
+        item "Bracers of Unleashed Magic"
+        item "Decimator's Armguards"
+        item "Giant's Bane"
+        item "Gloves of the Pythonic Guardian"
+        item "Handwraps of Plentiful Recovery"
+        item "Idol of the Crying Wind"
+        item "Ironmender"
+        item "Malice"
+        item "Necklace of Unerring Mettle"
+        item "Robes of the Umbral Brute"
+        item "Saronite Plated Legguards"
+        item "Shoulderpads of the Monolith"
+        item "Unfaltering Armguards"
+        item "Wrathstone"
+      end
+
+      boss "Auriaya" do
+        item "Amice of the Stoic Watch"
+        item "Cloak of the Makers"
+        item "Gloves of the Stonereaper"
+        item "Greaves of the Rockmender"
+        item "Libram of the Resolute"
+        item "Platinum Band of the Aesir"
+        item "Ring of the Faithful Servant"
+        item "Runescribed Blade"
+        item "Sandals of the Ancient Keeper"
+        item "Shoulderplates of the Eternal"
+        item "Siren's Cry"
+        item "Stonerender"
+        item "Unbreakable Chestguard"
+        item "Unwavering Stare"
+      end
+
+      boss "Assembly of Iron" do
+        item "Ancient Iron Heaume"
+        item "Belt of Colossal Rage", "Hard Mode"
+        item "Drape of Mortal Downfall", "Hard Mode"
+        item "Drape of the Lithe"
+        item "Fang of Oblivion", "Hard Mode"
+        item "Greaves of Swift Vengeance", "Hard Mode"
+        item "Handguards of the Enclave"
+        item "Insurmountable Fervor"
+        item "Iron-studded Mantle"
+        item "Overload Legwraps"
+        item "Radiant Seal"
+        item "Raiments of the Iron Council"
+        item "Rapture"
+        item 45233 #Rune Edge
+        item "Runed Ironhide Boots"
+        item "Runeshaper's Gloves"
+        item "Sapphire Amulet of Renewal", "Hard Mode"
+        item "Shoulderpads of the Intruder", "Hard Mode"
+        item "Steelbreaker's Embrace"
+        item "Unblinking Eye"
+      end
+
+      boss "Hodir" do
+        item "Bindings of Winter Gale", "Hard Mode"
+        item "Breastplate of the Wayward Conqueror"
+        item "Breastplate of the Wayward Protector"
+        item "Breastplate of the Wayward Vanquisher"
+        item "Constellus", "Hard Mode"
+        item "Drape of Icy Intent", "Hard Mode"
+        item "Frigid Strength of Hodir", "Hard Mode"
+        item "Frost-bound Chain Bracers"
+        item "Frostplate Greaves"
+        item "Frozen Loop"
+        item "Gloves of the Frozen Glade", "Hard Mode"
+        item "Staff of Endless Winter", "Hard Mode"
+        item "Winter's Icy Embrace"
+      end
+
+      boss "Thorim" do
+        item "Belt of the Betrayed"
+        item "Crown of the Wayward Conqueror"
+        item "Crown of the Wayward Protector"
+        item "Crown of the Wayward Vanquisher"
+        item "Embrace of the Gladiator", "Hard Mode"
+        item "Fate's Clutch", "Hard Mode"
+        item "Pauldrons of the Combatant", "Hard Mode"
+        item "Scale of Fates"
+        item "Sif's Promise"
+        item "Skyforge Crossbow"
+        item "Vulmir, the Northern Tempest"
+        item "Warhelm of the Champion", "Hard Mode"
+        item "Wisdom's Hold", "Hard Mode"
+      end
+
+      boss "Freya" do
+        item "Bladetwister", "Hard Mode"
+        item "Boots of the Servant"
+        item "Bronze Pendant of the Vanir", "Hard Mode"
+        item "Drape of the Sullen Goddess", "Hard Mode"
+        item "Dreambinder", "Hard Mode"
+        item "Gauntlets of Ruthless Reprisal"
+        item "Handguards of Revitalization", "Hard Mode"
+        item "Leggings of the Enslaved Idol", "Hard Mode"
+        item "Leggings of the Lifetender"
+        item "Legplates of the Wayward Conqueror"
+        item "Legplates of the Wayward Protector"
+        item "Legplates of the Wayward Vanquisher"
+        item "The Lifebinder"
+      end
+
+      boss "Mimiron" do
+        item "Armbands of Bedlam", "Hard Mode"
+        item "Conductive Seal", "Hard Mode"
+        item "Crown of Luminescence", "Hard Mode"
+        item "Delirium's Touch", "Hard Mode"
+        item "Gauntlets of the Wayward Conqueror"
+        item "Gauntlets of the Wayward Protector"
+        item "Gauntlets of the Wayward Vanquisher"
+        item "Insanity's Grip"
+        item "Malleable Steelweave Mantle"
+        item "Pandora's Plea"
+        item "Titanskin Cloak", "Hard Mode"
+        item "Starshard Edge", "Hard Mode"
+        item "Waistguard of the Creator"
+      end
+
+      boss "General Vezax" do
+        item "Belt of Clinging Hope"
+        item "Belt of the Darkspeaker"
+        item "Boots of the Forgotten Depths"
+        item "Boots of the Underdweller"
+        item "Flare of the Heavens", "Hard Mode"
+        item "Grips of the Unbroken"
+        item "Handwraps of the Vigilant", "Hard Mode"
+        item "Helm of the Faceless"
+        item "Idol of the Corruptor"
+        item "Libram of Discord"
+        item "Libram of the Sacred Shield"
+        item "Lotrafen, Spear of the Damned"
+        item "Mantle of the Unknowing"
+        item "Metallic Loop of the Sufferer"
+        item "Pendulum of Infinity", "Hard Mode"
+        item "Ring of the Vacant Eye"
+        item "Scepter of Lost Souls"
+        item "The General's Heart"
+        item "Vestments of the Blind Denizen", "Hard Mode"
+        item "Voldrethar, Dark Blade of Oblivion", "Hard Mode"
+      end
+
+      boss "Yogg-Saron" do
+        item "Blood of the Old God"
+        item "Chestguard of Insidious Intent"
+        item "Chestguard of the Fallen God"
+        item "Cowl of Dark Whispers"
+        item "Dark Edge of Depravity", "Hard Mode"
+        item "Earthshaper"
+        item "Garona's Guise"
+        item "Godbane Signet"
+        item "Legguards of Cunning Deception", "Hard Mode"
+        item "Mantle of the Wayward Conqueror"
+        item "Mantle of the Wayward Protector"
+        item "Mantle of the Wayward Vanquisher"
+        item "Sanity's Bond"
+        item "Seal of the Betrayed King", "Hard Mode"
+        item "Shawl of Haunted Memories"
+        item "Show of Faith", "Hard Mode"
+        item "Soulscribe"
+        item "Treads of the False Oracle", "Hard Mode"
+        item "Vanquished Clutches of Yogg-Saron"
+      end
+
+      boss "Algalon the Observer" do
+        item "Boundless Gaze"
+        item "Bulwark of Algalon"
+        item "Comet's Trail"
+        item "Constellus"
+        item "Cosmos"
+        item "Dreambinder"
+        item "Fang of Oblivion"
+        item "Legplates of the Endless Void"
+        item "Pharos Gloves"
+        item "Reply-Code Alpha"
+        item "Sabatons of Lifeless Night"
+        item "Skyforge Crossbow"
+        item "Solar Bindings"
+        item "Star-beaded Clutch"
+        item "Starshard Edge"
+        item "Starwatcher's Binding"
+      end
+    end
   end
 end

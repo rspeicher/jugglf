@@ -2,78 +2,74 @@ module WishlistData
   class RubySanctum
     include WishlistData
 
-    def initialize
-      zone = zone('Ruby Sanctum')
+    active_difficulties :heroic_10, :heroic_25
 
-      %w(halion-10 halion-10-hard halion-25 halion-25-hard).each do |boss_tag|
-        boss = boss(zone, tag_to_name(boss_tag))
-        populate(boss_tag, boss)
-      end
+    boss "Halion", :difficulty => :normal_10 do
+      item 53115 #Abduction's Cover
+      item 53103 #Baltharus' Gift
+      item 53119 #Boots of Divided Being
+      item 53112 #Bracers of the Heir
+      item 53117 #Changeling Gloves
+      item 53114 #Gloaming Sark
+      item 53118 #Misbegotten Belt
+      item 53116 #Saviana's Tribute
+      item 53111 #Scion's Treads
+      item 53121 #Surrogate Belt
+      item 53113 #Twilight Scale Shoulders
+      item 53110 #Zarithrian's Offering
     end
 
-    def populate(boss_tag, boss)
-      case boss_tag
-      when "halion-10-hard"
-        item(boss, 54556) #Abduction's Cover
-        item(boss, 54557) #Baltharus' Gift
-        item(boss, 54558) #Boots of Divided Being
-        item(boss, 54559) #Bracers of the Heir
-        item(boss, 54560) #Changeling Gloves
-        item(boss, 54561) #Gloaming Sark
-        item(boss, 54562) #Misbegotten Belt
-        item(boss, 54563) #Saviana's Tribute
-        item(boss, 54564) #Scion's Treads
-        item(boss, 54565) #Surrogate Belt
-        item(boss, 54566) #Twilight Scale Shoulders
-        item(boss, 54567) #Zarithrian's Offering
-      when "halion-10"
-        item(boss, 53115) #Abduction's Cover
-        item(boss, 53103) #Baltharus' Gift
-        item(boss, 53119) #Boots of Divided Being
-        item(boss, 53112) #Bracers of the Heir
-        item(boss, 53117) #Changeling Gloves
-        item(boss, 53114) #Gloaming Sark
-        item(boss, 53118) #Misbegotten Belt
-        item(boss, 53116) #Saviana's Tribute
-        item(boss, 53111) #Scion's Treads
-        item(boss, 53121) #Surrogate Belt
-        item(boss, 53113) #Twilight Scale Shoulders
-        item(boss, 53110) #Zarithrian's Offering
-      when "halion-25"
-        item(boss, 53125) #Apocalypse's Advance
-        item(boss, 53486) #Bracers of Fiery Night
-        item(boss, 54572) #Charred Twilight Scale
-        item(boss, 53489) #Cloak of Burning Dusk
-        item(boss, 53487) #Foreshadow Steps
-        item(boss, 54573) #Glowing Twilight Scale
-        item(boss, 53132) #Penumbra Pendant
-        item(boss, 54571) #Petrified Twilight Scale
-        item(boss, 53134) #Phaseshifter's Bracers
-        item(boss, 53127) #Returning Footfalls
-        item(boss, 53490) #Ring of Phased Regeneration
-        item(boss, 54569) #Sharpened Twilight Scale
-        item(boss, 53133) #Signet of Twilight
-        item(boss, 53488) #Split Shape Belt
-        item(boss, 53129) #Treads of Impending Resurrection
-        item(boss, 53126) #Umbrage Armbands
-      when "halion-25-hard"
-        item(boss, 54578) #Apocalypse's Advance
-        item(boss, 54582) #Bracers of Fiery Night
-        item(boss, 54588) #Charred Twilight Scale
-        item(boss, 54583) #Cloak of Burning Dusk
-        item(boss, 54586) #Foreshadow Steps
-        item(boss, 54589) #Glowing Twilight Scale
-        item(boss, 54581) #Penumbra Pendant
-        item(boss, 54591) #Petrified Twilight Scale
-        item(boss, 54584) #Phaseshifter's Bracers
-        item(boss, 54577) #Returning Footfalls
-        item(boss, 54585) #Ring of Phased Regeneration
-        item(boss, 54590) #Sharpened Twilight Scale
-        item(boss, 54576) #Signet of Twilight
-        item(boss, 54587) #Split Shape Belt
-        item(boss, 54579) #Treads of Impending Resurrection
-        item(boss, 54580) #Umbrage Armbands
-      end
+    boss "Halion", :difficulty => :normal_25 do
+      item 53125 #Apocalypse's Advance
+      item 53486 #Bracers of Fiery Night
+      item 54572 #Charred Twilight Scale
+      item 53489 #Cloak of Burning Dusk
+      item 53487 #Foreshadow Steps
+      item 54573 #Glowing Twilight Scale
+      item 53132 #Penumbra Pendant
+      item 54571 #Petrified Twilight Scale
+      item 53134 #Phaseshifter's Bracers
+      item 53127 #Returning Footfalls
+      item 53490 #Ring of Phased Regeneration
+      item 54569 #Sharpened Twilight Scale
+      item 53133 #Signet of Twilight
+      item 53488 #Split Shape Belt
+      item 53129 #Treads of Impending Resurrection
+      item 53126 #Umbrage Armbands
+    end
+
+    boss "Halion", :difficulty => :heroic_10 do
+      item 54556 #Abduction's Cover
+      item 54557 #Baltharus' Gift
+      item 54558 #Boots of Divided Being
+      item 54559 #Bracers of the Heir
+      item 54560 #Changeling Gloves
+      item 54561 #Gloaming Sark
+      item 54562 #Misbegotten Belt
+      item 54563 #Saviana's Tribute
+      item 54564 #Scion's Treads
+      item 54565 #Surrogate Belt
+      item 54566 #Twilight Scale Shoulders
+      item 54567 #Zarithrian's Offering
+    end
+
+    boss "Halion", :difficulty => :heroic_25 do
+      item 54578 #Apocalypse's Advance
+      item 54582 #Bracers of Fiery Night
+      item 54588 #Charred Twilight Scale
+      item 54583 #Cloak of Burning Dusk
+      item 54586 #Foreshadow Steps
+      item 54589 #Glowing Twilight Scale
+      item 54581 #Penumbra Pendant
+      item 54591 #Petrified Twilight Scale
+      item 54584 #Phaseshifter's Bracers
+      item 54577 #Returning Footfalls
+      item 54585 #Ring of Phased Regeneration
+      item 54590 #Sharpened Twilight Scale
+      item 54576 #Signet of Twilight
+      item 54587 #Split Shape Belt
+      item 54579 #Treads of Impending Resurrection
+      item 54580 #Umbrage Armbands
     end
   end
 end
