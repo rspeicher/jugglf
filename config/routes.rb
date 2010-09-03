@@ -7,10 +7,16 @@ JuggLF::Application.routes.draw do |map|
     get :price, :on => :member
   end
 
-  # map.resources :live_raids, :as => 'attendance', :controller => 'attendance/raids', :except => [:edit], :member => { :start => :get, :stop => :get, :post => :get } do |lr|
-  #   lr.resources :live_loots, :as => 'loots', :controller => 'attendance/loots', :only => [:update, :destroy]
-  #   lr.resources :live_attendees, :as => 'attendees', :controller => 'attendance/attendees', :only => [:update, :destroy]
-  # end
+  scope :module => "attendance" do
+    resources :live_raids, :path => "attendance", :controller => "raids", :except => [:edit] do
+      get :start, :on => :member
+      get :stop,  :on => :member
+      get :post,  :on => :member
+
+      resources :live_loots,     :path => "loots",     :controller => "loots",     :only => [ :update, :destroy]
+      resources :live_attendees, :path => "attendees", :controller => "attendees", :only => [ :update, :destroy]
+    end
+  end
 
   resources :members do
     resources :achievements, :controller => 'members/achievements', :only   => [:index]
