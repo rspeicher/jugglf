@@ -1,6 +1,8 @@
-# Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def admin?
+    # TODO: REMOVE ME REMOVE ME REMOVE ME REMOVE ME REMOVE ME
+    return false
+
     unless current_user.nil?
       return current_user.is_admin?
     else

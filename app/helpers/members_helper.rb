@@ -52,7 +52,7 @@ module MembersHelper
       class_str = 'neutral'
     end
 
-    "<span class=\"#{class_str}\">#{value}%</span>"
+    content_tag(:span, "#{value}%", :class => class_str)
   end
 
   def raid_attendance_colored(value)
@@ -72,7 +72,7 @@ module MembersHelper
       class_str = 'neutral'
     end
 
-    "<span class=\"#{class_str}\">#{value}%</span>"
+    content_tag(:span, "#{value}%", :class => class_str)
   end
 
   def loot_factor(value)

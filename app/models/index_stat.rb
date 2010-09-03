@@ -5,36 +5,31 @@ class IndexStat
   # scope = :active - only count active members
   def self.class_counts(scope = nil)
     if scope == :active
-      Member.active.with_class.count(:group => 'wow_class')
+      Member.active.with_class.group(:wow_class).count
     else
-      Member.with_class.count(:group => 'wow_class')
+      Member.with_class.group(:wow_class).count
     end
   end
 
   def self.attendance_average(group = :class)
     if group == :guild
-      Member.active.find(:first, :conditions => 'wow_class IS NOT NULL',
-        :select => 'AVG(attendance_30) AS avg_30, AVG(attendance_90) AS avg_90, AVG(attendance_lifetime) AS avg_lifetime')
+      Member.active.with_class.select('AVG(attendance_30) AS avg_30, AVG(attendance_90) AS avg_90, AVG(attendance_lifetime) AS avg_lifetime').first
     else
-      Member.active.find(:all, :conditions => 'wow_class IS NOT NULL', :order => 'wow_class', :group => 'wow_class',
-        :select => 'wow_class, AVG(attendance_30) AS avg_30, AVG(attendance_90) AS avg_90, AVG(attendance_lifetime) AS avg_lifetime')
+      Member.active.with_class.select('wow_class, AVG(attendance_30) AS avg_30, AVG(attendance_90) AS avg_90, AVG(attendance_lifetime) AS avg_lifetime').order(:wow_class).group(:wow_class)
     end
   end
 
   def self.loot_factor_average(group = :class)
     if group == :guild
-      Member.active.find(:first, :conditions => 'wow_class IS NOT NULL',
-        :select => 'AVG(lf) AS avg_lf, AVG(sitlf) AS avg_sitlf, AVG(bislf) AS avg_bislf')
+      Member.active.with_class.select('AVG(lf) AS avg_lf, AVG(sitlf) AS avg_sitlf, AVG(bislf) AS avg_bislf').first
     else
-      Member.active.find(:all, :conditions => 'wow_class IS NOT NULL', :order => 'wow_class', :group => 'wow_class',
-        :select => 'wow_class, AVG(lf) AS avg_lf, AVG(sitlf) AS avg_sitlf, AVG(bislf) AS avg_bislf')
+      Member.active.with_class.select('wow_class, AVG(lf) AS avg_lf, AVG(sitlf) AS avg_sitlf, AVG(bislf) AS avg_bislf').order(:wow_class).group(:wow_class)
     end
   end
 
   # Returns an array of 10 Member objects, ordered by first_raid
   def self.oldest_members
-    Member.active.find(:all, :order => "first_raid", :limit => 10,
-      :conditions => "first_raid IS NOT NULL")
+    Member.active.where("first_raid IS NOT NULL").order(:first_raid).limit(10)
   end
 
   # SQL conditions for items that should NOT be included in the 'Common Drop' list
@@ -62,21 +57,18 @@ class IndexStat
   #
   # Automatically omits token items.
   def self.common_items
-    Item.find(:all, :order => "loots_count DESC",
-      :limit => 10, :conditions => ITEM_CONDITIONS.join(' AND '))
+    Item.where(ITEM_CONDITIONS.join(' AND ')).order("loots_count DESC").limit(10)
   end
 
   # Returns an array of 10 Item objects, ordered by the most looted
   #
   # Only includes token items.
   def self.common_tokens
-    Item.find(:all, :order => "loots_count DESC",
-      :limit => 10, :conditions => TIER_CONDITIONS[0..-5].join(' OR '))
+    Item.where(TIER_CONDITIONS[0..-5].join(' OR ')).order("loots_count DESC").limit(10)
   end
 
   def self.most_requested
-    Wishlist.count(:group => 'item_id', :order => "count_all DESC", :limit => 10,
-      :conditions => ['priority = ? or priority = ?', 'best in slot', 'normal'])
+    Wishlist.where('priority = ? or priority = ?', 'best in slot', 'normal').group(:item_id).order("count_all DESC").limit(10).count
   end
 
   # Returns an ordered array of [Class(String), Value(Float)] where
@@ -90,8 +82,7 @@ class IndexStat
     # Find the total number of declined applicants in the database, by class
     rank = MemberRank.find_by_name('Declined Applicant')
     if rank
-      declined = Member.with_class.count(:group => 'wow_class',
-        :conditions => ['rank_id = ?', rank.id])
+      declined = Member.with_class.where(:rank_id => rank.id).group(:wow_class).count
 
       totals.each do |total_class, total|
         declined.each do |declined_class, count|
@@ -114,8 +105,7 @@ class IndexStat
     # Find the total number of declined applicants in the database, by class
     rank = MemberRank.find_by_name('Inactive')
     if rank
-      inactive = Member.with_class.count(:group => 'wow_class',
-        :conditions => ['rank_id = ?', rank.id])
+      inactive = Member.with_class.where(:rank_id => rank.id).group(:wow_class).count
 
       totals.each do |total_class, total|
         inactive.each do |inactive_class, count|
@@ -130,22 +120,19 @@ class IndexStat
   # Returns an array of 10 Member objects, where Member.loots_per_raid is
   # loots_count/raids_count
   def self.loots_per_raid
-    Member.active.find(:all, :conditions => 'raids_count > 0',
-      :select => "id, name, wow_class, (loots_count/raids_count) AS loots_per_raid",
-      :order => "loots_per_raid DESC", :limit => 10)
+    Member.active.where('raids_count > 0').select("id, name, wow_class, (loots_count/raids_count) AS loots_per_raid").order("loots_per_raid DESC").limit(10)
   end
 
   def self.fragment_progress
-    Loot.count(:all, :group => 'member_id', :conditions => ['item_id = ? AND member_id IS NOT NULL', 45038])
+    Loot.group(:member_id).where('item_id = ? AND member_id IS NOT NULL', 45038).count
   end
 
   def self.shadowmourne_progress
-    Loot.count(:all, :group => 'member_id', :conditions => ['item_id = ? AND member_id IS NOT NULL', Item.shadowfrost_shard.first.id])
+    Loot.group(:member_id).where('item_id = ? AND member_id IS NOT NULL', Item.shadowfrost_shard.first.id).count
   end
 
   def self.best_attendance
-    Member.active.find(:all, :conditions => ["first_raid <= ?", 6.months.until(Date.today)],
-      :order => 'attendance_lifetime DESC', :limit => 10)
+    Member.active.where("first_raid <= ?", 6.months.until(Date.today)).order("attendance_lifetime DESC").limit(10)
   end
 
   # Returns an ordered array of [Member(Member), Value(Float)] where

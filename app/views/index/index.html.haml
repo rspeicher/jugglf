@@ -51,6 +51,6 @@
 
 %div.category_block.block_wrap
   = render :partial => 'shared/maintitle', :object => 'Records'
-  - @stat_groups.each do |arr|
-    - cache :action => 'index', :action_suffix => arr[0] do
-      .record_group= render :partial => "index/#{arr[0]}", :object => arr[1]
+  - @stat_groups.each do |key, val|
+    - cache :action => 'index', :action_suffix => key do
+      .record_group= render :partial => "index/#{key}", :locals => {key.to_sym => val}

@@ -8,4 +8,6 @@
     - best_attendance.each do |member|
       %tr{ :class => cycle('row1', 'row2') }
         %td= link_to_member(member)
-        %td.number= "<span class='positive'>#{number_with_precision(member.attendance_lifetime * 100.0, :precision => 1)}%</span>"
+        %td.number
+          %span.positive== #{number_with_precision(member.attendance_lifetime * 100.0, :precision => 1)}%
+

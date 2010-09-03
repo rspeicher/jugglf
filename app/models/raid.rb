@@ -13,7 +13,7 @@ class Raid < ActiveRecord::Base
   after_save    :update_cache
   after_destroy :update_cache
 
-  named_scope :latest, lambda {{:conditions => ['date >= ?', 2.months.ago], :order => 'date DESC'}}
+  scope :latest, lambda { where("date >= ?", 2.months.ago).order('date DESC') }
 
   attr_accessor :update_cache
   attr_writer :attendance_output

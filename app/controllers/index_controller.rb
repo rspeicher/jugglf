@@ -20,10 +20,10 @@ class IndexController < ApplicationController
     end
 
     @stat_groups = []
-    ['common_items', 'common_tokens', 'most_requested', 'loots_per_raid', 'oldest_members', 'best_attendance', 'least_recruitable', 'highest_turnover', 'shadowmourne_progress'].each do |key|
+    %w(common_items common_tokens most_requested loots_per_raid oldest_members best_attendance least_recruitable highest_turnover shadowmourne_progress).each do |key|
       unless fragment_exist?(cache_defaults.merge(:action_suffix => key))
         # Fragment doesn't exist, call the matching IndexStat method and pass it on to the view
-        @stat_groups << [key, IndexStat.send(key)] 
+        @stat_groups << [key, IndexStat.send(key)]
       else
         # Fragment already exists, just add the key to array so that the partial still gets rendered
         @stat_groups << [key, nil]

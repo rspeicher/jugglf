@@ -9,7 +9,7 @@ class Item < ActiveRecord::Base
   validates_numericality_of :id, :allow_nil => false, :greater_than => 0
   validates_uniqueness_of :name, :scope => :id
 
-  named_scope :shadowfrost_shard, :conditions => { :id => 50274 }
+  scope :shadowfrost_shard, where(:id => 50274)
 
   # Legacy support
   #

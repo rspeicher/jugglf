@@ -7,7 +7,7 @@ class MembersController < ApplicationController
   cache_sweeper :index_sweeper, :only => [:create, :update, :destroy]
 
   def index
-    @members = Member.active.find(:all, :include => [:rank])
+    @members = Member.active.includes(:rank).all
 
     respond_to do |wants|
       wants.html

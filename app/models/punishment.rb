@@ -8,7 +8,7 @@ class Punishment < ActiveRecord::Base
   validates_presence_of :expires_on
   validates_numericality_of :value
 
-  named_scope :active, :conditions => ['expires_on > ?', Date.today]
+  scope :active, lambda { where("expires_on > ?", Date.today) }
 
   after_save    :update_member_cache
   after_destroy :update_member_cache

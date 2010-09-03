@@ -16,8 +16,8 @@ class Member < ActiveRecord::Base
   belongs_to :rank, :class_name => "MemberRank", :foreign_key => "rank_id"
   belongs_to :user
 
-  named_scope :active, :order => 'name', :conditions => ['active = ?', true]
-  named_scope :with_class, :conditions => 'wow_class IS NOT NULL'
+  scope :active, where(:active => true)
+  scope :with_class, where("wow_class IS NOT NULL")
 
   alias_method :attendance, :attendees
 
