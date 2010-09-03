@@ -7,10 +7,10 @@
 - breadcrumb 'Sign In'
 %div.category_block.block_wrap
   = render :partial => 'shared/maintitle', :object => 'Sign In'
-  - semantic_form_for @user_session, :url => user_session_path do |form|
-    - form.inputs do
+  = semantic_form_for @user_session, :url => user_session_path do |form|
+    = form.inputs do
       = form.input :name, :label => 'Username', :required => false
       = form.input :password, :required => false
       = form.input :remember_me, :as => :boolean, :required => false
-    - form.buttons :class => 'submit' do
+    = form.buttons :class => 'submit' do
       = form.submit 'Sign In', :class => 'input_submit'
