@@ -1,4 +1,4 @@
-class User < InvisionBridge::User::Base
+class User < InvisionBridge::UserBase
   ADMIN_GROUP     = 4
   MEMBER_GROUP    = 8
   APPLICANT_GROUP = 9
