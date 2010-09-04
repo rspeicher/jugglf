@@ -13,7 +13,7 @@ class Members::WishlistsController < ApplicationController
   def index
     @wishlist     = Wishlist.new # Let the "Add New" form work
     @wishlists    = @member.wishlists
-    @recent_loots = @member.loots.find(:all, :conditions => ['purchased_on >= ?', 2.weeks.ago])
+    @recent_loots = @member.loots.recent
 
     respond_to do |wants|
       wants.html

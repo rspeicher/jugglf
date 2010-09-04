@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   before_filter :find_item, :only => [:show, :edit, :update, :destroy]
 
   def index
-    @items = Item.paginate(:page => params[:page], :per_page => 35, :order => 'name')
+    @items = Item.order(:name).paginate(:page => params[:page], :per_page => 35)
 
     respond_to do |wants|
       wants.html
@@ -11,9 +11,9 @@ class ItemsController < ApplicationController
   end
 
   def show
-    @loots = @item.loots.paginate(:include => :member, :page => params[:page], :per_page => 35, :order => 'purchased_on desc')
-    @wishlists = @item.wishlists.find(:all, :include => :member, :conditions => ["#{Member.table_name}.active = ?", true])
-    @loot_table = LootTable.find(:first, :conditions => ['object_type = ? AND object_id = ?', 'Item', @item.id])
+    @loots = @item.loots.includes(:member).order('purchased_on DESC').paginate(:page => params[:page], :per_page => 35)
+    @wishlists = @item.wishlists.where("#{Member.table_name}.active = ?", true).includes(:member)
+    @loot_table = LootTable.where(:object_type => 'Item', :object_id => @item.id).first
 
     respond_to do |wants|
       wants.html

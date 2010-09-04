@@ -9,6 +9,8 @@ class Loot < ActiveRecord::Base
 
   validates_numericality_of :price, :allow_nil => true
 
+  scope :recent, lambda { where("purchased_on >= ?", 2.weeks.ago) }
+
   alias_method :buyer, :member
   attr_accessor :update_cache
 

@@ -7,9 +7,7 @@ class LootsController < ApplicationController
   cache_sweeper :index_sweeper, :only => [:create, :update, :destroy]
 
   def index
-    @loots = Loot.paginate(:page => params[:page], :per_page => 40,
-      :include => [:item, :raid, :member],
-      :order => "purchased_on DESC")
+    @loots = Loot.includes(:item, :raid, :member).order("purchased_on DESC").paginate(:page => params[:page], :per_page => 40)
 
     respond_to do |wants|
       wants.html
@@ -90,14 +88,14 @@ class LootsController < ApplicationController
     end
 
     def raids_select
+      @raids = Raid.order('date DESC')
+
       if @loot.nil?
-        @raids = Raid.find(:all, :order => 'date DESC',
-          :conditions => ['date >= ?', 52.days.until(Date.today)])
+        @raids = @raids.where("date >= ?", 52.days.ago)
       else
         # Make sure we include the date this loot was purchased on even if it's
         # now outside our loot factor cutoff
-        @raids = Raid.find(:all, :order => 'date DESC',
-          :conditions => ['date >= ? OR date = ?', 52.days.until(Date.today), @loot.purchased_on])
+        @raids = @raids.where("date >= ? OR date = ?", 52.days.ago, @loot.purchased_on)
       end
     end
 

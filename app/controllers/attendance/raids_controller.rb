@@ -6,7 +6,7 @@ class Attendance::RaidsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:update]
 
   def index
-    @raids = LiveRaid.find(:all, :order => 'id DESC')
+    @raids = LiveRaid.order('id DESC')
 
     respond_to do |wants|
       wants.html

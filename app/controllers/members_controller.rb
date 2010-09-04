@@ -72,7 +72,7 @@ class MembersController < ApplicationController
   private
     def field_collections
       @users = User.juggernaut
-      @ranks = MemberRank.find(:all, :order => 'name')
+      @ranks = MemberRank.order(:name)
     end
 
     def find_member

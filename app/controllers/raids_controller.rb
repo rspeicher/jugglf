@@ -5,7 +5,7 @@ class RaidsController < ApplicationController
   cache_sweeper :index_sweeper, :only => [:create, :update, :destroy]
 
   def index
-    @raids = Raid.paginate(:page => params[:page], :per_page => 40, :order => "date DESC")
+    @raids = Raid.order("date DESC").paginate(:page => params[:page], :per_page => 40)
 
     respond_to do |wants|
       wants.html
@@ -13,14 +13,14 @@ class RaidsController < ApplicationController
   end
 
   def show
-    attendees = Attendee.find(:all, :conditions => ['raid_id = ?', @raid.id], :include => :member)
-    @loots    = Loot.find(:all, :conditions => ['raid_id = ?', @raid.id], :include => [:item, :member])
+    @loots    = Loot.where(:raid_id => @raid.id).includes(:item, :member)
 
     # Group attendees by class
     @attendees = { }
     Member::WOW_CLASSES.each do |wow_class|
       @attendees[wow_class] = []
     end
+    attendees = Attendee.where(:raid_id => @raid.id).includes(:member)
     attendees.each do |att|
       unless att.member.wow_class.nil?
         wow_class = att.member.wow_class

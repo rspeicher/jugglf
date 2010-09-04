@@ -4,7 +4,7 @@ class Members::AchievementsController < ApplicationController
   before_filter :find_parent
 
   def index
-    @achievements = Achievement.find(:all, :include => [:completed_achievements], :order => 'title')
+    @achievements = Achievement.includes(:completed_achievements).order(:title)
     @completed = @member.completed_achievements
 
     respond_to do |wants|
