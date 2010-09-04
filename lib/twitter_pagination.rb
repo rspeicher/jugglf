@@ -1,42 +1,23 @@
-# Modified from flow_pagination gem
 module TwitterPagination
-
-  # TwitterPagination renderer for (Mislav) WillPaginate Plugin
-  class LinkRenderer < WillPaginate::LinkRenderer
-
-    def to_html
-      pagination = ''
-
-      if self.current_page < self.last_page
-        pagination = @template.link_to_remote(
-          'More',
-          :url => { :controller => @template.controller_name,
-            :action => @template.action_name,
-            :params => @template.params.merge!(:page => self.next_page)},
-          :method => @template.request.request_method,
-          :html => { :class => 'twitter_pagination' })
-      end
-
-      @template.content_tag(:div, pagination, :class => 'pagination', :id => self.html_attributes[:id])
-    end
-
+  class LinkRenderer < WillPaginate::ViewHelpers::LinkRenderer
     protected
 
-      # Get current page number
-      def current_page
-        @collection.current_page
-      end
+    def next_page
+      previous_or_next_page(@collection.next_page, "More", 'twitter_pagination')
+    end
 
-      # Get last page number
-      def last_page
-        @last_page ||= WillPaginate::ViewHelpers.total_pages_for_collection(@collection)
-      end
+    def pagination
+      [ :next_page ]
+    end
 
-      # Get next page number
-      def next_page
-        @collection.next_page
+    # Override will_paginate's <tt>link</tt> method since it generates its own <tt>a</tt>
+    # attribute and won't support <tt>:remote => true</tt>
+    def link(text, target, attributes = {})
+      if target.is_a? Fixnum
+        attributes[:rel] = rel_value(target)
+        target = url(target)
       end
-
+      @template.link_to(text, target, attributes.merge(:remote => true))
+    end
   end
-
 end
