@@ -1,0 +1,27 @@
+<% if flash[:success].present? -%>
+  <% flash.discard -%>
+
+  <%# Hide the errors div%>
+  $('div.message.error').addClass('hide');
+
+  <%# Replace the table row with the updated values%>
+  $('#wishlist_<%= @wishlist.id %>').replaceWith("<%= escape_javascript(render :partial => 'wishlist_row', :object => @wishlist) %>")
+  $('#wishlist_<%= @wishlist.id %>').effect('highlight', {}, 1000);
+
+  $('tbody#wishlist').zebraRows();
+
+  <%# Hide the edit form, show the add form toggle, focus our new row %>
+  JuggLF.wishlist_form.hide();
+  $('#wishlist_<%= @wishlist.id %>').focus();
+<% elsif flash[:error].present? -%>
+  <% flash.discard -%>
+
+  <%# Show the errors div %>
+  $('div.message.error').removeClass('hide');
+
+  <%# Add the error messages %>
+  $('div.message.error').html("<%= escape_javascript(render :partial => "shared/form_errors", :object => @wishlist) %>")
+
+  <%# Focus the name field %>
+  $('#wishlist_item_name').focus();
+<% end -%>
