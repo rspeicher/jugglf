@@ -1,4 +1,4 @@
-JuggLF::Application.routes.draw do |map|
+JuggLF::Application.routes.draw do
   resources :achievements, :only => [:index]
 
   resources :items

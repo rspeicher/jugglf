@@ -1,4 +1,4 @@
 InvisionBridge.setup do |config|
-  config.database_file = Rails.configuration.database_configuration_file
+  config.database_file = "#{Rails.root}/config/database.yml"
   config.environment   = Rails.env
 end
