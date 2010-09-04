@@ -1,0 +1,4 @@
+- if form_errors.errors.any?
+  %ul
+    - form_errors.errors.full_messages.each do |msg|
+      %li= msg
