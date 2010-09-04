@@ -1,0 +1,24 @@
+if flash[:success].present?
+  flash.discard
+
+  # Hide the errors div
+  page << "$('div.message.error').addClass('hide');"
+
+  # Add a new table row
+  page << "$('#wishlist').append('#{escape_javascript(render :partial => 'wishlist_row', :object => @wishlist)}');"
+  page << "$('#wishlist_#{@wishlist.id}').effect('highlight', {}, 1000);"
+
+  # Reset the inline form and focus the name field
+  page << "JuggLF.wishlist_form.clear();"
+elsif flash[:error].present?
+  flash.discard
+
+  # Show the errors div
+  page << "$('div.message.error').removeClass('hide');"
+
+  # Add the error messages
+  page << "$('div.message.error').html('#{escape_javascript(render :partial => 'shared/form_errors', :object => @wishlist)}');"
+
+  # Focus the name field
+  page << "$('#wishlist_item_name').focus();"
+end

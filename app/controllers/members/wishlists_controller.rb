@@ -25,7 +25,7 @@ class Members::WishlistsController < ApplicationController
     @wishlist = Wishlist.new
 
     respond_to do |wants|
-      wants.html { render :action => 'edit' }
+      wants.html
     end
   end
 
