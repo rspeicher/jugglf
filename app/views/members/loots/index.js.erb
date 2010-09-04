@@ -1,0 +1,2 @@
+$("#loots").append("<%= escape_javascript(render(@loots)) %>");
+$("#loots_pagination").html("<%= escape_javascript(will_paginate(@loots, :renderer => TwitterPagination::LinkRenderer, :id => 'loots_pagination')) %>");

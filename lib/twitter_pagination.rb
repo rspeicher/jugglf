@@ -3,7 +3,7 @@ module TwitterPagination
     protected
 
     def next_page
-      previous_or_next_page(@collection.next_page, "More", 'twitter_pagination')
+      previous_or_next_page(@collection.next_page, "More", 'twitter_pagination') if @collection.next_page
     end
 
     def pagination

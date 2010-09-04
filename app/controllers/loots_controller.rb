@@ -6,8 +6,6 @@ class LootsController < ApplicationController
 
   cache_sweeper :index_sweeper, :only => [:create, :update, :destroy]
 
-  layout @@layout
-
   def index
     @loots = Loot.paginate(:page => params[:page], :per_page => 40,
       :include => [:item, :raid, :member],

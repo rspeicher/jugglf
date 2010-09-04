@@ -7,5 +7,5 @@
       %th.date Raid
       %th.number Price
   %tbody#loots.filterable
-    = render :partial => 'loot', :collection => @loots
+    = render @loots
 = will_paginate(@loots, :renderer => TwitterPagination::LinkRenderer, :id => 'loots_pagination')

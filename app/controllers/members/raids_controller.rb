@@ -7,11 +7,6 @@ class Members::RaidsController < ApplicationController
     # We're intentionally finding all raids here, not just those that this member attended
     @raids = Raid.paginate(:page => params[:page], :per_page => 35,
       :include => [:attendees], :order => "date DESC")
-
-    respond_to do |wants|
-      wants.html
-      wants.js
-    end
   end
 
   private

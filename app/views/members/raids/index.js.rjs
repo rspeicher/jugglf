@@ -1,2 +1,0 @@
-page.insert_html :bottom, :raids, :partial => @raids
-page.replace :raids_pagination, will_paginate(@raids, :renderer => TwitterPagination::LinkRenderer, :id => 'raids_pagination')

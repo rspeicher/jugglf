@@ -5,11 +5,6 @@ class Members::LootsController < ApplicationController
 
   def index
     @loots = @member.loots.paginate(:page => params[:page], :per_page => 35, :include => :item)
-
-    respond_to do |wants|
-      wants.html
-      wants.js
-    end
   end
 
   private
