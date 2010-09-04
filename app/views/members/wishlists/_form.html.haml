@@ -1,12 +1,12 @@
 %div.message.error.hide
-- semantic_remote_form_for [@member, @wishlist] do |form|
-  - form.inputs do
+= semantic_remote_form_for [@member, @wishlist] do |form|
+  = form.inputs do
     = form.input :item_id, :as => :hidden
     = form.input :item_name, :label => 'Item name or ID'
     = form.input :note, :required => false
     .wishlist_priority
       = form.input :priority, :as => :radio, :collection => [['Best in Slot', 'best in slot'], ['Normal', 'normal'], ['Rot', 'rot'], ['Situational', 'situational']]
-  - form.buttons :class => 'submit' do
+  = form.buttons :class => 'submit' do
     = form.submit 'Save', :class => 'input_submit'
     or
     = link_to('Cancel', member_wishlists_path(@member), :class => 'cancel')

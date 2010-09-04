@@ -6,5 +6,5 @@
 
 - page_title 'New Loot'
 - breadcrumb link_to('Loot', loots_path), 'New'
-- semantic_form_for @loot do |form|
+= semantic_form_for @loot do |form|
   = render :partial => 'form', :object => form

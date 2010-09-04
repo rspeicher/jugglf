@@ -1,10 +1,10 @@
 - breadcrumb link_to('Raids', raids_path), link_to(h(@raid.date), raid_path(@raid)), 'Edit'
-- semantic_form_for @raid do |form|
-  - form.inputs do
+= semantic_form_for @raid do |form|
+  = form.inputs do
     = form.input :date_string, :label => 'Date'
     = form.input :note, :required => false
     = form.input :attendance_output, :as => :text, :label => 'Attendance', :input_html => {:size => '60x15'}
-  - form.buttons :class => 'submit' do
+  = form.buttons :class => 'submit' do
     = form.submit 'Save Raid', :class => 'input_submit'
     or
     = link_to('Cancel', raids_path, :class => 'cancel')

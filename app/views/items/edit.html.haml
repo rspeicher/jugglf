@@ -1,4 +1,4 @@
 - page_title @item.name, 'Edit'
 - breadcrumb link_to('Items', items_path), link_to(h(@item.name), item_path(@item)), 'Edit'
-- semantic_form_for @item do |form|
+= semantic_form_for @item do |form|
   = render :partial => 'form', :object => form

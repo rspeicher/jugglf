@@ -1,4 +1,4 @@
-- form.inputs do
+= form.inputs do
   = form.input :item_id, :as => :hidden
   = form.input :item_name, :label => 'Item name or ID'
   = form.input :member_name, :label => 'Buyer', :required => false
@@ -7,7 +7,7 @@
   = form.input :best_in_slot, :required => false
   = form.input :situational, :required => false
   = form.input :rot, :required => false
-- form.buttons :class => 'submit' do
+= form.buttons :class => 'submit' do
   = form.submit 'Save Loot', :class => 'input_submit'
   or
   = link_to('Cancel', loots_path, :class => 'cancel')

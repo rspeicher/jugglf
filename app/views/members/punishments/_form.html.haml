@@ -1,8 +1,8 @@
-- form.inputs do
+= form.inputs do
   = form.input :expires_on_string, :label => 'Expires on', :hint => 'Defaults to one full loot factor cycle (52 days)'
   = form.input :reason
   = form.input :value
-- form.buttons :class => 'submit' do
+= form.buttons :class => 'submit' do
   = form.submit 'Save', :class => 'input_submit'
   or
   = link_to('Cancel', member_path(@member), :class => 'cancel')

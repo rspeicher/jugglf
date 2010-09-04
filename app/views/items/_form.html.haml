@@ -1,11 +1,11 @@
-- form.inputs do
+= form.inputs do
   = form.input :name
   = form.input :wow_id, :as => :string, :label => 'WoW ID'
   = form.input :color, :required => false
   = form.input :icon, :required => false
   = form.input :slot, :required => false
   = form.input :level, :required => false
-- form.buttons :class => 'submit' do
+= form.buttons :class => 'submit' do
   = form.submit 'Save Item', :class => 'input_submit'
   or
   = link_to('Cancel', items_path, :class => 'cancel')
