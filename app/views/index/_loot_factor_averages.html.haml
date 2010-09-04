@@ -1,0 +1,5 @@
+%tr{ :class => cycle('row1', 'row2') }
+  %td.right= lf_title
+  %td.number= loot_factor(@lootfactor_guild.send(lf_type).to_f)
+  - @lootfactor.each do |group|
+    %td.number= loot_factor(group.send(lf_type).to_f)

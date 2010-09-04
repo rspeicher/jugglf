@@ -16,38 +16,14 @@
           - @counts.each do |wow_class, count|
             %td.number= link_to h(count), search_path(:q => wow_class, :context => 'members')
       - cache :action => 'index', :action_suffix => 'attendance_averages' do
-        %tr{ :class => cycle('row1', 'row2') }
-          %td.right 30-Day
-          %td.number= member_attendance_colored(@attendance_guild.avg_30.to_f)
-          - @attendance.each do |group|
-            %td.number= member_attendance_colored(group.avg_30.to_f)
-        %tr{ :class => cycle('row1', 'row2') }
-          %td.right 90-Day
-          %td.number= member_attendance_colored(@attendance_guild.avg_90.to_f)
-          - @attendance.each do |group|
-            %td.number= member_attendance_colored(group.avg_90.to_f)
-        %tr{ :class => cycle('row1', 'row2') }
-          %td.right Lifetime
-          %td.number= member_attendance_colored(@attendance_guild.avg_lifetime.to_f)
-          - @attendance.each do |group|
-            %td.number= member_attendance_colored(group.avg_lifetime.to_f)
+        = render :partial => 'attendance_averages', :locals => {:att_title => "30-Day",   :att_type => :avg_30}
+        = render :partial => 'attendance_averages', :locals => {:att_title => "90-Day",   :att_type => :avg_90}
+        = render :partial => 'attendance_averages', :locals => {:att_title => "Lifetime", :att_type => :avg_lifetime}
       / Loot Factor Averages
       - cache :action => 'index', :action_suffix => 'loot_factor_averages' do
-        %tr{ :class => cycle('row1', 'row2') }
-          %td.right Loot Factor
-          %td.number= loot_factor(@lootfactor_guild.avg_lf.to_f)
-          - @lootfactor.each do |group|
-            %td.number= loot_factor(group.avg_lf.to_f)
-        %tr{ :class => cycle('row1', 'row2') }
-          %td.right Best In Slot
-          %td.number= loot_factor(@lootfactor_guild.avg_bislf.to_f)
-          - @lootfactor.each do |group|
-            %td.number= loot_factor(group.avg_bislf.to_f)
-        %tr{ :class => cycle('row1', 'row2') }
-          %td.right Situational
-          %td.number= loot_factor(@lootfactor_guild.avg_sitlf.to_f)
-          - @lootfactor.each do |group|
-            %td.number= loot_factor(group.avg_sitlf.to_f)
+        = render :partial => "loot_factor_averages", :locals => {:lf_title => "Loot Factor",  :lf_type => :avg_lf}
+        = render :partial => "loot_factor_averages", :locals => {:lf_title => "Best in Slot", :lf_type => :avg_bislf}
+        = render :partial => "loot_factor_averages", :locals => {:lf_title => "Situational",  :lf_type => :avg_sitlf}
 
 %div.category_block.block_wrap
   = render :partial => 'shared/maintitle', :object => 'Records'

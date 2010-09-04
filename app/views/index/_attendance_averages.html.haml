@@ -1,0 +1,5 @@
+%tr{ :class => cycle('row1', 'row2') }
+  %td.right= att_title
+  %td.number= member_attendance_colored(@attendance_guild.send(att_type).to_f)
+  - @attendance.each do |group|
+    %td.number= member_attendance_colored(group.send(att_type).to_f)
