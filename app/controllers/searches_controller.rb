@@ -3,19 +3,14 @@ class SearchesController < ApplicationController
   before_filter :normalize_query
 
   def show
+    # :context is sanitized by normalize_context, so no injection worry
     send("search_#{params[:context]}")
-  rescue NoMethodError
-    # Shouldn't happen because of normalize_context, but whatevs.
-    flash[:error] = "Invalid search context: #{params[:context]}"
-    redirect_to root_path
   end
 
   private
 
   def normalize_context
-    valid_contexts = ['members', 'items']
-
-    unless valid_contexts.include? params[:context]
+    unless %w(members items).include? params[:context]
       params[:context] = 'members'
     end
   end
@@ -31,7 +26,7 @@ class SearchesController < ApplicationController
     if Member::WOW_CLASSES.include? params[:q]
       scope = Member.wow_class_equals(params[:q]).active
     else
-      scope = Member.name_like(params[:q])
+      scope = Member.search(:name_contains => params[:q])
     end
 
     respond_to do |wants|
@@ -55,8 +50,7 @@ class SearchesController < ApplicationController
     # Allow partial name matches ('conq sanc' will match "Conqueror's Mark of Sanctification")
     params[:q].gsub!(' ', '%')
 
-    scope = Item.name_like(params[:q])
-    # scope.limit(50)
+    scope = Item.limit(50).search(:name_contains => params[:q])
 
     respond_to do |wants|
       wants.html do

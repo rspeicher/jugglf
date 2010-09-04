@@ -9,8 +9,8 @@ gem 'invision_bridge', :path => "/Users/tsigo/code/ruby/invision_bridge"
 gem 'formtastic', ">= 1.1.0.beta"
 gem 'haml'
 # gem 'hoptoad_notifier', :version => '2.2.6'
+gem 'meta_search'
 gem 'nokogiri'
-# gem 'searchlogic'
 gem 'will_paginate', '3.0.pre2'
 
 group :development, :test do
