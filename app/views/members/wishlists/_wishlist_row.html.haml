@@ -11,4 +11,4 @@
   %td= h(wishlist_row.item.slot) unless wishlist_row.item_id.nil?
   %td.image{ :width => "48px" }
     = link_to(image_tag('edit.png'), edit_member_wishlist_path(@member, wishlist_row), :class => 'edit')
-    = link_to_remote_delete(wishlist_row, :url => member_wishlist_path(@member, wishlist_row))
+    = link_to_delete(member_wishlist_path(@member, wishlist_row), :confirm => "Are you sure you want to delete this wishlist entry?")

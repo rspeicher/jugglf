@@ -22,35 +22,18 @@ module ApplicationHelper
     end
   end
 
-  def link_to_delete(options = {})
-    return if options[:path].nil?
+  def link_to_delete(path, options = {})
+    options[:path]    ||= path
+    # options[:text]  ||= 'Delete'
+    options[:class]   ||= 'negative delete'
+    options[:confirm] ||= "Are you sure you want to delete this record?"
+    options[:image]     = options[:image].nil?  ? true : options[:image]
+    options[:remote]    = options[:remote].nil? ? true : options[:remote]
 
-    options[:text]    ||= 'Delete'
-    options[:confirm] ||= 'Are you sure you want to delete this record?'
-    options[:image]   = (options[:image].nil?) ? true : options[:image]
-    options[:class]   ||= 'negative'
+    raise ArgumentError, "path is required" if options[:path].blank?
 
-    image = ( options[:image] == true ) ? image_tag('delete.png') : ''
-
-    link_to(image + h(options[:text]), options[:path],
-      :confirm => options[:confirm], :method => :delete, :class => options[:class])
-  end
-
-  def link_to_remote_delete(object, options = {})
-    return if object.nil?
-
-    klass = object.class.to_s.underscore
-
-    options[:url]     ||= polymorphic_path(object)
-    options[:text]    ||= ''
-    options[:confirm] ||= 'Are you sure you want to delete this record?'
-    options[:success] ||= "$('##{klass}_#{object.id}').fadeOut(250); $('tbody##{klass}').zebraRows({delay: 300});"
-
-    link_to_remote(image_tag('delete.png') + h(options[:text]),
-      :url     => options[:url],
-      :confirm => options[:confirm],
-      :method  => :delete,
-      :success => options[:success])
+    image = ( options[:image] == true ) ? image_tag('delete.png', :alt => "Delete") : ''
+    link_to(image, options.delete(:path), options.merge(:method => :delete))
   end
 
   def progress_bar(options = {})

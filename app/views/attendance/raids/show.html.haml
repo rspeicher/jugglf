@@ -54,7 +54,7 @@
               %td= h(att.member_name)
               %td.icon
                 - if @live_raid.completed?
-                  = link_to_delete(:text => '', :path => live_raid_live_attendee_path(@live_raid, att))
+                  = link_to_delete(live_raid_live_attendee_path(@live_raid, att))
                 - else
                   = link_to_toggle_attendee(att)
               %td.number= att.active_minutes

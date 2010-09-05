@@ -4,4 +4,4 @@
   %td= loot_row.loot_type
   %td.image{ :width => "48px" }
     = link_to_function(image_tag('edit.png'), "attendanceEditLoot(#{loot_row.id})")
-    = link_to_remote_delete(loot_row, :text => '', :url => live_raid_live_loot_path(loot_row.live_raid, loot_row))
+    = link_to_delete(live_raid_live_loot_path(loot_row.live_raid, loot_row))
