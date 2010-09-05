@@ -1,13 +1,14 @@
-!!! XML
-!!!
-%html{html_attrs('en-US')}
+!!! 5
+%html{:lang => "en"}
   %head
     %title= truncate(yield(:page_title), :length => 150) || 'Juggernaut Loot Factor'
     %link{ :rel => "shortcut icon", :href => 'http://www.juggernautguild.com/favicon.ico'}/
     = stylesheet_link_tag 'http://www.juggernautguild.com/public/min/index.php?f=public/style_css/css_5/ipb_help.css,public/style_css/css_5/juggernaut.css,public/style_css/css_5/calendar_select.css,public/style_css/css_5/ipb_styles.css,public/style_css/css_5/ipb_editor.css,public/style_css/css_5/ipb_common.css,public/style_css/prettify.css'
     = stylesheet_link_tag 'lootfactor'
-    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js'
-    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js'
+
+    = javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/jquery-ui.min.js', 'jquery-rails.js'
+    = csrf_meta_tag
+
     = javascript_include_tag 'jquery.tablesorter.min', 'jquery.hotkeys.min', 'jquery.tooltip', 'jquery.autocomplete', 'jquery.cookie', :cache => 'jquery_extras'
     = javascript_include_tag 'jugg', 'jugg.autocomplete', 'jugg.item_filter', 'jugg.moderation', 'jugg.search', 'jugg.tablesorter', 'jugg.wishlist', :cache => 'application'
     - if admin?
