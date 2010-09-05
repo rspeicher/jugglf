@@ -6,7 +6,7 @@ module LootsHelper
     s << content_tag(:span, 'Rot',          :class => 'filter filter_rot'  ) if loot.rot?
     s << content_tag(:span, 'Disenchanted', :class => 'filter filter_de'   ) if loot.member_id.nil?
     s << content_tag(:span, 'Normal',       :class => 'filter filter_none' ) if s.empty?
-    s.join(' ')
+    s.join(' ').html_safe
   end
 
   def loot_row_classes(loot)

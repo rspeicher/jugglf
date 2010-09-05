@@ -7,8 +7,7 @@ module Attendance::AttendeesHelper
     end
 
     if live_attendee.live_raid.active?
-      link_to_remote(image, :method => :put,
-        :url => live_raid_live_attendee_path(live_attendee.live_raid, live_attendee))
+      link_to(image, live_raid_live_attendee_path(live_attendee.live_raid, live_attendee), :method => :put, :remote => true)
     else
       image
     end

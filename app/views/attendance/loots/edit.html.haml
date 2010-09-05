@@ -1,4 +1,4 @@
-= semantic_remote_form_for :live_loot, LiveLoot.new, :url => live_raid_live_loot_path(@parent), :html => {:method => :put} do |form|
+= semantic_form_for :live_loot, LiveLoot.new, :url => live_raid_live_loot_path(@parent), :remote => true, :html => {:method => :put} do |form|
   %div#form_errors.message.error.hide
   = form.inputs do
     = form.input :input_text, :as => :text, :label => 'Loots', :required => false, :input_html => {:size => '90x10'}

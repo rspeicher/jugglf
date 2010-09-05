@@ -1,5 +1,5 @@
 %div.message.error.hide
-= semantic_remote_form_for [@member, @wishlist] do |form|
+= semantic_form_for [@member, @wishlist], :remote => true do |form|
   = form.inputs do
     = form.input :item_id, :as => :hidden
     = form.input :item_name, :label => 'Item name or ID'

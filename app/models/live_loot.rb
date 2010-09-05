@@ -80,11 +80,15 @@ class LiveLoot < ActiveRecord::Base
   attr_accessor :input_text # :nodoc:
 
   protected
-    def validate_on_create
-      # Ensures that, when given a member record, it wasn't newly-created
-      # We don't want to accidentally typo a member's name and have loot falsely get marked as DE'd.
-      if self.member.present? and self.member.new_record?
-        self.errors.add_to_base("attempted to assign loot to a member who did not yet exist: #{self.member.name}")
-      end
+
+  validate :ensure_member_exists, :on => :create
+
+  def ensure_member_exists
+    # Ensures that, when given a member record, it wasn't newly-created
+    # We don't want to accidentally typo a member's name and have loot falsely get marked as DE'd.
+    if self.member.present? and self.member.new_record?
+      self.errors.add(:member, "attempted to assign loot to a member who did not yet exist: #{self.member.name}")
     end
+    false
+  end
 end

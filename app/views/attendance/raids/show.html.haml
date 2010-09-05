@@ -75,7 +75,7 @@
         %tbody#live_loots
           = render :partial => 'attendance/loots/loot_row', :collection => @live_raid.loots
       %div#loot_errors.message.error.hide
-      = semantic_remote_form_for LiveLoot.new, :url => live_raid_live_loot_path(@live_raid), :html => {:method => :put} do |form|
+      = semantic_form_for LiveLoot.new, :url => live_raid_live_loot_path(@live_raid), :remote => true, :html => {:method => :put} do |form|
         = form.inputs do
           = form.input :input_text, :as => :text, :label => 'Add Loot', :required => false, :input_html => {:size => '90x10'}
         = form.buttons :class => 'submit' do

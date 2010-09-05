@@ -7,9 +7,10 @@ class WishlistsController < ApplicationController
     @zone = @boss = nil
 
     if params[:boss]
+      # TODO: This query still works in 3.0.0, but it's marked as deprecated.
+      # Unfortunately, the ARel-style query below it doesn't work with the full "includes" params
       # @items = LootTable.find(:all, :include => [:parent, {:object => {:wishlists => :member}}], :conditions => ['parent_id = ?', params[:boss]])
-      table = LootTable.where(:parent_id => params[:boss]).includes(:parent)
-      @items = table.all
+      @items = LootTable.where(:parent_id => params[:boss]).includes(:parent)
 
       if @items.size > 0
         @boss  = @items[0].parent
