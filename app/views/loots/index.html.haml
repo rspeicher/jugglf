@@ -10,7 +10,7 @@
   %table.ipb_table
     %thead
       %tr
-        %th Name
+        %th.item Name
         %th Buyer
         %th Notes
         %th.date Raid
@@ -18,7 +18,7 @@
     %tbody
       - @loots.each do |loot|
         %tr{ :class => cycle('row1', 'row2') + ' ' + loot_row_classes(loot) }
-          %td
+          %td.item
             = link_to_item_with_stats(loot.item)
             = render :partial => 'shared/moderation', :object => loot if admin?
           %td= link_to_member(loot.member)
