@@ -18,6 +18,7 @@ class Member < ActiveRecord::Base
 
   scope :active, where(:active => true)
   scope :with_class, where("wow_class IS NOT NULL")
+  scope :of_class, lambda { |klass| where(:wow_class => klass) }
 
   alias_method :attendance, :attendees
 

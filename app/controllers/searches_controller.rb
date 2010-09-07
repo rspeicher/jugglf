@@ -24,7 +24,7 @@ class SearchesController < ApplicationController
     included_fields = [:id, :name, :first_raid, :last_raid, :active, :loots_count, :wishlists_count, :raid_count].freeze
 
     if Member::WOW_CLASSES.include? params[:q]
-      scope = Member.wow_class_equals(params[:q]).active
+      scope = Member.active.of_class(params[:q])
     else
       scope = Member.search(:name_contains => params[:q])
     end
