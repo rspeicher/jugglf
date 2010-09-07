@@ -25,14 +25,14 @@ module ApplicationHelper
   def link_to_delete(path, options = {})
     options[:path]    ||= path
     # options[:text]  ||= 'Delete'
-    options[:class]   ||= 'negative delete'
+    options[:class]   ||= 'negative'
     options[:confirm] ||= "Are you sure you want to delete this record?"
     options[:image]     = options[:image].nil?  ? true : options[:image]
     options[:remote]    = options[:remote].nil? ? true : options[:remote]
 
     raise ArgumentError, "path is required" if options[:path].blank?
 
-    image = ( options[:image] == true ) ? image_tag('delete.png', :alt => "Delete") : ''
+    image = ( options.delete(:image) == true ) ? image_tag('delete.png', :alt => "Delete") : ''
     link_to(image, options.delete(:path), options.merge(:method => :delete))
   end
 

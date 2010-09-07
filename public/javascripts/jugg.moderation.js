@@ -71,7 +71,7 @@ jQuery.fn.identify = function(prefix) {
             // Public
             this.init = function(settings) {
                 // Bind to any successful remote Delete calls so we can hide the deleted row neatly
-                $('a[data-remote].delete').live("ajax:success", function() {
+                $('a[data-remote][data-method=delete]').live("ajax:success", function() {
                     // FIXME: This assumes that the Delete link is an image inside a td > tr > tbody
                     row = $(this).parent().parent();
                     $(row).fadeOut(250);
