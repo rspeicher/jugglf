@@ -6,7 +6,7 @@ class Wishlist < ActiveRecord::Base
   belongs_to :item, :counter_cache => true
   belongs_to :member, :counter_cache => true
 
-  validates_inclusion_of :priority, :in => PRIORITIES, :message => "{{value}} is not a valid entry type"
+  validates_inclusion_of :priority, :in => PRIORITIES, :message => "%{value} is not a valid entry type"
 
   def item_name
     self.item.name unless self.item_id.nil?
@@ -18,9 +18,11 @@ class Wishlist < ActiveRecord::Base
   end
 
   protected
-    def validate
-      unless self.item_id.present? and self.item.authentic?
-        errors.add_to_base("Invalid item provided")
-      end
+
+  validate :validate_item
+  def validate_item
+    unless self.item_id.present? and self.item.authentic?
+      errors.add(:base, "Invalid item provided")
     end
+  end
 end

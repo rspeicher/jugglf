@@ -1,61 +1,19 @@
-# This file is copied to ~/spec when you run 'ruby script/generate rspec'
-# from the project root directory.
+# This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path(File.join(File.dirname(__FILE__),'..','config','environment'))
-require 'spec/autorun'
-require 'spec/rails'
-require 'shoulda'
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
 
-require 'invision_bridge'
-
-require 'fakeweb'
 FakeWeb.allow_net_connect = false
 
-# Requires supporting files with custom matchers and macros, etc,
-# in ./support/ and its subdirectories.
-Dir[File.expand_path(File.join(File.dirname(__FILE__),'support','**','*.rb'))].each {|f| require f}
+# Requires supporting ruby files with custom matchers and macros, etc,
+# in spec/support/ and its subdirectories.
+Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-# Uncomment to not quiet backtrace
-# Rails.backtrace_cleaner.remove_silencers!
-
-Spec::Runner.configure do |config|
+RSpec.configure do |config|
+  config.mock_with :rspec
   config.use_transactional_fixtures = true
-  config.use_instantiated_fixtures  = false
-  config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
 
-  config.include(LoginHelper,      :type => :controller)
+  config.include(FileFixture)
   config.include(ControllerHelper, :type => :controller)
-
-  # == Mock Framework
-  #
-  # RSpec uses its own mocking framework by default. If you prefer to
-  # use mocha, flexmock or RR, uncomment the appropriate line:
-  #
-  # config.mock_with :mocha
-  # config.mock_with :flexmock
-  # config.mock_with :rr
-end
-
-def file_fixture(*args)
-  File.read(File.join(File.dirname(__FILE__), "file_fixtures", args))
-end
-
-module ItemLookupHelpers
-  def valid_lookup_results
-    results = ItemLookup::Results.new
-    result = ItemLookup::Result.new({
-      :id      => 40395,
-      :name    => 'Torch of Holy Fire',
-      :quality => 4,
-      :icon    => 'INV_Mace_82',
-      :level   => 226,
-      :heroic  => false
-    })
-    results << result
-  end
-  def invalid_lookup_results
-    results = ItemLookup::Results.new
-    result = ItemLookup::Result.new
-    results << result
-  end
+  config.include(LoginHelper,      :type => :controller)
 end

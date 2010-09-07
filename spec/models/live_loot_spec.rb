@@ -66,14 +66,14 @@ describe LiveLoot, "member association" do
     end
   end
 
-  describe "with a new member" do
+  context "with a new member" do
     before(:each) do
       @live_loot = Factory.build(:live_loot)
     end
 
-    it "should raise an exception, maybe?" do
+    it "should invalidate" do
       @live_loot.member_name = 'InvalidMember'
-      @live_loot.should have(1).errors_on(:base)
+      @live_loot.should have(1).errors_on(:member)
     end
   end
 end

@@ -28,7 +28,6 @@ class Item < ActiveRecord::Base
     "#{self.id}-#{self.name}"
   end
 
-  # Class Methods -------------------------------------------------------------
   # Allows the user to pass either an integer to FoC by ID, or a string to FoC by name
   def self.find_or_create_by_name_or_id(value)
     if value =~ /^\d+$/ or value.is_a? Fixnum
@@ -46,7 +45,6 @@ class Item < ActiveRecord::Base
     end
   end
 
-  # Instance Methods ----------------------------------------------------------
   def needs_lookup?
     !self.authentic?
   end
@@ -62,41 +60,43 @@ class Item < ActiveRecord::Base
   end
 
   protected
-    def validate
-      self.lookup
 
-      unless self.authentic?
-        self.errors.add_to_base("attempted to save an invalid item (#{self.to_s})")
-      end
+  validate :authenticate
+  def authenticate
+    self.lookup
+
+    unless self.authentic?
+      self.errors.add(:base, "attempted to save an invalid item (#{self.to_s})")
     end
+  end
 
-    # Given a +query+, either a WoW ID or an Item name, performs an item lookup
-    # via wowarmory.com
-    #
-    # Sets the following attributes on the current +Item+:
-    # - +id+
-    # - +name+
-    # - +color+
-    # - +icon+
-    # - +level+
-    # - +slot+
-    # - +heroic+
-    # - +authentic+
-    def stat_lookup(query)
-      result = ItemLookup.search(query, :source => 'armory').best_result
-      if result.valid?
-        self.id        = result.id
-        self.name      = result.name
-        self.color     = result.css_quality
-        self.icon      = result.icon
-        self.level     = result.level
-        self.slot      = result.slot
-        self.heroic    = result.heroic
-        self.authentic = true
+  # Given a +query+, either a WoW ID or an Item name, performs an item lookup
+  # via wowarmory.com
+  #
+  # Sets the following attributes on the current +Item+:
+  # - +id+
+  # - +name+
+  # - +color+
+  # - +icon+
+  # - +level+
+  # - +slot+
+  # - +heroic+
+  # - +authentic+
+  def stat_lookup(query)
+    result = ItemLookup.search(query, :source => 'armory').best_result
+    if result.valid?
+      self.id        = result.id
+      self.name      = result.name
+      self.color     = result.css_quality
+      self.icon      = result.icon
+      self.level     = result.level
+      self.slot      = result.slot
+      self.heroic    = result.heroic
+      self.authentic = true
 
-        return true
-      else
-        return false
-      end
+      return true
+    else
+      return false
     end
+  end
 end
