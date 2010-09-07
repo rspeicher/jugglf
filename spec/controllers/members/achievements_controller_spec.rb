@@ -11,8 +11,10 @@ describe Members::AchievementsController, "GET index" do
     get :index, :member_id => @parent.id
   end
 
+  subject { controller }
+
   it { should respond_with(:success) }
-  it { should assign_to(:achievements).with_kind_of(Array) }
-  it { should assign_to(:completed).with_kind_of(Array) }
+  it { should assign_to(:achievements) }
+  it { should assign_to(:completed) }
   it { should render_template(:index) }
 end

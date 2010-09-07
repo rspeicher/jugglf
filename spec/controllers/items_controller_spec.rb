@@ -16,6 +16,8 @@ describe ItemsController, "GET index" do
     get :index
   end
 
+  subject { controller }
+
   it { should respond_with(:success) }
   it { should assign_to(:items).with_kind_of(Array) }
   it { should render_template(:index) }
@@ -27,6 +29,8 @@ describe ItemsController, "GET show" do
     mock_find(:item)
     get :show, :id => @object.id
   end
+
+  subject { controller }
 
   it { should respond_with(:success) }
   it { should assign_to(:item).with(@object) }
@@ -41,6 +45,8 @@ describe ItemsController, "GET new" do
     get :new
   end
 
+  subject { controller }
+
   it { should respond_with(:success) }
   it { should assign_to(:item).with_kind_of(Item) }
   it { should render_template(:new) }
@@ -53,6 +59,8 @@ describe ItemsController, "GET edit" do
     get :edit, :id => @object
   end
 
+  subject { controller }
+
   it { should respond_with(:success) }
   it { should assign_to(:item).with(@object) }
   it { should render_template(:edit) }
@@ -62,6 +70,8 @@ describe ItemsController, "POST create" do
   before(:each) do
     login(:admin)
   end
+
+  subject { controller }
 
   context "success" do
     before(:each) do
@@ -87,8 +97,9 @@ end
 describe ItemsController, "PUT update" do
   before(:each) do
     login(:admin)
-
   end
+
+  subject { controller }
 
   context "success" do
     before(:each) do
@@ -117,6 +128,8 @@ describe ItemsController, "DELETE destroy" do
     mock_find(:item, :destroy => true)
     delete :destroy, :id => @object
   end
+
+  subject { controller }
 
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(items_path) }

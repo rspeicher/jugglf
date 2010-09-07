@@ -9,15 +9,17 @@ describe WishlistsController, "GET index" do
     login(:admin)
   end
 
+  subject { controller }
+
   context "without boss param" do
     before(:each) do
       get :index
     end
 
     it { should respond_with(:success) }
-    it { should assign_to(:root).with_kind_of(Array) }
-    it { should_not assign_to(:zone) }
-    it { should_not assign_to(:boss) }
+    it { should assign_to(:root) }
+    it { should assign_to(:zone).with(nil) }
+    it { should assign_to(:boss).with(nil) }
     it { should assign_to(:items).with([]) }
     it { should render_template(:index) }
   end
@@ -31,11 +33,11 @@ describe WishlistsController, "GET index" do
       end
 
       it { should respond_with(:success) }
-      it { should assign_to(:root).with_kind_of(Array) }
+      it { should assign_to(:root) }
       it { should assign_to(:boss).with(@object.parent) }
       it { should assign_to(:zone).with(@object.parent.parent) }
-      it { should assign_to(:recent_loots).with_kind_of(Array) }
-      it { should assign_to(:items).with_kind_of(Array) }
+      it { should assign_to(:recent_loots) }
+      it { should assign_to(:items) }
       it { should render_template(:index) }
     end
 
@@ -47,11 +49,11 @@ describe WishlistsController, "GET index" do
       end
 
       it { should respond_with(:success) }
-      it { should assign_to(:root).with_kind_of(Array) }
+      it { should assign_to(:root) }
       it { should assign_to(:boss).with(@object) }
       it { should assign_to(:zone).with(@object.parent) }
       it { should_not assign_to(:recent_loots) }
-      it { should assign_to(:items).with_kind_of(Array) }
+      it { should assign_to(:items) }
       it { should render_template(:index) }
     end
   end

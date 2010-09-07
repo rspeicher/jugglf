@@ -11,6 +11,8 @@ describe Members::RaidsController, "GET index" do
     get :index, :member_id => @parent.id
   end
 
+  subject { controller }
+
   it { should respond_with(:success) }
   it { should assign_to(:raids).with_kind_of(Array) }
   it { should render_template(:index) }

@@ -18,7 +18,9 @@ describe Attendance::RaidsController, "GET index" do
     get :index
   end
 
-  it { should assign_to(:raids).with_kind_of(Array) }
+  subject { controller }
+
+  it { should assign_to(:raids) }
   it { should render_template(:index) }
   it { should respond_with(:success) }
 end
@@ -29,6 +31,8 @@ describe Attendance::RaidsController, "GET show" do
     mock_find(:live_raid)
     get :show, :id => @object.id
   end
+
+  subject { controller }
 
   it { should assign_to(:live_raid).with_kind_of(LiveRaid) }
   it { should render_template(:show) }
@@ -41,6 +45,8 @@ describe Attendance::RaidsController, "GET new" do
     get :new
   end
 
+  subject { controller }
+
   it { should assign_to(:live_raid).with_kind_of(LiveRaid) }
   it { should render_template(:new) }
   it { should respond_with(:success) }
@@ -50,6 +56,8 @@ describe Attendance::RaidsController, "POST create" do
   before(:each) do
     login(:admin)
   end
+
+  subject { controller }
 
   context "success" do
     before(:each) do
@@ -76,6 +84,8 @@ describe Attendance::RaidsController, "PUT update" do
   before(:each) do
     login(:admin)
   end
+
+  subject { controller }
 
   context "success" do
     before(:each) do
@@ -105,6 +115,8 @@ describe Attendance::RaidsController, "DELETE destroy" do
     delete :destroy, :id => @object
   end
 
+  subject { controller }
+
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(live_raids_path) }
 end
@@ -115,6 +127,8 @@ describe Attendance::RaidsController, "GET start" do
     mock_find(:live_raid, :start! => true)
     get :start, :id => @object.id
   end
+
+  subject { controller }
 
   it { should respond_with(:redirect) }
   it { should redirect_to(live_raid_path(@object)) }
@@ -127,6 +141,8 @@ describe Attendance::RaidsController, "GET stop" do
     get :stop, :id => @object.id
   end
 
+  subject { controller }
+
   it { should respond_with(:redirect) }
   it { should redirect_to(live_raid_path(@object)) }
 end
@@ -136,6 +152,8 @@ describe Attendance::RaidsController, "GET post" do
     login(:admin)
     @object = Factory(:live_raid, :started_at => Time.now, :stopped_at => Time.now)
   end
+
+  subject { controller }
 
   context "completed raid" do
     before(:each) do

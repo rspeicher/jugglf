@@ -16,8 +16,10 @@ describe LootsController, "GET index" do
     get :index
   end
 
+  subject { controller }
+
   it { should respond_with(:success) }
-  it { should assign_to(:loots).with_kind_of(Array) }
+  it { should assign_to(:loots) }
   it { should render_template(:index) }
 end
 
@@ -27,9 +29,11 @@ describe LootsController, "GET new" do
     get :new
   end
 
+  subject { controller }
+
   it { should respond_with(:success) }
-  it { should assign_to(:loot).with_kind_of(Loot) }
-  it { should assign_to(:raids).with_kind_of(Array) }
+  it { should assign_to(:loot) }
+  it { should assign_to(:raids) }
   it { should render_template(:new) }
 end
 
@@ -40,9 +44,11 @@ describe LootsController, "GET edit" do
     get :edit, :id => @object
   end
 
+  subject { controller }
+
   it { should respond_with(:success) }
   it { should assign_to(:loot).with(@object) }
-  it { should assign_to(:raids).with_kind_of(Array) }
+  it { should assign_to(:raids) }
   it { should render_template(:edit) }
 end
 
@@ -50,6 +56,8 @@ describe LootsController, "POST create" do
   before(:each) do
     login(:admin)
   end
+
+  subject { controller }
 
   context "success" do
     before(:each) do
@@ -76,6 +84,8 @@ describe LootsController, "PUT update" do
   before(:each) do
     login(:admin)
   end
+
+  subject { controller }
 
   context "success" do
     before(:each) do
@@ -104,6 +114,8 @@ describe LootsController, "DELETE destroy" do
     mock_find(:loot, :destroy => true)
     delete :destroy, :id => @object
   end
+
+  subject { controller }
 
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(loots_path) }

@@ -18,16 +18,16 @@ class Attendance::LootsController < ApplicationController
         wants.js
       end
     end
-    rescue RuntimeError, ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid => e
-      if e.respond_to? :record
-        flash[:error] = "At least one loot entry was invalid. (#{e.record.errors.full_messages.join(', ')})"
-      else
-        flash[:error] = "At least one loot entry was invalid. (#{e.message})"
-      end
+  rescue RuntimeError, ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid => e
+    if e.respond_to? :record
+      flash[:error] = "At least one loot entry was invalid. (#{e.record.errors.full_messages.join(', ')})"
+    else
+      flash[:error] = "At least one loot entry was invalid. (#{e.message})"
+    end
 
-      respond_to do |wants|
-        wants.js
-      end
+    respond_to do |wants|
+      wants.js
+    end
   end
 
   def destroy
@@ -41,7 +41,8 @@ class Attendance::LootsController < ApplicationController
   end
 
   private
-    def find_parent
-      @parent = @live_raid = LiveRaid.find(params[:live_raid_id])
-    end
+
+  def find_parent
+    @parent = @live_raid = LiveRaid.find(params[:live_raid_id])
+  end
 end

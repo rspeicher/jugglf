@@ -13,11 +13,10 @@ end
 describe RaidsController, "GET index" do
   before(:each) do
     login(:admin)
-  end
-
-  before(:each) do
     get :index
   end
+
+  subject { controller }
 
   it { should respond_with(:success) }
   it { should assign_to(:raids).with([]) }
@@ -30,6 +29,8 @@ describe RaidsController, "GET show" do
     mock_find(:raid)
     get :show, :id => @object
   end
+
+  subject { controller }
 
   it { should respond_with(:success) }
   it { should assign_to(:raid).with(@object) }
@@ -44,6 +45,8 @@ describe RaidsController, "GET new" do
     get :new
   end
 
+  subject { controller }
+
   it { should respond_with(:success) }
   it { should assign_to(:raid) }
   it { should render_template(:new) }
@@ -56,6 +59,8 @@ describe RaidsController, "GET edit" do
     get :edit, :id => @object
   end
 
+  subject { controller }
+
   it { should respond_with(:success) }
   it { should assign_to(:raid).with(@object) }
   it { should render_template(:edit) }
@@ -65,6 +70,8 @@ describe RaidsController, "POST create" do
   before(:each) do
     login(:admin)
   end
+
+  subject { controller }
 
   context "success" do
     before(:each) do
@@ -91,6 +98,8 @@ describe RaidsController, "PUT update" do
   before(:each) do
     login(:admin)
   end
+
+  subject { controller }
 
   context "success" do
     before(:each) do
@@ -119,6 +128,8 @@ describe RaidsController, "DELETE destroy" do
     mock_find(:raid, :destroy => true)
     delete :destroy, :id => @object
   end
+
+  subject { controller }
 
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(raids_path) }

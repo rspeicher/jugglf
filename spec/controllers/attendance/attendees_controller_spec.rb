@@ -31,6 +31,8 @@ describe Attendance::AttendeesController, "#update" do
     xhr :put, :update, params
   end
 
+  subject { controller }
+
   it { should respond_with(:success) }
 end
 
@@ -42,6 +44,8 @@ describe Attendance::AttendeesController, "#destroy" do
     mock_find
     @live_attendee.should_receive(:destroy)
   end
+
+  subject { controller }
 
   context ".html" do
     before(:each) do

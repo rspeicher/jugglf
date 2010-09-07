@@ -26,10 +26,12 @@ describe Attendance::LootsController, "#update" do
     LiveLoot.should_receive(:from_text).with('').and_return([])
   end
 
+  subject { controller }
+
   describe "success" do
     before(:each) do
       @parent.stub!(:save!).and_return(true)
-      put :update, params(:live_loot => {:input_text => ''})
+      put :update, params(:format => 'js', :live_loot => {:input_text => ''})
     end
 
     it { should_not set_the_flash }
@@ -39,7 +41,7 @@ describe Attendance::LootsController, "#update" do
   describe "failure" do
     before(:each) do
       @parent.stub!(:save!).and_raise('Exception')
-      put :update, params(:live_loot => {:input_text => ''})
+      put :update, params(:format => 'js', :live_loot => {:input_text => ''})
     end
 
     it { should set_the_flash.to(/invalid/) }
@@ -56,6 +58,8 @@ describe Attendance::LootsController, "#destroy" do
     @live_loot.should_receive(:destroy)
     delete :destroy, params
   end
+
+  subject { controller }
 
   it { should respond_with(:redirect) }
   it { should redirect_to(live_raid_path(@parent)) }

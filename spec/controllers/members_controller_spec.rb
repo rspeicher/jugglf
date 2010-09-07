@@ -41,13 +41,15 @@ describe MembersController, "GET index" do
     login(:admin)
   end
 
+  subject { controller }
+
   context ".html" do
     before(:each) do
       get :index
     end
 
     it { should respond_with(:success) }
-    it { should assign_to(:members).with_kind_of(Array) }
+    it { should assign_to(:members) }
     it { should render_template(:index) }
   end
 
@@ -57,7 +59,7 @@ describe MembersController, "GET index" do
     end
 
     it { should respond_with(:success) }
-    it { should assign_to(:members).with_kind_of(Array) }
+    it { should assign_to(:members) }
     it { should render_template(:index) }
   end
 end
@@ -68,6 +70,8 @@ describe MembersController, "GET show" do
     mock_find(:member)
     get :show, :id => @object
   end
+
+  subject { controller }
 
   it { should respond_with(:success) }
   it { should assign_to(:member).with(@object) }
@@ -80,6 +84,8 @@ describe MembersController, "GET new" do
     get :new
   end
 
+  subject { controller }
+
   it { should respond_with(:success) }
   it { should assign_to(:member).with_kind_of(Member) }
   it { should render_template(:new) }
@@ -90,14 +96,15 @@ describe MembersController, "GET edit" do
     login(:admin)
     mock_find(:member)
     User.should_receive(:juggernaut).and_return([])
-    MemberRank.should_receive(:find).with(:all, anything()).and_return([])
     get :edit, :id => @object
   end
 
+  subject { controller }
+
   it { should respond_with(:success) }
   it { should assign_to(:member).with(@object) }
-  it { should assign_to(:users).with_kind_of(Array) }
-  it { should assign_to(:ranks).with_kind_of(Array) }
+  it { should assign_to(:users) }
+  it { should assign_to(:ranks) }
   it { should render_template(:edit) }
 end
 
@@ -105,6 +112,8 @@ describe MembersController, "POST create" do
   before(:each) do
     login(:admin)
   end
+
+  subject { controller }
 
   context "success" do
     before(:each) do
@@ -131,6 +140,8 @@ describe MembersController, "PUT update" do
   before(:each) do
     login(:admin)
   end
+
+  subject { controller }
 
   context "success" do
     before(:each) do
@@ -159,6 +170,8 @@ describe MembersController, "DELETE destroy" do
     mock_find(:member, :destroy => true)
     delete :destroy, :id => @object
   end
+
+  subject { controller }
 
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(members_path) }
