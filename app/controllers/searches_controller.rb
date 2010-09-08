@@ -38,7 +38,6 @@ class SearchesController < ApplicationController
           render :template => 'members/index'
         end
       end
-      wants.js { render :json => scope.all.to_json(:only => included_fields) }
       wants.json { render :json => scope.all.to_json(:only => included_fields) }
       wants.xml { render :xml => scope.all.to_xml(:only => included_fields) }
     end
@@ -61,7 +60,6 @@ class SearchesController < ApplicationController
           render :template => 'items/index'
         end
       end
-      wants.js { render :json => scope.all.to_json(:only => included_fields) }
       wants.json { render :json => scope.all.to_json(:only => included_fields) }
       wants.xml { render :xml => scope.all.to_xml(:only => included_fields) }
     end

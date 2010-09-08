@@ -5,6 +5,14 @@ module NavigationHelpers
     when /the home\s?page/
       root_path
 
+    when /the members? index/
+      members_path
+
+    when /^the item page for (.*)$/i
+      item_path(Item.find_by_name($1))
+
+    when /^the member page for (.*)$/i
+      member_path(Member.find_by_name($1))
 
     else
       begin
