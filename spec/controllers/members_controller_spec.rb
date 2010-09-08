@@ -11,31 +11,6 @@ describe MembersController, "routing" do
   it { should route(:delete, '/members/1-member').to(:controller => :members, :action => :destroy, :id => '1-member') }
 end
 
-describe MembersController, "permissions" do
-  # context "guest" do
-  #   it { should_not allow_access_to(:get, :index) }
-  #   it { should_not allow_access_to(:get, :show, :id => '1-member') }
-  # end
-  #
-  # context "user" do
-  #   before(:each) do
-  #     login
-  #   end
-  #
-  #   it { should_not allow_access_to(:get, :index) }
-  #   it { should_not allow_access_to(:get, :show, :id => '1-member') }
-  # end
-  #
-  # context "admin" do
-  #   before(:each) do
-  #     login(:admin)
-  #   end
-  #
-  #   it { should allow_access_to(:get, :index) }
-  #   it { should allow_access_to(:get, :show, :id => '1-member') }
-  # end
-end
-
 describe MembersController, "GET index" do
   before(:each) do
     login(:admin)

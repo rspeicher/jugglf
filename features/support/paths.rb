@@ -5,6 +5,9 @@ module NavigationHelpers
     when /the home\s?page/
       root_path
 
+    when /^my standing page$/
+      member_path(User.last.member)
+
     when /the members? index/
       members_path
 
