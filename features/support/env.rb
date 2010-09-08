@@ -7,6 +7,8 @@
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 
+require 'factory_girl/step_definitions'
+
 require 'cucumber/formatter/unicode' # Remove this line if you don't want Cucumber Unicode support
 require 'cucumber/rails/rspec'
 require 'cucumber/rails/world'
@@ -33,12 +35,15 @@ Capybara.default_selector = :css
 # of your scenarios, as this makes it hard to discover errors in your application.
 ActionController::Base.allow_rescue = false
 
-# How to clean your database when transactions are turned off. See
-# http://github.com/bmabey/database_cleaner for more info.
+Before do
+  User.delete_all
+end
+
 if defined?(ActiveRecord::Base)
   begin
     require 'database_cleaner'
-    DatabaseCleaner.strategy = :truncation
+    require 'database_cleaner/cucumber'
+    DatabaseCleaner.strategy = :transaction
   rescue LoadError => ignore_if_database_cleaner_not_present
   end
 end
