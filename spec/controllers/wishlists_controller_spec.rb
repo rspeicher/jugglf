@@ -18,8 +18,8 @@ describe WishlistsController, "GET index" do
 
     it { should respond_with(:success) }
     it { should assign_to(:root) }
-    it { should assign_to(:zone).with(nil) }
-    it { should assign_to(:boss).with(nil) }
+    it { should_not assign_to(:zone) }
+    it { should_not assign_to(:boss) }
     it { should assign_to(:items).with([]) }
     it { should render_template(:index) }
   end
