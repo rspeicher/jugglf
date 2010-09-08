@@ -16,4 +16,6 @@ RSpec.configure do |config|
   config.include(FileFixture)
   config.include(ControllerHelper, :type => :controller)
   config.include(LoginHelper,      :type => :controller)
+
+  config.after(:each) { User.delete_all }
 end
