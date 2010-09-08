@@ -128,7 +128,7 @@ class IndexStat
   end
 
   def self.shadowmourne_progress
-    Loot.group(:member_id).where('item_id = ? AND member_id IS NOT NULL', Item.shadowfrost_shard.first.id).count
+    Loot.group(:member_id).where('item_id = ? AND member_id IS NOT NULL', 50274).count
   end
 
   def self.best_attendance

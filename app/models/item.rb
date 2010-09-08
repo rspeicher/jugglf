@@ -9,8 +9,6 @@ class Item < ActiveRecord::Base
   validates_numericality_of :id, :allow_nil => false, :greater_than => 0
   validates_uniqueness_of :name, :scope => :id
 
-  scope :shadowfrost_shard, where(:id => 50274)
-
   # Legacy support
   #
   # TODO: Remove me
