@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-
+  before_filter :normalize_page_param
   helper_method :current_user_session, :current_user
 
   protected
@@ -9,6 +9,12 @@ class ApplicationController < ActionController::Base
   def render(*args)
     args.push(:layout => false) if request.xhr?
     super(*args)
+  end
+
+  def normalize_page_param
+    return unless params[:page].present?
+    params[:page] = params[:page].to_i
+    params[:page] = 1 if params[:page] < 1
   end
 
   private
