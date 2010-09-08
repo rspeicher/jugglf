@@ -58,7 +58,7 @@ describe LiveRaid, "#start" do
 
   it "should call start! on each associated Attendee" do
     live_raid = Factory(:live_raid_with_attendee)
-    live_raid.attendees.each { |a| a.should_receive(:start!) }
+    live_raid.attendees.each { |a| a.expects(:start!) }
     live_raid.start!
   end
 end
@@ -85,7 +85,7 @@ describe LiveRaid, "#stop" do
 
   it "should call stop! on each associated Attendee" do
     live_raid = Factory(:live_raid_with_attendee, :started_at => Time.now)
-    live_raid.attendees.each { |a| a.should_receive(:stop!) }
+    live_raid.attendees.each { |a| a.expects(:stop!) }
     live_raid.stop!
   end
 end
@@ -178,12 +178,12 @@ describe LiveRaid, "#attendees_string" do
 
     it "should do nothing if raid is not active" do
       @live_raid.stop!
-      @existing.should_not_receive(:toggle!)
+      @existing.expects(:toggle!).never
     end
 
     it "should call toggle! if raid is active" do
       @live_raid.start!
-      @existing.should_receive(:toggle!)
+      @existing.expects(:toggle!)
     end
   end
 end
@@ -200,7 +200,7 @@ end
 #
 #   it "should make an XMLRPC call" do
 #     obj = Object.new
-#     obj.should_receive(:call).with('postTopic', {
+#     obj.expects(:call).with('postTopic', {
 #       :api_module   => 'ipb',
 #       :api_key      => anything(),
 #       :member_field => 'id',
@@ -209,7 +209,7 @@ end
 #       :topic_title  => @live_raid.started_at.to_date.to_s(:db),
 #       :post_content => anything()
 #     })
-#     XMLRPC::Client.should_receive(:new2).and_return(obj)
+#     XMLRPC::Client.expects(:new2).returns(obj)
 #
 #     @live_raid.post_to_forum
 #   end

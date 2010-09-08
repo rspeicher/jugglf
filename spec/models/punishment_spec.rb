@@ -71,7 +71,7 @@ end
 describe Punishment, "callbacks" do
   before(:each) do
     @member = Factory(:member)
-    @member.should_receive(:update_cache).once.and_return(true)
+    @member.expects(:update_cache).once.returns(true)
   end
 
   it "should update member cache after save" do

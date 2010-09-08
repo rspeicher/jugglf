@@ -7,7 +7,7 @@ end
 describe IndexController, "GET index" do
   before do
     (IndexStat.public_methods - Class.instance_methods).each do |method|
-      IndexStat.stub!(method.to_sym).and_return([])
+      IndexStat.stubs(method.to_sym).returns([])
     end
 
     get :index

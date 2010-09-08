@@ -176,7 +176,7 @@ end
 
 describe Raid, "#parse_drops" do
   before(:each) do
-    AttendanceParser.should_receive(:parse_loots).and_return([{:item => Factory(:item), :price => 1.00}])
+    AttendanceParser.expects(:parse_loots).returns([{:item => Factory(:item), :price => 1.00}])
 
     @raid = Factory(:raid)
     @raid.loot_output = "Sebudai - [Torch of Holy Fire]"

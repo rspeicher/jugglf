@@ -9,11 +9,10 @@ describe UserSessionsController, "routing" do
 end
 
 describe UserSessionsController, "GET new" do
-  before(:each) do
+  before do
+    logout
     get :new
   end
-
-  subject { controller }
 
   it { should assign_to(:user_session) }
   it { should render_template(:new) }
@@ -21,25 +20,23 @@ end
 
 describe UserSessionsController, "POST create" do
   context "success" do
-    before(:each) do
-      @user_session = mock_model("UserSessionMock", :save => true)
-      UserSession.stub!(:find).and_return(nil) # current_user_session
-      UserSession.should_receive(:new).and_return(@user_session)
+    before do
+      logout
+      @user_session = mock(:save => true)
+      UserSession.stubs(:find).returns(nil) # current_user_session
+      UserSession.expects(:new).returns(@user_session)
       post :create, :user_session => {}
     end
-
-    subject { controller }
 
     it { should set_the_flash.to(/success/) }
     it { should redirect_to(members_path) }
   end
 
   context "failure" do
-    before(:each) do
+    before do
+      logout
       post :create, :user_session => {}
     end
-
-    subject { controller }
 
     it { should_not set_the_flash }
     it { should render_template(:new) }
@@ -47,12 +44,9 @@ describe UserSessionsController, "POST create" do
 end
 
 describe UserSessionsController, "DELETE destroy" do
-  before(:each) do
-    login
+  before do
     delete :destroy
   end
-
-  subject { controller }
 
   it { should set_the_flash.to(/success/) }
   it { should redirect_to(root_url) }

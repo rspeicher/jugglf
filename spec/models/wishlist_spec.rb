@@ -62,7 +62,7 @@ describe Wishlist, "#item_name" do
 
   it "should create the item if no item was found" do
     # Stub this so we don't perform an item lookup; we only care that it's being called
-    Item.should_receive(:find_or_create_by_name_or_id).with('NewItem')
+    Item.expects(:find_or_create_by_name_or_id).with('NewItem')
     @wishlist.item_name = 'NewItem'
   end
 end

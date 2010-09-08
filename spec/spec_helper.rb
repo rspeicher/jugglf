@@ -10,7 +10,7 @@ FakeWeb.allow_net_connect = false
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
-  config.mock_with :rspec
+  config.mock_with :mocha
   config.use_transactional_fixtures = true
 
   config.include(FileFixture)

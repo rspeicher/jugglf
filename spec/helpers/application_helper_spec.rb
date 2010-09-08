@@ -3,17 +3,17 @@ require 'spec_helper'
 describe ApplicationHelper do
   describe "#admin?" do
     it "should return false if no user is logged in" do
-      stub!(:current_user).and_return(nil)
+      stubs(:current_user).returns(nil)
       admin?.should be_false
     end
 
     it "should return false if the current user is not an admin" do
-      stub!(:current_user).and_return(mock_model(User, :is_admin? => false))
+      stubs(:current_user).returns(mock(:is_admin? => false))
       admin?.should be_false
     end
 
     it "should return true if the current user is an admin" do
-      stub!(:current_user).and_return(mock_model(User, :is_admin? => true))
+      stubs(:current_user).returns(mock(:is_admin? => true))
       admin?.should be_true
     end
   end
@@ -80,12 +80,12 @@ describe ApplicationHelper do
 
   describe "#link_to_login_or_logout" do
     it "should link to login when logged out" do
-      stub!(:current_user).and_return(true)
+      stubs(:current_user).returns(true)
       link_to_login_or_logout.should match(/Sign Out/)
     end
 
     it "should link to logout when logged in" do
-      stub!(:current_user).and_return(nil)
+      stubs(:current_user).returns(nil)
       link_to_login_or_logout.should match(/Sign In/)
     end
   end

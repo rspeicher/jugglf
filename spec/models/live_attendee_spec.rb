@@ -32,13 +32,13 @@ end
 describe LiveAttendee, "#toggle!" do
   it "should call start if the user is not active" do
     att = Factory(:live_attendee, :active => false)
-    att.should_receive(:start!)
+    att.expects(:start!)
     att.toggle!
   end
 
   it "should call stop if the user is active" do
     att = Factory(:live_attendee, :active => true)
-    att.should_receive(:stop!)
+    att.expects(:stop!)
     att.toggle!
   end
 end

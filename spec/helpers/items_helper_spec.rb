@@ -4,7 +4,7 @@ describe ItemsHelper do
   describe "#link_to_wowhead" do
     before do
       @item = Factory(:item_with_real_stats)
-      Item.stub!(:lookup).and_return(@item)
+      Item.stubs(:lookup).returns(@item)
     end
 
     it "should return nil for nil item" do
@@ -24,7 +24,7 @@ describe ItemsHelper do
     end
 
     it "should use existing item record if available" do
-      @item.should_not_receive(:lookup)
+      @item.expects(:lookup).never
       link_to_wowhead(@item).should match(/Torch of Holy Fire/)
     end
   end
@@ -33,7 +33,7 @@ describe ItemsHelper do
     before do
       @item = Factory(:item_with_real_stats)
 
-      Item.stub!(:lookup).and_return(@item)
+      Item.stubs(:lookup).returns(@item)
     end
 
     it "should return nil for nil item" do
@@ -57,7 +57,7 @@ describe ItemsHelper do
     end
 
     it "should use existing item record if available" do
-      @item.should_not_receive(:lookup)
+      @item.expects(:lookup).never
       link_to_item_with_stats(@item).should match(/Torch of Holy Fire/)
     end
   end

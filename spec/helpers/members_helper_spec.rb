@@ -31,7 +31,7 @@ describe MembersHelper do
   describe "#member_raid_attendance" do
     it "should return zero for non-attended raid" do
       raid = Factory(:raid)
-      member_raid_attendance(raid, mock_model(Member)).should match(/0%/)
+      member_raid_attendance(raid, Factory(:member)).should match(/0%/)
     end
 
     it "should return member attendance for attended raid" do

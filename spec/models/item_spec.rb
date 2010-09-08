@@ -5,7 +5,7 @@ describe Item do
 
   before(:each) do
     @item = Factory(:item_with_real_stats)
-    ItemLookup.stub!(:search).and_return(valid_lookup_results)
+    ItemLookup.stubs(:search).returns(valid_lookup_results)
   end
 
   it "should be valid" do
@@ -98,14 +98,14 @@ describe Item, "automatic stat lookup before save" do
     it "should perform a lookup when name is nil" do
       item = Factory(:item_needing_lookup_via_id)
       lambda {
-        ItemLookup.should_receive(:search).with(item.id, anything()).and_return(valid_lookup_results)
+        ItemLookup.expects(:search).with(item.id, anything()).returns(valid_lookup_results)
         item.save
       }.should change(item, :name).from(nil).to('Torch of Holy Fire')
     end
 
     it "should do nothing when name is not nil" do
       item = Factory.build(:item_with_real_stats)
-      ItemLookup.should_not_receive(:search)
+      ItemLookup.expects(:search).never
       lambda { item.save }.should_not change(item, :name)
     end
   end
@@ -113,7 +113,7 @@ describe Item, "automatic stat lookup before save" do
   describe "with an invalid item" do
     before(:each) do
       @item = Factory(:item_needing_lookup_via_id)
-      ItemLookup.should_receive(:search).with(1, anything()).at_least(:once).and_return(invalid_lookup_results)
+      ItemLookup.expects(:search).with(1, anything()).at_least_once.returns(invalid_lookup_results)
     end
 
     it "should invalidate record when name is nil after lookup" do
@@ -129,14 +129,14 @@ describe Item, "#lookup!" do
   end
 
   it "should call lookup" do
-    @item.should_receive(:lookup).with(true)
-    @item.stub!(:save).and_return(true)
+    @item.expects(:lookup).with(true)
+    @item.stubs(:save).returns(true)
     @item.lookup!(true)
   end
 
   it "should call save" do
-    @item.stub!(:lookup).and_return(true)
-    @item.should_receive(:save).and_return(true)
+    @item.stubs(:lookup).returns(true)
+    @item.expects(:save).returns(true)
     @item.lookup!(true)
   end
 end
@@ -146,7 +146,7 @@ describe Item, "#lookup" do
 
   it "should not perform a lookup unless it's necessary" do
     item = Factory(:item_with_real_stats)
-    ItemLookup.should_not_receive(:search)
+    ItemLookup.expects(:search).never
     item.lookup
   end
 
@@ -155,7 +155,7 @@ describe Item, "#lookup" do
       it "should fail silently" do
         item = Factory(:item_needing_lookup, :name => 'Invalid Item')
         lambda {
-          ItemLookup.should_receive(:search).with(item.name, anything()).and_return(invalid_lookup_results)
+          ItemLookup.expects(:search).with(item.name, anything()).returns(invalid_lookup_results)
           item.lookup(true)
         }.should_not raise_error(Exception)
       end
@@ -168,13 +168,13 @@ describe Item, "#lookup" do
 
       it "should perform lookup by name" do
         @item.id = nil
-        ItemLookup.should_receive(:search).with('Torch of Holy Fire', anything()).and_return(valid_lookup_results)
+        ItemLookup.expects(:search).with('Torch of Holy Fire', anything()).returns(valid_lookup_results)
         lambda { @item.lookup(true) }.should change(@item, :id).from(nil).to(40395)
       end
 
       it "should perform lookup by id" do
         @item.name = nil
-        ItemLookup.should_receive(:search).with(40395, anything()).and_return(valid_lookup_results)
+        ItemLookup.expects(:search).with(40395, anything()).returns(valid_lookup_results)
         lambda { @item.lookup(true) }.should change(@item, :name).from(nil).to('Torch of Holy Fire')
       end
     end

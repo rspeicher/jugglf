@@ -58,7 +58,7 @@ describe CompletedAchievement, "#parse_member" do
 
   it "should not parse this member if this member has completed all known achievements" do
     Factory(:completed_achievement, :member => @member, :achievement => @incomplete)
-    CompletedAchievement.should_not_receive(:open)
+    CompletedAchievement.expects(:open).never
     CompletedAchievement.parse_member(@member)
   end
 

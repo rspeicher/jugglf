@@ -35,7 +35,7 @@ describe AttendanceParser, ".parse_loots" do
     end
 
     it "should initialize a non-existent item by ID if provided" do
-      Item.should_receive(:find_or_initialize_by_id).with('12345').and_return(item)
+      Item.expects(:find_or_initialize_by_id).with('12345').returns(item)
       AttendanceParser.parse_loots("#{member.name} - [Whatever]|12345")
     end
   end

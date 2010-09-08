@@ -12,4 +12,8 @@ module LoginHelper
       UserSession.create(Factory(type))
     end
   end
+
+  def logout
+    UserSession.find.try(:destroy)
+  end
 end
