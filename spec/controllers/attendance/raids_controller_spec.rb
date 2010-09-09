@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'xmlrpc/client'
 
 describe Attendance::RaidsController, "routing" do
   it { should route(:get,    '/attendance'        ).to(:controller => 'attendance/raids', :action => :index) }
@@ -13,66 +14,55 @@ describe Attendance::RaidsController, "routing" do
 end
 
 describe Attendance::RaidsController, "GET index" do
-  before(:each) do
-    login(:admin)
+  before do
     get :index
   end
 
-  subject { controller }
-
+  it { should respond_with(:success) }
   it { should assign_to(:raids) }
   it { should render_template(:index) }
-  it { should respond_with(:success) }
 end
 
 describe Attendance::RaidsController, "GET show" do
-  before(:each) do
-    login(:admin)
-    mock_find(:live_raid)
-    get :show, :id => @object.id
+  before do
+    @resource = Factory(:live_raid)
+    get :show, :id => @resource
   end
 
-  subject { controller }
-
-  it { should assign_to(:live_raid).with_kind_of(LiveRaid) }
-  it { should render_template(:show) }
   it { should respond_with(:success) }
+  it { should assign_to(:live_raid).with(@resource) }
+  it { should render_template(:show) }
 end
 
 describe Attendance::RaidsController, "GET new" do
-  before(:each) do
-    login(:admin)
+  before do
     get :new
   end
 
-  subject { controller }
-
+  it { should respond_with(:success) }
   it { should assign_to(:live_raid).with_kind_of(LiveRaid) }
   it { should render_template(:new) }
-  it { should respond_with(:success) }
 end
 
 describe Attendance::RaidsController, "POST create" do
-  before(:each) do
-    login(:admin)
+  before do
+    @resource = Factory.build(:live_raid)
+    LiveRaid.expects(:new).with({}).returns(@resource)
   end
 
-  subject { controller }
-
   context "success" do
-    before(:each) do
-      mock_create(:live_raid, :save => true)
-      post :create, :live_raid => {:attendees_string => ''}
+    before do
+      post :create, :live_raid => {}
     end
 
     it { should respond_with(:redirect) }
-    it { should redirect_to(live_raid_path(@object)) }
+    it { should redirect_to(live_raid_path(@resource)) }
   end
 
   context "failure" do
-    before(:each) do
-      mock_create(:live_raid, :save => false)
-      post :create, :live_raid => {:attendees_string => ''}
+    before do
+      @resource.expects(:save).returns(false)
+      post :create, :live_raid => {}
     end
 
     it { should respond_with(:success) }
@@ -81,89 +71,69 @@ describe Attendance::RaidsController, "POST create" do
 end
 
 describe Attendance::RaidsController, "PUT update" do
-  before(:each) do
-    login(:admin)
-  end
-
-  subject { controller }
-
   context "success" do
-    before(:each) do
-      mock_find(:live_raid, :save => true)
-      put :update, :id => @object.id, :live_raid => {:attendees_string => ''}
+    before do
+      LiveRaid.any_instance.expects(:update_attributes).with({}).returns(true)
+      put :update, :id => Factory(:live_raid), :live_raid => {}
     end
 
     it { should_not set_the_flash }
-    it { should redirect_to(live_raid_path(@object)) }
+    it { should redirect_to(live_raid_path(@resource)) }
   end
 
   context "failure" do
-    before(:each) do
-      mock_find(:live_raid, :save => false)
-      put :update, :id => @object.id, :live_raid => {:attendees_string => ''}
+    before do
+      LiveRaid.any_instance.expects(:update_attributes).with({}).returns(false)
+      put :update, :id => Factory(:live_raid), :live_raid => {}
     end
 
     it { should set_the_flash.to(/failed to update/i) }
-    it { should redirect_to(live_raid_path(@object)) }
+    it { should redirect_to(live_raid_path(@resource)) }
   end
 end
 
 describe Attendance::RaidsController, "DELETE destroy" do
-  before(:each) do
-    login(:admin)
-    mock_find(:live_raid, :destroy => true)
-    delete :destroy, :id => @object
+  before do
+    @resource = Factory(:live_raid)
+    delete :destroy, :id => @resource
   end
-
-  subject { controller }
 
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(live_raids_path) }
 end
 
 describe Attendance::RaidsController, "GET start" do
-  before(:each) do
-    login(:admin)
-    mock_find(:live_raid, :start! => true)
-    get :start, :id => @object.id
+  before do
+    @resource = Factory(:live_raid)
+    LiveRaid.any_instance.expects(:start!)
+
+    get :start, :id => @resource
   end
 
-  subject { controller }
-
   it { should respond_with(:redirect) }
-  it { should redirect_to(live_raid_path(@object)) }
+  it { should redirect_to(live_raid_path(@resource)) }
 end
 
 describe Attendance::RaidsController, "GET stop" do
-  before(:each) do
-    login(:admin)
-    mock_find(:live_raid, :stop! => true)
-    get :stop, :id => @object.id
+  before do
+    @resource = Factory(:live_raid)
+    LiveRaid.any_instance.expects(:stop!)
+
+    get :stop, :id => @resource.id
   end
 
-  subject { controller }
-
   it { should respond_with(:redirect) }
-  it { should redirect_to(live_raid_path(@object)) }
+  it { should redirect_to(live_raid_path(@resource)) }
 end
 
 describe Attendance::RaidsController, "GET post" do
-  before(:each) do
-    login(:admin)
-    @object = Factory(:live_raid, :started_at => Time.now, :stopped_at => Time.now)
-  end
-
-  subject { controller }
-
   context "completed raid" do
-    before(:each) do
-      require 'xmlrpc/client'
-      server = mock('Server')
-      XMLRPC::Client.stub!(:new2).and_return(server)
-      server.stub!(:call).and_return({})
+    before do
+      @resource = Factory(:live_raid, :started_at => Time.now, :stopped_at => Time.now)
+      server = mock(:call => {})
+      XMLRPC::Client.stubs(:new2).returns(server)
 
-      mock_find(:live_raid, :status => 'Completed')
-      get :post, :id => @object.id
+      get :post, :id => @resource
     end
 
     it { should set_the_flash.to(/created attendance thread/) }
@@ -171,12 +141,12 @@ describe Attendance::RaidsController, "GET post" do
   end
 
   context "active raid" do
-    before(:each) do
-      mock_find(:live_raid, :status => 'Active')
-      get :post, :id => @object.id
+    before do
+      @resource = Factory(:live_raid, :started_at => Time.now)
+      get :post, :id => @resource
     end
 
     it { should_not set_the_flash }
-    it { should redirect_to(live_raid_path(@object)) }
+    it { should redirect_to(live_raid_path(@resource)) }
   end
 end

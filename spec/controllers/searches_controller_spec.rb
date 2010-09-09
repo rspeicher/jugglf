@@ -10,8 +10,6 @@ describe SearchesController, "items" do
     2.times { @items << Factory(:item) }
   end
 
-  subject { controller }
-
   context "with exact match" do
     before do
       get :show, :q => @items[0].name, :context => 'items'
@@ -37,8 +35,6 @@ describe SearchesController, "members" do
     @members = []
     2.times { @members << Factory(:member) }
   end
-
-  subject { controller }
 
   context "with exact match" do
     before do

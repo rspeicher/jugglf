@@ -1,3 +1,5 @@
+require 'xmlrpc/client'
+
 class Attendance::RaidsController < ApplicationController
   before_filter :require_admin
 
@@ -40,17 +42,14 @@ class Attendance::RaidsController < ApplicationController
   end
 
   def update
-    @live_raid.attributes = params[:live_raid]
-
-    if @live_raid.save
-      respond_to do |wants|
-        wants.html { redirect_to live_raid_path(@live_raid) }
-      end
+    if @live_raid.update_attributes(params[:live_raid])
+      # Nothing
     else
       flash[:error] = "Failed to update the raid."
-      respond_to do |wants|
-        wants.html { redirect_to live_raid_path(@live_raid) }
-      end
+    end
+
+    respond_to do |wants|
+      wants.html { redirect_to live_raid_path(@live_raid) }
     end
   end
 
@@ -80,8 +79,7 @@ class Attendance::RaidsController < ApplicationController
   end
 
   def post
-    require 'xmlrpc/client'
-
+    # TODO: Move to model, dummy
     if @live_raid.completed?
       server = XMLRPC::Client.new2('http://www.juggernautguild.com/interface/board/')
 

@@ -5,12 +5,6 @@ describe WishlistsController, "routing" do
 end
 
 describe WishlistsController, "GET index" do
-  before(:each) do
-    login(:admin)
-  end
-
-  subject { controller }
-
   context "without boss param" do
     before(:each) do
       get :index
@@ -28,14 +22,14 @@ describe WishlistsController, "GET index" do
     # We got a boss param that exists, and it has items associated
     context "having items" do
       before(:each) do
-        @object = Factory(:loot_table)
-        get :index, :boss => @object.parent.id
+        @resource = Factory(:loot_table)
+        get :index, :boss => @resource.parent.id
       end
 
       it { should respond_with(:success) }
       it { should assign_to(:root) }
-      it { should assign_to(:boss).with(@object.parent) }
-      it { should assign_to(:zone).with(@object.parent.parent) }
+      it { should assign_to(:boss).with(@resource.parent) }
+      it { should assign_to(:zone).with(@resource.parent.parent) }
       it { should assign_to(:recent_loots) }
       it { should assign_to(:items) }
       it { should render_template(:index) }
@@ -44,14 +38,14 @@ describe WishlistsController, "GET index" do
     context "without items" do
       # We got a boss param that exists, but that boss has no items listed
       before(:each) do
-        @object = Factory(:loot_table_boss)
-        get :index, :boss => @object.id
+        @resource = Factory(:loot_table_boss)
+        get :index, :boss => @resource
       end
 
       it { should respond_with(:success) }
       it { should assign_to(:root) }
-      it { should assign_to(:boss).with(@object) }
-      it { should assign_to(:zone).with(@object.parent) }
+      it { should assign_to(:boss).with(@resource) }
+      it { should assign_to(:zone).with(@resource.parent) }
       it { should_not assign_to(:recent_loots) }
       it { should assign_to(:items) }
       it { should render_template(:index) }

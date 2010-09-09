@@ -1,37 +1,18 @@
 require 'spec_helper'
 
-module AttendanceLootsHelperMethods
-  def mock_find
-    # This is a namespaced controller, so it always has a parent
-    # We stub :loots to LiveLoot so that @parent.loots.find works as expected
-    @parent ||= @live_raid ||= mock_model(LiveRaid, :loots => LiveLoot)
-    LiveRaid.should_receive(:find).with(anything()).exactly(:once).and_return(@live_raid)
-
-    # Check for at_most(:once) because update never finds a specific ID
-    @live_loot ||= mock_model(LiveLoot)
-    LiveLoot.should_receive(:find).with(anything()).at_most(:once).and_return(@live_loot)
-  end
-
-  def params(extras = {})
-    {:live_raid_id => @parent.id, :id => @live_loot.id}.merge!(extras)
-  end
-end
-
 describe Attendance::LootsController, "#update" do
-  include AttendanceLootsHelperMethods
+  before do
+    @parent   = Factory(:live_raid_with_loot)
+    @resource = @parent.loots.first
 
-  before(:each) do
-    login(:admin)
-    mock_find
-    LiveLoot.should_receive(:from_text).with('').and_return([])
+    LiveRaid.expects(:find).returns(@parent)
+    LiveLoot.expects(:from_text).with('').returns([])
   end
-
-  subject { controller }
 
   describe "success" do
-    before(:each) do
-      @parent.stub!(:save!).and_return(true)
-      put :update, params(:format => 'js', :live_loot => {:input_text => ''})
+    before do
+      @parent.expects(:save!).returns(true)
+      put :update, :format => 'js', :live_raid_id => @parent, :id => @resource, :live_loot => {:input_text => ''}
     end
 
     it { should_not set_the_flash }
@@ -39,27 +20,26 @@ describe Attendance::LootsController, "#update" do
   end
 
   describe "failure" do
-    before(:each) do
-      @parent.stub!(:save!).and_raise('Exception')
-      put :update, params(:format => 'js', :live_loot => {:input_text => ''})
+    before do
+      @parent.expects(:save!).raises(RuntimeError)
+      put :update, :format => 'js', :live_raid_id => @parent, :id => @resource, :live_loot => {:input_text => ''}
     end
 
-    it { should set_the_flash.to(/invalid/) }
+    it { should set_the_flash.to(/loot entry was invalid/) }
     it { should respond_with(:success) }
   end
 end
 
 describe Attendance::LootsController, "#destroy" do
-  include AttendanceLootsHelperMethods
+  before do
+    @parent   = Factory(:live_raid_with_loot)
+    @resource = @parent.loots.first
+    @resource.expects(:destroy)
 
-  before(:each) do
-    login(:admin)
-    mock_find
-    @live_loot.should_receive(:destroy)
-    delete :destroy, params
+    LiveRaid.any_instance.stubs(:loots).returns(stub(:find => @resource))
+
+    delete :destroy, :live_raid_id => @parent, :id => @resource
   end
-
-  subject { controller }
 
   it { should respond_with(:redirect) }
   it { should redirect_to(live_raid_path(@parent)) }

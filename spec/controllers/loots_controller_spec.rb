@@ -11,12 +11,9 @@ describe LootsController, "routing" do
 end
 
 describe LootsController, "GET index" do
-  before(:each) do
-    login(:admin)
+  before do
     get :index
   end
-
-  subject { controller }
 
   it { should respond_with(:success) }
   it { should assign_to(:loots) }
@@ -24,44 +21,36 @@ describe LootsController, "GET index" do
 end
 
 describe LootsController, "GET new" do
-  before(:each) do
-    login(:admin)
+  before do
     get :new
   end
 
-  subject { controller }
-
   it { should respond_with(:success) }
-  it { should assign_to(:loot) }
+  it { should assign_to(:loot).with_kind_of(Loot) }
   it { should assign_to(:raids) }
   it { should render_template(:new) }
 end
 
 describe LootsController, "GET edit" do
-  before(:each) do
-    login(:admin)
-    mock_find(:loot)
-    get :edit, :id => @object
+  before do
+    @resource = Factory(:loot)
+    get :edit, :id => @resource
   end
 
-  subject { controller }
-
   it { should respond_with(:success) }
-  it { should assign_to(:loot).with(@object) }
+  it { should assign_to(:loot).with(@resource) }
   it { should assign_to(:raids) }
   it { should render_template(:edit) }
 end
 
 describe LootsController, "POST create" do
-  before(:each) do
-    login(:admin)
+  before do
+    @resource = Factory.build(:loot)
+    Loot.expects(:new).with({}).returns(@resource)
   end
 
-  subject { controller }
-
   context "success" do
-    before(:each) do
-      mock_create(:loot, :save => true)
+    before do
       post :create, :loot => {}
     end
 
@@ -70,8 +59,8 @@ describe LootsController, "POST create" do
   end
 
   context "failure" do
-    before(:each) do
-      mock_create(:loot, :save => false)
+    before do
+      @resource.expects(:save).returns(false)
       post :create, :loot => {}
     end
 
@@ -81,16 +70,10 @@ describe LootsController, "POST create" do
 end
 
 describe LootsController, "PUT update" do
-  before(:each) do
-    login(:admin)
-  end
-
-  subject { controller }
-
   context "success" do
-    before(:each) do
-      mock_find(:loot, :update_attributes => true)
-      put :update, :id => @object
+    before do
+      Loot.any_instance.expects(:update_attributes).with({}).returns(true)
+      put :update, :id => Factory(:loot), :loot => {}
     end
 
     it { should set_the_flash.to(/successfully updated/) }
@@ -98,9 +81,9 @@ describe LootsController, "PUT update" do
   end
 
   context "failure" do
-    before(:each) do
-      mock_find(:loot, :update_attributes => false)
-      put :update, :id => @object
+    before do
+      Loot.any_instance.expects(:update_attributes).with({}).returns(false)
+      put :update, :id => Factory(:loot), :loot => {}
     end
 
     it { should_not set_the_flash }
@@ -109,13 +92,10 @@ describe LootsController, "PUT update" do
 end
 
 describe LootsController, "DELETE destroy" do
-  before(:each) do
-    login(:admin)
-    mock_find(:loot, :destroy => true)
-    delete :destroy, :id => @object
+  before do
+    @resource = Factory(:loot)
+    delete :destroy, :id => @resource
   end
-
-  subject { controller }
 
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(loots_path) }

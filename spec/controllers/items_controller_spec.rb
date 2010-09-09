@@ -11,12 +11,9 @@ describe ItemsController, "routing" do
 end
 
 describe ItemsController, "GET index" do
-  before(:each) do
-    login(:admin)
+  before do
     get :index
   end
-
-  subject { controller }
 
   it { should respond_with(:success) }
   it { should assign_to(:items).with_kind_of(Array) }
@@ -24,28 +21,22 @@ describe ItemsController, "GET index" do
 end
 
 describe ItemsController, "GET show" do
-  before(:each) do
-    login(:admin)
-    mock_find(:item)
-    get :show, :id => @object.id
+  before do
+    @resource = Factory(:item)
+    get :show, :id => @resource
   end
 
-  subject { controller }
-
   it { should respond_with(:success) }
-  it { should assign_to(:item).with(@object) }
-  it { should assign_to(:loots).with(@object.loots) }
-  it { should assign_to(:wishlists).with(@object.wishlists) }
+  it { should assign_to(:item).with(@resource) }
+  it { should assign_to(:loots).with(@resource.loots) }
+  it { should assign_to(:wishlists).with(@resource.wishlists) }
   it { should render_template(:show) }
 end
 
 describe ItemsController, "GET new" do
-  before(:each) do
-    login(:admin)
+  before do
     get :new
   end
-
-  subject { controller }
 
   it { should respond_with(:success) }
   it { should assign_to(:item).with_kind_of(Item) }
@@ -53,39 +44,34 @@ describe ItemsController, "GET new" do
 end
 
 describe ItemsController, "GET edit" do
-  before(:each) do
-    login(:admin)
-    mock_find(:item)
-    get :edit, :id => @object
+  before do
+    @resource = Factory(:item)
+    get :edit, :id => @resource
   end
 
-  subject { controller }
-
   it { should respond_with(:success) }
-  it { should assign_to(:item).with(@object) }
+  it { should assign_to(:item).with(@resource) }
   it { should render_template(:edit) }
 end
 
 describe ItemsController, "POST create" do
-  before(:each) do
-    login(:admin)
+  before do
+    @resource = Factory.build(:item)
+    Item.expects(:new).with({}).returns(@resource)
   end
 
-  subject { controller }
-
   context "success" do
-    before(:each) do
-      mock_create(:item, :save => true)
+    before do
       post :create, :item => {}
     end
 
     it { should set_the_flash.to(/successfully created/) }
-    it { should redirect_to(item_path(@object)) }
+    it { should redirect_to(item_path(@resource)) }
   end
 
   context "failure" do
-    before(:each) do
-      mock_create(:item, :save => false)
+    before do
+      @resource.expects(:save).returns(false)
       post :create, :item => {}
     end
 
@@ -95,26 +81,20 @@ describe ItemsController, "POST create" do
 end
 
 describe ItemsController, "PUT update" do
-  before(:each) do
-    login(:admin)
-  end
-
-  subject { controller }
-
   context "success" do
-    before(:each) do
-      mock_find(:item, :update_attributes => true)
-      put :update, :id => @object
+    before do
+      Item.any_instance.expects(:update_attributes).with({}).returns(true)
+      put :update, :id => Factory(:item), :item => {}
     end
 
     it { should set_the_flash.to(/successfully updated/) }
-    it { should redirect_to(item_path(@object)) }
+    it { should redirect_to(item_path(@resource)) }
   end
 
   context "failure" do
-    before(:each) do
-      mock_find(:item, :update_attributes => false)
-      put :update, :id => @object
+    before do
+      Item.any_instance.expects(:update_attributes).with({}).returns(false)
+      put :update, :id => Factory(:item), :item => {}
     end
 
     it { should_not set_the_flash }
@@ -123,13 +103,10 @@ describe ItemsController, "PUT update" do
 end
 
 describe ItemsController, "DELETE destroy" do
-  before(:each) do
-    login(:admin)
-    mock_find(:item, :destroy => true)
-    delete :destroy, :id => @object
+  before do
+    @resource = Factory(:item)
+    delete :destroy, :id => @resource
   end
-
-  subject { controller }
 
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(items_path) }

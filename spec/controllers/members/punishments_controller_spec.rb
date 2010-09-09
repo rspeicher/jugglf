@@ -10,22 +10,20 @@ describe Members::PunishmentsController, "routing" do
 end
 
 describe Members::PunishmentsController, "GET index" do
-  before(:each) do
-    login(:admin)
-    mock_parent(:member)
-    get :index, :member_id => @parent.id
+  before do
+    @parent = Factory(:member)
+    get :index, :member_id => @parent
   end
 
   it { should respond_with(:success) }
-  it { should assign_to(:punishments).with_kind_of(Array) }
+  it { should assign_to(:punishments) }
   it { should render_template(:index) }
 end
 
 describe Members::PunishmentsController, "GET new" do
-  before(:each) do
-    login(:admin)
-    mock_parent(:member)
-    get :new, :member_id => @parent.id
+  before do
+    @parent = Factory(:member)
+    get :new, :member_id => @parent
   end
 
   it { should respond_with(:success) }
@@ -34,28 +32,27 @@ describe Members::PunishmentsController, "GET new" do
 end
 
 describe Members::PunishmentsController, "GET edit" do
-  before(:each) do
-    login(:admin)
-    mock_parent(:member)
-    mock_find(:punishment)
-    get :edit, :member_id => @parent.id, :id => @punishment.id
+  before do
+    @parent   = Factory(:member)
+    @resource = Factory(:punishment, :member => @parent)
+    get :edit, :member_id => @parent, :id => @resource
   end
 
   it { should respond_with(:success) }
-  it { should assign_to(:punishment).with(@punishment) }
+  it { should assign_to(:punishment).with(@resource) }
   it { should render_template(:edit) }
 end
 
 describe Members::PunishmentsController, "POST create" do
-  before(:each) do
-    login(:admin)
-    mock_parent(:member)
+  before do
+    @parent = Factory(:member)
+    Member.stubs(:find).returns(@parent)
   end
 
   context "success" do
-    before(:each) do
-      mock_create(:punishment, :save => true)
-      post :create, :member_id => @parent.id, :punishment => {}
+    before do
+      @parent.stubs(:punishments).returns(mock(:new => mock(:save => true)))
+      post :create, :member_id => @parent, :punishment => {}
     end
 
     it { should set_the_flash.to(/successfully created/) }
@@ -63,9 +60,9 @@ describe Members::PunishmentsController, "POST create" do
   end
 
   context "failure" do
-    before(:each) do
-      mock_create(:punishment, :save => false)
-      post :create, :member_id => @parent.id, :punishment => {}
+    before do
+      @parent.stubs(:punishments).returns(mock(:new => mock(:save => false)))
+      post :create, :member_id => @parent, :punishment => {}
     end
 
     it { should_not set_the_flash }
@@ -74,15 +71,15 @@ describe Members::PunishmentsController, "POST create" do
 end
 
 describe Members::PunishmentsController, "PUT update" do
-  before(:each) do
-    login(:admin)
-    mock_parent(:member)
+  before do
+    @parent   = Factory(:member)
+    @resource = Factory(:punishment, :member => @parent)
   end
 
   context "success" do
-    before(:each) do
-      mock_find(:punishment, :update_attributes => true)
-      put :update, :member_id => @parent.id, :id => @punishment.id
+    before do
+      Punishment.any_instance.expects(:update_attributes).with({}).returns(true)
+      put :update, :member_id => @parent, :id => @resource, :punishment => {}
     end
 
     it { should set_the_flash.to(/successfully updated/) }
@@ -90,9 +87,9 @@ describe Members::PunishmentsController, "PUT update" do
   end
 
   context "failure" do
-    before(:each) do
-      mock_find(:punishment, :update_attributes => false)
-      put :update, :member_id => @parent.id, :id => @punishment.id
+    before do
+      Punishment.any_instance.expects(:update_attributes).with({}).returns(false)
+      put :update, :member_id => @parent, :id => @resource, :punishment => {}
     end
 
     it { should_not set_the_flash }
@@ -101,11 +98,10 @@ describe Members::PunishmentsController, "PUT update" do
 end
 
 describe Members::PunishmentsController, "DELETE destroy" do
-  before(:each) do
-    login(:admin)
-    mock_parent(:member)
-    mock_find(:punishment, :destroy => true)
-    delete :destroy, :member_id => @parent.id, :id => @punishment.id
+  before do
+    @parent   = Factory(:member)
+    @resource = Factory(:punishment, :member => @parent)
+    delete :destroy, :member_id => @parent, :id => @resource
   end
 
   it { should set_the_flash.to(/deleted/) }

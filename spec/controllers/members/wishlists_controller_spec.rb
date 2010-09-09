@@ -10,54 +10,51 @@ describe Members::WishlistsController, "routing" do
 end
 
 describe Members::WishlistsController, "GET index" do
-  before(:each) do
-    login(:admin)
-    mock_parent(:member)
-    get :index, :member_id => @parent.id
+  before do
+    @parent = Factory(:member)
+    get :index, :member_id => @parent
   end
 
   it { should respond_with(:success) }
-  it { should assign_to(:wishlist).with_kind_of(Wishlist) }
-  it { should assign_to(:wishlists).with_kind_of(Array) }
-  it { should assign_to(:recent_loots).with_kind_of(Array) }
+  it { should assign_to(:wishlist) }
+  it { should assign_to(:wishlists) }
+  it { should assign_to(:recent_loots) }
   it { should render_template(:index) }
 end
 
 describe Members::WishlistsController, "GET new" do
-  before(:each) do
-    login(:admin)
-    mock_parent(:member)
-    get :new, :member_id => @parent.id
+  before do
+    @parent = Factory(:member)
+    get :new, :member_id => @parent
   end
 
   it { should respond_with(:success) }
   it { should assign_to(:wishlist).with_kind_of(Wishlist) }
-  it { should render_template(:edit) } # Intentional
+  it { should render_template(:new) }
 end
 
 describe Members::WishlistsController, "GET edit" do
-  before(:each) do
-    login(:admin)
-    mock_parent(:member)
-    mock_find(:wishlist)
-    get :edit, :member_id => @parent.id, :id => @wishlist.id
+  before do
+    @parent   = Factory(:member)
+    @resource = Factory(:wishlist, :member => @parent)
+    get :edit, :member_id => @parent, :id => @resource
   end
 
   it { should respond_with(:success) }
-  it { should assign_to(:wishlist).with(@wishlist) }
+  it { should assign_to(:wishlist).with(@resource) }
   it { should render_template(:edit) }
 end
 
 describe Members::WishlistsController, "POST create" do
-  before(:each) do
-    login(:admin)
-    mock_parent(:member)
+  before do
+    @parent = Factory(:member)
+    Member.stubs(:find).returns(@parent)
   end
 
   context "success" do
-    before(:each) do
-      mock_create(:wishlist, :save => true)
-      post :create, :member_id => @parent.id, :wishlist => {}
+    before do
+      @parent.stubs(:wishlists).returns(mock(:new => mock(:save => true)))
+      post :create, :member_id => @parent, :wishlist => {}
     end
 
     it { should set_the_flash.to(/successfully created/) }
@@ -65,9 +62,9 @@ describe Members::WishlistsController, "POST create" do
   end
 
   context "failure" do
-    before(:each) do
-      mock_create(:wishlist, :save => false)
-      post :create, :member_id => @parent.id, :wishlist => {}
+    before do
+      @parent.stubs(:wishlists).returns(mock(:new => mock(:save => false)))
+      post :create, :member_id => @parent, :wishlist => {}
     end
 
     it { should set_the_flash.to(/could not be created/) }
@@ -76,15 +73,15 @@ describe Members::WishlistsController, "POST create" do
 end
 
 describe Members::WishlistsController, "PUT update" do
-  before(:each) do
-    login(:admin)
-    mock_parent(:member)
+  before do
+    @parent   = Factory(:member)
+    @resource = Factory(:wishlist, :member => @parent)
   end
 
   context "success" do
-    before(:each) do
-      mock_find(:wishlist, :update_attributes => true)
-      put :update, :member_id => @parent.id, :id => @wishlist.id
+    before do
+      Wishlist.any_instance.expects(:update_attributes).with({}).returns(true)
+      put :update, :member_id => @parent, :id => @resource, :wishlist => {}
     end
 
     it { should set_the_flash.to(/successfully updated/) }
@@ -92,9 +89,9 @@ describe Members::WishlistsController, "PUT update" do
   end
 
   context "failure" do
-    before(:each) do
-      mock_find(:wishlist, :update_attributes => false)
-      put :update, :member_id => @parent.id, :id => @wishlist.id
+    before do
+      Wishlist.any_instance.expects(:update_attributes).with({}).returns(false)
+      put :update, :member_id => @parent, :id => @resource, :wishlist => {}
     end
 
     it { should set_the_flash.to(/could not be updated/) }
@@ -103,11 +100,10 @@ describe Members::WishlistsController, "PUT update" do
 end
 
 describe Members::WishlistsController, "DELETE destroy" do
-  before(:each) do
-    login(:admin)
-    mock_parent(:member)
-    mock_find(:wishlist, :destroy => true)
-    delete :destroy, :member_id => @parent.id, :id => @wishlist.id
+  before do
+    @parent   = Factory(:member)
+    @resource = Factory(:wishlist, :member => @parent)
+    delete :destroy, :member_id => @parent, :id => @resource
   end
 
   it { should set_the_flash.to(/deleted/) }

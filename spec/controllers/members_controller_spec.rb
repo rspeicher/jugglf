@@ -12,14 +12,8 @@ describe MembersController, "routing" do
 end
 
 describe MembersController, "GET index" do
-  before(:each) do
-    login(:admin)
-  end
-
-  subject { controller }
-
   context ".html" do
-    before(:each) do
+    before do
       get :index
     end
 
@@ -29,7 +23,7 @@ describe MembersController, "GET index" do
   end
 
   context ".lua" do
-    before(:each) do
+    before do
       get :index, :format => 'lua'
     end
 
@@ -40,26 +34,20 @@ describe MembersController, "GET index" do
 end
 
 describe MembersController, "GET show" do
-  before(:each) do
-    login(:admin)
-    mock_find(:member)
-    get :show, :id => @object
+  before do
+    @resource = Factory(:member)
+    get :show, :id => @resource
   end
 
-  subject { controller }
-
   it { should respond_with(:success) }
-  it { should assign_to(:member).with(@object) }
+  it { should assign_to(:member).with(@resource) }
   it { should render_template(:show) }
 end
 
 describe MembersController, "GET new" do
-  before(:each) do
-    login(:admin)
+  before do
     get :new
   end
-
-  subject { controller }
 
   it { should respond_with(:success) }
   it { should assign_to(:member).with_kind_of(Member) }
@@ -67,42 +55,36 @@ describe MembersController, "GET new" do
 end
 
 describe MembersController, "GET edit" do
-  before(:each) do
-    login(:admin)
-    mock_find(:member)
-    User.should_receive(:juggernaut).and_return([])
-    get :edit, :id => @object
+  before do
+    @resource = Factory(:member)
+    get :edit, :id => @resource
   end
 
-  subject { controller }
-
   it { should respond_with(:success) }
-  it { should assign_to(:member).with(@object) }
+  it { should assign_to(:member).with(@resource) }
   it { should assign_to(:users) }
   it { should assign_to(:ranks) }
   it { should render_template(:edit) }
 end
 
 describe MembersController, "POST create" do
-  before(:each) do
-    login(:admin)
+  before do
+    @resource = Factory.build(:member)
+    Member.expects(:new).with({}).returns(@resource)
   end
 
-  subject { controller }
-
   context "success" do
-    before(:each) do
-      mock_create(:member, :save => true)
+    before do
       post :create, :member => {}
     end
 
     it { should set_the_flash.to(/successfully created/) }
-    it { should redirect_to(member_path(@object)) }
+    it { should redirect_to(member_path(@resource)) }
   end
 
   context "failure" do
-    before(:each) do
-      mock_create(:member, :save => false)
+    before do
+      @resource.expects(:save).returns(false)
       post :create, :member => {}
     end
 
@@ -112,16 +94,10 @@ describe MembersController, "POST create" do
 end
 
 describe MembersController, "PUT update" do
-  before(:each) do
-    login(:admin)
-  end
-
-  subject { controller }
-
   context "success" do
-    before(:each) do
-      mock_find(:member, :update_attributes => true)
-      put :update, :id => @object
+    before do
+      Member.any_instance.expects(:update_attributes).with({}).returns(true)
+      put :update, :id => Factory(:member), :member => {}
     end
 
     it { should set_the_flash.to(/successfully updated/) }
@@ -129,9 +105,9 @@ describe MembersController, "PUT update" do
   end
 
   context "failure" do
-    before(:each) do
-      mock_find(:member, :update_attributes => false)
-      put :update, :id => @object
+    before do
+      Member.any_instance.expects(:update_attributes).with({}).returns(false)
+      put :update, :id => Factory(:member), :member => {}
     end
 
     it { should_not set_the_flash }
@@ -140,13 +116,10 @@ describe MembersController, "PUT update" do
 end
 
 describe MembersController, "DELETE destroy" do
-  before(:each) do
-    login(:admin)
-    mock_find(:member, :destroy => true)
-    delete :destroy, :id => @object
+  before do
+    @resource = Factory(:member)
+    delete :destroy, :id => @resource
   end
-
-  subject { controller }
 
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(members_path) }

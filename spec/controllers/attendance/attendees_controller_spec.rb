@@ -1,65 +1,42 @@
 require 'spec_helper'
 
-module AttendanceAttendeesHelperMethods
-  def mock_find
-    # This is a namespaced controller, so it always has a parent
-    # We stub :attendees to LiveAttendee so that @parent.attendees.find works as expected
-    @parent ||= @live_raid ||= mock_model(LiveRaid, :attendees => LiveAttendee)
-    LiveRaid.should_receive(:find).with(anything()).and_return(@live_raid)
-
-    @live_attendee ||= mock_model(LiveAttendee)
-    LiveAttendee.should_receive(:find).with(anything()).and_return(@live_attendee)
-  end
-
-  def params(extras = {})
-    {:live_raid_id => @parent.id, :id => @live_attendee.id}.merge!(extras)
-  end
-end
-
 describe Attendance::AttendeesController, "routing" do
   it { should route(:put,    '/attendance/1/attendees/2').to(:controller => 'attendance/attendees', :action => :update,  :live_raid_id => '1', :id => '2') }
   it { should route(:delete, '/attendance/1/attendees/2').to(:controller => 'attendance/attendees', :action => :destroy, :live_raid_id => '1', :id => '2') }
 end
 
 describe Attendance::AttendeesController, "#update" do
-  include AttendanceAttendeesHelperMethods
+  before do
+    @parent   = Factory(:live_raid_with_attendee)
+    @resource = @parent.attendees.first
+    @resource.expects(:toggle!)
 
-  before(:each) do
-    login(:admin)
-    mock_find
-    @live_attendee.should_receive(:toggle!)
-    xhr :put, :update, params
+    # Make sure @parent.attendees.find(params[:id]) in the controller returns our specific resource
+    # so that expectations work... as expected
+    LiveRaid.any_instance.stubs(:attendees).returns(stub(:find => @resource))
+
+    xhr :put, :update, :live_raid_id => @parent, :id => @resource
   end
-
-  subject { controller }
 
   it { should respond_with(:success) }
 end
 
 describe Attendance::AttendeesController, "#destroy" do
-  include AttendanceAttendeesHelperMethods
+  before do
+    @parent   = Factory(:live_raid_with_attendee)
+    @resource = @parent.attendees.first
+    @resource.expects(:destroy)
 
-  before(:each) do
-    login(:admin)
-    mock_find
-    @live_attendee.should_receive(:destroy)
+    LiveRaid.any_instance.stubs(:attendees).returns(stub(:find => @resource))
   end
 
-  subject { controller }
-
   context ".html" do
-    before(:each) do
-      delete :destroy, params
-    end
-
+    before { delete :destroy, :live_raid_id => @parent, :id => @resource }
     it { should redirect_to(live_raid_path(@parent)) }
   end
 
   context ".js" do
-    before(:each) do
-      xhr :delete, :destroy, params
-    end
-
+    before { xhr :delete, :destroy, :live_raid_id => @parent, :id => @resource }
     it { should respond_with(:success) }
   end
 end

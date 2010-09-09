@@ -5,11 +5,12 @@ describe MembersController, "routing" do
 end
 
 describe AchievementsController, "GET index" do
-  before { get :index }
-  subject { controller }
+  before do
+    get :index
+  end
 
   it { should respond_with(:success) }
-  it { should assign_to(:achievements).with_kind_of(ActiveRecord::Relation) }
-  it { should assign_to(:members).with_kind_of(ActiveRecord::Relation) }
+  it { should assign_to(:achievements) }
+  it { should assign_to(:members) }
   it { should render_template(:index) }
 end

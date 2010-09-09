@@ -5,13 +5,10 @@ describe Members::LootsController, "routing" do
 end
 
 describe Members::LootsController, "GET index" do
-  before(:each) do
-    login(:admin)
-    mock_parent(:member)
-    get :index, :member_id => @parent.id
+  before do
+    @parent = Factory(:member)
+    get :index, :member_id => @parent
   end
-
-  subject { controller }
 
   it { should respond_with(:success) }
   it { should assign_to(:loots).with_kind_of(Array) }

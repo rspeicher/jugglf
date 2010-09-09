@@ -11,81 +11,67 @@ describe RaidsController, "routing" do
 end
 
 describe RaidsController, "GET index" do
-  before(:each) do
-    login(:admin)
+  before do
     get :index
   end
 
-  subject { controller }
-
   it { should respond_with(:success) }
-  it { should assign_to(:raids).with([]) }
+  it { should assign_to(:raids) }
   it { should render_template(:index) }
 end
 
 describe RaidsController, "GET show" do
-  before(:each) do
-    login(:admin)
-    mock_find(:raid)
-    get :show, :id => @object
+  before do
+    @resource = Factory(:raid)
+    get :show, :id => @resource
   end
 
-  subject { controller }
-
   it { should respond_with(:success) }
-  it { should assign_to(:raid).with(@object) }
-  it { should assign_to(:loots).with([]) }
+  it { should assign_to(:raid).with(@resource) }
+  it { should assign_to(:loots) }
   it { should assign_to(:attendees) }
   it { should render_template(:show) }
 end
 
 describe RaidsController, "GET new" do
-  before(:each) do
-    login(:admin)
+  before do
     get :new
   end
 
-  subject { controller }
-
   it { should respond_with(:success) }
-  it { should assign_to(:raid) }
+  it { should assign_to(:raid).with_kind_of(Raid) }
   it { should render_template(:new) }
 end
 
 describe RaidsController, "GET edit" do
-  before(:each) do
-    login(:admin)
-    mock_find(:raid)
-    get :edit, :id => @object
+  before do
+    @resource = Factory(:raid)
+    get :edit, :id => @resource
   end
 
-  subject { controller }
-
   it { should respond_with(:success) }
-  it { should assign_to(:raid).with(@object) }
+  it { should assign_to(:raid).with(@resource) }
   it { should render_template(:edit) }
 end
 
 describe RaidsController, "POST create" do
-  before(:each) do
-    login(:admin)
+  before do
+    @resource = Factory.build(:raid)
+    Raid.expects(:new).with({}).returns(@resource)
   end
 
-  subject { controller }
-
   context "success" do
-    before(:each) do
-      mock_create(:raid, :save => true)
+    before do
       post :create, :raid => {}
     end
 
     it { should set_the_flash.to(/successfully created/) }
-    it { should redirect_to(raid_path(@object)) }
+    it { should redirect_to(raid_path(@resource)) }
   end
 
   context "failure" do
-    before(:each) do
-      mock_create(:raid, :save => false)
+    before do
+      @resource.expects(:save).returns(false)
       post :create, :raid => {}
     end
 
@@ -95,26 +81,20 @@ describe RaidsController, "POST create" do
 end
 
 describe RaidsController, "PUT update" do
-  before(:each) do
-    login(:admin)
-  end
-
-  subject { controller }
-
   context "success" do
-    before(:each) do
-      mock_find(:raid, :update_attributes => true)
-      put :update, :id => @object
+    before do
+      Raid.any_instance.expects(:update_attributes).with({}).returns(true)
+      put :update, :id => Factory(:raid), :raid => {}
     end
 
     it { should set_the_flash.to(/successfully updated/) }
-    it { should redirect_to(raid_path(@object)) }
+    it { should redirect_to(raid_path(@resource)) }
   end
 
   context "failure" do
-    before(:each) do
-      mock_find(:raid, :update_attributes => false)
-      put :update, :id => @object
+    before do
+      Raid.any_instance.expects(:update_attributes).with({}).returns(false)
+      put :update, :id => Factory(:raid), :raid => {}
     end
 
     it { should_not set_the_flash }
@@ -123,13 +103,10 @@ describe RaidsController, "PUT update" do
 end
 
 describe RaidsController, "DELETE destroy" do
-  before(:each) do
-    login(:admin)
-    mock_find(:raid, :destroy => true)
-    delete :destroy, :id => @object
+  before do
+    @resource = Factory(:raid)
+    delete :destroy, :id => @resource
   end
-
-  subject { controller }
 
   it { should set_the_flash.to(/deleted/) }
   it { should redirect_to(raids_path) }

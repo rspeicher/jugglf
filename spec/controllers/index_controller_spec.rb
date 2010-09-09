@@ -13,8 +13,6 @@ describe IndexController, "GET index" do
     get :index
   end
 
-  subject { controller }
-
   it { should assign_to(:count_guild) }
   it { should assign_to(:counts) }
   it { should assign_to(:attendance_guild) }
