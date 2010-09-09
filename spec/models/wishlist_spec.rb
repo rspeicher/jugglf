@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Wishlist do
-  before(:each) do
+  before do
     @wishlist = Factory(:wishlist)
   end
 
@@ -13,7 +13,7 @@ describe Wishlist do
     it { should_not allow_mass_assignment_of(:id) }
     it { should allow_mass_assignment_of(:item_id) }
     it { should allow_mass_assignment_of(:item_name) }
-    it { should allow_mass_assignment_of(:member_id) }
+    it { should_not allow_mass_assignment_of(:member_id) }
     it { should allow_mass_assignment_of(:priority) }
     it { should allow_mass_assignment_of(:note) }
     it { should_not allow_mass_assignment_of(:created_at) }
@@ -37,15 +37,13 @@ describe Wishlist do
 
     it "should invalidate on non-authentic item" do
       @wishlist.item = Factory.build(:item, :authentic => false)
-      lambda {
-        @wishlist.save!
-      }.should raise_error
+      lambda { @wishlist.save! }.should raise_error
     end
   end
 end
 
 describe Wishlist, "#item_name" do
-  before(:each) do
+  before do
     @wishlist = Factory(:empty_wishlist)
     @item     = Factory(:item)
   end

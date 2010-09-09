@@ -1,7 +1,7 @@
 class Wishlist < ActiveRecord::Base
   PRIORITIES = ['best in slot','normal','situational','rot'].freeze
 
-  attr_accessible :item_id, :item_name, :priority, :note, :member_id
+  attr_accessible :item_id, :item_name, :priority, :note
 
   belongs_to :item, :counter_cache => true
   belongs_to :member, :counter_cache => true
