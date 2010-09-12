@@ -13,15 +13,16 @@ class Wishlist < ActiveRecord::Base
   end
   def item_name=(value)
     # NOTE: Using custom find_or_create_by method here to allow the user to enter an item ID instead of a name
-    item = Item.find_or_create_by_name_or_id(value)
-    self.item = item unless item.nil?
+    if item = Item.find_or_create_by_name_or_id(value)
+      self.item = item
+    end
   end
 
   protected
 
   validate :validate_item
   def validate_item
-    unless self.item_id.present? and self.item.authentic?
+    unless self.item.present? and self.item.valid?
       errors.add(:base, "Invalid item provided")
     end
   end

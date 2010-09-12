@@ -31,7 +31,7 @@ describe Wishlist do
     it { should allow_value('best in slot').for(:priority) }
 
     it "should invalidate on nil item" do
-      @wishlist.item_id = nil
+      @wishlist.item = nil
       lambda { @wishlist.save! }.should raise_error
     end
 
