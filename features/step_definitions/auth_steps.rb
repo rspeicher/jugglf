@@ -1,4 +1,4 @@
-# Given I am logged in as an administrator
+# Given I am logged in as an admin
 # Given I am logged in as a user
 # Given I am logged in as a user with an associated member
 # Given I am logged in as a guest

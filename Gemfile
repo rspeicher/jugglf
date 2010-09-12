@@ -26,12 +26,11 @@ group :development, :test do
   gem 'timecop'
 end
 
-group :test, :cucumber do
+group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'cucumber-rails'
   gem 'cucumber'
-  gem 'rspec-rails', '>= 2.0.0.beta.20'
   gem 'spork'
 end
 
