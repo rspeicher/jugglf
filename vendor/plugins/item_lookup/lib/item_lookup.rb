@@ -2,11 +2,11 @@ module ItemLookup
   require 'cgi'
   require 'open-uri'
   require 'nokogiri'
-  
+
   class << self
     def search(query, options = {})
       options[:source] ||= 'armory'
-      
+
       case options[:source]
       when 'armory'
         Armory.search(query, options)
@@ -15,17 +15,17 @@ module ItemLookup
       end
     end
   end
-  
+
   # An array of Result objects
   class Results < Array
     # Return the best result, where 'best' is the highest item level
     def best_result
       return Result.new unless self.length > 0
-      
+
       self.sort { |x,y| y.level <=> x.level }[0]
     end
   end
-  
+
   # A single item result with the properties we care about
   class Result
     attr_accessor :id
@@ -34,7 +34,7 @@ module ItemLookup
     attr_accessor :icon
     attr_accessor :level
     attr_accessor :heroic
-    
+
     # TODO: Store all slots in the DB as an integer, and translate them to a string as necessary
     # Requires some heavy migrating
     SLOT_MAP = {
@@ -68,7 +68,7 @@ module ItemLookup
       # 27 => '',
       28 => 'Relic'
     }
-    
+
     def initialize(args = {})
       self.id      = args.delete(:id)
       self.name    = args.delete(:name)
@@ -77,11 +77,11 @@ module ItemLookup
       self.level   = args.delete(:level)
       self.heroic  = args.delete(:heroic)
     end
-    
+
     def valid?
       @id.present? and @id > 0 and !(@name.empty?) and @quality > -1 and !(@icon.empty?) and @level > -1
     end
-    
+
     def slot
       @slot_name
     end
@@ -92,12 +92,12 @@ module ItemLookup
         @slot_name = value
       end
     end
-    
+
     def css_quality
       'q' + quality.to_s
     end
   end
-  
+
   private
     class Armory
       def self.search(query, options = {})
@@ -111,17 +111,17 @@ module ItemLookup
           self.search_name(query, options)
         end
       end
-      
+
       private
         # HTTP headers used to make wowarmory.com give us what we want!
         def self.content_headers
           { 'User-Agent'      => "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.0.7) Gecko/2009021906 Firefox/3.0.7",
             'Accept-language' => 'enUS' }
         end
-        
+
         def self.search_id(query, options = {})
           results        = Results.new
-          
+
           doc = Nokogiri::XML(open("http://www.wowarmory.com/item-tooltip.xml?i=#{query}", content_headers))
           item = doc.search('page/itemTooltips/itemTooltip').first
           unless item.nil?
@@ -132,17 +132,17 @@ module ItemLookup
             result.icon    = item.search('icon').first.content
             result.slot    = item.search('equipData/inventoryType').first.content.to_i
             result.heroic  = item.search('heroic').first.present?
-            
+
             # Wowarmory tooltip pages don't include the item level, and item info pages don't include the slot. That's gonna cost them an extra hit.
             info = Nokogiri::XML(open("http://www.wowarmory.com/item-info.xml?i=#{result.id}", content_headers))
             result.level = info.search('page/itemInfo/item').first['level'].to_i
-            
+
             results << result
           end
-          
+
           results
         end
-        
+
         def self.search_name(query, options = {})
           results = Results.new
 
@@ -157,31 +157,31 @@ module ItemLookup
                 result.icon    = item['icon']
                 result.level   = item.search('filter[@name="itemLevel"]').first['value'].to_i
                 result.heroic  = item.search('heroic').first.present?
-                
+
                 # Search results don't include the item slot. That's gonna cost them an extra hit.
                 tooltip = Nokogiri::XML(open("http://www.wowarmory.com/item-tooltip.xml?i=#{result.id}", content_headers))
                 result.slot = tooltip.search('page/itemTooltips/itemTooltip/equipData/inventoryType').first.content.to_i
-                
+
                 results << result
               end
             end
           end
-          
+
           results
         end
     end
-    
+
     class Wowhead
       def self.search(query, options = {})
         results = Results.new
-        
+
         query = query.to_s if query.respond_to? 'to_s'
         query = query.strip.downcase
 
         doc = Nokogiri::XML(open("http://www.wowhead.com/?item=#{CGI.escape(query)}&xml"))
         if doc.search('wowhead/error').first.nil?
           results = Results.new
-          
+
           wowhead_id   = doc.search('wowhead/item').first['id']
           wowhead_item = doc.search('wowhead/item/name').first.content
 
@@ -194,7 +194,7 @@ module ItemLookup
             result.level   = doc.search('wowhead/item/level').first.content.to_i
             result.slot    = doc.search('wowhead/item/inventorySlot').first['id'].to_i
             result.heroic  = doc.search('wowhead/item/json').first.content.include?('heroic:1')
-            
+
             results << result
           end
         end

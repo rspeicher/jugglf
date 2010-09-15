@@ -189,4 +189,4 @@ DEPENDENCIES
   spork
   timecop
   whenever (>= 0.4)
-  will_paginate (= 3.0.pre2)
+  will_paginate (>= 3.0.pre2)

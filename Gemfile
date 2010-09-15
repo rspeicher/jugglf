@@ -11,7 +11,7 @@ gem 'haml',             '>= 3.0.0'
 gem 'hoptoad_notifier', '>= 2.3.6'
 gem 'meta_search',      '>= 0.9.2'
 gem 'nokogiri'
-gem 'will_paginate',    '3.0.pre2'
+gem 'will_paginate',    '>= 3.0.pre2'
 
 group :development, :test do
   gem 'autotest'
