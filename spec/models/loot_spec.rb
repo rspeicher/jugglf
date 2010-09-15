@@ -145,12 +145,6 @@ describe Loot, "#item_name" do
     @loot.item_name.should eql(@loot.item.id)
   end
 
-  # FIXME: Remove; this is no longer possible.
-  # it "should return item's name if wow_id is nil" do
-  #   @loot.item.id = nil
-  #   @loot.item_name.should eql(@loot.item.name)
-  # end
-
   it "should otherwise return nil" do
     @loot.item_id = nil
     @loot.item_name.should be_nil
