@@ -1,4 +1,6 @@
-class User < InvisionBridge::UserBase
+class User < ActiveRecord::Base
+  include InvisionBridge
+
   ADMIN_GROUP     = 4
   MEMBER_GROUP    = 8
   APPLICANT_GROUP = 9
