@@ -19,8 +19,8 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 1.0'
   gem 'mocha',              '~> 0.9'
   gem 'ruby-debug'
-  gem 'rspec',              '~> 2.0.0'
-  gem 'rspec-rails',        '~> 2.0.0'
+  gem 'rspec',              '>= 2.0.0.rc'
+  gem 'rspec-rails',        '>= 2.0.0.rc'
   gem 'shoulda',            '~> 2.11'
   gem 'timecop'
 end
