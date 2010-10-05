@@ -1,4 +1,4 @@
-set :domain,      "staging.tsigo.org"
+set :domain,      "staging.juggernautguild.com"
 set :repository,  "git@gluttony:#{application}.git"
 set :scm,         'git'
 set :branch,      'staging'
