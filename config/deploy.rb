@@ -29,6 +29,7 @@ namespace :deploy do
 end
 
 after "deploy:symlink", "deploy:database_yml"
+after "deploy", "deploy:cleanup"
 
 namespace :deploy do
   desc "Copy database.yml file"
