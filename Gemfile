@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source :gemcutter
 
 gem 'rails', '3.0.0'
 gem 'mysql'
@@ -10,7 +10,7 @@ gem 'hoptoad_notifier', '~> 2.3'
 gem 'invision_bridge',  '~> 0.3'
 gem 'meta_search',      '~> 0.9'
 gem 'nokogiri',         '~> 1.4'
-gem 'will_paginate',    '~> 3.0'
+gem 'will_paginate',    '3.0.pre2'
 
 group :development, :test do
   gem 'autotest'
@@ -19,8 +19,8 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 1.0'
   gem 'mocha',              '~> 0.9'
   gem 'ruby-debug'
-  gem 'rspec',              '>= 2.0.0.rc'
-  gem 'rspec-rails',        '>= 2.0.0.rc'
+  gem 'rspec',              '~> 2.0'
+  gem 'rspec-rails',        '~> 2.0'
   gem 'shoulda',            '~> 2.11'
   gem 'timecop'
 end
