@@ -45,3 +45,10 @@ namespace :juggernaut do
   task :cleanup => [:environment] do
   end
 end
+
+namespace :sessions do
+  desc "Clean expired sessions"
+  task :cleanup => [:environment] do
+    Session.delete_all(['updated_at < ?', 20.minutes.ago])
+  end
+end
