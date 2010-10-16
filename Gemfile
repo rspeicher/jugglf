@@ -1,6 +1,6 @@
 source :gemcutter
 
-gem 'rails', '3.0.0'
+gem 'rails', '3.0.1'
 gem 'mysql'
 
 gem 'authlogic',        :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
