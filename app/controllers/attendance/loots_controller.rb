@@ -6,27 +6,21 @@ class Attendance::LootsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:update]
 
   def update
-    @loots = LiveLoot.from_text(params[:live_loot][:input_text])
+    begin
+      @loots = LiveLoot.from_text(params[:live_loot][:input_text])
 
-    LiveLoot.transaction do
-      @loots.each do |loot|
-        @parent.loots << loot
+      LiveLoot.transaction do
+        @loots.each do |loot|
+          @parent.loots << loot
+        end
+        @parent.save!
       end
-      @parent.save!
-
-      respond_to do |wants|
-        wants.js
+    rescue RuntimeError, ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid => e
+      if e.respond_to? :record
+        flash[:error] = "At least one loot entry was invalid. (#{e.record.errors.full_messages.join(', ')})"
+      else
+        flash[:error] = "At least one loot entry was invalid. (#{e.message})"
       end
-    end
-  rescue RuntimeError, ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid => e
-    if e.respond_to? :record
-      flash[:error] = "At least one loot entry was invalid. (#{e.record.errors.full_messages.join(', ')})"
-    else
-      flash[:error] = "At least one loot entry was invalid. (#{e.message})"
-    end
-
-    respond_to do |wants|
-      wants.js
     end
   end
 

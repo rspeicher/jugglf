@@ -10,23 +10,51 @@ describe Attendance::LootsController, "#update" do
   end
 
   describe "success" do
-    before do
-      @parent.expects(:save!).returns(true)
-      put :update, :format => 'js', :live_raid_id => @parent, :id => @resource, :live_loot => {:input_text => ''}
+    context "xhr" do
+      before do
+        @parent.expects(:save!).returns(true)
+        xhr :post, :update, :live_raid_id => @parent, :id => @resource, :live_loot => {:input_text => ''}
+      end
+
+      it { should_not set_the_flash }
+      it { should respond_with(:success) }
+      it { should render_template(:update) }
     end
 
-    it { should_not set_the_flash }
-    it { should respond_with(:success) }
+    context "js" do
+      before do
+        @parent.expects(:save!).returns(true)
+        put :update, :format => 'js', :live_raid_id => @parent, :id => @resource, :live_loot => {:input_text => ''}
+      end
+
+      it { should_not set_the_flash }
+      it { should respond_with(:success) }
+      it { should render_template(:update) }
+    end
   end
 
   describe "failure" do
-    before do
-      @parent.expects(:save!).raises(RuntimeError)
-      put :update, :format => 'js', :live_raid_id => @parent, :id => @resource, :live_loot => {:input_text => ''}
+    context "xhr" do
+      before do
+        @parent.expects(:save!).raises(RuntimeError)
+        xhr :post, :update, :live_raid_id => @parent, :id => @resource, :live_loot => {:input_text => ''}
+      end
+
+      it { should set_the_flash.to(/loot entry was invalid/) }
+      it { should respond_with(:success) }
+      it { should render_template(:update) }
     end
 
-    it { should set_the_flash.to(/loot entry was invalid/) }
-    it { should respond_with(:success) }
+    context "js" do
+      before do
+        @parent.expects(:save!).raises(RuntimeError)
+        put :update, :format => 'js', :live_raid_id => @parent, :id => @resource, :live_loot => {:input_text => ''}
+      end
+
+      it { should set_the_flash.to(/loot entry was invalid/) }
+      it { should respond_with(:success) }
+      it { should render_template(:update) }
+    end
   end
 end
 
