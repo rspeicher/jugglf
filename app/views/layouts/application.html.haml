@@ -24,7 +24,7 @@
 
       - if admin?
         #admin_bar
-          %p.right= link_to('Log in to your Admin CP &gt;', 'http://www.juggernautguild.com/a__dmin/index.php')
+          %p.right= link_to('Log in to your Admin CP &gt;'.html_safe, 'http://www.juggernautguild.com/a__dmin/index.php')
           %strong Mod Tools:
           %ul#mod_tools
             %li= link_to('IP Lookup', 'http://www.juggernautguild.com/index.php?app=core&amp;module=usercp&amp;tab=members&amp;area=mod_ipaddress', :title => 'IP Lookup')
