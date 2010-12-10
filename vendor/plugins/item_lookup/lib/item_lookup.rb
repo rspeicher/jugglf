@@ -193,7 +193,7 @@ module ItemLookup
             result.icon    = doc.search('wowhead/item/icon').first.content
             result.level   = doc.search('wowhead/item/level').first.content.to_i
             result.slot    = doc.search('wowhead/item/inventorySlot').first['id'].to_i
-            result.heroic  = doc.search('wowhead/item/json').first.content.include?('heroic:1')
+            result.heroic  = doc.search('wowhead/item/json').first.content.include?(%{"heroic":1})
 
             results << result
           end
