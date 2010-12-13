@@ -2,7 +2,7 @@ module WishlistData
   class TrialOfTheCrusader
     include WishlistData
 
-    active_difficulties :heroic_25
+    active_difficulties :none
 
     difficulty :normal_10 do
       boss "Northrend Beasts" do

@@ -2,7 +2,7 @@ module WishlistData
   class RubySanctum
     include WishlistData
 
-    active_difficulties :heroic_10, :heroic_25
+    active_difficulties :none
 
     boss "Halion", :difficulty => :normal_10 do
       item 53115 #Abduction's Cover

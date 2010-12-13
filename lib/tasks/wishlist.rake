@@ -8,8 +8,8 @@ namespace :juggernaut do
     # WishlistData::EyeOfEternity
     # WishlistData::ObsidianSanctum
     # WishlistData::Ulduar
-    WishlistData::TrialOfTheCrusader
-    WishlistData::IcecrownCitadel
-    WishlistData::RubySanctum
+    # WishlistData::TrialOfTheCrusader
+    # WishlistData::IcecrownCitadel
+    # WishlistData::RubySanctum
   end
 end
