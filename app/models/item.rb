@@ -81,7 +81,7 @@ class Item < ActiveRecord::Base
   # - +heroic+
   # - +authentic+
   def stat_lookup(query)
-    result = ItemLookup.search(query, :source => 'armory').best_result
+    result = ItemLookup.search(query, :source => 'wowhead').best_result
     if result.valid?
       self.id        = result.id
       self.name      = result.name
