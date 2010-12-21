@@ -26,13 +26,12 @@ group :development, :test do
 end
 
 group :test do
-  gem 'capybara'
-  gem 'database_cleaner'
+  gem 'cucumber', '~> 0.10'
   gem 'cucumber-rails'
-  gem 'cucumber'
-  gem 'spork'
+  gem 'database_cleaner'
+  gem 'capybara'
 end
 
 group :production do
-  gem 'whenever', '~> 0.5'
+  gem 'whenever', '~> 0.6'
 end
