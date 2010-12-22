@@ -26,7 +26,7 @@ class SearchesController < ApplicationController
     if Member::WOW_CLASSES.include? params[:q]
       scope = Member.active.of_class(params[:q])
     else
-      scope = Member.search(:name_contains => params[:q])
+      scope = Member.where('name LIKE ?', "%#{params[:q]}%")
     end
 
     respond_to do |wants|
@@ -49,7 +49,7 @@ class SearchesController < ApplicationController
     # Allow partial name matches ('conq sanc' will match "Conqueror's Mark of Sanctification")
     params[:q].gsub!(' ', '%')
 
-    scope = Item.limit(50).search(:name_contains => params[:q])
+    scope = Item.limit(50).where('name LIKE ?', "%#{params[:q]}%")
 
     respond_to do |wants|
       wants.html do
