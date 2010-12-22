@@ -167,7 +167,7 @@ if (typeof JuggLF === "undefined") {
        */
       this.compare = function(id) {
         // Whisper + item name in brackets
-        var str = '/w Tsigo compare [' + $('#loot_table_' + id + ' p.posted_info span:first').text().trim() + '],';
+        var str = '/w Baud compare [' + $('#loot_table_' + id + ' p.posted_info span:first').text().trim() + '],';
 
         // Build an array of "<Name> <type>" strings
         var pieces = [];
