@@ -2,7 +2,7 @@
 = semantic_form_for @raid do |form|
   = form.inputs do
     = form.input :date_string, :label => 'Date'
-    = form.input :note, :required => false
+    = form.input :note, :required => false, :input_html => {:size => 60}
     = form.input :attendance_output, :as => :text, :label => 'Attendance', :input_html => {:size => '60x15'}
   = form.buttons :class => 'submit' do
     = form.submit 'Save Raid', :class => 'input_submit'

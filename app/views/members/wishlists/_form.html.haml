@@ -2,8 +2,8 @@
 = semantic_form_for [@member, @wishlist], :remote => true do |form|
   = form.inputs do
     = form.input :item_id, :as => :hidden
-    = form.input :item_name, :label => 'Item name or ID'
-    = form.input :note, :required => false
+    = form.input :item_name, :label => 'Item name or ID', :input_html => {:size => 60}
+    = form.input :note, :required => false, :input_html => {:size => 60}
     .wishlist_priority
       = form.input :priority, :as => :radio, :collection => [['Best in Slot', 'best in slot'], ['Normal', 'normal'], ['Rot', 'rot'], ['Situational', 'situational']]
   = form.buttons :class => 'submit' do

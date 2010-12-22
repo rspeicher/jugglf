@@ -1,5 +1,5 @@
 = form.inputs do
-  = form.input :name
+  = form.input :name, :input_html => {:size => 20}
   = form.input :wow_class, :as => :select, :collection => Member::WOW_CLASSES, :label => 'Class'
   = form.input :rank_id, :as => :select, :collection => @ranks.collect { |r| [r.name, r.id] }, :include_blank => true, :required => false
   = form.input :user_id, :as => :select, :collection => @users.collect { |u| [u.name, u.id] }, :include_blank => true, :required => false

@@ -1,9 +1,9 @@
 = form.inputs do
   = form.input :item_id, :as => :hidden
-  = form.input :item_name, :label => 'Item name or ID'
-  = form.input :member_name, :label => 'Buyer', :required => false
+  = form.input :item_name, :label => 'Item name or ID', :input_html => {:size => 60}
+  = form.input :member_name, :label => 'Buyer', :required => false, :input_html => {:size => 20}
   = form.input :raid, :include_blank => true, :collection => @raids
-  = form.input :price, :required => false
+  = form.input :price, :required => false, :input_html => {:size => 15}
   = form.input :best_in_slot, :required => false
   = form.input :situational, :required => false
   = form.input :rot, :required => false
