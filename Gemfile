@@ -4,7 +4,7 @@ gem 'rails', '3.0.1'
 gem 'mysql'
 
 gem 'authlogic',        :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
-gem 'formtastic',       '~> 1.1'
+gem 'formtastic',       '~> 1.2'
 gem 'haml',             '~> 3.0'
 gem 'hoptoad_notifier', '~> 2.3'
 gem 'invision_bridge',  '~> 0.3'
