@@ -198,6 +198,8 @@ module ItemLookup
             results << result
           end
         end
+
+        results
       end
     end
 end
