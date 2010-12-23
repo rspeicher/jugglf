@@ -30,8 +30,9 @@ describe AttendanceParser, ".parse_loots" do
     end
 
     it "should figure out price based on item stats" do
+      ItemPrice.instance.expects(:price).returns(2.00)
       loots = AttendanceParser.parse_loots("#{member.name} - [#{Factory(:item_with_real_stats).name}]")
-      loots[0][:price].should eql(1.00)
+      loots[0][:price].should eql(2.00)
     end
 
     it "should initialize a non-existent item by ID if provided" do
