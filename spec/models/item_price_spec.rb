@@ -83,4 +83,8 @@ describe ItemPrice do
   it { should price_item(:name => 'Leggings of the Forlorn Conqueror',  :level => 85).to(3.00) }
   it { should price_item(:name => 'Mantle of the Forlorn Conqueror',    :level => 85).to(2.00) }
   it { should price_item(:name => 'Shoulders of the Forlorn Conqueror', :level => 85).to(2.50) }
+
+  # Trinkets
+  it { should price_item(:level => 372, :slot => 'Trinket').to(4.00) }
+  it { should price_item(:level => 359, :slot => 'Trinket').to(4.00) }
 end

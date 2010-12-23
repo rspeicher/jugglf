@@ -228,20 +228,21 @@ class ItemPrice
     end
 
     def trinket_value(options)
-      value = nil
+      4.00
+      # value = nil
 
-      if @values['trinket'][options[:name]]
-        value = @values['trinket'][options[:name]]
+      # if @values['trinket'][options[:name]]
+      #   value = @values['trinket'][options[:name]]
 
-        # 3.2 Trinkets share names with their lower-level counterparts
-        if value.is_a? Array
-          value = ( options[:level] == 245 or options[:level] == 264 ) ? value[0] : value[1]
-        end
-      else
-        # raise "Invalid Trinket: #{options[:name]}"
-      end
+      #   # 3.2 Trinkets share names with their lower-level counterparts
+      #   if value.is_a? Array
+      #     value = ( options[:level] == 245 or options[:level] == 264 ) ? value[0] : value[1]
+      #   end
+      # else
+      #   # raise "Invalid Trinket: #{options[:name]}"
+      # end
 
-      value
+      # value
     end
 
     # Given a token name, determines the WoW slot name and actual level
