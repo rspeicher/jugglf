@@ -201,7 +201,7 @@ class ItemPrice
     # considered special because they are priced differently depending on the buyer's
     # class.
     def special_weapon_slot?(slot)
-      ['Two-Hand', 'Main Hand', 'Held In Off-hand', 'One-Hand', 'Off Hand', 'Shield'].include? slot
+      ['Main Hand', 'Held In Off-hand', 'One-Hand', 'Off Hand', 'Shield'].include? slot
     end
 
     # Modifies +options+ based on special weapon conditions
@@ -210,15 +210,14 @@ class ItemPrice
     def special_weapon_options(options)
       return if options[:class].nil?
 
-      if options[:class] == 'Warrior'
-        # Warriors treat everything as a one-hand DPS weapon, since they can dual-wield Two-Handers
+      if ['Death Knight', 'Hunter', 'Rogue', 'Warrior'].include? options[:class]
+        # Price these special slots as a melee weapon for these classes
         options[:slot] = 'melee_dps_weapon'
-      elsif ['Death Knight', 'Hunter', 'Rogue'].include? options[:class]
-        # Price these special slots as a melee weapon for these classes, except Two-Handers
-        options[:slot] = 'melee_dps_weapon' unless options[:slot] == 'Two-Hand'
       elsif options[:class] == 'Shaman'
-        # We're gonna guess that a non-Enhancement Shaman would never use a One-Hand weapon
-        options[:slot] = 'melee_dps_weapon' if options[:slot] == 'One-Hand'
+        if options[:slot] == 'One-Hand'
+          # We're gonna guess that a non-Enhancement Shaman would never use a One-Hand weapon
+          options[:slot] = 'melee_dps_weapon'
+        end
       end
     end
 

@@ -40,12 +40,10 @@ describe ItemPrice do
   it { should price_item(:slot => 'Back', :level => 359).to(1.50) }
 
   # Two-Hand Weapons
-  it { should price_item(:slot => 'Two-Hand', :level => 372, :class => 'Rogue').to(6.00) }
-  it { should price_item(:slot => 'Two-Hand', :level => 359, :class => 'Rogue').to(5.00) }
+  it { should price_item(:slot => 'Two-Hand', :level => 372).to(6.00) }
+  it { should price_item(:slot => 'Two-Hand', :level => 359).to(5.00) }
   it { should price_item(:slot => 'Two-Hand', :level => 372, :class => 'Hunter').to(2.50) }
   it { should price_item(:slot => 'Two-Hand', :level => 359, :class => 'Hunter').to(2.00) }
-  it { should price_item(:slot => 'Two-Hand', :level => 372, :class => 'Warrior').to(3.00) }
-  it { should price_item(:slot => 'Two-Hand', :level => 359, :class => 'Warrior').to(2.50) }
 
   # Healer/Caster Weapons used in the Main Hand
   it { should price_item(:slot => 'Main Hand', :level => 372).to(4.00) }
