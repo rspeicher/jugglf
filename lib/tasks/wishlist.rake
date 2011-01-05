@@ -5,11 +5,8 @@ namespace :juggernaut do
   task :wishlist => [:environment] do
     [Boss, LootTable, Zone].each(&:destroy_all)
 
-    # WishlistData::EyeOfEternity
-    # WishlistData::ObsidianSanctum
-    # WishlistData::Ulduar
-    # WishlistData::TrialOfTheCrusader
-    # WishlistData::IcecrownCitadel
-    # WishlistData::RubySanctum
+    WishlistData::Cataclysm::ThroneOfFourWinds
+    WishlistData::Cataclysm::BastionOfTwilight
+    WishlistData::Cataclysm::BlackwingDescent
   end
 end
