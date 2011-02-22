@@ -84,6 +84,7 @@ module WishlistData
           item 65137 #Legguards of the Emerald Brood
           item 65139 #Malevolence
           item 65142 #Pauldrons of the Great Ettin
+          item 65141 #Proto-Handler's Gauntlets
           item 65135 #Robes of the Burning Acolyte
           item 65144 #Storm Rider's Boots
           item 65134 #Wyrmbreaker's Amulet
@@ -126,12 +127,12 @@ module WishlistData
           item 65126 #Hands of the Twilight Council
           item 65130 #Helm of Maddening Whispers
           item 65125 #Kilt of the Forgotten Battle
-          item 64315 #Mantle of the Forlorn Conqueror
-          item 64316 #Mantle of the Forlorn Protector
-          item 64314 #Mantle of the Forlorn Vanquisher
           item 65129 #Membrane of C'Thun
           item 65127 #Shackles of the End of Days
           item 65145 #Shalug'doom, the Axe of Unmaking
+          item 65088 #Shoulders of the Forlorn Conqueror
+          item 65087 #Shoulders of the Forlorn Protector
+          item 65089 #Shoulders of the Forlorn Vanquisher
           item 65123 #Signet of the Fifth Circle
           item 65128 #Treads of Hideous Transformation
           item 65090 #Twilight's Hammer

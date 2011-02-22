@@ -102,6 +102,9 @@ module WishlistData
           item 65042 #Breastplate of Avenging Flame
           item 65020 #Crown of Burning Waters
           item 65044 #Flame Pillar Leggings
+          item 67429 #Gauntlets of the Forlorn Conqueror
+          item 67430 #Gauntlets of the Forlorn Protector
+          item 67431 #Gauntlets of the Forlorn Vanquisher
           item 65041 #Incineratus
           item 65047 #Lava Spine
           item 65049 #Leggings of Lethal Force
@@ -149,6 +152,9 @@ module WishlistData
           item 65031 #Flash Freeze Gauntlets
           item 65029 #Jar of Ancient Remedies
           item 65030 #Leggings of Consuming Flames
+          item 67428 #Leggings of the Forlorn Conqueror
+          item 67427 #Leggings of the Forlorn Protector
+          item 67426 #Leggings of the Forlorn Vanquisher
           item 65032 #Legwraps of the Greatest Son
           item 65036 #Mace of Acrid Death
           item 65033 #Treads of Flawless Creation
@@ -174,10 +180,10 @@ module WishlistData
           item 65023 #Akmin-Kurai, Dominion's Shield
           item 65017 #Andoros, Fist of the Dragon King
           item 65022 #Belt of the Blackhand
+          item 65001 #Crown of the Forlorn Conqueror
+          item 65000 #Crown of the Forlorn Protector
+          item 65002 #Crown of the Forlorn Vanquisher
           item 65024 #Crul'korak, the Lightning's Arc
-          item 63683 #Helm of the Forlorn Conqueror
-          item 63684 #Helm of the Forlorn Protector
-          item 63682 #Helm of the Forlorn Vanquisher
           item 65043 #Mantle of Nefarius
           item 65026 #Prestor's Talisman of Machination
           item 65003 #Reclaimed Ashkandi, Greatsword of the Brotherhood
