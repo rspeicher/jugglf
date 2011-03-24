@@ -5,17 +5,27 @@ module NavigationHelpers
     when /the home\s?page/
       root_path
 
+    # Members
     when /^my standing page$/
       member_path(User.last.member)
-
+    when /^the member page for (.*)$/i
+      member_path(Member.find_by_name($1))
     when /the members? index/
       members_path
 
+    # Items
     when /^the item page for (.*)$/i
       item_path(Item.find_by_name($1))
 
-    when /^the member page for (.*)$/i
-      member_path(Member.find_by_name($1))
+    # Raids
+    when /^the add raid page$/
+      new_raid_path
+    when /^edit the last raid$/
+      edit_raid_path(Raid.last)
+    when /the raids? index/
+      raids_path
+    when /^the last raid's page$/i
+      raid_path(Raid.last)
 
     else
       begin
