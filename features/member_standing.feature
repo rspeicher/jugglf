@@ -11,6 +11,7 @@ Feature: Member standing
     And a member exists with a name of "Sebudai"
     When I go to the member page for Sebudai
     Then I should be on the home page
+    And I should see "You do not have permission to access that page."
 
   Scenario: Admin viewing another member's page
     Given I am logged in as an admin
