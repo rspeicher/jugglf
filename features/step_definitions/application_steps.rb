@@ -1,8 +1,12 @@
 # web_steps extensions
 
-Then /^(?:|I )should see "([^"]*)" within a table header$/ do |text|
-  Then %{I should see "#{text}" within "th"}
-end
+# Then /^(?:|I )should (not )?see "([^"]*)" within a table header$/ do |negative, text|
+#   if negative
+#     Then %{I should not see "#{text}" within "th"}
+#   else
+#     Then %{I should see "#{text}" within "th"}
+#   end
+# end
 
 When /^(?:|I )fill in "([^"]*)"(?: within "([^"]*)")? with:$/ do |field, selector, value|
   with_scope(selector) do
@@ -30,20 +34,6 @@ Given /^I am (not )?logged in(?: as an? (\w+))?( with an associated member)?$/ d
       fill_in 'Password', :with => 'password'
       click_button 'Sign In'
     end
-  end
-end
-
-# Database steps
-
-# Then the following members should exist:
-# Then the following live raids should exist:
-# Then the following raid should exist:
-Then /^the following (.*) should exist:$/ do |model, table|
-  model = model.gsub(/\s+/, '_').classify.constantize
-  headers = table.hashes.shift
-
-  table.hashes.each do |hash|
-    model.where(hash).first.should_not be_nil
   end
 end
 
