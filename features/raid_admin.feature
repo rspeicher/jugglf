@@ -1,29 +1,29 @@
 Feature: Raid Administration
-
-  Scenario: Add a new raid
+  Background:
     Given I am logged in as an admin
-    And I am on the add raid page
+
+  Scenario: Adding a raid creates new members
+    Given I am on the add raid page
     When I fill in "Attendance" with:
       """
       Baud,1.0,100
       Sebudai,0.5,50
       """
     And I press "Add Raid"
-    Then I should be on the last raid's page
-    When I go to the members index
-    Then I should see "Sebudai"
-    And I should see "Baud"
+    Then the following members should exist:
+     | name    | attendance_30 | active | raids_count |
+     | Baud    | 1.0           | 1      | 1           |
+     | Sebudai | 0.5           | 1      | 1           |
 
-  Scenario: Edit a raid, adding a new member
-    Given I am logged in as an admin
-    And I am on the add raid page
-    When I fill in "Attendance" with:
+  Scenario: Editing a raid creates new members
+    Given I am on the add raid page
+    And I fill in "Attendance" with:
       """
       Baud,1.0,100
       Sebudai,0.5,50
       """
     And I press "Add Raid"
-    And I go to edit the last raid
+    When I go to edit the last raid
     And I fill in "Attendance" with:
       """
       Baud,1.0,100
@@ -31,7 +31,8 @@ Feature: Raid Administration
       Alephone,0.75,75
       """
     And I press "Save Raid"
-    When I go to the members index
-    Then I should see "Sebudai"
-    And I should see "Baud"
-    And I should see "Alephone"
+    Then the following members should exist:
+     | name     | attendance_30 | active | raids_count |
+     | Baud     | 1.0           | 1      | 1           |
+     | Sebudai  | 0.5           | 1      | 1           |
+     | Alephone | 0.75          | 1      | 1           |
