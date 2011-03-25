@@ -12,12 +12,10 @@ gem 'nokogiri',         '~> 1.4'
 gem 'will_paginate',    '3.0.pre2'
 
 group :development, :test do
-  gem 'autotest'
   gem 'fakeweb',            '~> 1.3'
   gem 'factory_girl',       '~> 1.3'
   gem 'factory_girl_rails', '~> 1.0'
   gem 'mocha',              '~> 0.9'
-  gem 'ruby-debug'
   gem 'rspec',              '~> 2.0'
   gem 'rspec-rails',        '~> 2.0'
   gem 'shoulda',            '~> 2.11'
@@ -29,6 +27,20 @@ group :test do
   gem 'cucumber-rails'
   gem 'database_cleaner'
   gem 'capybara'
+end
+
+# These gems are developer-specific and shouldn't be required on every
+# goddamn installation but Bundler is kind of fucking us here.
+# See https://github.com/carlhuda/bundler/issues/labels/feature#issue/183
+group :development, :test do
+  gem 'autotest'
+  gem 'ruby-debug'
+  gem 'launchy'
+
+  if RUBY_PLATFORM =~ /darwin/
+    gem 'autotest-growl'
+    gem 'autotest-fsevent'
+  end
 end
 
 group :production do

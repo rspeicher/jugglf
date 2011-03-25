@@ -41,6 +41,9 @@ GEM
     arel (2.0.8)
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
+    autotest-fsevent (0.2.5)
+      sys-uname
+    autotest-growl (0.2.9)
     builder (2.1.2)
     capybara (0.4.0)
       celerity (>= 0.7.9)
@@ -55,6 +58,7 @@ GEM
     childprocess (0.1.4)
       ffi (~> 0.6.3)
     columnize (0.3.2)
+    configuration (1.2.0)
     cucumber (0.10.0)
       builder (>= 2.1.2)
       diff-lcs (~> 1.1.2)
@@ -91,6 +95,9 @@ GEM
       authlogic
     json (1.4.6)
     json_pure (1.4.6)
+    launchy (0.4.0)
+      configuration (>= 0.0.5)
+      rake (>= 0.8.1)
     linecache (0.43)
     mail (2.2.15)
       activesupport (>= 2.3.6)
@@ -147,6 +154,7 @@ GEM
       json_pure
       rubyzip
     shoulda (2.11.3)
+    sys-uname (0.8.5)
     term-ansicolor (1.0.5)
     thor (0.14.6)
     timecop (0.3.5)
@@ -166,6 +174,8 @@ PLATFORMS
 DEPENDENCIES
   authlogic!
   autotest
+  autotest-fsevent
+  autotest-growl
   capybara
   cucumber (~> 0.10)
   cucumber-rails
@@ -177,6 +187,7 @@ DEPENDENCIES
   haml (~> 3.0)
   hoptoad_notifier (~> 2.3)
   invision_bridge (~> 0.3)
+  launchy
   mocha (~> 0.9)
   mysql
   nokogiri (~> 1.4)
