@@ -3,7 +3,7 @@ source :gemcutter
 gem 'rails', '3.0.4'
 gem 'mysql'
 
-gem 'authlogic',        :git => 'git://github.com/odorcicd/authlogic.git', :branch => 'rails3'
+gem 'authlogic',        '~> 2.1', :git => 'git://github.com/radar/authlogic.git'
 gem 'formtastic',       '~> 1.2'
 gem 'haml',             '~> 3.0'
 gem 'hoptoad_notifier', '~> 2.3'
@@ -16,15 +16,15 @@ group :development, :test do
   gem 'factory_girl',       '~> 1.3'
   gem 'factory_girl_rails', '~> 1.0'
   gem 'mocha',              '~> 0.9'
-  gem 'rspec',              '~> 2.0'
-  gem 'rspec-rails',        '~> 2.0'
+  gem 'rspec',              '~> 2.5'
+  gem 'rspec-rails',        '~> 2.5'
   gem 'shoulda',            '~> 2.11'
-  gem 'timecop'
+  gem 'timecop',            '~> 0.3'
 end
 
 group :test do
-  gem 'cucumber', '~> 0.10'
-  gem 'cucumber-rails'
+  gem 'cucumber',        '~> 0.10'
+  gem 'cucumber-rails',  '~> 0.4'
   gem 'database_cleaner'
   gem 'capybara'
 end
