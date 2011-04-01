@@ -1,23 +1,18 @@
 require 'spec_helper'
 
 describe Wishlist do
-  before do
-    @wishlist = Factory(:wishlist)
-  end
+  subject { Factory(:wishlist) }
 
-  it "should be valid" do
-    @wishlist.should be_valid
-  end
+  it { should be_valid }
 
   context "mass assignment" do
-    it { should_not allow_mass_assignment_of(:id) }
-    it { should allow_mass_assignment_of(:item_id) }
-    it { should allow_mass_assignment_of(:item_name) }
-    it { should_not allow_mass_assignment_of(:member_id) }
-    it { should allow_mass_assignment_of(:priority) }
-    it { should allow_mass_assignment_of(:note) }
-    it { should_not allow_mass_assignment_of(:created_at) }
-    it { should_not allow_mass_assignment_of(:updated_at) }
+    [:id, :member_id, :created_at, :updated_at].each do |a|
+      it { should_not allow_mass_assignment_of(a) }
+    end
+
+    [:item_id, :item_name, :priority, :note].each do |a|
+      it { should allow_mass_assignment_of(a) }
+    end
   end
 
   context "associations" do
@@ -31,13 +26,13 @@ describe Wishlist do
     it { should allow_value('best in slot').for(:priority) }
 
     it "should invalidate on nil item" do
-      @wishlist.item = nil
-      lambda { @wishlist.save! }.should raise_error
+      subject.item = nil
+      lambda { subject.save! }.should raise_error
     end
 
     it "should invalidate on non-authentic item" do
-      @wishlist.item = Factory.build(:item, :authentic => false)
-      lambda { @wishlist.save! }.should raise_error
+      subject.item = Factory.build(:item, :authentic => false)
+      lambda { subject.save! }.should raise_error
     end
   end
 end

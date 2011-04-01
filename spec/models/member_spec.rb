@@ -1,13 +1,9 @@
 require 'spec_helper'
 
 describe Member do
-  before(:each) do
-    @member = Factory(:member)
-  end
+  subject { Factory(:member) }
 
-  it "should validate" do
-    @member.should be_valid
-  end
+  it { should be_valid }
 
   context "mass assignment" do
     it { should allow_mass_assignment_of(:name) }
@@ -52,16 +48,16 @@ describe Member do
   end
 
   it "should have a custom to_param" do
-    @member.to_param.should eql("#{@member.id}-#{@member.name.parameterize}")
+    subject.to_param.should eql("#{subject.id}-#{subject.name.parameterize}")
   end
 
   it "should have a custom to_s" do
-    @member.to_s.should eql("#{@member.name}")
+    subject.to_s.should eql("#{subject.name}")
   end
 end
 
 describe Member, "#lf_type" do
-  before(:each) do
+  before do
     @member = Factory(:member, :lf => 1.0, :bislf => 2.0, :sitlf => 3.0)
   end
 
@@ -88,7 +84,7 @@ describe Member, "#lf_type" do
 end
 
 describe Member, "#clean_trash" do
-  before(:each) do
+  before do
     @member = Factory(:declined_applicant)
     Factory(:wishlist, :member => @member)
     Factory(:completed_achievement, :member => @member)
@@ -114,7 +110,7 @@ describe Member, "#clean_trash" do
 end
 
 describe Member, "full attendance caching" do
-  before(:each) do
+  before do
     Timecop.freeze(Date.today)
 
     @member = Factory(:member)
@@ -154,7 +150,7 @@ describe Member, "full attendance caching" do
 end
 
 describe Member, "loot factor caching" do
-  before(:each) do
+  before do
     raid = Factory(:raid)
 
     @member = Factory(:member)
@@ -181,7 +177,7 @@ describe Member, "loot factor caching" do
 end
 
 describe Member, "punishments" do
-  before(:each) do
+  before do
     @member = Factory(:member)
   end
 

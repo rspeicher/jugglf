@@ -1,13 +1,9 @@
 require 'spec_helper'
 
 describe LiveAttendee do
-  before(:each) do
-    @live_att = Factory(:live_attendee)
-  end
+  subject { Factory(:live_attendee) }
 
-  it "should be valid" do
-    @live_att.should be_valid
-  end
+  it { should be_valid }
 
   context "mass assignment" do
     it { should allow_mass_assignment_of(:member_name) }
@@ -44,7 +40,7 @@ describe LiveAttendee, "#toggle!" do
 end
 
 describe LiveAttendee, "#start!" do
-  before(:each) do
+  before do
     Timecop.freeze(Time.now)
     @live_att = Factory(:live_attendee, :started_at => nil, :stopped_at => nil, :active => false)
   end
@@ -65,7 +61,7 @@ describe LiveAttendee, "#start!" do
 end
 
 describe LiveAttendee, "#stop!" do
-  before(:each) do
+  before do
     Timecop.freeze(Time.now)
     @live_att = Factory(:live_attendee, :started_at => 1.minute.until(Time.now), :stopped_at => nil, :active => true)
   end
@@ -106,7 +102,7 @@ describe LiveAttendee, "#stop!" do
 end
 
 describe LiveAttendee, "#active_minutes" do
-  before(:each) do
+  before do
     Timecop.freeze(Time.now)
     @live_att = Factory(:live_attendee_with_raid, :started_at => 20.minutes.until(Time.now))
   end
@@ -159,9 +155,8 @@ describe LiveAttendee, "#active_minutes" do
 end
 
 describe LiveAttendee, ".from_text" do
-  before(:each) do
-    @text = "Tsigo,Duskshadow, Sebudai, Baud,Souai,Tsigo,Tsigo"
-    @attendees = LiveAttendee.from_text(@text)
+  before do
+    @attendees = LiveAttendee.from_text("Tsigo,Duskshadow, Sebudai, Baud,Souai,Tsigo,Tsigo")
   end
 
   it "should return an empty array if no text is given" do

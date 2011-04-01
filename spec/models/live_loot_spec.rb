@@ -1,14 +1,9 @@
 require 'spec_helper'
 
 describe LiveLoot do
-  before(:each) do
-    # Saving it might force an item lookup, which we don't want
-    @live_loot = Factory(:live_loot)
-  end
+  subject { Factory(:live_loot) }
 
-  it "should be valid" do
-    @live_loot.should be_valid
-  end
+  it { should be_valid }
 
   context "mass assignment" do
     it { should allow_mass_assignment_of(:wow_id) }
@@ -39,7 +34,7 @@ end
 
 describe LiveLoot, "item assocation" do
   describe "with an existing item" do
-    before(:each) do
+    before do
       @item      = Factory(:item)
       @live_loot = Factory.build(:live_loot)
     end
@@ -56,7 +51,7 @@ end
 
 describe LiveLoot, "member association" do
   describe "with an existing member" do
-    before(:each) do
+    before do
       @member    = Factory(:member)
       @live_loot = Factory.build(:live_loot)
     end
@@ -67,7 +62,7 @@ describe LiveLoot, "member association" do
   end
 
   context "with a new member" do
-    before(:each) do
+    before do
       @live_loot = Factory.build(:live_loot)
     end
 
@@ -97,7 +92,7 @@ describe LiveLoot, ".from_text" do
   end
 
   describe "parsing valid text" do
-    before(:each) do
+    before do
       @member = Factory(:member, :name => 'Tsigo')
       @item   = Factory(:item_with_real_stats)
 

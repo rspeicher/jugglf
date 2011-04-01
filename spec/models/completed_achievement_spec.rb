@@ -1,13 +1,9 @@
 require 'spec_helper'
 
 describe CompletedAchievement do
-  before(:each) do
-    @completed = Factory(:completed_achievement)
-  end
+  subject { Factory(:completed_achievement) }
 
-  it "should be valid" do
-    @completed.should be_valid
-  end
+  it { should be_valid }
 
   context "mass assignment" do
     it { should_not allow_mass_assignment_of(:id) }
@@ -30,7 +26,7 @@ describe CompletedAchievement do
 end
 
 describe CompletedAchievement, "#parse_member" do
-  before(:each) do
+  before do
     FakeWeb.register_uri(:get, %r{http://www\.wowarmory\.com/character-achievements\.xml}, :body => file_fixture('wowarmory', 'achievements_tsigo.xml'))
 
     @member = Factory(:member)

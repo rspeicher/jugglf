@@ -1,13 +1,9 @@
 require 'spec_helper'
 
 describe Achievement do
-  before(:each) do
-    @ach = Factory(:achievement)
-  end
+  subject { Factory(:achievement) }
 
-  it "should be valid" do
-    @ach.should be_valid
-  end
+  it { should be_valid }
 
   context "mass assignment" do
     it { should_not allow_mass_assignment_of(:id) }
@@ -29,6 +25,6 @@ describe Achievement do
   end
 
   it "should have a custom to_s" do
-    @ach.to_s.should eql(@ach.title.to_s)
+    subject.to_s.should eql(subject.title.to_s)
   end
 end

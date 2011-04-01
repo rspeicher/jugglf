@@ -1,13 +1,9 @@
 require 'spec_helper'
 
 describe Boss do
-  before(:each) do
-    @boss = Factory(:boss)
-  end
+  subject { Factory(:boss) }
 
-  it "should be valid" do
-    @boss.should be_valid
-  end
+  it { should be_valid }
 
   context "mass assignment" do
     it { should_not allow_mass_assignment_of(:id) }
@@ -24,6 +20,6 @@ describe Boss do
   end
 
   it "should have a custom to_s" do
-    @boss.to_s.should eql("#{@boss.name}")
+    subject.to_s.should eql("#{subject.name}")
   end
 end

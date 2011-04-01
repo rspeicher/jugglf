@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe MemberRank do
-  before(:each) do
+  before do
     @rank = Factory(:member_rank)
   end
 
@@ -21,7 +21,7 @@ describe MemberRank do
 end
 
 describe MemberRank, "#format" do
-  before(:each) do
+  before do
     @rank = Factory(:member_rank)
   end
 

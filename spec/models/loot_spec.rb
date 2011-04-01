@@ -1,13 +1,9 @@
 require 'spec_helper'
 
 describe Loot do
-  before(:each) do
-    @loot = Factory(:loot)
-  end
+  subject { Factory(:loot) }
 
-  it "should be valid" do
-    @loot.should be_valid
-  end
+  it { should be_valid }
 
   context "mass assignment" do
     it { should_not allow_mass_assignment_of(:id) }
@@ -41,7 +37,7 @@ describe Loot do
 end
 
 describe Loot, "adjusted_price" do
-  before(:each) do
+  before do
     @loot = Factory(:loot, :price => 1.00)
   end
 
@@ -54,7 +50,7 @@ describe Loot, "adjusted_price" do
 end
 
 describe Loot, "affects_loot_factor?" do
-  before(:each) do
+  before do
     @loot = Factory(:loot, :purchased_on => Date.today)
   end
 
@@ -72,7 +68,7 @@ describe Loot, "affects_loot_factor?" do
 end
 
 describe Loot, "#has_purchase_type?" do
-  before(:each) do
+  before do
     @loot = Factory.build(:loot)
   end
 
@@ -100,7 +96,7 @@ describe Loot, "#has_purchase_type?" do
 end
 
 describe Loot, "#update_cache" do
-  before(:each) do
+  before do
     @loot = Factory.build(:loot_with_buyer, :price => 15.00)
 
     @member = @loot.buyer
@@ -125,7 +121,7 @@ describe Loot, "#update_cache" do
 end
 
 describe Loot, "#set_purchased_on" do
-  before(:each) do
+  before do
     @loot = Factory.build(:loot, :raid => Factory(:raid))
   end
 
@@ -137,7 +133,7 @@ describe Loot, "#set_purchased_on" do
 end
 
 describe Loot, "#item_name" do
-  before(:each) do
+  before do
     @loot = Factory(:loot)
   end
 
@@ -158,7 +154,7 @@ describe Loot, "#item_name" do
 end
 
 describe Loot, "#member_name" do
-  before(:each) do
+  before do
     @loot = Factory(:loot_with_buyer)
   end
 

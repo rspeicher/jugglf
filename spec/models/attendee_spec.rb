@@ -1,13 +1,9 @@
 require 'spec_helper'
 
 describe Attendee do
-  before(:each) do
-    @attendee = Factory(:attendee)
-  end
+  subject { Factory(:attendee) }
 
-  it "should be valid" do
-    @attendee.should be_valid
-  end
+  it { should be_valid }
 
   context "mass assignment" do
     it { should_not allow_mass_assignment_of(:id) }
@@ -29,6 +25,6 @@ describe Attendee do
   end
 
   it "should have a custom to_s" do
-    @attendee.to_s.should eql("#{@attendee.member.name} on #{@attendee.raid.date}")
+    subject.to_s.should eql("#{subject.member.name} on #{subject.raid.date}")
   end
 end

@@ -1,13 +1,9 @@
 require 'spec_helper'
 
 describe LiveRaid do
-  before(:each) do
-    @live_raid = Factory(:live_raid)
-  end
+  subject { Factory(:live_raid) }
 
-  it "should be valid" do
-    @live_raid.should be_valid
-  end
+  it { should be_valid }
 
   context "mass assignment" do
     it { should allow_mass_assignment_of(:attendees_string) }
@@ -21,7 +17,7 @@ describe LiveRaid do
   end
 
   it "should invalidate if stopped_at is set but not started_at" do
-    lambda { @live_raid.stopped_at = Time.now }.should change(@live_raid, :valid?).to(false)
+    lambda { subject.stopped_at = Time.now }.should change(subject, :valid?).to(false)
   end
 end
 
@@ -42,7 +38,7 @@ describe LiveRaid, "#running_time_in_minutes" do
 end
 
 describe LiveRaid, "#start" do
-  before(:each) do
+  before do
     Timecop.freeze(Time.now)
   end
 
@@ -64,7 +60,7 @@ describe LiveRaid, "#start" do
 end
 
 describe LiveRaid, "#stop" do
-  before(:each) do
+  before do
     Timecop.freeze(Time.now)
   end
 
@@ -167,7 +163,7 @@ describe LiveRaid, "#attendees_string" do
   end
 
   describe "when given an existing attendee" do
-    before(:each) do
+    before do
       @live_raid = Factory(:live_raid_with_attendee)
       @existing = @live_raid.attendees[0]
     end
@@ -193,7 +189,7 @@ end
 #     require 'xmlrpc/client'
 #   end
 #
-#   before(:each) do
+#   before do
 #     @live_raid = Factory(:live_raid_with_attendee)
 #     @live_raid.start!
 #   end

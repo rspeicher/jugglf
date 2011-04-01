@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Punishment do
-  before(:each) do
+  before do
     @punishment = Factory(:punishment)
     @expired    = Factory(:expired_punishment)
   end
@@ -38,7 +38,7 @@ describe Punishment do
 end
 
 describe Punishment, "#expires_on_string" do
-  before(:each) do
+  before do
     Timecop.freeze(Date.today)
     @punishment = Factory(:punishment, :expires_on => 3.days.since(Date.today))
   end
@@ -69,7 +69,7 @@ describe Punishment, "#active?" do
 end
 
 describe Punishment, "callbacks" do
-  before(:each) do
+  before do
     @member = Factory(:member)
     @member.expects(:update_cache).once.returns(true)
   end

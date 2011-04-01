@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe LootTable do
-  before(:each) do
+  before do
     @table = Factory(:loot_table, :object => nil, :parent => nil)
   end
 
@@ -19,7 +19,7 @@ describe LootTable do
   end
 
   context "polymorphic associations" do
-    before(:each) do
+    before do
       @zone = Factory(:zone)
       @boss = Factory(:boss)
       @item = Factory(:item)

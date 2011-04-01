@@ -1,13 +1,9 @@
 require 'spec_helper'
 
 describe Raid do
-  before(:each) do
-    @raid = Factory(:raid)
-  end
+  subject { Factory(:raid) }
 
-  it "should be valid" do
-    @raid.should be_valid
-  end
+  it { should be_valid }
 
   context "mass assignment" do
     it { should allow_mass_assignment_of(:date) }
@@ -29,12 +25,12 @@ describe Raid do
   end
 
   it "should have a custom to_s" do
-    @raid.to_s.should eql("#{@raid.date}")
+    subject.to_s.should eql("#{subject.date}")
   end
 end
 
 describe Raid, "#date_string" do
-  before(:each) do
+  before do
     Timecop.freeze(Date.today)
     @raid = Factory(:raid)
   end
@@ -56,7 +52,7 @@ describe Raid, "#date_string" do
 end
 
 describe Raid, "#update_cache" do
-  before(:each) do
+  before do
     @raid = Factory(:raid)
     @member = Factory(:member, :attendance_30 => 1.00)
     Factory(:attendee, :member => @member, :raid => @raid, :attendance => 0.50)
@@ -90,7 +86,7 @@ describe Raid, "#update_cache" do
 end
 
 describe Raid, "date ranges" do
-  before(:each) do
+  before do
     @raids = {
       :today       => Factory(:raid),
       :two_months  => Factory(:raid, :date => 2.months.until(Date.today)),
@@ -127,7 +123,7 @@ describe Raid, "#parse_attendees" do
     END
   end
 
-  before(:each) do
+  before do
     @raid = Factory(:raid)
     @raid.attendance_output = @output
     @raid.update_cache = false
@@ -175,7 +171,7 @@ describe Raid, "#parse_attendees" do
 end
 
 describe Raid, "#parse_drops" do
-  before(:each) do
+  before do
     AttendanceParser.expects(:parse_loots).returns([{:item => Factory(:item), :price => 1.00}])
 
     @raid = Factory(:raid)

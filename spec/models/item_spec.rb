@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Item do
   include ItemLookupHelpers
 
-  before(:each) do
+  before do
     @item = Factory(:item_with_real_stats)
     ItemLookup.stubs(:search).returns(valid_lookup_results)
   end
@@ -61,7 +61,7 @@ describe Item do
 end
 
 describe Item, "#find_[or_create_]by_name_or_id" do
-  before(:each) do
+  before do
     @item = Factory(:item_with_real_stats)
   end
 
@@ -111,7 +111,7 @@ describe Item, "automatic stat lookup before save" do
   end
 
   describe "with an invalid item" do
-    before(:each) do
+    before do
       @item = Factory(:item_needing_lookup_via_id)
       ItemLookup.expects(:search).with(1, anything()).at_least_once.returns(invalid_lookup_results)
     end
@@ -124,7 +124,7 @@ describe Item, "automatic stat lookup before save" do
 end
 
 describe Item, "#lookup!" do
-  before(:each) do
+  before do
     @item = Factory(:item)
   end
 
@@ -162,7 +162,7 @@ describe Item, "#lookup" do
     end
 
     context "with valid item" do
-      before(:each) do
+      before do
         @item = Factory.build(:item_with_real_stats)
       end
 
