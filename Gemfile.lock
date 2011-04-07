@@ -8,7 +8,6 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
-    ZenTest (4.5.0)
     aaronh-chronic (0.3.9)
     abstract (1.0.0)
     actionmailer (3.0.4)
@@ -38,11 +37,10 @@ GEM
       activesupport (= 3.0.4)
     activesupport (3.0.4)
     arel (2.0.9)
-    autotest (4.4.6)
-      ZenTest (>= 4.4.1)
     autotest-fsevent (0.2.5)
       sys-uname
     autotest-growl (0.2.9)
+    autotest-standalone (4.5.5)
     builder (2.1.2)
     capybara (0.4.1.2)
       celerity (>= 0.7.9)
@@ -153,6 +151,7 @@ GEM
       json_pure
       rubyzip
     shoulda (2.11.3)
+    spork (0.8.4)
     sys-uname (0.8.5)
     term-ansicolor (1.0.5)
     thor (0.14.6)
@@ -172,9 +171,9 @@ PLATFORMS
 
 DEPENDENCIES
   authlogic (~> 2.1)!
-  autotest
   autotest-fsevent
   autotest-growl
+  autotest-standalone
   capybara
   cucumber (~> 0.10)
   cucumber-rails (~> 0.4)
@@ -195,6 +194,7 @@ DEPENDENCIES
   rspec-rails (~> 2.5)
   ruby-debug
   shoulda (~> 2.11)
+  spork
   timecop (~> 0.3)
   whenever (~> 0.6)
   will_paginate (= 3.0.pre2)

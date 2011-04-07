@@ -33,9 +33,10 @@ end
 # goddamn installation but Bundler is kind of fucking us here.
 # See https://github.com/carlhuda/bundler/issues/labels/feature#issue/183
 group :development, :test do
-  gem 'autotest'
+  gem 'autotest-standalone'
   gem 'ruby-debug'
   gem 'launchy'
+  gem 'spork'
 
   if RUBY_PLATFORM =~ /darwin/
     gem 'autotest-growl'
