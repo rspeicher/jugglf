@@ -10,12 +10,9 @@ class Raid < ActiveRecord::Base
   before_update :clear_attendees
   after_create [:parse_attendees, :parse_drops]
   after_update [:parse_attendees, :parse_drops]
-  after_save    :update_cache
-  after_destroy :update_cache
 
   scope :latest, lambda { where("date >= ?", 2.months.ago).order('date DESC') }
 
-  attr_accessor :update_cache
   attr_writer :attendance_output
   attr_accessor :loot_output
 
@@ -101,20 +98,7 @@ class Raid < ActiveRecord::Base
       return if loots.nil? or loots.size == 0
 
       loots.each do |attributes|
-        self.loots.create(attributes.merge!(:purchased_on => self.date, :update_cache => false))
-      end
-    end
-
-    def update_cache
-      # We have to update all members' cache, because if a member didn't attend
-      # this raid, it should still affect that person's attendance percentages
-      Member.update_cache unless @update_cache == false
-
-      # Set the purchased_on value of this raid's loots to its current date
-      self.loots.each do |l|
-        unless l.purchased_on == self.date.to_date
-          l.update_attributes(:purchased_on => self.date)
-        end
+        self.loots.create(attributes.merge(:purchased_on => self.date))
       end
     end
 end

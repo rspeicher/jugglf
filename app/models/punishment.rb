@@ -10,9 +10,6 @@ class Punishment < ActiveRecord::Base
 
   scope :active, lambda { where("expires_on > ?", Date.today) }
 
-  after_save    :update_member_cache
-  after_destroy :update_member_cache
-
   def expires_on_string
     # Default to 52 days from now so that it acts as a normal loot item
     ( self.expires_on.nil? ) ? 52.days.from_now.to_date : self.expires_on.to_date
@@ -31,9 +28,4 @@ class Punishment < ActiveRecord::Base
   def active?
     self.expires_on > Date.today
   end
-
-  private
-    def update_member_cache
-      self.member.update_cache unless self.member_id.nil?
-    end
 end

@@ -22,7 +22,6 @@ describe Loot do
     it { should allow_mass_assignment_of(:raid_id) }
     it { should_not allow_mass_assignment_of(:created_at) }
     it { should_not allow_mass_assignment_of(:updated_at) }
-    it { should allow_mass_assignment_of(:update_cache) }
   end
 
   context "associations" do
@@ -95,25 +94,13 @@ describe Loot, "#has_purchase_type?" do
   end
 end
 
-describe Loot, "#update_cache" do
+describe Loot, "updating loot factor cache" do
   context "first-time buyer" do
     let(:loot) { Factory.build(:loot_with_buyer, :price => 15.00) }
     let(:buyer) { loot.member }
 
     it "should update buyer cache unless disabled" do
-      expect {
-        loot.update_cache = true
-        loot.save
-        buyer.reload
-      }.to change(buyer, :lf).to(1500.00)
-    end
-
-    it "should allow disabling of buyer cache updates" do
-      expect {
-        loot.update_cache = false
-        loot.save
-        buyer.reload
-      }.to_not change(buyer, :lf)
+      expect { loot.save }.to change(buyer, :lf).to(1500.00)
     end
   end
 
@@ -124,7 +111,7 @@ describe Loot, "#update_cache" do
     it "should update both members' loot factor" do
       old_member = loot.member.dup
 
-      loot.update_attributes({:update_cache => true, :member => new_buyer})
+      loot.update_attribute(:member, new_buyer)
 
       old_member.reload.lf.should eql(0.0)
       loot.member.lf.should eql(1500.0)

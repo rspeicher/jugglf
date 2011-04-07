@@ -68,10 +68,10 @@ describe Punishment, "#active?" do
   end
 end
 
-describe Punishment, "callbacks" do
+describe Punishment, "updating loot factor cache" do
   before do
     @member = Factory(:member)
-    @member.expects(:update_cache).once.returns(true)
+    @member.expects(:update_cache).once
   end
 
   it "should update member cache after save" do

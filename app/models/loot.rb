@@ -1,7 +1,7 @@
 class Loot < ActiveRecord::Base
   attr_accessible(:item, :item_id, :item_name, :price, :purchased_on,
-    :best_in_slot, :situational, :rot, :member, :member_id, :member_name, :raid,
-    :raid_id, :update_cache)
+                  :best_in_slot, :situational, :rot, :member, :member_id,
+                  :member_name, :raid, :raid_id)
 
   belongs_to :item, :counter_cache => true
   belongs_to :member, :counter_cache => true
@@ -11,8 +11,9 @@ class Loot < ActiveRecord::Base
 
   scope :recent, lambda { where("purchased_on >= ?", 2.weeks.ago) }
 
+  before_save :set_purchased_on
+
   alias_method :buyer, :member
-  attr_accessor :update_cache
 
   # FIXME: Misnomer. Should be item_string, or something like that
   def item_name
@@ -36,13 +37,6 @@ class Loot < ActiveRecord::Base
     self.member = Member.find_by_name(value)
   end
 
-  # Callbacks -----------------------------------------------------------------
-  before_save [:set_purchased_on]
-  after_save [:update_buyer_cache]
-
-  # Class Methods -------------------------------------------------------------
-
-  # Instance Methods ----------------------------------------------------------
   def affects_loot_factor?
     return false if self.purchased_on.blank?
 
@@ -68,18 +62,6 @@ class Loot < ActiveRecord::Base
     def set_purchased_on
       if self.purchased_on.nil? and not self.raid_id.nil?
         self.purchased_on = self.raid.date
-      end
-    end
-
-    def update_buyer_cache
-      return unless @update_cache
-
-      # Update the current buyer's LF
-      self.member.update_cache unless self.member_id.nil?
-
-      # Update the previous buyer's LF so they don't carry the extra LF until the next full recache
-      if previous_buyer = self.changes['member_id']
-        Member.find(previous_buyer[0]).update_cache unless previous_buyer[0].nil?
       end
     end
 end

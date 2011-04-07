@@ -51,7 +51,7 @@ describe Raid, "#date_string" do
   end
 end
 
-describe Raid, "#update_cache" do
+describe Raid, "updating loot factor cache" do
   before do
     @raid = Factory(:raid)
     @member = Factory(:member, :attendance_30 => 1.00)
@@ -59,26 +59,14 @@ describe Raid, "#update_cache" do
   end
 
   it "should update attendee cache unless disabled" do
-    @raid.update_cache = true
-
-    lambda {
+    expect {
       @raid.save
       @member.reload
-    }.should change(@member, :attendance_30).to(0.50)
-  end
-
-  it "should allow disabling of attendee cache updates" do
-    @raid.update_cache = false
-
-    lambda {
-      @raid.save
-      @member.reload
-    }.should_not change(@member, :attendance_30)
+    }.to change(@member, :attendance_30).to(0.50)
   end
 
   it "should update purchased_on attribute for child loots" do
     @raid.loots << Factory.build(:loot)
-    @raid.update_cache = false
     @raid.save
 
     @raid.loots[0].purchased_on.should eql(@raid.date)
@@ -126,22 +114,21 @@ describe Raid, "#parse_attendees" do
   before do
     @raid = Factory(:raid)
     @raid.attendance_output = @output
-    @raid.update_cache = false
   end
 
   it "should not raise an exception for duplicates" do
-    lambda { @raid.save }.should_not raise_error
+    expect { @raid.save }.to_not raise_error
   end
 
   it "should create non-existant members" do
-    lambda { @raid.save }.should change(Member, :count).by(3)
+    expect { @raid.save }.to change(Member, :count).by(3)
   end
 
   it "should update existing members" do
     member = Factory(:member, :name => 'Kapetal')
     @raid.save
 
-    lambda { member.reload }.should change(member, :raids_count).by(1)
+    expect { member.reload }.to change(member, :raids_count).by(1)
   end
 
   it "should use the lower attendance percentage when a duplicate is present" do
@@ -166,7 +153,7 @@ describe Raid, "#parse_attendees" do
     @output = @output.split("\n").slice(0,2).join("\n")
 
     # Though we removed 2 lines, 1 of them was a duplicate, so this will only change by -1
-    lambda { @raid.update_attributes(:attendance_output => @output) }.should change(Attendee, :count).by(-1)
+    expect { @raid.update_attributes(:attendance_output => @output) }.to change(Attendee, :count).by(-1)
   end
 end
 
@@ -179,6 +166,6 @@ describe Raid, "#parse_drops" do
   end
 
   it "should populate #loots from output" do
-    lambda { @raid.save }.should change(@raid.loots, :size)
+    expect { @raid.save }.to change(@raid.loots, :size)
   end
 end

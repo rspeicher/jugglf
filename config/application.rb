@@ -21,7 +21,7 @@ module JuggLF
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
 
     # Activate observers that should always be running.
-    # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
+    config.active_record.observers = :loot_factor_observer
 
     config.time_zone = 'Eastern Time (US & Canada)'
 
