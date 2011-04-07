@@ -72,6 +72,14 @@ class Loot < ActiveRecord::Base
     end
 
     def update_buyer_cache
-      self.member.update_cache unless @update_cache == false or self.member_id.nil?
+      return unless @update_cache
+
+      # Update the current buyer's LF
+      self.member.update_cache unless self.member_id.nil?
+
+      # Update the previous buyer's LF so they don't carry the extra LF until the next full recache
+      if previous_buyer = self.changes['member_id']
+        Member.find(previous_buyer[0]).update_cache unless previous_buyer[0].nil?
+      end
     end
 end

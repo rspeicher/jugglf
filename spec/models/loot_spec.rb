@@ -96,27 +96,39 @@ describe Loot, "#has_purchase_type?" do
 end
 
 describe Loot, "#update_cache" do
-  before do
-    @loot = Factory.build(:loot_with_buyer, :price => 15.00)
+  context "first-time buyer" do
+    let(:loot) { Factory.build(:loot_with_buyer, :price => 15.00) }
+    let(:buyer) { loot.member }
 
-    @member = @loot.buyer
-    @member.update_attribute(:lf, 1.00)
+    it "should update buyer cache unless disabled" do
+      expect {
+        loot.update_cache = true
+        loot.save
+        buyer.reload
+      }.to change(buyer, :lf).to(1500.00)
+    end
+
+    it "should allow disabling of buyer cache updates" do
+      expect {
+        loot.update_cache = false
+        loot.save
+        buyer.reload
+      }.to_not change(buyer, :lf)
+    end
   end
 
-  it "should update buyer cache unless disabled" do
-    lambda {
-      @loot.update_cache = true
-      @loot.save
-      @member.reload
-    }.should change(@member, :lf).to(1500.00)
-  end
+  context "purchased changed from one member to another" do
+    let(:loot) { Factory(:loot_with_buyer, :price => 15.00) }
+    let(:new_buyer) { Factory(:member) }
 
-  it "should allow disabling of buyer cache updates" do
-    lambda {
-      @loot.update_cache = false
-      @loot.save
-      @member.reload
-    }.should_not change(@member, :lf)
+    it "should update both members' loot factor" do
+      old_member = loot.member.dup
+
+      loot.update_attributes({:update_cache => true, :member => new_buyer})
+
+      old_member.reload.lf.should eql(0.0)
+      loot.member.lf.should eql(1500.0)
+    end
   end
 end
 
