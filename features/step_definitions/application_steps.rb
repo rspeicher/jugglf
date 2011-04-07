@@ -72,3 +72,9 @@ When /^I search for "([^\"]+)"(?: in "([^\"]+)")?(?: as (html|xml|json|js|lua))?
   format ||= 'html'
   visit search_path(:q => query, :context => context, :format => format)
 end
+
+# Misc
+
+When /^(?:|I )?update loot factor cache$/ do
+  Member.update_cache(:all)
+end
