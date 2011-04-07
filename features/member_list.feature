@@ -7,7 +7,7 @@ Feature: Member List
       | Tsigo | 1.00          | 5.00 |
     When I go to the members index
     Then I should see "Tsigo"
-    And I should see "30-Day" within "th.attendance"
+    And I should see "30-Day" within a table header
     And I should see "100%" within "td.attendance span"
     And I should not see "Best in Slot"
     And I should not see "Situational"
@@ -19,7 +19,7 @@ Feature: Member List
       | Tsigo | 1.00          | 5.00 |
     When I go to the members index
     Then I should see "Tsigo"
-    And I should see "30-Day" within "th.attendance"
+    And I should see "30-Day" within a table header
     And I should see "100%" within "td.attendance span"
     And I should not see "Best in Slot"
     And I should not see "Situational"

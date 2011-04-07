@@ -1,13 +1,19 @@
 # web_steps extensions
 
-# Then /^(?:|I )should (not )?see "([^"]*)" within a table header$/ do |negative, text|
-#   if negative
-#     Then %{I should not see "#{text}" within "th"}
-#   else
-#     Then %{I should see "#{text}" within "th"}
-#   end
-# end
+Then /^(?:|I )should (not )?see "([^"]*)" within a table header$/ do |negative, text|
+  if negative
+    find(:xpath, "//th[contains(text(),'#{text}')]").should(be_nil, "Expected not to find '#{text}' within the selector 'th', but did'")
+  else
+    find(:xpath, "//th[contains(text(),'#{text}')]").should_not(be_nil, "Could not find the text '#{text}' within the selector 'th'")
+  end
+end
 
+# When I fill in "Attendance" with:
+#   """
+#   Stuff
+#   Goes
+#   Here
+#   """
 When /^(?:|I )fill in "([^"]*)"(?: within "([^"]*)")? with:$/ do |field, selector, value|
   with_scope(selector) do
     fill_in(field, :with => value)
