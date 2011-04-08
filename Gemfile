@@ -36,12 +36,6 @@ group :development, :test do
   gem 'autotest-standalone'
   gem 'ruby-debug'
   gem 'launchy'
-  gem 'spork'
-
-  if RUBY_PLATFORM =~ /darwin/
-    gem 'autotest-growl'
-    gem 'autotest-fsevent'
-  end
 end
 
 group :production do
