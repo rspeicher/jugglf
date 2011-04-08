@@ -1,17 +1,21 @@
 require 'spec_helper'
 
 describe Members::AchievementsController, "routing" do
-  it { should route(:get, '/members/1/achievements').to(:controller => 'members/achievements', :action => :index, :member_id => '1') }
+  pending("Re-integrate achievement tracking")
+
+  # it { should route(:get, '/members/1/achievements').to(:controller => 'members/achievements', :action => :index, :member_id => '1') }
 end
 
 describe Members::AchievementsController, "GET index" do
-  before do
-    @parent = Factory(:member)
-    get :index, :member_id => @parent
-  end
+  pending("Re-integrate achievement tracking")
 
-  it { should respond_with(:success) }
-  it { should assign_to(:achievements) }
-  it { should assign_to(:completed) }
-  it { should render_template(:index) }
+  # before do
+  #   @parent = Factory(:member)
+  #   get :index, :member_id => @parent
+  # end
+
+  # it { should respond_with(:success) }
+  # it { should assign_to(:achievements) }
+  # it { should assign_to(:completed) }
+  # it { should render_template(:index) }
 end

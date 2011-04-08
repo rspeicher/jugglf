@@ -1,5 +1,5 @@
 JuggLF::Application.routes.draw do
-  resources :achievements, :only => [:index]
+  # resources :achievements, :only => [:index]
 
   resources :items
 
@@ -19,7 +19,7 @@ JuggLF::Application.routes.draw do
   end
 
   resources :members do
-    resources :achievements, :controller => 'members/achievements', :only   => [:index]
+    # resources :achievements, :controller => 'members/achievements', :only   => [:index]
     resources :loots,        :controller => 'members/loots',        :only   => [:index]
     resources :punishments,  :controller => 'members/punishments',  :except => [:show]
     resources :raids,        :controller => 'members/raids',        :only   => [:index]

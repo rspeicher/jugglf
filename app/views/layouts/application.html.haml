@@ -73,7 +73,7 @@
                   = yield :breadcrumb
                 %ul#section_links.right
                   %li.first= link_to 'Index', root_path, :class => ( current_page?(root_path) ) ? 'selected' : ''
-                  %li= link_to('Achievements', achievements_path)
+                  -# %li= link_to('Achievements', achievements_path)
                   - if admin?
                     %li= link_to('Attendance', live_raids_path)
                   %li= link_to('Members', members_path)
