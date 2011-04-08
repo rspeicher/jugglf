@@ -37,14 +37,11 @@ Feature: Raid Administration
      | Sebudai  | 0.5           | 1      | 1           |
      | Alephone | 0.75          | 1      | 1           |
 
-  # TODO: Automatic caching
   Scenario: Adding a raid updates loot factor cache
     Given a member exists with a name of "Tsigo"
     And I am on the add raid page
-    And I fill in "Attendance" with "Tsigo,0.75,100"
+    When I fill in "Attendance" with "Tsigo,0.75,100"
     And I press "Add Raid"
-    When I update loot factor cache
     Then the following member should exist:
-      | name  | Attendance_30 | attendance_90 | attendance_lifetime |
-      | Tsigo | 0.75          | 0.75          | 0.75                |
-
+      | name  | Attendance_30 |
+      | Tsigo | 0.75          |
