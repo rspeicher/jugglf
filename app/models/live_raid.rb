@@ -19,6 +19,14 @@ class LiveRaid < ActiveRecord::Base
     define_method("#{key}?") { self.status == "#{val}" }
   end
 
+  def to_s
+    if self.pending?
+      ""
+    else
+      self.started_at.to_date.to_s(:db)
+    end
+  end
+
   # Uses +started_at+ and +stopped_at+ to determine the raid's total running time
   # in minutes (surprise!)
   #

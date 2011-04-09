@@ -19,6 +19,17 @@ describe LiveRaid do
   it "should invalidate if stopped_at is set but not started_at" do
     lambda { subject.stopped_at = Time.now }.should change(subject, :valid?).to(false)
   end
+
+  describe "#to_s" do
+    it "should be blank when not yet started" do
+      subject.to_s.should eql("")
+    end
+
+    it "should return formatted date when started" do
+      subject.start!
+      subject.to_s.should eql(subject.started_at.to_date.to_s)
+    end
+  end
 end
 
 describe LiveRaid, "#running_time_in_minutes" do

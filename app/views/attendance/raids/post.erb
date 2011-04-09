@@ -10,4 +10,4 @@
 <%= (loot.member_id.present?) ? loot.member.name : 'DE' %><%= (loot.loot_type.present?) ? " (#{loot.loot_type})" : '' %> - [item]<%= loot.item.wow_id %>[/item]|<%= loot.item.wow_id %>
 <%- end -%>
 
-[url=<%= new_raid_url(:date => @live_raid.started_at.to_date.to_s(:db)) %>]Add Raid[/url]
+[url=<%= new_raid_url(:date => @live_raid.to_s) %>]Add Raid[/url]

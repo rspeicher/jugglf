@@ -94,6 +94,7 @@ class Attendance::RaidsController < ApplicationController
       })
 
       flash[:success] = "Successfully created attendance thread for #{@live_raid.started_at.to_date.to_s(:db)}."
+      flash[:success] = "Successfully created attendance thread for #{@live_raid.to_s}."
       respond_to do |wants|
         wants.html { redirect_to live_raids_path }
       end
