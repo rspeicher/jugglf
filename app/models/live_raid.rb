@@ -1,3 +1,5 @@
+require 'xmlrpc/client'
+
 class LiveRaid < ActiveRecord::Base
   attr_accessible :attendees_string
 
@@ -81,6 +83,23 @@ class LiveRaid < ActiveRecord::Base
     self.attendees.each(&:stop!)
 
     self.update_attribute(:stopped_at, Time.now)
+  end
+
+  # Creates an attendance thread on the forums through IP.Board's XMLRPC interface
+  #
+  # Requires <tt>body</tt> to be passed in through the controller's <tt>render_to_string</tt> method.
+  def post(body)
+    server = XMLRPC::Client.new2('http://www.juggernautguild.com/interface/board/')
+
+    response = server.call('postTopic', {
+      :api_module   => 'ipb',
+      :api_key      => Juggernaut[:ipb_api_key],
+      :member_field => 'id',
+      :member_key   => 4095, # Attendance
+      :forum_id     => 10,
+      :topic_title  => self.to_s,
+      :post_content => body
+    })
   end
 
   # Returns a string representing the current status of the raid.

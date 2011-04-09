@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'xmlrpc/client'
 
 describe Attendance::RaidsController, "routing" do
   it { should route(:get,    '/attendance'        ).to(:controller => 'attendance/raids', :action => :index) }
@@ -130,9 +129,8 @@ describe Attendance::RaidsController, "GET post" do
   context "completed raid" do
     before do
       @resource = Factory(:live_raid, :started_at => Time.now, :stopped_at => Time.now)
-      server = mock(:call => {})
-      XMLRPC::Client.stubs(:new2).returns(server)
-
+      @resource.expects(:post).with(anything())
+      LiveRaid.expects(:find).returns(@resource)
       get :post, :id => @resource
     end
 
@@ -143,6 +141,8 @@ describe Attendance::RaidsController, "GET post" do
   context "active raid" do
     before do
       @resource = Factory(:live_raid, :started_at => Time.now)
+      @resource.expects(:post).never
+      LiveRaid.expects(:find).returns(@resource)
       get :post, :id => @resource
     end
 

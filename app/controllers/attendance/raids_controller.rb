@@ -1,5 +1,3 @@
-require 'xmlrpc/client'
-
 class Attendance::RaidsController < ApplicationController
   before_filter :require_admin
 
@@ -79,21 +77,9 @@ class Attendance::RaidsController < ApplicationController
   end
 
   def post
-    # TODO: Move to model, dummy
     if @live_raid.completed?
-      server = XMLRPC::Client.new2('http://www.juggernautguild.com/interface/board/')
+      @live_raid.post(render_to_string(:layout => false))
 
-      response = server.call('postTopic', {
-        :api_module   => 'ipb',
-        :api_key      => Juggernaut[:ipb_api_key],
-        :member_field => 'id',
-        :member_key   => 4095, # Attendance
-        :forum_id     => 10,
-        :topic_title  => @live_raid.started_at.to_date.to_s(:db),
-        :post_content => render_to_string(:layout => false)
-      })
-
-      flash[:success] = "Successfully created attendance thread for #{@live_raid.started_at.to_date.to_s(:db)}."
       flash[:success] = "Successfully created attendance thread for #{@live_raid.to_s}."
       respond_to do |wants|
         wants.html { redirect_to live_raids_path }
