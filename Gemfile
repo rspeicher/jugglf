@@ -27,16 +27,20 @@ group :test do
   gem 'cucumber-rails',  '~> 0.4'
   gem 'database_cleaner'
   gem 'capybara'
+
+  gem 'guard', '~> 0.3'
+  gem 'guard-bundler'
+  gem 'guard-cucumber'
+  gem 'guard-rspec'
 end
 
 # These gems are developer-specific and shouldn't be required on every
 # goddamn installation but Bundler is kind of fucking us here.
 # See https://github.com/carlhuda/bundler/issues/labels/feature#issue/183
-group :development, :test do
-  gem 'autotest-standalone'
-  gem 'ruby-debug'
-  gem 'launchy'
-end
+# group :development, :test do
+#   gem 'ruby-debug'
+#   gem 'launchy'
+# end
 
 group :production do
   gem 'whenever', '~> 0.6'
