@@ -8,5 +8,6 @@ namespace :juggernaut do
     WishlistData::Cataclysm::ThroneOfFourWinds
     WishlistData::Cataclysm::BastionOfTwilight
     WishlistData::Cataclysm::BlackwingDescent
+    WishlistData::Cataclysm::Firelands
   end
 end
