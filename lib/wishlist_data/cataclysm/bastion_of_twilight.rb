@@ -3,7 +3,7 @@ module WishlistData
     class BastionOfTwilight
       include WishlistData
 
-      active_difficulties :normal_25, :heroic_25
+      active_difficulties :heroic_25
 
       difficulty :normal_25 do
         boss "Halfus Wyrmbreaker" do
