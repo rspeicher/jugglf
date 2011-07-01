@@ -214,7 +214,7 @@ module WishlistData
           item 69111 #Jaws of Defeat
           item 71467 #Sandals of Leaping Coals
           item 71473 #Stinger of the Flaming Scorpion
-          item 68112 #The Hungerer
+          item 69112 #The Hungerer
           item 71475 #Treads of the Penitent Man
           item 71471 #Wristwraps of Arrogant Doom
         end
