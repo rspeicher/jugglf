@@ -4,22 +4,22 @@ class ItemPrice
   include Singleton
 
   def initialize
-    @min_level = 359
+    @min_level = 378
     @values = {
       'two-hand' => {
-        (359..359) => [5.00, 2.00],
-        (372..372) => [6.00, 2.50],
+        (378..378) => [5.00, 2.00],
+        (391..391) => [6.00, 2.50],
       },
 
       # Melee DPS/Hunter
       'melee_dps_weapon' => {
-        (359..359) => [2.50, 1.00],
-        (372..372) => [3.00, 1.25],
+        (378..378) => [2.50, 1.00],
+        (391..391) => [3.00, 1.25],
       },
 
       'ranged' => {
-        (359..359) => [1.00, 4.00],
-        (372..372) => [1.50, 5.00],
+        (378..378) => [1.00, 4.00],
+        (391..391) => [1.50, 5.00],
       },
 
       'trinket' => {
@@ -27,8 +27,8 @@ class ItemPrice
       }
     }
 
-    default_ranges = [359..359, 372..372]
-    weapon_ranges  = [359..359, 372..372]
+    default_ranges = [378..378, 391..391]
+    weapon_ranges  = [378..378, 391..391]
 
     set_prices(:slot => 'head_chest_legs',     :start =>  2.50, :step => 0.50, :ranges => default_ranges)
     set_prices(:slot => 'shoulder_hands_feet', :start =>  2.00, :step => 0.50, :ranges => default_ranges)
@@ -111,11 +111,9 @@ class ItemPrice
 
       options[:level] = options[:level].to_i if options[:level].respond_to? 'to_i'
 
-      if options[:level] == 85
-        # Tier 11 359 or 372 token
-        if options[:name] =~ /^(.+) of the Forlorn (.+)$/
-          options[:slot], options[:level] = determine_token_slot_and_level(options[:name])
-        end
+      # Tier 12 378 or 391 token; their level is correct but they have no slot
+      if options[:name] =~ /^(.+) of the Fiery (.+)$/
+        options[:slot] = determine_token_slot(options[:name])
       end
 
       special_weapon_options(options) if special_weapon_slot?(options[:slot])
@@ -244,31 +242,31 @@ class ItemPrice
       # value
     end
 
-    # Given a token name, determines the WoW slot name and actual level
+    # Given a token name, determines the WoW slot name
     #
     # Examples:
-    #   >> determine_token_slot_and_level('Shoulders of the Forlorn Conqueror')
-    #   => ['Shoulder', 372]
-    #   >> determine_token_slot_and_level('Helm of the Forlorn Conqueror')
-    #   => ['Head', 359]
-    def determine_token_slot_and_level(name)
+    #   >> determine_token_slot('Shoulders of the Forlorn Conqueror')
+    #   => 'Shoulder'
+    #   >> determine_token_slot('Helm of the Forlorn Conqueror')
+    #   => 'Head'
+    def determine_token_slot(name)
       slot = name.split.shift.downcase
 
       case slot
       when 'chest'
-        ['Chest', 372]
-      when 'crown'
-        ['Head', 372]
+        'Chest'
       when 'gauntlets'
-        ['Hands', 372]
+        'Hands'
+      when 'crown'
+        'Head'
       when 'helm'
-        ['Head', 359]
+        'Head'
       when 'leggings'
-        ['Legs', 372]
+        'Legs'
       when 'mantle'
-        ['Shoulder', 359]
+        'Shoulder'
       when 'shoulders'
-        ['Shoulder', 372]
+        'Shoulder'
       end
     end
 end
