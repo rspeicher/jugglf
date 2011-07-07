@@ -184,13 +184,13 @@ class ItemPrice
 
     # Determines if the provided arguments match a Legendary item
     def legendary_item?(options)
-      false
+      options[:name] == 'Eternal Ember' || options[:name] == 'Seething Cinder'
     end
 
     # Returns the price value for legendary tokens that don't have traditional
     # level or slot stats
     def legendary_value(options)
-      0.00
+      (5.00/25.00)
     end
 
     # Determines if the given +slot+ is considered "special" by our pricing system

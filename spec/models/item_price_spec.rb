@@ -85,4 +85,8 @@ describe ItemPrice do
   # Trinkets
   it { should price_item(:level => 391, :slot => 'Trinket').to(4.00) }
   it { should price_item(:level => 378, :slot => 'Trinket').to(4.00) }
+
+  # Legendary shards
+  it { should price_item(:name => 'Eternal Ember', :level => 80).to(0.20) }
+  it { should price_item(:name => 'Seething Cinder').to(0.20) }
 end
