@@ -1,4 +1,4 @@
-# JuggLF ![](http://stillmaintained.com/tsigo/jugglf.png)
+# JuggLF
 
 JuggLF is a Rails application written to replace the aging, hacked-up [EQdkp](http://eqdkp.com) installation for my guild, [Juggernaut](http://www.juggernautguild.com). It tracks member attendance and loot history, and lets members build wishlists -- a priority list of loot they need -- which are a central part of our guild organization.
 
